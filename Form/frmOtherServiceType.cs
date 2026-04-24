@@ -1,0 +1,237 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace MIS
+{
+    public partial class frmOtherServiceType : Form
+    {
+        private clsAPI dbAPI;
+        private clsFunction dbFunction;
+
+        bool fEdit = false;
+
+        public frmOtherServiceType()
+        {
+            InitializeComponent();
+        }
+        private void ClearListView()
+        {
+            lvwList.Items.Clear();
+        }
+        private void ClearTextBox()
+        {
+            txtID.Text = "0";
+            txtDescription.Text = "";
+        }
+        private void InitButton()
+        {
+            if (fEdit)
+            {
+                btnAdd.Enabled = false;
+                btnSave.Enabled = true;
+            }
+            else
+            {
+                btnAdd.Enabled = true;
+                btnSave.Enabled = false;
+            }
+        }
+        private bool ValidateFields()
+        {
+            bool fValid = false;
+
+            if (txtDescription.TextLength > 0)
+                fValid = true;
+
+            if (!fValid)
+            {
+                MessageBox.Show("Check the following field(s) listed below:\n\n" +
+                                "*Description\n" +
+                                "\n" +
+                                "Field(s) with asterisk(*) must not be blank.", "Incomplete Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            return fValid;
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            fEdit = false;
+            ClearTextBox();
+            InitButton();
+            btnSave.Enabled = true;
+            btnAdd.Enabled = false;
+            SetInitMode(iInitMode.iEnable);
+            btnSave.Enabled = true;
+            txtDescription.Focus();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            fEdit = false;
+            ClearTextBox();
+            InitButton();
+            SetInitMode(iInitMode.iDisable);
+            LoadOtherServiceType();
+        }
+        private void LoadOtherServiceType()
+        {
+            int i = 0;
+
+            ClearListView();            
+            dbAPI.ExecuteAPI("GET", "View", "", "", "Other Service Type", "", "ViewOtherServiceType");
+
+            if (!clsGlobalVariables.isAPIResponseOK) return;
+
+            if (clsOtherServiceType.RecordFound)
+            {
+                while (clsArray.OtherServiceTypeID.Length > i)
+                {
+                    //clsProductInfo.ResetProductInfo();
+                    clsOtherServiceType.ClassOtherServiceTypeID = int.Parse(clsArray.OtherServiceTypeID[i].ToString());
+                    clsOtherServiceType.ClassDescription = clsArray.Description[i];
+
+                    i++;
+
+                    AddItem(i);
+                }
+            }
+
+            dbFunction.ListViewAlternateBackColor(lvwList);
+
+        }
+        private void AddItem(int inLineNo)
+        {
+            // Add to List            
+            ListViewItem item = new ListViewItem(inLineNo.ToString());
+            item.SubItems.Add(clsOtherServiceType.ClassOtherServiceTypeID.ToString());
+            item.SubItems.Add(clsOtherServiceType.ClassDescription.ToString());
+            lvwList.Items.Add(item);
+        }
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            int ID = 0;
+            string sRowSQL = "";
+            string sSQL = "";            
+
+            if (!ValidateFields()) return;
+
+            if (!fEdit)
+            {
+                if (MessageBox.Show("Are you sure you want to save record?", "Confirm to save Other Service Type details", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button1) == DialogResult.No)
+                    return;
+
+            }
+            else
+            {
+                if (MessageBox.Show("Are you sure you want to update record?", "Confirm to update Other Service Type details", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button1) == DialogResult.No)
+                    return;
+
+                ID = int.Parse(txtID.Text);
+            }
+
+            if (!fEdit)
+            {
+                sRowSQL = "";
+                sRowSQL = " ('" + txtDescription.Text + "') ";
+                sSQL = sSQL + sRowSQL;
+                
+                dbAPI.ExecuteAPI("POST", "Insert", "", "", "Other Service Type", sSQL, "InsertMaintenanceMaster");
+
+                MessageBox.Show("New Other Service Type successfully saved", "Saved",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Exclamation,
+                MessageBoxDefaultButton.Button1);
+            }
+            else
+            {
+                //dbConnect.InsertModifyDeleteStoredProcedureUser("Update", UserID, txtUserName.Text, txtFullName.Text, EncryptPassword, cboType.Text);
+
+                MessageBox.Show("Other Service Type has been successfully modified", "Edited",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Exclamation,
+                MessageBoxDefaultButton.Button1);
+            }
+
+            btnClear_Click(this, e);
+        }
+
+        private void frmOtherServiceType_Load(object sender, EventArgs e)
+        {
+            dbAPI = new clsAPI();
+            dbFunction = new clsFunction();
+
+            ClearTextBox();
+            InitButton();
+            SetInitMode(iInitMode.iDisable);
+            LoadOtherServiceType();
+        }
+        private enum iInitMode
+        {
+            iEnable,
+            iDisable
+        }
+        private void SetInitMode(iInitMode iMode)
+        {
+            switch (iMode)
+            {
+                case iInitMode.iEnable:
+                    txtDescription.Enabled = true;
+                    txtDescription.BackColor = Color.White;
+                    break;
+                case iInitMode.iDisable:
+                    txtDescription.Enabled = false;
+                    txtDescription.BackColor = Color.LightGray;
+                    break;
+            }
+        }
+
+        private void lvwList_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvwList.SelectedItems[0].SubItems[1].Text.Length > 0)
+            {
+                string ID = lvwList.SelectedItems[0].SubItems[1].Text;
+                string Description = lvwList.SelectedItems[0].SubItems[2].Text;               
+
+                txtID.Text = ID;
+                txtDescription.Text = Description;              
+
+                if (txtID.Text.Length > 0)
+                    fEdit = true;
+
+                InitButton();
+                SetInitMode(iInitMode.iEnable);
+            }
+        }
+
+        private void frmOtherServiceType_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    this.Close();
+                    break;
+            }
+        }
+
+        private void txtDescription_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!dbFunction.isValidateEntry(e.KeyChar.ToString()))
+            {
+                e.Handled = true;
+            }
+        }
+    }
+}

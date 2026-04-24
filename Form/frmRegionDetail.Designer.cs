@@ -1,0 +1,403 @@
+﻿using Bunifu.Framework.Lib;
+using Bunifu.Framework.UI;
+
+namespace MIS
+{
+    partial class frmRegionDetail
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRegionDetail));
+            this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
+            this.cboRegion = new System.Windows.Forms.ComboBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.bunifuCards1 = new Bunifu.Framework.UI.BunifuCards();
+            this.lvwList = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pnlHeader = new System.Windows.Forms.Panel();
+            this.txtRegionType = new System.Windows.Forms.TextBox();
+            this.txtRegionID = new System.Windows.Forms.TextBox();
+            this.btnExit = new Bunifu.Framework.UI.BunifuImageButton();
+            this.bunifuCustomLabel1 = new Bunifu.Framework.UI.BunifuCustomLabel();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.bunifuCards2.SuspendLayout();
+            this.bunifuCards1.SuspendLayout();
+            this.pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // bunifuCards2
+            // 
+            this.bunifuCards2.BackColor = System.Drawing.Color.Lavender;
+            this.bunifuCards2.BorderRadius = 5;
+            this.bunifuCards2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.bunifuCards2.BottomSahddow = true;
+            this.bunifuCards2.color = System.Drawing.Color.Gray;
+            this.bunifuCards2.Controls.Add(this.cboRegion);
+            this.bunifuCards2.Controls.Add(this.label32);
+            this.bunifuCards2.Controls.Add(this.txtName);
+            this.bunifuCards2.Controls.Add(this.label2);
+            this.bunifuCards2.LeftSahddow = false;
+            this.bunifuCards2.Location = new System.Drawing.Point(4, 30);
+            this.bunifuCards2.Name = "bunifuCards2";
+            this.bunifuCards2.RightSahddow = true;
+            this.bunifuCards2.ShadowDepth = 20;
+            this.bunifuCards2.Size = new System.Drawing.Size(523, 34);
+            this.bunifuCards2.TabIndex = 313;
+            // 
+            // cboRegion
+            // 
+            this.cboRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboRegion.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.cboRegion.FormattingEnabled = true;
+            this.cboRegion.Location = new System.Drawing.Point(322, 6);
+            this.cboRegion.Name = "cboRegion";
+            this.cboRegion.Size = new System.Drawing.Size(194, 22);
+            this.cboRegion.TabIndex = 162;
+            this.cboRegion.SelectedIndexChanged += new System.EventHandler(this.cboRegion_SelectedIndexChanged);
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(268, 8);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(50, 15);
+            this.label32.TabIndex = 161;
+            this.label32.Text = "REGION *";
+            // 
+            // txtName
+            // 
+            this.txtName.BackColor = System.Drawing.Color.White;
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtName.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtName.Location = new System.Drawing.Point(68, 7);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(200, 20);
+            this.txtName.TabIndex = 102;
+            this.txtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(0, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 15);
+            this.label2.TabIndex = 101;
+            this.label2.Text = "PROVINCE *";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "NAME";
+            this.columnHeader3.Width = 300;
+            // 
+            // bunifuCards1
+            // 
+            this.bunifuCards1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.bunifuCards1.BorderRadius = 5;
+            this.bunifuCards1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.bunifuCards1.BottomSahddow = true;
+            this.bunifuCards1.color = System.Drawing.Color.Gray;
+            this.bunifuCards1.Controls.Add(this.lvwList);
+            this.bunifuCards1.LeftSahddow = false;
+            this.bunifuCards1.Location = new System.Drawing.Point(4, 68);
+            this.bunifuCards1.Name = "bunifuCards1";
+            this.bunifuCards1.RightSahddow = true;
+            this.bunifuCards1.ShadowDepth = 20;
+            this.bunifuCards1.Size = new System.Drawing.Size(522, 293);
+            this.bunifuCards1.TabIndex = 312;
+            // 
+            // lvwList
+            // 
+            this.lvwList.BackColor = System.Drawing.Color.Gainsboro;
+            this.lvwList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvwList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader5,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.lvwList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvwList.ForeColor = System.Drawing.Color.Black;
+            this.lvwList.FullRowSelect = true;
+            this.lvwList.HideSelection = false;
+            this.lvwList.Location = new System.Drawing.Point(0, 0);
+            this.lvwList.Name = "lvwList";
+            this.lvwList.Size = new System.Drawing.Size(520, 291);
+            this.lvwList.TabIndex = 103;
+            this.lvwList.UseCompatibleStateImageBehavior = false;
+            this.lvwList.View = System.Windows.Forms.View.Details;
+            this.lvwList.SelectedIndexChanged += new System.EventHandler(this.lvwList_SelectedIndexChanged);
+            this.lvwList.DoubleClick += new System.EventHandler(this.lvwList_DoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "LINE#";
+            this.columnHeader1.Width = 50;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "REGIONID";
+            this.columnHeader2.Width = 0;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "REGIONTYPE";
+            this.columnHeader5.Width = 0;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "REGION";
+            this.columnHeader4.Width = 150;
+            // 
+            // pnlHeader
+            // 
+            this.pnlHeader.BackColor = System.Drawing.Color.Maroon;
+            this.pnlHeader.Controls.Add(this.txtRegionType);
+            this.pnlHeader.Controls.Add(this.txtRegionID);
+            this.pnlHeader.Controls.Add(this.btnExit);
+            this.pnlHeader.Controls.Add(this.bunifuCustomLabel1);
+            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeader.Location = new System.Drawing.Point(1, 0);
+            this.pnlHeader.Name = "pnlHeader";
+            this.pnlHeader.Size = new System.Drawing.Size(528, 29);
+            this.pnlHeader.TabIndex = 305;
+            // 
+            // txtRegionType
+            // 
+            this.txtRegionType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtRegionType.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegionType.Location = new System.Drawing.Point(313, 4);
+            this.txtRegionType.Name = "txtRegionType";
+            this.txtRegionType.Size = new System.Drawing.Size(60, 20);
+            this.txtRegionType.TabIndex = 103;
+            this.txtRegionType.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtRegionType.Visible = false;
+            // 
+            // txtRegionID
+            // 
+            this.txtRegionID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtRegionID.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRegionID.Location = new System.Drawing.Point(236, 4);
+            this.txtRegionID.Name = "txtRegionID";
+            this.txtRegionID.Size = new System.Drawing.Size(60, 20);
+            this.txtRegionID.TabIndex = 102;
+            this.txtRegionID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtRegionID.Visible = false;
+            // 
+            // btnExit
+            // 
+            this.btnExit.BackColor = System.Drawing.Color.Maroon;
+            this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
+            this.btnExit.ImageActive = null;
+            this.btnExit.Location = new System.Drawing.Point(501, 2);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(25, 25);
+            this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnExit.TabIndex = 8;
+            this.btnExit.TabStop = false;
+            this.btnExit.Zoom = 10;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // bunifuCustomLabel1
+            // 
+            this.bunifuCustomLabel1.AutoSize = true;
+            this.bunifuCustomLabel1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold);
+            this.bunifuCustomLabel1.ForeColor = System.Drawing.Color.White;
+            this.bunifuCustomLabel1.Location = new System.Drawing.Point(-1, 4);
+            this.bunifuCustomLabel1.Name = "bunifuCustomLabel1";
+            this.bunifuCustomLabel1.Size = new System.Drawing.Size(192, 18);
+            this.bunifuCustomLabel1.TabIndex = 7;
+            this.bunifuCustomLabel1.Text = "ENROLLMENT - PROVINCE";
+            // 
+            // btnSave
+            // 
+            this.btnSave.AutoSize = true;
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSave.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnSave.Location = new System.Drawing.Point(86, 363);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(81, 26);
+            this.btnSave.TabIndex = 310;
+            this.btnSave.Text = "SAVE";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel4.Location = new System.Drawing.Point(529, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(2, 392);
+            this.panel4.TabIndex = 308;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(1, 392);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(530, 2);
+            this.panel3.TabIndex = 307;
+            // 
+            // btnClear
+            // 
+            this.btnClear.AutoSize = true;
+            this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnClear.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnClear.FlatAppearance.BorderSize = 0;
+            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnClear.Location = new System.Drawing.Point(168, 363);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(81, 26);
+            this.btnClear.TabIndex = 311;
+            this.btnClear.Text = "CLEAR";
+            this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.AutoSize = true;
+            this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnAdd.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnAdd.FlatAppearance.BorderSize = 0;
+            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnAdd.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnAdd.Location = new System.Drawing.Point(4, 363);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(81, 26);
+            this.btnAdd.TabIndex = 309;
+            this.btnAdd.Text = "NEW";
+            this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // bunifuElipse1
+            // 
+            this.bunifuElipse1.ElipseRadius = 5;
+            this.bunifuElipse1.TargetControl = this;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1, 394);
+            this.panel2.TabIndex = 306;
+            // 
+            // bunifuDragControl2
+            // 
+            this.bunifuDragControl2.Fixed = true;
+            this.bunifuDragControl2.Horizontal = true;
+            this.bunifuDragControl2.TargetControl = this.pnlHeader;
+            this.bunifuDragControl2.Vertical = true;
+            // 
+            // frmRegionDetail
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(531, 394);
+            this.Controls.Add(this.bunifuCards2);
+            this.Controls.Add(this.bunifuCards1);
+            this.Controls.Add(this.pnlHeader);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.panel2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
+            this.Name = "frmRegionDetail";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.frmCity_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmCity_KeyDown);
+            this.bunifuCards2.ResumeLayout(false);
+            this.bunifuCards2.PerformLayout();
+            this.bunifuCards1.ResumeLayout(false);
+            this.pnlHeader.ResumeLayout(false);
+            this.pnlHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private Bunifu.Framework.UI.BunifuCards bunifuCards2;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private Bunifu.Framework.UI.BunifuCards bunifuCards1;
+        private System.Windows.Forms.ListView lvwList;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Panel pnlHeader;
+        private System.Windows.Forms.TextBox txtRegionID;
+        private Bunifu.Framework.UI.BunifuImageButton btnExit;
+        private Bunifu.Framework.UI.BunifuCustomLabel bunifuCustomLabel1;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnAdd;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ComboBox cboRegion;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.TextBox txtRegionType;
+        private BunifuDragControl bunifuDragControl2;
+    }
+}
