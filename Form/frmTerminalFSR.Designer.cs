@@ -224,7 +224,7 @@
             this.txtGeoLatitude = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.label171 = new System.Windows.Forms.Label();
-            this.txtTargetSLADate = new System.Windows.Forms.TextBox();
+            this.txtDueDate = new System.Windows.Forms.TextBox();
             this.label143 = new System.Windows.Forms.Label();
             this.txtTATStatus = new System.Windows.Forms.TextBox();
             this.label142 = new System.Windows.Forms.Label();
@@ -3507,7 +3507,7 @@
             // tabPage6
             // 
             this.tabPage6.Controls.Add(this.label171);
-            this.tabPage6.Controls.Add(this.txtTargetSLADate);
+            this.tabPage6.Controls.Add(this.txtDueDate);
             this.tabPage6.Controls.Add(this.label143);
             this.tabPage6.Controls.Add(this.txtTATStatus);
             this.tabPage6.Controls.Add(this.label142);
@@ -3534,18 +3534,18 @@
             this.label171.TabIndex = 456;
             this.label171.Text = "DUE DATE(+SLA)";
             // 
-            // txtTargetSLADate
+            // txtDueDate
             // 
-            this.txtTargetSLADate.BackColor = System.Drawing.Color.White;
-            this.txtTargetSLADate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTargetSLADate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTargetSLADate.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTargetSLADate.Location = new System.Drawing.Point(264, 5);
-            this.txtTargetSLADate.Name = "txtTargetSLADate";
-            this.txtTargetSLADate.ReadOnly = true;
-            this.txtTargetSLADate.Size = new System.Drawing.Size(137, 22);
-            this.txtTargetSLADate.TabIndex = 455;
-            this.txtTargetSLADate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDueDate.BackColor = System.Drawing.Color.White;
+            this.txtDueDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDueDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDueDate.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDueDate.Location = new System.Drawing.Point(264, 5);
+            this.txtDueDate.Name = "txtDueDate";
+            this.txtDueDate.ReadOnly = true;
+            this.txtDueDate.Size = new System.Drawing.Size(137, 22);
+            this.txtDueDate.TabIndex = 455;
+            this.txtDueDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label143
             // 
@@ -10981,6 +10981,6 @@
         private System.Windows.Forms.TextBox txtProblemNo;
         private Bunifu.Framework.UI.BunifuImageButton btnUpdateAppsInfo;
         private System.Windows.Forms.Label label171;
-        private System.Windows.Forms.TextBox txtTargetSLADate;
+        private System.Windows.Forms.TextBox txtDueDate;
     }
 }

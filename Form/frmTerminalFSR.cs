@@ -5926,7 +5926,7 @@ namespace MIS
                 DateTime requestDate = DateTime.Parse(txtServiceRequestDate.Text);
                 DateTime slaDueDate = requestDate.AddDays(int.Parse(txtSLA.Text));
 
-                txtTargetSLADate.Text = slaDueDate.ToString("ddd, MM-dd-yyyy");
+                txtDueDate.Text = slaDueDate.ToString("MM-dd-yyyy");
             }
 
         }
