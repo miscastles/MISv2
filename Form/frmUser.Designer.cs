@@ -105,6 +105,7 @@ namespace MIS
             this.txtParticularID = new System.Windows.Forms.TextBox();
             this.bunifuImageButton1 = new Bunifu.Framework.UI.BunifuImageButton();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.chkActive = new System.Windows.Forms.CheckBox();
             this.bunifuCards3.SuspendLayout();
             this.gbSelected.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -764,7 +765,7 @@ namespace MIS
             // columnHeader9
             // 
             this.columnHeader9.Text = "USERTYPE";
-            this.columnHeader9.Width = 80;
+            this.columnHeader9.Width = 70;
             // 
             // columnHeader16
             // 
@@ -935,11 +936,27 @@ namespace MIS
             this.bunifuDragControl2.TargetControl = this.pnlHeader;
             this.bunifuDragControl2.Vertical = true;
             // 
+            // chkActive
+            // 
+            this.chkActive.AutoSize = true;
+            this.chkActive.BackColor = System.Drawing.Color.Transparent;
+            this.chkActive.Checked = true;
+            this.chkActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkActive.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkActive.ForeColor = System.Drawing.Color.Blue;
+            this.chkActive.Location = new System.Drawing.Point(453, 623);
+            this.chkActive.Name = "chkActive";
+            this.chkActive.Size = new System.Drawing.Size(68, 18);
+            this.chkActive.TabIndex = 506;
+            this.chkActive.Text = "Active";
+            this.chkActive.UseVisualStyleBackColor = false;
+            // 
             // frmUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1169, 654);
+            this.Controls.Add(this.chkActive);
             this.Controls.Add(this.bunifuCards3);
             this.Controls.Add(this.bunifuCards2);
             this.Controls.Add(this.bunifuCards1);
@@ -1050,5 +1067,6 @@ namespace MIS
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtHashPassword;
         private System.Windows.Forms.Button btnResetPermissions;
+        private System.Windows.Forms.CheckBox chkActive;
     }
 }

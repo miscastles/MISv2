@@ -16,6 +16,7 @@ namespace MIS
     {
         private clsAPI dbAPI;
         private clsFunction dbFunction;
+        private clsListView dbListView;
         private TerminalController _mTerminalController = new TerminalController();
         private UserController _mUserController = new UserController();
 
@@ -103,7 +104,7 @@ namespace MIS
         {
             dbAPI = new clsAPI();
             dbFunction = new clsFunction();
-
+            
             dbFunction.ClearTextBox(this);
             dbFunction.TextBoxUnLock(false, this);
 
@@ -167,6 +168,8 @@ namespace MIS
             txtPassword.UseSystemPasswordChar = txtReTypePassword.UseSystemPasswordChar = true;
 
             cboType.Text = cboMobile.Text = clsFunction.sDefaultSelect;
+
+            chkActive.Checked = true;
 
         }
 
@@ -405,6 +408,16 @@ namespace MIS
 
                 txtFullName.Text = clsSearch.ClassParticularName;
 
+                bool isFound = dbFunction.findInListView(lvwUser, 4, txtFullName.Text);
+
+                if (isFound)
+                    lvwUser_DoubleClick(sender, e);
+                else
+                {
+                    dbFunction.SetMessageBox($"User {txtFullName.Text} was not found.", "User", clsFunction.IconType.iError);
+                    txtParticularID.Text = txtFullName.Text = clsFunction.sNull;
+                }                    
+
                 //LoadUser();
             }
         }
@@ -485,7 +498,8 @@ namespace MIS
                                                     EncryptPassword + clsFunction.sPipe +
                                                     cboType.Text + clsFunction.sPipe +
                                                     txtMD5Password.Text + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtMobileID.Text);
+                                                    dbFunction.CheckAndSetNumericValue(txtMobileID.Text) + clsFunction.sPipe +
+                                                    dbFunction.CheckAndSetBooleanValue(chkActive.Checked);
 
                     dbAPI.ExecuteAPI("PUT", "Update", "Update User", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
 
@@ -753,6 +767,10 @@ namespace MIS
         {
             switch (e.KeyCode)
             {
+                case Keys.F2: // Search
+                    if (btnSearchParticular.Enabled)
+                        btnSearchParticular_Click(this, e);
+                    break;
                 case Keys.Escape:                   
                     this.Close();
                     break;
@@ -799,6 +817,7 @@ namespace MIS
                 txtMD5Password.Text = data.MD5Password;
                 txtHashPassword.Text = data.Password;
                 cboType.Text = data.UserType;
+                chkActive.Checked = data.isActive > 0 ? true : false;
             }
         }
 

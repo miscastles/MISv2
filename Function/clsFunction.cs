@@ -6762,6 +6762,31 @@ namespace MIS
             return pOutput;
         }
 
+        public bool findInListView(ListView lvw, int colIndex, string pSearch)
+        {
+            bool isFound = false;
+
+            foreach (ListViewItem item in lvw.Items)
+            {
+                // Assuming NAME is in column index 1
+                string name = item.SubItems[colIndex].Text.ToUpper();
+
+                if (name.Contains(pSearch))
+                {
+                    item.Selected = true;
+                    item.Focused = true;
+                    item.EnsureVisible();
+
+                    lvw.Focus();
+
+                    isFound = true;
+                    break;
+                }
+            }
+
+            return isFound;
+        }
+
     }
 
 }
