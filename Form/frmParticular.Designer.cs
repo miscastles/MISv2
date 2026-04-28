@@ -104,10 +104,6 @@ namespace MIS
             this.btnProvinceSearch = new Bunifu.Framework.UI.BunifuImageButton();
             this.chkActive = new System.Windows.Forms.CheckBox();
             this.btnAddProvince = new Bunifu.Framework.UI.BunifuImageButton();
-            this.txtAddress3 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtAddress2 = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtContractTerms = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -121,6 +117,10 @@ namespace MIS
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtAddress3 = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtAddress2 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.txtAddress4 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
@@ -441,7 +441,7 @@ namespace MIS
             this.txtAddress.Multiline = true;
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.txtAddress.Size = new System.Drawing.Size(331, 66);
+            this.txtAddress.Size = new System.Drawing.Size(331, 114);
             this.txtAddress.TabIndex = 104;
             this.txtAddress.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAddress_KeyPress);
             // 
@@ -451,9 +451,9 @@ namespace MIS
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(17, 49);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 15);
+            this.label1.Size = new System.Drawing.Size(57, 15);
             this.label1.TabIndex = 103;
-            this.label1.Text = "ADDRESS 1 *";
+            this.label1.Text = "ADDRESS *";
             // 
             // btnClear
             // 
@@ -521,9 +521,9 @@ namespace MIS
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(18, 214);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 15);
+            this.label4.Size = new System.Drawing.Size(95, 15);
             this.label4.TabIndex = 108;
-            this.label4.Text = "CONTACT PERSON. *";
+            this.label4.Text = "CONTACT PERSON";
             // 
             // columnHeader3
             // 
@@ -692,10 +692,6 @@ namespace MIS
             this.bunifuCards2.Controls.Add(this.btnProvinceSearch);
             this.bunifuCards2.Controls.Add(this.chkActive);
             this.bunifuCards2.Controls.Add(this.btnAddProvince);
-            this.bunifuCards2.Controls.Add(this.txtAddress3);
-            this.bunifuCards2.Controls.Add(this.label12);
-            this.bunifuCards2.Controls.Add(this.txtAddress2);
-            this.bunifuCards2.Controls.Add(this.label11);
             this.bunifuCards2.Controls.Add(this.label10);
             this.bunifuCards2.Controls.Add(this.txtParticularID);
             this.bunifuCards2.Controls.Add(this.txtContractTerms);
@@ -1046,61 +1042,15 @@ namespace MIS
             this.btnAddProvince.Zoom = 10;
             this.btnAddProvince.Click += new System.EventHandler(this.btnAddProvince_Click);
             // 
-            // txtAddress3
-            // 
-            this.txtAddress3.BackColor = System.Drawing.Color.White;
-            this.txtAddress3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtAddress3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtAddress3.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtAddress3.Location = new System.Drawing.Point(126, 140);
-            this.txtAddress3.MaxLength = 255;
-            this.txtAddress3.Name = "txtAddress3";
-            this.txtAddress3.Size = new System.Drawing.Size(331, 20);
-            this.txtAddress3.TabIndex = 127;
-            this.txtAddress3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAddress3_KeyPress);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(18, 141);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(65, 15);
-            this.label12.TabIndex = 126;
-            this.label12.Text = "ADDRESS 3 *";
-            // 
-            // txtAddress2
-            // 
-            this.txtAddress2.BackColor = System.Drawing.Color.White;
-            this.txtAddress2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtAddress2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtAddress2.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtAddress2.Location = new System.Drawing.Point(126, 116);
-            this.txtAddress2.MaxLength = 255;
-            this.txtAddress2.Name = "txtAddress2";
-            this.txtAddress2.Size = new System.Drawing.Size(331, 20);
-            this.txtAddress2.TabIndex = 125;
-            this.txtAddress2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAddress2_KeyPress);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(18, 117);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(65, 15);
-            this.label11.TabIndex = 124;
-            this.label11.Text = "ADDRESS 2 *";
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(228, 285);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(103, 15);
+            this.label10.Size = new System.Drawing.Size(96, 15);
             this.label10.TabIndex = 123;
-            this.label10.Text = "CONTRACT TERMS *";
+            this.label10.Text = "CONTRACT TERMS";
             // 
             // txtContractTerms
             // 
@@ -1143,9 +1093,9 @@ namespace MIS
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(17, 285);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 15);
+            this.label8.Size = new System.Drawing.Size(48, 15);
             this.label8.TabIndex = 119;
-            this.label8.Text = "FAX NO. *";
+            this.label8.Text = "FAX NO. ";
             // 
             // txtFax
             // 
@@ -1189,9 +1139,9 @@ namespace MIS
             this.label6.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(16, 238);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 15);
+            this.label6.Size = new System.Drawing.Size(44, 15);
             this.label6.TabIndex = 115;
-            this.label6.Text = "TEL NO. *";
+            this.label6.Text = "TEL NO.";
             // 
             // txtTelNo
             // 
@@ -1235,6 +1185,52 @@ namespace MIS
             this.label2.Size = new System.Drawing.Size(41, 15);
             this.label2.TabIndex = 101;
             this.label2.Text = "NAME *";
+            // 
+            // txtAddress3
+            // 
+            this.txtAddress3.BackColor = System.Drawing.Color.White;
+            this.txtAddress3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtAddress3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtAddress3.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtAddress3.Location = new System.Drawing.Point(902, 395);
+            this.txtAddress3.MaxLength = 255;
+            this.txtAddress3.Name = "txtAddress3";
+            this.txtAddress3.Size = new System.Drawing.Size(331, 20);
+            this.txtAddress3.TabIndex = 127;
+            this.txtAddress3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAddress3_KeyPress);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(794, 396);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(58, 15);
+            this.label12.TabIndex = 126;
+            this.label12.Text = "ADDRESS 3";
+            // 
+            // txtAddress2
+            // 
+            this.txtAddress2.BackColor = System.Drawing.Color.White;
+            this.txtAddress2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtAddress2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtAddress2.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtAddress2.Location = new System.Drawing.Point(902, 369);
+            this.txtAddress2.MaxLength = 255;
+            this.txtAddress2.Name = "txtAddress2";
+            this.txtAddress2.Size = new System.Drawing.Size(331, 20);
+            this.txtAddress2.TabIndex = 125;
+            this.txtAddress2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAddress2_KeyPress);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(794, 370);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(58, 15);
+            this.label11.TabIndex = 124;
+            this.label11.Text = "ADDRESS 2";
             // 
             // txtAddress4
             // 
@@ -1435,9 +1431,9 @@ namespace MIS
             this.label36.ForeColor = System.Drawing.Color.Black;
             this.label36.Location = new System.Drawing.Point(30, 61);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(89, 15);
+            this.label36.Size = new System.Drawing.Size(82, 15);
             this.label36.TabIndex = 442;
-            this.label36.Text = "ACCOUNT INFO  *";
+            this.label36.Text = "ACCOUNT INFO ";
             // 
             // cboEmploymentStatus
             // 
@@ -1449,9 +1445,6 @@ namespace MIS
             this.cboEmploymentStatus.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboEmploymentStatus.ForeColor = System.Drawing.Color.Black;
             this.cboEmploymentStatus.FormattingEnabled = true;
-            this.cboEmploymentStatus.Items.AddRange(new object[] {
-            "REGULAR",
-            "CONTRACTUAL"});
             this.cboEmploymentStatus.Location = new System.Drawing.Point(471, 32);
             this.cboEmploymentStatus.Name = "cboEmploymentStatus";
             this.cboEmploymentStatus.Size = new System.Drawing.Size(189, 22);
@@ -1502,9 +1495,9 @@ namespace MIS
             this.label19.ForeColor = System.Drawing.Color.Black;
             this.label19.Location = new System.Drawing.Point(29, 89);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(98, 15);
+            this.label19.Size = new System.Drawing.Size(91, 15);
             this.label19.TabIndex = 436;
-            this.label19.Text = "COMPUTER NAME *";
+            this.label19.Text = "COMPUTER NAME";
             // 
             // txtComputerName
             // 
@@ -1538,9 +1531,9 @@ namespace MIS
             this.label18.ForeColor = System.Drawing.Color.Black;
             this.label18.Location = new System.Drawing.Point(29, 32);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(84, 15);
+            this.label18.Size = new System.Drawing.Size(77, 15);
             this.label18.TabIndex = 434;
-            this.label18.Text = "EMPLOYEE NO  *";
+            this.label18.Text = "EMPLOYEE NO ";
             // 
             // label29
             // 
@@ -2170,8 +2163,12 @@ namespace MIS
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.txtPositionID);
             this.Controls.Add(this.btnClear);
+            this.Controls.Add(this.txtAddress3);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.txtProvinceID);
+            this.Controls.Add(this.txtAddress2);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.txtDepartmentID);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnSave);

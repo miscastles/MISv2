@@ -10628,8 +10628,9 @@ namespace MIS
 
             obj.Items.Add(clsFunction.sDefaultSelect);
             obj.Items.Add("REGULAR");
-            obj.Items.Add("PROVISIONARY");
+            obj.Items.Add("PROBATIONARY");
             obj.Items.Add("CONTRACTUAL");
+            obj.Items.Add("OTHERS");
 
             obj.SelectedIndex = 0;
         }

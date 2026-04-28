@@ -2174,7 +2174,7 @@ namespace MIS
             this.btnStockEntry.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnStockEntry.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnStockEntry.BorderRadius = 0;
-            this.btnStockEntry.ButtonText = "          Master";
+            this.btnStockEntry.ButtonText = "          Accessories";
             this.btnStockEntry.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStockEntry.DisabledColor = System.Drawing.Color.Gray;
             this.btnStockEntry.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2199,7 +2199,7 @@ namespace MIS
             this.btnStockEntry.selected = false;
             this.btnStockEntry.Size = new System.Drawing.Size(226, 28);
             this.btnStockEntry.TabIndex = 32;
-            this.btnStockEntry.Text = "          Master";
+            this.btnStockEntry.Text = "          Accessories";
             this.btnStockEntry.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnStockEntry.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnStockEntry.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
@@ -4467,7 +4467,7 @@ namespace MIS
             this.bunifuFlatButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.bunifuFlatButton6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bunifuFlatButton6.BorderRadius = 0;
-            this.bunifuFlatButton6.ButtonText = "     OPTION";
+            this.bunifuFlatButton6.ButtonText = "     REPORTS";
             this.bunifuFlatButton6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bunifuFlatButton6.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.bunifuFlatButton6.Enabled = false;
@@ -4493,7 +4493,7 @@ namespace MIS
             this.bunifuFlatButton6.selected = false;
             this.bunifuFlatButton6.Size = new System.Drawing.Size(232, 28);
             this.bunifuFlatButton6.TabIndex = 291;
-            this.bunifuFlatButton6.Text = "     OPTION";
+            this.bunifuFlatButton6.Text = "     REPORTS";
             this.bunifuFlatButton6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bunifuFlatButton6.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.bunifuFlatButton6.TextFont = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -6974,9 +6974,10 @@ namespace MIS
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(46)))), ((int)(((byte)(59)))));
             this.ClientSize = new System.Drawing.Size(1427, 848);
+            this.Controls.Add(this.pnlSubMenuInventoryEntry);
+            this.Controls.Add(this.pnlSubMenuReports);
             this.Controls.Add(this.pnlSubMenuFinance);
             this.Controls.Add(this.pnlSubMenuAdministrative);
-            this.Controls.Add(this.pnlSubMenuInventoryEntry);
             this.Controls.Add(this.pnlSubMenuEnrollment);
             this.Controls.Add(this.pnlSubMenuServicing);
             this.Controls.Add(this.btnMSP);
@@ -6985,7 +6986,6 @@ namespace MIS
             this.Controls.Add(this.pnlLog);
             this.Controls.Add(this.pnlDummy);
             this.Controls.Add(this.pnlSubMenuPOSRental);
-            this.Controls.Add(this.pnlSubMenuReports);
             this.Controls.Add(this.pnlSubMenuAccount);
             this.Controls.Add(this.pnlSubMenuLog);
             this.Controls.Add(this.btnServiceDispatchJobType);

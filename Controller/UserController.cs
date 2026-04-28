@@ -25,6 +25,7 @@ namespace MIS.Controller
         public string MobileTerminalName { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
+        public int isActive { get; set; }
 
         private UserController setInitValue()
         {
@@ -43,6 +44,7 @@ namespace MIS.Controller
             model.MobileTerminalName = MobileTerminalName;
             model.Mobile = Mobile;
             model.Email = Email;
+            model.isActive = isActive;
 
             return model;
         }
@@ -73,6 +75,7 @@ namespace MIS.Controller
                         model.MobileTerminalID = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 9);
                         model.MobileTerminalName = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 10);
                         model.MD5Password = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 11);
+                        model.isActive = int.Parse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 12));
 
                     }
                 }

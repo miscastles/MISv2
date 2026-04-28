@@ -1090,12 +1090,14 @@ namespace MIS
         
         private void OpenWebDashboard(modelDashboard model)
         {   
-            string sURL = "http:" + "//" + model.IP + clsFunction.sColon + model.Port + model.Folder + clsFunction.sBackSlash + "service_detail.php" + clsFunction.sQuestionMark + 
+            string sURL = dbAPI.getAPISSLEnable() + model.IP + clsFunction.sColon + model.Port + model.Folder + clsFunction.sBackSlash + "service_detail.php" + clsFunction.sQuestionMark + 
                         "username=" + "eFSR Management Solution" + clsFunction.sAnd +
                         "searchby=" + model.SearchBy + clsFunction.sAnd +
                         "searchvalue=" + "UNCLOSED TICKET|0|0000-00-00|0000-00-00|[NOT%20SPECIFIED]|SUCCESS|RANGE|"+model.ClientID+"|0|0|"+model.DispatchID+"|[NOT SPECIFIED]|[NOT SPECIFIED]|0|[NOT SPECIFIED]&department=[NOT SPECIFIED]&jobtype=Unclosed Ticket&category=COMPLETED&title=Dispatcher&tcount=" + model.TCount + clsFunction.sAnd +
                         "userkey="+model.UserKey + clsFunction.sAnd +
-                        "client="+model.ClientName;
+                        "client="+model.ClientName + clsFunction.sAnd +
+                        "bank="+clsGlobalVariables.strAPIBank + clsFunction.sAnd +
+                        "searchmode="+clsFunction.sNull;
 
             Debug.WriteLine("sURL="+ sURL);
 

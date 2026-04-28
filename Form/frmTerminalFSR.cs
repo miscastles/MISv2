@@ -1039,6 +1039,8 @@ namespace MIS
 
         private void btnMSave_Click(object sender, EventArgs e)
         {
+            string pSearchValue = "";
+
             try
             {
                 // Check Application Version
@@ -1343,6 +1345,24 @@ namespace MIS
                 {
                     if (dbFunction.isValidID(txtCurSIMID.Text) || dbFunction.isValidID(txtRepSIMID.Text))
                         SaveSIMActivity();
+                }
+
+                // Save Ticket -> Update In Report
+                if (chkIncludeInReport.Checked)
+                {
+                    int pBillable = dbFunction.CheckAndSetBooleanValue(chkBillable.Checked);
+                    int pTicketStatus = int.Parse(clsFunction.sOne);
+
+                    pSearchValue = dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text) + clsDefines.gPipe +
+                                   dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsDefines.gPipe +
+                                   pTicketStatus + clsDefines.gPipe +
+                                   clsSearch.ClassCurrentParticularID + clsDefines.gPipe +
+                                   dbFunction.getCurrentDateTime() + clsDefines.gPipe +
+                                   pBillable;
+
+                    dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 1);
+
+                    dbAPI.ExecuteAPI("PUT", "Update", "Ticket Status", pSearchValue, "", "", "UpdateCollectionDetail");
                 }
 
                 dbFunction.SetMessageBox(txtServiceJobTypeDescription.Text + " service has been " + (fEdit ? "updated" : "saved") + " for" +

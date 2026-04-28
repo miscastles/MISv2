@@ -723,7 +723,7 @@ namespace MIS
             this.bunifuCards1.Name = "bunifuCards1";
             this.bunifuCards1.RightSahddow = true;
             this.bunifuCards1.ShadowDepth = 20;
-            this.bunifuCards1.Size = new System.Drawing.Size(522, 346);
+            this.bunifuCards1.Size = new System.Drawing.Size(522, 341);
             this.bunifuCards1.TabIndex = 278;
             // 
             // lvwUser
@@ -746,7 +746,7 @@ namespace MIS
             this.lvwUser.HideSelection = false;
             this.lvwUser.Location = new System.Drawing.Point(0, 0);
             this.lvwUser.Name = "lvwUser";
-            this.lvwUser.Size = new System.Drawing.Size(520, 344);
+            this.lvwUser.Size = new System.Drawing.Size(520, 339);
             this.lvwUser.TabIndex = 103;
             this.lvwUser.UseCompatibleStateImageBehavior = false;
             this.lvwUser.View = System.Windows.Forms.View.Details;
