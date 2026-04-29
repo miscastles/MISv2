@@ -2067,7 +2067,8 @@ namespace MIS
 
         private void btnDispatch_Click(object sender, EventArgs e)
         {
-            bool isUpdateDispatch = false;            
+            bool isUpdateDispatch = false;
+            bool isValid = false;
             Debug.WriteLine("--btnDispatch_Click--");
             Debug.WriteLine("fEdit="+fEdit);
 
@@ -2120,6 +2121,26 @@ namespace MIS
                     //    MessageBox.Show("Request date should not be greater than the Schedule date.", clsDefines.FIELD_CHECK_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     //    return;
                     //}
+                }
+
+                if (!fEdit)
+                {
+                    if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC))
+                    {
+                        isValid = dbAPI.isRecordExist("Search", "Check Preinstalled Terminal", $"{txtSearchServiceNo.Text}{clsFunction.sPipe}" +
+                                                                                               $"{txtIRIDNo.Text}{clsFunction.sPipe}" +
+                                                                                               $"{txtMerchantID.Text}{clsFunction.sPipe}" +
+                                                                                               $"{txtIRTID.Text}{clsFunction.sPipe}" +
+                                                                                               $"{txtIRMID.Text}");
+                        if (isValid)
+                        {
+                            dbFunction.SetMessageBox(
+                            "Cannot create INSTALLATION service.\nThis merchant already has an installed terminal.",
+                            "Create Service Failed",
+                            clsFunction.IconType.iError);
+                            return;
+                        }
+                    }
                 }
 
                 if (!fEdit)

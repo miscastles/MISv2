@@ -8289,7 +8289,7 @@
             this.label20.ForeColor = System.Drawing.Color.Black;
             this.label20.Location = new System.Drawing.Point(3, 4);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(139, 16);
+            this.label20.Size = new System.Drawing.Size(138, 16);
             this.label20.TabIndex = 310;
             this.label20.Text = "SELECT SERVICE TYPE";
             // 
