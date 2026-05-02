@@ -1,6 +1,7 @@
 ﻿using MIS.AppConnection;
 using MIS.AppMainActivity;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
@@ -24,7 +25,13 @@ namespace MIS
 
         DataTable InvoiceDetails { get; set; }
         DataTable RemovedRecords { get; set; }
-        
+
+        class BillingMessageConfig
+        {
+            public string Title { get; set; }
+            public List<(string Label, string Column)> Fields { get; set; }
+        }
+
         public frmServicesBilling()
         {
             InitializeComponent();
@@ -64,10 +71,15 @@ namespace MIS
             dgv_BillingRecords.DataSource = null;
             dgv_BillingRemove.DataSource = null;
             dgv_BillingRemove.Columns.Clear();
+            
+            dgv_BillingHistory.Columns.Clear();
+            
             cmb_BillingType.SelectedIndex = 0;
             lb_Count.Text = "0";
             lb_Remove.Text = "0";
             RemovedRecords = new DataTable();
+
+            clsSearch.ClassBillngFileName = "";
         }
 
         private void ClearDisplay()
@@ -262,55 +274,37 @@ namespace MIS
             int rowIndex = e.RowIndex;
             int id = Convert.ToInt32(cmb_BillingType.SelectedValue);
 
-            // Check if the row index is valid
-            if (rowIndex >= 0 && rowIndex < dgv_BillingRemove.Rows.Count)
+            if (rowIndex < 0 || rowIndex >= dgv_BillingRemove.Rows.Count)
+                return;
+
+            DataTable currentTable = null;
+
+            switch (id)
             {
-                DataTable currentTable = null;
-
-                // Switch based on ComboBox index
-                switch (id)
-                {
-                    case 1:
-                        currentTable = LeasingBilling;
-                        break;
-                    case 2:
-                        currentTable = ServicingBilling;
-                        break;
-                    case 3:
-                        currentTable = TleBilling;
-                        break;
-                    case 4:
-                        currentTable = WarehouseBilling;
-                        break;
-                    default:
-                        return; // Exit if no valid selection
-                }
-
-                // Transfer record back
-                currentTable = TransferRecord(RemovedRecords, currentTable, rowIndex);
-
-                RefreshData(currentTable, RemovedRecords);
-
-                // Update count label
-                getGridCount(dgv_BillingRemove, lb_Remove);
-
-
-                /*
-                int rowIndex = e.RowIndex;
-
-                // Check if the row index is valid
-                if (rowIndex >= 0 && rowIndex < dgv_BillingRemove.Rows.Count)
-                {
-                    MccNetMatrix = TransferRecord(RemovedRecords, MccNetMatrix, rowIndex);
-                    dgv_BillingRemove.DataSource = null; // Ensure refresh
-                    dgv_BillingRemove.DataSource = RemovedRecords;
-                    dgv_BillingRecords.DataSource = null; // Ensure refresh
-                    dgv_BillingRecords.DataSource = MccNetMatrix;
-
-                    getGridCount(dgv_BillingRemove, lb_Remove);
-                }
-                */
+                case 1: currentTable = LeasingBilling; break;
+                case 2: currentTable = ServicingBilling; break;
+                case 3: currentTable = TleBilling; break;
+                case 4: currentTable = WarehouseBilling; break;
+                default: return;
             }
+
+            if (!billingConfig.ContainsKey(id))
+                return;
+
+            var row = dgv_BillingRemove.Rows[rowIndex];
+
+            // 🔥 Dynamic RETURN confirmation
+            string message = BuildDynamicMessage(row, billingConfig[id], "RETURN");
+
+            if (!dbFunction.fPromptConfirmation(message))
+                return;
+
+            // 🔹 Proceed with transfer back
+            currentTable = TransferRecord(RemovedRecords, currentTable, rowIndex);
+
+            RefreshData(currentTable, RemovedRecords);
+
+            getGridCount(dgv_BillingRemove, lb_Remove);
         }
 
         private void RemoveData(DataGridViewCellEventArgs e)
@@ -318,54 +312,36 @@ namespace MIS
             int rowIndex = e.RowIndex;
             int id = Convert.ToInt32(cmb_BillingType.SelectedValue);
 
-            // Check if the row index is valid
-            if (rowIndex >= 0 && rowIndex < dgv_BillingRecords.Rows.Count)
+            if (rowIndex < 0 || rowIndex >= dgv_BillingRecords.Rows.Count)
+                return;
+
+            DataTable currentTable = null;
+
+            switch (id)
             {
-                DataTable currentTable = null;
-
-                // Switch based on ComboBox ID
-                switch (id)
-                {
-                    case 1:
-                        currentTable = LeasingBilling;
-                        break;
-                    case 2:
-                        currentTable = ServicingBilling;
-                        break;
-                    case 3:
-                        currentTable = TleBilling;
-                        break;
-                    case 4:
-                        currentTable = WarehouseBilling;
-                        break;
-                    default:
-                        return;
-                }
-
-                // Transfer record
-                RemovedRecords = TransferRecord(currentTable, RemovedRecords, rowIndex);
-
-                RefreshData(currentTable, RemovedRecords);
-
-                // Update count label
-                getGridCount(dgv_BillingRecords, lb_Count);
-
-                /*
-                int rowIndex = e.RowIndex;
-
-                // Check if the row index is valid
-                if (rowIndex >= 0 && rowIndex < dgv_BillingRecords.Rows.Count)
-                {
-                    RemovedRecords = TransferRecord(MccNetMatrix, RemovedRecords, rowIndex);
-                    dgv_BillingRemove.DataSource = null; // Ensure refresh
-                    dgv_BillingRemove.DataSource = RemovedRecords;
-                    dgv_BillingRecords.DataSource = null; // Ensure refresh
-                    dgv_BillingRecords.DataSource = MccNetMatrix;
-
-                    getGridCount(dgv_BillingRecords, lb_Count);
-                }
-                */
+                case 1: currentTable = LeasingBilling; break;
+                case 2: currentTable = ServicingBilling; break;
+                case 3: currentTable = TleBilling; break;
+                case 4: currentTable = WarehouseBilling; break;
+                default: return;
             }
+
+            if (!billingConfig.ContainsKey(id))
+                return;
+
+            var row = dgv_BillingRecords.Rows[rowIndex];
+
+            // Dynamic message
+            string message = BuildDynamicMessage(row, billingConfig[id], "REMOVE");
+
+            if (!dbFunction.fPromptConfirmation(message))
+                return;
+
+            RemovedRecords = TransferRecord(currentTable, RemovedRecords, rowIndex);
+
+            RefreshData(currentTable, RemovedRecords);
+
+            getGridCount(dgv_BillingRecords, lb_Count);
         }
 
         private async Task getBilling()
@@ -446,38 +422,61 @@ namespace MIS
 
         private async void GetBillingInfo()
         {
-
             // Null Check
             if (dgv_BillingHistory.CurrentRow == null)
                 return;
 
+            var row = dgv_BillingHistory.CurrentRow;
+
             // Date Check
-            var date_coverage = dgv_BillingHistory.CurrentRow.Cells[1].Value;
+            var date_coverage = row.Cells[1].Value;
 
             if (date_coverage == null || date_coverage == DBNull.Value)
                 return;
 
-            var description = dgv_BillingHistory.CurrentRow.Cells[0].Value;
-            var units = dgv_BillingHistory.CurrentRow.Cells[2].Value;
-            var date_created = dgv_BillingHistory.CurrentRow.Cells[3].Value;
+            var description = row.Cells[0].Value;
+            var unitsObj = row.Cells[2].Value;
+            var date_created = row.Cells[3].Value;
 
+            int units = 0;
+            string rawUnits = unitsObj?.ToString();
+
+            // Proper parsing
+            if (!int.TryParse(rawUnits, NumberStyles.Number, CultureInfo.InvariantCulture, out units))
+            {
+                units = 0;
+            }
+
+            // Validate
+            if (units <= 0)
+            {
+                dbFunction.SetMessageBox(
+                    "No records found for the selected billing.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iInformation
+                );
+                return;
+            }
+
+            // Confirmation message
             var message =
-            $"Are you sure you want to export the details?\n\n" +
-            $"Description   : {description}\n" +
-            $"Coverage      : {date_coverage}\n" +
-            $"Units         : {units}\n\n" +    
-            $"Note: This may take a few minutes.";
+                "Export Billing Details\n\n" +
+                $"Description   : {description}\n" +
+                $"Coverage      : {date_coverage}\n" +
+                $"Units         : {units}\n\n" +
+                "Note: This may take a few minutes.\n" +
+                "Do you want to continue?";
 
             if (!dbFunction.fPromptConfirmation(message))
                 return;
 
             // Convert to Date
             DateTime dateValue = DateTime.ParseExact(
-                 date_coverage.ToString(),
-                 "MMMM yyyy",
-                 CultureInfo.InvariantCulture
-             ).AddDays(0);
-
+                date_coverage.ToString(),
+                "MMMM yyyy",
+                CultureInfo.InvariantCulture
+            );
+            
             string Result = $"{dateValue:yyyy-MM-dd}";
             int id = Convert.ToInt32(cmb_BillingType.SelectedValue);
 
@@ -486,19 +485,19 @@ namespace MIS
             // Switch based on ComboBox ID
             switch (id)
             {
-                case 1: // LEASING
+                case 1:
                     Dt = await GetBillingHistory("Leasing-Summary", Result);
                     break;
 
-                case 2: // SERVICING
+                case 2:
                     Dt = await GetBillingHistory("Service-Summary", Result);
                     break;
 
-                case 3: // TLE
+                case 3:
                     Dt = await GetBillingHistory("TLE-Summary", Result);
                     break;
 
-                case 4: // WAREHOUSE
+                case 4:
                     Dt = await GetBillingHistory("Warehouse-Summary", Result);
                     break;
 
@@ -507,16 +506,23 @@ namespace MIS
                     return;
             }
 
+            clsSearch.ClassBillngFileName = $"{clsSearch.ClassBankCode}_Billing_{description}" +
+                                            $"_Coverage_{date_coverage}" +
+                                            $"_Created_{date_created}" +
+                                            $"_Units_{units}_{dbFunction.getCurrentDate()}.xlsx";
+            clsSearch.ClassBillngFileName = dbFunction.CleanFileName(clsSearch.ClassBillngFileName);
+
             setExportData(Dt);
-            
         }
 
         // ------------------------------------ Objects ------------------------------------------------------
 
         private async void cmb_BillingType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblBillingHeader.Text = $"Billing History - {cmb_BillingType.Text}";
             await getBilling();
             getBillingHistory();
+
         }
 
         private void frmServicesBilling_Load(object sender, EventArgs e)
@@ -539,6 +545,13 @@ namespace MIS
 
         private void btn_GenExcel_Click(object sender, EventArgs e)
         {
+            clsSearch.ClassBillngFileName =
+                                            $"{clsSearch.ClassBankCode}_Billing_{cmb_BillingType.Text}" +
+                                            $"_Coverage_{dtpRefDate.Value:yyyy-MM-dd}" +
+                                            $"_Created_{dbFunction.getCurrentDate()}" +
+                                            $"_Units_{dgv_BillingRecords.Rows.Count}" +
+                                            $"_{dbFunction.getCurrentDate()}.xlsx";
+            clsSearch.ClassBillngFileName = dbFunction.CleanFileName(clsSearch.ClassBillngFileName);
             getExcel();
         }
 
@@ -608,8 +621,88 @@ namespace MIS
         }
 
         private void dgv_BillingHistory_DoubleClick(object sender, EventArgs e)
-        {
+        {   
             GetBillingInfo();
         }
+
+        private void dgv_BillingRecords_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        Dictionary<int, BillingMessageConfig> billingConfig = new Dictionary<int, BillingMessageConfig>
+        {
+            {
+                1, new BillingMessageConfig
+                {
+                    Title = "Leasing",
+                    Fields = new List<(string, string)>
+                    {
+                        ("Bill ID", "BILL_ID"),
+                        ("Coverage", "MONTH_PERIOD"),
+                        ("Request No.", "REQUEST_NO"),
+                        ("Request Date", "REQUEST_DATE")
+                    }
+                }
+            },
+            {
+                2, new BillingMessageConfig
+                {
+                    Title = "Servicing",
+                    Fields = new List<(string, string)>
+                    {
+                        ("Service No.", "SERVICE_NO"),
+                        ("Coverage", "MONTH_PERIOD"),
+                        ("Request ID", "REQUEST_ID"),
+                        ("Request Date", "REQUEST_DATE")
+                    }
+                }
+            },
+            {
+                3, new BillingMessageConfig
+                {
+                    Title = "TLE",
+                    Fields = new List<(string, string)>
+                    {
+                        ("Service No.", "SERVICE_NO"),
+                        ("Coverage", "MONTH_PERIOD"),
+                        ("Request ID", "REQUEST_ID"),
+                        ("Request Date", "REQUEST_DATE")
+                    }
+                }
+            },
+            {
+                4, new BillingMessageConfig
+                {
+                    Title = "Warehouse",
+                    Fields = new List<(string, string)>
+                    {
+                        ("Record ID", "ID"),
+                        ("Coverage", "MONTH_PERIOD"),
+                        ("Model", "MODEL"),
+                        ("Serial No.", "SERIAL_NO")
+                    }
+                }
+            }
+        };
+
+        private string BuildDynamicMessage(DataGridViewRow row, BillingMessageConfig config, string action)
+        {
+            var sb = new System.Text.StringBuilder();
+
+            sb.AppendLine($"{action} {config.Title} Record\n");
+            sb.AppendLine($"You are about to {action.ToLower()} the following:\n");
+
+            foreach (var field in config.Fields)
+            {
+                var value = row.Cells[field.Column]?.Value?.ToString();
+                sb.AppendLine($"{field.Label.PadRight(15)}: {value}");
+            }
+
+            sb.AppendLine($"\nThis will move the record {(action == "REMOVE" ? "to the removed list" : "back to the main list")}.");
+            sb.Append("Do you want to continue?");
+
+            return sb.ToString();
+        }        
     }
 }

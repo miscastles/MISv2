@@ -77,7 +77,7 @@
             this.panel10 = new System.Windows.Forms.Panel();
             this.dgv_BillingHistory = new System.Windows.Forms.DataGridView();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblBillingHeader = new System.Windows.Forms.Label();
             this.ucRoundPanel5 = new MIS.ControlObject.ucRoundPanel();
             this.ucRoundPanel4 = new MIS.ControlObject.ucRoundPanel();
             this.ucRoundPanel1 = new MIS.ControlObject.ucRoundPanel();
@@ -123,6 +123,7 @@
             this.dgv_BillingRecords.TabIndex = 0;
             this.dgv_BillingRecords.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_BillingRecords_CellDoubleClick);
             this.dgv_BillingRecords.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_BillingRecords_RowsAdded);
+            this.dgv_BillingRecords.DoubleClick += new System.EventHandler(this.dgv_BillingRecords_DoubleClick);
             // 
             // dgv_BillingRemove
             // 
@@ -140,7 +141,7 @@
             this.dgv_BillingRemove.ReadOnly = true;
             this.dgv_BillingRemove.RowTemplate.Height = 30;
             this.dgv_BillingRemove.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_BillingRemove.Size = new System.Drawing.Size(1415, 201);
+            this.dgv_BillingRemove.Size = new System.Drawing.Size(1415, 227);
             this.dgv_BillingRemove.TabIndex = 1;
             this.dgv_BillingRemove.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_BillingRemove_CellDoubleClick);
             this.dgv_BillingRemove.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_BillingRemove_RowsAdded);
@@ -251,7 +252,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1421, 207);
+            this.tabPage2.Size = new System.Drawing.Size(1421, 233);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "   Excluded   ";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -658,23 +659,23 @@
             // panel11
             // 
             this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(37)))), ((int)(((byte)(59)))));
-            this.panel11.Controls.Add(this.label3);
+            this.panel11.Controls.Add(this.lblBillingHeader);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel11.Location = new System.Drawing.Point(0, 0);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(785, 45);
             this.panel11.TabIndex = 14;
             // 
-            // label3
+            // lblBillingHeader
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(12, 11);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 20);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Billing History";
+            this.lblBillingHeader.AutoSize = true;
+            this.lblBillingHeader.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBillingHeader.ForeColor = System.Drawing.Color.White;
+            this.lblBillingHeader.Location = new System.Drawing.Point(12, 11);
+            this.lblBillingHeader.Name = "lblBillingHeader";
+            this.lblBillingHeader.Size = new System.Drawing.Size(109, 20);
+            this.lblBillingHeader.TabIndex = 3;
+            this.lblBillingHeader.Text = "Billing History";
             // 
             // ucRoundPanel5
             // 
@@ -820,7 +821,7 @@
         private ControlObject.ucRoundPanel ucRoundPanel3;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblBillingHeader;
         private System.Windows.Forms.DataGridView dgv_BillingHistory;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;

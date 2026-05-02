@@ -543,7 +543,7 @@ namespace MIS
             this.bunifuCustomLabel1.ForeColor = System.Drawing.Color.White;
             this.bunifuCustomLabel1.Location = new System.Drawing.Point(11, 6);
             this.bunifuCustomLabel1.Name = "bunifuCustomLabel1";
-            this.bunifuCustomLabel1.Size = new System.Drawing.Size(448, 32);
+            this.bunifuCustomLabel1.Size = new System.Drawing.Size(447, 32);
             this.bunifuCustomLabel1.TabIndex = 3;
             this.bunifuCustomLabel1.Text = "Management Information System";
             // 
@@ -2487,7 +2487,7 @@ namespace MIS
             this.label21.ForeColor = System.Drawing.Color.Gainsboro;
             this.label21.Location = new System.Drawing.Point(274, 51);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(90, 16);
+            this.label21.Size = new System.Drawing.Size(89, 16);
             this.label21.TabIndex = 288;
             this.label21.Text = " FTP SERVER   -:-";
             // 
@@ -2498,7 +2498,7 @@ namespace MIS
             this.label20.ForeColor = System.Drawing.Color.Gainsboro;
             this.label20.Location = new System.Drawing.Point(274, 34);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(90, 16);
+            this.label20.Size = new System.Drawing.Size(89, 16);
             this.label20.TabIndex = 287;
             this.label20.Text = "WEB SERVER  -:-";
             // 
@@ -2930,7 +2930,7 @@ namespace MIS
             this.label33.ForeColor = System.Drawing.Color.Gainsboro;
             this.label33.Location = new System.Drawing.Point(288, 71);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(76, 16);
+            this.label33.Size = new System.Drawing.Size(75, 16);
             this.label33.TabIndex = 296;
             this.label33.Text = "INTERNET   -:-";
             // 
@@ -5088,7 +5088,7 @@ namespace MIS
             this.lblTInstallationReqOverDueCount.ForeColor = System.Drawing.Color.Red;
             this.lblTInstallationReqOverDueCount.Location = new System.Drawing.Point(291, 62);
             this.lblTInstallationReqOverDueCount.Name = "lblTInstallationReqOverDueCount";
-            this.lblTInstallationReqOverDueCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTInstallationReqOverDueCount.Size = new System.Drawing.Size(42, 16);
             this.lblTInstallationReqOverDueCount.TabIndex = 326;
             this.lblTInstallationReqOverDueCount.Text = "00000";
             this.lblTInstallationReqOverDueCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -5101,7 +5101,7 @@ namespace MIS
             this.label43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label43.Location = new System.Drawing.Point(68, 60);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(77, 16);
+            this.label43.Size = new System.Drawing.Size(76, 16);
             this.label43.TabIndex = 325;
             this.label43.Text = " -:- OVERDUE";
             // 
@@ -5114,7 +5114,7 @@ namespace MIS
             this.lblTInstallationReqDaysPendingCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.lblTInstallationReqDaysPendingCount.Location = new System.Drawing.Point(291, 45);
             this.lblTInstallationReqDaysPendingCount.Name = "lblTInstallationReqDaysPendingCount";
-            this.lblTInstallationReqDaysPendingCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTInstallationReqDaysPendingCount.Size = new System.Drawing.Size(42, 16);
             this.lblTInstallationReqDaysPendingCount.TabIndex = 324;
             this.lblTInstallationReqDaysPendingCount.Text = "00000";
             this.lblTInstallationReqDaysPendingCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -5127,7 +5127,7 @@ namespace MIS
             this.lblInstallationReqDaysPending.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.lblInstallationReqDaysPending.Location = new System.Drawing.Point(68, 44);
             this.lblInstallationReqDaysPending.Name = "lblInstallationReqDaysPending";
-            this.lblInstallationReqDaysPending.Size = new System.Drawing.Size(114, 16);
+            this.lblInstallationReqDaysPending.Size = new System.Drawing.Size(113, 16);
             this.lblInstallationReqDaysPending.TabIndex = 323;
             this.lblInstallationReqDaysPending.Text = " -:- DAY(S) PENDING";
             // 
@@ -5140,7 +5140,7 @@ namespace MIS
             this.label25.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label25.Location = new System.Drawing.Point(261, 420);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(83, 16);
+            this.label25.Size = new System.Drawing.Size(82, 16);
             this.label25.TabIndex = 322;
             this.label25.Text = "COMPLETED";
             // 
@@ -5153,7 +5153,7 @@ namespace MIS
             this.label29.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label29.Location = new System.Drawing.Point(348, 420);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(72, 16);
+            this.label29.Size = new System.Drawing.Size(71, 16);
             this.label29.TabIndex = 321;
             this.label29.Text = "NEGATIVE";
             // 
@@ -5167,7 +5167,7 @@ namespace MIS
             this.lblTNegativeReprogrammingCount.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblTNegativeReprogrammingCount.Location = new System.Drawing.Point(367, 494);
             this.lblTNegativeReprogrammingCount.Name = "lblTNegativeReprogrammingCount";
-            this.lblTNegativeReprogrammingCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTNegativeReprogrammingCount.Size = new System.Drawing.Size(42, 16);
             this.lblTNegativeReprogrammingCount.TabIndex = 319;
             this.lblTNegativeReprogrammingCount.Text = "00000";
             this.lblTNegativeReprogrammingCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5182,7 +5182,7 @@ namespace MIS
             this.lblTNegativeReplacementCount.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblTNegativeReplacementCount.Location = new System.Drawing.Point(367, 477);
             this.lblTNegativeReplacementCount.Name = "lblTNegativeReplacementCount";
-            this.lblTNegativeReplacementCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTNegativeReplacementCount.Size = new System.Drawing.Size(42, 16);
             this.lblTNegativeReplacementCount.TabIndex = 318;
             this.lblTNegativeReplacementCount.Text = "00000";
             this.lblTNegativeReplacementCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5197,7 +5197,7 @@ namespace MIS
             this.lblTNegativePulloutCount.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblTNegativePulloutCount.Location = new System.Drawing.Point(367, 458);
             this.lblTNegativePulloutCount.Name = "lblTNegativePulloutCount";
-            this.lblTNegativePulloutCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTNegativePulloutCount.Size = new System.Drawing.Size(42, 16);
             this.lblTNegativePulloutCount.TabIndex = 317;
             this.lblTNegativePulloutCount.Text = "00000";
             this.lblTNegativePulloutCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5212,7 +5212,7 @@ namespace MIS
             this.lblTNegativeServicingCount.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblTNegativeServicingCount.Location = new System.Drawing.Point(367, 511);
             this.lblTNegativeServicingCount.Name = "lblTNegativeServicingCount";
-            this.lblTNegativeServicingCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTNegativeServicingCount.Size = new System.Drawing.Size(42, 16);
             this.lblTNegativeServicingCount.TabIndex = 316;
             this.lblTNegativeServicingCount.Text = "00000";
             this.lblTNegativeServicingCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5227,7 +5227,7 @@ namespace MIS
             this.lblTNegativeInstallationCount.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblTNegativeInstallationCount.Location = new System.Drawing.Point(367, 439);
             this.lblTNegativeInstallationCount.Name = "lblTNegativeInstallationCount";
-            this.lblTNegativeInstallationCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTNegativeInstallationCount.Size = new System.Drawing.Size(42, 16);
             this.lblTNegativeInstallationCount.TabIndex = 315;
             this.lblTNegativeInstallationCount.Text = "00000";
             this.lblTNegativeInstallationCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5241,7 +5241,7 @@ namespace MIS
             this.lblTCancelledCountComplete.ForeColor = System.Drawing.Color.Lime;
             this.lblTCancelledCountComplete.Location = new System.Drawing.Point(291, 527);
             this.lblTCancelledCountComplete.Name = "lblTCancelledCountComplete";
-            this.lblTCancelledCountComplete.Size = new System.Drawing.Size(43, 16);
+            this.lblTCancelledCountComplete.Size = new System.Drawing.Size(42, 16);
             this.lblTCancelledCountComplete.TabIndex = 313;
             this.lblTCancelledCountComplete.Text = "00000";
             this.lblTCancelledCountComplete.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5254,7 +5254,7 @@ namespace MIS
             this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label27.Location = new System.Drawing.Point(68, 528);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(88, 16);
+            this.label27.Size = new System.Drawing.Size(87, 16);
             this.label27.TabIndex = 312;
             this.label27.Text = " -:- CANCELLED";
             // 
@@ -5267,7 +5267,7 @@ namespace MIS
             this.lblTServiceCountComplete.ForeColor = System.Drawing.Color.Lime;
             this.lblTServiceCountComplete.Location = new System.Drawing.Point(291, 510);
             this.lblTServiceCountComplete.Name = "lblTServiceCountComplete";
-            this.lblTServiceCountComplete.Size = new System.Drawing.Size(43, 16);
+            this.lblTServiceCountComplete.Size = new System.Drawing.Size(42, 16);
             this.lblTServiceCountComplete.TabIndex = 311;
             this.lblTServiceCountComplete.Text = "00000";
             this.lblTServiceCountComplete.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5280,7 +5280,7 @@ namespace MIS
             this.label30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label30.Location = new System.Drawing.Point(68, 511);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(164, 16);
+            this.label30.Size = new System.Drawing.Size(163, 16);
             this.label30.TabIndex = 310;
             this.label30.Text = " -:- SERVICING / DIAGNOSTIC";
             // 
@@ -5293,7 +5293,7 @@ namespace MIS
             this.lblTReprogrammingCountComplete.ForeColor = System.Drawing.Color.Lime;
             this.lblTReprogrammingCountComplete.Location = new System.Drawing.Point(291, 493);
             this.lblTReprogrammingCountComplete.Name = "lblTReprogrammingCountComplete";
-            this.lblTReprogrammingCountComplete.Size = new System.Drawing.Size(43, 16);
+            this.lblTReprogrammingCountComplete.Size = new System.Drawing.Size(42, 16);
             this.lblTReprogrammingCountComplete.TabIndex = 309;
             this.lblTReprogrammingCountComplete.Text = "00000";
             this.lblTReprogrammingCountComplete.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5306,7 +5306,7 @@ namespace MIS
             this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label28.Location = new System.Drawing.Point(68, 494);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(129, 16);
+            this.label28.Size = new System.Drawing.Size(128, 16);
             this.label28.TabIndex = 308;
             this.label28.Text = " -:- REPROGRAMMING";
             // 
@@ -5319,7 +5319,7 @@ namespace MIS
             this.lblTReplacementCountComplete.ForeColor = System.Drawing.Color.Lime;
             this.lblTReplacementCountComplete.Location = new System.Drawing.Point(291, 476);
             this.lblTReplacementCountComplete.Name = "lblTReplacementCountComplete";
-            this.lblTReplacementCountComplete.Size = new System.Drawing.Size(43, 16);
+            this.lblTReplacementCountComplete.Size = new System.Drawing.Size(42, 16);
             this.lblTReplacementCountComplete.TabIndex = 307;
             this.lblTReplacementCountComplete.Text = "00000";
             this.lblTReplacementCountComplete.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5332,7 +5332,7 @@ namespace MIS
             this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label26.Location = new System.Drawing.Point(68, 477);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(102, 16);
+            this.label26.Size = new System.Drawing.Size(101, 16);
             this.label26.TabIndex = 306;
             this.label26.Text = " -:- REPLACEMENT";
             // 
@@ -5345,7 +5345,7 @@ namespace MIS
             this.lblTPulledOutCountComplete.ForeColor = System.Drawing.Color.Lime;
             this.lblTPulledOutCountComplete.Location = new System.Drawing.Point(291, 457);
             this.lblTPulledOutCountComplete.Name = "lblTPulledOutCountComplete";
-            this.lblTPulledOutCountComplete.Size = new System.Drawing.Size(43, 16);
+            this.lblTPulledOutCountComplete.Size = new System.Drawing.Size(42, 16);
             this.lblTPulledOutCountComplete.TabIndex = 305;
             this.lblTPulledOutCountComplete.Text = "00000";
             this.lblTPulledOutCountComplete.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5358,7 +5358,7 @@ namespace MIS
             this.label37.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label37.Location = new System.Drawing.Point(67, 458);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(90, 16);
+            this.label37.Size = new System.Drawing.Size(89, 16);
             this.label37.TabIndex = 304;
             this.label37.Text = " -:- PULLED OUT";
             // 
@@ -5371,7 +5371,7 @@ namespace MIS
             this.lblTInstalledCountComplete.ForeColor = System.Drawing.Color.Lime;
             this.lblTInstalledCountComplete.Location = new System.Drawing.Point(291, 438);
             this.lblTInstalledCountComplete.Name = "lblTInstalledCountComplete";
-            this.lblTInstalledCountComplete.Size = new System.Drawing.Size(43, 16);
+            this.lblTInstalledCountComplete.Size = new System.Drawing.Size(42, 16);
             this.lblTInstalledCountComplete.TabIndex = 303;
             this.lblTInstalledCountComplete.Text = "00000";
             this.lblTInstalledCountComplete.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5384,7 +5384,7 @@ namespace MIS
             this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label24.Location = new System.Drawing.Point(67, 440);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(97, 16);
+            this.label24.Size = new System.Drawing.Size(96, 16);
             this.label24.TabIndex = 302;
             this.label24.Text = " -:- INSTALLATION";
             this.label24.Click += new System.EventHandler(this.label24_Click);
@@ -5397,7 +5397,7 @@ namespace MIS
             this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label22.Location = new System.Drawing.Point(19, 419);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(136, 16);
+            this.label22.Size = new System.Drawing.Size(135, 16);
             this.label22.TabIndex = 301;
             this.label22.Text = "SERVICING REQUEST";
             // 
@@ -5409,7 +5409,7 @@ namespace MIS
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label2.Location = new System.Drawing.Point(16, 186);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(190, 16);
+            this.label2.Size = new System.Drawing.Size(189, 16);
             this.label2.TabIndex = 300;
             this.label2.Text = "SERVICING REQUEST FOR FSR";
             // 
@@ -5422,7 +5422,7 @@ namespace MIS
             this.lblTInstallationCount.ForeColor = System.Drawing.Color.Lime;
             this.lblTInstallationCount.Location = new System.Drawing.Point(291, 101);
             this.lblTInstallationCount.Name = "lblTInstallationCount";
-            this.lblTInstallationCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTInstallationCount.Size = new System.Drawing.Size(42, 16);
             this.lblTInstallationCount.TabIndex = 299;
             this.lblTInstallationCount.Text = "00000";
             this.lblTInstallationCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -5435,7 +5435,7 @@ namespace MIS
             this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label23.Location = new System.Drawing.Point(35, 101);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(97, 16);
+            this.label23.Size = new System.Drawing.Size(96, 16);
             this.label23.TabIndex = 298;
             this.label23.Text = " -:- INSTALLATION";
             // 
@@ -5448,7 +5448,7 @@ namespace MIS
             this.lblTInstallationReqCount.ForeColor = System.Drawing.Color.Lime;
             this.lblTInstallationReqCount.Location = new System.Drawing.Point(291, 27);
             this.lblTInstallationReqCount.Name = "lblTInstallationReqCount";
-            this.lblTInstallationReqCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTInstallationReqCount.Size = new System.Drawing.Size(42, 16);
             this.lblTInstallationReqCount.TabIndex = 287;
             this.lblTInstallationReqCount.Text = "00000";
             this.lblTInstallationReqCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -5461,7 +5461,7 @@ namespace MIS
             this.label40.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label40.Location = new System.Drawing.Point(34, 26);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(165, 16);
+            this.label40.Size = new System.Drawing.Size(164, 16);
             this.label40.TabIndex = 286;
             this.label40.Text = " -:- FOR INSTALLATION (TOTAL)";
             // 
@@ -5474,7 +5474,7 @@ namespace MIS
             this.lblTReprogrammingCount.ForeColor = System.Drawing.Color.Lime;
             this.lblTReprogrammingCount.Location = new System.Drawing.Point(292, 165);
             this.lblTReprogrammingCount.Name = "lblTReprogrammingCount";
-            this.lblTReprogrammingCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTReprogrammingCount.Size = new System.Drawing.Size(42, 16);
             this.lblTReprogrammingCount.TabIndex = 297;
             this.lblTReprogrammingCount.Text = "00000";
             this.lblTReprogrammingCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -5487,7 +5487,7 @@ namespace MIS
             this.label36.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label36.Location = new System.Drawing.Point(34, 165);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(129, 16);
+            this.label36.Size = new System.Drawing.Size(128, 16);
             this.label36.TabIndex = 296;
             this.label36.Text = " -:- REPROGRAMMING";
             // 
@@ -5500,7 +5500,7 @@ namespace MIS
             this.lblRCNoAnswer.ForeColor = System.Drawing.Color.Lime;
             this.lblRCNoAnswer.Location = new System.Drawing.Point(291, 399);
             this.lblRCNoAnswer.Name = "lblRCNoAnswer";
-            this.lblRCNoAnswer.Size = new System.Drawing.Size(43, 16);
+            this.lblRCNoAnswer.Size = new System.Drawing.Size(42, 16);
             this.lblRCNoAnswer.TabIndex = 295;
             this.lblRCNoAnswer.Text = "00000";
             this.lblRCNoAnswer.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5513,7 +5513,7 @@ namespace MIS
             this.label35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label35.Location = new System.Drawing.Point(278, 8);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(53, 16);
+            this.label35.Size = new System.Drawing.Size(52, 16);
             this.label35.TabIndex = 294;
             this.label35.Text = "COUNT";
             // 
@@ -5526,7 +5526,7 @@ namespace MIS
             this.lblRCNegative.ForeColor = System.Drawing.Color.Lime;
             this.lblRCNegative.Location = new System.Drawing.Point(291, 383);
             this.lblRCNegative.Name = "lblRCNegative";
-            this.lblRCNegative.Size = new System.Drawing.Size(43, 16);
+            this.lblRCNegative.Size = new System.Drawing.Size(42, 16);
             this.lblRCNegative.TabIndex = 293;
             this.lblRCNegative.Text = "00000";
             this.lblRCNegative.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5540,7 +5540,7 @@ namespace MIS
             this.lblRCForServicing.ForeColor = System.Drawing.Color.Lime;
             this.lblRCForServicing.Location = new System.Drawing.Point(291, 367);
             this.lblRCForServicing.Name = "lblRCForServicing";
-            this.lblRCForServicing.Size = new System.Drawing.Size(43, 16);
+            this.lblRCForServicing.Size = new System.Drawing.Size(42, 16);
             this.lblRCForServicing.TabIndex = 292;
             this.lblRCForServicing.Text = "00000";
             this.lblRCForServicing.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5554,7 +5554,7 @@ namespace MIS
             this.lblRCResolvedByPhone.ForeColor = System.Drawing.Color.Lime;
             this.lblRCResolvedByPhone.Location = new System.Drawing.Point(291, 351);
             this.lblRCResolvedByPhone.Name = "lblRCResolvedByPhone";
-            this.lblRCResolvedByPhone.Size = new System.Drawing.Size(43, 16);
+            this.lblRCResolvedByPhone.Size = new System.Drawing.Size(42, 16);
             this.lblRCResolvedByPhone.TabIndex = 291;
             this.lblRCResolvedByPhone.Text = "00000";
             this.lblRCResolvedByPhone.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5568,7 +5568,7 @@ namespace MIS
             this.lblCONoAnswer.ForeColor = System.Drawing.Color.Lime;
             this.lblCONoAnswer.Location = new System.Drawing.Point(291, 315);
             this.lblCONoAnswer.Name = "lblCONoAnswer";
-            this.lblCONoAnswer.Size = new System.Drawing.Size(43, 16);
+            this.lblCONoAnswer.Size = new System.Drawing.Size(42, 16);
             this.lblCONoAnswer.TabIndex = 290;
             this.lblCONoAnswer.Text = "00000";
             this.lblCONoAnswer.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5582,7 +5582,7 @@ namespace MIS
             this.lblCONegative.ForeColor = System.Drawing.Color.Lime;
             this.lblCONegative.Location = new System.Drawing.Point(291, 299);
             this.lblCONegative.Name = "lblCONegative";
-            this.lblCONegative.Size = new System.Drawing.Size(43, 16);
+            this.lblCONegative.Size = new System.Drawing.Size(42, 16);
             this.lblCONegative.TabIndex = 289;
             this.lblCONegative.Text = "00000";
             this.lblCONegative.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5596,7 +5596,7 @@ namespace MIS
             this.lblCOForServicing.ForeColor = System.Drawing.Color.Lime;
             this.lblCOForServicing.Location = new System.Drawing.Point(291, 282);
             this.lblCOForServicing.Name = "lblCOForServicing";
-            this.lblCOForServicing.Size = new System.Drawing.Size(43, 16);
+            this.lblCOForServicing.Size = new System.Drawing.Size(42, 16);
             this.lblCOForServicing.TabIndex = 288;
             this.lblCOForServicing.Text = "00000";
             this.lblCOForServicing.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5610,7 +5610,7 @@ namespace MIS
             this.lblCOResolvedByPhone.ForeColor = System.Drawing.Color.Lime;
             this.lblCOResolvedByPhone.Location = new System.Drawing.Point(291, 265);
             this.lblCOResolvedByPhone.Name = "lblCOResolvedByPhone";
-            this.lblCOResolvedByPhone.Size = new System.Drawing.Size(43, 16);
+            this.lblCOResolvedByPhone.Size = new System.Drawing.Size(42, 16);
             this.lblCOResolvedByPhone.TabIndex = 287;
             this.lblCOResolvedByPhone.Text = "00000";
             this.lblCOResolvedByPhone.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5624,7 +5624,7 @@ namespace MIS
             this.lblTReplacementCount.ForeColor = System.Drawing.Color.Lime;
             this.lblTReplacementCount.Location = new System.Drawing.Point(291, 149);
             this.lblTReplacementCount.Name = "lblTReplacementCount";
-            this.lblTReplacementCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTReplacementCount.Size = new System.Drawing.Size(42, 16);
             this.lblTReplacementCount.TabIndex = 286;
             this.lblTReplacementCount.Text = "00000";
             this.lblTReplacementCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -5638,7 +5638,7 @@ namespace MIS
             this.lblTPulloutCount.ForeColor = System.Drawing.Color.Lime;
             this.lblTPulloutCount.Location = new System.Drawing.Point(291, 133);
             this.lblTPulloutCount.Name = "lblTPulloutCount";
-            this.lblTPulloutCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTPulloutCount.Size = new System.Drawing.Size(42, 16);
             this.lblTPulloutCount.TabIndex = 285;
             this.lblTPulloutCount.Text = "00000";
             this.lblTPulloutCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -5652,7 +5652,7 @@ namespace MIS
             this.lblTServicingCount.ForeColor = System.Drawing.Color.Lime;
             this.lblTServicingCount.Location = new System.Drawing.Point(291, 117);
             this.lblTServicingCount.Name = "lblTServicingCount";
-            this.lblTServicingCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTServicingCount.Size = new System.Drawing.Size(42, 16);
             this.lblTServicingCount.TabIndex = 284;
             this.lblTServicingCount.Text = "00000";
             this.lblTServicingCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -5666,7 +5666,7 @@ namespace MIS
             this.lblTDispatchCount.ForeColor = System.Drawing.Color.Lime;
             this.lblTDispatchCount.Location = new System.Drawing.Point(291, 205);
             this.lblTDispatchCount.Name = "lblTDispatchCount";
-            this.lblTDispatchCount.Size = new System.Drawing.Size(43, 16);
+            this.lblTDispatchCount.Size = new System.Drawing.Size(42, 16);
             this.lblTDispatchCount.TabIndex = 282;
             this.lblTDispatchCount.Text = "00000";
             this.lblTDispatchCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -5679,7 +5679,7 @@ namespace MIS
             this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label15.Location = new System.Drawing.Point(66, 398);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(91, 16);
+            this.label15.Size = new System.Drawing.Size(90, 16);
             this.label15.TabIndex = 21;
             this.label15.Text = " -:- NO ANSWER";
             // 
@@ -5691,7 +5691,7 @@ namespace MIS
             this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label16.Location = new System.Drawing.Point(66, 383);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(77, 16);
+            this.label16.Size = new System.Drawing.Size(76, 16);
             this.label16.TabIndex = 20;
             this.label16.Text = " -:- NEGATIVE";
             // 
@@ -5703,7 +5703,7 @@ namespace MIS
             this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label17.Location = new System.Drawing.Point(66, 367);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(109, 16);
+            this.label17.Size = new System.Drawing.Size(108, 16);
             this.label17.TabIndex = 19;
             this.label17.Text = " -:- FOR SERVICING";
             // 
@@ -5715,7 +5715,7 @@ namespace MIS
             this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label18.Location = new System.Drawing.Point(66, 351);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(142, 16);
+            this.label18.Size = new System.Drawing.Size(141, 16);
             this.label18.TabIndex = 18;
             this.label18.Text = " -:- RESOLVED VIA PHONE";
             // 
@@ -5727,7 +5727,7 @@ namespace MIS
             this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label19.Location = new System.Drawing.Point(35, 332);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(95, 16);
+            this.label19.Size = new System.Drawing.Size(94, 16);
             this.label19.TabIndex = 17;
             this.label19.Text = "RECEIVED CALLS";
             // 
@@ -5739,7 +5739,7 @@ namespace MIS
             this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label14.Location = new System.Drawing.Point(67, 315);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(91, 16);
+            this.label14.Size = new System.Drawing.Size(90, 16);
             this.label14.TabIndex = 16;
             this.label14.Text = " -:- NO ANSWER";
             // 
@@ -5751,7 +5751,7 @@ namespace MIS
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label11.Location = new System.Drawing.Point(67, 298);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(77, 16);
+            this.label11.Size = new System.Drawing.Size(76, 16);
             this.label11.TabIndex = 15;
             this.label11.Text = " -:- NEGATIVE";
             // 
@@ -5763,7 +5763,7 @@ namespace MIS
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label13.Location = new System.Drawing.Point(67, 282);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(109, 16);
+            this.label13.Size = new System.Drawing.Size(108, 16);
             this.label13.TabIndex = 14;
             this.label13.Text = " -:- FOR SERVICING";
             // 
@@ -5775,7 +5775,7 @@ namespace MIS
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label10.Location = new System.Drawing.Point(67, 265);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(142, 16);
+            this.label10.Size = new System.Drawing.Size(141, 16);
             this.label10.TabIndex = 13;
             this.label10.Text = " -:- RESOLVED VIA PHONE";
             // 
@@ -5787,7 +5787,7 @@ namespace MIS
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label9.Location = new System.Drawing.Point(19, 228);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(133, 16);
+            this.label9.Size = new System.Drawing.Size(132, 16);
             this.label9.TabIndex = 12;
             this.label9.Text = "CUSTOMER SERVICE";
             // 
@@ -5798,7 +5798,7 @@ namespace MIS
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label12.Location = new System.Drawing.Point(35, 249);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(60, 16);
+            this.label12.Size = new System.Drawing.Size(59, 16);
             this.label12.TabIndex = 9;
             this.label12.Text = "CALL OUT";
             // 
@@ -5810,7 +5810,7 @@ namespace MIS
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label5.Location = new System.Drawing.Point(18, 82);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(231, 16);
+            this.label5.Size = new System.Drawing.Size(230, 16);
             this.label5.TabIndex = 8;
             this.label5.Text = "SERVICING REQUEST FOR DISPATCH";
             // 
@@ -5822,7 +5822,7 @@ namespace MIS
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label8.Location = new System.Drawing.Point(34, 149);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(102, 16);
+            this.label8.Size = new System.Drawing.Size(101, 16);
             this.label8.TabIndex = 7;
             this.label8.Text = " -:- REPLACEMENT";
             // 
@@ -5834,7 +5834,7 @@ namespace MIS
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label7.Location = new System.Drawing.Point(34, 133);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(76, 16);
+            this.label7.Size = new System.Drawing.Size(75, 16);
             this.label7.TabIndex = 6;
             this.label7.Text = " -:- PULL OUT";
             // 
@@ -5846,7 +5846,7 @@ namespace MIS
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label6.Location = new System.Drawing.Point(34, 117);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(164, 16);
+            this.label6.Size = new System.Drawing.Size(163, 16);
             this.label6.TabIndex = 5;
             this.label6.Text = " -:- SERVICING / DIAGNOSTIC";
             // 
@@ -5858,7 +5858,7 @@ namespace MIS
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label4.Location = new System.Drawing.Point(35, 207);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 16);
+            this.label4.Size = new System.Drawing.Size(131, 16);
             this.label4.TabIndex = 3;
             this.label4.Text = " -:- DISPATCH (FOR FSR)";
             // 
@@ -5870,7 +5870,7 @@ namespace MIS
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label1.Location = new System.Drawing.Point(16, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(153, 16);
+            this.label1.Size = new System.Drawing.Size(152, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "WAITING ASSIGNMENT";
             // 
@@ -6811,7 +6811,7 @@ namespace MIS
             this.label45.ForeColor = System.Drawing.Color.Black;
             this.label45.Location = new System.Drawing.Point(3, 4);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(192, 16);
+            this.label45.Size = new System.Drawing.Size(191, 16);
             this.label45.TabIndex = 310;
             this.label45.Text = "UNCLOSED TICKET SUMMARY";
             // 
