@@ -613,6 +613,8 @@ namespace MIS.Function
                     sfd.FilterIndex = 1;
                     sfd.RestoreDirectory = true;
 
+                    sfd.FileName = clsSearch.ClassBillngFileName;
+
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
                         string filePath = sfd.FileName;

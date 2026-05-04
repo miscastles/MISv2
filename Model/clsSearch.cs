@@ -2608,5 +2608,12 @@ namespace MIS
             set { _HoldSIMSN = value; }
         }
 
+        public static string _BillngFileName;
+        public static string ClassBillngFileName
+        {
+            get { return _BillngFileName; }
+            set { _BillngFileName = value; }
+        }
+
     }
 }

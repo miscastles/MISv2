@@ -6787,6 +6787,19 @@ namespace MIS
             return isFound;
         }
 
+        public string CleanFileName(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return "Unknown";
+
+            foreach (char c in Path.GetInvalidFileNameChars())
+            {
+                input = input.Replace(c, '_');
+            }
+
+            return input.Trim();
+        }
+
     }
 
 }
