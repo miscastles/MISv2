@@ -873,9 +873,9 @@ namespace MIS
             // 
             this.tabPage1.Controls.Add(this.bunifuCards4);
             this.tabPage1.Controls.Add(this.bunifuCards7);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1259, 598);
+            this.tabPage1.Size = new System.Drawing.Size(1259, 595);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Manul Entry";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -2581,10 +2581,10 @@ namespace MIS
             this.tabPage5.Controls.Add(this.pnlGenerate);
             this.tabPage5.Controls.Add(this.btnSaveAutoGen);
             this.tabPage5.Controls.Add(this.bunifuCards5);
-            this.tabPage5.Location = new System.Drawing.Point(4, 25);
+            this.tabPage5.Location = new System.Drawing.Point(4, 28);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1259, 598);
+            this.tabPage5.Size = new System.Drawing.Size(1259, 595);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Auto Generate SN";
             // 
@@ -3334,10 +3334,10 @@ namespace MIS
             this.tabPage4.Controls.Add(this.bunifuCards3);
             this.tabPage4.Controls.Add(this.btnImportSave);
             this.tabPage4.Controls.Add(this.btnImportCancel);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Location = new System.Drawing.Point(4, 28);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1259, 598);
+            this.tabPage4.Size = new System.Drawing.Size(1259, 595);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Import File";
             // 
@@ -3919,6 +3919,7 @@ namespace MIS
             // 
             // tabTerminal
             // 
+            this.tabTerminal.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabTerminal.Controls.Add(this.tabPage4);
             this.tabTerminal.Controls.Add(this.tabPage5);
             this.tabTerminal.Controls.Add(this.tabPage1);
@@ -3944,10 +3945,10 @@ namespace MIS
             this.tabPage2.Controls.Add(this.btnRClear);
             this.tabPage2.Controls.Add(this.btnRAdd);
             this.tabPage2.Controls.Add(this.bunifuCards6);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 28);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1259, 598);
+            this.tabPage2.Size = new System.Drawing.Size(1259, 595);
             this.tabPage2.TabIndex = 3;
             this.tabPage2.Text = "Release / Transfer";
             this.tabPage2.UseVisualStyleBackColor = true;

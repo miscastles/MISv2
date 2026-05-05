@@ -477,7 +477,7 @@
             this.lblSearchString.AutoSize = true;
             this.lblSearchString.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSearchString.ForeColor = System.Drawing.Color.Black;
-            this.lblSearchString.Location = new System.Drawing.Point(4, 2);
+            this.lblSearchString.Location = new System.Drawing.Point(4, 0);
             this.lblSearchString.Name = "lblSearchString";
             this.lblSearchString.Size = new System.Drawing.Size(14, 14);
             this.lblSearchString.TabIndex = 3;
@@ -489,12 +489,12 @@
             this.txtSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtSearch.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txtSearch.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.txtSearch.Location = new System.Drawing.Point(5, 17);
+            this.txtSearch.Location = new System.Drawing.Point(5, 14);
             this.txtSearch.MaxLength = 45;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(1376, 26);
+            this.txtSearch.Size = new System.Drawing.Size(1376, 29);
             this.txtSearch.TabIndex = 1;
             this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 

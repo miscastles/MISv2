@@ -238,6 +238,7 @@
             // 
             // tabMain
             // 
+            this.tabMain.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabMain.Controls.Add(this.tabPage7);
             this.tabMain.Controls.Add(this.tabPage4);
             this.tabMain.Controls.Add(this.tabPage2);
@@ -255,10 +256,10 @@
             this.tabPage7.Controls.Add(this.txtGTCntPreview);
             this.tabPage7.Controls.Add(this.label13);
             this.tabPage7.Controls.Add(this.lvwPreview);
-            this.tabPage7.Location = new System.Drawing.Point(4, 24);
+            this.tabPage7.Location = new System.Drawing.Point(4, 27);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(1080, 413);
+            this.tabPage7.Size = new System.Drawing.Size(1080, 410);
             this.tabPage7.TabIndex = 4;
             this.tabPage7.Text = "PREVIEW IMPORT";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -310,10 +311,10 @@
             this.tabPage4.Controls.Add(this.txtGTPerTransType);
             this.tabPage4.Controls.Add(this.label140);
             this.tabPage4.Controls.Add(this.lvwPerTransType);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Location = new System.Drawing.Point(4, 27);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1080, 413);
+            this.tabPage4.Size = new System.Drawing.Size(1080, 410);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "SUMMARY PER TRANS TYPE";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -391,10 +392,10 @@
             this.tabPage2.Controls.Add(this.txtGTPerMonth);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.lvwPerMonth);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1080, 413);
+            this.tabPage2.Size = new System.Drawing.Size(1080, 410);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "SUMMARY PER MONTH";
             // 
@@ -471,10 +472,10 @@
             this.tabPage1.Controls.Add(this.txtGTPerTopSales);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.lvwPerTopSales);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1080, 413);
+            this.tabPage1.Size = new System.Drawing.Size(1080, 410);
             this.tabPage1.TabIndex = 1;
             this.tabPage1.Text = "TOP MERCHANT MOST SALES";
             // 
@@ -550,9 +551,9 @@
             this.tabPage3.Controls.Add(this.txtGTPerQtr);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.lvwPerQtr);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1080, 413);
+            this.tabPage3.Size = new System.Drawing.Size(1080, 410);
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "SUMMRY PER QTR";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -624,6 +625,7 @@
             // 
             // tabFilter
             // 
+            this.tabFilter.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabFilter.Controls.Add(this.tabPage8);
             this.tabFilter.Controls.Add(this.tabPage5);
             this.tabFilter.Controls.Add(this.tabPage6);
@@ -642,10 +644,10 @@
             this.tabPage8.Controls.Add(this.label14);
             this.tabPage8.Controls.Add(this.btnRefresh);
             this.tabPage8.Controls.Add(this.lvwSummary);
-            this.tabPage8.Location = new System.Drawing.Point(4, 24);
+            this.tabPage8.Location = new System.Drawing.Point(4, 27);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(365, 440);
+            this.tabPage8.Size = new System.Drawing.Size(365, 437);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "SUMMARY";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -739,10 +741,10 @@
             this.tabPage5.Controls.Add(this.lvwImport);
             this.tabPage5.Controls.Add(this.btnProcess);
             this.tabPage5.Controls.Add(this.btnImport);
-            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Location = new System.Drawing.Point(4, 27);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(365, 440);
+            this.tabPage5.Size = new System.Drawing.Size(365, 437);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "IMPORT FILES";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -837,10 +839,10 @@
             this.tabPage6.Controls.Add(this.btnSearch);
             this.tabPage6.Controls.Add(this.dteDateTo);
             this.tabPage6.Controls.Add(this.dteDateFrom);
-            this.tabPage6.Location = new System.Drawing.Point(4, 24);
+            this.tabPage6.Location = new System.Drawing.Point(4, 27);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(365, 440);
+            this.tabPage6.Size = new System.Drawing.Size(365, 437);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "FILTER OPTION";
             this.tabPage6.UseVisualStyleBackColor = true;

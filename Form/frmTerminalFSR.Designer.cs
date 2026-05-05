@@ -2332,12 +2332,12 @@
             this.txtSearchIRNo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtSearchIRNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearchIRNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSearchIRNo.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchIRNo.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchIRNo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.txtSearchIRNo.Location = new System.Drawing.Point(3, 3);
+            this.txtSearchIRNo.Location = new System.Drawing.Point(3, 2);
             this.txtSearchIRNo.Name = "txtSearchIRNo";
             this.txtSearchIRNo.ReadOnly = true;
-            this.txtSearchIRNo.Size = new System.Drawing.Size(403, 22);
+            this.txtSearchIRNo.Size = new System.Drawing.Size(403, 24);
             this.txtSearchIRNo.TabIndex = 102;
             // 
             // txtIRRequestDate
@@ -2735,6 +2735,7 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage20);
             this.tabControl1.Controls.Add(this.tabPage24);
@@ -2771,10 +2772,10 @@
             this.tabPage1.Controls.Add(this.panel42);
             this.tabPage1.Controls.Add(this.btnAdd);
             this.tabPage1.Controls.Add(this.btnClear);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1376, 852);
+            this.tabPage1.Size = new System.Drawing.Size(1376, 849);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
             // 
@@ -3099,6 +3100,7 @@
             // 
             // tabMain
             // 
+            this.tabMain.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabMain.Controls.Add(this.tabPage5);
             this.tabMain.Controls.Add(this.tabPage4);
             this.tabMain.Controls.Add(this.tabPage3);
@@ -3116,10 +3118,10 @@
             // 
             this.tabPage5.Controls.Add(this.panel134);
             this.tabPage5.ForeColor = System.Drawing.Color.Black;
-            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Location = new System.Drawing.Point(4, 27);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(404, 137);
+            this.tabPage5.Size = new System.Drawing.Size(404, 134);
             this.tabPage5.TabIndex = 3;
             this.tabPage5.Text = "FUNCTION";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -3141,7 +3143,7 @@
             this.panel134.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel134.Location = new System.Drawing.Point(3, 3);
             this.panel134.Name = "panel134";
-            this.panel134.Size = new System.Drawing.Size(398, 131);
+            this.panel134.Size = new System.Drawing.Size(398, 128);
             this.panel134.TabIndex = 474;
             // 
             // lblCountDown
@@ -3300,10 +3302,10 @@
             // 
             this.tabPage4.Controls.Add(this.panel142);
             this.tabPage4.ForeColor = System.Drawing.Color.Black;
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Location = new System.Drawing.Point(4, 27);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(404, 137);
+            this.tabPage4.Size = new System.Drawing.Size(404, 134);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "HISTORY";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -3317,7 +3319,7 @@
             this.panel142.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel142.Location = new System.Drawing.Point(3, 3);
             this.panel142.Name = "panel142";
-            this.panel142.Size = new System.Drawing.Size(398, 131);
+            this.panel142.Size = new System.Drawing.Size(398, 128);
             this.panel142.TabIndex = 474;
             // 
             // lvwList
@@ -3331,7 +3333,7 @@
             this.lvwList.HideSelection = false;
             this.lvwList.Location = new System.Drawing.Point(0, 0);
             this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(396, 129);
+            this.lvwList.Size = new System.Drawing.Size(396, 126);
             this.lvwList.TabIndex = 117;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
@@ -3352,10 +3354,10 @@
             this.tabPage3.Controls.Add(this.label120);
             this.tabPage3.Controls.Add(this.txtGeoLatitude);
             this.tabPage3.ForeColor = System.Drawing.Color.Black;
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(404, 137);
+            this.tabPage3.Size = new System.Drawing.Size(404, 134);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "GEOMETRIC";
             // 
@@ -3516,10 +3518,10 @@
             this.tabPage6.Controls.Add(this.txtNetworkDays);
             this.tabPage6.Controls.Add(this.label130);
             this.tabPage6.Controls.Add(this.txtSLA);
-            this.tabPage6.Location = new System.Drawing.Point(4, 24);
+            this.tabPage6.Location = new System.Drawing.Point(4, 27);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(404, 137);
+            this.tabPage6.Size = new System.Drawing.Size(404, 134);
             this.tabPage6.TabIndex = 4;
             this.tabPage6.Text = "SLA/TAT";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -3645,10 +3647,10 @@
             this.tabPage2.Controls.Add(this.panel29);
             this.tabPage2.Controls.Add(this.panel158);
             this.tabPage2.ForeColor = System.Drawing.Color.Black;
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(404, 137);
+            this.tabPage2.Size = new System.Drawing.Size(404, 134);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "SWITCH SN";
             // 
@@ -3878,10 +3880,10 @@
             this.tabPage7.Controls.Add(this.txtMobileVersion);
             this.tabPage7.Controls.Add(this.label146);
             this.tabPage7.Controls.Add(this.txtMobileTerminalID);
-            this.tabPage7.Location = new System.Drawing.Point(4, 24);
+            this.tabPage7.Location = new System.Drawing.Point(4, 27);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(404, 137);
+            this.tabPage7.Size = new System.Drawing.Size(404, 134);
             this.tabPage7.TabIndex = 5;
             this.tabPage7.Text = "MOBILE";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -5043,12 +5045,12 @@
             this.txtSearchFSRNo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtSearchFSRNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearchFSRNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSearchFSRNo.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchFSRNo.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchFSRNo.ForeColor = System.Drawing.Color.Black;
             this.txtSearchFSRNo.Location = new System.Drawing.Point(2, 2);
             this.txtSearchFSRNo.Name = "txtSearchFSRNo";
             this.txtSearchFSRNo.ReadOnly = true;
-            this.txtSearchFSRNo.Size = new System.Drawing.Size(378, 22);
+            this.txtSearchFSRNo.Size = new System.Drawing.Size(378, 26);
             this.txtSearchFSRNo.TabIndex = 156;
             // 
             // btnFSRSearch
@@ -5188,12 +5190,12 @@
             this.txtSearchServiceNo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtSearchServiceNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearchServiceNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSearchServiceNo.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchServiceNo.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchServiceNo.ForeColor = System.Drawing.Color.Black;
             this.txtSearchServiceNo.Location = new System.Drawing.Point(2, 1);
             this.txtSearchServiceNo.Name = "txtSearchServiceNo";
             this.txtSearchServiceNo.ReadOnly = true;
-            this.txtSearchServiceNo.Size = new System.Drawing.Size(378, 22);
+            this.txtSearchServiceNo.Size = new System.Drawing.Size(378, 26);
             this.txtSearchServiceNo.TabIndex = 163;
             // 
             // btnSearchMerchant
@@ -5412,11 +5414,12 @@
             // 
             // tabFillUp
             // 
+            this.tabFillUp.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabFillUp.Controls.Add(this.tabPage9);
             this.tabFillUp.Controls.Add(this.tabPage10);
             this.tabFillUp.Controls.Add(this.tabPage8);
             this.tabFillUp.Controls.Add(this.tabPage18);
-            this.tabFillUp.Font = new System.Drawing.Font("Arial", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabFillUp.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabFillUp.Location = new System.Drawing.Point(0, 353);
             this.tabFillUp.Name = "tabFillUp";
             this.tabFillUp.SelectedIndex = 0;
@@ -5427,10 +5430,10 @@
             // 
             this.tabPage9.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage9.Controls.Add(this.panel114);
-            this.tabPage9.Location = new System.Drawing.Point(4, 23);
+            this.tabPage9.Location = new System.Drawing.Point(4, 26);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(951, 143);
+            this.tabPage9.Size = new System.Drawing.Size(951, 140);
             this.tabPage9.TabIndex = 0;
             this.tabPage9.Text = "PROBLEM REPORTED / RM INSTRUCTIONS / REMARKS";
             // 
@@ -5660,10 +5663,10 @@
             // 
             this.tabPage10.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage10.Controls.Add(this.panel188);
-            this.tabPage10.Location = new System.Drawing.Point(4, 23);
+            this.tabPage10.Location = new System.Drawing.Point(4, 26);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(951, 143);
+            this.tabPage10.Size = new System.Drawing.Size(951, 140);
             this.tabPage10.TabIndex = 1;
             this.tabPage10.Text = "SERVICE CHANGES INFORMATION";
             // 
@@ -5733,10 +5736,10 @@
             this.tabPage8.Controls.Add(this.label151);
             this.tabPage8.Controls.Add(this.txtLineNo);
             this.tabPage8.Controls.Add(this.label148);
-            this.tabPage8.Location = new System.Drawing.Point(4, 23);
+            this.tabPage8.Location = new System.Drawing.Point(4, 26);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(951, 143);
+            this.tabPage8.Size = new System.Drawing.Size(951, 140);
             this.tabPage8.TabIndex = 2;
             this.tabPage8.Text = "ADDITIONAL COMPONENTS";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -6077,10 +6080,10 @@
             this.tabPage18.Controls.Add(this.label164);
             this.tabPage18.Controls.Add(this.txtGeneralFReference);
             this.tabPage18.Controls.Add(this.label160);
-            this.tabPage18.Location = new System.Drawing.Point(4, 23);
+            this.tabPage18.Location = new System.Drawing.Point(4, 26);
             this.tabPage18.Name = "tabPage18";
             this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage18.Size = new System.Drawing.Size(951, 143);
+            this.tabPage18.Size = new System.Drawing.Size(951, 140);
             this.tabPage18.TabIndex = 3;
             this.tabPage18.Text = "BEYOND REASON / REFERENCE INFO";
             this.tabPage18.UseVisualStyleBackColor = true;
@@ -8849,10 +8852,10 @@
             // tabPage20
             // 
             this.tabPage20.Controls.Add(this.tabControl2);
-            this.tabPage20.Location = new System.Drawing.Point(4, 25);
+            this.tabPage20.Location = new System.Drawing.Point(4, 28);
             this.tabPage20.Name = "tabPage20";
             this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage20.Size = new System.Drawing.Size(1376, 852);
+            this.tabPage20.Size = new System.Drawing.Size(1376, 849);
             this.tabPage20.TabIndex = 1;
             this.tabPage20.Text = "Additional Information";
             this.tabPage20.UseVisualStyleBackColor = true;
@@ -9008,10 +9011,10 @@
             this.tabPage24.Controls.Add(this.ucVendorHelpDeskRepInfo);
             this.tabPage24.Controls.Add(this.ucHelpDeskEntryInfo);
             this.tabPage24.Controls.Add(this.ucHelpDeskServiceInfo);
-            this.tabPage24.Location = new System.Drawing.Point(4, 25);
+            this.tabPage24.Location = new System.Drawing.Point(4, 28);
             this.tabPage24.Name = "tabPage24";
             this.tabPage24.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage24.Size = new System.Drawing.Size(1376, 852);
+            this.tabPage24.Size = new System.Drawing.Size(1376, 849);
             this.tabPage24.TabIndex = 2;
             this.tabPage24.Text = "Helpdesk Information";
             this.tabPage24.UseVisualStyleBackColor = true;
