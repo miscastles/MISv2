@@ -784,6 +784,7 @@
             // 
             // tabSIM
             // 
+            this.tabSIM.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabSIM.Controls.Add(this.tabPage1);
             this.tabSIM.Controls.Add(this.tabPage2);
             this.tabSIM.Controls.Add(this.tabPage3);
@@ -807,10 +808,10 @@
             this.tabPage1.Controls.Add(this.btnImportCancel);
             this.tabPage1.Controls.Add(this.bunifuCards3);
             this.tabPage1.Controls.Add(this.bunifuCards2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1257, 568);
+            this.tabPage1.Size = new System.Drawing.Size(1257, 565);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Import File";
             // 
@@ -1272,10 +1273,10 @@
             this.tabPage2.Controls.Add(this.btnSaveAutoGen);
             this.tabPage2.Controls.Add(this.bunifuCards5);
             this.tabPage2.Controls.Add(this.pnlGenerate);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 28);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1257, 568);
+            this.tabPage2.Size = new System.Drawing.Size(1257, 565);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Auto Generate SN";
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
@@ -1788,9 +1789,9 @@
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage3.Controls.Add(this.bunifuCards6);
             this.tabPage3.Controls.Add(this.bunifuCards4);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Location = new System.Drawing.Point(4, 28);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1257, 568);
+            this.tabPage3.Size = new System.Drawing.Size(1257, 565);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Manual Entry";
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
@@ -3275,10 +3276,10 @@
             this.tabPage4.Controls.Add(this.btnRAdd);
             this.tabPage4.Controls.Add(this.bunifuCards8);
             this.tabPage4.Controls.Add(this.bunifuCards1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Location = new System.Drawing.Point(4, 28);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1257, 568);
+            this.tabPage4.Size = new System.Drawing.Size(1257, 565);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Release / Transfer";
             this.tabPage4.UseVisualStyleBackColor = true;

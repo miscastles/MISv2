@@ -57,13 +57,20 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dtpDueDate = new System.Windows.Forms.DateTimePicker();
+            this.ucRoundPanel5 = new MIS.ControlObject.ucRoundPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dtpRefDate = new System.Windows.Forms.DateTimePicker();
+            this.ucRoundPanel4 = new MIS.ControlObject.ucRoundPanel();
             this.label12 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.txtTerms = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.ucRoundPanel1 = new MIS.ControlObject.ucRoundPanel();
+            this.ucRoundPanel2 = new MIS.ControlObject.ucRoundPanel();
+            this.ucRoundPanel3 = new MIS.ControlObject.ucRoundPanel();
+            this.ucRoundPanel7 = new MIS.ControlObject.ucRoundPanel();
+            this.ucRoundPanel6 = new MIS.ControlObject.ucRoundPanel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
@@ -78,13 +85,6 @@
             this.dgv_BillingHistory = new System.Windows.Forms.DataGridView();
             this.panel11 = new System.Windows.Forms.Panel();
             this.lblBillingHeader = new System.Windows.Forms.Label();
-            this.ucRoundPanel5 = new MIS.ControlObject.ucRoundPanel();
-            this.ucRoundPanel4 = new MIS.ControlObject.ucRoundPanel();
-            this.ucRoundPanel1 = new MIS.ControlObject.ucRoundPanel();
-            this.ucRoundPanel2 = new MIS.ControlObject.ucRoundPanel();
-            this.ucRoundPanel3 = new MIS.ControlObject.ucRoundPanel();
-            this.ucRoundPanel7 = new MIS.ControlObject.ucRoundPanel();
-            this.ucRoundPanel6 = new MIS.ControlObject.ucRoundPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_BillingRecords)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_BillingRemove)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -119,7 +119,7 @@
             this.dgv_BillingRecords.ReadOnly = true;
             this.dgv_BillingRecords.RowTemplate.Height = 30;
             this.dgv_BillingRecords.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_BillingRecords.Size = new System.Drawing.Size(1415, 227);
+            this.dgv_BillingRecords.Size = new System.Drawing.Size(1415, 224);
             this.dgv_BillingRecords.TabIndex = 0;
             this.dgv_BillingRecords.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_BillingRecords_CellDoubleClick);
             this.dgv_BillingRecords.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_BillingRecords_RowsAdded);
@@ -141,7 +141,7 @@
             this.dgv_BillingRemove.ReadOnly = true;
             this.dgv_BillingRemove.RowTemplate.Height = 30;
             this.dgv_BillingRemove.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_BillingRemove.Size = new System.Drawing.Size(1415, 227);
+            this.dgv_BillingRemove.Size = new System.Drawing.Size(1415, 224);
             this.dgv_BillingRemove.TabIndex = 1;
             this.dgv_BillingRemove.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_BillingRemove_CellDoubleClick);
             this.dgv_BillingRemove.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgv_BillingRemove_RowsAdded);
@@ -226,6 +226,7 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
@@ -238,21 +239,21 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.dgv_BillingRecords);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1421, 233);
+            this.tabPage1.Size = new System.Drawing.Size(1421, 230);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "   Preview   ";
+            this.tabPage1.Text = "   Included   ";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.dgv_BillingRemove);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1421, 233);
+            this.tabPage2.Size = new System.Drawing.Size(1421, 230);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "   Excluded   ";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -418,6 +419,14 @@
             this.dtpDueDate.Size = new System.Drawing.Size(186, 25);
             this.dtpDueDate.TabIndex = 15;
             // 
+            // ucRoundPanel5
+            // 
+            this.ucRoundPanel5.BackColor = System.Drawing.Color.White;
+            this.ucRoundPanel5.Location = new System.Drawing.Point(244, 191);
+            this.ucRoundPanel5.Name = "ucRoundPanel5";
+            this.ucRoundPanel5.Size = new System.Drawing.Size(205, 37);
+            this.ucRoundPanel5.TabIndex = 24;
+            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
@@ -439,6 +448,14 @@
             this.dtpRefDate.Name = "dtpRefDate";
             this.dtpRefDate.Size = new System.Drawing.Size(186, 25);
             this.dtpRefDate.TabIndex = 19;
+            // 
+            // ucRoundPanel4
+            // 
+            this.ucRoundPanel4.BackColor = System.Drawing.Color.White;
+            this.ucRoundPanel4.Location = new System.Drawing.Point(19, 191);
+            this.ucRoundPanel4.Name = "ucRoundPanel4";
+            this.ucRoundPanel4.Size = new System.Drawing.Size(205, 37);
+            this.ucRoundPanel4.TabIndex = 23;
             // 
             // label12
             // 
@@ -493,6 +510,46 @@
             this.label11.Size = new System.Drawing.Size(45, 17);
             this.label11.TabIndex = 16;
             this.label11.Text = "Terms";
+            // 
+            // ucRoundPanel1
+            // 
+            this.ucRoundPanel1.BackColor = System.Drawing.Color.White;
+            this.ucRoundPanel1.Location = new System.Drawing.Point(19, 92);
+            this.ucRoundPanel1.Name = "ucRoundPanel1";
+            this.ucRoundPanel1.Size = new System.Drawing.Size(327, 37);
+            this.ucRoundPanel1.TabIndex = 20;
+            // 
+            // ucRoundPanel2
+            // 
+            this.ucRoundPanel2.BackColor = System.Drawing.Color.White;
+            this.ucRoundPanel2.Location = new System.Drawing.Point(365, 92);
+            this.ucRoundPanel2.Name = "ucRoundPanel2";
+            this.ucRoundPanel2.Size = new System.Drawing.Size(255, 37);
+            this.ucRoundPanel2.TabIndex = 21;
+            // 
+            // ucRoundPanel3
+            // 
+            this.ucRoundPanel3.BackColor = System.Drawing.Color.White;
+            this.ucRoundPanel3.Location = new System.Drawing.Point(468, 191);
+            this.ucRoundPanel3.Name = "ucRoundPanel3";
+            this.ucRoundPanel3.Size = new System.Drawing.Size(152, 37);
+            this.ucRoundPanel3.TabIndex = 22;
+            // 
+            // ucRoundPanel7
+            // 
+            this.ucRoundPanel7.BackColor = System.Drawing.Color.White;
+            this.ucRoundPanel7.Location = new System.Drawing.Point(468, 291);
+            this.ucRoundPanel7.Name = "ucRoundPanel7";
+            this.ucRoundPanel7.Size = new System.Drawing.Size(152, 37);
+            this.ucRoundPanel7.TabIndex = 29;
+            // 
+            // ucRoundPanel6
+            // 
+            this.ucRoundPanel6.BackColor = System.Drawing.Color.White;
+            this.ucRoundPanel6.Location = new System.Drawing.Point(20, 291);
+            this.ucRoundPanel6.Name = "ucRoundPanel6";
+            this.ucRoundPanel6.Size = new System.Drawing.Size(429, 37);
+            this.ucRoundPanel6.TabIndex = 27;
             // 
             // panel5
             // 
@@ -676,62 +733,6 @@
             this.lblBillingHeader.Size = new System.Drawing.Size(109, 20);
             this.lblBillingHeader.TabIndex = 3;
             this.lblBillingHeader.Text = "Billing History";
-            // 
-            // ucRoundPanel5
-            // 
-            this.ucRoundPanel5.BackColor = System.Drawing.Color.White;
-            this.ucRoundPanel5.Location = new System.Drawing.Point(244, 191);
-            this.ucRoundPanel5.Name = "ucRoundPanel5";
-            this.ucRoundPanel5.Size = new System.Drawing.Size(205, 37);
-            this.ucRoundPanel5.TabIndex = 24;
-            // 
-            // ucRoundPanel4
-            // 
-            this.ucRoundPanel4.BackColor = System.Drawing.Color.White;
-            this.ucRoundPanel4.Location = new System.Drawing.Point(19, 191);
-            this.ucRoundPanel4.Name = "ucRoundPanel4";
-            this.ucRoundPanel4.Size = new System.Drawing.Size(205, 37);
-            this.ucRoundPanel4.TabIndex = 23;
-            // 
-            // ucRoundPanel1
-            // 
-            this.ucRoundPanel1.BackColor = System.Drawing.Color.White;
-            this.ucRoundPanel1.Location = new System.Drawing.Point(19, 92);
-            this.ucRoundPanel1.Name = "ucRoundPanel1";
-            this.ucRoundPanel1.Size = new System.Drawing.Size(327, 37);
-            this.ucRoundPanel1.TabIndex = 20;
-            // 
-            // ucRoundPanel2
-            // 
-            this.ucRoundPanel2.BackColor = System.Drawing.Color.White;
-            this.ucRoundPanel2.Location = new System.Drawing.Point(365, 92);
-            this.ucRoundPanel2.Name = "ucRoundPanel2";
-            this.ucRoundPanel2.Size = new System.Drawing.Size(255, 37);
-            this.ucRoundPanel2.TabIndex = 21;
-            // 
-            // ucRoundPanel3
-            // 
-            this.ucRoundPanel3.BackColor = System.Drawing.Color.White;
-            this.ucRoundPanel3.Location = new System.Drawing.Point(468, 191);
-            this.ucRoundPanel3.Name = "ucRoundPanel3";
-            this.ucRoundPanel3.Size = new System.Drawing.Size(152, 37);
-            this.ucRoundPanel3.TabIndex = 22;
-            // 
-            // ucRoundPanel7
-            // 
-            this.ucRoundPanel7.BackColor = System.Drawing.Color.White;
-            this.ucRoundPanel7.Location = new System.Drawing.Point(468, 291);
-            this.ucRoundPanel7.Name = "ucRoundPanel7";
-            this.ucRoundPanel7.Size = new System.Drawing.Size(152, 37);
-            this.ucRoundPanel7.TabIndex = 29;
-            // 
-            // ucRoundPanel6
-            // 
-            this.ucRoundPanel6.BackColor = System.Drawing.Color.White;
-            this.ucRoundPanel6.Location = new System.Drawing.Point(20, 291);
-            this.ucRoundPanel6.Name = "ucRoundPanel6";
-            this.ucRoundPanel6.Size = new System.Drawing.Size(429, 37);
-            this.ucRoundPanel6.TabIndex = 27;
             // 
             // frmServicesBilling
             // 

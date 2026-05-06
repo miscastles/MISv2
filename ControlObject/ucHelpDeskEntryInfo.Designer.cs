@@ -91,6 +91,7 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
@@ -113,10 +114,10 @@
             this.tabPage1.Controls.Add(this.txtActionTaken);
             this.tabPage1.Controls.Add(this.label111);
             this.tabPage1.Controls.Add(this.txtProbReported);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(962, 108);
+            this.tabPage1.Size = new System.Drawing.Size(962, 105);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "PROBLEM REPORTED/REMARKS";
             // 
@@ -232,10 +233,10 @@
             this.tabPage2.Controls.Add(this.label96);
             this.tabPage2.Controls.Add(this.label98);
             this.tabPage2.Controls.Add(this.label97);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(962, 108);
+            this.tabPage2.Size = new System.Drawing.Size(962, 105);
             this.tabPage2.TabIndex = 2;
             this.tabPage2.Text = "MERCHANT CONTACT";
             // 
@@ -379,10 +380,10 @@
             this.tabPage4.Controls.Add(this.label9);
             this.tabPage4.Controls.Add(this.txtOptTerminalSN);
             this.tabPage4.Controls.Add(this.label10);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Location = new System.Drawing.Point(4, 27);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(962, 108);
+            this.tabPage4.Size = new System.Drawing.Size(962, 105);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "TERMINAL/SIM/DOCKER (OPTIONAL)";
             // 
@@ -458,10 +459,10 @@
             this.tabPage3.Controls.Add(this.txtFUAppVersion);
             this.tabPage3.Controls.Add(this.label47);
             this.tabPage3.Controls.Add(this.txtFUAppCRC);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(962, 108);
+            this.tabPage3.Size = new System.Drawing.Size(962, 105);
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "CURRENT APPLICATION INFO";
             this.tabPage3.UseVisualStyleBackColor = true;

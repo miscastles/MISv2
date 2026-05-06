@@ -98,6 +98,7 @@ namespace MIS
             this.chkOverwrite = new System.Windows.Forms.CheckBox();
             this.lblSelectedRow = new System.Windows.Forms.Label();
             this.panel37 = new System.Windows.Forms.Panel();
+            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
             this.label7 = new System.Windows.Forms.Label();
@@ -131,6 +132,10 @@ namespace MIS
             this.panel34 = new System.Windows.Forms.Panel();
             this.tabControl6 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.txtSIMCarrier = new System.Windows.Forms.TextBox();
+            this.txtTerminalModel = new System.Windows.Forms.TextBox();
+            this.txtTerminalType = new System.Windows.Forms.TextBox();
+            this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.btnRemoveSIM = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnSearchSIM = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnRemoveTerminal = new Bunifu.Framework.UI.BunifuImageButton();
@@ -328,11 +333,6 @@ namespace MIS
             this.lvwSearch = new System.Windows.Forms.ListView();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.txtRentalFeeID = new System.Windows.Forms.TextBox();
-            this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
-            this.txtTerminalType = new System.Windows.Forms.TextBox();
-            this.txtTerminalModel = new System.Windows.Forms.TextBox();
-            this.txtSIMCarrier = new System.Windows.Forms.TextBox();
-            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddMerchant)).BeginInit();
@@ -773,6 +773,7 @@ namespace MIS
             // 
             // tabTerminal
             // 
+            this.tabTerminal.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabTerminal.Controls.Add(this.tabPage2);
             this.tabTerminal.Controls.Add(this.tabPage1);
             this.tabTerminal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -794,10 +795,10 @@ namespace MIS
             this.tabPage2.Controls.Add(this.bunifuCards3);
             this.tabPage2.Controls.Add(this.btnCancel);
             this.tabPage2.Controls.Add(this.btnSave);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 28);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1328, 675);
+            this.tabPage2.Size = new System.Drawing.Size(1328, 672);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Import File";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1205,6 +1206,14 @@ namespace MIS
             this.panel37.Size = new System.Drawing.Size(415, 2);
             this.panel37.TabIndex = 0;
             // 
+            // ucStatusDisplay
+            // 
+            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 642);
+            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ucStatusDisplay.Name = "ucStatusDisplay";
+            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
+            this.ucStatusDisplay.TabIndex = 346;
+            // 
             // txtRemarks
             // 
             this.txtRemarks.BackColor = System.Drawing.Color.White;
@@ -1487,10 +1496,10 @@ namespace MIS
             this.tabPage1.Controls.Add(this.btnMClear);
             this.tabPage1.Controls.Add(this.btnMAdd);
             this.tabPage1.Controls.Add(this.btnMSave);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1328, 675);
+            this.tabPage1.Size = new System.Drawing.Size(1328, 672);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Manual Entry";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1613,10 +1622,11 @@ namespace MIS
             // 
             // tabControl6
             // 
+            this.tabControl6.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl6.Controls.Add(this.tabPage3);
             this.tabControl6.Controls.Add(this.tabPage15);
             this.tabControl6.Controls.Add(this.tabPage5);
-            this.tabControl6.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl6.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl6.Location = new System.Drawing.Point(3, 3);
             this.tabControl6.Name = "tabControl6";
             this.tabControl6.SelectedIndex = 0;
@@ -1647,13 +1657,62 @@ namespace MIS
             this.tabPage3.Controls.Add(this.txtStatusID);
             this.tabPage3.Controls.Add(this.label45);
             this.tabPage3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(399, 205);
+            this.tabPage3.Size = new System.Drawing.Size(399, 203);
             this.tabPage3.TabIndex = 0;
-            this.tabPage3.Text = "Basic Information";
+            this.tabPage3.Text = "BASIC INFORMATION";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // txtSIMCarrier
+            // 
+            this.txtSIMCarrier.BackColor = System.Drawing.Color.White;
+            this.txtSIMCarrier.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSIMCarrier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSIMCarrier.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtSIMCarrier.Location = new System.Drawing.Point(78, 128);
+            this.txtSIMCarrier.Name = "txtSIMCarrier";
+            this.txtSIMCarrier.ReadOnly = true;
+            this.txtSIMCarrier.Size = new System.Drawing.Size(317, 20);
+            this.txtSIMCarrier.TabIndex = 491;
+            // 
+            // txtTerminalModel
+            // 
+            this.txtTerminalModel.BackColor = System.Drawing.Color.White;
+            this.txtTerminalModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTerminalModel.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTerminalModel.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtTerminalModel.Location = new System.Drawing.Point(230, 80);
+            this.txtTerminalModel.Name = "txtTerminalModel";
+            this.txtTerminalModel.ReadOnly = true;
+            this.txtTerminalModel.Size = new System.Drawing.Size(166, 20);
+            this.txtTerminalModel.TabIndex = 490;
+            // 
+            // txtTerminalType
+            // 
+            this.txtTerminalType.BackColor = System.Drawing.Color.White;
+            this.txtTerminalType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTerminalType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTerminalType.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtTerminalType.Location = new System.Drawing.Point(78, 80);
+            this.txtTerminalType.Name = "txtTerminalType";
+            this.txtTerminalType.ReadOnly = true;
+            this.txtTerminalType.Size = new System.Drawing.Size(146, 20);
+            this.txtTerminalType.TabIndex = 489;
+            // 
+            // bunifuSeparator1
+            // 
+            this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.bunifuSeparator1.LineThickness = 1;
+            this.bunifuSeparator1.Location = new System.Drawing.Point(7, 51);
+            this.bunifuSeparator1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.bunifuSeparator1.Name = "bunifuSeparator1";
+            this.bunifuSeparator1.Size = new System.Drawing.Size(388, 5);
+            this.bunifuSeparator1.TabIndex = 488;
+            this.bunifuSeparator1.Transparency = 255;
+            this.bunifuSeparator1.Vertical = false;
             // 
             // btnRemoveSIM
             // 
@@ -1877,12 +1936,12 @@ namespace MIS
             this.tabPage15.Controls.Add(this.lvwMerchant);
             this.tabPage15.Controls.Add(this.btnAddTerminal);
             this.tabPage15.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage15.Location = new System.Drawing.Point(4, 25);
+            this.tabPage15.Location = new System.Drawing.Point(4, 27);
             this.tabPage15.Name = "tabPage15";
             this.tabPage15.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage15.Size = new System.Drawing.Size(399, 205);
+            this.tabPage15.Size = new System.Drawing.Size(399, 203);
             this.tabPage15.TabIndex = 1;
-            this.tabPage15.Text = "Multi-Merchant";
+            this.tabPage15.Text = "MULTI-MERCHANT INFO";
             this.tabPage15.UseVisualStyleBackColor = true;
             // 
             // lvwMerchant
@@ -1979,12 +2038,12 @@ namespace MIS
             this.tabPage5.Controls.Add(this.label37);
             this.tabPage5.Controls.Add(this.label35);
             this.tabPage5.Controls.Add(this.label36);
-            this.tabPage5.Location = new System.Drawing.Point(4, 25);
+            this.tabPage5.Location = new System.Drawing.Point(4, 27);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(399, 205);
+            this.tabPage5.Size = new System.Drawing.Size(399, 203);
             this.tabPage5.TabIndex = 2;
-            this.tabPage5.Text = "Tenure";
+            this.tabPage5.Text = "TENURE INFO";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // txtProfileECRIntegration
@@ -3957,63 +4016,6 @@ namespace MIS
             this.txtRentalFeeID.TabIndex = 426;
             this.txtRentalFeeID.Visible = false;
             this.txtRentalFeeID.WordWrap = false;
-            // 
-            // bunifuSeparator1
-            // 
-            this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(7, 51);
-            this.bunifuSeparator1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.bunifuSeparator1.Name = "bunifuSeparator1";
-            this.bunifuSeparator1.Size = new System.Drawing.Size(388, 5);
-            this.bunifuSeparator1.TabIndex = 488;
-            this.bunifuSeparator1.Transparency = 255;
-            this.bunifuSeparator1.Vertical = false;
-            // 
-            // txtTerminalType
-            // 
-            this.txtTerminalType.BackColor = System.Drawing.Color.White;
-            this.txtTerminalType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTerminalType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTerminalType.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtTerminalType.Location = new System.Drawing.Point(78, 80);
-            this.txtTerminalType.Name = "txtTerminalType";
-            this.txtTerminalType.ReadOnly = true;
-            this.txtTerminalType.Size = new System.Drawing.Size(146, 20);
-            this.txtTerminalType.TabIndex = 489;
-            // 
-            // txtTerminalModel
-            // 
-            this.txtTerminalModel.BackColor = System.Drawing.Color.White;
-            this.txtTerminalModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTerminalModel.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTerminalModel.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtTerminalModel.Location = new System.Drawing.Point(230, 80);
-            this.txtTerminalModel.Name = "txtTerminalModel";
-            this.txtTerminalModel.ReadOnly = true;
-            this.txtTerminalModel.Size = new System.Drawing.Size(166, 20);
-            this.txtTerminalModel.TabIndex = 490;
-            // 
-            // txtSIMCarrier
-            // 
-            this.txtSIMCarrier.BackColor = System.Drawing.Color.White;
-            this.txtSIMCarrier.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSIMCarrier.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSIMCarrier.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtSIMCarrier.Location = new System.Drawing.Point(78, 128);
-            this.txtSIMCarrier.Name = "txtSIMCarrier";
-            this.txtSIMCarrier.ReadOnly = true;
-            this.txtSIMCarrier.Size = new System.Drawing.Size(317, 20);
-            this.txtSIMCarrier.TabIndex = 491;
-            // 
-            // ucStatusDisplay
-            // 
-            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 642);
-            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucStatusDisplay.Name = "ucStatusDisplay";
-            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
-            this.ucStatusDisplay.TabIndex = 346;
             // 
             // frmImportIR
             // 

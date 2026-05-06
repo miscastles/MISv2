@@ -2065,12 +2065,12 @@
             this.txtSearchIRNo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtSearchIRNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearchIRNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSearchIRNo.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchIRNo.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchIRNo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.txtSearchIRNo.Location = new System.Drawing.Point(2, 1);
             this.txtSearchIRNo.Name = "txtSearchIRNo";
             this.txtSearchIRNo.ReadOnly = true;
-            this.txtSearchIRNo.Size = new System.Drawing.Size(379, 22);
+            this.txtSearchIRNo.Size = new System.Drawing.Size(379, 24);
             this.txtSearchIRNo.TabIndex = 156;
             // 
             // txtMerchantRegion
@@ -2306,7 +2306,7 @@
             this.lvwList.HideSelection = false;
             this.lvwList.Location = new System.Drawing.Point(0, 0);
             this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(400, 97);
+            this.lvwList.Size = new System.Drawing.Size(400, 94);
             this.lvwList.TabIndex = 116;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
@@ -3007,6 +3007,7 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage14);
             this.tabControl1.Controls.Add(this.tabPage19);
@@ -3041,10 +3042,10 @@
             this.tabPage1.Controls.Add(this.btnClear);
             this.tabPage1.Controls.Add(this.btnDispatchJO);
             this.tabPage1.Controls.Add(this.tabControl8);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1377, 858);
+            this.tabPage1.Size = new System.Drawing.Size(1377, 855);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
@@ -3395,6 +3396,7 @@
             // 
             // tabMain
             // 
+            this.tabMain.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabMain.Controls.Add(this.tabPage5);
             this.tabMain.Controls.Add(this.tabPage4);
             this.tabMain.Controls.Add(this.tabPage3);
@@ -3411,10 +3413,10 @@
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.panel143);
-            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Location = new System.Drawing.Point(4, 27);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(408, 105);
+            this.tabPage5.Size = new System.Drawing.Size(408, 102);
             this.tabPage5.TabIndex = 3;
             this.tabPage5.Text = "FUNCTION";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -3431,7 +3433,7 @@
             this.panel143.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel143.Location = new System.Drawing.Point(3, 3);
             this.panel143.Name = "panel143";
-            this.panel143.Size = new System.Drawing.Size(402, 99);
+            this.panel143.Size = new System.Drawing.Size(402, 96);
             this.panel143.TabIndex = 474;
             // 
             // btnSendServiceEmail
@@ -3473,10 +3475,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.panel135);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Location = new System.Drawing.Point(4, 27);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(408, 105);
+            this.tabPage4.Size = new System.Drawing.Size(408, 102);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "HISTORY";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -3490,7 +3492,7 @@
             this.panel135.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel135.Location = new System.Drawing.Point(3, 3);
             this.panel135.Name = "panel135";
-            this.panel135.Size = new System.Drawing.Size(402, 99);
+            this.panel135.Size = new System.Drawing.Size(402, 96);
             this.panel135.TabIndex = 448;
             // 
             // tabPage3
@@ -3506,10 +3508,10 @@
             this.tabPage3.Controls.Add(this.txtGeoLongitude);
             this.tabPage3.Controls.Add(this.label122);
             this.tabPage3.Controls.Add(this.txtGeoLatitude);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(408, 105);
+            this.tabPage3.Size = new System.Drawing.Size(408, 102);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "GEOMETRIC";
             // 
@@ -3636,10 +3638,10 @@
             this.tabPage6.Controls.Add(this.txtNetworkDays);
             this.tabPage6.Controls.Add(this.label130);
             this.tabPage6.Controls.Add(this.txtSLA);
-            this.tabPage6.Location = new System.Drawing.Point(4, 24);
+            this.tabPage6.Location = new System.Drawing.Point(4, 27);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(408, 105);
+            this.tabPage6.Size = new System.Drawing.Size(408, 102);
             this.tabPage6.TabIndex = 4;
             this.tabPage6.Text = "SLA/TAT";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -3764,10 +3766,10 @@
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage2.Controls.Add(this.panel52);
             this.tabPage2.Controls.Add(this.panel21);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(408, 105);
+            this.tabPage2.Size = new System.Drawing.Size(408, 102);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "SWITCH SN";
             // 
@@ -3965,10 +3967,10 @@
             this.tabPage7.Controls.Add(this.txtMobileVersion);
             this.tabPage7.Controls.Add(this.label146);
             this.tabPage7.Controls.Add(this.txtMobileTerminalID);
-            this.tabPage7.Location = new System.Drawing.Point(4, 24);
+            this.tabPage7.Location = new System.Drawing.Point(4, 27);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(408, 105);
+            this.tabPage7.Size = new System.Drawing.Size(408, 102);
             this.tabPage7.TabIndex = 5;
             this.tabPage7.Text = "MOBILE";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -4897,12 +4899,12 @@
             this.txtSearchMerchantName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtSearchMerchantName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearchMerchantName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSearchMerchantName.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchMerchantName.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchMerchantName.ForeColor = System.Drawing.Color.Black;
             this.txtSearchMerchantName.Location = new System.Drawing.Point(1, 1);
             this.txtSearchMerchantName.Name = "txtSearchMerchantName";
             this.txtSearchMerchantName.ReadOnly = true;
-            this.txtSearchMerchantName.Size = new System.Drawing.Size(379, 22);
+            this.txtSearchMerchantName.Size = new System.Drawing.Size(379, 24);
             this.txtSearchMerchantName.TabIndex = 167;
             // 
             // panel158
@@ -5931,10 +5933,11 @@
             // 
             // tabFillUp
             // 
+            this.tabFillUp.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabFillUp.Controls.Add(this.tabPage9);
             this.tabFillUp.Controls.Add(this.tabPage10);
             this.tabFillUp.Controls.Add(this.tabPage8);
-            this.tabFillUp.Font = new System.Drawing.Font("Arial", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabFillUp.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabFillUp.Location = new System.Drawing.Point(-2, 314);
             this.tabFillUp.Name = "tabFillUp";
             this.tabFillUp.SelectedIndex = 0;
@@ -5946,10 +5949,10 @@
             this.tabPage9.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage9.Controls.Add(this.panel194);
             this.tabPage9.Controls.Add(this.panel90);
-            this.tabPage9.Location = new System.Drawing.Point(4, 23);
+            this.tabPage9.Location = new System.Drawing.Point(4, 26);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(951, 160);
+            this.tabPage9.Size = new System.Drawing.Size(951, 157);
             this.tabPage9.TabIndex = 0;
             this.tabPage9.Text = "PROBLEM REPORTED / RM INSTRUCTIONS / REMARKS";
             // 
@@ -6255,10 +6258,10 @@
             // 
             this.tabPage10.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage10.Controls.Add(this.panel188);
-            this.tabPage10.Location = new System.Drawing.Point(4, 23);
+            this.tabPage10.Location = new System.Drawing.Point(4, 26);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(951, 160);
+            this.tabPage10.Size = new System.Drawing.Size(951, 157);
             this.tabPage10.TabIndex = 1;
             this.tabPage10.Text = "SERVICE CHANGES INFORMATION";
             // 
@@ -6371,9 +6374,9 @@
             // tabPage8
             // 
             this.tabPage8.Controls.Add(this.panel197);
-            this.tabPage8.Location = new System.Drawing.Point(4, 23);
+            this.tabPage8.Location = new System.Drawing.Point(4, 26);
             this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(951, 160);
+            this.tabPage8.Size = new System.Drawing.Size(951, 157);
             this.tabPage8.TabIndex = 2;
             this.tabPage8.Text = "ADDITIONAL COMPONENTS";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -6395,7 +6398,7 @@
             this.panel197.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel197.Location = new System.Drawing.Point(0, 0);
             this.panel197.Name = "panel197";
-            this.panel197.Size = new System.Drawing.Size(951, 160);
+            this.panel197.Size = new System.Drawing.Size(951, 157);
             this.panel197.TabIndex = 450;
             // 
             // txtItemID
@@ -8289,7 +8292,7 @@
             this.label20.ForeColor = System.Drawing.Color.Black;
             this.label20.Location = new System.Drawing.Point(3, 4);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(138, 16);
+            this.label20.Size = new System.Drawing.Size(139, 16);
             this.label20.TabIndex = 310;
             this.label20.Text = "SELECT SERVICE TYPE";
             // 
@@ -8984,16 +8987,17 @@
             // tabPage14
             // 
             this.tabPage14.Controls.Add(this.tabControl2);
-            this.tabPage14.Location = new System.Drawing.Point(4, 25);
+            this.tabPage14.Location = new System.Drawing.Point(4, 28);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(1377, 858);
+            this.tabPage14.Size = new System.Drawing.Size(1377, 855);
             this.tabPage14.TabIndex = 1;
             this.tabPage14.Text = "Additional Information";
             this.tabPage14.UseVisualStyleBackColor = true;
             // 
             // tabControl2
             // 
+            this.tabControl2.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl2.Controls.Add(this.tabPage21);
             this.tabControl2.Controls.Add(this.tabPage22);
             this.tabControl2.Controls.Add(this.tabPage12);
@@ -9009,10 +9013,10 @@
             // 
             this.tabPage21.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage21.Controls.Add(this.lvwMM);
-            this.tabPage21.Location = new System.Drawing.Point(4, 24);
+            this.tabPage21.Location = new System.Drawing.Point(4, 27);
             this.tabPage21.Name = "tabPage21";
             this.tabPage21.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage21.Size = new System.Drawing.Size(1368, 419);
+            this.tabPage21.Size = new System.Drawing.Size(1368, 416);
             this.tabPage21.TabIndex = 1;
             this.tabPage21.Text = "MULTI MERCHANT";
             // 
@@ -9032,7 +9036,7 @@
             this.lvwMM.HideSelection = false;
             this.lvwMM.Location = new System.Drawing.Point(3, 3);
             this.lvwMM.Name = "lvwMM";
-            this.lvwMM.Size = new System.Drawing.Size(1362, 413);
+            this.lvwMM.Size = new System.Drawing.Size(1362, 410);
             this.lvwMM.TabIndex = 314;
             this.lvwMM.UseCompatibleStateImageBehavior = false;
             this.lvwMM.View = System.Windows.Forms.View.Details;
@@ -9060,10 +9064,10 @@
             // tabPage22
             // 
             this.tabPage22.Controls.Add(this.lvwProfile1);
-            this.tabPage22.Location = new System.Drawing.Point(4, 24);
+            this.tabPage22.Location = new System.Drawing.Point(4, 27);
             this.tabPage22.Name = "tabPage22";
             this.tabPage22.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage22.Size = new System.Drawing.Size(1368, 419);
+            this.tabPage22.Size = new System.Drawing.Size(1368, 416);
             this.tabPage22.TabIndex = 3;
             this.tabPage22.Text = "PROFILE CONFIG 1";
             this.tabPage22.UseVisualStyleBackColor = true;
@@ -9079,7 +9083,7 @@
             this.lvwProfile1.HideSelection = false;
             this.lvwProfile1.Location = new System.Drawing.Point(3, 3);
             this.lvwProfile1.Name = "lvwProfile1";
-            this.lvwProfile1.Size = new System.Drawing.Size(1362, 413);
+            this.lvwProfile1.Size = new System.Drawing.Size(1362, 410);
             this.lvwProfile1.TabIndex = 316;
             this.lvwProfile1.UseCompatibleStateImageBehavior = false;
             this.lvwProfile1.View = System.Windows.Forms.View.Details;
@@ -9087,10 +9091,10 @@
             // tabPage12
             // 
             this.tabPage12.Controls.Add(this.lvwProfile2);
-            this.tabPage12.Location = new System.Drawing.Point(4, 24);
+            this.tabPage12.Location = new System.Drawing.Point(4, 27);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(1368, 419);
+            this.tabPage12.Size = new System.Drawing.Size(1368, 416);
             this.tabPage12.TabIndex = 5;
             this.tabPage12.Text = "PROFILE CONFIG 2";
             this.tabPage12.UseVisualStyleBackColor = true;
@@ -9106,7 +9110,7 @@
             this.lvwProfile2.HideSelection = false;
             this.lvwProfile2.Location = new System.Drawing.Point(3, 3);
             this.lvwProfile2.Name = "lvwProfile2";
-            this.lvwProfile2.Size = new System.Drawing.Size(1362, 413);
+            this.lvwProfile2.Size = new System.Drawing.Size(1362, 410);
             this.lvwProfile2.TabIndex = 317;
             this.lvwProfile2.UseCompatibleStateImageBehavior = false;
             this.lvwProfile2.View = System.Windows.Forms.View.Details;
@@ -9114,10 +9118,10 @@
             // tabPage23
             // 
             this.tabPage23.Controls.Add(this.lvwRaw);
-            this.tabPage23.Location = new System.Drawing.Point(4, 24);
+            this.tabPage23.Location = new System.Drawing.Point(4, 27);
             this.tabPage23.Name = "tabPage23";
             this.tabPage23.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage23.Size = new System.Drawing.Size(1368, 419);
+            this.tabPage23.Size = new System.Drawing.Size(1368, 416);
             this.tabPage23.TabIndex = 4;
             this.tabPage23.Text = "RAW DATA";
             this.tabPage23.UseVisualStyleBackColor = true;
@@ -9133,7 +9137,7 @@
             this.lvwRaw.HideSelection = false;
             this.lvwRaw.Location = new System.Drawing.Point(3, 3);
             this.lvwRaw.Name = "lvwRaw";
-            this.lvwRaw.Size = new System.Drawing.Size(1362, 413);
+            this.lvwRaw.Size = new System.Drawing.Size(1362, 410);
             this.lvwRaw.TabIndex = 315;
             this.lvwRaw.UseCompatibleStateImageBehavior = false;
             this.lvwRaw.View = System.Windows.Forms.View.Details;
@@ -9144,10 +9148,10 @@
             this.tabPage19.Controls.Add(this.ucVendorHelpDeskTeamLeadInfo);
             this.tabPage19.Controls.Add(this.ucVendorHelpDeskRepInfo);
             this.tabPage19.Controls.Add(this.ucHelpDeskServiceInfo);
-            this.tabPage19.Location = new System.Drawing.Point(4, 25);
+            this.tabPage19.Location = new System.Drawing.Point(4, 28);
             this.tabPage19.Name = "tabPage19";
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(1377, 858);
+            this.tabPage19.Size = new System.Drawing.Size(1377, 855);
             this.tabPage19.TabIndex = 2;
             this.tabPage19.Text = "Helpdesk Information";
             this.tabPage19.UseVisualStyleBackColor = true;

@@ -964,6 +964,9 @@ namespace MIS
 
             iniComboBoxSelection(false);
 
+            remainingSeconds = 0;
+            lblCountDown.Visible = false;
+
             Cursor.Current = Cursors.Default;
 
         }

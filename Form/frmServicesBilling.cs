@@ -294,7 +294,7 @@ namespace MIS
             var row = dgv_BillingRemove.Rows[rowIndex];
 
             // 🔥 Dynamic RETURN confirmation
-            string message = BuildDynamicMessage(row, billingConfig[id], "RETURN");
+            string message = BuildDynamicMessage(row, billingConfig[id], "INCLUDE");
 
             if (!dbFunction.fPromptConfirmation(message))
                 return;
@@ -332,7 +332,7 @@ namespace MIS
             var row = dgv_BillingRecords.Rows[rowIndex];
 
             // Dynamic message
-            string message = BuildDynamicMessage(row, billingConfig[id], "REMOVE");
+            string message = BuildDynamicMessage(row, billingConfig[id], "EXCLUDE");
 
             if (!dbFunction.fPromptConfirmation(message))
                 return;
@@ -506,10 +506,9 @@ namespace MIS
                     return;
             }
 
-            clsSearch.ClassBillngFileName = $"{clsSearch.ClassBankCode}_Billing_{description}" +
-                                            $"_Coverage_{date_coverage}" +
-                                            $"_Created_{date_created}" +
-                                            $"_Units_{units}_{dbFunction.getCurrentDate()}.xlsx";
+            clsSearch.ClassBillngFileName = $"{clsSearch.ClassBankCode}_{description}" +
+                                            $"_{date_coverage}" +                                            
+                                            $".xlsx";
             clsSearch.ClassBillngFileName = dbFunction.CleanFileName(clsSearch.ClassBillngFileName);
 
             setExportData(Dt);
@@ -546,11 +545,9 @@ namespace MIS
         private void btn_GenExcel_Click(object sender, EventArgs e)
         {
             clsSearch.ClassBillngFileName =
-                                            $"{clsSearch.ClassBankCode}_Billing_{cmb_BillingType.Text}" +
-                                            $"_Coverage_{dtpRefDate.Value:yyyy-MM-dd}" +
-                                            $"_Created_{dbFunction.getCurrentDate()}" +
-                                            $"_Units_{dgv_BillingRecords.Rows.Count}" +
-                                            $"_{dbFunction.getCurrentDate()}.xlsx";
+                                            $"{clsSearch.ClassBankCode}_{cmb_BillingType.Text}" +
+                                            $"_{dtpRefDate.Value:yyyy-MM-dd}" +                                            
+                                            $".xlsx";
             clsSearch.ClassBillngFileName = dbFunction.CleanFileName(clsSearch.ClassBillngFileName);
             getExcel();
         }
@@ -699,7 +696,7 @@ namespace MIS
                 sb.AppendLine($"{field.Label.PadRight(15)}: {value}");
             }
 
-            sb.AppendLine($"\nThis will move the record {(action == "REMOVE" ? "to the removed list" : "back to the main list")}.");
+            sb.AppendLine($"\nThis will move the record {(action == "EXCLUDE" ? "to the excluded list" : "back to the included list")}.");
             sb.Append("Do you want to continue?");
 
             return sb.ToString();

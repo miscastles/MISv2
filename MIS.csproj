@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>51</ApplicationRevision>
+    <ApplicationRevision>54</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -559,6 +559,12 @@
     </Compile>
     <Compile Include="Form\frmMInventoryDeletion.Designer.cs">
       <DependentUpon>frmMInventoryDeletion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmDummy3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmDummy3.Designer.cs">
+      <DependentUpon>frmDummy3.cs</DependentUpon>
     </Compile>
     <Compile Include="Function\DataGridViewHelper.cs" />
     <Compile Include="Function\clsErrorHelper.cs" />
@@ -1494,6 +1500,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmDummy2.resx">
       <DependentUpon>frmDummy2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmDummy3.resx">
+      <DependentUpon>frmDummy3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmImportERM.resx">
       <DependentUpon>frmImportERM.cs</DependentUpon>
