@@ -278,6 +278,9 @@ namespace MIS
             dbFunction.InitBankLogo(imgBankLogo);
 
             initShortCutKeyboard();
+
+            // init subAppsName
+            lblSubAppsName.Text = $"[ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
             
             Cursor.Current = Cursors.Default;
         }

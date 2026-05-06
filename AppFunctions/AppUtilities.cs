@@ -601,13 +601,11 @@ namespace MIS.Function
         {
             try
             {
-
                 if (Dt.Rows.Count != 0)
                 {
-                    // Set the LicenseContext property to NonCommercial
+                    // EPPlus License
                     ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-                    // Create a SaveFileDialog instance
                     SaveFileDialog sfd = new SaveFileDialog();
                     sfd.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
                     sfd.FilterIndex = 1;
@@ -619,33 +617,84 @@ namespace MIS.Function
                     {
                         string filePath = sfd.FileName;
 
-                        // Create a copy of the DataTable
+                        // Copy DataTable
                         DataTable copyDt = Dt.Copy();
 
-                        // Remove first column (ServiceNo) from the copy
+                        // Remove first column
                         copyDt.Columns.RemoveAt(0);
-
 
                         using (ExcelPackage package = new ExcelPackage())
                         {
                             ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Sheet1");
 
-                            // Load data into worksheet
+                            // Load Data
                             worksheet.Cells["A1"].LoadFromDataTable(copyDt, true);
 
-                            // Save the Excel package
+                            int totalRows = worksheet.Dimension.Rows;
+                            int totalCols = worksheet.Dimension.Columns;
+
+                            // =========================
+                            // HEADER DESIGN
+                            // =========================
+                            using (ExcelRange headerRange = worksheet.Cells[1, 1, 1, totalCols])
+                            {
+                                // Blue background
+                                headerRange.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                headerRange.Style.Fill.BackgroundColor.SetColor(Color.DarkBlue);
+
+                                // White text
+                                headerRange.Style.Font.Color.SetColor(Color.White);
+
+                                // Bold
+                                headerRange.Style.Font.Bold = true;
+
+                                // Center align
+                                headerRange.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                                headerRange.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            }
+
+                            // =========================
+                            // AUTO SIZE COLUMNS
+                            // =========================
+                            worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                            // =========================
+                            // ALIGN DATA
+                            // =========================
+                            using (ExcelRange dataRange = worksheet.Cells[2, 1, totalRows, totalCols])
+                            {
+                                dataRange.Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                            }
+
+                            // Optional: Freeze Header Row
+                            worksheet.View.FreezePanes(2, 1);
+
+                            // Optional: Add Border
+                            using (ExcelRange range = worksheet.Cells[1, 1, totalRows, totalCols])
+                            {
+                                range.Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                range.Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                range.Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                range.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            }
+
+                            // Save File
                             FileInfo excelFile = new FileInfo(filePath);
                             package.SaveAs(excelFile);
 
-                            MessageBox.Show($"Export complete. File saved to: {filePath}", "Exporting Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(
+                                $"Export complete. File saved to: {filePath}",
+                                "Exporting Data",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information
+                            );
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
-                Prompt.Error("Data Export",$"An error occured: in ExportDtToExcel \nError:{ex.Message}");
+                Prompt.Error("Data Export", $"An error occured: in ExportDtToExcel \nError:{ex.Message}");
             }
         }
 

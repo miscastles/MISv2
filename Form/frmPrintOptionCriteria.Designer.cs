@@ -34,6 +34,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.btnMinimize = new Bunifu.Framework.UI.BunifuImageButton();
             this.txtTerminalStatus = new System.Windows.Forms.TextBox();
             this.lblReportDescription = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.bunifuImageButton1 = new Bunifu.Framework.UI.BunifuImageButton();
@@ -195,8 +196,8 @@
             this.txtMobileID = new System.Windows.Forms.TextBox();
             this.txtDispatcherID = new System.Windows.Forms.TextBox();
             this.txtReasonID = new System.Windows.Forms.TextBox();
-            this.btnMinimize = new Bunifu.Framework.UI.BunifuImageButton();
             this.pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearchMerchant)).BeginInit();
@@ -230,7 +231,6 @@
             this.gbSetup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearchSetup)).BeginInit();
             this.gbStatus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -269,6 +269,20 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1035, 29);
             this.pnlHeader.TabIndex = 307;
+            // 
+            // btnMinimize
+            // 
+            this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
+            this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
+            this.btnMinimize.ImageActive = null;
+            this.btnMinimize.Location = new System.Drawing.Point(979, 3);
+            this.btnMinimize.Name = "btnMinimize";
+            this.btnMinimize.Size = new System.Drawing.Size(21, 23);
+            this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnMinimize.TabIndex = 418;
+            this.btnMinimize.TabStop = false;
+            this.btnMinimize.Zoom = 10;
+            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
             // 
             // txtTerminalStatus
             // 
@@ -1770,6 +1784,7 @@
             this.chkSummaryTab.TabIndex = 433;
             this.chkSummaryTab.Text = "Exclude Summary Tab Sheet";
             this.chkSummaryTab.UseVisualStyleBackColor = true;
+            this.chkSummaryTab.CheckedChanged += new System.EventHandler(this.chkSummaryTab_CheckedChanged);
             // 
             // chkPending
             // 
@@ -2217,20 +2232,6 @@
             this.txtReasonID.TabIndex = 437;
             this.txtReasonID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // btnMinimize
-            // 
-            this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
-            this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
-            this.btnMinimize.ImageActive = null;
-            this.btnMinimize.Location = new System.Drawing.Point(979, 3);
-            this.btnMinimize.Name = "btnMinimize";
-            this.btnMinimize.Size = new System.Drawing.Size(21, 23);
-            this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnMinimize.TabIndex = 418;
-            this.btnMinimize.TabStop = false;
-            this.btnMinimize.Zoom = 10;
-            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
-            // 
             // frmPrintOptionCriteria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2276,6 +2277,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmFindCriteria_KeyDown);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearchMerchant)).EndInit();
@@ -2329,7 +2331,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSearchSetup)).EndInit();
             this.gbStatus.ResumeLayout(false);
             this.gbStatus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

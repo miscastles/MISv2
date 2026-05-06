@@ -2476,5 +2476,13 @@ namespace MIS
         {
             this.WindowState = FormWindowState.Minimized;
         }
+
+        private void chkSummaryTab_CheckedChanged(object sender, EventArgs e)
+        {
+            gbDetailDateFilter.Enabled = true;
+
+            if (chkSummaryTab.Checked)
+                gbDetailDateFilter.Enabled = false;
+        }
     }
 }
