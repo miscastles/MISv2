@@ -3205,5 +3205,18 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
             frm.Show();
         }
+
+        private void btnServicingArchieve_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 26)) return;
+
+            InitMenu(0, false);
+            dbAPI.ResetAdvanceSearch();            
+            frmServiceArchive frm = new frmServiceArchive();
+            frm.Text = "SERVICE- ARCHIVE";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
     }
 }

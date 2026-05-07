@@ -3150,7 +3150,7 @@
             // 
             this.lblCountDown.Font = new System.Drawing.Font("Century Gothic", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCountDown.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(153)))), ((int)(((byte)(51)))));
-            this.lblCountDown.Location = new System.Drawing.Point(314, 83);
+            this.lblCountDown.Location = new System.Drawing.Point(314, 80);
             this.lblCountDown.Name = "lblCountDown";
             this.lblCountDown.Size = new System.Drawing.Size(78, 49);
             this.lblCountDown.TabIndex = 494;

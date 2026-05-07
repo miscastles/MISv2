@@ -566,6 +566,12 @@
     <Compile Include="Form\frmDummy3.Designer.cs">
       <DependentUpon>frmDummy3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\frmServiceArchive.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmServiceArchive.Designer.cs">
+      <DependentUpon>frmServiceArchive.cs</DependentUpon>
+    </Compile>
     <Compile Include="Function\DataGridViewHelper.cs" />
     <Compile Include="Function\clsErrorHelper.cs" />
     <Compile Include="Function\clsExcelOpenXmlExporter.cs" />
@@ -1714,6 +1720,9 @@
     <EmbeddedResource Include="Form\frmMInventoryDeletion.resx">
       <DependentUpon>frmMInventoryDeletion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmServiceArchive.resx">
+      <DependentUpon>frmServiceArchive.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -2384,6 +2393,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app_icon.ico" />
+    <None Include="images\ic_archieve.png" />
     <None Include="images\find_on_1.png" />
     <None Include="images\find_on.png" />
     <None Include="images\find_off.png" />

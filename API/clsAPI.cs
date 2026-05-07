@@ -5513,7 +5513,9 @@ namespace MIS
                                             SearchBy.Equals("ERM Settlement Report-Summary") ||
                                             SearchBy.Equals("Inventory Bulk Cross-Check List") ||
                                             SearchBy.Equals("Service Bulk Cross-Check List") ||
-                                            SearchBy.Equals("Billing-Type")
+                                            SearchBy.Equals("Billing-Type") ||
+                                            SearchBy.Equals("Expenses Service Detail") ||
+                                            SearchBy.Equals("FSR Service Detail")
                                             )
                                         {
                                             foreach (var element in Detail46.data)

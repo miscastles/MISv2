@@ -157,6 +157,7 @@ namespace MIS
             this.lblConn = new System.Windows.Forms.Label();
             this.lblPulse = new System.Windows.Forms.Label();
             this.pnlSubMenuServicing = new System.Windows.Forms.Panel();
+            this.btnServicingArchieve = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnMaintenanceUpdateMerchantSN = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnMaintenanceUpdateServiceStatus = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnMaintenanceUpdateRequsetID = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -430,7 +431,7 @@ namespace MIS
             this.lblSubAppsName.AutoSize = true;
             this.lblSubAppsName.BackColor = System.Drawing.Color.Transparent;
             this.lblSubAppsName.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubAppsName.ForeColor = System.Drawing.Color.Yellow;
+            this.lblSubAppsName.ForeColor = System.Drawing.Color.Cyan;
             this.lblSubAppsName.Location = new System.Drawing.Point(482, 9);
             this.lblSubAppsName.Name = "lblSubAppsName";
             this.lblSubAppsName.Size = new System.Drawing.Size(21, 25);
@@ -3094,6 +3095,7 @@ namespace MIS
             // 
             this.pnlSubMenuServicing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pnlSubMenuServicing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSubMenuServicing.Controls.Add(this.btnServicingArchieve);
             this.pnlSubMenuServicing.Controls.Add(this.btnMaintenanceUpdateMerchantSN);
             this.pnlSubMenuServicing.Controls.Add(this.btnMaintenanceUpdateServiceStatus);
             this.pnlSubMenuServicing.Controls.Add(this.btnMaintenanceUpdateRequsetID);
@@ -3120,10 +3122,47 @@ namespace MIS
             this.pnlSubMenuServicing.Controls.Add(this.panel17);
             this.pnlSubMenuServicing.Location = new System.Drawing.Point(744, 82);
             this.pnlSubMenuServicing.Name = "pnlSubMenuServicing";
-            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 654);
+            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 695);
             this.pnlSubMenuServicing.TabIndex = 278;
             this.pnlSubMenuServicing.Visible = false;
             this.pnlSubMenuServicing.Paint += new System.Windows.Forms.PaintEventHandler(this.panel15_Paint);
+            // 
+            // btnServicingArchieve
+            // 
+            this.btnServicingArchieve.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnServicingArchieve.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnServicingArchieve.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnServicingArchieve.BorderRadius = 0;
+            this.btnServicingArchieve.ButtonText = "          Archive";
+            this.btnServicingArchieve.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnServicingArchieve.DisabledColor = System.Drawing.Color.Gray;
+            this.btnServicingArchieve.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnServicingArchieve.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnServicingArchieve.Iconimage = null;
+            this.btnServicingArchieve.Iconimage_right = null;
+            this.btnServicingArchieve.Iconimage_right_Selected = null;
+            this.btnServicingArchieve.Iconimage_Selected = null;
+            this.btnServicingArchieve.IconMarginLeft = 0;
+            this.btnServicingArchieve.IconMarginRight = 0;
+            this.btnServicingArchieve.IconRightVisible = true;
+            this.btnServicingArchieve.IconRightZoom = 0D;
+            this.btnServicingArchieve.IconVisible = true;
+            this.btnServicingArchieve.IconZoom = 40D;
+            this.btnServicingArchieve.IsTab = true;
+            this.btnServicingArchieve.Location = new System.Drawing.Point(5, 275);
+            this.btnServicingArchieve.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnServicingArchieve.Name = "btnServicingArchieve";
+            this.btnServicingArchieve.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnServicingArchieve.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnServicingArchieve.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnServicingArchieve.selected = false;
+            this.btnServicingArchieve.Size = new System.Drawing.Size(225, 28);
+            this.btnServicingArchieve.TabIndex = 308;
+            this.btnServicingArchieve.Text = "          Archive";
+            this.btnServicingArchieve.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnServicingArchieve.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnServicingArchieve.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnServicingArchieve.Click += new System.EventHandler(this.btnServicingArchieve_Click);
             // 
             // btnMaintenanceUpdateMerchantSN
             // 
@@ -3147,7 +3186,7 @@ namespace MIS
             this.btnMaintenanceUpdateMerchantSN.IconVisible = true;
             this.btnMaintenanceUpdateMerchantSN.IconZoom = 40D;
             this.btnMaintenanceUpdateMerchantSN.IsTab = true;
-            this.btnMaintenanceUpdateMerchantSN.Location = new System.Drawing.Point(2, 442);
+            this.btnMaintenanceUpdateMerchantSN.Location = new System.Drawing.Point(2, 479);
             this.btnMaintenanceUpdateMerchantSN.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateMerchantSN.Name = "btnMaintenanceUpdateMerchantSN";
             this.btnMaintenanceUpdateMerchantSN.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3184,7 +3223,7 @@ namespace MIS
             this.btnMaintenanceUpdateServiceStatus.IconVisible = true;
             this.btnMaintenanceUpdateServiceStatus.IconZoom = 40D;
             this.btnMaintenanceUpdateServiceStatus.IsTab = true;
-            this.btnMaintenanceUpdateServiceStatus.Location = new System.Drawing.Point(2, 408);
+            this.btnMaintenanceUpdateServiceStatus.Location = new System.Drawing.Point(2, 445);
             this.btnMaintenanceUpdateServiceStatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateServiceStatus.Name = "btnMaintenanceUpdateServiceStatus";
             this.btnMaintenanceUpdateServiceStatus.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3221,7 +3260,7 @@ namespace MIS
             this.btnMaintenanceUpdateRequsetID.IconVisible = true;
             this.btnMaintenanceUpdateRequsetID.IconZoom = 40D;
             this.btnMaintenanceUpdateRequsetID.IsTab = true;
-            this.btnMaintenanceUpdateRequsetID.Location = new System.Drawing.Point(2, 375);
+            this.btnMaintenanceUpdateRequsetID.Location = new System.Drawing.Point(2, 412);
             this.btnMaintenanceUpdateRequsetID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateRequsetID.Name = "btnMaintenanceUpdateRequsetID";
             this.btnMaintenanceUpdateRequsetID.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3321,7 +3360,7 @@ namespace MIS
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.White;
-            this.panel7.Location = new System.Drawing.Point(19, 516);
+            this.panel7.Location = new System.Drawing.Point(19, 553);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(190, 1);
             this.panel7.TabIndex = 301;
@@ -3349,7 +3388,7 @@ namespace MIS
             this.bunifuFlatButton11.IconVisible = true;
             this.bunifuFlatButton11.IconZoom = 40D;
             this.bunifuFlatButton11.IsTab = true;
-            this.bunifuFlatButton11.Location = new System.Drawing.Point(-2, 522);
+            this.bunifuFlatButton11.Location = new System.Drawing.Point(-2, 559);
             this.bunifuFlatButton11.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bunifuFlatButton11.Name = "bunifuFlatButton11";
             this.bunifuFlatButton11.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3385,7 +3424,7 @@ namespace MIS
             this.btnMaintenanceFailedService.IconVisible = true;
             this.btnMaintenanceFailedService.IconZoom = 40D;
             this.btnMaintenanceFailedService.IsTab = true;
-            this.btnMaintenanceFailedService.Location = new System.Drawing.Point(-1, 614);
+            this.btnMaintenanceFailedService.Location = new System.Drawing.Point(-1, 651);
             this.btnMaintenanceFailedService.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceFailedService.Name = "btnMaintenanceFailedService";
             this.btnMaintenanceFailedService.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3422,7 +3461,7 @@ namespace MIS
             this.btnMaintenancePendingeFSRGenerator.IconVisible = true;
             this.btnMaintenancePendingeFSRGenerator.IconZoom = 40D;
             this.btnMaintenancePendingeFSRGenerator.IsTab = true;
-            this.btnMaintenancePendingeFSRGenerator.Location = new System.Drawing.Point(0, 581);
+            this.btnMaintenancePendingeFSRGenerator.Location = new System.Drawing.Point(0, 618);
             this.btnMaintenancePendingeFSRGenerator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenancePendingeFSRGenerator.Name = "btnMaintenancePendingeFSRGenerator";
             this.btnMaintenancePendingeFSRGenerator.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3459,7 +3498,7 @@ namespace MIS
             this.btnMaintenanceServiceReverse.IconVisible = true;
             this.btnMaintenanceServiceReverse.IconZoom = 40D;
             this.btnMaintenanceServiceReverse.IsTab = true;
-            this.btnMaintenanceServiceReverse.Location = new System.Drawing.Point(3, 476);
+            this.btnMaintenanceServiceReverse.Location = new System.Drawing.Point(3, 513);
             this.btnMaintenanceServiceReverse.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceServiceReverse.Name = "btnMaintenanceServiceReverse";
             this.btnMaintenanceServiceReverse.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3496,7 +3535,7 @@ namespace MIS
             this.btnMaintenanceUpdateDiagnostic.IconVisible = true;
             this.btnMaintenanceUpdateDiagnostic.IconZoom = 40D;
             this.btnMaintenanceUpdateDiagnostic.IsTab = true;
-            this.btnMaintenanceUpdateDiagnostic.Location = new System.Drawing.Point(2, 345);
+            this.btnMaintenanceUpdateDiagnostic.Location = new System.Drawing.Point(2, 382);
             this.btnMaintenanceUpdateDiagnostic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateDiagnostic.Name = "btnMaintenanceUpdateDiagnostic";
             this.btnMaintenanceUpdateDiagnostic.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3533,7 +3572,7 @@ namespace MIS
             this.btnMaintenanceUpdateCloseTicket.IconVisible = true;
             this.btnMaintenanceUpdateCloseTicket.IconZoom = 40D;
             this.btnMaintenanceUpdateCloseTicket.IsTab = true;
-            this.btnMaintenanceUpdateCloseTicket.Location = new System.Drawing.Point(0, 550);
+            this.btnMaintenanceUpdateCloseTicket.Location = new System.Drawing.Point(0, 587);
             this.btnMaintenanceUpdateCloseTicket.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateCloseTicket.Name = "btnMaintenanceUpdateCloseTicket";
             this.btnMaintenanceUpdateCloseTicket.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3570,7 +3609,7 @@ namespace MIS
             this.btnMaintenanceUpdateAppsInfo.IconVisible = true;
             this.btnMaintenanceUpdateAppsInfo.IconZoom = 40D;
             this.btnMaintenanceUpdateAppsInfo.IsTab = true;
-            this.btnMaintenanceUpdateAppsInfo.Location = new System.Drawing.Point(2, 315);
+            this.btnMaintenanceUpdateAppsInfo.Location = new System.Drawing.Point(2, 352);
             this.btnMaintenanceUpdateAppsInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateAppsInfo.Name = "btnMaintenanceUpdateAppsInfo";
             this.btnMaintenanceUpdateAppsInfo.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3588,7 +3627,7 @@ namespace MIS
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(20, 281);
+            this.panel1.Location = new System.Drawing.Point(20, 318);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(190, 1);
             this.panel1.TabIndex = 292;
@@ -3616,7 +3655,7 @@ namespace MIS
             this.bunifuFlatButton2.IconVisible = true;
             this.bunifuFlatButton2.IconZoom = 40D;
             this.bunifuFlatButton2.IsTab = true;
-            this.bunifuFlatButton2.Location = new System.Drawing.Point(0, 288);
+            this.bunifuFlatButton2.Location = new System.Drawing.Point(0, 325);
             this.bunifuFlatButton2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bunifuFlatButton2.Name = "bunifuFlatButton2";
             this.bunifuFlatButton2.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -7416,6 +7455,7 @@ namespace MIS
         private BunifuCards bunifuCards11;
         private System.Windows.Forms.Panel panel15;
         private BunifuCustomLabel lblSubAppsName;
+        private BunifuFlatButton btnServicingArchieve;
     }
 }
 

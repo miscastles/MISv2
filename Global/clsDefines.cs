@@ -722,5 +722,8 @@ namespace MIS
         public const string MOVEMENTTYPE_RELEASE = "RELEASE";
         public const string MOVEMENTTYPE_TRANSFER = "TRANSFER";
 
+        public const string MSG_FOUND = "Found";
+        public const string MSG_NOT_FOUND = "Not Found";
+
     }
 }
