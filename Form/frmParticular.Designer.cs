@@ -1597,6 +1597,7 @@ namespace MIS
             // 
             // tabParticular
             // 
+            this.tabParticular.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabParticular.Controls.Add(this.tabPage1);
             this.tabParticular.Controls.Add(this.tabPage2);
             this.tabParticular.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1610,10 +1611,10 @@ namespace MIS
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.Controls.Add(this.bunifuCards2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(756, 448);
+            this.tabPage1.Size = new System.Drawing.Size(756, 445);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic";
             // 
@@ -1621,10 +1622,10 @@ namespace MIS
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage2.Controls.Add(this.tcEmployee);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 28);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(756, 448);
+            this.tabPage2.Size = new System.Drawing.Size(756, 445);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Employee";
             // 

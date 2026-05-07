@@ -1870,6 +1870,10 @@ namespace MIS
                     iLineNo++;
 
                     ListViewItem item = new ListViewItem(iLineNo.ToString());
+
+                    int pStatus = int.Parse(clsArray.ServiceStatus[i]);
+                    item.ForeColor = dbFunction.GetColorByStatus(pStatus, clsArray.ActionMade[i]); // set forecolor per actionMade
+
                     item.SubItems.Add(clsArray.ServiceNo[i].ToString());
                     item.SubItems.Add(clsArray.IRIDNo[i].ToString());
                     item.SubItems.Add(clsArray.TAIDNo[i].ToString());

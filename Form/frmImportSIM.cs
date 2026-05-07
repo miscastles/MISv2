@@ -2797,6 +2797,8 @@ namespace MIS
                         iLineNo++;
                         ListViewItem item = new ListViewItem(iLineNo.ToString());
 
+                        item.ForeColor = dbFunction.GetColorByStatus(0, dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_ActionMade)); // set forecolor per actionMade
+
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_SERVICENO));
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_FSRNO));
 

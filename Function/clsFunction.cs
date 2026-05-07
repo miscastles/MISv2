@@ -4141,7 +4141,8 @@ namespace MIS
                 color = Color.Black;
              */
 
-            if (pDescription.Equals(clsGlobalVariables.STATUS_INSTALLED_DESC))
+            if (pDescription.Equals(clsGlobalVariables.STATUS_INSTALLED_DESC) ||
+                pDescription.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS))
                 color = Color.FromArgb(0, 179, 60);
             else if (pDescription.Equals(clsGlobalVariables.STATUS_ALLOCATED_DESC))
                 color = Color.FromArgb(255, 128, 0);
@@ -4157,12 +4158,15 @@ namespace MIS
                 color = Color.FromArgb(0, 0, 0);
             else if (pDescription.Equals(clsGlobalVariables.STATUS_BORROWED_DESC))
                 color = Color.FromArgb(51, 204, 204);
-            else if (pDescription.Equals(clsGlobalVariables.STATUS_NEGATIVE_DESC))
+            else if (pDescription.Equals(clsGlobalVariables.STATUS_NEGATIVE_DESC) ||
+                pDescription.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE))
                 color = Color.FromArgb(255, 51, 0);
             else if (pDescription.Equals(clsGlobalVariables.STATUS_HOLD_DESC))
                 color = Color.FromArgb(77, 77, 77);
             else if (pDescription.Equals(clsGlobalVariables.STATUS_CANCEL_DESC))
-                color = Color.FromArgb(128, 0, 0);
+                color = Color.FromArgb(128, 0, 0);  
+            else
+                color = Color.FromArgb(0, 0, 0);
 
             return color;
         }

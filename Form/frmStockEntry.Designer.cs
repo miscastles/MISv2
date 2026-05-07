@@ -61,6 +61,8 @@
             this.txtPathFileName = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
+            this.dteMShipmentDate = new System.Windows.Forms.DateTimePicker();
             this.label19 = new System.Windows.Forms.Label();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.btnClearTerminalSN = new Bunifu.Framework.UI.BunifuImageButton();
@@ -102,8 +104,6 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.label20 = new System.Windows.Forms.Label();
-            this.dteMShipmentDate = new System.Windows.Forms.DateTimePicker();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -208,6 +208,7 @@
             // 
             // tabComponent
             // 
+            this.tabComponent.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabComponent.Controls.Add(this.tabPage1);
             this.tabComponent.Controls.Add(this.tabPage3);
             this.tabComponent.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -237,10 +238,10 @@
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.txtPathFileName);
             this.tabPage1.Controls.Add(this.label12);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(521, 374);
+            this.tabPage1.Size = new System.Drawing.Size(521, 371);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Import";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -514,12 +515,33 @@
             this.tabPage3.Controls.Add(this.btnClear);
             this.tabPage3.Controls.Add(this.btnAdd);
             this.tabPage3.Controls.Add(this.btnSave);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Location = new System.Drawing.Point(4, 28);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(521, 374);
+            this.tabPage3.Size = new System.Drawing.Size(521, 371);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Basic";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(301, 183);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(88, 15);
+            this.label20.TabIndex = 509;
+            this.label20.Text = "SHIPMENT DATE *";
+            // 
+            // dteMShipmentDate
+            // 
+            this.dteMShipmentDate.CalendarFont = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dteMShipmentDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dteMShipmentDate.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold);
+            this.dteMShipmentDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dteMShipmentDate.Location = new System.Drawing.Point(393, 179);
+            this.dteMShipmentDate.Name = "dteMShipmentDate";
+            this.dteMShipmentDate.Size = new System.Drawing.Size(125, 22);
+            this.dteMShipmentDate.TabIndex = 508;
             // 
             // label19
             // 
@@ -980,27 +1002,6 @@
             this.btnSave.Text = "SAVE";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(301, 183);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(88, 15);
-            this.label20.TabIndex = 509;
-            this.label20.Text = "SHIPMENT DATE *";
-            // 
-            // dteMShipmentDate
-            // 
-            this.dteMShipmentDate.CalendarFont = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dteMShipmentDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.dteMShipmentDate.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold);
-            this.dteMShipmentDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dteMShipmentDate.Location = new System.Drawing.Point(393, 179);
-            this.dteMShipmentDate.Name = "dteMShipmentDate";
-            this.dteMShipmentDate.Size = new System.Drawing.Size(125, 22);
-            this.dteMShipmentDate.TabIndex = 508;
             // 
             // frmStockEntry
             // 

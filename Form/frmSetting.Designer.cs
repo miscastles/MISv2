@@ -259,6 +259,7 @@
             // 
             // tabSetting
             // 
+            this.tabSetting.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabSetting.Controls.Add(this.tabPage1);
             this.tabSetting.Controls.Add(this.tabPage2);
             this.tabSetting.Controls.Add(this.tabPage3);
@@ -276,10 +277,10 @@
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.Controls.Add(this.bunifuCards2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 23);
+            this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(877, 152);
+            this.tabPage1.Size = new System.Drawing.Size(877, 149);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "API Configuration";
             // 
@@ -434,10 +435,10 @@
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage2.Controls.Add(this.bunifuCards1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 23);
+            this.tabPage2.Location = new System.Drawing.Point(4, 26);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(877, 152);
+            this.tabPage2.Size = new System.Drawing.Size(877, 149);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "FTP Configuration";
             // 
@@ -615,9 +616,9 @@
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage3.Controls.Add(this.bunifuCards3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 23);
+            this.tabPage3.Location = new System.Drawing.Point(4, 26);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(877, 152);
+            this.tabPage3.Size = new System.Drawing.Size(877, 149);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Database Configuration";
             // 
@@ -795,9 +796,9 @@
             // 
             this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage4.Controls.Add(this.bunifuCards4);
-            this.tabPage4.Location = new System.Drawing.Point(4, 23);
+            this.tabPage4.Location = new System.Drawing.Point(4, 26);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(877, 152);
+            this.tabPage4.Size = new System.Drawing.Size(877, 149);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "System Configuration";
             // 
@@ -1131,9 +1132,9 @@
             // 
             this.tabPage5.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage5.Controls.Add(this.bunifuCards5);
-            this.tabPage5.Location = new System.Drawing.Point(4, 23);
+            this.tabPage5.Location = new System.Drawing.Point(4, 26);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(877, 152);
+            this.tabPage5.Size = new System.Drawing.Size(877, 149);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "ODBC Configuration";
             // 
@@ -1310,10 +1311,10 @@
             // 
             this.tabPage6.BackColor = System.Drawing.Color.Lavender;
             this.tabPage6.Controls.Add(this.bunifuCards6);
-            this.tabPage6.Location = new System.Drawing.Point(4, 23);
+            this.tabPage6.Location = new System.Drawing.Point(4, 26);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(877, 152);
+            this.tabPage6.Size = new System.Drawing.Size(877, 149);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Version Configuarion";
             // 

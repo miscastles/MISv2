@@ -278,6 +278,9 @@ namespace MIS
             dbFunction.InitBankLogo(imgBankLogo);
 
             initShortCutKeyboard();
+
+            // init subAppsName
+            lblSubAppsName.Text = $"[ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
             
             Cursor.Current = Cursors.Default;
         }
@@ -3199,6 +3202,19 @@ namespace MIS
             InitMenu(0, false);
             frmMInventoryDeletion frm = new frmMInventoryDeletion();
             frm.Text = "TOOLS-INVENTORY DELETION";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnServicingArchieve_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 26)) return;
+
+            InitMenu(0, false);
+            dbAPI.ResetAdvanceSearch();            
+            frmServiceArchive frm = new frmServiceArchive();
+            frm.Text = "SERVICE- ARCHIVE";
             frm.WindowState = FormWindowState.Normal;
             frm.Show();
         }
