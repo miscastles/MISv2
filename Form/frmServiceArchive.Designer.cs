@@ -65,12 +65,12 @@
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblResultList = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnCompress = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
@@ -386,7 +386,7 @@
             // columnHeader6
             // 
             this.columnHeader6.Text = "TID";
-            this.columnHeader6.Width = 100;
+            this.columnHeader6.Width = 90;
             // 
             // columnHeader7
             // 
@@ -396,7 +396,7 @@
             // columnHeader8
             // 
             this.columnHeader8.Text = "REQUEST ID";
-            this.columnHeader8.Width = 140;
+            this.columnHeader8.Width = 150;
             // 
             // columnHeader9
             // 
@@ -423,10 +423,15 @@
             this.columnHeader13.Text = "IMAGE COUNT";
             this.columnHeader13.Width = 90;
             // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "FSR MODE";
+            this.columnHeader14.Width = 100;
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.lblResultList);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
@@ -434,16 +439,16 @@
             this.panel2.Size = new System.Drawing.Size(1491, 24);
             this.panel2.TabIndex = 311;
             // 
-            // label1
+            // lblResultList
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(3, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 14);
-            this.label1.TabIndex = 310;
-            this.label1.Text = "FSR REPORT LIST";
+            this.lblResultList.AutoSize = true;
+            this.lblResultList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResultList.ForeColor = System.Drawing.Color.Black;
+            this.lblResultList.Location = new System.Drawing.Point(3, 4);
+            this.lblResultList.Name = "lblResultList";
+            this.lblResultList.Size = new System.Drawing.Size(112, 14);
+            this.lblResultList.TabIndex = 310;
+            this.lblResultList.Text = "FSR REPORT LIST";
             // 
             // panel3
             // 
@@ -486,11 +491,6 @@
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // columnHeader14
-            // 
-            this.columnHeader14.Text = "FSR MODE";
-            this.columnHeader14.Width = 100;
             // 
             // frmServiceArchive
             // 
@@ -535,7 +535,7 @@
         private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblResultList;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel35;
         private System.Windows.Forms.Panel panel36;

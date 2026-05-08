@@ -18,6 +18,8 @@ namespace MIS
         private clsFunction dbFunction;
         private clsFile dbFile;
 
+        private const string gReportListHeader = "FSR REPORT LIST";
+
         protected override CreateParams CreateParams
         {
             get
@@ -52,6 +54,8 @@ namespace MIS
 
             dbAPI.FillComboBoxServiceType(cboSearchServiceType);
 
+            lblResultList.Text = gReportListHeader;
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -69,6 +73,7 @@ namespace MIS
         {
             dbFunction.ClearListViewItems(lvwList);
             InitDateRange();
+            lblResultList.Text = gReportListHeader;
         }
         
         private void loadData()
@@ -154,15 +159,25 @@ namespace MIS
         private void InitDateRange()
         {
             dteDateFrom.Value = DateTime.Now.Date;
-            dbFunction.SetDateFormat(dteDateFrom, clsFunction.sDateDefaultFormat);
+            dbFunction.SetDateFormat(dteDateFrom, clsFunction.sStandardDateDefault);
 
             dteDateTo.Value = DateTime.Now.Date;
-            dbFunction.SetDateFormat(dteDateTo, clsFunction.sDateDefaultFormat);
+            dbFunction.SetDateFormat(dteDateTo, clsFunction.sStandardDateDefault);
             
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            if (!dbFunction.fPromptConfirmation(
+                "Are you sure you want to execute the filter criteria below?" + "\n\n" +
+                " > Service Type : " + cboSearchServiceType.Text + "\n" +
+                " > Date From    : " + dteDateFrom.Value.ToString("MMM-dd-yyyy") + "\n" +
+                " > Date To      : " + dteDateTo.Value.ToString("MMM-dd-yyyy") + "\n\n" +
+                "Do you want to continue?"
+            )) return;
+
+            dbFunction.ClearListViewItems(lvwList);
+
             clsSearch.ClassServiceTypeID = 0;
             clsSearch.ClassJobType = 0;
             if (!cboSearchServiceType.Text.Equals(clsFunction.sDefaultSelect))
@@ -180,10 +195,10 @@ namespace MIS
 
             clsSearch.ClassDateFrom = dteDateFrom.Value.ToString("yyyy-MM-dd");
             clsSearch.ClassDateTo = dteDateTo.Value.ToString("yyyy-MM-dd");
-
-            dbFunction.ClearListViewItems(lvwList);
-
+            
             loadData();
+
+            lblResultList.Text = $"{gReportListHeader} ({lvwList.Items.Count})";
         }
     }
 }
