@@ -38,6 +38,8 @@
             this.lblHeader = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.panel35 = new System.Windows.Forms.Panel();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,11 +52,6 @@
             this.panel37 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lvwList = new System.Windows.Forms.ListView();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.btnCompress = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -68,8 +65,12 @@
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnCompress = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
@@ -95,7 +96,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1418, 29);
+            this.pnlHeader.Size = new System.Drawing.Size(1503, 29);
             this.pnlHeader.TabIndex = 297;
             // 
             // bunifuImageButton1
@@ -116,7 +117,7 @@
             this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
             this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
             this.btnMinimize.ImageActive = null;
-            this.btnMinimize.Location = new System.Drawing.Point(1361, 3);
+            this.btnMinimize.Location = new System.Drawing.Point(1441, 3);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(24, 21);
             this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -130,7 +131,7 @@
             this.btnExit.BackColor = System.Drawing.Color.Maroon;
             this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
             this.btnExit.ImageActive = null;
-            this.btnExit.Location = new System.Drawing.Point(1391, 3);
+            this.btnExit.Location = new System.Drawing.Point(1471, 3);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(24, 21);
             this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -174,8 +175,32 @@
             this.panel35.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel35.Location = new System.Drawing.Point(3, 31);
             this.panel35.Name = "panel35";
-            this.panel35.Size = new System.Drawing.Size(1402, 84);
+            this.panel35.Size = new System.Drawing.Size(1493, 84);
             this.panel35.TabIndex = 450;
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.BackColor = System.Drawing.Color.White;
+            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSearch.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.ForeColor = System.Drawing.Color.Black;
+            this.txtSearch.Location = new System.Drawing.Point(693, 50);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.ReadOnly = true;
+            this.txtSearch.Size = new System.Drawing.Size(617, 26);
+            this.txtSearch.TabIndex = 349;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(690, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 15);
+            this.label4.TabIndex = 348;
+            this.label4.Text = "SEARCH";
             // 
             // btnSearch
             // 
@@ -186,7 +211,7 @@
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSearch.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSearch.Location = new System.Drawing.Point(1221, 45);
+            this.btnSearch.Location = new System.Drawing.Point(1312, 46);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(176, 32);
             this.btnSearch.TabIndex = 347;
@@ -268,7 +293,7 @@
             this.panel36.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel36.Location = new System.Drawing.Point(0, 0);
             this.panel36.Name = "panel36";
-            this.panel36.Size = new System.Drawing.Size(1400, 24);
+            this.panel36.Size = new System.Drawing.Size(1491, 24);
             this.panel36.TabIndex = 311;
             // 
             // label9
@@ -288,7 +313,7 @@
             this.panel37.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel37.Location = new System.Drawing.Point(0, 22);
             this.panel37.Name = "panel37";
-            this.panel37.Size = new System.Drawing.Size(1400, 2);
+            this.panel37.Size = new System.Drawing.Size(1491, 2);
             this.panel37.TabIndex = 0;
             // 
             // panel1
@@ -300,7 +325,7 @@
             this.panel1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(4, 121);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1402, 436);
+            this.panel1.Size = new System.Drawing.Size(1493, 436);
             this.panel1.TabIndex = 451;
             // 
             // lvwList
@@ -320,7 +345,8 @@
             this.columnHeader10,
             this.columnHeader11,
             this.columnHeader12,
-            this.columnHeader13});
+            this.columnHeader13,
+            this.columnHeader14});
             this.lvwList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvwList.ForeColor = System.Drawing.Color.Black;
@@ -328,74 +354,10 @@
             this.lvwList.HideSelection = false;
             this.lvwList.Location = new System.Drawing.Point(0, 24);
             this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(1400, 410);
+            this.lvwList.Size = new System.Drawing.Size(1491, 410);
             this.lvwList.TabIndex = 312;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.panel3);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1400, 24);
-            this.panel2.TabIndex = 311;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(3, 4);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 14);
-            this.label1.TabIndex = 310;
-            this.label1.Text = "FSR REPORT LIST";
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.Silver;
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 22);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1400, 2);
-            this.panel3.TabIndex = 0;
-            // 
-            // btnCompress
-            // 
-            this.btnCompress.AutoSize = true;
-            this.btnCompress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnCompress.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnCompress.FlatAppearance.BorderSize = 0;
-            this.btnCompress.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnCompress.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCompress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnCompress.Location = new System.Drawing.Point(189, 562);
-            this.btnCompress.Name = "btnCompress";
-            this.btnCompress.Size = new System.Drawing.Size(176, 32);
-            this.btnCompress.TabIndex = 452;
-            this.btnCompress.Text = "COMPRESSED";
-            this.btnCompress.UseVisualStyleBackColor = false;
-            // 
-            // btnClear
-            // 
-            this.btnClear.AutoSize = true;
-            this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnClear.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnClear.FlatAppearance.BorderSize = 0;
-            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnClear.Location = new System.Drawing.Point(7, 562);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(176, 32);
-            this.btnClear.TabIndex = 453;
-            this.btnClear.Text = "CLEAR";
-            this.btnClear.UseVisualStyleBackColor = false;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // columnHeader1
             // 
@@ -461,35 +423,80 @@
             this.columnHeader13.Text = "IMAGE COUNT";
             this.columnHeader13.Width = 90;
             // 
-            // label4
+            // panel2
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(690, 34);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 15);
-            this.label4.TabIndex = 348;
-            this.label4.Text = "SEARCH";
+            this.panel2.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.panel3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1491, 24);
+            this.panel2.TabIndex = 311;
             // 
-            // txtSearch
+            // label1
             // 
-            this.txtSearch.BackColor = System.Drawing.Color.White;
-            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSearch.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.ForeColor = System.Drawing.Color.Black;
-            this.txtSearch.Location = new System.Drawing.Point(693, 50);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.ReadOnly = true;
-            this.txtSearch.Size = new System.Drawing.Size(525, 26);
-            this.txtSearch.TabIndex = 349;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(3, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(112, 14);
+            this.label1.TabIndex = 310;
+            this.label1.Text = "FSR REPORT LIST";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Silver;
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 22);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1491, 2);
+            this.panel3.TabIndex = 0;
+            // 
+            // btnCompress
+            // 
+            this.btnCompress.AutoSize = true;
+            this.btnCompress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnCompress.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnCompress.FlatAppearance.BorderSize = 0;
+            this.btnCompress.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnCompress.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCompress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnCompress.Location = new System.Drawing.Point(189, 562);
+            this.btnCompress.Name = "btnCompress";
+            this.btnCompress.Size = new System.Drawing.Size(176, 32);
+            this.btnCompress.TabIndex = 452;
+            this.btnCompress.Text = "COMPRESSED";
+            this.btnCompress.UseVisualStyleBackColor = false;
+            // 
+            // btnClear
+            // 
+            this.btnClear.AutoSize = true;
+            this.btnClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnClear.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnClear.FlatAppearance.BorderSize = 0;
+            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnClear.Location = new System.Drawing.Point(7, 562);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(176, 32);
+            this.btnClear.TabIndex = 453;
+            this.btnClear.Text = "CLEAR";
+            this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "FSR MODE";
+            this.columnHeader14.Width = 100;
             // 
             // frmServiceArchive
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1418, 600);
+            this.ClientSize = new System.Drawing.Size(1503, 600);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnCompress);
             this.Controls.Add(this.panel1);
@@ -559,5 +566,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
     }
 }

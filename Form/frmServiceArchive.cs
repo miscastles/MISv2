@@ -133,8 +133,11 @@ namespace MIS
                     {
                         item.SubItems.Add(clsFunction.sZero);
                         item.SubItems.Add(clsFunction.sZero);
-                    }                    
+                    }
 
+                    // FSR Mode
+                    item.SubItems.Add(dbFunction.isValidID(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MobileID)) ? clsDefines.DIGITAL_FSR : clsDefines.MANUAL_FSR);
+                    
                     lvwList.Items.Add(item);
 
                     i++;
