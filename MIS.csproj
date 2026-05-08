@@ -575,6 +575,7 @@
     <Compile Include="Function\DataGridViewHelper.cs" />
     <Compile Include="Function\clsErrorHelper.cs" />
     <Compile Include="Function\clsExcelOpenXmlExporter.cs" />
+    <Compile Include="Global\clsIcons.cs" />
     <Compile Include="Model\AppSession.cs" />
     <Compile Include="Model\clsAttachment.cs" />
     <Compile Include="Form\frmChangePassword.cs">

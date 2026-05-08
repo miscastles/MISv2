@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using MIS.Global;
 
 namespace MIS
 {
@@ -80,8 +81,7 @@ namespace MIS
         {
             int i = 0;
             int iLineNo = 0;            
-            string pFileName = "";
-
+            
             Cursor.Current = Cursors.WaitCursor;
 
             Debug.WriteLine("--loadData--");
@@ -122,11 +122,23 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRNO));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate));
 
-                    pFileName = serviceno + clsDefines.FSR_FILENAME_PREFIX + clsDefines.FILE_EXT_PDF;
-                    item.SubItems.Add(dbAPI.isFileExist("Search", "Check Attach File", $"{pFileName}") ? clsDefines.MSG_FOUND : clsDefines.MSG_NOT_FOUND);
+                    string fsrFileName = $"{serviceno}{clsDefines.FSR_FILENAME_PREFIX}{clsDefines.FILE_EXT_PDF}";
+                    string diagnosticFileName = $"{serviceno}{clsDefines.DIAGNOSTIC_FILENAME_PREFIX}{clsDefines.FILE_EXT_PDF}";
 
-                    pFileName = serviceno + clsDefines.DIAGNOSTIC_FILENAME_PREFIX + clsDefines.FILE_EXT_PDF;
-                    item.SubItems.Add(dbAPI.isFileExist("Search", "Check Attach File", $"{pFileName}") ? clsDefines.MSG_FOUND : clsDefines.MSG_NOT_FOUND);
+                    bool isFSRFound = dbAPI.isFileExist("Search", "Check Attach File", fsrFileName);
+                    bool isDiagnosticFound = dbAPI.isFileExist("Search", "Check Attach File", diagnosticFileName);
+
+                    item.SubItems.Add(
+                        isFSRFound
+                        ? $"{clsIcons.FOUND} {clsDefines.MSG_FOUND}"
+                        : $"{clsIcons.NOT_FOUND} {clsDefines.MSG_NOT_FOUND}"
+                    );
+
+                    item.SubItems.Add(
+                        isDiagnosticFound
+                        ? $"{clsIcons.FOUND} {clsDefines.MSG_FOUND}"
+                        : $"{clsIcons.NOT_FOUND} {clsDefines.MSG_NOT_FOUND}"
+                    );
 
                     string pJSONStringCount = dbAPI.checkFileInfo("View", "File Count", serviceno);
                     if (dbFunction.isValidDescription(pJSONStringCount))
