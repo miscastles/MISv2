@@ -422,5 +422,15 @@ namespace MIS
 
             downloadFile();
         }
+
+        private void frmServiceArchive_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    this.Close();
+                    break;
+            }
+        }
     }
 }

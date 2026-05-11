@@ -3209,7 +3209,7 @@ namespace MIS
         private void btnServicingArchieve_Click(object sender, EventArgs e)
         {
             // Check User Access Rights
-            //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 26)) return;
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 55)) return;
 
             InitMenu(0, false);
             dbAPI.ResetAdvanceSearch();            

@@ -3041,7 +3041,7 @@ namespace MIS
             this.lblWhoIsOnlineFSR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.lblWhoIsOnlineFSR.Location = new System.Drawing.Point(3, 20);
             this.lblWhoIsOnlineFSR.Name = "lblWhoIsOnlineFSR";
-            this.lblWhoIsOnlineFSR.Size = new System.Drawing.Size(283, 267);
+            this.lblWhoIsOnlineFSR.Size = new System.Drawing.Size(278, 267);
             this.lblWhoIsOnlineFSR.TabIndex = 253;
             this.lblWhoIsOnlineFSR.Text = "USER ONLINE";
             // 
@@ -3052,7 +3052,7 @@ namespace MIS
             this.lblWhoIsOnline.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.lblWhoIsOnline.Location = new System.Drawing.Point(3, 20);
             this.lblWhoIsOnline.Name = "lblWhoIsOnline";
-            this.lblWhoIsOnline.Size = new System.Drawing.Size(275, 267);
+            this.lblWhoIsOnline.Size = new System.Drawing.Size(300, 267);
             this.lblWhoIsOnline.TabIndex = 251;
             this.lblWhoIsOnline.Text = "USER ONLINE";
             // 
@@ -3120,7 +3120,7 @@ namespace MIS
             this.pnlSubMenuServicing.Controls.Add(this.bunifuFlatButton16);
             this.pnlSubMenuServicing.Controls.Add(this.btnServicingManualEntryFSR);
             this.pnlSubMenuServicing.Controls.Add(this.panel17);
-            this.pnlSubMenuServicing.Location = new System.Drawing.Point(744, 82);
+            this.pnlSubMenuServicing.Location = new System.Drawing.Point(916, 57);
             this.pnlSubMenuServicing.Name = "pnlSubMenuServicing";
             this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 695);
             this.pnlSubMenuServicing.TabIndex = 278;
@@ -6401,7 +6401,7 @@ namespace MIS
             this.pnlWhoIsOnlineMIS.Name = "pnlWhoIsOnlineMIS";
             this.pnlWhoIsOnlineMIS.RightSahddow = false;
             this.pnlWhoIsOnlineMIS.ShadowDepth = 0;
-            this.pnlWhoIsOnlineMIS.Size = new System.Drawing.Size(281, 358);
+            this.pnlWhoIsOnlineMIS.Size = new System.Drawing.Size(303, 358);
             this.pnlWhoIsOnlineMIS.TabIndex = 298;
             // 
             // pnlWhoIsOnlineFSR
@@ -6414,11 +6414,11 @@ namespace MIS
             this.pnlWhoIsOnlineFSR.Controls.Add(this.label41);
             this.pnlWhoIsOnlineFSR.Controls.Add(this.lblWhosOnlineFSR);
             this.pnlWhoIsOnlineFSR.LeftSahddow = false;
-            this.pnlWhoIsOnlineFSR.Location = new System.Drawing.Point(298, 10);
+            this.pnlWhoIsOnlineFSR.Location = new System.Drawing.Point(313, 10);
             this.pnlWhoIsOnlineFSR.Name = "pnlWhoIsOnlineFSR";
             this.pnlWhoIsOnlineFSR.RightSahddow = false;
             this.pnlWhoIsOnlineFSR.ShadowDepth = 0;
-            this.pnlWhoIsOnlineFSR.Size = new System.Drawing.Size(289, 360);
+            this.pnlWhoIsOnlineFSR.Size = new System.Drawing.Size(282, 360);
             this.pnlWhoIsOnlineFSR.TabIndex = 299;
             // 
             // label41

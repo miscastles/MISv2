@@ -411,14 +411,7 @@ namespace MIS
                 bool isFound = dbFunction.findInListView(lvwUser, 4, txtFullName.Text);
 
                 if (isFound)
-                    lvwUser_DoubleClick(sender, e);
-                else
-                {
-                    dbFunction.SetMessageBox($"User {txtFullName.Text} was not found.", "User", clsFunction.IconType.iError);
-                    txtParticularID.Text = txtFullName.Text = clsFunction.sNull;
-                }                    
-
-                //LoadUser();
+                    lvwUser_DoubleClick(sender, e);                
             }
         }
         

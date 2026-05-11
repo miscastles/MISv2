@@ -790,6 +790,7 @@
             this.Name = "frmServiceArchive";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.frmServiceArchieving_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmServiceArchive_KeyDown);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).EndInit();
