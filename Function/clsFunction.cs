@@ -6804,6 +6804,31 @@ namespace MIS
             return input.Trim();
         }
 
+        public int GetListViewColumnIndex(ListView lvw, string columnName)
+        {
+            foreach (ColumnHeader col in lvw.Columns)
+            {
+                if (col.Text.Trim().ToUpper() == columnName.Trim().ToUpper())
+                {
+                    return col.Index;
+                }
+            }
+
+            return -1;
+        }
+
+        public string StripIcon(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return string.Empty;
+
+            int index = text.IndexOf(' ');
+
+            return index >= 0
+                ? text.Substring(index + 1).Trim()
+                : text.Trim();
+        }
+
     }
 
 }

@@ -2402,7 +2402,8 @@ namespace MIS
                         dbFunction.CheckAndSetNumericValue(txtDispatchID.Text) + clsFunction.sPipe +
                         dbFunction.CheckAndSetStringValue(txtDispatcher.Text) + clsFunction.sPipe +
                         dbFunction.CheckAndSetStringValue(txtVendor.Text + clsFunction.sPipe +
-                        dbFunction.CheckAndSetStringValue(txtRequestor.Text));
+                        dbFunction.CheckAndSetStringValue(txtRequestor.Text)) + clsFunction.sPipe +
+                        clsSearch.ClassBillingTypeID;
 
                     Debug.WriteLine("Final ->clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
 

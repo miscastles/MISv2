@@ -42,6 +42,7 @@ namespace MIS
         public string sTemplatePath = "C:\\CASTLESTECH_MIS\\TEMPLATE\\";
         public string sVendorSignaturePath = "C:\\CASTLESTECH_MIS\\IMAGE\\SIGNATURES\\";
         public string sSignatuPath = "C:\\CASTLESTECH_MIS\\DOWNLOAD\\IMAGE\\";
+        public string sArchivePath = "C:\\CASTLESTECH_MIS\\EXPORT\\ARCHIVE\\";
 
         private clsFunction dbFunction;
         private clsAPI dbAPI;

@@ -72,27 +72,27 @@
             this.btnCompress = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.lblFSRTotal = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
+            this.lblFSRNotFound = new System.Windows.Forms.Label();
+            this.lblFSRFound = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.lblDiagTotal = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
+            this.lblDiagNotFound = new System.Windows.Forms.Label();
+            this.lblDiagFound = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
@@ -500,6 +500,7 @@
             this.btnCompress.TabIndex = 452;
             this.btnCompress.Text = "COMPRESSED";
             this.btnCompress.UseVisualStyleBackColor = false;
+            this.btnCompress.Click += new System.EventHandler(this.btnCompress_Click);
             // 
             // btnClear
             // 
@@ -522,11 +523,11 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label12);
+            this.panel4.Controls.Add(this.lblFSRTotal);
             this.panel4.Controls.Add(this.label11);
             this.panel4.Controls.Add(this.bunifuSeparator1);
-            this.panel4.Controls.Add(this.label10);
-            this.panel4.Controls.Add(this.label8);
+            this.panel4.Controls.Add(this.lblFSRNotFound);
+            this.panel4.Controls.Add(this.lblFSRFound);
             this.panel4.Controls.Add(this.label7);
             this.panel4.Controls.Add(this.label6);
             this.panel4.Controls.Add(this.panel5);
@@ -535,6 +536,84 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(205, 103);
             this.panel4.TabIndex = 454;
+            // 
+            // lblFSRTotal
+            // 
+            this.lblFSRTotal.AutoSize = true;
+            this.lblFSRTotal.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFSRTotal.ForeColor = System.Drawing.Color.Black;
+            this.lblFSRTotal.Location = new System.Drawing.Point(179, 78);
+            this.lblFSRTotal.Name = "lblFSRTotal";
+            this.lblFSRTotal.Size = new System.Drawing.Size(19, 14);
+            this.lblFSRTotal.TabIndex = 320;
+            this.lblFSRTotal.Text = "<>";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(3, 78);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(46, 14);
+            this.label11.TabIndex = 319;
+            this.label11.Text = "TOTAL:";
+            // 
+            // bunifuSeparator1
+            // 
+            this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.bunifuSeparator1.LineThickness = 1;
+            this.bunifuSeparator1.Location = new System.Drawing.Point(6, 69);
+            this.bunifuSeparator1.Name = "bunifuSeparator1";
+            this.bunifuSeparator1.Size = new System.Drawing.Size(192, 6);
+            this.bunifuSeparator1.TabIndex = 318;
+            this.bunifuSeparator1.Transparency = 255;
+            this.bunifuSeparator1.Vertical = false;
+            // 
+            // lblFSRNotFound
+            // 
+            this.lblFSRNotFound.AutoSize = true;
+            this.lblFSRNotFound.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFSRNotFound.ForeColor = System.Drawing.Color.Black;
+            this.lblFSRNotFound.Location = new System.Drawing.Point(179, 51);
+            this.lblFSRNotFound.Name = "lblFSRNotFound";
+            this.lblFSRNotFound.Size = new System.Drawing.Size(19, 14);
+            this.lblFSRNotFound.TabIndex = 317;
+            this.lblFSRNotFound.Text = "<>";
+            // 
+            // lblFSRFound
+            // 
+            this.lblFSRFound.AutoSize = true;
+            this.lblFSRFound.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFSRFound.ForeColor = System.Drawing.Color.Black;
+            this.lblFSRFound.Location = new System.Drawing.Point(179, 27);
+            this.lblFSRFound.Name = "lblFSRFound";
+            this.lblFSRFound.Size = new System.Drawing.Size(19, 14);
+            this.lblFSRFound.TabIndex = 316;
+            this.lblFSRFound.Text = "<>";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(3, 51);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 15);
+            this.label7.TabIndex = 315;
+            this.label7.Text = "NOT FOUND:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(3, 27);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(43, 15);
+            this.label6.TabIndex = 314;
+            this.label6.Text = "FOUND:";
             // 
             // panel5
             // 
@@ -571,11 +650,11 @@
             // 
             this.panel7.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.label13);
+            this.panel7.Controls.Add(this.lblDiagTotal);
             this.panel7.Controls.Add(this.label14);
             this.panel7.Controls.Add(this.bunifuSeparator2);
-            this.panel7.Controls.Add(this.label15);
-            this.panel7.Controls.Add(this.label16);
+            this.panel7.Controls.Add(this.lblDiagNotFound);
+            this.panel7.Controls.Add(this.lblDiagFound);
             this.panel7.Controls.Add(this.label17);
             this.panel7.Controls.Add(this.label18);
             this.panel7.Controls.Add(this.panel8);
@@ -584,6 +663,84 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(205, 102);
             this.panel7.TabIndex = 455;
+            // 
+            // lblDiagTotal
+            // 
+            this.lblDiagTotal.AutoSize = true;
+            this.lblDiagTotal.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDiagTotal.ForeColor = System.Drawing.Color.Black;
+            this.lblDiagTotal.Location = new System.Drawing.Point(178, 78);
+            this.lblDiagTotal.Name = "lblDiagTotal";
+            this.lblDiagTotal.Size = new System.Drawing.Size(19, 14);
+            this.lblDiagTotal.TabIndex = 327;
+            this.lblDiagTotal.Text = "<>";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.Black;
+            this.label14.Location = new System.Drawing.Point(3, 78);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(46, 14);
+            this.label14.TabIndex = 326;
+            this.label14.Text = "TOTAL:";
+            // 
+            // bunifuSeparator2
+            // 
+            this.bunifuSeparator2.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.bunifuSeparator2.LineThickness = 1;
+            this.bunifuSeparator2.Location = new System.Drawing.Point(7, 69);
+            this.bunifuSeparator2.Name = "bunifuSeparator2";
+            this.bunifuSeparator2.Size = new System.Drawing.Size(190, 6);
+            this.bunifuSeparator2.TabIndex = 325;
+            this.bunifuSeparator2.Transparency = 255;
+            this.bunifuSeparator2.Vertical = false;
+            // 
+            // lblDiagNotFound
+            // 
+            this.lblDiagNotFound.AutoSize = true;
+            this.lblDiagNotFound.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDiagNotFound.ForeColor = System.Drawing.Color.Black;
+            this.lblDiagNotFound.Location = new System.Drawing.Point(178, 51);
+            this.lblDiagNotFound.Name = "lblDiagNotFound";
+            this.lblDiagNotFound.Size = new System.Drawing.Size(19, 14);
+            this.lblDiagNotFound.TabIndex = 324;
+            this.lblDiagNotFound.Text = "<>";
+            // 
+            // lblDiagFound
+            // 
+            this.lblDiagFound.AutoSize = true;
+            this.lblDiagFound.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDiagFound.ForeColor = System.Drawing.Color.Black;
+            this.lblDiagFound.Location = new System.Drawing.Point(178, 27);
+            this.lblDiagFound.Name = "lblDiagFound";
+            this.lblDiagFound.Size = new System.Drawing.Size(19, 14);
+            this.lblDiagFound.TabIndex = 323;
+            this.lblDiagFound.Text = "<>";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.Black;
+            this.label17.Location = new System.Drawing.Point(3, 51);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(66, 15);
+            this.label17.TabIndex = 322;
+            this.label17.Text = "NOT FOUND:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.Black;
+            this.label18.Location = new System.Drawing.Point(3, 27);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(43, 15);
+            this.label18.TabIndex = 321;
+            this.label18.Text = "FOUND:";
             // 
             // panel8
             // 
@@ -615,162 +772,6 @@
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(203, 2);
             this.panel9.TabIndex = 0;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(3, 27);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 15);
-            this.label6.TabIndex = 314;
-            this.label6.Text = "FOUND:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(3, 51);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(66, 15);
-            this.label7.TabIndex = 315;
-            this.label7.Text = "NOT FOUND:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(147, 27);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(19, 14);
-            this.label8.TabIndex = 316;
-            this.label8.Text = "<>";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(147, 51);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(19, 14);
-            this.label10.TabIndex = 317;
-            this.label10.Text = "<>";
-            // 
-            // bunifuSeparator1
-            // 
-            this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuSeparator1.LineColor = System.Drawing.Color.DimGray;
-            this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(6, 69);
-            this.bunifuSeparator1.Name = "bunifuSeparator1";
-            this.bunifuSeparator1.Size = new System.Drawing.Size(192, 6);
-            this.bunifuSeparator1.TabIndex = 318;
-            this.bunifuSeparator1.Transparency = 255;
-            this.bunifuSeparator1.Vertical = false;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(3, 78);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(46, 14);
-            this.label11.TabIndex = 319;
-            this.label11.Text = "TOTAL:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(147, 78);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(19, 14);
-            this.label12.TabIndex = 320;
-            this.label12.Text = "<>";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(178, 78);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(19, 14);
-            this.label13.TabIndex = 327;
-            this.label13.Text = "<>";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(3, 78);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(46, 14);
-            this.label14.TabIndex = 326;
-            this.label14.Text = "TOTAL:";
-            // 
-            // bunifuSeparator2
-            // 
-            this.bunifuSeparator2.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.bunifuSeparator2.LineThickness = 1;
-            this.bunifuSeparator2.Location = new System.Drawing.Point(7, 69);
-            this.bunifuSeparator2.Name = "bunifuSeparator2";
-            this.bunifuSeparator2.Size = new System.Drawing.Size(190, 6);
-            this.bunifuSeparator2.TabIndex = 325;
-            this.bunifuSeparator2.Transparency = 255;
-            this.bunifuSeparator2.Vertical = false;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.Black;
-            this.label15.Location = new System.Drawing.Point(178, 51);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(19, 14);
-            this.label15.TabIndex = 324;
-            this.label15.Text = "<>";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Location = new System.Drawing.Point(178, 27);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(19, 14);
-            this.label16.TabIndex = 323;
-            this.label16.Text = "<>";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.Black;
-            this.label17.Location = new System.Drawing.Point(3, 51);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(66, 15);
-            this.label17.TabIndex = 322;
-            this.label17.Text = "NOT FOUND:";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.Black;
-            this.label18.Location = new System.Drawing.Point(3, 27);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(43, 15);
-            this.label18.TabIndex = 321;
-            this.label18.Text = "FOUND:";
             // 
             // frmServiceArchive
             // 
@@ -858,22 +859,22 @@
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblDiagTotal;
         private System.Windows.Forms.Label label14;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator2;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lblDiagNotFound;
+        private System.Windows.Forms.Label lblDiagFound;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblFSRTotal;
         private System.Windows.Forms.Label label11;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblFSRNotFound;
+        private System.Windows.Forms.Label lblFSRFound;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel5;
