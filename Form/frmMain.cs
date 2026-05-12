@@ -219,6 +219,8 @@ namespace MIS
             lblAPIDetail.Text = dbFunction.GetURLDetail();
             lblComputerDetail.Text = dbFunction.GetComputerDetail();
 
+            dbFunction.InitLogo(imgLogo);
+
             lblServer.Text = $"WebServer Ip/Port: {clsGlobalVariables.strAPIURL} | FTP Ip/Port: {clsGlobalVariables.strFTPURL}:{clsGlobalVariables.strFTPPORT}";
             dbFunction.applyOuterColorOverlay(lblServer, Color.Cyan, 1);
             
@@ -269,8 +271,6 @@ namespace MIS
 
             lblFailedService.ForeColor = lblPendingFSR.ForeColor = lblTInstallation.ForeColor = lblTReprogramming.ForeColor = lblTServicing.ForeColor = lblTReplacement.ForeColor = lblTPullout.ForeColor = Color.Gray;
             
-            dbFunction.InitLogo(imgLogo);
-
             // bank name
             lblBank.Text = clsSearch.ClassBankDisplayName;          
             dbFunction.applyOuterColorOverlay(lblBank, Color.FromArgb(0, 153, 255), 4);
@@ -280,7 +280,7 @@ namespace MIS
             initShortCutKeyboard();
 
             // init subAppsName
-            lblSubAppsName.Text = $"[ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
+            lblSubAppsName.Text = $"[ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} | {clsSearch.ClassCurrentUserName} ]";
             
             Cursor.Current = Cursors.Default;
         }

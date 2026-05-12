@@ -61,6 +61,8 @@ namespace MIS
 
             lblResultList.Text = gReportListHeader;
 
+            initArchivePath();
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -266,6 +268,8 @@ namespace MIS
 
         public void downloadFile()
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             try
             {
                 string localBasePath = $"{dbFile.sArchivePath}\\{clsSearch.ClassBankCode}";
@@ -311,6 +315,8 @@ namespace MIS
 
                 ftpClient.disconnect();
                 compressFiles();
+
+                Cursor.Current = Cursors.WaitCursor;
             }
             catch (Exception ex)
             {
@@ -431,6 +437,11 @@ namespace MIS
                     this.Close();
                     break;
             }
+        }
+
+        private void initArchivePath()
+        {
+            txtArchivePath.Text = Path.Combine(dbFile.sArchivePath,clsSearch.ClassBankCode);
         }
     }
 }

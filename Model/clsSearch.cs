@@ -1976,6 +1976,13 @@ namespace MIS
             set { _CurrentUserID = value; }
         }
 
+        public static string _CurrentUserName;
+        public static string ClassCurrentUserName
+        {
+            get { return _CurrentUserName; }
+            set { _CurrentUserName = value; }
+        }
+
         public static int _LastServiceNp;
         public static int ClassLastServiceNo
         {

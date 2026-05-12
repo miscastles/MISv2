@@ -10860,10 +10860,25 @@ namespace MIS
                     sDescription = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 2);
                 }
 
-                dbFunction.SetMessageBox("[ " + sTemp + " ]" + " rights and privacy denied." + "\n\n" +
-                                        "Function detail:" + "\n" +
-                                        "     >" + sForm + "\n" +
-                                        "     >" + sDescription, "Permission", clsFunction.IconType.iError);
+                string sMessage =
+                        "[ " + sTemp + " ] access denied." + "\n\n" +
+                        "You do not have permission to access this function.";
+
+                if (!string.IsNullOrWhiteSpace(sForm) ||
+                    !string.IsNullOrWhiteSpace(sDescription))
+                {
+                    sMessage += "\n\n" +
+                                "Function Details:" + "\n" +
+                                "     > " + sForm + "\n" +
+                                "     > " + sDescription;
+                }
+
+                dbFunction.SetMessageBox(
+                    sMessage,
+                    "Permission",
+                    clsFunction.IconType.iError
+                );
+
             }
 
             return isValid;

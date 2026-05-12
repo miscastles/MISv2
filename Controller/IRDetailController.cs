@@ -162,6 +162,7 @@ namespace MIS.Controller
                 {
                     model = setInitValue();
                     Debug.WriteLine("Exceptional error " + ex.Message);
+                    dbFunction.SetMessageBox("IRDetailController: Exceptional error ex = " + ex.Message, clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                 }
             }
 

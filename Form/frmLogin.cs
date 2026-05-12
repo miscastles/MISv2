@@ -213,6 +213,7 @@ namespace MIS
                     Cursor.Current = Cursors.WaitCursor;
 
                     clsSearch.ClassCurrentUserID = clsUser.ClassUserID;
+                    clsSearch.ClassCurrentUserName = clsUser.ClassUserName;
                     clsSearch.ClassCurrentParticularID = clsUser.ClassParticularID;
                     clsSearch.ClassCurrentParticularName = clsUser.ClassUserFullName;
                     clsSearch.ClassisAppVersion = clsUser.ClassisAppVersion;

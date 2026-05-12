@@ -93,6 +93,8 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.txtArchivePath = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
@@ -494,7 +496,7 @@
             this.btnCompress.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCompress.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCompress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnCompress.Location = new System.Drawing.Point(186, 562);
+            this.btnCompress.Location = new System.Drawing.Point(187, 562);
             this.btnCompress.Name = "btnCompress";
             this.btnCompress.Size = new System.Drawing.Size(176, 32);
             this.btnCompress.TabIndex = 452;
@@ -511,7 +513,7 @@
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnClear.Location = new System.Drawing.Point(4, 562);
+            this.btnClear.Location = new System.Drawing.Point(5, 562);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(176, 32);
             this.btnClear.TabIndex = 453;
@@ -773,11 +775,36 @@
             this.panel9.Size = new System.Drawing.Size(203, 2);
             this.panel9.TabIndex = 0;
             // 
+            // txtArchivePath
+            // 
+            this.txtArchivePath.BackColor = System.Drawing.SystemColors.Control;
+            this.txtArchivePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtArchivePath.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtArchivePath.ForeColor = System.Drawing.Color.Black;
+            this.txtArchivePath.Location = new System.Drawing.Point(5, 640);
+            this.txtArchivePath.Name = "txtArchivePath";
+            this.txtArchivePath.ReadOnly = true;
+            this.txtArchivePath.Size = new System.Drawing.Size(1072, 26);
+            this.txtArchivePath.TabIndex = 457;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(2, 624);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(74, 15);
+            this.label8.TabIndex = 456;
+            this.label8.Text = "ARCHIVE PATH";
+            // 
             // frmServiceArchive
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1503, 672);
+            this.Controls.Add(this.txtArchivePath);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.btnClear);
@@ -881,5 +908,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.TextBox txtArchivePath;
+        private System.Windows.Forms.Label label8;
     }
 }

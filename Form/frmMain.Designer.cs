@@ -431,7 +431,7 @@ namespace MIS
             this.lblSubAppsName.AutoSize = true;
             this.lblSubAppsName.BackColor = System.Drawing.Color.Transparent;
             this.lblSubAppsName.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubAppsName.ForeColor = System.Drawing.Color.Cyan;
+            this.lblSubAppsName.ForeColor = System.Drawing.Color.Yellow;
             this.lblSubAppsName.Location = new System.Drawing.Point(482, 9);
             this.lblSubAppsName.Name = "lblSubAppsName";
             this.lblSubAppsName.Size = new System.Drawing.Size(21, 25);
@@ -577,11 +577,13 @@ namespace MIS
             this.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.imgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgLogo.ErrorImage = null;
+            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
             this.imgLogo.ImageActive = null;
             this.imgLogo.InitialImage = null;
             this.imgLogo.Location = new System.Drawing.Point(0, 0);
             this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(233, 63);
+            this.imgLogo.Size = new System.Drawing.Size(229, 59);
+            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imgLogo.TabIndex = 258;
             this.imgLogo.TabStop = false;
             this.imgLogo.Zoom = 5;
@@ -624,11 +626,11 @@ namespace MIS
             this.bunifuCards11.color = System.Drawing.Color.Transparent;
             this.bunifuCards11.Controls.Add(this.imgLogo);
             this.bunifuCards11.LeftSahddow = false;
-            this.bunifuCards11.Location = new System.Drawing.Point(12, 4);
+            this.bunifuCards11.Location = new System.Drawing.Point(14, 6);
             this.bunifuCards11.Name = "bunifuCards11";
             this.bunifuCards11.RightSahddow = false;
             this.bunifuCards11.ShadowDepth = 20;
-            this.bunifuCards11.Size = new System.Drawing.Size(233, 63);
+            this.bunifuCards11.Size = new System.Drawing.Size(229, 59);
             this.bunifuCards11.TabIndex = 475;
             // 
             // imgBankLogo
@@ -655,7 +657,7 @@ namespace MIS
             this.gbOther.Controls.Add(this.btnLogoff);
             this.gbOther.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbOther.ForeColor = System.Drawing.Color.White;
-            this.gbOther.Location = new System.Drawing.Point(14, 563);
+            this.gbOther.Location = new System.Drawing.Point(14, 575);
             this.gbOther.Name = "gbOther";
             this.gbOther.Size = new System.Drawing.Size(231, 115);
             this.gbOther.TabIndex = 288;
@@ -784,7 +786,7 @@ namespace MIS
             this.gbManagement.Controls.Add(this.btnTools);
             this.gbManagement.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbManagement.ForeColor = System.Drawing.Color.White;
-            this.gbManagement.Location = new System.Drawing.Point(14, 374);
+            this.gbManagement.Location = new System.Drawing.Point(14, 386);
             this.gbManagement.Name = "gbManagement";
             this.gbManagement.Size = new System.Drawing.Size(231, 183);
             this.gbManagement.TabIndex = 289;
@@ -1021,7 +1023,7 @@ namespace MIS
             this.gbOperation.Controls.Add(this.btnServicing);
             this.gbOperation.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbOperation.ForeColor = System.Drawing.Color.White;
-            this.gbOperation.Location = new System.Drawing.Point(14, 172);
+            this.gbOperation.Location = new System.Drawing.Point(14, 184);
             this.gbOperation.Name = "gbOperation";
             this.gbOperation.Size = new System.Drawing.Size(231, 106);
             this.gbOperation.TabIndex = 288;
@@ -1146,7 +1148,7 @@ namespace MIS
             this.gbHelpdesk.Controls.Add(this.btnSearch);
             this.gbHelpdesk.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbHelpdesk.ForeColor = System.Drawing.Color.White;
-            this.gbHelpdesk.Location = new System.Drawing.Point(14, 286);
+            this.gbHelpdesk.Location = new System.Drawing.Point(14, 298);
             this.gbHelpdesk.Name = "gbHelpdesk";
             this.gbHelpdesk.Size = new System.Drawing.Size(231, 82);
             this.gbHelpdesk.TabIndex = 287;
@@ -1234,7 +1236,7 @@ namespace MIS
             this.gbAdministrative.Controls.Add(this.btnFinance);
             this.gbAdministrative.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbAdministrative.ForeColor = System.Drawing.Color.White;
-            this.gbAdministrative.Location = new System.Drawing.Point(14, 76);
+            this.gbAdministrative.Location = new System.Drawing.Point(14, 88);
             this.gbAdministrative.Name = "gbAdministrative";
             this.gbAdministrative.Size = new System.Drawing.Size(231, 87);
             this.gbAdministrative.TabIndex = 285;
