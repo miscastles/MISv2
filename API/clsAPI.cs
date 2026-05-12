@@ -10858,11 +10858,25 @@ namespace MIS
                     sForm = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 1);
                     sDescription = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 2);
                 }
-
-                dbFunction.SetMessageBox("[ " + sTemp + " ]" + " rights and privacy denied." + "\n\n" +
-                                        "Function detail:" + "\n" +
-                                        "     >" + sForm + "\n" +
-                                        "     >" + sDescription, "Permission", clsFunction.IconType.iError);
+                if (clsSystemSetting.ClassSystemEnvironment == "DEV")
+                {
+                    dbFunction.SetMessageBox(
+                        "[ " + sTemp + " ] rights and privacy denied.\n\n" +
+                        "Function detail:\n" +
+                        "     >" + sForm + "\n" +
+                        "     >" + sDescription,
+                        "Permission",
+                        clsFunction.IconType.iError
+                    );
+                }
+                else
+                {
+                    dbFunction.SetMessageBox(
+                        "[ " + sTemp + " ] rights and privacy denied.",
+                        "Permission",
+                        clsFunction.IconType.iError
+                    );
+                }
             }
 
             return isValid;

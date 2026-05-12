@@ -3218,5 +3218,10 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
             frm.Show();
         }
+
+        private void lblEnvironment_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

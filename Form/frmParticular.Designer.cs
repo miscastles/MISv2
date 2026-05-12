@@ -451,9 +451,9 @@ namespace MIS
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(17, 49);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 15);
+            this.label1.Size = new System.Drawing.Size(50, 15);
             this.label1.TabIndex = 103;
-            this.label1.Text = "ADDRESS *";
+            this.label1.Text = "ADDRESS";
             // 
             // btnClear
             // 
@@ -1116,9 +1116,9 @@ namespace MIS
             this.label7.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(273, 238);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 15);
+            this.label7.Size = new System.Drawing.Size(61, 15);
             this.label7.TabIndex = 117;
-            this.label7.Text = "MOBILE NO. *";
+            this.label7.Text = "MOBILE NO.";
             // 
             // txtMobile
             // 
@@ -1260,11 +1260,11 @@ namespace MIS
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label28.ForeColor = System.Drawing.Color.Black;
-            this.label28.Location = new System.Drawing.Point(393, 137);
+            this.label28.Location = new System.Drawing.Point(393, 136);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(68, 15);
+            this.label28.Size = new System.Drawing.Size(61, 15);
             this.label28.TabIndex = 479;
-            this.label28.Text = "EDUCATION *";
+            this.label28.Text = "EDUCATION";
             // 
             // label27
             // 
@@ -1273,9 +1273,9 @@ namespace MIS
             this.label27.ForeColor = System.Drawing.Color.Black;
             this.label27.Location = new System.Drawing.Point(29, 111);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(29, 15);
+            this.label27.Size = new System.Drawing.Size(22, 15);
             this.label27.TabIndex = 477;
-            this.label27.Text = "TIN *";
+            this.label27.Text = "TIN";
             // 
             // txtTINNo
             // 
@@ -1297,9 +1297,9 @@ namespace MIS
             this.label26.ForeColor = System.Drawing.Color.Black;
             this.label26.Location = new System.Drawing.Point(29, 140);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(53, 15);
+            this.label26.Size = new System.Drawing.Size(46, 15);
             this.label26.TabIndex = 475;
-            this.label26.Text = "PAG IBIG *";
+            this.label26.Text = "PAG IBIG";
             // 
             // txtHDMFNo
             // 
@@ -1321,9 +1321,9 @@ namespace MIS
             this.label25.ForeColor = System.Drawing.Color.Black;
             this.label25.Location = new System.Drawing.Point(30, 59);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(32, 15);
+            this.label25.Size = new System.Drawing.Size(25, 15);
             this.label25.TabIndex = 473;
-            this.label25.Text = "SSS *";
+            this.label25.Text = "SSS";
             // 
             // txtSSSNo
             // 
@@ -1345,9 +1345,9 @@ namespace MIS
             this.label24.ForeColor = System.Drawing.Color.Black;
             this.label24.Location = new System.Drawing.Point(30, 86);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(71, 15);
+            this.label24.Size = new System.Drawing.Size(64, 15);
             this.label24.TabIndex = 471;
-            this.label24.Text = "PHIL HEALTH *";
+            this.label24.Text = "PHIL HEALTH";
             // 
             // txtPhilHealthNo
             // 
@@ -1542,9 +1542,9 @@ namespace MIS
             this.label29.ForeColor = System.Drawing.Color.Black;
             this.label29.Location = new System.Drawing.Point(29, 165);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(60, 15);
+            this.label29.Size = new System.Drawing.Size(53, 15);
             this.label29.TabIndex = 442;
-            this.label29.Text = "JOB DESC *";
+            this.label29.Text = "JOB DESC";
             // 
             // txtJobDesc
             // 
@@ -1742,9 +1742,9 @@ namespace MIS
             this.label34.ForeColor = System.Drawing.Color.Black;
             this.label34.Location = new System.Drawing.Point(393, 60);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(76, 15);
+            this.label34.Size = new System.Drawing.Size(69, 15);
             this.label34.TabIndex = 489;
-            this.label34.Text = "DATE RESIGN *";
+            this.label34.Text = "DATE RESIGN";
             // 
             // cboGender
             // 
@@ -1767,9 +1767,9 @@ namespace MIS
             this.label33.ForeColor = System.Drawing.Color.Black;
             this.label33.Location = new System.Drawing.Point(393, 112);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(53, 15);
+            this.label33.Size = new System.Drawing.Size(46, 15);
             this.label33.TabIndex = 487;
-            this.label33.Text = "GENDER *";
+            this.label33.Text = "GENDER";
             // 
             // dtpBirthDate
             // 
@@ -1787,9 +1787,9 @@ namespace MIS
             this.label32.ForeColor = System.Drawing.Color.Black;
             this.label32.Location = new System.Drawing.Point(393, 87);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(68, 15);
+            this.label32.Size = new System.Drawing.Size(61, 15);
             this.label32.TabIndex = 485;
-            this.label32.Text = "BIRTH DATE *";
+            this.label32.Text = "BIRTH DATE";
             // 
             // label31
             // 
@@ -1798,9 +1798,9 @@ namespace MIS
             this.label31.ForeColor = System.Drawing.Color.Black;
             this.label31.Location = new System.Drawing.Point(30, 34);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(67, 15);
+            this.label31.Size = new System.Drawing.Size(60, 15);
             this.label31.TabIndex = 484;
-            this.label31.Text = "PRES ID NO *";
+            this.label31.Text = "PRES ID NO";
             // 
             // txtPresIDNo
             // 
@@ -1832,9 +1832,9 @@ namespace MIS
             this.label30.ForeColor = System.Drawing.Color.Black;
             this.label30.Location = new System.Drawing.Point(393, 34);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(68, 15);
+            this.label30.Size = new System.Drawing.Size(61, 15);
             this.label30.TabIndex = 481;
-            this.label30.Text = "DATE HIRED *";
+            this.label30.Text = "DATE HIRED";
             // 
             // tabPage5
             // 
@@ -1924,9 +1924,9 @@ namespace MIS
             this.label40.ForeColor = System.Drawing.Color.Black;
             this.label40.Location = new System.Drawing.Point(548, 9);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(80, 15);
+            this.label40.Size = new System.Drawing.Size(73, 15);
             this.label40.TabIndex = 483;
-            this.label40.Text = "WAIVER FORM *";
+            this.label40.Text = "WAIVER FORM";
             // 
             // txtWaiverForm
             // 
@@ -1964,9 +1964,9 @@ namespace MIS
             this.label39.ForeColor = System.Drawing.Color.Black;
             this.label39.Location = new System.Drawing.Point(6, 9);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(89, 15);
+            this.label39.Size = new System.Drawing.Size(82, 15);
             this.label39.TabIndex = 481;
-            this.label39.Text = "NBI CLEARANCE *";
+            this.label39.Text = "NBI CLEARANCE";
             // 
             // label38
             // 
@@ -1975,9 +1975,9 @@ namespace MIS
             this.label38.ForeColor = System.Drawing.Color.Black;
             this.label38.Location = new System.Drawing.Point(367, 9);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(105, 15);
+            this.label38.Size = new System.Drawing.Size(98, 15);
             this.label38.TabIndex = 479;
-            this.label38.Text = "APPLICATION FORM *";
+            this.label38.Text = "APPLICATION FORM";
             // 
             // btnUploadSchoolReq
             // 
@@ -2015,9 +2015,9 @@ namespace MIS
             this.label37.ForeColor = System.Drawing.Color.Black;
             this.label37.Location = new System.Drawing.Point(186, 9);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(119, 15);
+            this.label37.Size = new System.Drawing.Size(112, 15);
             this.label37.TabIndex = 485;
-            this.label37.Text = "SCHOOL CREDENTIALS *";
+            this.label37.Text = "SCHOOL CREDENTIALS";
             // 
             // btnPrevAppForm
             // 
