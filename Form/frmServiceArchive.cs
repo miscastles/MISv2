@@ -118,6 +118,16 @@ namespace MIS
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
+            if (dbAPI.isNoRecordFound())
+            {
+                dbFunction.SetMessageBox(
+                    $"No records found from {dteDateFrom.Value:MMM-dd-yyyy} to {dteDateTo.Value:MMM-dd-yyyy}.",
+                    lblHeader.Text,
+                    clsFunction.IconType.iInformation
+                );
+                return;
+            }
+
             if (!dbAPI.isNoRecordFound())
             {
                 while (clsArray.ID.Length > i)
@@ -266,6 +276,8 @@ namespace MIS
 
         public void downloadFile()
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             try
             {
                 string localBasePath = $"{dbFile.sArchivePath}\\{clsSearch.ClassBankCode}";
@@ -311,6 +323,8 @@ namespace MIS
 
                 ftpClient.disconnect();
                 compressFiles();
+
+                Cursor.Current = Cursors.Default;
             }
             catch (Exception ex)
             {
@@ -326,9 +340,6 @@ namespace MIS
 
         private void compressFiles()
         {
-
-            Cursor.Current = Cursors.WaitCursor;
-
             try
             {
                 string localBasePath = $"{dbFile.sArchivePath}\\{clsSearch.ClassBankCode}";
@@ -396,12 +407,6 @@ namespace MIS
                     MessageBoxIcon.Error
                 );
             }
-            finally
-            {
-                
-            }
-
-            Cursor.Current = Cursors.Default;
         }
 
         private void btnCompress_Click(object sender, EventArgs e)
