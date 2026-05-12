@@ -23,6 +23,21 @@ namespace MIS
         private clsFunction dbFunction;
         private clsReportFunc dbReportFunc;
 
+        private int gDefTopThreshold = 50;
+        private double gDefAmtThreshold = 100.00;
+
+        protected override CreateParams CreateParams
+        {
+            // Override CreateParams to enable double-buffering for child controls
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
+                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
+                return cp;
+            }
+        }
+
         public frmImportSettlement()
         {
             InitializeComponent();
@@ -34,6 +49,7 @@ namespace MIS
             dbFunction.setDoubleBuffer(lvwPerMonth, true);
             dbFunction.setDoubleBuffer(lvwPerTopSales, true);
             dbFunction.setDoubleBuffer(lvwPerQtr, true);
+            dbFunction.setDoubleBuffer(lvwPerZeroTrans, true);
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)
@@ -101,7 +117,7 @@ namespace MIS
                 case 3: // Top 10 Per Merchant Sales
                     lvw.Columns.Add("Line#", 60, HorizontalAlignment.Left);
                     lvw.Columns.Add("TID", 90, HorizontalAlignment.Left);
-                    lvw.Columns.Add("Merchant Name", 250, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Merchant Name", 450, HorizontalAlignment.Left);
                     lvw.Columns.Add("Amount", 150, HorizontalAlignment.Right);
                     break;
                 case 4: // Summary Per Qtr
@@ -117,6 +133,12 @@ namespace MIS
                     lvw.Columns.Add("Count", 80, HorizontalAlignment.Right);
                     lvw.Columns.Add("Amount", 120, HorizontalAlignment.Right);
 
+                    break;
+                case 6: // Zero Transaction Merchant
+                    lvw.Columns.Add("Line#", 60, HorizontalAlignment.Left);
+                    lvw.Columns.Add("TID", 90, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Merchant Name", 450, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Amount", 150, HorizontalAlignment.Right);
                     break;
 
             }
@@ -140,6 +162,7 @@ namespace MIS
             initListView(3, lvwPerTopSales);
             initListView(4, lvwPerQtr);
             initListView(5, lvwSummary);
+            initListView(6, lvwPerZeroTrans);
 
             InitDateRange();
 
@@ -153,6 +176,8 @@ namespace MIS
             ucStatus.iState = 3;
 
             loadDataSummary(lvwSummary);
+
+            initThreshold();
 
             Cursor.Current = Cursors.Default;
         }
@@ -284,7 +309,7 @@ namespace MIS
 
             dbFunction.ClearListViewItems(lvw);
 
-            dbAPI.ExecuteAPI("GET", "View", "ERM Settlement Report-Per Top Sales", $"{clsSearch.ClassDateFrom}{clsFunction.sPipe}{clsSearch.ClassDateTo}{clsFunction.sPipe}{txtSearch.Text.Trim()}", "Advance Detail", "", "ViewAdvanceDetail");
+            dbAPI.ExecuteAPI("GET", "View", "ERM Settlement Report-Per Top Sales", $"{clsSearch.ClassDateFrom}{clsFunction.sPipe}{clsSearch.ClassDateTo}{clsFunction.sPipe}{txtSearch.Text.Trim()}{clsFunction.sPipe}{txtTopThreshold.Text}", "Advance Detail", "", "ViewAdvanceDetail");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
@@ -372,6 +397,56 @@ namespace MIS
             ucStatus.AnimateStatus();
         }
 
+        private void loadDataPerZeroTrans(ListView lvw)
+        {
+            int iLineNo = 0;
+            int i = 0;
+            double dblTAmount = 0.00;
+
+            ucStatus.sMessage = $"Processing summary per zero transaction...";
+            ucStatus.AnimateStatus();
+
+            dbFunction.ClearListViewItems(lvw);
+
+            dbAPI.ExecuteAPI("GET", "View", "ERM Settlement Report-Per Zero Trans", $"{clsSearch.ClassDateFrom}{clsFunction.sPipe}{clsSearch.ClassDateTo}{clsFunction.sPipe}{txtSearch.Text.Trim()}{clsFunction.sPipe}{txtAmtThreshold.Text}", "Advance Detail", "", "ViewAdvanceDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK) return;
+
+            if (!dbAPI.isNoRecordFound())
+            {
+                while (clsArray.ID.Length > i)
+                {
+                    iLineNo++;
+
+                    ListViewItem item = new ListViewItem(iLineNo.ToString());
+
+                    // Data
+                    string pJSONString = clsArray.detail_info[i];
+
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TID));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MERCHANTNAME));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
+
+                    dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
+
+                    lvw.Items.Add(item);
+
+                    i++;
+
+                }
+
+                dbFunction.ListViewAlternateBackColor(lvw);
+
+            }
+
+            // Total      
+            txtGTCntPerZeroTrans.Text = $"{lvw.Items.Count}";
+            txtGTPerZeroTrans.Text = dblTAmount.ToString("N2");
+
+            ucStatus.sMessage = $"Processing summary per zero transaction...complete";
+            ucStatus.AnimateStatus();
+        }
+
         private void loadDataSummary(ListView lvw)
         {
             int iLineNo = 0;
@@ -432,7 +507,8 @@ namespace MIS
             if (!chkPerTransType.Checked &&
                 !chkPerMonth.Checked &&
                 !chkPerTopSales.Checked &&
-                !chkPerQtr.Checked)
+                !chkPerQtr.Checked &&
+                !chkPerZeroTrans.Checked)
             {
                 dbFunction.SetMessageBox("Please select at least one report type before proceeding.",
                     clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
@@ -444,6 +520,8 @@ namespace MIS
             dbFunction.SetMessageBox("This process may take a few minutes to complete.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
 
             Cursor.Current = Cursors.WaitCursor;
+
+            tabMain.SelectedIndex = 0;
 
             initTotal();
 
@@ -474,14 +552,19 @@ namespace MIS
             if (chkPerQtr.Checked)
                 loadDataPerQtr(lvwPerQtr);
 
+            if (chkPerZeroTrans.Checked)
+                loadDataPerZeroTrans(lvwPerZeroTrans);
+
             Cursor.Current = Cursors.Default;
 
             tabMain.SelectedIndex = 1;
 
+            txtTopThreshold.ReadOnly = txtAmtThreshold.ReadOnly = false;
+
             ucStatus.iState = 3;
             ucStatus.sMessage = "Process complete";
             ucStatus.AnimateStatus();
-
+            
             dbFunction.SetMessageBox("Load data complete", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
         }
 
@@ -493,6 +576,7 @@ namespace MIS
             dbFunction.ClearListViewItems(lvwPerMonth);
             dbFunction.ClearListViewItems(lvwPerTopSales);
             dbFunction.ClearListViewItems(lvwPerQtr);
+            dbFunction.ClearListViewItems(lvwPerZeroTrans);
 
             dbFunction.ClearTextBox(this);
 
@@ -505,6 +589,8 @@ namespace MIS
 
             tabFilter.SelectedIndex = 0;
             tabMain.SelectedIndex = 0;
+
+            txtTopThreshold.ReadOnly = txtAmtThreshold.ReadOnly = false;
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -513,7 +599,8 @@ namespace MIS
             if (!chkPerTransType.Checked &&
                 !chkPerMonth.Checked &&
                 !chkPerTopSales.Checked &&
-                !chkPerQtr.Checked)
+                !chkPerQtr.Checked &&
+                !chkPerZeroTrans.Checked)
             {
                 dbFunction.SetMessageBox("Please select at least one report type before proceeding.",
                     clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
@@ -552,12 +639,21 @@ namespace MIS
                 },
                 new ReportInfo
                 {
+                    ListView = lvwPerZeroTrans,
+                    SheetName = "Per Zero Trans",
+                    Title = "Summary per zero trans",
+                    Count = txtGTCntPerZeroTrans.Text,
+                    Total = txtGTPerZeroTrans.Text
+                },
+                new ReportInfo
+                {
                     ListView = lvwPerQtr,
                     SheetName = "Per Qtr",
                     Title = "Summary per qtr",
                     Count = txtGTCntPerQtr.Text,
                     Total = txtGTPerQtr.Text
                 }
+                
             };
             
             string filename = $"{clsSearch.ClassBankCode}_ERM-Settlement-Report_Date_Range_From_{clsSearch.ClassDateFrom}_To_{clsSearch.ClassDateTo}_{clsDefines.FILE_EXT_XLXS}";
@@ -801,7 +897,9 @@ namespace MIS
                 txtGTCntPerTopSales.Text =
                 txtGTPerTopSales.Text =
                 txtGTCntPerQtr.Text =
-                txtGTPerQtr.Text = clsFunction.sZero;
+                txtGTPerQtr.Text =
+                txtGTCntPerZeroTrans.Text =
+                txtGTPerZeroTrans.Text =  clsFunction.sZero;
 
         }
 
@@ -817,6 +915,62 @@ namespace MIS
             loadDataSummary(lvwSummary);
 
             Cursor.Current = Cursors.WaitCursor;
+        }
+
+        private void initThreshold()
+        {
+            txtTopThreshold.Text = $"{gDefTopThreshold}";
+            txtAmtThreshold.Text = $"{gDefAmtThreshold}";
+        }
+
+        private void btnSearchPerTopSales_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidID(txtTopThreshold.Text))
+            {
+                dbFunction.SetMessageBox("Please enter a valid numeric value for Top Threshold.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
+                return;
+            }
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            loadDataPerTopSales(lvwPerTopSales);
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void btnSearchPerZeroTrans_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidAmount(txtAmtThreshold.Text))
+            {
+                dbFunction.SetMessageBox("Please enter a valid numeric value for Amount Threshold.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
+                return;
+            }
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            loadDataPerZeroTrans(lvwPerZeroTrans);
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void txtAmtThreshold_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    btnSearchPerZeroTrans_Click(this, e);
+                    break;
+            }
+        }
+
+        private void txtTopThreshold_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    btnSearchPerTopSales_Click(this, e);
+                    break;
+            }
         }
     }
 }

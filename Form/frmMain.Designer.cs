@@ -576,12 +576,12 @@ namespace MIS
             this.imgLogo.BackColor = System.Drawing.Color.Transparent;
             this.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.imgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
+            this.imgLogo.ErrorImage = null;
             this.imgLogo.ImageActive = null;
+            this.imgLogo.InitialImage = null;
             this.imgLogo.Location = new System.Drawing.Point(0, 0);
             this.imgLogo.Name = "imgLogo";
             this.imgLogo.Size = new System.Drawing.Size(233, 63);
-            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.imgLogo.TabIndex = 258;
             this.imgLogo.TabStop = false;
             this.imgLogo.Zoom = 5;
@@ -618,15 +618,15 @@ namespace MIS
             // 
             // bunifuCards11
             // 
-            this.bunifuCards11.BackColor = System.Drawing.Color.White;
-            this.bunifuCards11.BorderRadius = 10;
-            this.bunifuCards11.BottomSahddow = true;
-            this.bunifuCards11.color = System.Drawing.Color.White;
+            this.bunifuCards11.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuCards11.BorderRadius = 0;
+            this.bunifuCards11.BottomSahddow = false;
+            this.bunifuCards11.color = System.Drawing.Color.Transparent;
             this.bunifuCards11.Controls.Add(this.imgLogo);
             this.bunifuCards11.LeftSahddow = false;
-            this.bunifuCards11.Location = new System.Drawing.Point(12, 3);
+            this.bunifuCards11.Location = new System.Drawing.Point(12, 4);
             this.bunifuCards11.Name = "bunifuCards11";
-            this.bunifuCards11.RightSahddow = true;
+            this.bunifuCards11.RightSahddow = false;
             this.bunifuCards11.ShadowDepth = 20;
             this.bunifuCards11.Size = new System.Drawing.Size(233, 63);
             this.bunifuCards11.TabIndex = 475;

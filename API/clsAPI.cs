@@ -5508,14 +5508,15 @@ namespace MIS
                                             SearchBy.Equals("Service Reversal-JobType") ||
                                             SearchBy.Equals("ERM Settlement Report-Per Month") ||
                                             SearchBy.Equals("ERM Settlement Report-Per Trans Type") ||
-                                            SearchBy.Equals("ERM Settlement Report-Per Top Sales") ||
+                                            SearchBy.Equals("ERM Settlement Report-Per Top Sales") ||                                            
                                             SearchBy.Equals("ERM Settlement Report-Per Qtr") ||
                                             SearchBy.Equals("ERM Settlement Report-Summary") ||
                                             SearchBy.Equals("Inventory Bulk Cross-Check List") ||
                                             SearchBy.Equals("Service Bulk Cross-Check List") ||
                                             SearchBy.Equals("Billing-Type") ||
                                             SearchBy.Equals("Expenses Service Detail") ||
-                                            SearchBy.Equals("FSR Service Detail")
+                                            SearchBy.Equals("FSR Service Detail") ||
+                                            SearchBy.Equals("ERM Settlement Report-Per Zero Trans")
                                             )
                                         {
                                             foreach (var element in Detail46.data)

@@ -325,6 +325,9 @@ namespace MIS
                 txtUserName.BackColor = clsFunction.MKBackColor;
                 txtFullName.BackColor = clsFunction.MKBackColor;
 
+                txtMD5Password.BackColor = clsFunction.DisableBackColor;
+                txtHashPassword.BackColor = clsFunction.DisableBackColor;
+
                 // Load User Rights and Privacy
                 dbAPI.FillListViewPrivacy(lvwPrivacy, "Privacy Detail", txtID.Text + clsFunction.sPipe + clsFunction.sZero, false);
             }
