@@ -518,7 +518,6 @@ D:\Work\MISv2\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\Work\MISv2\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\Work\MISv2\bin\Debug\System.ValueTuple.xml
 D:\Work\MISv2\obj\Debug\MIS.csproj.AssemblyReference.cache
-D:\Work\MISv2\obj\Debug\MIS.exe.config
 D:\Work\MISv2\obj\Debug\MIS.ControlObject.ucAttachDocument.resources
 D:\Work\MISv2\obj\Debug\MIS.ControlObject.ucCurrentSNInfo.resources
 D:\Work\MISv2\obj\Debug\MIS.ControlObject.ucDisplayStatus.resources
@@ -619,3 +618,4 @@ D:\Work\MISv2\obj\Debug\MIS.application
 D:\Work\MISv2\obj\Debug\MIS.csproj.Up2Date
 D:\Work\MISv2\obj\Debug\MIS.exe
 D:\Work\MISv2\obj\Debug\MIS.pdb
+D:\Work\MISv2\obj\Debug\MIS.exe.config
