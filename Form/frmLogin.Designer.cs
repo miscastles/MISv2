@@ -236,17 +236,17 @@
             // 
             // bunifuCards1
             // 
-            this.bunifuCards1.BackColor = System.Drawing.Color.White;
-            this.bunifuCards1.BorderRadius = 10;
-            this.bunifuCards1.BottomSahddow = true;
-            this.bunifuCards1.color = System.Drawing.Color.White;
+            this.bunifuCards1.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuCards1.BorderRadius = 0;
+            this.bunifuCards1.BottomSahddow = false;
+            this.bunifuCards1.color = System.Drawing.Color.Transparent;
             this.bunifuCards1.Controls.Add(this.imgLogo);
             this.bunifuCards1.LeftSahddow = false;
-            this.bunifuCards1.Location = new System.Drawing.Point(10, 12);
+            this.bunifuCards1.Location = new System.Drawing.Point(12, 12);
             this.bunifuCards1.Name = "bunifuCards1";
-            this.bunifuCards1.RightSahddow = true;
+            this.bunifuCards1.RightSahddow = false;
             this.bunifuCards1.ShadowDepth = 20;
-            this.bunifuCards1.Size = new System.Drawing.Size(207, 63);
+            this.bunifuCards1.Size = new System.Drawing.Size(199, 58);
             this.bunifuCards1.TabIndex = 279;
             // 
             // imgLogo
@@ -254,12 +254,12 @@
             this.imgLogo.BackColor = System.Drawing.Color.Transparent;
             this.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.imgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
+            this.imgLogo.ErrorImage = null;
             this.imgLogo.ImageActive = null;
+            this.imgLogo.InitialImage = null;
             this.imgLogo.Location = new System.Drawing.Point(0, 0);
             this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(207, 63);
-            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.imgLogo.Size = new System.Drawing.Size(199, 58);
             this.imgLogo.TabIndex = 258;
             this.imgLogo.TabStop = false;
             this.imgLogo.Zoom = 5;
@@ -302,8 +302,8 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(12, 171);
+            this.label7.ForeColor = System.Drawing.Color.Aqua;
+            this.label7.Location = new System.Drawing.Point(12, 208);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(94, 28);
             this.label7.TabIndex = 255;
@@ -315,8 +315,8 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(12, 139);
+            this.label6.ForeColor = System.Drawing.Color.Aqua;
+            this.label6.Location = new System.Drawing.Point(12, 176);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(144, 28);
             this.label6.TabIndex = 254;
@@ -328,8 +328,8 @@
             this.lblPublishVersion.AutoSize = true;
             this.lblPublishVersion.BackColor = System.Drawing.Color.Transparent;
             this.lblPublishVersion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPublishVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblPublishVersion.Location = new System.Drawing.Point(14, 215);
+            this.lblPublishVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblPublishVersion.Location = new System.Drawing.Point(14, 252);
             this.lblPublishVersion.Name = "lblPublishVersion";
             this.lblPublishVersion.Size = new System.Drawing.Size(100, 15);
             this.lblPublishVersion.TabIndex = 234;
@@ -341,8 +341,8 @@
             this.title1.AutoSize = true;
             this.title1.BackColor = System.Drawing.Color.Transparent;
             this.title1.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.title1.ForeColor = System.Drawing.Color.White;
-            this.title1.Location = new System.Drawing.Point(12, 107);
+            this.title1.ForeColor = System.Drawing.Color.Aqua;
+            this.title1.Location = new System.Drawing.Point(12, 144);
             this.title1.Name = "title1";
             this.title1.Size = new System.Drawing.Size(170, 28);
             this.title1.TabIndex = 27;

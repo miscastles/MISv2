@@ -58,11 +58,23 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lvwPerMonth = new System.Windows.Forms.ListView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnSearchPerTopSales = new System.Windows.Forms.Button();
+            this.txtTopThreshold = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.txtGTCntPerTopSales = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtGTPerTopSales = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lvwPerTopSales = new System.Windows.Forms.ListView();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.btnSearchPerZeroTrans = new System.Windows.Forms.Button();
+            this.txtAmtThreshold = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtGTCntPerZeroTrans = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtGTPerZeroTrans = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.lvwPerZeroTrans = new System.Windows.Forms.ListView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.txtGTCntPerQtr = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -84,6 +96,7 @@
             this.btnProcess = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.chkPerZeroTrans = new System.Windows.Forms.CheckBox();
             this.btnDelete = new Bunifu.Framework.UI.BunifuImageButton();
             this.chkDateRange = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -115,6 +128,7 @@
             this.tabPage4.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage9.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabFilter.SuspendLayout();
             this.tabPage8.SuspendLayout();
@@ -243,12 +257,13 @@
             this.tabMain.Controls.Add(this.tabPage4);
             this.tabMain.Controls.Add(this.tabPage2);
             this.tabMain.Controls.Add(this.tabPage1);
+            this.tabMain.Controls.Add(this.tabPage9);
             this.tabMain.Controls.Add(this.tabPage3);
             this.tabMain.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabMain.Location = new System.Drawing.Point(372, 35);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(1088, 441);
+            this.tabMain.Size = new System.Drawing.Size(1088, 444);
             this.tabMain.TabIndex = 493;
             // 
             // tabPage7
@@ -259,14 +274,14 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 27);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(1080, 410);
+            this.tabPage7.Size = new System.Drawing.Size(1080, 413);
             this.tabPage7.TabIndex = 4;
             this.tabPage7.Text = "PREVIEW IMPORT";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // txtGTCntPreview
             // 
-            this.txtGTCntPreview.BackColor = System.Drawing.Color.White;
+            this.txtGTCntPreview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtGTCntPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGTCntPreview.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtGTCntPreview.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -321,7 +336,7 @@
             // 
             // txtGTCntPerTransType
             // 
-            this.txtGTCntPerTransType.BackColor = System.Drawing.Color.White;
+            this.txtGTCntPerTransType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtGTCntPerTransType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGTCntPerTransType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtGTCntPerTransType.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -346,7 +361,7 @@
             // 
             // txtGTPerTransType
             // 
-            this.txtGTPerTransType.BackColor = System.Drawing.Color.White;
+            this.txtGTPerTransType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtGTPerTransType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGTPerTransType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtGTPerTransType.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -401,7 +416,7 @@
             // 
             // txtGTCntPerMonth
             // 
-            this.txtGTCntPerMonth.BackColor = System.Drawing.Color.White;
+            this.txtGTCntPerMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtGTCntPerMonth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGTCntPerMonth.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtGTCntPerMonth.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -426,7 +441,7 @@
             // 
             // txtGTPerMonth
             // 
-            this.txtGTPerMonth.BackColor = System.Drawing.Color.White;
+            this.txtGTPerMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtGTPerMonth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGTPerMonth.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtGTPerMonth.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -467,6 +482,9 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.btnSearchPerTopSales);
+            this.tabPage1.Controls.Add(this.txtTopThreshold);
+            this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.txtGTCntPerTopSales);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.txtGTPerTopSales);
@@ -475,13 +493,57 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1080, 410);
+            this.tabPage1.Size = new System.Drawing.Size(1080, 413);
             this.tabPage1.TabIndex = 1;
             this.tabPage1.Text = "TOP MERCHANT MOST SALES";
             // 
+            // btnSearchPerTopSales
+            // 
+            this.btnSearchPerTopSales.AutoSize = true;
+            this.btnSearchPerTopSales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnSearchPerTopSales.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnSearchPerTopSales.FlatAppearance.BorderSize = 0;
+            this.btnSearchPerTopSales.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSearchPerTopSales.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchPerTopSales.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnSearchPerTopSales.Location = new System.Drawing.Point(947, 3);
+            this.btnSearchPerTopSales.Name = "btnSearchPerTopSales";
+            this.btnSearchPerTopSales.Size = new System.Drawing.Size(131, 26);
+            this.btnSearchPerTopSales.TabIndex = 506;
+            this.btnSearchPerTopSales.Text = "SEARCH";
+            this.btnSearchPerTopSales.UseVisualStyleBackColor = false;
+            this.btnSearchPerTopSales.Click += new System.EventHandler(this.btnSearchPerTopSales_Click);
+            // 
+            // txtTopThreshold
+            // 
+            this.txtTopThreshold.BackColor = System.Drawing.Color.White;
+            this.txtTopThreshold.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTopThreshold.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTopThreshold.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTopThreshold.ForeColor = System.Drawing.Color.Black;
+            this.txtTopThreshold.Location = new System.Drawing.Point(757, 5);
+            this.txtTopThreshold.MaxLength = 4;
+            this.txtTopThreshold.Name = "txtTopThreshold";
+            this.txtTopThreshold.ReadOnly = true;
+            this.txtTopThreshold.Size = new System.Drawing.Size(189, 22);
+            this.txtTopThreshold.TabIndex = 505;
+            this.txtTopThreshold.Text = "0";
+            this.txtTopThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTopThreshold.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTopThreshold_KeyDown);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(632, 10);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(98, 14);
+            this.label19.TabIndex = 504;
+            this.label19.Text = "TOP THRESHOLD";
+            // 
             // txtGTCntPerTopSales
             // 
-            this.txtGTCntPerTopSales.BackColor = System.Drawing.Color.White;
+            this.txtGTCntPerTopSales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtGTCntPerTopSales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGTCntPerTopSales.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtGTCntPerTopSales.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -506,7 +568,7 @@
             // 
             // txtGTPerTopSales
             // 
-            this.txtGTPerTopSales.BackColor = System.Drawing.Color.White;
+            this.txtGTPerTopSales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtGTPerTopSales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGTPerTopSales.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtGTPerTopSales.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -537,12 +599,139 @@
             this.lvwPerTopSales.ForeColor = System.Drawing.Color.Black;
             this.lvwPerTopSales.FullRowSelect = true;
             this.lvwPerTopSales.HideSelection = false;
-            this.lvwPerTopSales.Location = new System.Drawing.Point(3, 3);
+            this.lvwPerTopSales.Location = new System.Drawing.Point(3, 30);
             this.lvwPerTopSales.Name = "lvwPerTopSales";
-            this.lvwPerTopSales.Size = new System.Drawing.Size(1074, 379);
+            this.lvwPerTopSales.Size = new System.Drawing.Size(1074, 352);
             this.lvwPerTopSales.TabIndex = 489;
             this.lvwPerTopSales.UseCompatibleStateImageBehavior = false;
             this.lvwPerTopSales.View = System.Windows.Forms.View.Details;
+            // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.btnSearchPerZeroTrans);
+            this.tabPage9.Controls.Add(this.txtAmtThreshold);
+            this.tabPage9.Controls.Add(this.label18);
+            this.tabPage9.Controls.Add(this.txtGTCntPerZeroTrans);
+            this.tabPage9.Controls.Add(this.label16);
+            this.tabPage9.Controls.Add(this.txtGTPerZeroTrans);
+            this.tabPage9.Controls.Add(this.label17);
+            this.tabPage9.Controls.Add(this.lvwPerZeroTrans);
+            this.tabPage9.Location = new System.Drawing.Point(4, 27);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(1080, 413);
+            this.tabPage9.TabIndex = 5;
+            this.tabPage9.Text = "ZERO TRANSACION MERCHANT";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // btnSearchPerZeroTrans
+            // 
+            this.btnSearchPerZeroTrans.AutoSize = true;
+            this.btnSearchPerZeroTrans.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnSearchPerZeroTrans.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnSearchPerZeroTrans.FlatAppearance.BorderSize = 0;
+            this.btnSearchPerZeroTrans.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSearchPerZeroTrans.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchPerZeroTrans.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnSearchPerZeroTrans.Location = new System.Drawing.Point(946, 4);
+            this.btnSearchPerZeroTrans.Name = "btnSearchPerZeroTrans";
+            this.btnSearchPerZeroTrans.Size = new System.Drawing.Size(131, 26);
+            this.btnSearchPerZeroTrans.TabIndex = 503;
+            this.btnSearchPerZeroTrans.Text = "SEARCH";
+            this.btnSearchPerZeroTrans.UseVisualStyleBackColor = false;
+            this.btnSearchPerZeroTrans.Click += new System.EventHandler(this.btnSearchPerZeroTrans_Click);
+            // 
+            // txtAmtThreshold
+            // 
+            this.txtAmtThreshold.BackColor = System.Drawing.Color.White;
+            this.txtAmtThreshold.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtAmtThreshold.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtAmtThreshold.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAmtThreshold.ForeColor = System.Drawing.Color.Black;
+            this.txtAmtThreshold.Location = new System.Drawing.Point(756, 6);
+            this.txtAmtThreshold.MaxLength = 12;
+            this.txtAmtThreshold.Name = "txtAmtThreshold";
+            this.txtAmtThreshold.ReadOnly = true;
+            this.txtAmtThreshold.Size = new System.Drawing.Size(189, 22);
+            this.txtAmtThreshold.TabIndex = 502;
+            this.txtAmtThreshold.Text = "0";
+            this.txtAmtThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtAmtThreshold.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAmtThreshold_KeyDown);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(631, 11);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(119, 14);
+            this.label18.TabIndex = 501;
+            this.label18.Text = "AMOUNT THRESHOLD";
+            // 
+            // txtGTCntPerZeroTrans
+            // 
+            this.txtGTCntPerZeroTrans.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGTCntPerZeroTrans.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGTCntPerZeroTrans.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtGTCntPerZeroTrans.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGTCntPerZeroTrans.ForeColor = System.Drawing.Color.Black;
+            this.txtGTCntPerZeroTrans.Location = new System.Drawing.Point(95, 384);
+            this.txtGTCntPerZeroTrans.Name = "txtGTCntPerZeroTrans";
+            this.txtGTCntPerZeroTrans.ReadOnly = true;
+            this.txtGTCntPerZeroTrans.Size = new System.Drawing.Size(257, 22);
+            this.txtGTCntPerZeroTrans.TabIndex = 500;
+            this.txtGTCntPerZeroTrans.Text = "0";
+            this.txtGTCntPerZeroTrans.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(5, 387);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(84, 14);
+            this.label16.TabIndex = 499;
+            this.label16.Text = "TOTAL COUNT";
+            // 
+            // txtGTPerZeroTrans
+            // 
+            this.txtGTPerZeroTrans.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGTPerZeroTrans.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGTPerZeroTrans.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtGTPerZeroTrans.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGTPerZeroTrans.ForeColor = System.Drawing.Color.Black;
+            this.txtGTPerZeroTrans.Location = new System.Drawing.Point(819, 384);
+            this.txtGTPerZeroTrans.Name = "txtGTPerZeroTrans";
+            this.txtGTPerZeroTrans.ReadOnly = true;
+            this.txtGTPerZeroTrans.Size = new System.Drawing.Size(257, 22);
+            this.txtGTPerZeroTrans.TabIndex = 498;
+            this.txtGTPerZeroTrans.Text = "0.00";
+            this.txtGTPerZeroTrans.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(729, 387);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(84, 14);
+            this.label17.TabIndex = 497;
+            this.label17.Text = "GRAND TOTAL";
+            // 
+            // lvwPerZeroTrans
+            // 
+            this.lvwPerZeroTrans.BackColor = System.Drawing.Color.GhostWhite;
+            this.lvwPerZeroTrans.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvwPerZeroTrans.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvwPerZeroTrans.ForeColor = System.Drawing.Color.Black;
+            this.lvwPerZeroTrans.FullRowSelect = true;
+            this.lvwPerZeroTrans.HideSelection = false;
+            this.lvwPerZeroTrans.Location = new System.Drawing.Point(3, 31);
+            this.lvwPerZeroTrans.Name = "lvwPerZeroTrans";
+            this.lvwPerZeroTrans.Size = new System.Drawing.Size(1074, 350);
+            this.lvwPerZeroTrans.TabIndex = 490;
+            this.lvwPerZeroTrans.UseCompatibleStateImageBehavior = false;
+            this.lvwPerZeroTrans.View = System.Windows.Forms.View.Details;
             // 
             // tabPage3
             // 
@@ -560,7 +749,7 @@
             // 
             // txtGTCntPerQtr
             // 
-            this.txtGTCntPerQtr.BackColor = System.Drawing.Color.White;
+            this.txtGTCntPerQtr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtGTCntPerQtr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGTCntPerQtr.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtGTCntPerQtr.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -585,7 +774,7 @@
             // 
             // txtGTPerQtr
             // 
-            this.txtGTPerQtr.BackColor = System.Drawing.Color.White;
+            this.txtGTPerQtr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtGTPerQtr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGTPerQtr.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtGTPerQtr.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -711,9 +900,9 @@
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnRefresh.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnRefresh.Location = new System.Drawing.Point(3, 411);
+            this.btnRefresh.Location = new System.Drawing.Point(3, 404);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(359, 26);
+            this.btnRefresh.Size = new System.Drawing.Size(359, 30);
             this.btnRefresh.TabIndex = 489;
             this.btnRefresh.Text = "REFRESH";
             this.btnRefresh.UseVisualStyleBackColor = false;
@@ -793,9 +982,9 @@
             this.btnProcess.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnProcess.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProcess.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnProcess.Location = new System.Drawing.Point(181, 411);
+            this.btnProcess.Location = new System.Drawing.Point(181, 405);
             this.btnProcess.Name = "btnProcess";
-            this.btnProcess.Size = new System.Drawing.Size(176, 26);
+            this.btnProcess.Size = new System.Drawing.Size(176, 30);
             this.btnProcess.TabIndex = 486;
             this.btnProcess.Text = "PROCESS";
             this.btnProcess.UseVisualStyleBackColor = false;
@@ -810,9 +999,9 @@
             this.btnImport.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnImport.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnImport.Location = new System.Drawing.Point(3, 411);
+            this.btnImport.Location = new System.Drawing.Point(3, 405);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(175, 26);
+            this.btnImport.Size = new System.Drawing.Size(175, 30);
             this.btnImport.TabIndex = 485;
             this.btnImport.Text = "IMPORT";
             this.btnImport.UseVisualStyleBackColor = false;
@@ -820,6 +1009,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.chkPerZeroTrans);
             this.tabPage6.Controls.Add(this.btnDelete);
             this.tabPage6.Controls.Add(this.chkDateRange);
             this.tabPage6.Controls.Add(this.groupBox3);
@@ -846,6 +1036,18 @@
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "FILTER OPTION";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // chkPerZeroTrans
+            // 
+            this.chkPerZeroTrans.AutoSize = true;
+            this.chkPerZeroTrans.Checked = true;
+            this.chkPerZeroTrans.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPerZeroTrans.Location = new System.Drawing.Point(12, 352);
+            this.chkPerZeroTrans.Name = "chkPerZeroTrans";
+            this.chkPerZeroTrans.Size = new System.Drawing.Size(190, 19);
+            this.chkPerZeroTrans.TabIndex = 515;
+            this.chkPerZeroTrans.Text = "Summary per zero transaction?";
+            this.chkPerZeroTrans.UseVisualStyleBackColor = true;
             // 
             // btnDelete
             // 
@@ -874,7 +1076,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Location = new System.Drawing.Point(9, 396);
+            this.groupBox3.Location = new System.Drawing.Point(9, 381);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(344, 6);
             this.groupBox3.TabIndex = 512;
@@ -1032,9 +1234,9 @@
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSearch.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSearch.Location = new System.Drawing.Point(3, 408);
+            this.btnSearch.Location = new System.Drawing.Point(3, 393);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(357, 26);
+            this.btnSearch.Size = new System.Drawing.Size(358, 40);
             this.btnSearch.TabIndex = 492;
             this.btnSearch.Text = "SEARCH";
             this.btnSearch.UseVisualStyleBackColor = false;
@@ -1135,6 +1337,8 @@
             this.tabPage2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage9.ResumeLayout(false);
+            this.tabPage9.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabFilter.ResumeLayout(false);
@@ -1228,5 +1432,18 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtGTCntSummary;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.TextBox txtAmtThreshold;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox txtGTCntPerZeroTrans;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtGTPerZeroTrans;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ListView lvwPerZeroTrans;
+        private System.Windows.Forms.Button btnSearchPerZeroTrans;
+        private System.Windows.Forms.Button btnSearchPerTopSales;
+        private System.Windows.Forms.TextBox txtTopThreshold;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.CheckBox chkPerZeroTrans;
     }
 }
