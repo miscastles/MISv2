@@ -11,6 +11,7 @@ using System.Diagnostics;
 using MIS.Global;
 using System.IO;
 using System.IO.Compression;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 
 namespace MIS
 {
@@ -120,7 +121,18 @@ namespace MIS
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
-            if (!dbAPI.isNoRecordFound())
+            if(dbAPI.isNoRecordFound())
+            {
+                MessageBox.Show(
+                    $"No record found for date range" +
+                    "\n\n" +
+                    $"{clsSearch.ClassDateFrom} to {clsSearch.ClassDateTo}",
+                    "Archive search error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ); return;
+            }
+            else
             {
                 while (clsArray.ID.Length > i)
                 {
@@ -132,7 +144,7 @@ namespace MIS
                     string pJSONString = clsArray.detail_info[i];
 
                     string serviceno = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_SERVICENO);
-                    
+
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_SERVICENO));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRIDNO));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_JobTypeDescription));
@@ -218,8 +230,9 @@ namespace MIS
 
             }
 
-            Cursor.Current = Cursors.Default;
-        }
+                Cursor.Current = Cursors.Default;
+         }
+
 
         private void InitDateRange()
         {
