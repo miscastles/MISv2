@@ -329,7 +329,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 27);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1080, 410);
+            this.tabPage4.Size = new System.Drawing.Size(1080, 413);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "SUMMARY PER TRANS TYPE";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -410,7 +410,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1080, 410);
+            this.tabPage2.Size = new System.Drawing.Size(1080, 413);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "SUMMARY PER MONTH";
             // 
@@ -742,7 +742,7 @@
             this.tabPage3.Controls.Add(this.lvwPerQtr);
             this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1080, 410);
+            this.tabPage3.Size = new System.Drawing.Size(1080, 413);
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "SUMMRY PER QTR";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1310,7 +1310,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1460, 508);
+            this.ClientSize = new System.Drawing.Size(1460, 511);
             this.Controls.Add(this.ucStatus);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnExport);

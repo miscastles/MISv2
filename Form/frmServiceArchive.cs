@@ -443,5 +443,14 @@ namespace MIS
         {
             txtArchivePath.Text = Path.Combine(dbFile.sArchivePath,clsSearch.ClassBankCode);
         }
+
+        private void btnOpenFolderPath_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            dbFile.OpenFolder(txtArchivePath.Text);
+
+            Cursor.Current = Cursors.Default;
+        }
     }
 }

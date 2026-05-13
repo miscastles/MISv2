@@ -95,6 +95,7 @@
             this.panel9 = new System.Windows.Forms.Panel();
             this.txtArchivePath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btnOpenFolderPath = new Bunifu.Framework.UI.BunifuImageButton();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
@@ -107,6 +108,7 @@
             this.panel5.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenFolderPath)).BeginInit();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -129,7 +131,7 @@
             // 
             // bunifuImageButton1
             // 
-            this.bunifuImageButton1.BackColor = System.Drawing.Color.Maroon;
+            this.bunifuImageButton1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuImageButton1.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.Image")));
             this.bunifuImageButton1.ImageActive = null;
             this.bunifuImageButton1.Location = new System.Drawing.Point(3, 0);
@@ -784,7 +786,7 @@
             this.txtArchivePath.Location = new System.Drawing.Point(5, 640);
             this.txtArchivePath.Name = "txtArchivePath";
             this.txtArchivePath.ReadOnly = true;
-            this.txtArchivePath.Size = new System.Drawing.Size(1072, 26);
+            this.txtArchivePath.Size = new System.Drawing.Size(966, 26);
             this.txtArchivePath.TabIndex = 457;
             // 
             // label8
@@ -798,11 +800,26 @@
             this.label8.TabIndex = 456;
             this.label8.Text = "ARCHIVE PATH";
             // 
+            // btnOpenFolderPath
+            // 
+            this.btnOpenFolderPath.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenFolderPath.Image = global::MIS.Properties.Resources.folder_on;
+            this.btnOpenFolderPath.ImageActive = null;
+            this.btnOpenFolderPath.Location = new System.Drawing.Point(974, 640);
+            this.btnOpenFolderPath.Name = "btnOpenFolderPath";
+            this.btnOpenFolderPath.Size = new System.Drawing.Size(26, 28);
+            this.btnOpenFolderPath.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnOpenFolderPath.TabIndex = 458;
+            this.btnOpenFolderPath.TabStop = false;
+            this.btnOpenFolderPath.Zoom = 10;
+            this.btnOpenFolderPath.Click += new System.EventHandler(this.btnOpenFolderPath_Click);
+            // 
             // frmServiceArchive
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1503, 672);
+            this.Controls.Add(this.btnOpenFolderPath);
             this.Controls.Add(this.txtArchivePath);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.panel7);
@@ -838,6 +855,7 @@
             this.panel7.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenFolderPath)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -910,5 +928,6 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.TextBox txtArchivePath;
         private System.Windows.Forms.Label label8;
+        private Bunifu.Framework.UI.BunifuImageButton btnOpenFolderPath;
     }
 }

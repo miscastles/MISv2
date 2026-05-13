@@ -137,7 +137,7 @@
             this.lblSetting.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.lblSetting.Location = new System.Drawing.Point(29, 12);
             this.lblSetting.Name = "lblSetting";
-            this.lblSetting.Size = new System.Drawing.Size(51, 16);
+            this.lblSetting.Size = new System.Drawing.Size(50, 16);
             this.lblSetting.TabIndex = 278;
             this.lblSetting.Text = "Settings";
             this.lblSetting.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -181,7 +181,7 @@
             this.lblChangePassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.lblChangePassword.Location = new System.Drawing.Point(230, 12);
             this.lblChangePassword.Name = "lblChangePassword";
-            this.lblChangePassword.Size = new System.Drawing.Size(115, 16);
+            this.lblChangePassword.Size = new System.Drawing.Size(114, 16);
             this.lblChangePassword.TabIndex = 270;
             this.lblChangePassword.Text = "Change password?";
             this.lblChangePassword.Click += new System.EventHandler(this.lblChangePassword_Click);
@@ -206,7 +206,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(238, 51);
+            this.label1.Location = new System.Drawing.Point(249, 51);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 23);
             this.label1.TabIndex = 245;
@@ -255,11 +255,13 @@
             this.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.imgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgLogo.ErrorImage = null;
+            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
             this.imgLogo.ImageActive = null;
             this.imgLogo.InitialImage = null;
             this.imgLogo.Location = new System.Drawing.Point(0, 0);
             this.imgLogo.Name = "imgLogo";
             this.imgLogo.Size = new System.Drawing.Size(199, 58);
+            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imgLogo.TabIndex = 258;
             this.imgLogo.TabStop = false;
             this.imgLogo.Zoom = 5;
@@ -302,7 +304,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Aqua;
+            this.label7.ForeColor = System.Drawing.Color.Cyan;
             this.label7.Location = new System.Drawing.Point(12, 208);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(94, 28);
@@ -315,7 +317,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Aqua;
+            this.label6.ForeColor = System.Drawing.Color.Cyan;
             this.label6.Location = new System.Drawing.Point(12, 176);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(144, 28);
@@ -341,7 +343,7 @@
             this.title1.AutoSize = true;
             this.title1.BackColor = System.Drawing.Color.Transparent;
             this.title1.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.title1.ForeColor = System.Drawing.Color.Aqua;
+            this.title1.ForeColor = System.Drawing.Color.Cyan;
             this.title1.Location = new System.Drawing.Point(12, 144);
             this.title1.Name = "title1";
             this.title1.Size = new System.Drawing.Size(170, 28);

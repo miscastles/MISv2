@@ -519,6 +519,7 @@ namespace MIS
         private async void cmb_BillingType_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblBillingHeader.Text = $"Billing History - {cmb_BillingType.Text}";
+            dbFunction.ClearDataGrid(dgv_BillingHistory);
             await getBilling();
             getBillingHistory();
 

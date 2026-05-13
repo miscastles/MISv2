@@ -2427,7 +2427,7 @@ namespace MIS
         private void btnServiceBilling_Click(object sender, EventArgs e)
         {
             // Check User Access Rights
-            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 1)) return;
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 56)) return;
 
             InitMenu(0, false);
             frmServicesBilling frm = new frmServicesBilling();

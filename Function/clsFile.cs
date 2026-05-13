@@ -42,7 +42,7 @@ namespace MIS
         public string sTemplatePath = "C:\\CASTLESTECH_MIS\\TEMPLATE\\";
         public string sVendorSignaturePath = "C:\\CASTLESTECH_MIS\\IMAGE\\SIGNATURES\\";
         public string sSignatuPath = "C:\\CASTLESTECH_MIS\\DOWNLOAD\\IMAGE\\";
-        public string sArchivePath = "C:\\CASTLESTECH_MIS\\EXPORT\\ARCHIVE\\";
+        public string sArchivePath = "C:\\CASTLESTECH_MIS\\ARCHIVE\\";
 
         private clsFunction dbFunction;
         private clsAPI dbAPI;
@@ -1334,6 +1334,40 @@ namespace MIS
                 // file is in use (locked by another process)
                 return true;
             }
+        }
+
+        public void OpenFolder(string path)
+        {
+            // Validate empty path
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                MessageBox.Show(
+                    "Folder path is empty.",
+                    "Open Folder",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                return;
+            }
+
+            // Validate folder existence
+            if (!Directory.Exists(path))
+            {
+                MessageBox.Show(
+                    "Folder does not exist.\n\n" + path,
+                    "Open Folder",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            // Open folder in Windows Explorer
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = path,
+                UseShellExecute = true
+            });
         }
     }
 }

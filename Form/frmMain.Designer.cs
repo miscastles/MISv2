@@ -430,11 +430,11 @@ namespace MIS
             // 
             this.lblSubAppsName.AutoSize = true;
             this.lblSubAppsName.BackColor = System.Drawing.Color.Transparent;
-            this.lblSubAppsName.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubAppsName.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSubAppsName.ForeColor = System.Drawing.Color.Yellow;
             this.lblSubAppsName.Location = new System.Drawing.Point(482, 9);
             this.lblSubAppsName.Name = "lblSubAppsName";
-            this.lblSubAppsName.Size = new System.Drawing.Size(21, 25);
+            this.lblSubAppsName.Size = new System.Drawing.Size(18, 23);
             this.lblSubAppsName.TabIndex = 292;
             this.lblSubAppsName.Text = "-";
             // 
@@ -530,7 +530,7 @@ namespace MIS
             // 
             this.lblPublishVersion.AutoSize = true;
             this.lblPublishVersion.Font = new System.Drawing.Font("Century Gothic", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPublishVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblPublishVersion.ForeColor = System.Drawing.Color.LightCyan;
             this.lblPublishVersion.Location = new System.Drawing.Point(15, 35);
             this.lblPublishVersion.Name = "lblPublishVersion";
             this.lblPublishVersion.Size = new System.Drawing.Size(97, 15);
@@ -656,7 +656,7 @@ namespace MIS
             this.gbOther.Controls.Add(this.btnExitApplication);
             this.gbOther.Controls.Add(this.btnLogoff);
             this.gbOther.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbOther.ForeColor = System.Drawing.Color.White;
+            this.gbOther.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.gbOther.Location = new System.Drawing.Point(14, 575);
             this.gbOther.Name = "gbOther";
             this.gbOther.Size = new System.Drawing.Size(231, 115);
@@ -785,7 +785,7 @@ namespace MIS
             this.gbManagement.Controls.Add(this.btnSettings);
             this.gbManagement.Controls.Add(this.btnTools);
             this.gbManagement.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbManagement.ForeColor = System.Drawing.Color.White;
+            this.gbManagement.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.gbManagement.Location = new System.Drawing.Point(14, 386);
             this.gbManagement.Name = "gbManagement";
             this.gbManagement.Size = new System.Drawing.Size(231, 183);
@@ -1022,7 +1022,7 @@ namespace MIS
             this.gbOperation.Controls.Add(this.btnInventoryEntry);
             this.gbOperation.Controls.Add(this.btnServicing);
             this.gbOperation.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbOperation.ForeColor = System.Drawing.Color.White;
+            this.gbOperation.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.gbOperation.Location = new System.Drawing.Point(14, 184);
             this.gbOperation.Name = "gbOperation";
             this.gbOperation.Size = new System.Drawing.Size(231, 106);
@@ -1147,7 +1147,7 @@ namespace MIS
             this.gbHelpdesk.Controls.Add(this.btnReports);
             this.gbHelpdesk.Controls.Add(this.btnSearch);
             this.gbHelpdesk.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbHelpdesk.ForeColor = System.Drawing.Color.White;
+            this.gbHelpdesk.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.gbHelpdesk.Location = new System.Drawing.Point(14, 298);
             this.gbHelpdesk.Name = "gbHelpdesk";
             this.gbHelpdesk.Size = new System.Drawing.Size(231, 82);
@@ -1235,7 +1235,7 @@ namespace MIS
             this.gbAdministrative.Controls.Add(this.btnAdministrative);
             this.gbAdministrative.Controls.Add(this.btnFinance);
             this.gbAdministrative.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbAdministrative.ForeColor = System.Drawing.Color.White;
+            this.gbAdministrative.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.gbAdministrative.Location = new System.Drawing.Point(14, 88);
             this.gbAdministrative.Name = "gbAdministrative";
             this.gbAdministrative.Size = new System.Drawing.Size(231, 87);
@@ -2503,7 +2503,7 @@ namespace MIS
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label21.Location = new System.Drawing.Point(274, 51);
+            this.label21.Location = new System.Drawing.Point(274, 53);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(90, 16);
             this.label21.TabIndex = 288;
@@ -4565,7 +4565,7 @@ namespace MIS
             this.pnlSubMenuFinance.Controls.Add(this.bunifuFlatButton14);
             this.pnlSubMenuFinance.Location = new System.Drawing.Point(759, 74);
             this.pnlSubMenuFinance.Name = "pnlSubMenuFinance";
-            this.pnlSubMenuFinance.Size = new System.Drawing.Size(232, 173);
+            this.pnlSubMenuFinance.Size = new System.Drawing.Size(232, 163);
             this.pnlSubMenuFinance.TabIndex = 281;
             this.pnlSubMenuFinance.Visible = false;
             // 
@@ -7030,11 +7030,11 @@ namespace MIS
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(46)))), ((int)(((byte)(59)))));
             this.ClientSize = new System.Drawing.Size(1427, 848);
+            this.Controls.Add(this.pnlSubMenuFinance);
             this.Controls.Add(this.pnlSubMenuServicing);
             this.Controls.Add(this.pnlSubMenuInventoryEntry);
             this.Controls.Add(this.lblRemainingDays);
             this.Controls.Add(this.pnlSubMenuReports);
-            this.Controls.Add(this.pnlSubMenuFinance);
             this.Controls.Add(this.pnlSubMenuAdministrative);
             this.Controls.Add(this.pnlSubMenuEnrollment);
             this.Controls.Add(this.btnMSP);
