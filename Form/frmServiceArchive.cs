@@ -121,116 +121,103 @@ namespace MIS
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
-            if(dbAPI.isNoRecordFound())
+            if (dbAPI.isNoRecordFoundMessage()) return;
+            
+            while (clsArray.ID.Length > i)
             {
-                MessageBox.Show(
-                    $"No record found for date range" +
-                    "\n\n" +
-                    $"{clsSearch.ClassDateFrom} to {clsSearch.ClassDateTo}",
-                    "Archive search error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                ); return;
-            }
-            else
-            {
-                while (clsArray.ID.Length > i)
+                iLineNo++;
+
+                ListViewItem item = new ListViewItem(iLineNo.ToString());
+
+                // Data
+                string pJSONString = clsArray.detail_info[i];
+
+                string serviceno = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_SERVICENO);
+
+                item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_SERVICENO));
+                item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRIDNO));
+                item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_JobTypeDescription));
+                item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MERCHANTNAME));
+                item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TID));
+                item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MID));
+                item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRNO));
+                item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate));
+
+                string fsrFileName = $"{serviceno}{clsDefines.FSR_FILENAME_PREFIX}{clsDefines.FILE_EXT_PDF}";
+                string diagnosticFileName = $"{serviceno}{clsDefines.DIAGNOSTIC_FILENAME_PREFIX}{clsDefines.FILE_EXT_PDF}";
+
+                bool isFSRFound = dbAPI.isFileExist("Search", "Check Attach File", fsrFileName);
+                bool isDiagnosticFound = dbAPI.isFileExist("Search", "Check Attach File", diagnosticFileName);
+
+                int fsrColumnIndex = dbFunction.GetListViewColumnIndex(lvwList, "FSR FILE STATUS");
+                int diagColumnIndex = dbFunction.GetListViewColumnIndex(lvwList, "DIAG FILE STATUS");
+
+                item.UseItemStyleForSubItems = false;
+
+                item.SubItems.Add(
+                    isFSRFound
+                    ? $"{clsIcons.FOUND} {clsDefines.MSG_FOUND}"
+                    : $"{clsIcons.NOT_FOUND} {clsDefines.MSG_NOT_FOUND}"
+                );
+
+                if (fsrColumnIndex >= 0)
                 {
-                    iLineNo++;
-
-                    ListViewItem item = new ListViewItem(iLineNo.ToString());
-
-                    // Data
-                    string pJSONString = clsArray.detail_info[i];
-
-                    string serviceno = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_SERVICENO);
-
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_SERVICENO));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRIDNO));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_JobTypeDescription));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MERCHANTNAME));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TID));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MID));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRNO));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate));
-
-                    string fsrFileName = $"{serviceno}{clsDefines.FSR_FILENAME_PREFIX}{clsDefines.FILE_EXT_PDF}";
-                    string diagnosticFileName = $"{serviceno}{clsDefines.DIAGNOSTIC_FILENAME_PREFIX}{clsDefines.FILE_EXT_PDF}";
-
-                    bool isFSRFound = dbAPI.isFileExist("Search", "Check Attach File", fsrFileName);
-                    bool isDiagnosticFound = dbAPI.isFileExist("Search", "Check Attach File", diagnosticFileName);
-
-                    int fsrColumnIndex = dbFunction.GetListViewColumnIndex(lvwList, "FSR FILE STATUS");
-                    int diagColumnIndex = dbFunction.GetListViewColumnIndex(lvwList, "DIAG FILE STATUS");
-
-                    item.UseItemStyleForSubItems = false;
-
-                    item.SubItems.Add(
-                        isFSRFound
-                        ? $"{clsIcons.FOUND} {clsDefines.MSG_FOUND}"
-                        : $"{clsIcons.NOT_FOUND} {clsDefines.MSG_NOT_FOUND}"
-                    );
-
-                    if (fsrColumnIndex >= 0)
-                    {
-                        item.SubItems[fsrColumnIndex].ForeColor =
-                            isFSRFound ? Color.Green : Color.Red;
-                    }
-
-                    item.SubItems.Add(
-                        isDiagnosticFound
-                        ? $"{clsIcons.FOUND} {clsDefines.MSG_FOUND}"
-                        : $"{clsIcons.NOT_FOUND} {clsDefines.MSG_NOT_FOUND}"
-                    );
-
-                    if (diagColumnIndex >= 0)
-                    {
-                        item.SubItems[diagColumnIndex].ForeColor =
-                            isDiagnosticFound ? Color.Green : Color.Red;
-                    }
-
-                    string pJSONStringCount = dbAPI.checkFileInfo("View", "File Count", serviceno);
-                    if (dbFunction.isValidDescription(pJSONStringCount))
-                    {
-                        item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_PngCount));
-                        item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_JpgCount));
-                    }
-                    else
-                    {
-                        item.SubItems.Add(clsFunction.sZero);
-                        item.SubItems.Add(clsFunction.sZero);
-                    }
-
-                    // FSR Mode
-                    item.SubItems.Add(dbFunction.isValidID(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MobileID)) ? clsDefines.DIGITAL_FSR : clsDefines.MANUAL_FSR);
-
-                    // summary count
-                    if (isFSRFound) fsrFoundCount++;
-                    else fsrNotFoundCount++;
-
-                    if (isDiagnosticFound) diagFoundCount++;
-                    else diagNotFoundCount++;
-
-                    lvwList.Items.Add(item);
-
-                    i++;
-
+                    item.SubItems[fsrColumnIndex].ForeColor =
+                        isFSRFound ? Color.Green : Color.Red;
                 }
 
-                dbFunction.ListViewAlternateBackColor(lvwList);
+                item.SubItems.Add(
+                    isDiagnosticFound
+                    ? $"{clsIcons.FOUND} {clsDefines.MSG_FOUND}"
+                    : $"{clsIcons.NOT_FOUND} {clsDefines.MSG_NOT_FOUND}"
+                );
 
-                // display summary count
-                lblFSRFound.Text = $"{fsrFoundCount}";
-                lblFSRNotFound.Text = $"{fsrNotFoundCount}";
-                lblFSRTotal.Text = $"{fsrFoundCount + fsrNotFoundCount}";
+                if (diagColumnIndex >= 0)
+                {
+                    item.SubItems[diagColumnIndex].ForeColor =
+                        isDiagnosticFound ? Color.Green : Color.Red;
+                }
 
-                lblDiagFound.Text = $"{diagFoundCount}";
-                lblDiagNotFound.Text = $"{diagNotFoundCount}";
-                lblDiagTotal.Text = $"{diagFoundCount + diagNotFoundCount}";
+                string pJSONStringCount = dbAPI.checkFileInfo("View", "File Count", serviceno);
+                if (dbFunction.isValidDescription(pJSONStringCount))
+                {
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_PngCount));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_JpgCount));
+                }
+                else
+                {
+                    item.SubItems.Add(clsFunction.sZero);
+                    item.SubItems.Add(clsFunction.sZero);
+                }
+
+                // FSR Mode
+                item.SubItems.Add(dbFunction.isValidID(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MobileID)) ? clsDefines.DIGITAL_FSR : clsDefines.MANUAL_FSR);
+
+                // summary count
+                if (isFSRFound) fsrFoundCount++;
+                else fsrNotFoundCount++;
+
+                if (isDiagnosticFound) diagFoundCount++;
+                else diagNotFoundCount++;
+
+                lvwList.Items.Add(item);
+
+                i++;
 
             }
 
-                Cursor.Current = Cursors.Default;
+            dbFunction.ListViewAlternateBackColor(lvwList);
+
+            // display summary count
+            lblFSRFound.Text = $"{fsrFoundCount}";
+            lblFSRNotFound.Text = $"{fsrNotFoundCount}";
+            lblFSRTotal.Text = $"{fsrFoundCount + fsrNotFoundCount}";
+
+            lblDiagFound.Text = $"{diagFoundCount}";
+            lblDiagNotFound.Text = $"{diagNotFoundCount}";
+            lblDiagTotal.Text = $"{diagFoundCount + diagNotFoundCount}";
+
+            Cursor.Current = Cursors.Default;
          }
 
 

@@ -12419,6 +12419,26 @@ namespace MIS
                 obj.SelectedIndex = 0;
         }
 
+        public bool isNoRecordFoundMessage()
+        {
+            bool fFound = false;
+
+            if (clsGlobalVariables.sAPIResponseCode.CompareTo(clsGlobalVariables.NO_RECORD_FOUND) == 0)
+                fFound = true;
+
+            if (fFound)
+            {
+                MessageBox.Show(
+                    "No record found.\n\nPlease check your filter.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                ); 
+            }
+
+            return fFound;
+        }
+
     }
 
 }
