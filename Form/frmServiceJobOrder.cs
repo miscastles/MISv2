@@ -6768,5 +6768,18 @@ namespace MIS
                 dbFunction.SetMessageBox("Service application info updated.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
             }
         }
+
+        private void lvwList_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvwList.Items.Count > 0)
+            {
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);              
+                string jsonResult = dbFunction.genJSONFormat(lvwList, lvwList.SelectedIndices[0], "", "");
+                
+                // Pass JSON to popup window
+                frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
+                frm.ShowDialog();
+            }
+        }
     }
 }

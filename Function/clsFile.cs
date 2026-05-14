@@ -1145,7 +1145,11 @@ namespace MIS
                                                 (i == 0) ||
                                                 columnName.Equals("Line#", StringComparison.OrdinalIgnoreCase) ||
                                                 columnName.Equals("Line", StringComparison.OrdinalIgnoreCase) ||
-                                                columnName.Equals("TID", StringComparison.OrdinalIgnoreCase);
+                                                columnName.Equals("TID", StringComparison.OrdinalIgnoreCase) ||
+                                                columnName.Equals("MID", StringComparison.OrdinalIgnoreCase) ||
+                                                columnName.Equals("Batch No", StringComparison.OrdinalIgnoreCase) ||
+                                                columnName.Equals("Reference No", StringComparison.OrdinalIgnoreCase) ||
+                                                columnName.Equals("Trans Count", StringComparison.OrdinalIgnoreCase);
 
                                             if (!isNonAmountColumn && double.TryParse(value.Replace(",", ""), NumberStyles.Any, CultureInfo.InvariantCulture, out numericValue))
                                             {

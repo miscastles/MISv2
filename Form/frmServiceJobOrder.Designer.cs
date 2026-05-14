@@ -2310,6 +2310,7 @@
             this.lvwList.TabIndex = 116;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
+            this.lvwList.DoubleClick += new System.EventHandler(this.lvwList_DoubleClick);
             // 
             // txtRepTerminalSN
             // 

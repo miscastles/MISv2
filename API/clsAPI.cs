@@ -5511,6 +5511,7 @@ namespace MIS
                                             SearchBy.Equals("ERM Settlement Report-Per Top Sales") ||                                            
                                             SearchBy.Equals("ERM Settlement Report-Per Qtr") ||
                                             SearchBy.Equals("ERM Settlement Report-Summary") ||
+                                            SearchBy.Equals("ERM Settlement Report-Detail") ||
                                             SearchBy.Equals("Inventory Bulk Cross-Check List") ||
                                             SearchBy.Equals("Service Bulk Cross-Check List") ||
                                             SearchBy.Equals("Billing-Type") ||

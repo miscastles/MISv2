@@ -17,13 +17,23 @@ namespace MIS
     {
         private clsFunction dbFunction;
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
+                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
+                return cp;
+            }
+        }
+
         public frmPopUpInfo(string jsonData)
         {
             InitializeComponent();
             
             dbFunction = new clsFunction();            
-            dbFunction.populateListViewFromJsonString(grdData, jsonData, "", clsDefines.NESTED_OBJECT_VALUES);
-            
+            dbFunction.populateListViewFromJsonString(grdData, jsonData, "", clsDefines.NESTED_OBJECT_VALUES);                   
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -40,6 +50,10 @@ namespace MIS
                     break;                
             }
         }
-        
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

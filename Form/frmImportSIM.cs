@@ -3829,12 +3829,9 @@ namespace MIS
         {
             if (lvwRelease.Items.Count > 0)
             {
-                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwRelease, 0);
-                Debug.WriteLine("pSelectedRow=\n" + pSelectedRow);
-
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwRelease, 0);                
                 string jsonResult = dbFunction.genJSONFormat(lvwRelease, lvwRelease.SelectedIndices[0], "", "");
-                Debug.WriteLine($"Selected row={pSelectedRow}, jsonResult={jsonResult}");
-
+                
                 // Pass JSON to popup window
                 frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
                 frm.ShowDialog();

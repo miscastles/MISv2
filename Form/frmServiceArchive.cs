@@ -64,6 +64,8 @@ namespace MIS
 
             initArchivePath();
 
+            txtSearch.ReadOnly = false;
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -88,7 +90,9 @@ namespace MIS
             lblFSRTotal.Text =
             lblDiagFound.Text =
             lblDiagNotFound.Text =
-            lblDiagTotal.Text = clsFunction.sZero; 
+            lblDiagTotal.Text = clsFunction.sZero;
+
+            txtSearch.ReadOnly = false;
 
         }
         
@@ -103,6 +107,9 @@ namespace MIS
             int diagFoundCount = 0;
             int diagNotFoundCount = 0;
 
+            int signCount = 0;
+            int imageCount = 0;
+
             Cursor.Current = Cursors.WaitCursor;
 
             Debug.WriteLine("--loadData--");
@@ -113,7 +120,7 @@ namespace MIS
                                         $"{clsDefines.gZero}{clsDefines.gPipe}" +
                                         $"{clsSearch.ClassDateFrom}{clsDefines.gPipe}" +
                                         $"{clsSearch.ClassDateTo}{clsDefines.gPipe}" +
-                                        $"{clsDefines.gZero}";
+                                        $"{clsSearch.ClassSearchString}";
 
             Debug.WriteLine("clsSearch.ClassSearchValue=" + clsSearch.ClassSearchValue);
 
@@ -122,7 +129,9 @@ namespace MIS
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
             if (dbAPI.isNoRecordFoundMessage()) return;
-            
+
+            lvwList.BeginUpdate();
+
             while (clsArray.ID.Length > i)
             {
                 iLineNo++;
@@ -152,6 +161,9 @@ namespace MIS
                 int fsrColumnIndex = dbFunction.GetListViewColumnIndex(lvwList, "FSR FILE STATUS");
                 int diagColumnIndex = dbFunction.GetListViewColumnIndex(lvwList, "DIAG FILE STATUS");
 
+                int signColumnIndex = dbFunction.GetListViewColumnIndex(lvwList, "SIGN COUNT");
+                int imageColumnIndex = dbFunction.GetListViewColumnIndex(lvwList, "IMAGE COUNT");
+
                 item.UseItemStyleForSubItems = false;
 
                 item.SubItems.Add(
@@ -179,16 +191,21 @@ namespace MIS
                 }
 
                 string pJSONStringCount = dbAPI.checkFileInfo("View", "File Count", serviceno);
+
+                signCount = 0;
+                imageCount = 0;
+
                 if (dbFunction.isValidDescription(pJSONStringCount))
                 {
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_PngCount));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_JpgCount));
+                    signCount = int.Parse(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_PngCount));
+                    imageCount = int.Parse(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_JpgCount));
                 }
-                else
-                {
-                    item.SubItems.Add(clsFunction.sZero);
-                    item.SubItems.Add(clsFunction.sZero);
-                }
+                
+                item.SubItems.Add($"{signCount}");
+                item.SubItems.Add($"{imageCount}");
+
+                item.SubItems[signColumnIndex].ForeColor = (signCount > 0 ? Color.Black : Color.Red);
+                item.SubItems[imageColumnIndex].ForeColor = (imageCount > 0 ? Color.Black : Color.Red);
 
                 // FSR Mode
                 item.SubItems.Add(dbFunction.isValidID(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MobileID)) ? clsDefines.DIGITAL_FSR : clsDefines.MANUAL_FSR);
@@ -207,6 +224,8 @@ namespace MIS
             }
 
             dbFunction.ListViewAlternateBackColor(lvwList);
+
+            lvwList.EndUpdate();
 
             // display summary count
             lblFSRFound.Text = $"{fsrFoundCount}";
@@ -260,6 +279,8 @@ namespace MIS
 
             clsSearch.ClassDateFrom = dteDateFrom.Value.ToString("yyyy-MM-dd");
             clsSearch.ClassDateTo = dteDateTo.Value.ToString("yyyy-MM-dd");
+
+            clsSearch.ClassSearchString = txtSearch.Text.Trim();
             
             loadData();
 
@@ -277,7 +298,7 @@ namespace MIS
                 dbFile.CheckFolder(localBasePath); // create folder when not exist
 
                 ftp ftpClient = new ftp(
-                    $"{clsGlobalVariables.strFTPURL}/fsr/{clsSearch.ClassBankDisplayName.ToLower()}",
+                    $"{clsGlobalVariables.strFTPURL}/fsr/{clsSearch.ClassBankCode}",
                     clsGlobalVariables.strFTPUserName,
                     clsGlobalVariables.strFTPPassword
                 );
@@ -451,6 +472,19 @@ namespace MIS
             dbFile.OpenFolder(txtArchivePath.Text);
 
             Cursor.Current = Cursors.Default;
+        }
+
+        private void lvwList_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvwList.Items.Count > 0)
+            {
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);                
+                string jsonResult = dbFunction.genJSONFormat(lvwList, lvwList.SelectedIndices[0], "", "");
+                
+                // Pass JSON to popup window
+                frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
+                frm.ShowDialog();
+            }
         }
     }
 }

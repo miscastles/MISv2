@@ -50,6 +50,7 @@ namespace MIS
             dbFunction.setDoubleBuffer(lvwPerTopSales, true);
             dbFunction.setDoubleBuffer(lvwPerQtr, true);
             dbFunction.setDoubleBuffer(lvwPerZeroTrans, true);
+            dbFunction.setDoubleBuffer(lvwPerDetail, true);
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)
@@ -90,11 +91,13 @@ namespace MIS
                     lvw.Columns.Add("Line#", 60, HorizontalAlignment.Left);
                     lvw.Columns.Add("TID", 90, HorizontalAlignment.Left);
                     lvw.Columns.Add("Merchant Name", 250, HorizontalAlignment.Left);
-                    lvw.Columns.Add("Credit", 120, HorizontalAlignment.Right);
-                    lvw.Columns.Add("Debit", 120, HorizontalAlignment.Right);
-                    lvw.Columns.Add("QRPay", 120, HorizontalAlignment.Right);
-                    lvw.Columns.Add("QRPh", 120, HorizontalAlignment.Right);
-                    lvw.Columns.Add("Total", 140, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Credit", 100, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Debit", 100, HorizontalAlignment.Right);
+                    lvw.Columns.Add("QRPay", 100, HorizontalAlignment.Right);
+                    lvw.Columns.Add("QRPh", 100, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Installment", 100, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Cup", 100, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Total", 120, HorizontalAlignment.Right);
                     break;
                 case 2: // Summary Per Month
                     lvw.Columns.Add("Line#", 60, HorizontalAlignment.Left);
@@ -127,7 +130,7 @@ namespace MIS
                     break;
                 case 5:
                     lvw.Columns.Add("Line#", 0, HorizontalAlignment.Left);
-                    lvw.Columns.Add("TransType", 80, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Trans Type", 100, HorizontalAlignment.Left);
                     lvw.Columns.Add("Start Date", 90, HorizontalAlignment.Right);
                     lvw.Columns.Add("End Date", 90, HorizontalAlignment.Right);
                     lvw.Columns.Add("Count", 80, HorizontalAlignment.Right);
@@ -139,6 +142,21 @@ namespace MIS
                     lvw.Columns.Add("TID", 90, HorizontalAlignment.Left);
                     lvw.Columns.Add("Merchant Name", 450, HorizontalAlignment.Left);
                     lvw.Columns.Add("Amount", 150, HorizontalAlignment.Right);
+                    break;
+
+                case 7: // Detail Data
+                    lvw.Columns.Add("Line#", 60, HorizontalAlignment.Left);
+                    lvw.Columns.Add("TID", 90, HorizontalAlignment.Left);
+                    lvw.Columns.Add("MID", 120, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Merchant Name", 450, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Batch No", 90, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Trans Date", 90, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Trans Time", 90, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Reference No", 100, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Terminal SN", 120, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Trans Count", 90, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Amount", 120, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Trans Type", 90, HorizontalAlignment.Right);
                     break;
 
             }
@@ -163,6 +181,7 @@ namespace MIS
             initListView(4, lvwPerQtr);
             initListView(5, lvwSummary);
             initListView(6, lvwPerZeroTrans);
+            initListView(7, lvwPerDetail);
 
             InitDateRange();
 
@@ -198,7 +217,9 @@ namespace MIS
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
             if (!dbAPI.isNoRecordFound())
-            {   
+            {
+                lvw.BeginUpdate();
+
                 while (clsArray.ID.Length > i)
                 {
                     iLineNo++;
@@ -233,7 +254,9 @@ namespace MIS
                 }
 
                 dbFunction.ListViewAlternateBackColor(lvw);
-                
+
+                lvw.EndUpdate();
+
             }
 
             // Total
@@ -250,6 +273,8 @@ namespace MIS
             int i = 0;
             double dblTAmount = 0.00;
 
+            Cursor.Current = Cursors.WaitCursor;
+
             ucStatus.sMessage = $"Processing summary per trans type...";
             ucStatus.AnimateStatus();
 
@@ -261,6 +286,8 @@ namespace MIS
 
             if (!dbAPI.isNoRecordFound())
             {
+                lvw.BeginUpdate();
+
                 while (clsArray.ID.Length > i)
                 {
                     iLineNo++;
@@ -275,7 +302,9 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Credit));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Debit));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_QRPay));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_QRPh));                    
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_QRPh));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Installment));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Cup));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
 
                     dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
@@ -288,6 +317,8 @@ namespace MIS
 
                 dbFunction.ListViewAlternateBackColor(lvw);
 
+                lvw.EndUpdate();
+
             }
 
             // Total
@@ -296,6 +327,8 @@ namespace MIS
 
             ucStatus.sMessage = $"Processing summary per trans type...complete";
             ucStatus.AnimateStatus();
+
+            Cursor.Current = Cursors.Default;
         }
         
         private void loadDataPerTopSales(ListView lvw)
@@ -303,6 +336,8 @@ namespace MIS
             int iLineNo = 0;
             int i = 0;
             double dblTAmount = 0.00;
+
+            Cursor.Current = Cursors.WaitCursor;
 
             ucStatus.sMessage = $"Processing summary per top sales...";
             ucStatus.AnimateStatus();
@@ -315,6 +350,8 @@ namespace MIS
 
             if (!dbAPI.isNoRecordFound())
             {
+                lvw.BeginUpdate();
+
                 while (clsArray.ID.Length > i)
                 {
                     iLineNo++;
@@ -338,6 +375,8 @@ namespace MIS
 
                 dbFunction.ListViewAlternateBackColor(lvw);
 
+                lvw.EndUpdate();
+
             }
 
             // Total      
@@ -346,6 +385,8 @@ namespace MIS
 
             ucStatus.sMessage = $"Processing summary per top sales...complete";
             ucStatus.AnimateStatus();
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void loadDataPerQtr(ListView lvw)
@@ -353,6 +394,8 @@ namespace MIS
             int iLineNo = 0;
             int i = 0;
             double dblTAmount = 0.00;
+
+            Cursor.Current = Cursors.WaitCursor;
 
             ucStatus.sMessage = $"Processing summary per qtr...";
             ucStatus.AnimateStatus();
@@ -365,6 +408,8 @@ namespace MIS
 
             if (!dbAPI.isNoRecordFound())
             {
+                lvw.BeginUpdate();
+
                 while (clsArray.ID.Length > i)
                 {
                     iLineNo++;
@@ -387,6 +432,8 @@ namespace MIS
 
                 dbFunction.ListViewAlternateBackColor(lvw);
 
+                lvw.EndUpdate();
+
             }
 
             // Total            
@@ -395,6 +442,8 @@ namespace MIS
 
             ucStatus.sMessage = $"Processing summary per qtr...complete";
             ucStatus.AnimateStatus();
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void loadDataPerZeroTrans(ListView lvw)
@@ -402,6 +451,8 @@ namespace MIS
             int iLineNo = 0;
             int i = 0;
             double dblTAmount = 0.00;
+
+            Cursor.Current = Cursors.WaitCursor;
 
             ucStatus.sMessage = $"Processing summary per zero transaction...";
             ucStatus.AnimateStatus();
@@ -414,6 +465,8 @@ namespace MIS
 
             if (!dbAPI.isNoRecordFound())
             {
+                lvw.BeginUpdate();
+
                 while (clsArray.ID.Length > i)
                 {
                     iLineNo++;
@@ -437,6 +490,8 @@ namespace MIS
 
                 dbFunction.ListViewAlternateBackColor(lvw);
 
+                lvw.EndUpdate();
+
             }
 
             // Total      
@@ -445,6 +500,8 @@ namespace MIS
 
             ucStatus.sMessage = $"Processing summary per zero transaction...complete";
             ucStatus.AnimateStatus();
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void loadDataSummary(ListView lvw)
@@ -453,6 +510,8 @@ namespace MIS
             int i = 0;
             int TCount = 0;
             double dblTAmount = 0.00;
+
+            Cursor.Current = Cursors.WaitCursor;
 
             ucStatus.sMessage = $"Processing summary...";
             ucStatus.AnimateStatus();
@@ -465,6 +524,8 @@ namespace MIS
 
             if (!dbAPI.isNoRecordFound())
             {
+                lvw.BeginUpdate();
+
                 while (clsArray.ID.Length > i)
                 {
                     iLineNo++;
@@ -491,6 +552,8 @@ namespace MIS
 
                 dbFunction.ListViewAlternateBackColor(lvw);
 
+                lvw.EndUpdate();
+
             }
 
             // Total            
@@ -499,6 +562,76 @@ namespace MIS
 
             ucStatus.sMessage = $"Processing summary...complete";
             ucStatus.AnimateStatus();
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void loadDataDetail(ListView lvw)
+        {
+            int iLineNo = 0;
+            int i = 0;
+            int TCount = 0;
+            double dblTAmount = 0.00;
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            ucStatus.sMessage = $"Processing detail...";
+            ucStatus.AnimateStatus();
+
+            dbFunction.ClearListViewItems(lvw);
+            
+            dbAPI.ExecuteAPI("GET", "View", "ERM Settlement Report-Detail", $"{clsSearch.ClassDateFrom}{clsFunction.sPipe}{clsSearch.ClassDateTo}{clsFunction.sPipe}{txtSearch.Text.Trim()}", "Advance Detail", "", "ViewAdvanceDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK) return;
+
+            if (!dbAPI.isNoRecordFound())
+            {
+                lvw.BeginUpdate();
+
+                while (clsArray.ID.Length > i)
+                {
+                    iLineNo++;
+
+                    ListViewItem item = new ListViewItem(iLineNo.ToString());
+
+                    // Data
+                    string pJSONString = clsArray.detail_info[i];
+                    
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TID));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MID));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MERCHANTNAME));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_BatchNo));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransDate));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransTime));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_REFERENCENO));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TerminalSN));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransCount));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TAmount));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransType));
+
+                    TCount += int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
+                    dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TAmount));
+
+                    lvw.Items.Add(item);
+
+                    i++;
+
+                }
+                
+                dbFunction.ListViewAlternateBackColor(lvw);
+
+                lvw.EndUpdate();
+
+            }
+
+            // Total            
+            txtGTCntPerDetail.Text = $"{TCount}";
+            txtGTPerDetail.Text = dblTAmount.ToString("N2");
+
+            ucStatus.sMessage = $"Processing detail...complete";
+            ucStatus.AnimateStatus();
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -508,7 +641,8 @@ namespace MIS
                 !chkPerMonth.Checked &&
                 !chkPerTopSales.Checked &&
                 !chkPerQtr.Checked &&
-                !chkPerZeroTrans.Checked)
+                !chkPerZeroTrans.Checked &&
+                !chkPerDetail.Checked)
             {
                 dbFunction.SetMessageBox("Please select at least one report type before proceeding.",
                     clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
@@ -555,6 +689,9 @@ namespace MIS
             if (chkPerZeroTrans.Checked)
                 loadDataPerZeroTrans(lvwPerZeroTrans);
 
+            if (chkPerDetail.Checked)
+                loadDataDetail(lvwPerDetail);
+
             Cursor.Current = Cursors.Default;
 
             tabMain.SelectedIndex = 1;
@@ -577,6 +714,7 @@ namespace MIS
             dbFunction.ClearListViewItems(lvwPerTopSales);
             dbFunction.ClearListViewItems(lvwPerQtr);
             dbFunction.ClearListViewItems(lvwPerZeroTrans);
+            dbFunction.ClearListViewItems(lvwPerDetail);
 
             dbFunction.ClearTextBox(this);
 
@@ -600,7 +738,8 @@ namespace MIS
                 !chkPerMonth.Checked &&
                 !chkPerTopSales.Checked &&
                 !chkPerQtr.Checked &&
-                !chkPerZeroTrans.Checked)
+                !chkPerZeroTrans.Checked &&
+                !chkPerDetail.Checked)
             {
                 dbFunction.SetMessageBox("Please select at least one report type before proceeding.",
                     clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
@@ -652,8 +791,16 @@ namespace MIS
                     Title = "Summary per qtr",
                     Count = txtGTCntPerQtr.Text,
                     Total = txtGTPerQtr.Text
+                },
+                new ReportInfo
+                {
+                    ListView = lvwPerDetail,
+                    SheetName = "Per Detail Data",
+                    Title = "Detail data",
+                    Count = txtGTCntPerDetail.Text,
+                    Total = txtGTPerDetail.Text
                 }
-                
+
             };
             
             string filename = $"{clsSearch.ClassBankCode}_ERM-Settlement-Report_Date_Range_From_{clsSearch.ClassDateFrom}_To_{clsSearch.ClassDateTo}_{clsDefines.FILE_EXT_XLXS}";

@@ -81,6 +81,12 @@
             this.txtGTPerQtr = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lvwPerQtr = new System.Windows.Forms.ListView();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.txtGTCntPerDetail = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtGTPerDetail = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.lvwPerDetail = new System.Windows.Forms.ListView();
             this.tabFilter = new System.Windows.Forms.TabControl();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.txtGTSummary = new System.Windows.Forms.TextBox();
@@ -96,6 +102,7 @@
             this.btnProcess = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.chkPerDetail = new System.Windows.Forms.CheckBox();
             this.chkPerZeroTrans = new System.Windows.Forms.CheckBox();
             this.btnDelete = new Bunifu.Framework.UI.BunifuImageButton();
             this.chkDateRange = new System.Windows.Forms.CheckBox();
@@ -130,6 +137,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage9.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage10.SuspendLayout();
             this.tabFilter.SuspendLayout();
             this.tabPage8.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -259,6 +267,7 @@
             this.tabMain.Controls.Add(this.tabPage1);
             this.tabMain.Controls.Add(this.tabPage9);
             this.tabMain.Controls.Add(this.tabPage3);
+            this.tabMain.Controls.Add(this.tabPage10);
             this.tabMain.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabMain.Location = new System.Drawing.Point(372, 35);
             this.tabMain.Name = "tabMain";
@@ -812,6 +821,86 @@
             this.lvwPerQtr.UseCompatibleStateImageBehavior = false;
             this.lvwPerQtr.View = System.Windows.Forms.View.Details;
             // 
+            // tabPage10
+            // 
+            this.tabPage10.Controls.Add(this.txtGTCntPerDetail);
+            this.tabPage10.Controls.Add(this.label20);
+            this.tabPage10.Controls.Add(this.txtGTPerDetail);
+            this.tabPage10.Controls.Add(this.label21);
+            this.tabPage10.Controls.Add(this.lvwPerDetail);
+            this.tabPage10.Location = new System.Drawing.Point(4, 27);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(1080, 413);
+            this.tabPage10.TabIndex = 6;
+            this.tabPage10.Text = "DETAIL DATA";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // txtGTCntPerDetail
+            // 
+            this.txtGTCntPerDetail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGTCntPerDetail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGTCntPerDetail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtGTCntPerDetail.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGTCntPerDetail.ForeColor = System.Drawing.Color.Black;
+            this.txtGTCntPerDetail.Location = new System.Drawing.Point(94, 388);
+            this.txtGTCntPerDetail.Name = "txtGTCntPerDetail";
+            this.txtGTCntPerDetail.ReadOnly = true;
+            this.txtGTCntPerDetail.Size = new System.Drawing.Size(257, 22);
+            this.txtGTCntPerDetail.TabIndex = 502;
+            this.txtGTCntPerDetail.Text = "0";
+            this.txtGTCntPerDetail.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(4, 393);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(84, 14);
+            this.label20.TabIndex = 501;
+            this.label20.Text = "TOTAL COUNT";
+            // 
+            // txtGTPerDetail
+            // 
+            this.txtGTPerDetail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGTPerDetail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGTPerDetail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtGTPerDetail.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGTPerDetail.ForeColor = System.Drawing.Color.Black;
+            this.txtGTPerDetail.Location = new System.Drawing.Point(820, 388);
+            this.txtGTPerDetail.Name = "txtGTPerDetail";
+            this.txtGTPerDetail.ReadOnly = true;
+            this.txtGTPerDetail.Size = new System.Drawing.Size(257, 22);
+            this.txtGTPerDetail.TabIndex = 500;
+            this.txtGTPerDetail.Text = "0.00";
+            this.txtGTPerDetail.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(730, 393);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(84, 14);
+            this.label21.TabIndex = 499;
+            this.label21.Text = "GRAND TOTAL";
+            // 
+            // lvwPerDetail
+            // 
+            this.lvwPerDetail.BackColor = System.Drawing.Color.GhostWhite;
+            this.lvwPerDetail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvwPerDetail.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvwPerDetail.ForeColor = System.Drawing.Color.Black;
+            this.lvwPerDetail.FullRowSelect = true;
+            this.lvwPerDetail.HideSelection = false;
+            this.lvwPerDetail.Location = new System.Drawing.Point(3, 3);
+            this.lvwPerDetail.Name = "lvwPerDetail";
+            this.lvwPerDetail.Size = new System.Drawing.Size(1074, 381);
+            this.lvwPerDetail.TabIndex = 489;
+            this.lvwPerDetail.UseCompatibleStateImageBehavior = false;
+            this.lvwPerDetail.View = System.Windows.Forms.View.Details;
+            // 
             // tabFilter
             // 
             this.tabFilter.Appearance = System.Windows.Forms.TabAppearance.Buttons;
@@ -1009,6 +1098,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.chkPerDetail);
             this.tabPage6.Controls.Add(this.chkPerZeroTrans);
             this.tabPage6.Controls.Add(this.btnDelete);
             this.tabPage6.Controls.Add(this.chkDateRange);
@@ -1037,12 +1127,24 @@
             this.tabPage6.Text = "FILTER OPTION";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // chkPerDetail
+            // 
+            this.chkPerDetail.AutoSize = true;
+            this.chkPerDetail.Checked = true;
+            this.chkPerDetail.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPerDetail.Location = new System.Drawing.Point(11, 371);
+            this.chkPerDetail.Name = "chkPerDetail";
+            this.chkPerDetail.Size = new System.Drawing.Size(153, 19);
+            this.chkPerDetail.TabIndex = 516;
+            this.chkPerDetail.Text = "Detail data transaction?";
+            this.chkPerDetail.UseVisualStyleBackColor = true;
+            // 
             // chkPerZeroTrans
             // 
             this.chkPerZeroTrans.AutoSize = true;
             this.chkPerZeroTrans.Checked = true;
             this.chkPerZeroTrans.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPerZeroTrans.Location = new System.Drawing.Point(12, 352);
+            this.chkPerZeroTrans.Location = new System.Drawing.Point(11, 346);
             this.chkPerZeroTrans.Name = "chkPerZeroTrans";
             this.chkPerZeroTrans.Size = new System.Drawing.Size(190, 19);
             this.chkPerZeroTrans.TabIndex = 515;
@@ -1054,9 +1156,9 @@
             this.btnDelete.BackColor = System.Drawing.Color.Transparent;
             this.btnDelete.Image = global::MIS.Properties.Resources.clear_filter;
             this.btnDelete.ImageActive = null;
-            this.btnDelete.Location = new System.Drawing.Point(335, 203);
+            this.btnDelete.Location = new System.Drawing.Point(330, 203);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(25, 25);
+            this.btnDelete.Size = new System.Drawing.Size(30, 32);
             this.btnDelete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnDelete.TabIndex = 514;
             this.btnDelete.TabStop = false;
@@ -1076,7 +1178,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Location = new System.Drawing.Point(9, 381);
+            this.groupBox3.Location = new System.Drawing.Point(9, 391);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(344, 6);
             this.groupBox3.TabIndex = 512;
@@ -1087,7 +1189,7 @@
             this.chkPerQtr.AutoSize = true;
             this.chkPerQtr.Checked = true;
             this.chkPerQtr.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPerQtr.Location = new System.Drawing.Point(12, 327);
+            this.chkPerQtr.Location = new System.Drawing.Point(11, 321);
             this.chkPerQtr.Name = "chkPerQtr";
             this.chkPerQtr.Size = new System.Drawing.Size(118, 19);
             this.chkPerQtr.TabIndex = 511;
@@ -1099,7 +1201,7 @@
             this.chkPerTopSales.AutoSize = true;
             this.chkPerTopSales.Checked = true;
             this.chkPerTopSales.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPerTopSales.Location = new System.Drawing.Point(12, 302);
+            this.chkPerTopSales.Location = new System.Drawing.Point(11, 296);
             this.chkPerTopSales.Name = "chkPerTopSales";
             this.chkPerTopSales.Size = new System.Drawing.Size(151, 19);
             this.chkPerTopSales.TabIndex = 510;
@@ -1111,7 +1213,7 @@
             this.chkPerMonth.AutoSize = true;
             this.chkPerMonth.Checked = true;
             this.chkPerMonth.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPerMonth.Location = new System.Drawing.Point(12, 277);
+            this.chkPerMonth.Location = new System.Drawing.Point(11, 271);
             this.chkPerMonth.Name = "chkPerMonth";
             this.chkPerMonth.Size = new System.Drawing.Size(137, 19);
             this.chkPerMonth.TabIndex = 509;
@@ -1123,7 +1225,7 @@
             this.chkPerTransType.AutoSize = true;
             this.chkPerTransType.Checked = true;
             this.chkPerTransType.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPerTransType.Location = new System.Drawing.Point(12, 252);
+            this.chkPerTransType.Location = new System.Drawing.Point(11, 246);
             this.chkPerTransType.Name = "chkPerTransType";
             this.chkPerTransType.Size = new System.Drawing.Size(156, 19);
             this.chkPerTransType.TabIndex = 508;
@@ -1132,7 +1234,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Location = new System.Drawing.Point(11, 240);
+            this.groupBox2.Location = new System.Drawing.Point(11, 234);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(345, 6);
             this.groupBox2.TabIndex = 507;
@@ -1197,12 +1299,12 @@
             this.txtSearch.BackColor = System.Drawing.Color.White;
             this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSearch.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.txtSearch.Location = new System.Drawing.Point(10, 206);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.ReadOnly = true;
-            this.txtSearch.Size = new System.Drawing.Size(324, 22);
+            this.txtSearch.Size = new System.Drawing.Size(318, 26);
             this.txtSearch.TabIndex = 495;
             // 
             // label1
@@ -1234,9 +1336,9 @@
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSearch.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSearch.Location = new System.Drawing.Point(3, 393);
+            this.btnSearch.Location = new System.Drawing.Point(3, 398);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(358, 40);
+            this.btnSearch.Size = new System.Drawing.Size(358, 36);
             this.btnSearch.TabIndex = 492;
             this.btnSearch.Text = "SEARCH";
             this.btnSearch.UseVisualStyleBackColor = false;
@@ -1341,6 +1443,8 @@
             this.tabPage9.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage10.ResumeLayout(false);
+            this.tabPage10.PerformLayout();
             this.tabFilter.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
@@ -1445,5 +1549,12 @@
         private System.Windows.Forms.TextBox txtTopThreshold;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.CheckBox chkPerZeroTrans;
+        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.ListView lvwPerDetail;
+        private System.Windows.Forms.CheckBox chkPerDetail;
+        private System.Windows.Forms.TextBox txtGTCntPerDetail;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txtGTPerDetail;
+        private System.Windows.Forms.Label label21;
     }
 }

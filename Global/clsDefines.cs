@@ -705,6 +705,8 @@ namespace MIS
         public const string TAG_Debit = "Debit";
         public const string TAG_QRPay = "QRPay";
         public const string TAG_QRPh = "QRPh";
+        public const string TAG_Installment = "Installment";
+        public const string TAG_Cup = "Cup";
 
         // Qtr
         public const string TAG_Quarter = "Quarter";
@@ -724,6 +726,12 @@ namespace MIS
 
         public const string MSG_FOUND = "Found";
         public const string MSG_NOT_FOUND = "Not Found";
+
+        public const string TAG_BatchNo = "BatchNo";
+        public const string TAG_TransDate = "TransDate";
+        public const string TAG_TransTime = "TransTime";
+        public const string TAG_TransCount = "TransCount";
+        public const string TAG_TransType = "TransType";
 
     }
 }
