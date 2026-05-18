@@ -1181,8 +1181,7 @@ namespace MIS
                                             columnName.Equals("TID", StringComparison.OrdinalIgnoreCase) ||
                                             columnName.Equals("MID", StringComparison.OrdinalIgnoreCase) ||
                                             columnName.Equals("Batch No", StringComparison.OrdinalIgnoreCase) ||
-                                            columnName.Equals("Reference No", StringComparison.OrdinalIgnoreCase) ||
-                                            columnName.Equals("Trans Count", StringComparison.OrdinalIgnoreCase);
+                                            columnName.Equals("Reference No", StringComparison.OrdinalIgnoreCase);
 
                                         if (!isNonAmountColumn &&
                                             double.TryParse(
@@ -1198,9 +1197,18 @@ namespace MIS
                                                 .Style.HorizontalAlignment =
                                                     ExcelHorizontalAlignment.Right;
 
-                                            worksheet.Cells[currentRow, colIndex]
-                                                .Style.Numberformat.Format =
-                                                    "#,##0.00";
+                                            // COUNT COLUMNS
+                                            if (columnName.Equals("Trans Count", StringComparison.OrdinalIgnoreCase) ||
+                                                columnName.Equals("Count", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                worksheet.Cells[currentRow, colIndex]
+                                                    .Style.Numberformat.Format = "#,##0";
+                                            }
+                                            else
+                                            {
+                                                worksheet.Cells[currentRow, colIndex]
+                                                    .Style.Numberformat.Format = "#,##0.00";
+                                            }
                                         }
                                         else
                                         {

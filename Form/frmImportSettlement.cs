@@ -98,6 +98,7 @@ namespace MIS
                     lvw.Columns.Add("Installment", 100, HorizontalAlignment.Right);
                     lvw.Columns.Add("Cup", 100, HorizontalAlignment.Right);
                     lvw.Columns.Add("Total", 120, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Count", 90, HorizontalAlignment.Right);
                     break;
                 case 2: // Summary Per Month
                     lvw.Columns.Add("Line#", 60, HorizontalAlignment.Left);
@@ -116,12 +117,14 @@ namespace MIS
                     lvw.Columns.Add("November", 120, HorizontalAlignment.Right);
                     lvw.Columns.Add("December", 120, HorizontalAlignment.Right);
                     lvw.Columns.Add("Total", 140, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Count", 90, HorizontalAlignment.Right);
                     break;
-                case 3: // Top 10 Per Merchant Sales
+                case 3: // Top Per Merchant Sales
                     lvw.Columns.Add("Line#", 60, HorizontalAlignment.Left);
                     lvw.Columns.Add("TID", 90, HorizontalAlignment.Left);
                     lvw.Columns.Add("Merchant Name", 450, HorizontalAlignment.Left);
                     lvw.Columns.Add("Amount", 150, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Count", 90, HorizontalAlignment.Right);
                     break;
                 case 4: // Summary Per Qtr
                     lvw.Columns.Add("Line#", 60, HorizontalAlignment.Left);
@@ -142,6 +145,7 @@ namespace MIS
                     lvw.Columns.Add("TID", 90, HorizontalAlignment.Left);
                     lvw.Columns.Add("Merchant Name", 450, HorizontalAlignment.Left);
                     lvw.Columns.Add("Amount", 150, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Count", 90, HorizontalAlignment.Right);
                     break;
 
                 case 7: // Detail Data
@@ -151,6 +155,7 @@ namespace MIS
                     lvw.Columns.Add("Merchant Name", 450, HorizontalAlignment.Left);                    
                     lvw.Columns.Add("Trans Month", 90, HorizontalAlignment.Left);                    
                     lvw.Columns.Add("Amount", 120, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Count", 90, HorizontalAlignment.Right);
                     lvw.Columns.Add("Trans Type", 90, HorizontalAlignment.Right);
                     break;
 
@@ -243,6 +248,7 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_November));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_December));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
 
                     dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
 
@@ -307,6 +313,7 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Installment));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Cup));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
 
                     dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
 
@@ -365,6 +372,7 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TID));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MERCHANTNAME));                                   
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
 
                     dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
 
@@ -480,6 +488,7 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TID));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MERCHANTNAME));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
 
                     dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
 
@@ -601,8 +610,12 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TID));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MID));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MERCHANTNAME));                    
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransMonth));                                        
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransMonth));
+
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TAmount));
+
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
+
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransType));
 
                     TCount += int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));

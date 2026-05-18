@@ -126,6 +126,7 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.ucStatus = new MIS.ucStatus();
+            this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -1376,7 +1377,7 @@
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnExport.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnExport.Location = new System.Drawing.Point(1295, 478);
+            this.btnExport.Location = new System.Drawing.Point(1295, 485);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(159, 29);
             this.btnExport.TabIndex = 495;
@@ -1393,7 +1394,7 @@
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnClear.Location = new System.Drawing.Point(1130, 478);
+            this.btnClear.Location = new System.Drawing.Point(1130, 485);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(159, 29);
             this.btnClear.TabIndex = 496;
@@ -1404,16 +1405,29 @@
             // ucStatus
             // 
             this.ucStatus.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ucStatus.Location = new System.Drawing.Point(378, 478);
+            this.ucStatus.Location = new System.Drawing.Point(378, 489);
             this.ucStatus.Name = "ucStatus";
             this.ucStatus.Size = new System.Drawing.Size(748, 25);
             this.ucStatus.TabIndex = 497;
+            // 
+            // bunifuSeparator1
+            // 
+            this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuSeparator1.LineColor = System.Drawing.Color.DimGray;
+            this.bunifuSeparator1.LineThickness = 1;
+            this.bunifuSeparator1.Location = new System.Drawing.Point(376, 478);
+            this.bunifuSeparator1.Name = "bunifuSeparator1";
+            this.bunifuSeparator1.Size = new System.Drawing.Size(1076, 10);
+            this.bunifuSeparator1.TabIndex = 498;
+            this.bunifuSeparator1.Transparency = 255;
+            this.bunifuSeparator1.Vertical = false;
             // 
             // frmImportSettlement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1460, 514);
+            this.ClientSize = new System.Drawing.Size(1460, 520);
+            this.Controls.Add(this.bunifuSeparator1);
             this.Controls.Add(this.ucStatus);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnExport);
@@ -1557,5 +1571,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtGTPerDetail;
         private System.Windows.Forms.Label label21;
+        private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
     }
 }
