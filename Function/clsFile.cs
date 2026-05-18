@@ -1114,11 +1114,15 @@ namespace MIS
                             worksheet.Cells[currentRow, 1].Style.Font.Size = 14;
                             currentRow++;
 
-                            worksheet.Cells[currentRow, 1].Value = $"Count: {report.Count}";
+                            worksheet.Cells[currentRow, 1].Value = $"Record Count: {report.RecordCount}";
                             worksheet.Cells[currentRow, 1].Style.Font.Bold = true;
                             currentRow++;
 
-                            worksheet.Cells[currentRow, 1].Value = $"Total: {report.Total}";
+                            worksheet.Cells[currentRow, 1].Value = $"Trans Count: {report.TransCount}";
+                            worksheet.Cells[currentRow, 1].Style.Font.Bold = true;
+                            currentRow++;
+
+                            worksheet.Cells[currentRow, 1].Value = $"Total Amount: {report.Total}";
                             worksheet.Cells[currentRow, 1].Style.Font.Bold = true;
                             currentRow += 2;
 

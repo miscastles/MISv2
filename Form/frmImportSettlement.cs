@@ -130,6 +130,7 @@ namespace MIS
                     lvw.Columns.Add("Line#", 60, HorizontalAlignment.Left);
                     lvw.Columns.Add("Qtr", 150, HorizontalAlignment.Left);
                     lvw.Columns.Add("Amount", 150, HorizontalAlignment.Right);
+                    lvw.Columns.Add("Count", 90, HorizontalAlignment.Right);
                     break;
                 case 5:
                     lvw.Columns.Add("Line#", 0, HorizontalAlignment.Left);
@@ -208,6 +209,7 @@ namespace MIS
             int iLineNo = 0;
             int i = 0;
             double dblTAmount = 0.00;
+            int TCount = 0;
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -250,6 +252,7 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
 
+                    TCount += int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
                     dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
 
                     lvw.Items.Add(item);
@@ -265,6 +268,7 @@ namespace MIS
             }
 
             // Total
+            txtGTTransCntPerMonth.Text = $"{TCount}";
             txtGTCntPerMonth.Text = $"{lvw.Items.Count}";
             txtGTPerMonth.Text = dblTAmount.ToString("N2");
 
@@ -279,6 +283,7 @@ namespace MIS
             int iLineNo = 0;
             int i = 0;
             double dblTAmount = 0.00;
+            int TCount = 0;
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -315,6 +320,7 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
 
+                    TCount += int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
                     dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
 
                     lvw.Items.Add(item);
@@ -330,6 +336,7 @@ namespace MIS
             }
 
             // Total
+            txtGTTransCntPerTransType.Text = $"{TCount}";
             txtGTCntPerTransType.Text = $"{lvw.Items.Count}";
             txtGTPerTransType.Text = dblTAmount.ToString("N2");
 
@@ -344,6 +351,7 @@ namespace MIS
             int iLineNo = 0;
             int i = 0;
             double dblTAmount = 0.00;
+            int TCount = 0;
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -374,6 +382,7 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
 
+                    TCount += int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
                     dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
 
                     lvw.Items.Add(item);
@@ -389,6 +398,7 @@ namespace MIS
             }
 
             // Total      
+            txtGTTransCntPerTopSales.Text = $"{TCount}";
             txtGTCntPerTopSales.Text = $"{lvw.Items.Count}";
             txtGTPerTopSales.Text = dblTAmount.ToString("N2");
 
@@ -403,6 +413,7 @@ namespace MIS
             int iLineNo = 0;
             int i = 0;
             double dblTAmount = 0.00;
+            int TCount = 0;
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -430,7 +441,9 @@ namespace MIS
 
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Quarter));                    
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
 
+                    TCount += int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
                     dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
 
                     lvw.Items.Add(item);
@@ -446,6 +459,7 @@ namespace MIS
             }
 
             // Total            
+            txtGTTransCntPerQtr.Text = $"{TCount}";
             txtGTCntPerQtr.Text = $"{lvw.Items.Count}";
             txtGTPerQtr.Text = dblTAmount.ToString("N2");
 
@@ -460,6 +474,7 @@ namespace MIS
             int iLineNo = 0;
             int i = 0;
             double dblTAmount = 0.00;
+            int TCount = 0;
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -490,6 +505,7 @@ namespace MIS
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
 
+                    TCount += int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
                     dblTAmount += double.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Total));
 
                     lvw.Items.Add(item);
@@ -505,6 +521,7 @@ namespace MIS
             }
 
             // Total      
+            txtGTTransCntPerZeroTrans.Text = $"{TCount}";
             txtGTCntPerZeroTrans.Text = $"{lvw.Items.Count}";
             txtGTPerZeroTrans.Text = dblTAmount.ToString("N2");
 
@@ -579,9 +596,9 @@ namespace MIS
         private void loadDataDetail(ListView lvw)
         {
             int iLineNo = 0;
-            int i = 0;
-            int TCount = 0;
+            int i = 0;            
             double dblTAmount = 0.00;
+            int TCount = 0;
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -634,6 +651,7 @@ namespace MIS
             }
 
             // Total            
+            txtGTTransCntPerDetail.Text = $"{TCount}";
             txtGTCntPerDetail.Text = $"{lvw.Items.Count}";
             txtGTPerDetail.Text = dblTAmount.ToString("N2");
 
@@ -773,7 +791,8 @@ namespace MIS
                     ListView = lvwPerTransType,
                     SheetName = "Per Trans Type",
                     Title = "Summary per trans type",
-                    Count = txtGTCntPerTransType.Text,
+                    RecordCount = txtGTCntPerTransType.Text,
+                    TransCount = txtGTTransCntPerTransType.Text,
                     Total = txtGTPerTransType.Text
                 },
                 new ReportInfo
@@ -781,7 +800,8 @@ namespace MIS
                     ListView = lvwPerMonth,
                     SheetName = "Per Month",
                     Title = "Summary per month",
-                    Count = txtGTCntPerMonth.Text,
+                    RecordCount = txtGTCntPerMonth.Text,
+                    TransCount = txtGTTransCntPerMonth.Text,
                     Total = txtGTPerMonth.Text
                 },
                 new ReportInfo
@@ -789,7 +809,8 @@ namespace MIS
                     ListView = lvwPerTopSales,
                     SheetName = "Per Top Sales",
                     Title = "Summary per top sales",
-                    Count = txtGTCntPerTopSales.Text,
+                    RecordCount = txtGTCntPerTopSales.Text,
+                    TransCount = txtGTTransCntPerTopSales.Text,
                     Total = txtGTPerTopSales.Text
                 },
                 new ReportInfo
@@ -797,7 +818,8 @@ namespace MIS
                     ListView = lvwPerZeroTrans,
                     SheetName = "Per Zero Trans",
                     Title = "Summary per zero trans",
-                    Count = txtGTCntPerZeroTrans.Text,
+                    RecordCount = txtGTCntPerZeroTrans.Text,
+                    TransCount = txtGTTransCntPerZeroTrans.Text,
                     Total = txtGTPerZeroTrans.Text
                 },
                 new ReportInfo
@@ -805,7 +827,8 @@ namespace MIS
                     ListView = lvwPerQtr,
                     SheetName = "Per Qtr",
                     Title = "Summary per qtr",
-                    Count = txtGTCntPerQtr.Text,
+                    RecordCount = txtGTCntPerQtr.Text,
+                    TransCount = txtGTTransCntPerQtr.Text,
                     Total = txtGTPerQtr.Text
                 },
                 new ReportInfo
@@ -813,7 +836,8 @@ namespace MIS
                     ListView = lvwPerDetail,
                     SheetName = "Per Detail Data",
                     Title = "Detail data",
-                    Count = txtGTCntPerDetail.Text,
+                    RecordCount = txtGTCntPerDetail.Text,
+                    TransCount = txtGTTransCntPerDetail.Text,
                     Total = txtGTPerDetail.Text
                 }
 
