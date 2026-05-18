@@ -274,6 +274,7 @@
             this.tabMain.SelectedIndex = 0;
             this.tabMain.Size = new System.Drawing.Size(1088, 444);
             this.tabMain.TabIndex = 493;
+            this.tabMain.SelectedIndexChanged += new System.EventHandler(this.tabMain_SelectedIndexChanged);
             // 
             // tabPage7
             // 
@@ -630,7 +631,7 @@
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage9.Size = new System.Drawing.Size(1080, 413);
             this.tabPage9.TabIndex = 5;
-            this.tabPage9.Text = "ZERO TRANSACION MERCHANT";
+            this.tabPage9.Text = "ZERO TRANSACTION MERCHANT";
             this.tabPage9.UseVisualStyleBackColor = true;
             // 
             // btnSearchPerZeroTrans
@@ -1377,7 +1378,7 @@
             this.btnExport.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnExport.Location = new System.Drawing.Point(1295, 478);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(159, 26);
+            this.btnExport.Size = new System.Drawing.Size(159, 29);
             this.btnExport.TabIndex = 495;
             this.btnExport.Text = "EXPORT";
             this.btnExport.UseVisualStyleBackColor = false;
@@ -1394,7 +1395,7 @@
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnClear.Location = new System.Drawing.Point(1130, 478);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(159, 26);
+            this.btnClear.Size = new System.Drawing.Size(159, 29);
             this.btnClear.TabIndex = 496;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
@@ -1412,7 +1413,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1460, 511);
+            this.ClientSize = new System.Drawing.Size(1460, 514);
             this.Controls.Add(this.ucStatus);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnExport);

@@ -1043,24 +1043,30 @@ namespace MIS
             WriteAPILog(4, message);
         }
 
-        public void ExportMultipleListViewsToExcel(ReportInfo[] reports, string defaultFileName, bool isExclude)
+        public bool ExportMultipleListViewsToExcel(ReportInfo[] reports, string defaultFileName, bool isExclude)
         {
             if (reports == null || reports.Length == 0)
             {
-                MessageBox.Show("No reports to export.", "Export to Excel", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+                MessageBox.Show(
+                    "No reports to export.",
+                    "Export to Excel",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
 
-            Cursor.Current = Cursors.WaitCursor;
+                return false;
+            }
 
             try
             {
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
                 HashSet<string> excludedColumnsSet = new HashSet<string>();
+
                 if (isExclude)
                 {
                     string excludeFilePath = Path.Combine(sRespFullPath, "respExcludeExportColumn.json");
+
                     if (File.Exists(excludeFilePath))
                         excludedColumnsSet = loadExcludedColumns(excludeFilePath);
                 }
@@ -1073,130 +1079,204 @@ namespace MIS
                     saveFileDialog.FileName = defaultFileName;
                     saveFileDialog.RestoreDirectory = true;
 
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    // USER PRESSED CANCEL
+                    if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                        return false;
+
+                    // IMPORTANT:
+                    // Set wait cursor AFTER dialog closes
+                    Cursor.Current = Cursors.WaitCursor;
+                    Application.UseWaitCursor = true;
+                    Application.DoEvents();
+
+                    using (ExcelPackage package = new ExcelPackage())
                     {
-                        using (ExcelPackage package = new ExcelPackage())
+                        foreach (var report in reports)
                         {
-                            foreach (var report in reports)
+                            ListView listView = report.ListView;
+
+                            if (listView == null || listView.Items.Count == 0)
+                                continue;
+
+                            ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(report.SheetName);
+
+                            // DEFAULT FONT
+                            worksheet.Cells.Style.Font.Name = "Courier New";
+                            worksheet.Cells.Style.Font.Size = 10;
+
+                            int currentRow = 1;
+
+                            // =========================
+                            // HEADER
+                            // =========================
+                            worksheet.Cells[currentRow, 1].Value = report.Title;
+                            worksheet.Cells[currentRow, 1].Style.Font.Bold = true;
+                            worksheet.Cells[currentRow, 1].Style.Font.Size = 14;
+                            currentRow++;
+
+                            worksheet.Cells[currentRow, 1].Value = $"Count: {report.Count}";
+                            worksheet.Cells[currentRow, 1].Style.Font.Bold = true;
+                            currentRow++;
+
+                            worksheet.Cells[currentRow, 1].Value = $"Total: {report.Total}";
+                            worksheet.Cells[currentRow, 1].Style.Font.Bold = true;
+                            currentRow += 2;
+
+                            // =========================
+                            // TABLE HEADER
+                            // =========================
+                            int colIndex = 1;
+
+                            foreach (ColumnHeader header in listView.Columns)
                             {
-                                ListView listView = report.ListView;
-                                if (listView == null || listView.Items.Count == 0)
-                                    continue;
-
-                                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(report.SheetName);
-
-                                // Set font
-                                worksheet.Cells.Style.Font.Name = "Courier New";
-                                worksheet.Cells.Style.Font.Size = 10;
-
-                                int currentRow = 1;
-
-                                // --- HEADER ---
-                                worksheet.Cells[currentRow, 1].Value = report.Title;
-                                worksheet.Cells[currentRow, 1].Style.Font.Bold = true;
-                                worksheet.Cells[currentRow, 1].Style.Font.Size = 14;
-                                currentRow++;
-
-                                worksheet.Cells[currentRow, 1].Value = $"Count: {report.Count}";
-                                worksheet.Cells[currentRow, 1].Style.Font.Bold = true;
-                                currentRow++;
-
-                                worksheet.Cells[currentRow, 1].Value = $"Total: {report.Total}";
-                                worksheet.Cells[currentRow, 1].Style.Font.Bold = true;
-                                currentRow += 2;
-
-                                // --- TABLE HEADER ---
-                                int colIndex = 1;
-                                foreach (ColumnHeader header in listView.Columns)
+                                if (!isExclude || !excludedColumnsSet.Contains(header.Text))
                                 {
-                                    if (!isExclude || !excludedColumnsSet.Contains(header.Text))
+                                    worksheet.Cells[currentRow, colIndex].Value = header.Text;
+                                    colIndex++;
+                                }
+                            }
+
+                            using (ExcelRange headerRange =
+                                worksheet.Cells[currentRow, 1, currentRow, colIndex - 1])
+                            {
+                                headerRange.Style.Font.Name = "Courier New";
+                                headerRange.Style.Font.Size = 10;
+                                headerRange.Style.Font.Bold = true;
+
+                                headerRange.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                headerRange.Style.Fill.BackgroundColor.SetColor(Color.DarkGreen);
+
+                                headerRange.Style.Font.Color.SetColor(Color.White);
+
+                                headerRange.Style.HorizontalAlignment =
+                                    ExcelHorizontalAlignment.Center;
+                            }
+
+                            currentRow++;
+
+                            // =========================
+                            // TABLE DATA
+                            // =========================
+                            foreach (ListViewItem item in listView.Items)
+                            {
+                                colIndex = 1;
+
+                                for (int i = 0; i < listView.Columns.Count; i++)
+                                {
+                                    string columnName =
+                                        listView.Columns[i].Text.Trim();
+
+                                    if (!isExclude ||
+                                        !excludedColumnsSet.Contains(columnName))
                                     {
-                                        worksheet.Cells[currentRow, colIndex].Value = header.Text;
+                                        string value =
+                                            item.SubItems[i].Text.Trim();
+
+                                        double numericValue;
+
+                                        bool isNonAmountColumn =
+                                            (i == 0) ||
+                                            columnName.Equals("Line#", StringComparison.OrdinalIgnoreCase) ||
+                                            columnName.Equals("Line", StringComparison.OrdinalIgnoreCase) ||
+                                            columnName.Equals("TID", StringComparison.OrdinalIgnoreCase) ||
+                                            columnName.Equals("MID", StringComparison.OrdinalIgnoreCase) ||
+                                            columnName.Equals("Batch No", StringComparison.OrdinalIgnoreCase) ||
+                                            columnName.Equals("Reference No", StringComparison.OrdinalIgnoreCase) ||
+                                            columnName.Equals("Trans Count", StringComparison.OrdinalIgnoreCase);
+
+                                        if (!isNonAmountColumn &&
+                                            double.TryParse(
+                                                value.Replace(",", ""),
+                                                NumberStyles.Any,
+                                                CultureInfo.InvariantCulture,
+                                                out numericValue))
+                                        {
+                                            worksheet.Cells[currentRow, colIndex].Value =
+                                                numericValue;
+
+                                            worksheet.Cells[currentRow, colIndex]
+                                                .Style.HorizontalAlignment =
+                                                    ExcelHorizontalAlignment.Right;
+
+                                            worksheet.Cells[currentRow, colIndex]
+                                                .Style.Numberformat.Format =
+                                                    "#,##0.00";
+                                        }
+                                        else
+                                        {
+                                            worksheet.Cells[currentRow, colIndex].Value =
+                                                value;
+
+                                            worksheet.Cells[currentRow, colIndex]
+                                                .Style.HorizontalAlignment =
+                                                    ExcelHorizontalAlignment.Left;
+                                        }
+
+                                        worksheet.Cells[currentRow, colIndex]
+                                            .Style.Font.Name = "Courier New";
+
+                                        worksheet.Cells[currentRow, colIndex]
+                                            .Style.Font.Size = 10;
+
                                         colIndex++;
                                     }
                                 }
 
-                                using (ExcelRange headerRange = worksheet.Cells[currentRow, 1, currentRow, colIndex - 1])
-                                {
-                                    headerRange.Style.Font.Name = "Courier New";
-                                    headerRange.Style.Font.Size = 10;
-                                    headerRange.Style.Font.Bold = true;
-                                    headerRange.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                    headerRange.Style.Fill.BackgroundColor.SetColor(Color.DarkGreen);
-                                    headerRange.Style.Font.Color.SetColor(Color.White);
-                                    headerRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                                }
-
                                 currentRow++;
 
-                                // --- TABLE DATA ---
-                                foreach (ListViewItem item in listView.Items)
-                                {
-                                    colIndex = 1;
-                                    for (int i = 0; i < listView.Columns.Count; i++)
-                                    {
-                                        string columnName = listView.Columns[i].Text.Trim();
-                                        if (!isExclude || !excludedColumnsSet.Contains(columnName))
-                                        {
-                                            string value = item.SubItems[i].Text.Trim();
-                                            double numericValue;
-
-                                            bool isNonAmountColumn =
-                                                (i == 0) ||
-                                                columnName.Equals("Line#", StringComparison.OrdinalIgnoreCase) ||
-                                                columnName.Equals("Line", StringComparison.OrdinalIgnoreCase) ||
-                                                columnName.Equals("TID", StringComparison.OrdinalIgnoreCase) ||
-                                                columnName.Equals("MID", StringComparison.OrdinalIgnoreCase) ||
-                                                columnName.Equals("Batch No", StringComparison.OrdinalIgnoreCase) ||
-                                                columnName.Equals("Reference No", StringComparison.OrdinalIgnoreCase) ||
-                                                columnName.Equals("Trans Count", StringComparison.OrdinalIgnoreCase);
-
-                                            if (!isNonAmountColumn && double.TryParse(value.Replace(",", ""), NumberStyles.Any, CultureInfo.InvariantCulture, out numericValue))
-                                            {
-                                                worksheet.Cells[currentRow, colIndex].Value = numericValue;
-                                                worksheet.Cells[currentRow, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
-                                                worksheet.Cells[currentRow, colIndex].Style.Numberformat.Format = "#,##0.00";
-                                            }
-                                            else
-                                            {
-                                                worksheet.Cells[currentRow, colIndex].Value = value;
-                                                worksheet.Cells[currentRow, colIndex].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-                                            }
-
-                                            worksheet.Cells[currentRow, colIndex].Style.Font.Name = "Courier New";
-                                            worksheet.Cells[currentRow, colIndex].Style.Font.Size = 10;
-
-                                            colIndex++;
-                                        }
-                                    }
-                                    currentRow++;
-                                }
-
-                                worksheet.Cells.AutoFitColumns();
+                                // OPTIONAL:
+                                // refresh UI every 100 rows
+                                if (currentRow % 100 == 0)
+                                    Application.DoEvents();
                             }
 
-                            FileInfo excelFile = new FileInfo(saveFileDialog.FileName);
-
-                            if (IsFileOpen(excelFile.FullName))
-                            {
-                                MessageBox.Show("The file is already open. Please close it and try again.", "File in Use", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                            else
-                            {
-                                package.SaveAs(excelFile);
-                                MessageBox.Show($"Export complete.\nFile saved to:\n{saveFileDialog.FileName}", "Export Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
+                            worksheet.Cells.AutoFitColumns();
                         }
+
+                        FileInfo excelFile =
+                            new FileInfo(saveFileDialog.FileName);
+
+                        if (IsFileOpen(excelFile.FullName))
+                        {
+                            MessageBox.Show(
+                                "The file is already open. Please close it and try again.",
+                                "File in Use",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+
+                            return false;
+                        }
+
+                        package.SaveAs(excelFile);
+
+                        MessageBox.Show(
+                            $"Export complete.\nFile saved to:\n{saveFileDialog.FileName}",
+                            "Export Successful",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+
+                        return true;
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred during export:\n{ex.Message}", "Excel Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"An error occurred during export:\n{ex.Message}",
+                    "Excel Export",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                return false;
             }
             finally
             {
+                Application.UseWaitCursor = false;
                 Cursor.Current = Cursors.Default;
+                Application.DoEvents();
             }
         }
 

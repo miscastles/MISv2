@@ -148,13 +148,8 @@ namespace MIS
                     lvw.Columns.Add("Line#", 60, HorizontalAlignment.Left);
                     lvw.Columns.Add("TID", 90, HorizontalAlignment.Left);
                     lvw.Columns.Add("MID", 120, HorizontalAlignment.Left);
-                    lvw.Columns.Add("Merchant Name", 450, HorizontalAlignment.Left);
-                    lvw.Columns.Add("Batch No", 90, HorizontalAlignment.Left);
-                    lvw.Columns.Add("Trans Date", 90, HorizontalAlignment.Left);
-                    lvw.Columns.Add("Trans Time", 90, HorizontalAlignment.Left);
-                    lvw.Columns.Add("Reference No", 100, HorizontalAlignment.Left);
-                    lvw.Columns.Add("Terminal SN", 120, HorizontalAlignment.Left);
-                    lvw.Columns.Add("Trans Count", 90, HorizontalAlignment.Left);
+                    lvw.Columns.Add("Merchant Name", 450, HorizontalAlignment.Left);                    
+                    lvw.Columns.Add("Trans Month", 90, HorizontalAlignment.Left);                    
                     lvw.Columns.Add("Amount", 120, HorizontalAlignment.Right);
                     lvw.Columns.Add("Trans Type", 90, HorizontalAlignment.Right);
                     break;
@@ -198,6 +193,8 @@ namespace MIS
 
             initThreshold();
 
+            lblSubHeader.Text = $"{clsSearch.ClassBankDisplayName}";
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -206,6 +203,8 @@ namespace MIS
             int iLineNo = 0;
             int i = 0;
             double dblTAmount = 0.00;
+
+            Cursor.Current = Cursors.WaitCursor;
 
             ucStatus.sMessage = $"Processing summary per month...";
             ucStatus.AnimateStatus();
@@ -265,6 +264,8 @@ namespace MIS
 
             ucStatus.sMessage = $"Processing summary per month...complete";
             ucStatus.AnimateStatus();
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void loadDataPerTransType(ListView lvw)
@@ -575,7 +576,7 @@ namespace MIS
 
             Cursor.Current = Cursors.WaitCursor;
 
-            ucStatus.sMessage = $"Processing detail...";
+            ucStatus.sMessage = $"Processing detail data...";
             ucStatus.AnimateStatus();
 
             dbFunction.ClearListViewItems(lvw);
@@ -599,13 +600,8 @@ namespace MIS
                     
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TID));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MID));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MERCHANTNAME));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_BatchNo));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransDate));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransTime));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_REFERENCENO));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TerminalSN));
-                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransCount));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MERCHANTNAME));                    
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransMonth));                                        
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TAmount));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TransType));
 
@@ -625,10 +621,10 @@ namespace MIS
             }
 
             // Total            
-            txtGTCntPerDetail.Text = $"{TCount}";
+            txtGTCntPerDetail.Text = $"{lvw.Items.Count}";
             txtGTPerDetail.Text = dblTAmount.ToString("N2");
 
-            ucStatus.sMessage = $"Processing detail...complete";
+            ucStatus.sMessage = $"Processing detail data...complete";
             ucStatus.AnimateStatus();
 
             Cursor.Current = Cursors.Default;
@@ -659,15 +655,7 @@ namespace MIS
 
             initTotal();
 
-            if (chkDateRange.Checked)
-            {
-                clsSearch.ClassDateFrom = dbFunction.CheckAndSetDatePickerValueToDate(dteDateFrom);
-                clsSearch.ClassDateTo = dbFunction.CheckAndSetDatePickerValueToDate(dteDateTo);
-            }
-            else
-            {
-                clsSearch.ClassDateFrom = clsSearch.ClassDateTo = clsFunction.sDateFormat;
-            }
+            checkDateRange();
 
             // cleanup
             ucStatus.sMessage = $"Update ERM settlement report from server...";
@@ -694,8 +682,6 @@ namespace MIS
 
             Cursor.Current = Cursors.Default;
 
-            tabMain.SelectedIndex = 1;
-
             txtTopThreshold.ReadOnly = txtAmtThreshold.ReadOnly = false;
 
             ucStatus.iState = 3;
@@ -703,6 +689,17 @@ namespace MIS
             ucStatus.AnimateStatus();
             
             dbFunction.SetMessageBox("Load data complete", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
+
+            ucStatus.sMessage = "";
+            ucStatus.AnimateStatus();
+
+            tabMain.SelectedIndex = 3;
+
+            ucStatus.sMessage = "";
+            ucStatus.AnimateStatus();
+
+            Cursor.Current = Cursors.Default;
+
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -729,6 +726,9 @@ namespace MIS
             tabMain.SelectedIndex = 0;
 
             txtTopThreshold.ReadOnly = txtAmtThreshold.ReadOnly = false;
+
+            ucStatus.sMessage = "";
+            ucStatus.AnimateStatus();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -749,6 +749,9 @@ namespace MIS
             if (!dbFunction.fPromptConfirmation("Are you sure to export?")) return;
 
             Cursor.Current = Cursors.WaitCursor;
+
+            ucStatus.sMessage = $"Exporting in progress...";
+            ucStatus.AnimateStatus();
 
             var reports = new ReportInfo[]
             {
@@ -802,13 +805,30 @@ namespace MIS
                 }
 
             };
-            
+
+            Cursor.Current = Cursors.WaitCursor;
+
             string filename = $"{clsSearch.ClassBankCode}_ERM-Settlement-Report_Date_Range_From_{clsSearch.ClassDateFrom}_To_{clsSearch.ClassDateTo}_{clsDefines.FILE_EXT_XLXS}";
-            dbFile.ExportMultipleListViewsToExcel(reports, $"{filename}", false);
+            bool isExported  = dbFile.ExportMultipleListViewsToExcel(reports, $"{filename}", false);
 
             Cursor.Current = Cursors.Default;
+            
+            if (isExported)
+            {
+                ucStatus.sMessage = $"Exporting in progress...complete";
+                ucStatus.AnimateStatus();
 
-            dbFunction.SetMessageBox("Export complete", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
+                dbFunction.SetMessageBox("Export complete", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
+            }
+            else
+            {
+                dbFunction.SetMessageBox("Export cancelled or failed.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
+            }
+
+            ucStatus.sMessage = "";
+            ucStatus.AnimateStatus();
+
+            Cursor.Current = Cursors.Default;            
         }
 
         private void btnImport_Click(object sender, EventArgs e)
@@ -1013,6 +1033,8 @@ namespace MIS
 
             ucStatus.sMessage = "";
             ucStatus.AnimateStatus();
+
+            tabFilter.SelectedIndex = 2;
         }
 
         private void InitDateRange()
@@ -1117,6 +1139,64 @@ namespace MIS
                 case Keys.Enter:
                     btnSearchPerTopSales_Click(this, e);
                     break;
+            }
+        }
+
+        private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Detail Data Tab
+                if (tabMain.SelectedIndex != 6)
+                    return;
+
+                bool confirm = dbFunction.fPromptConfirmation(
+                    "Are you sure you want to load the detail data?\n\n" +
+                    "This process may take a few minutes."
+                );
+
+                if (!confirm)
+                    return;
+
+                Cursor.Current = Cursors.WaitCursor;
+
+                dbFunction.ClearListViewItems(lvwPerDetail);
+
+                checkDateRange();
+
+                loadDataDetail(lvwPerDetail);
+
+                dbFunction.SetMessageBox(
+                    "Detail data loaded successfully.",
+                    lblHeader.Text,
+                    clsFunction.IconType.iInformation
+                );
+            }
+            catch (Exception ex)
+            {
+                dbFunction.SetMessageBox(
+                    ex.Message,
+                    lblHeader.Text, 
+                    clsFunction.IconType.iError
+                    
+                );
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void checkDateRange()
+        {
+            if (chkDateRange.Checked)
+            {
+                clsSearch.ClassDateFrom = dbFunction.CheckAndSetDatePickerValueToDate(dteDateFrom);
+                clsSearch.ClassDateTo = dbFunction.CheckAndSetDatePickerValueToDate(dteDateTo);
+            }
+            else
+            {
+                clsSearch.ClassDateFrom = clsSearch.ClassDateTo = clsFunction.sDateFormat;
             }
         }
     }

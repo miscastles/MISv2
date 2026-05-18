@@ -681,7 +681,7 @@
             this.label98.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label98.Location = new System.Drawing.Point(376, 568);
             this.label98.Name = "label98";
-            this.label98.Size = new System.Drawing.Size(64, 16);
+            this.label98.Size = new System.Drawing.Size(63, 16);
             this.label98.TabIndex = 463;
             this.label98.Text = "POS Plan";
             // 
@@ -692,7 +692,7 @@
             this.label97.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label97.Location = new System.Drawing.Point(375, 594);
             this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(127, 16);
+            this.label97.Size = new System.Drawing.Size(126, 16);
             this.label97.TabIndex = 462;
             this.label97.Text = "Installment Rates";
             // 
@@ -703,7 +703,7 @@
             this.label96.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label96.Location = new System.Drawing.Point(376, 542);
             this.label96.Name = "label96";
-            this.label96.Size = new System.Drawing.Size(120, 16);
+            this.label96.Size = new System.Drawing.Size(119, 16);
             this.label96.TabIndex = 461;
             this.label96.Text = "Payment Grouping";
             // 
@@ -714,7 +714,7 @@
             this.label95.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label95.Location = new System.Drawing.Point(376, 514);
             this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(92, 16);
+            this.label95.Size = new System.Drawing.Size(91, 16);
             this.label95.TabIndex = 460;
             this.label95.Text = "Request Type";
             // 
@@ -725,7 +725,7 @@
             this.label84.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label84.Location = new System.Drawing.Point(377, 487);
             this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(113, 16);
+            this.label84.Size = new System.Drawing.Size(112, 16);
             this.label84.TabIndex = 459;
             this.label84.Text = "Branch Referral";
             // 
@@ -736,7 +736,7 @@
             this.label118.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label118.Location = new System.Drawing.Point(377, 461);
             this.label118.Name = "label118";
-            this.label118.Size = new System.Drawing.Size(141, 16);
+            this.label118.Size = new System.Drawing.Size(140, 16);
             this.label118.TabIndex = 458;
             this.label118.Text = "PEP postion related";
             // 
@@ -747,7 +747,7 @@
             this.label117.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label117.Location = new System.Drawing.Point(375, 435);
             this.label117.Name = "label117";
-            this.label117.Size = new System.Drawing.Size(169, 16);
+            this.label117.Size = new System.Drawing.Size(168, 16);
             this.label117.TabIndex = 457;
             this.label117.Text = "Family position related";
             // 
@@ -944,7 +944,7 @@
             this.label116.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label116.Location = new System.Drawing.Point(375, 407);
             this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(169, 16);
+            this.label116.Size = new System.Drawing.Size(168, 16);
             this.label116.TabIndex = 442;
             this.label116.Text = "Public position related";
             // 
@@ -955,7 +955,7 @@
             this.label71.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label71.Location = new System.Drawing.Point(376, 381);
             this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(127, 16);
+            this.label71.Size = new System.Drawing.Size(126, 16);
             this.label71.TabIndex = 441;
             this.label71.Text = "Secondary License";
             // 
@@ -966,7 +966,7 @@
             this.label70.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label70.Location = new System.Drawing.Point(376, 355);
             this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(120, 16);
+            this.label70.Size = new System.Drawing.Size(119, 16);
             this.label70.TabIndex = 440;
             this.label70.Text = "Mode of Delivery";
             // 
@@ -977,7 +977,7 @@
             this.label69.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label69.Location = new System.Drawing.Point(375, 328);
             this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(141, 16);
+            this.label69.Size = new System.Drawing.Size(140, 16);
             this.label69.TabIndex = 439;
             this.label69.Text = "Modes of Depositing";
             // 
@@ -988,7 +988,7 @@
             this.label68.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label68.Location = new System.Drawing.Point(375, 302);
             this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(134, 16);
+            this.label68.Size = new System.Drawing.Size(133, 16);
             this.label68.TabIndex = 438;
             this.label68.Text = "Purpose of Account";
             // 
@@ -999,7 +999,7 @@
             this.label67.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label67.Location = new System.Drawing.Point(375, 276);
             this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(106, 16);
+            this.label67.Size = new System.Drawing.Size(105, 16);
             this.label67.TabIndex = 437;
             this.label67.Text = "Average Amount";
             // 
@@ -1010,7 +1010,7 @@
             this.label66.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label66.Location = new System.Drawing.Point(375, 250);
             this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(134, 16);
+            this.label66.Size = new System.Drawing.Size(133, 16);
             this.label66.TabIndex = 436;
             this.label66.Text = "Expected Frequency";
             // 
@@ -1021,7 +1021,7 @@
             this.label65.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label65.Location = new System.Drawing.Point(376, 224);
             this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(71, 16);
+            this.label65.Size = new System.Drawing.Size(70, 16);
             this.label65.TabIndex = 435;
             this.label65.Text = "US Person";
             // 
@@ -1032,7 +1032,7 @@
             this.label64.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label64.Location = new System.Drawing.Point(376, 198);
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(120, 16);
+            this.label64.Size = new System.Drawing.Size(119, 16);
             this.label64.TabIndex = 434;
             this.label64.Text = "Types of Product";
             // 
@@ -1043,7 +1043,7 @@
             this.label63.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label63.Location = new System.Drawing.Point(376, 172);
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(120, 16);
+            this.label63.Size = new System.Drawing.Size(119, 16);
             this.label63.TabIndex = 433;
             this.label63.Text = "Size of Business";
             // 
@@ -1054,7 +1054,7 @@
             this.label62.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label62.Location = new System.Drawing.Point(376, 146);
             this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(120, 16);
+            this.label62.Size = new System.Drawing.Size(119, 16);
             this.label62.TabIndex = 432;
             this.label62.Text = "Source of Wealth";
             // 
@@ -1065,7 +1065,7 @@
             this.label58.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label58.Location = new System.Drawing.Point(376, 96);
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(148, 16);
+            this.label58.Size = new System.Drawing.Size(147, 16);
             this.label58.TabIndex = 431;
             this.label58.Text = "Contact Person Email";
             // 
@@ -1076,7 +1076,7 @@
             this.label57.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label57.Location = new System.Drawing.Point(376, 70);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(134, 16);
+            this.label57.Size = new System.Drawing.Size(133, 16);
             this.label57.TabIndex = 430;
             this.label57.Text = "Contact Person No.";
             // 
@@ -1098,7 +1098,7 @@
             this.label50.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label50.Location = new System.Drawing.Point(376, 41);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(106, 16);
+            this.label50.Size = new System.Drawing.Size(105, 16);
             this.label50.TabIndex = 428;
             this.label50.Text = "Contact Person";
             // 
@@ -1359,7 +1359,7 @@
             this.label39.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label39.Location = new System.Drawing.Point(3, 489);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(127, 16);
+            this.label39.Size = new System.Drawing.Size(126, 16);
             this.label39.TabIndex = 402;
             this.label39.Text = "Other Account No.";
             // 
@@ -1370,7 +1370,7 @@
             this.label75.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label75.Location = new System.Drawing.Point(3, 622);
             this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(120, 16);
+            this.label75.Size = new System.Drawing.Size(119, 16);
             this.label75.TabIndex = 401;
             this.label75.Text = "Name of Employer";
             // 
@@ -1381,7 +1381,7 @@
             this.label53.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label53.Location = new System.Drawing.Point(3, 596);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(106, 16);
+            this.label53.Size = new System.Drawing.Size(105, 16);
             this.label53.TabIndex = 400;
             this.label53.Text = "Nature of work";
             // 
@@ -1392,7 +1392,7 @@
             this.label72.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label72.Location = new System.Drawing.Point(3, 568);
             this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(120, 16);
+            this.label72.Size = new System.Drawing.Size(119, 16);
             this.label72.TabIndex = 399;
             this.label72.Text = "Employed or not?";
             // 
@@ -1403,7 +1403,7 @@
             this.label45.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label45.Location = new System.Drawing.Point(3, 648);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(141, 16);
+            this.label45.Size = new System.Drawing.Size(140, 16);
             this.label45.TabIndex = 398;
             this.label45.Text = "Outside Affiliation";
             // 
@@ -1414,7 +1414,7 @@
             this.label43.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label43.Location = new System.Drawing.Point(3, 674);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(134, 16);
+            this.label43.Size = new System.Drawing.Size(133, 16);
             this.label43.TabIndex = 397;
             this.label43.Text = "(TIN, SSS or GSIS)";
             // 
@@ -1425,7 +1425,7 @@
             this.label41.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label41.Location = new System.Drawing.Point(3, 542);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(50, 16);
+            this.label41.Size = new System.Drawing.Size(49, 16);
             this.label41.TabIndex = 396;
             this.label41.Text = "ID No.";
             // 
@@ -1436,7 +1436,7 @@
             this.label40.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label40.Location = new System.Drawing.Point(3, 516);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(57, 16);
+            this.label40.Size = new System.Drawing.Size(56, 16);
             this.label40.TabIndex = 395;
             this.label40.Text = "ID Type";
             // 
@@ -1447,7 +1447,7 @@
             this.label23.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.Location = new System.Drawing.Point(3, 463);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(85, 16);
+            this.label23.Size = new System.Drawing.Size(84, 16);
             this.label23.TabIndex = 394;
             this.label23.Text = "Account No.";
             // 
@@ -1458,7 +1458,7 @@
             this.label26.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label26.Location = new System.Drawing.Point(3, 411);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(43, 16);
+            this.label26.Size = new System.Drawing.Size(42, 16);
             this.label26.TabIndex = 393;
             this.label26.Text = "Title";
             // 
@@ -1469,7 +1469,7 @@
             this.label42.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label42.Location = new System.Drawing.Point(3, 435);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(71, 16);
+            this.label42.Size = new System.Drawing.Size(70, 16);
             this.label42.TabIndex = 392;
             this.label42.Text = "Bank Name";
             // 
@@ -1480,7 +1480,7 @@
             this.label38.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label38.Location = new System.Drawing.Point(3, 383);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(64, 16);
+            this.label38.Size = new System.Drawing.Size(63, 16);
             this.label38.TabIndex = 377;
             this.label38.Text = "Industry";
             // 
@@ -1491,7 +1491,7 @@
             this.label52.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label52.Location = new System.Drawing.Point(3, 331);
             this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(92, 16);
+            this.label52.Size = new System.Drawing.Size(91, 16);
             this.label52.TabIndex = 376;
             this.label52.Text = "Merch Mobile";
             // 
@@ -1502,7 +1502,7 @@
             this.label49.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label49.Location = new System.Drawing.Point(3, 250);
             this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(99, 16);
+            this.label49.Size = new System.Drawing.Size(98, 16);
             this.label49.TabIndex = 375;
             this.label49.Text = "Merchant City";
             // 
@@ -1513,7 +1513,7 @@
             this.label48.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label48.Location = new System.Drawing.Point(3, 226);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(127, 16);
+            this.label48.Size = new System.Drawing.Size(126, 16);
             this.label48.TabIndex = 374;
             this.label48.Text = "Merchant Barangay";
             // 
@@ -1524,7 +1524,7 @@
             this.label47.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label47.Location = new System.Drawing.Point(3, 93);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(134, 16);
+            this.label47.Size = new System.Drawing.Size(133, 16);
             this.label47.TabIndex = 373;
             this.label47.Text = "Merchant Last Name";
             // 
@@ -1535,7 +1535,7 @@
             this.label31.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label31.Location = new System.Drawing.Point(3, 67);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(148, 16);
+            this.label31.Size = new System.Drawing.Size(147, 16);
             this.label31.TabIndex = 372;
             this.label31.Text = "Merchant Middle Name";
             // 
@@ -1546,7 +1546,7 @@
             this.label37.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label37.Location = new System.Drawing.Point(3, 357);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(106, 16);
+            this.label37.Size = new System.Drawing.Size(105, 16);
             this.label37.TabIndex = 371;
             this.label37.Text = "Merchant Email";
             // 
@@ -1557,7 +1557,7 @@
             this.label36.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label36.Location = new System.Drawing.Point(3, 304);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(113, 16);
+            this.label36.Size = new System.Drawing.Size(112, 16);
             this.label36.TabIndex = 370;
             this.label36.Text = "Merch Phone No.";
             // 
@@ -1568,7 +1568,7 @@
             this.label13.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(3, 171);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(85, 16);
+            this.label13.Size = new System.Drawing.Size(84, 16);
             this.label13.TabIndex = 369;
             this.label13.Text = "Nationality";
             // 
@@ -1579,7 +1579,7 @@
             this.label21.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.Location = new System.Drawing.Point(3, 145);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(106, 16);
+            this.label21.Size = new System.Drawing.Size(105, 16);
             this.label21.TabIndex = 368;
             this.label21.Text = "Place of Birth";
             // 
@@ -1590,7 +1590,7 @@
             this.label22.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.Location = new System.Drawing.Point(3, 121);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(99, 16);
+            this.label22.Size = new System.Drawing.Size(98, 16);
             this.label22.TabIndex = 367;
             this.label22.Text = "Date of Birth";
             // 
@@ -1601,7 +1601,7 @@
             this.label27.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label27.Location = new System.Drawing.Point(3, 41);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(141, 16);
+            this.label27.Size = new System.Drawing.Size(140, 16);
             this.label27.TabIndex = 364;
             this.label27.Text = "Merchant First Name";
             // 
@@ -1612,7 +1612,7 @@
             this.label30.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label30.Location = new System.Drawing.Point(3, 198);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(120, 16);
+            this.label30.Size = new System.Drawing.Size(119, 16);
             this.label30.TabIndex = 365;
             this.label30.Text = "Merchant Address";
             // 
@@ -1623,7 +1623,7 @@
             this.label32.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label32.Location = new System.Drawing.Point(3, 278);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(64, 16);
+            this.label32.Size = new System.Drawing.Size(63, 16);
             this.label32.TabIndex = 366;
             this.label32.Text = "Zip Code";
             // 
@@ -1723,7 +1723,7 @@
             this.label114.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label114.Location = new System.Drawing.Point(4, 611);
             this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(64, 16);
+            this.label114.Size = new System.Drawing.Size(63, 16);
             this.label114.TabIndex = 424;
             this.label114.Text = "Zip Code";
             // 
@@ -1734,7 +1734,7 @@
             this.label29.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label29.Location = new System.Drawing.Point(4, 637);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(29, 16);
+            this.label29.Size = new System.Drawing.Size(28, 16);
             this.label29.TabIndex = 422;
             this.label29.Text = "Fax";
             // 
@@ -1763,7 +1763,7 @@
             this.label113.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label113.Location = new System.Drawing.Point(4, 585);
             this.label113.Name = "label113";
-            this.label113.Size = new System.Drawing.Size(141, 16);
+            this.label113.Size = new System.Drawing.Size(140, 16);
             this.label113.TabIndex = 423;
             this.label113.Text = "Cheque Deliver Add.";
             // 
@@ -1783,7 +1783,7 @@
             this.label20.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.Location = new System.Drawing.Point(4, 427);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(120, 16);
+            this.label20.Size = new System.Drawing.Size(119, 16);
             this.label20.TabIndex = 416;
             this.label20.Text = "Form of Business";
             // 
@@ -1803,7 +1803,7 @@
             this.label61.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label61.Location = new System.Drawing.Point(4, 453);
             this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(113, 16);
+            this.label61.Size = new System.Drawing.Size(112, 16);
             this.label61.TabIndex = 417;
             this.label61.Text = "With Beneficial";
             // 
@@ -1823,7 +1823,7 @@
             this.label33.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label33.Location = new System.Drawing.Point(4, 481);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(85, 16);
+            this.label33.Size = new System.Drawing.Size(84, 16);
             this.label33.TabIndex = 421;
             this.label33.Text = "Designation";
             // 
@@ -1843,7 +1843,7 @@
             this.label24.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.Location = new System.Drawing.Point(4, 507);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(134, 16);
+            this.label24.Size = new System.Drawing.Size(133, 16);
             this.label24.TabIndex = 418;
             this.label24.Text = "Product / Services";
             // 
@@ -1863,7 +1863,7 @@
             this.label51.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label51.Location = new System.Drawing.Point(4, 559);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(92, 16);
+            this.label51.Size = new System.Drawing.Size(91, 16);
             this.label51.TabIndex = 420;
             this.label51.Text = "Payment Mode";
             // 
@@ -1886,7 +1886,7 @@
             this.label46.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label46.Location = new System.Drawing.Point(4, 533);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(113, 16);
+            this.label46.Size = new System.Drawing.Size(112, 16);
             this.label46.TabIndex = 419;
             this.label46.Text = "Source of funds";
             // 
@@ -2054,7 +2054,7 @@
             this.label10.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(6, 221);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(113, 16);
+            this.label10.Size = new System.Drawing.Size(112, 16);
             this.label10.TabIndex = 400;
             this.label10.Text = "Mailing Address";
             // 
@@ -2065,7 +2065,7 @@
             this.label76.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label76.Location = new System.Drawing.Point(6, 70);
             this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(64, 16);
+            this.label76.Size = new System.Drawing.Size(63, 16);
             this.label76.TabIndex = 399;
             this.label76.Text = "DBA Name";
             // 
@@ -2076,7 +2076,7 @@
             this.label56.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label56.Location = new System.Drawing.Point(4, 247);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(64, 16);
+            this.label56.Size = new System.Drawing.Size(63, 16);
             this.label56.TabIndex = 398;
             this.label56.Text = "Zip Code";
             // 
@@ -2087,7 +2087,7 @@
             this.label55.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label55.Location = new System.Drawing.Point(4, 174);
             this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(127, 16);
+            this.label55.Size = new System.Drawing.Size(126, 16);
             this.label55.TabIndex = 397;
             this.label55.Text = "Business Province";
             // 
@@ -2098,7 +2098,7 @@
             this.label54.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label54.Location = new System.Drawing.Point(4, 148);
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(99, 16);
+            this.label54.Size = new System.Drawing.Size(98, 16);
             this.label54.TabIndex = 396;
             this.label54.Text = "Business City";
             // 
@@ -2109,7 +2109,7 @@
             this.label35.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label35.Location = new System.Drawing.Point(6, 122);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(127, 16);
+            this.label35.Size = new System.Drawing.Size(126, 16);
             this.label35.TabIndex = 395;
             this.label35.Text = "Business Barangay";
             // 
@@ -2120,7 +2120,7 @@
             this.label19.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.Location = new System.Drawing.Point(4, 375);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(78, 16);
+            this.label19.Size = new System.Drawing.Size(77, 16);
             this.label19.TabIndex = 394;
             this.label19.Text = "Mobile No.";
             // 
@@ -2131,7 +2131,7 @@
             this.label18.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.Location = new System.Drawing.Point(4, 300);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(148, 16);
+            this.label18.Size = new System.Drawing.Size(147, 16);
             this.label18.TabIndex = 393;
             this.label18.Text = "Date of Registration";
             // 
@@ -2142,7 +2142,7 @@
             this.label16.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.Location = new System.Drawing.Point(4, 324);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(57, 16);
+            this.label16.Size = new System.Drawing.Size(56, 16);
             this.label16.TabIndex = 392;
             this.label16.Text = "Country";
             // 
@@ -2153,7 +2153,7 @@
             this.label17.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.Location = new System.Drawing.Point(4, 272);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(50, 16);
+            this.label17.Size = new System.Drawing.Size(49, 16);
             this.label17.TabIndex = 391;
             this.label17.Text = "TIN ID";
             // 
@@ -2164,7 +2164,7 @@
             this.label15.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(6, 96);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(120, 16);
+            this.label15.Size = new System.Drawing.Size(119, 16);
             this.label15.TabIndex = 390;
             this.label15.Text = "Business Address";
             // 
@@ -2175,7 +2175,7 @@
             this.label14.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.Location = new System.Drawing.Point(6, 41);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(99, 16);
+            this.label14.Size = new System.Drawing.Size(98, 16);
             this.label14.TabIndex = 389;
             this.label14.Text = "Business Name";
             // 
@@ -2186,7 +2186,7 @@
             this.label28.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label28.Location = new System.Drawing.Point(4, 401);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(106, 16);
+            this.label28.Size = new System.Drawing.Size(105, 16);
             this.label28.TabIndex = 388;
             this.label28.Text = "Business Email";
             // 
@@ -2197,7 +2197,7 @@
             this.label34.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label34.Location = new System.Drawing.Point(4, 350);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(134, 16);
+            this.label34.Size = new System.Drawing.Size(133, 16);
             this.label34.TabIndex = 387;
             this.label34.Text = "Business Phone No.";
             // 
@@ -2413,7 +2413,7 @@
             this.label25.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label25.Location = new System.Drawing.Point(5, 226);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(127, 16);
+            this.label25.Size = new System.Drawing.Size(126, 16);
             this.label25.TabIndex = 405;
             this.label25.Text = "Terminal Quantity";
             // 
@@ -2424,7 +2424,7 @@
             this.label110.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label110.Location = new System.Drawing.Point(6, 278);
             this.label110.Name = "label110";
-            this.label110.Size = new System.Drawing.Size(169, 16);
+            this.label110.Size = new System.Drawing.Size(168, 16);
             this.label110.TabIndex = 404;
             this.label110.Text = "Monthly Terminal Rental";
             // 
@@ -2435,7 +2435,7 @@
             this.label109.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label109.Location = new System.Drawing.Point(6, 252);
             this.label109.Name = "label109";
-            this.label109.Size = new System.Drawing.Size(50, 16);
+            this.label109.Size = new System.Drawing.Size(49, 16);
             this.label109.TabIndex = 403;
             this.label109.Text = "Months";
             // 
@@ -2446,7 +2446,7 @@
             this.label108.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label108.Location = new System.Drawing.Point(6, 200);
             this.label108.Name = "label108";
-            this.label108.Size = new System.Drawing.Size(106, 16);
+            this.label108.Size = new System.Drawing.Size(105, 16);
             this.label108.TabIndex = 402;
             this.label108.Text = "Terminal Model";
             // 
@@ -2457,7 +2457,7 @@
             this.label12.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(6, 306);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(106, 16);
+            this.label12.Size = new System.Drawing.Size(105, 16);
             this.label12.TabIndex = 401;
             this.label12.Text = "Date Submitted";
             // 
@@ -2468,7 +2468,7 @@
             this.label11.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(6, 174);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(43, 16);
+            this.label11.Size = new System.Drawing.Size(42, 16);
             this.label11.TabIndex = 400;
             this.label11.Text = "Title";
             // 
@@ -2479,7 +2479,7 @@
             this.label4.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(6, 41);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(92, 16);
+            this.label4.Size = new System.Drawing.Size(91, 16);
             this.label4.TabIndex = 394;
             this.label4.Text = "Document No.";
             // 
@@ -2490,7 +2490,7 @@
             this.label5.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(6, 70);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(148, 16);
+            this.label5.Size = new System.Drawing.Size(147, 16);
             this.label5.TabIndex = 396;
             this.label5.Text = "Vendor Employee Name";
             // 
@@ -2501,7 +2501,7 @@
             this.label8.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(6, 148);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 16);
+            this.label8.Size = new System.Drawing.Size(42, 16);
             this.label8.TabIndex = 399;
             this.label8.Text = "Email";
             // 
@@ -2512,7 +2512,7 @@
             this.label6.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(6, 122);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(85, 16);
+            this.label6.Size = new System.Drawing.Size(84, 16);
             this.label6.TabIndex = 397;
             this.label6.Text = "Designation";
             // 
@@ -2523,7 +2523,7 @@
             this.label3.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(6, 332);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 16);
+            this.label3.Size = new System.Drawing.Size(35, 16);
             this.label3.TabIndex = 395;
             this.label3.Text = "Date";
             this.label3.Visible = false;
@@ -2535,7 +2535,7 @@
             this.label7.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(6, 96);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(78, 16);
+            this.label7.Size = new System.Drawing.Size(77, 16);
             this.label7.TabIndex = 398;
             this.label7.Text = "Mobile No.";
             // 
@@ -2635,7 +2635,7 @@
             this.label138.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label138.Location = new System.Drawing.Point(1, 91);
             this.label138.Name = "label138";
-            this.label138.Size = new System.Drawing.Size(78, 16);
+            this.label138.Size = new System.Drawing.Size(77, 16);
             this.label138.TabIndex = 416;
             this.label138.Text = "SPA ID No.";
             // 
@@ -2646,7 +2646,7 @@
             this.label143.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label143.Location = new System.Drawing.Point(1, 60);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(50, 16);
+            this.label143.Size = new System.Drawing.Size(49, 16);
             this.label143.TabIndex = 415;
             this.label143.Text = "SPA ID";
             // 
@@ -2657,7 +2657,7 @@
             this.label144.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label144.Location = new System.Drawing.Point(1, 39);
             this.label144.Name = "label144";
-            this.label144.Size = new System.Drawing.Size(99, 16);
+            this.label144.Size = new System.Drawing.Size(98, 16);
             this.label144.TabIndex = 414;
             this.label144.Text = "SPA Full Name";
             // 
@@ -2754,7 +2754,7 @@
             this.label127.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label127.Location = new System.Drawing.Point(-5, 115);
             this.label127.Name = "label127";
-            this.label127.Size = new System.Drawing.Size(169, 16);
+            this.label127.Size = new System.Drawing.Size(168, 16);
             this.label127.TabIndex = 411;
             this.label127.Text = " Secretary Full Address";
             // 
@@ -2765,7 +2765,7 @@
             this.label126.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label126.Location = new System.Drawing.Point(2, 88);
             this.label126.Name = "label126";
-            this.label126.Size = new System.Drawing.Size(155, 16);
+            this.label126.Size = new System.Drawing.Size(154, 16);
             this.label126.TabIndex = 410;
             this.label126.Text = "Secretary Nationality";
             // 
@@ -2787,7 +2787,7 @@
             this.label92.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label92.Location = new System.Drawing.Point(2, 36);
             this.label92.Name = "label92";
-            this.label92.Size = new System.Drawing.Size(141, 16);
+            this.label92.Size = new System.Drawing.Size(140, 16);
             this.label92.TabIndex = 408;
             this.label92.Text = "Secretary Full Name";
             // 
@@ -2898,7 +2898,7 @@
             this.label137.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label137.Location = new System.Drawing.Point(395, 350);
             this.label137.Name = "label137";
-            this.label137.Size = new System.Drawing.Size(106, 16);
+            this.label137.Size = new System.Drawing.Size(105, 16);
             this.label137.TabIndex = 496;
             this.label137.Text = "Nature of work";
             // 
@@ -2908,7 +2908,7 @@
             this.label145.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label145.Location = new System.Drawing.Point(395, 399);
             this.label145.Name = "label145";
-            this.label145.Size = new System.Drawing.Size(141, 16);
+            this.label145.Size = new System.Drawing.Size(140, 16);
             this.label145.TabIndex = 495;
             this.label145.Text = "Outside Affiliation";
             // 
@@ -2918,7 +2918,7 @@
             this.label146.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label146.Location = new System.Drawing.Point(395, 425);
             this.label146.Name = "label146";
-            this.label146.Size = new System.Drawing.Size(113, 16);
+            this.label146.Size = new System.Drawing.Size(112, 16);
             this.label146.TabIndex = 494;
             this.label146.Text = "Source of Funds";
             // 
@@ -2962,7 +2962,7 @@
             this.label157.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label157.Location = new System.Drawing.Point(395, 374);
             this.label157.Name = "label157";
-            this.label157.Size = new System.Drawing.Size(120, 16);
+            this.label157.Size = new System.Drawing.Size(119, 16);
             this.label157.TabIndex = 492;
             this.label157.Text = "Name of employer";
             // 
@@ -2991,7 +2991,7 @@
             this.label155.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label155.Location = new System.Drawing.Point(395, 325);
             this.label155.Name = "label155";
-            this.label155.Size = new System.Drawing.Size(134, 16);
+            this.label155.Size = new System.Drawing.Size(133, 16);
             this.label155.TabIndex = 493;
             this.label155.Text = "Nature of Business";
             // 
@@ -3066,7 +3066,7 @@
             this.label128.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label128.Location = new System.Drawing.Point(395, 194);
             this.label128.Name = "label128";
-            this.label128.Size = new System.Drawing.Size(85, 16);
+            this.label128.Size = new System.Drawing.Size(84, 16);
             this.label128.TabIndex = 482;
             this.label128.Text = "Designation";
             // 
@@ -3076,7 +3076,7 @@
             this.label129.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label129.Location = new System.Drawing.Point(395, 298);
             this.label129.Name = "label129";
-            this.label129.Size = new System.Drawing.Size(120, 16);
+            this.label129.Size = new System.Drawing.Size(119, 16);
             this.label129.TabIndex = 481;
             this.label129.Text = "Employed or not?";
             // 
@@ -3086,7 +3086,7 @@
             this.label130.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label130.Location = new System.Drawing.Point(395, 246);
             this.label130.Name = "label130";
-            this.label130.Size = new System.Drawing.Size(134, 16);
+            this.label130.Size = new System.Drawing.Size(133, 16);
             this.label130.TabIndex = 480;
             this.label130.Text = "(TIN, SSS or GSIS)";
             // 
@@ -3096,7 +3096,7 @@
             this.label131.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label131.Location = new System.Drawing.Point(395, 272);
             this.label131.Name = "label131";
-            this.label131.Size = new System.Drawing.Size(141, 16);
+            this.label131.Size = new System.Drawing.Size(140, 16);
             this.label131.TabIndex = 479;
             this.label131.Text = "Signatory Phone No.";
             // 
@@ -3106,7 +3106,7 @@
             this.label132.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label132.Location = new System.Drawing.Point(395, 167);
             this.label132.Name = "label132";
-            this.label132.Size = new System.Drawing.Size(85, 16);
+            this.label132.Size = new System.Drawing.Size(84, 16);
             this.label132.TabIndex = 478;
             this.label132.Text = "Nationality";
             // 
@@ -3116,7 +3116,7 @@
             this.label133.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label133.Location = new System.Drawing.Point(395, 140);
             this.label133.Name = "label133";
-            this.label133.Size = new System.Drawing.Size(106, 16);
+            this.label133.Size = new System.Drawing.Size(105, 16);
             this.label133.TabIndex = 477;
             this.label133.Text = "Place of Birth";
             // 
@@ -3126,7 +3126,7 @@
             this.label134.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label134.Location = new System.Drawing.Point(395, 112);
             this.label134.Name = "label134";
-            this.label134.Size = new System.Drawing.Size(99, 16);
+            this.label134.Size = new System.Drawing.Size(98, 16);
             this.label134.TabIndex = 476;
             this.label134.Text = "Date of Birth";
             // 
@@ -3136,7 +3136,7 @@
             this.label135.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label135.Location = new System.Drawing.Point(395, 72);
             this.label135.Name = "label135";
-            this.label135.Size = new System.Drawing.Size(134, 16);
+            this.label135.Size = new System.Drawing.Size(133, 16);
             this.label135.TabIndex = 474;
             this.label135.Text = "Managing Full Name";
             // 
@@ -3146,7 +3146,7 @@
             this.label136.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label136.Location = new System.Drawing.Point(395, 220);
             this.label136.Name = "label136";
-            this.label136.Size = new System.Drawing.Size(155, 16);
+            this.label136.Size = new System.Drawing.Size(154, 16);
             this.label136.TabIndex = 475;
             this.label136.Text = "Managing Full Address";
             // 
@@ -3221,7 +3221,7 @@
             this.label139.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label139.Location = new System.Drawing.Point(4, 351);
             this.label139.Name = "label139";
-            this.label139.Size = new System.Drawing.Size(106, 16);
+            this.label139.Size = new System.Drawing.Size(105, 16);
             this.label139.TabIndex = 449;
             this.label139.Text = "Nature of work";
             // 
@@ -3231,7 +3231,7 @@
             this.label141.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label141.Location = new System.Drawing.Point(4, 403);
             this.label141.Name = "label141";
-            this.label141.Size = new System.Drawing.Size(141, 16);
+            this.label141.Size = new System.Drawing.Size(140, 16);
             this.label141.TabIndex = 448;
             this.label141.Text = "Outside Affiliation";
             // 
@@ -3241,7 +3241,7 @@
             this.label147.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label147.Location = new System.Drawing.Point(4, 429);
             this.label147.Name = "label147";
-            this.label147.Size = new System.Drawing.Size(113, 16);
+            this.label147.Size = new System.Drawing.Size(112, 16);
             this.label147.TabIndex = 447;
             this.label147.Text = "Source of Funds";
             // 
@@ -3251,7 +3251,7 @@
             this.label154.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label154.Location = new System.Drawing.Point(4, 325);
             this.label154.Name = "label154";
-            this.label154.Size = new System.Drawing.Size(134, 16);
+            this.label154.Size = new System.Drawing.Size(133, 16);
             this.label154.TabIndex = 446;
             this.label154.Text = "Nature of business";
             // 
@@ -3261,7 +3261,7 @@
             this.label156.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label156.Location = new System.Drawing.Point(4, 377);
             this.label156.Name = "label156";
-            this.label156.Size = new System.Drawing.Size(120, 16);
+            this.label156.Size = new System.Drawing.Size(119, 16);
             this.label156.TabIndex = 445;
             this.label156.Text = "Name of employer";
             // 
@@ -3359,7 +3359,7 @@
             this.label119.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label119.Location = new System.Drawing.Point(4, 193);
             this.label119.Name = "label119";
-            this.label119.Size = new System.Drawing.Size(85, 16);
+            this.label119.Size = new System.Drawing.Size(84, 16);
             this.label119.TabIndex = 434;
             this.label119.Text = "Designation";
             // 
@@ -3369,7 +3369,7 @@
             this.label140.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label140.Location = new System.Drawing.Point(4, 297);
             this.label140.Name = "label140";
-            this.label140.Size = new System.Drawing.Size(120, 16);
+            this.label140.Size = new System.Drawing.Size(119, 16);
             this.label140.TabIndex = 433;
             this.label140.Text = "Employed or not?";
             // 
@@ -3379,7 +3379,7 @@
             this.label142.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label142.Location = new System.Drawing.Point(4, 245);
             this.label142.Name = "label142";
-            this.label142.Size = new System.Drawing.Size(134, 16);
+            this.label142.Size = new System.Drawing.Size(133, 16);
             this.label142.TabIndex = 432;
             this.label142.Text = "(TIN, SSS or GSIS)";
             // 
@@ -3389,7 +3389,7 @@
             this.label148.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label148.Location = new System.Drawing.Point(4, 272);
             this.label148.Name = "label148";
-            this.label148.Size = new System.Drawing.Size(141, 16);
+            this.label148.Size = new System.Drawing.Size(140, 16);
             this.label148.TabIndex = 431;
             this.label148.Text = "Signatory Phone No.";
             // 
@@ -3399,7 +3399,7 @@
             this.label149.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label149.Location = new System.Drawing.Point(4, 167);
             this.label149.Name = "label149";
-            this.label149.Size = new System.Drawing.Size(85, 16);
+            this.label149.Size = new System.Drawing.Size(84, 16);
             this.label149.TabIndex = 430;
             this.label149.Text = "Nationality";
             // 
@@ -3409,7 +3409,7 @@
             this.label150.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label150.Location = new System.Drawing.Point(4, 140);
             this.label150.Name = "label150";
-            this.label150.Size = new System.Drawing.Size(106, 16);
+            this.label150.Size = new System.Drawing.Size(105, 16);
             this.label150.TabIndex = 429;
             this.label150.Text = "Place of Birth";
             // 
@@ -3419,7 +3419,7 @@
             this.label151.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label151.Location = new System.Drawing.Point(4, 112);
             this.label151.Name = "label151";
-            this.label151.Size = new System.Drawing.Size(99, 16);
+            this.label151.Size = new System.Drawing.Size(98, 16);
             this.label151.TabIndex = 428;
             this.label151.Text = "Date of Birth";
             // 
@@ -3429,7 +3429,7 @@
             this.label152.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label152.Location = new System.Drawing.Point(4, 69);
             this.label152.Name = "label152";
-            this.label152.Size = new System.Drawing.Size(134, 16);
+            this.label152.Size = new System.Drawing.Size(133, 16);
             this.label152.TabIndex = 426;
             this.label152.Text = "Managing Full Name";
             // 
@@ -3439,7 +3439,7 @@
             this.label153.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label153.Location = new System.Drawing.Point(4, 219);
             this.label153.Name = "label153";
-            this.label153.Size = new System.Drawing.Size(155, 16);
+            this.label153.Size = new System.Drawing.Size(154, 16);
             this.label153.TabIndex = 427;
             this.label153.Text = "Managing Full Address";
             // 
@@ -3574,7 +3574,7 @@
             this.label120.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label120.Location = new System.Drawing.Point(3, 401);
             this.label120.Name = "label120";
-            this.label120.Size = new System.Drawing.Size(141, 16);
+            this.label120.Size = new System.Drawing.Size(140, 16);
             this.label120.TabIndex = 469;
             this.label120.Text = "Outside Affiliation";
             // 
@@ -3602,7 +3602,7 @@
             this.label77.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label77.Location = new System.Drawing.Point(3, 165);
             this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(85, 16);
+            this.label77.Size = new System.Drawing.Size(84, 16);
             this.label77.TabIndex = 467;
             this.label77.Text = "Designation";
             // 
@@ -3662,7 +3662,7 @@
             this.label78.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label78.Location = new System.Drawing.Point(3, 295);
             this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(64, 16);
+            this.label78.Size = new System.Drawing.Size(63, 16);
             this.label78.TabIndex = 466;
             this.label78.Text = "Industry";
             // 
@@ -3684,7 +3684,7 @@
             this.label87.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label87.Location = new System.Drawing.Point(3, 61);
             this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(141, 16);
+            this.label87.Size = new System.Drawing.Size(140, 16);
             this.label87.TabIndex = 455;
             this.label87.Text = "Signatory Full Name";
             // 
@@ -3694,7 +3694,7 @@
             this.label85.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label85.Location = new System.Drawing.Point(3, 349);
             this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(106, 16);
+            this.label85.Size = new System.Drawing.Size(105, 16);
             this.label85.TabIndex = 465;
             this.label85.Text = "Nature of work";
             // 
@@ -3713,7 +3713,7 @@
             this.label91.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label91.Location = new System.Drawing.Point(3, 375);
             this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(120, 16);
+            this.label91.Size = new System.Drawing.Size(119, 16);
             this.label91.TabIndex = 454;
             this.label91.Text = "Name of employer";
             // 
@@ -3731,7 +3731,7 @@
             this.label86.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label86.Location = new System.Drawing.Point(3, 321);
             this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(120, 16);
+            this.label86.Size = new System.Drawing.Size(119, 16);
             this.label86.TabIndex = 464;
             this.label86.Text = "Employed or not?";
             // 
@@ -3751,7 +3751,7 @@
             this.label90.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label90.Location = new System.Drawing.Point(3, 191);
             this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(162, 16);
+            this.label90.Size = new System.Drawing.Size(161, 16);
             this.label90.TabIndex = 456;
             this.label90.Text = "Signatory Full Address";
             // 
@@ -3790,7 +3790,7 @@
             this.label83.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label83.Location = new System.Drawing.Point(3, 89);
             this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(99, 16);
+            this.label83.Size = new System.Drawing.Size(98, 16);
             this.label83.TabIndex = 457;
             this.label83.Text = "Date of Birth";
             // 
@@ -3818,7 +3818,7 @@
             this.label89.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label89.Location = new System.Drawing.Point(3, 217);
             this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(134, 16);
+            this.label89.Size = new System.Drawing.Size(133, 16);
             this.label89.TabIndex = 462;
             this.label89.Text = "(TIN, SSS or GSIS)";
             // 
@@ -3837,7 +3837,7 @@
             this.label82.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label82.Location = new System.Drawing.Point(3, 113);
             this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(106, 16);
+            this.label82.Size = new System.Drawing.Size(105, 16);
             this.label82.TabIndex = 458;
             this.label82.Text = "Place of Birth";
             // 
@@ -3856,7 +3856,7 @@
             this.label79.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label79.Location = new System.Drawing.Point(3, 269);
             this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(113, 16);
+            this.label79.Size = new System.Drawing.Size(112, 16);
             this.label79.TabIndex = 461;
             this.label79.Text = "Signatory Email";
             // 
@@ -3866,7 +3866,7 @@
             this.label81.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label81.Location = new System.Drawing.Point(3, 139);
             this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(85, 16);
+            this.label81.Size = new System.Drawing.Size(84, 16);
             this.label81.TabIndex = 459;
             this.label81.Text = "Nationality";
             // 
@@ -3884,7 +3884,7 @@
             this.label80.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label80.Location = new System.Drawing.Point(3, 243);
             this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(141, 16);
+            this.label80.Size = new System.Drawing.Size(140, 16);
             this.label80.TabIndex = 460;
             this.label80.Text = "Signatory Phone No.";
             // 
@@ -3922,7 +3922,7 @@
             this.label105.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label105.Location = new System.Drawing.Point(402, 190);
             this.label105.Name = "label105";
-            this.label105.Size = new System.Drawing.Size(162, 16);
+            this.label105.Size = new System.Drawing.Size(161, 16);
             this.label105.TabIndex = 399;
             this.label105.Text = "Signatory Full Address";
             // 
@@ -3940,7 +3940,7 @@
             this.label104.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label104.Location = new System.Drawing.Point(402, 60);
             this.label104.Name = "label104";
-            this.label104.Size = new System.Drawing.Size(141, 16);
+            this.label104.Size = new System.Drawing.Size(140, 16);
             this.label104.TabIndex = 398;
             this.label104.Text = "Signatory Full Name";
             // 
@@ -3958,7 +3958,7 @@
             this.label103.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label103.Location = new System.Drawing.Point(402, 88);
             this.label103.Name = "label103";
-            this.label103.Size = new System.Drawing.Size(99, 16);
+            this.label103.Size = new System.Drawing.Size(98, 16);
             this.label103.TabIndex = 400;
             this.label103.Text = "Date of Birth";
             // 
@@ -3968,7 +3968,7 @@
             this.label106.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label106.Location = new System.Drawing.Point(402, 297);
             this.label106.Name = "label106";
-            this.label106.Size = new System.Drawing.Size(64, 16);
+            this.label106.Size = new System.Drawing.Size(63, 16);
             this.label106.TabIndex = 420;
             this.label106.Text = "Industry";
             // 
@@ -3978,7 +3978,7 @@
             this.label102.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label102.Location = new System.Drawing.Point(402, 112);
             this.label102.Name = "label102";
-            this.label102.Size = new System.Drawing.Size(106, 16);
+            this.label102.Size = new System.Drawing.Size(105, 16);
             this.label102.TabIndex = 401;
             this.label102.Text = "Place of Birth";
             // 
@@ -3988,7 +3988,7 @@
             this.label107.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label107.Location = new System.Drawing.Point(402, 351);
             this.label107.Name = "label107";
-            this.label107.Size = new System.Drawing.Size(106, 16);
+            this.label107.Size = new System.Drawing.Size(105, 16);
             this.label107.TabIndex = 419;
             this.label107.Text = "Nature of work";
             // 
@@ -3998,7 +3998,7 @@
             this.label101.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label101.Location = new System.Drawing.Point(402, 138);
             this.label101.Name = "label101";
-            this.label101.Size = new System.Drawing.Size(85, 16);
+            this.label101.Size = new System.Drawing.Size(84, 16);
             this.label101.TabIndex = 402;
             this.label101.Text = "Nationality";
             // 
@@ -4008,7 +4008,7 @@
             this.label111.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label111.Location = new System.Drawing.Point(402, 323);
             this.label111.Name = "label111";
-            this.label111.Size = new System.Drawing.Size(120, 16);
+            this.label111.Size = new System.Drawing.Size(119, 16);
             this.label111.TabIndex = 418;
             this.label111.Text = "Employed or not?";
             // 
@@ -4018,7 +4018,7 @@
             this.label100.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label100.Location = new System.Drawing.Point(402, 242);
             this.label100.Name = "label100";
-            this.label100.Size = new System.Drawing.Size(141, 16);
+            this.label100.Size = new System.Drawing.Size(140, 16);
             this.label100.TabIndex = 403;
             this.label100.Text = "Signatory Phone No.";
             // 
@@ -4028,7 +4028,7 @@
             this.label112.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label112.Location = new System.Drawing.Point(402, 403);
             this.label112.Name = "label112";
-            this.label112.Size = new System.Drawing.Size(141, 16);
+            this.label112.Size = new System.Drawing.Size(140, 16);
             this.label112.TabIndex = 417;
             this.label112.Text = "Outside Affiliation";
             // 
@@ -4038,7 +4038,7 @@
             this.label99.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label99.Location = new System.Drawing.Point(402, 271);
             this.label99.Name = "label99";
-            this.label99.Size = new System.Drawing.Size(113, 16);
+            this.label99.Size = new System.Drawing.Size(112, 16);
             this.label99.TabIndex = 404;
             this.label99.Text = "Signatory Email";
             // 
@@ -4048,7 +4048,7 @@
             this.label115.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label115.Location = new System.Drawing.Point(402, 377);
             this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(120, 16);
+            this.label115.Size = new System.Drawing.Size(119, 16);
             this.label115.TabIndex = 416;
             this.label115.Text = "Name of employer";
             // 
@@ -4058,7 +4058,7 @@
             this.label94.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label94.Location = new System.Drawing.Point(402, 216);
             this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(134, 16);
+            this.label94.Size = new System.Drawing.Size(133, 16);
             this.label94.TabIndex = 405;
             this.label94.Text = "(TIN, SSS or GSIS)";
             // 
@@ -4077,7 +4077,7 @@
             this.label93.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label93.Location = new System.Drawing.Point(402, 164);
             this.label93.Name = "label93";
-            this.label93.Size = new System.Drawing.Size(85, 16);
+            this.label93.Size = new System.Drawing.Size(84, 16);
             this.label93.TabIndex = 406;
             this.label93.Text = "Designation";
             // 

@@ -4068,7 +4068,7 @@ namespace MIS
             grdBulk.ResumeLayout();
             grdBulk.Refresh();
 
-            // 🔥 Toggle button text
+            // Toggle button text
             bthCheckAll.Text = checkAll ? "UNCHECK ALL" : "CHECK ALL";
         }
 
@@ -4087,7 +4087,11 @@ namespace MIS
                 ")) return;
 
             
-            string pSearchValue = $"{txtIRIDNo.Text}{clsDefines.gPipe}{txtTerminalID.Text}{clsDefines.gPipe}{txtTerminalSN.Text}{clsDefines.gPipe}{txtSIMID.Text}{clsDefines.gPipe}{txtSIMSN.Text}";
+            string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetNumericValue(txtTerminalID.Text)}{clsDefines.gPipe}" +
+                                    $"{txtTerminalSN.Text}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetNumericValue(txtSIMID.Text)}{clsDefines.gPipe}" +
+                                    $"{txtSIMSN.Text}";
 
             dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 1);
 

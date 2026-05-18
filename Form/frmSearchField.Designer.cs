@@ -193,7 +193,6 @@
             this.lblSearchMessage.TabIndex = 329;
             this.lblSearchMessage.Text = "MESSAGE";
             this.lblSearchMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblSearchMessage.Visible = false;
             // 
             // btnExit
             // 

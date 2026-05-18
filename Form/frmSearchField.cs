@@ -305,6 +305,8 @@ namespace MIS
         {
             Debug.WriteLine("--frmSearchField_Load--");
 
+            Cursor.Current = Cursors.WaitCursor;
+
             fSelected = false;  
             dbAPI = new clsAPI();
             dbFunction = new clsFunction();
@@ -375,6 +377,10 @@ namespace MIS
             {
                 StartPosition = FormStartPosition.CenterScreen;
             }
+
+            lblSearchMessage.Text = $"{clsSearch.ClassBankDisplayName}";
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void LoadListView(SearchType iType)
@@ -390,7 +396,7 @@ namespace MIS
             Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
 
             lblSearchStatus.Text = "";
-            lblSearchMessage.Text = "";            
+            //lblSearchMessage.Text = "";            
             lvwSearch.Items.Clear();
 
             txtSearch.Text = txtSearch.Text.Trim();
@@ -750,6 +756,7 @@ namespace MIS
             
             lblSearchStatus.Text = lvwSearch.Items.Count.ToString() + " " + "record(s) found.";
             
+            /*
             if (iType == SearchType.iTerminal || iType == SearchType.iSIM)
             {
                 if (iStatus == clsGlobalVariables.STATUS_AVAILABLE)
@@ -761,6 +768,7 @@ namespace MIS
             {
                 lblSearchMessage.Text = "";
             }
+            */
 
             Cursor.Current = Cursors.Default; // Back to normal
             
@@ -2705,11 +2713,13 @@ namespace MIS
 
         private void chkShowAll_CheckedChanged(object sender, EventArgs e)
         {
+            /*
             if (chkShowAll.Checked)
                 lblSearchMessage.Text = "*ALL STATUS WILL BE LISTED";
             else
                 lblSearchMessage.Text = "*ONLY AVAILABLE STATUS WILL BE LISTED";
-            
+            */
+
             LoadListView(iSearchType);
         }
 

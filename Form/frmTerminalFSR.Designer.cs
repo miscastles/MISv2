@@ -1554,7 +1554,7 @@
             this.chkCloseTicket.ForeColor = System.Drawing.Color.Red;
             this.chkCloseTicket.Location = new System.Drawing.Point(3, 248);
             this.chkCloseTicket.Name = "chkCloseTicket";
-            this.chkCloseTicket.Size = new System.Drawing.Size(227, 20);
+            this.chkCloseTicket.Size = new System.Drawing.Size(226, 20);
             this.chkCloseTicket.TabIndex = 428;
             this.chkCloseTicket.Text = "CLOSE SERVICE REQUEST TICKET";
             this.chkCloseTicket.UseVisualStyleBackColor = true;
@@ -9414,7 +9414,7 @@
             this.label103.ForeColor = System.Drawing.Color.Black;
             this.label103.Location = new System.Drawing.Point(3, 4);
             this.label103.Name = "label103";
-            this.label103.Size = new System.Drawing.Size(107, 16);
+            this.label103.Size = new System.Drawing.Size(106, 16);
             this.label103.TabIndex = 310;
             this.label103.Text = "CURRENT DOCK";
             // 
@@ -9640,7 +9640,7 @@
             this.label107.ForeColor = System.Drawing.Color.Black;
             this.label107.Location = new System.Drawing.Point(3, 4);
             this.label107.Name = "label107";
-            this.label107.Size = new System.Drawing.Size(105, 16);
+            this.label107.Size = new System.Drawing.Size(104, 16);
             this.label107.TabIndex = 310;
             this.label107.Text = "REPLACE DOCK";
             // 
@@ -9723,7 +9723,7 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(3, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 16);
+            this.label1.Size = new System.Drawing.Size(68, 16);
             this.label1.TabIndex = 310;
             this.label1.Text = "EXPENSES";
             // 

@@ -732,6 +732,7 @@ namespace MIS
         public const string TAG_TransTime = "TransTime";
         public const string TAG_TransCount = "TransCount";
         public const string TAG_TransType = "TransType";
+        public const string TAG_TransMonth = "TransMonth";
 
     }
 }
