@@ -46,18 +46,24 @@
             this.label13 = new System.Windows.Forms.Label();
             this.lvwPreview = new System.Windows.Forms.ListView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.txtGTTransCntPerTransType = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.txtGTCntPerTransType = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtGTPerTransType = new System.Windows.Forms.TextBox();
             this.label140 = new System.Windows.Forms.Label();
             this.lvwPerTransType = new System.Windows.Forms.ListView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txtGTTransCntPerMonth = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.txtGTCntPerMonth = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtGTPerMonth = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lvwPerMonth = new System.Windows.Forms.ListView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtGTTransCntPerTopSales = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.btnSearchPerTopSales = new System.Windows.Forms.Button();
             this.txtTopThreshold = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -67,6 +73,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lvwPerTopSales = new System.Windows.Forms.ListView();
             this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.txtGTTransCntPerZeroTrans = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.btnSearchPerZeroTrans = new System.Windows.Forms.Button();
             this.txtAmtThreshold = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -76,12 +84,16 @@
             this.label17 = new System.Windows.Forms.Label();
             this.lvwPerZeroTrans = new System.Windows.Forms.ListView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.txtGTTransCntPerQtr = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.txtGTCntPerQtr = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtGTPerQtr = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lvwPerQtr = new System.Windows.Forms.ListView();
             this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.txtGTTransCntPerDetail = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.txtGTCntPerDetail = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.txtGTPerDetail = new System.Windows.Forms.TextBox();
@@ -126,18 +138,6 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
-            this.txtGTTransCntPerTransType = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.txtGTTransCntPerMonth = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.txtGTTransCntPerTopSales = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.txtGTTransCntPerZeroTrans = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.txtGTTransCntPerQtr = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.txtGTTransCntPerDetail = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
             this.ucStatus = new MIS.ucStatus();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
@@ -359,6 +359,31 @@
             this.tabPage4.Text = "SUMMARY PER TRANS TYPE";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // txtGTTransCntPerTransType
+            // 
+            this.txtGTTransCntPerTransType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGTTransCntPerTransType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGTTransCntPerTransType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtGTTransCntPerTransType.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGTTransCntPerTransType.ForeColor = System.Drawing.Color.Black;
+            this.txtGTTransCntPerTransType.Location = new System.Drawing.Point(501, 387);
+            this.txtGTTransCntPerTransType.Name = "txtGTTransCntPerTransType";
+            this.txtGTTransCntPerTransType.ReadOnly = true;
+            this.txtGTTransCntPerTransType.Size = new System.Drawing.Size(223, 22);
+            this.txtGTTransCntPerTransType.TabIndex = 494;
+            this.txtGTTransCntPerTransType.Text = "0";
+            this.txtGTTransCntPerTransType.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(362, 393);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(126, 14);
+            this.label22.TabIndex = 493;
+            this.label22.Text = "TOTAL TRANS COUNT";
+            // 
             // txtGTCntPerTransType
             // 
             this.txtGTCntPerTransType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -440,6 +465,31 @@
             this.tabPage2.Size = new System.Drawing.Size(1080, 413);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "SUMMARY PER MONTH";
+            // 
+            // txtGTTransCntPerMonth
+            // 
+            this.txtGTTransCntPerMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGTTransCntPerMonth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGTTransCntPerMonth.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtGTTransCntPerMonth.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGTTransCntPerMonth.ForeColor = System.Drawing.Color.Black;
+            this.txtGTTransCntPerMonth.Location = new System.Drawing.Point(490, 387);
+            this.txtGTTransCntPerMonth.Name = "txtGTTransCntPerMonth";
+            this.txtGTTransCntPerMonth.ReadOnly = true;
+            this.txtGTTransCntPerMonth.Size = new System.Drawing.Size(228, 22);
+            this.txtGTTransCntPerMonth.TabIndex = 496;
+            this.txtGTTransCntPerMonth.Text = "0";
+            this.txtGTTransCntPerMonth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(358, 392);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(126, 14);
+            this.label23.TabIndex = 495;
+            this.label23.Text = "TOTAL TRANS COUNT";
             // 
             // txtGTCntPerMonth
             // 
@@ -525,6 +575,31 @@
             this.tabPage1.Size = new System.Drawing.Size(1080, 413);
             this.tabPage1.TabIndex = 1;
             this.tabPage1.Text = "TOP MERCHANT MOST SALES";
+            // 
+            // txtGTTransCntPerTopSales
+            // 
+            this.txtGTTransCntPerTopSales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGTTransCntPerTopSales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGTTransCntPerTopSales.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtGTTransCntPerTopSales.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGTTransCntPerTopSales.ForeColor = System.Drawing.Color.Black;
+            this.txtGTTransCntPerTopSales.Location = new System.Drawing.Point(499, 385);
+            this.txtGTTransCntPerTopSales.Name = "txtGTTransCntPerTopSales";
+            this.txtGTTransCntPerTopSales.ReadOnly = true;
+            this.txtGTTransCntPerTopSales.Size = new System.Drawing.Size(208, 22);
+            this.txtGTTransCntPerTopSales.TabIndex = 508;
+            this.txtGTTransCntPerTopSales.Text = "0";
+            this.txtGTTransCntPerTopSales.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(360, 390);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(126, 14);
+            this.label24.TabIndex = 507;
+            this.label24.Text = "TOTAL TRANS COUNT";
             // 
             // btnSearchPerTopSales
             // 
@@ -655,6 +730,31 @@
             this.tabPage9.Text = "ZERO TRANSACTION MERCHANT";
             this.tabPage9.UseVisualStyleBackColor = true;
             // 
+            // txtGTTransCntPerZeroTrans
+            // 
+            this.txtGTTransCntPerZeroTrans.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGTTransCntPerZeroTrans.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGTTransCntPerZeroTrans.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtGTTransCntPerZeroTrans.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGTTransCntPerZeroTrans.ForeColor = System.Drawing.Color.Black;
+            this.txtGTTransCntPerZeroTrans.Location = new System.Drawing.Point(499, 384);
+            this.txtGTTransCntPerZeroTrans.Name = "txtGTTransCntPerZeroTrans";
+            this.txtGTTransCntPerZeroTrans.ReadOnly = true;
+            this.txtGTTransCntPerZeroTrans.Size = new System.Drawing.Size(208, 22);
+            this.txtGTTransCntPerZeroTrans.TabIndex = 505;
+            this.txtGTTransCntPerZeroTrans.Text = "0";
+            this.txtGTTransCntPerZeroTrans.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(360, 387);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(126, 14);
+            this.label25.TabIndex = 504;
+            this.label25.Text = "TOTAL TRANS COUNT";
+            // 
             // btnSearchPerZeroTrans
             // 
             this.btnSearchPerZeroTrans.AutoSize = true;
@@ -780,6 +880,31 @@
             this.tabPage3.Text = "SUMMRY PER QTR";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // txtGTTransCntPerQtr
+            // 
+            this.txtGTTransCntPerQtr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGTTransCntPerQtr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGTTransCntPerQtr.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtGTTransCntPerQtr.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGTTransCntPerQtr.ForeColor = System.Drawing.Color.Black;
+            this.txtGTTransCntPerQtr.Location = new System.Drawing.Point(496, 387);
+            this.txtGTTransCntPerQtr.Name = "txtGTTransCntPerQtr";
+            this.txtGTTransCntPerQtr.ReadOnly = true;
+            this.txtGTTransCntPerQtr.Size = new System.Drawing.Size(208, 22);
+            this.txtGTTransCntPerQtr.TabIndex = 500;
+            this.txtGTTransCntPerQtr.Text = "0";
+            this.txtGTTransCntPerQtr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(357, 392);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(126, 14);
+            this.label27.TabIndex = 499;
+            this.label27.Text = "TOTAL TRANS COUNT";
+            // 
             // txtGTCntPerQtr
             // 
             this.txtGTCntPerQtr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -861,6 +986,31 @@
             this.tabPage10.TabIndex = 6;
             this.tabPage10.Text = "DETAIL DATA";
             this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // txtGTTransCntPerDetail
+            // 
+            this.txtGTTransCntPerDetail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGTTransCntPerDetail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtGTTransCntPerDetail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtGTTransCntPerDetail.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGTTransCntPerDetail.ForeColor = System.Drawing.Color.Black;
+            this.txtGTTransCntPerDetail.Location = new System.Drawing.Point(498, 388);
+            this.txtGTTransCntPerDetail.Name = "txtGTTransCntPerDetail";
+            this.txtGTTransCntPerDetail.ReadOnly = true;
+            this.txtGTTransCntPerDetail.Size = new System.Drawing.Size(208, 22);
+            this.txtGTTransCntPerDetail.TabIndex = 504;
+            this.txtGTTransCntPerDetail.Text = "0";
+            this.txtGTTransCntPerDetail.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(359, 393);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(126, 14);
+            this.label28.TabIndex = 503;
+            this.label28.Text = "TOTAL TRANS COUNT";
             // 
             // txtGTCntPerDetail
             // 
@@ -1316,9 +1466,9 @@
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(7, 188);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(160, 15);
+            this.label5.Size = new System.Drawing.Size(185, 15);
             this.label5.TabIndex = 497;
-            this.label5.Text = "SEARCH (TID / MERCHANT NAME)";
+            this.label5.Text = "SEARCH (TID / MID / MERCHANT NAME)";
             // 
             // txtSearch
             // 
@@ -1437,156 +1587,6 @@
             this.bunifuSeparator1.TabIndex = 498;
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
-            // 
-            // txtGTTransCntPerTransType
-            // 
-            this.txtGTTransCntPerTransType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.txtGTTransCntPerTransType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGTTransCntPerTransType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGTTransCntPerTransType.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGTTransCntPerTransType.ForeColor = System.Drawing.Color.Black;
-            this.txtGTTransCntPerTransType.Location = new System.Drawing.Point(501, 387);
-            this.txtGTTransCntPerTransType.Name = "txtGTTransCntPerTransType";
-            this.txtGTTransCntPerTransType.ReadOnly = true;
-            this.txtGTTransCntPerTransType.Size = new System.Drawing.Size(223, 22);
-            this.txtGTTransCntPerTransType.TabIndex = 494;
-            this.txtGTTransCntPerTransType.Text = "0";
-            this.txtGTTransCntPerTransType.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(362, 393);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(126, 14);
-            this.label22.TabIndex = 493;
-            this.label22.Text = "TOTAL TRANS COUNT";
-            // 
-            // txtGTTransCntPerMonth
-            // 
-            this.txtGTTransCntPerMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.txtGTTransCntPerMonth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGTTransCntPerMonth.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGTTransCntPerMonth.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGTTransCntPerMonth.ForeColor = System.Drawing.Color.Black;
-            this.txtGTTransCntPerMonth.Location = new System.Drawing.Point(490, 387);
-            this.txtGTTransCntPerMonth.Name = "txtGTTransCntPerMonth";
-            this.txtGTTransCntPerMonth.ReadOnly = true;
-            this.txtGTTransCntPerMonth.Size = new System.Drawing.Size(228, 22);
-            this.txtGTTransCntPerMonth.TabIndex = 496;
-            this.txtGTTransCntPerMonth.Text = "0";
-            this.txtGTTransCntPerMonth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(358, 392);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(126, 14);
-            this.label23.TabIndex = 495;
-            this.label23.Text = "TOTAL TRANS COUNT";
-            // 
-            // txtGTTransCntPerTopSales
-            // 
-            this.txtGTTransCntPerTopSales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.txtGTTransCntPerTopSales.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGTTransCntPerTopSales.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGTTransCntPerTopSales.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGTTransCntPerTopSales.ForeColor = System.Drawing.Color.Black;
-            this.txtGTTransCntPerTopSales.Location = new System.Drawing.Point(499, 385);
-            this.txtGTTransCntPerTopSales.Name = "txtGTTransCntPerTopSales";
-            this.txtGTTransCntPerTopSales.ReadOnly = true;
-            this.txtGTTransCntPerTopSales.Size = new System.Drawing.Size(208, 22);
-            this.txtGTTransCntPerTopSales.TabIndex = 508;
-            this.txtGTTransCntPerTopSales.Text = "0";
-            this.txtGTTransCntPerTopSales.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(360, 390);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(126, 14);
-            this.label24.TabIndex = 507;
-            this.label24.Text = "TOTAL TRANS COUNT";
-            // 
-            // txtGTTransCntPerZeroTrans
-            // 
-            this.txtGTTransCntPerZeroTrans.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.txtGTTransCntPerZeroTrans.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGTTransCntPerZeroTrans.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGTTransCntPerZeroTrans.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGTTransCntPerZeroTrans.ForeColor = System.Drawing.Color.Black;
-            this.txtGTTransCntPerZeroTrans.Location = new System.Drawing.Point(499, 384);
-            this.txtGTTransCntPerZeroTrans.Name = "txtGTTransCntPerZeroTrans";
-            this.txtGTTransCntPerZeroTrans.ReadOnly = true;
-            this.txtGTTransCntPerZeroTrans.Size = new System.Drawing.Size(208, 22);
-            this.txtGTTransCntPerZeroTrans.TabIndex = 505;
-            this.txtGTTransCntPerZeroTrans.Text = "0";
-            this.txtGTTransCntPerZeroTrans.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(360, 387);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(126, 14);
-            this.label25.TabIndex = 504;
-            this.label25.Text = "TOTAL TRANS COUNT";
-            // 
-            // txtGTTransCntPerQtr
-            // 
-            this.txtGTTransCntPerQtr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.txtGTTransCntPerQtr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGTTransCntPerQtr.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGTTransCntPerQtr.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGTTransCntPerQtr.ForeColor = System.Drawing.Color.Black;
-            this.txtGTTransCntPerQtr.Location = new System.Drawing.Point(496, 387);
-            this.txtGTTransCntPerQtr.Name = "txtGTTransCntPerQtr";
-            this.txtGTTransCntPerQtr.ReadOnly = true;
-            this.txtGTTransCntPerQtr.Size = new System.Drawing.Size(208, 22);
-            this.txtGTTransCntPerQtr.TabIndex = 500;
-            this.txtGTTransCntPerQtr.Text = "0";
-            this.txtGTTransCntPerQtr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(357, 392);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(126, 14);
-            this.label27.TabIndex = 499;
-            this.label27.Text = "TOTAL TRANS COUNT";
-            // 
-            // txtGTTransCntPerDetail
-            // 
-            this.txtGTTransCntPerDetail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.txtGTTransCntPerDetail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGTTransCntPerDetail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGTTransCntPerDetail.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGTTransCntPerDetail.ForeColor = System.Drawing.Color.Black;
-            this.txtGTTransCntPerDetail.Location = new System.Drawing.Point(498, 388);
-            this.txtGTTransCntPerDetail.Name = "txtGTTransCntPerDetail";
-            this.txtGTTransCntPerDetail.ReadOnly = true;
-            this.txtGTTransCntPerDetail.Size = new System.Drawing.Size(208, 22);
-            this.txtGTTransCntPerDetail.TabIndex = 504;
-            this.txtGTTransCntPerDetail.Text = "0";
-            this.txtGTTransCntPerDetail.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(359, 393);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(126, 14);
-            this.label28.TabIndex = 503;
-            this.label28.Text = "TOTAL TRANS COUNT";
             // 
             // ucStatus
             // 
