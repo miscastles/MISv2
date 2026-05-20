@@ -286,6 +286,8 @@ namespace MIS
         public static string[] JobTypeStatusDescription;
         public static string[] ServiceJobTypeDescription;
 
+        public static string[] ServiceMobileID;
+
         public static string[] ActionMade;
 
         // Expenses

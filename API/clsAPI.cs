@@ -1281,6 +1281,7 @@ namespace MIS
                         List<string> SCStatusCol = new List<String>();
 
                         // Servicing Detail
+                        List<string> ServiceMobileIDCol = new List<string>();
                         List<string> ServiceNoCol = new List<String>();
                         List<string> CounterNoCol = new List<String>();
                         List<string> RequestNoCol = new List<String>();
@@ -4052,7 +4053,8 @@ namespace MIS
                             case "Servicing Detail":
                                 ServicingDetailOnline Detail33 = JsonConvert.DeserializeObject<ServicingDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
                                 clsServicingDetail.RecordFound = false;
-                                
+
+                                ServiceMobileIDCol.Clear();
                                 ServiceNoCol.Clear();
                                 TAIDNoCol.Clear();
                                 IRIDNoCol.Clear();
@@ -4347,6 +4349,8 @@ namespace MIS
                                                 foreach (var element in Detail33.data)
                                                 {
                                                     clsServicingDetail.RecordFound = true;
+
+                                                    ServiceMobileIDCol.Add(element.ServiceMobileID.ToString());
                                                     ServiceNoCol.Add(element.ServiceNo.ToString());
                                                     IRIDNoCol.Add(element.IRIDNo.ToString());
                                                     TAIDNoCol.Add(element.TAIDNo.ToString());
@@ -4386,6 +4390,7 @@ namespace MIS
                                                     
                                                 }
 
+                                                clsArray.ServiceMobileID = ServiceMobileIDCol.ToArray();
                                                 clsArray.ServiceNo = ServiceNoCol.ToArray();
                                                 clsArray.IRIDNo = IRIDNoCol.ToArray();
                                                 clsArray.TAIDNo = TAIDNoCol.ToArray();
@@ -4422,7 +4427,6 @@ namespace MIS
                                                 clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
                                                 clsArray.ModifiedBy = ModifiedByCol.ToArray();
                                                 clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
-                                                
 
                                                 break;
                                             case "ServiceNo":

@@ -9,6 +9,14 @@ namespace MIS
 {
     public class ServicingDetailData
     {
+        private int _ServiceMobileID;
+        [JsonProperty("ServiceMobileID")]
+        public int ServiceMobileID 
+        { 
+            get { return _ServiceMobileID; }
+            set { _ServiceMobileID = value; }
+        }
+
         private int _ServiceNo;
         [JsonProperty("ServiceNo")]
         public int ServiceNo

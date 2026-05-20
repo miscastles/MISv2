@@ -1874,6 +1874,9 @@ namespace MIS
                     int pStatus = int.Parse(clsArray.ServiceStatus[i]);
                     item.ForeColor = dbFunction.GetColorByStatus(pStatus, clsArray.ActionMade[i]); // set forecolor per actionMade
 
+
+                    Debug.WriteLine("[MobileID] " + clsArray.ServiceMobileID[i]);
+
                     item.SubItems.Add(clsArray.ServiceNo[i].ToString());
                     item.SubItems.Add(clsArray.IRIDNo[i].ToString());
                     item.SubItems.Add(clsArray.TAIDNo[i].ToString());
@@ -1911,11 +1914,20 @@ namespace MIS
                     item.SubItems.Add(clsArray.ReplaceTerminalSN[i]);
                     item.SubItems.Add(clsArray.ReplaceSIMSN[i]);
 
+                    Debug.WriteLine("[MobileID] " + clsArray.ServiceMobileID[i]);
+
+                    var FSRModeCol = dbFunction.isValidID(clsArray.ServiceMobileID[i].ToString())
+                        ? clsDefines.DIGITAL_FSR
+                        : clsDefines.MANUAL_FSR;
+
+                    item.SubItems.Add(FSRModeCol);
+
                     lvwList.Items.Add(item);
 
                     i++;
 
                 }
+
 
                 dbFunction.ListViewAlternateBackColor(lvwList);
 
@@ -3152,6 +3164,8 @@ namespace MIS
             dbFunction.GetListViewHeaderColumnFromFile("", "ReplaceSIMSN", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
+            dbFunction.GetListViewHeaderColumnFromFile("", "FSRMode", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
         }
         
         private bool isValidServiceRequest()
