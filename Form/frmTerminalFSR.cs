@@ -5634,6 +5634,9 @@ namespace MIS
             dbFunction.GetListViewHeaderColumnFromFile("", "ReplaceSIMSN", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
+            dbFunction.GetListViewHeaderColumnFromFile("", "FSRMode", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
         }
 
         private void LoadServicingDetail()
@@ -5707,6 +5710,12 @@ namespace MIS
                     item.SubItems.Add(clsArray.SIMSerialNo[i]);
                     item.SubItems.Add(clsArray.ReplaceTerminalSN[i]);
                     item.SubItems.Add(clsArray.ReplaceSIMSN[i]);
+
+                    var FSRModeCol = dbFunction.isValidID(clsArray.MobileID[i].ToString())
+                        ? clsDefines.DIGITAL_FSR
+                        : clsDefines.MANUAL_FSR;
+
+                    item.SubItems.Add(FSRModeCol);
 
                     lvwList.Items.Add(item);
 

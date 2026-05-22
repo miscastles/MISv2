@@ -4100,6 +4100,7 @@ namespace MIS
                                 AnyCommentsCol.Clear();
                                 MerchantRepresentativeCol.Clear();
                                 MerchantContactNoCol.Clear();
+                                MobileIDCol.Clear();
 
                                 switch (StatementType)
                                 {
@@ -4383,7 +4384,8 @@ namespace MIS
                                                     ProcessedDateTimeCol.Add(element.ProcessedDateTime);
                                                     ModifiedByCol.Add(element.ModifiedBy);
                                                     ModifiedDateTimeCol.Add(element.ModifiedDateTime);
-                                                    
+                                                    MobileIDCol.Add(element.MobileID.ToString());
+
                                                 }
 
                                                 clsArray.ServiceNo = ServiceNoCol.ToArray();
@@ -4422,7 +4424,7 @@ namespace MIS
                                                 clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
                                                 clsArray.ModifiedBy = ModifiedByCol.ToArray();
                                                 clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
-                                                
+                                                clsArray.MobileID = MobileIDCol.ToArray();
 
                                                 break;
                                             case "ServiceNo":

@@ -1,17 +1,18 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.EMMA;
+using MIS.Controller;
+using MIS.Enums;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 using static MIS.Function.AppUtilities;
-using Newtonsoft.Json;
-using MIS.Enums;
-using MIS.Controller;
 
 namespace MIS
 {
@@ -1910,6 +1911,12 @@ namespace MIS
                     item.SubItems.Add(clsArray.SIMSerialNo[i]);
                     item.SubItems.Add(clsArray.ReplaceTerminalSN[i]);
                     item.SubItems.Add(clsArray.ReplaceSIMSN[i]);
+                    
+                    var FSRModeCol = dbFunction.isValidID(clsArray.MobileID[i].ToString())
+                        ? clsDefines.DIGITAL_FSR
+                        : clsDefines.MANUAL_FSR;
+
+                    item.SubItems.Add(FSRModeCol);
 
                     lvwList.Items.Add(item);
 
@@ -3150,6 +3157,9 @@ namespace MIS
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
             dbFunction.GetListViewHeaderColumnFromFile("", "ReplaceSIMSN", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "FSRMode", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
         }
