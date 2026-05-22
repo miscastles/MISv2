@@ -771,6 +771,7 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -7136,6 +7137,7 @@
             // 
             // panel10
             // 
+            this.panel10.Controls.Add(this.button1);
             this.panel10.Controls.Add(this.btnUpdateAppsInfo);
             this.panel10.Controls.Add(this.label75);
             this.panel10.Controls.Add(this.txtMAppVesion);
@@ -9879,6 +9881,15 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 59);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 443;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10986,5 +10997,6 @@
         private Bunifu.Framework.UI.BunifuImageButton btnUpdateAppsInfo;
         private System.Windows.Forms.Label label171;
         private System.Windows.Forms.TextBox txtDueDate;
+        private System.Windows.Forms.Button button1;
     }
 }

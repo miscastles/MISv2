@@ -768,6 +768,13 @@ namespace MIS
             get { return _ServiceJobTypeDescription; }
             set { _ServiceJobTypeDescription = value; }
         }
+        private string _MobileID;
+        [JsonProperty("MobileID")]
+        public string MobileID
+        {
+            get { return _MobileID; }
+            set { _MobileID = value; }
+        }
 
     }
     public class ServicingDetailOnline
