@@ -97,4 +97,15 @@ namespace MIS.Enums
         Dispatch = 1,
         NotDispatch = 0
     }
+
+    public enum DependencyFuncType
+    {
+        Merchant_FuncId = 1,
+        Vendor_FuncId = 2
+    }
+
+    public enum ReasonFuncType
+    {
+        Reschedule_By_Merchant_FuncId = 1
+    }
 }

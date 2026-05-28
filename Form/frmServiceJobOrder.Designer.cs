@@ -10023,11 +10023,11 @@
             // 
             this.label167.AutoSize = true;
             this.label167.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label167.Location = new System.Drawing.Point(2, 30);
+            this.label167.Location = new System.Drawing.Point(1, 30);
             this.label167.Name = "label167";
-            this.label167.Size = new System.Drawing.Size(98, 14);
+            this.label167.Size = new System.Drawing.Size(91, 14);
             this.label167.TabIndex = 336;
-            this.label167.Text = "SHIPMENT DATE";
+            this.label167.Text = "SHIPPED DATE";
             // 
             // label168
             // 
@@ -10102,9 +10102,9 @@
             this.label172.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label172.Location = new System.Drawing.Point(1, 53);
             this.label172.Name = "label172";
-            this.label172.Size = new System.Drawing.Size(91, 14);
+            this.label172.Size = new System.Drawing.Size(98, 14);
             this.label172.TabIndex = 372;
-            this.label172.Text = "DATE ARRIVED";
+            this.label172.Text = "RECEIVED DATE";
             // 
             // label173
             // 
