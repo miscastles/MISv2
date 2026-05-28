@@ -21,6 +21,7 @@ namespace MIS.Enums
         CategoryType = 11,
         SubCategoryType = 12,
         BillingTypeID = 26,
+        DeploymentMethod = 27
     }
 
     public enum FileType

@@ -251,9 +251,6 @@
             this.panel172 = new System.Windows.Forms.Panel();
             this.label117 = new System.Windows.Forms.Label();
             this.txtOldSIMSN = new System.Windows.Forms.TextBox();
-            this.panel173 = new System.Windows.Forms.Panel();
-            this.label118 = new System.Windows.Forms.Label();
-            this.panel174 = new System.Windows.Forms.Panel();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.label147 = new System.Windows.Forms.Label();
             this.txtMobileVersion = new System.Windows.Forms.TextBox();
@@ -771,6 +768,7 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
+            this.tabPage25 = new System.Windows.Forms.TabPage();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -807,7 +805,6 @@
             this.panel158.SuspendLayout();
             this.panel171.SuspendLayout();
             this.panel172.SuspendLayout();
-            this.panel173.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel118.SuspendLayout();
@@ -2739,6 +2736,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage20);
             this.tabControl1.Controls.Add(this.tabPage24);
+            this.tabControl1.Controls.Add(this.tabPage25);
             this.tabControl1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(5, 33);
             this.tabControl1.Name = "tabControl1";
@@ -2785,9 +2783,9 @@
             this.panel151.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel151.Controls.Add(this.btnIncludeInReport);
             this.panel151.Controls.Add(this.chkIncludeInReport);
-            this.panel151.Location = new System.Drawing.Point(301, 823);
+            this.panel151.Location = new System.Drawing.Point(351, 823);
             this.panel151.Name = "panel151";
-            this.panel151.Size = new System.Drawing.Size(169, 28);
+            this.panel151.Size = new System.Drawing.Size(119, 28);
             this.panel151.TabIndex = 497;
             // 
             // btnIncludeInReport
@@ -2802,16 +2800,16 @@
             this.btnIncludeInReport.ForeColor = System.Drawing.Color.White;
             this.btnIncludeInReport.Location = new System.Drawing.Point(-1, 0);
             this.btnIncludeInReport.Name = "btnIncludeInReport";
-            this.btnIncludeInReport.Size = new System.Drawing.Size(141, 26);
+            this.btnIncludeInReport.Size = new System.Drawing.Size(95, 26);
             this.btnIncludeInReport.TabIndex = 489;
-            this.btnIncludeInReport.Text = "UPDATE IN REPORT";
+            this.btnIncludeInReport.Text = "CLOSE TICKET?";
             this.btnIncludeInReport.UseVisualStyleBackColor = false;
             this.btnIncludeInReport.Click += new System.EventHandler(this.btnIncludeInReport_Click);
             // 
             // chkIncludeInReport
             // 
             this.chkIncludeInReport.AutoSize = true;
-            this.chkIncludeInReport.Location = new System.Drawing.Point(149, 7);
+            this.chkIncludeInReport.Location = new System.Drawing.Point(100, 7);
             this.chkIncludeInReport.Name = "chkIncludeInReport";
             this.chkIncludeInReport.Size = new System.Drawing.Size(15, 14);
             this.chkIncludeInReport.TabIndex = 437;
@@ -3663,7 +3661,7 @@
             this.panel29.Controls.Add(this.panel113);
             this.panel29.Controls.Add(this.panel159);
             this.panel29.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel29.Location = new System.Drawing.Point(3, 3);
+            this.panel29.Location = new System.Drawing.Point(3, 4);
             this.panel29.Name = "panel29";
             this.panel29.Size = new System.Drawing.Size(401, 54);
             this.panel29.TabIndex = 471;
@@ -3685,10 +3683,10 @@
             this.txtNewTerminalSN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNewTerminalSN.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNewTerminalSN.ForeColor = System.Drawing.Color.Navy;
-            this.txtNewTerminalSN.Location = new System.Drawing.Point(33, 4);
+            this.txtNewTerminalSN.Location = new System.Drawing.Point(60, 4);
             this.txtNewTerminalSN.Name = "txtNewTerminalSN";
             this.txtNewTerminalSN.ReadOnly = true;
-            this.txtNewTerminalSN.Size = new System.Drawing.Size(140, 21);
+            this.txtNewTerminalSN.Size = new System.Drawing.Size(113, 21);
             this.txtNewTerminalSN.TabIndex = 469;
             // 
             // label116
@@ -3697,9 +3695,9 @@
             this.label116.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label116.Location = new System.Drawing.Point(3, 7);
             this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(28, 14);
+            this.label116.Size = new System.Drawing.Size(56, 14);
             this.label116.TabIndex = 436;
-            this.label116.Text = "NEW";
+            this.label116.Text = "NEW TML";
             // 
             // panel113
             // 
@@ -3717,9 +3715,9 @@
             this.label102.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label102.Location = new System.Drawing.Point(3, 7);
             this.label102.Name = "label102";
-            this.label102.Size = new System.Drawing.Size(35, 14);
+            this.label102.Size = new System.Drawing.Size(63, 14);
             this.label102.TabIndex = 435;
-            this.label102.Text = "PREV";
+            this.label102.Text = "PREV TML";
             // 
             // txtOldTerminalSN
             // 
@@ -3728,15 +3726,15 @@
             this.txtOldTerminalSN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtOldTerminalSN.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOldTerminalSN.ForeColor = System.Drawing.Color.Green;
-            this.txtOldTerminalSN.Location = new System.Drawing.Point(44, 4);
+            this.txtOldTerminalSN.Location = new System.Drawing.Point(69, 4);
             this.txtOldTerminalSN.Name = "txtOldTerminalSN";
             this.txtOldTerminalSN.ReadOnly = true;
-            this.txtOldTerminalSN.Size = new System.Drawing.Size(178, 21);
+            this.txtOldTerminalSN.Size = new System.Drawing.Size(154, 21);
             this.txtOldTerminalSN.TabIndex = 466;
             // 
             // panel159
             // 
-            this.panel159.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
+            this.panel159.BackColor = System.Drawing.SystemColors.Control;
             this.panel159.Controls.Add(this.label9);
             this.panel159.Controls.Add(this.panel160);
             this.panel159.Dock = System.Windows.Forms.DockStyle.Top;
@@ -3752,9 +3750,9 @@
             this.label9.ForeColor = System.Drawing.Color.Black;
             this.label9.Location = new System.Drawing.Point(3, 4);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(138, 15);
+            this.label9.Size = new System.Drawing.Size(203, 15);
             this.label9.TabIndex = 310;
-            this.label9.Text = "TERMINAL INFORMATION";
+            this.label9.Text = "SWITCH TERMINAL/SIM INFORMATION";
             // 
             // panel160
             // 
@@ -3771,11 +3769,10 @@
             this.panel158.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel158.Controls.Add(this.panel171);
             this.panel158.Controls.Add(this.panel172);
-            this.panel158.Controls.Add(this.panel173);
             this.panel158.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel158.Location = new System.Drawing.Point(3, 55);
+            this.panel158.Location = new System.Drawing.Point(3, 61);
             this.panel158.Name = "panel158";
-            this.panel158.Size = new System.Drawing.Size(401, 54);
+            this.panel158.Size = new System.Drawing.Size(401, 68);
             this.panel158.TabIndex = 472;
             // 
             // panel171
@@ -3783,9 +3780,9 @@
             this.panel171.Controls.Add(this.label114);
             this.panel171.Controls.Add(this.txtNewSIMSN);
             this.panel171.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel171.Location = new System.Drawing.Point(225, 24);
+            this.panel171.Location = new System.Drawing.Point(225, 0);
             this.panel171.Name = "panel171";
-            this.panel171.Size = new System.Drawing.Size(181, 28);
+            this.panel171.Size = new System.Drawing.Size(181, 66);
             this.panel171.TabIndex = 315;
             // 
             // label114
@@ -3794,9 +3791,9 @@
             this.label114.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label114.Location = new System.Drawing.Point(3, 7);
             this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(28, 14);
+            this.label114.Size = new System.Drawing.Size(56, 14);
             this.label114.TabIndex = 436;
-            this.label114.Text = "NEW";
+            this.label114.Text = "NEW SIM";
             // 
             // txtNewSIMSN
             // 
@@ -3805,10 +3802,10 @@
             this.txtNewSIMSN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNewSIMSN.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNewSIMSN.ForeColor = System.Drawing.Color.Navy;
-            this.txtNewSIMSN.Location = new System.Drawing.Point(33, 4);
+            this.txtNewSIMSN.Location = new System.Drawing.Point(60, 4);
             this.txtNewSIMSN.Name = "txtNewSIMSN";
             this.txtNewSIMSN.ReadOnly = true;
-            this.txtNewSIMSN.Size = new System.Drawing.Size(140, 21);
+            this.txtNewSIMSN.Size = new System.Drawing.Size(113, 21);
             this.txtNewSIMSN.TabIndex = 468;
             // 
             // panel172
@@ -3816,9 +3813,9 @@
             this.panel172.Controls.Add(this.label117);
             this.panel172.Controls.Add(this.txtOldSIMSN);
             this.panel172.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel172.Location = new System.Drawing.Point(0, 24);
+            this.panel172.Location = new System.Drawing.Point(0, 0);
             this.panel172.Name = "panel172";
-            this.panel172.Size = new System.Drawing.Size(225, 28);
+            this.panel172.Size = new System.Drawing.Size(225, 66);
             this.panel172.TabIndex = 314;
             // 
             // label117
@@ -3827,9 +3824,9 @@
             this.label117.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label117.Location = new System.Drawing.Point(3, 7);
             this.label117.Name = "label117";
-            this.label117.Size = new System.Drawing.Size(35, 14);
+            this.label117.Size = new System.Drawing.Size(63, 14);
             this.label117.TabIndex = 435;
-            this.label117.Text = "PREV";
+            this.label117.Text = "PREV TML";
             // 
             // txtOldSIMSN
             // 
@@ -3838,42 +3835,11 @@
             this.txtOldSIMSN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtOldSIMSN.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOldSIMSN.ForeColor = System.Drawing.Color.Green;
-            this.txtOldSIMSN.Location = new System.Drawing.Point(44, 3);
+            this.txtOldSIMSN.Location = new System.Drawing.Point(69, 3);
             this.txtOldSIMSN.Name = "txtOldSIMSN";
             this.txtOldSIMSN.ReadOnly = true;
-            this.txtOldSIMSN.Size = new System.Drawing.Size(178, 21);
+            this.txtOldSIMSN.Size = new System.Drawing.Size(154, 21);
             this.txtOldSIMSN.TabIndex = 468;
-            // 
-            // panel173
-            // 
-            this.panel173.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.panel173.Controls.Add(this.label118);
-            this.panel173.Controls.Add(this.panel174);
-            this.panel173.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel173.Location = new System.Drawing.Point(0, 0);
-            this.panel173.Name = "panel173";
-            this.panel173.Size = new System.Drawing.Size(399, 24);
-            this.panel173.TabIndex = 311;
-            // 
-            // label118
-            // 
-            this.label118.AutoSize = true;
-            this.label118.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label118.ForeColor = System.Drawing.Color.Black;
-            this.label118.Location = new System.Drawing.Point(3, 4);
-            this.label118.Name = "label118";
-            this.label118.Size = new System.Drawing.Size(104, 15);
-            this.label118.TabIndex = 310;
-            this.label118.Text = "SIM INFORMATION";
-            // 
-            // panel174
-            // 
-            this.panel174.BackColor = System.Drawing.Color.Silver;
-            this.panel174.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel174.Location = new System.Drawing.Point(0, 22);
-            this.panel174.Name = "panel174";
-            this.panel174.Size = new System.Drawing.Size(399, 2);
-            this.panel174.TabIndex = 0;
             // 
             // tabPage7
             // 
@@ -8213,6 +8179,7 @@
             // 
             // tabControl7
             // 
+            this.tabControl7.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl7.Controls.Add(this.tabPage16);
             this.tabControl7.Controls.Add(this.tabPage17);
             this.tabControl7.Controls.Add(this.tabPage12);
@@ -8235,10 +8202,10 @@
             this.tabPage16.Controls.Add(this.label157);
             this.tabPage16.Controls.Add(this.txtIRTID);
             this.tabPage16.Controls.Add(this.txtIRMID);
-            this.tabPage16.Location = new System.Drawing.Point(4, 24);
+            this.tabPage16.Location = new System.Drawing.Point(4, 27);
             this.tabPage16.Name = "tabPage16";
             this.tabPage16.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage16.Size = new System.Drawing.Size(397, 54);
+            this.tabPage16.Size = new System.Drawing.Size(397, 51);
             this.tabPage16.TabIndex = 2;
             this.tabPage16.Text = "PROFILE";
             this.tabPage16.UseVisualStyleBackColor = true;
@@ -8342,10 +8309,10 @@
             this.tabPage17.Controls.Add(this.label159);
             this.tabPage17.Controls.Add(this.txtAppVersion);
             this.tabPage17.Controls.Add(this.txtAppCRC);
-            this.tabPage17.Location = new System.Drawing.Point(4, 24);
+            this.tabPage17.Location = new System.Drawing.Point(4, 27);
             this.tabPage17.Name = "tabPage17";
             this.tabPage17.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage17.Size = new System.Drawing.Size(397, 54);
+            this.tabPage17.Size = new System.Drawing.Size(397, 51);
             this.tabPage17.TabIndex = 0;
             this.tabPage17.Text = "APPLICATION";
             // 
@@ -8403,9 +8370,9 @@
             this.tabPage12.Controls.Add(this.label36);
             this.tabPage12.Controls.Add(this.label82);
             this.tabPage12.Controls.Add(this.label83);
-            this.tabPage12.Location = new System.Drawing.Point(4, 24);
+            this.tabPage12.Location = new System.Drawing.Point(4, 27);
             this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(397, 54);
+            this.tabPage12.Size = new System.Drawing.Size(397, 51);
             this.tabPage12.TabIndex = 3;
             this.tabPage12.Text = "ADDITIONAL";
             this.tabPage12.UseVisualStyleBackColor = true;
@@ -8485,10 +8452,10 @@
             this.tabPage13.Controls.Add(this.label155);
             this.tabPage13.Controls.Add(this.txtMerchantSecondaryNum);
             this.tabPage13.Controls.Add(this.label154);
-            this.tabPage13.Location = new System.Drawing.Point(4, 24);
+            this.tabPage13.Location = new System.Drawing.Point(4, 27);
             this.tabPage13.Name = "tabPage13";
             this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage13.Size = new System.Drawing.Size(397, 54);
+            this.tabPage13.Size = new System.Drawing.Size(397, 51);
             this.tabPage13.TabIndex = 4;
             this.tabPage13.Text = "DIALUP";
             this.tabPage13.UseVisualStyleBackColor = true;
@@ -8545,9 +8512,9 @@
             this.tabPage19.Controls.Add(this.txtAssignedTerminalSN);
             this.tabPage19.Controls.Add(this.label166);
             this.tabPage19.Controls.Add(this.label165);
-            this.tabPage19.Location = new System.Drawing.Point(4, 24);
+            this.tabPage19.Location = new System.Drawing.Point(4, 27);
             this.tabPage19.Name = "tabPage19";
-            this.tabPage19.Size = new System.Drawing.Size(397, 54);
+            this.tabPage19.Size = new System.Drawing.Size(397, 51);
             this.tabPage19.TabIndex = 5;
             this.tabPage19.Text = "ASSIGNED SN";
             this.tabPage19.UseVisualStyleBackColor = true;
@@ -9879,6 +9846,16 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
+            // tabPage25
+            // 
+            this.tabPage25.Location = new System.Drawing.Point(4, 28);
+            this.tabPage25.Name = "tabPage25";
+            this.tabPage25.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage25.Size = new System.Drawing.Size(1376, 849);
+            this.tabPage25.TabIndex = 3;
+            this.tabPage25.Text = "Deployment Information";
+            this.tabPage25.UseVisualStyleBackColor = true;
+            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -9981,8 +9958,6 @@
             this.panel171.PerformLayout();
             this.panel172.ResumeLayout(false);
             this.panel172.PerformLayout();
-            this.panel173.ResumeLayout(false);
-            this.panel173.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -10701,9 +10676,6 @@
         private System.Windows.Forms.TextBox txtNewSIMSN;
         private System.Windows.Forms.Panel panel172;
         private System.Windows.Forms.Label label117;
-        private System.Windows.Forms.Panel panel173;
-        private System.Windows.Forms.Label label118;
-        private System.Windows.Forms.Panel panel174;
         private System.Windows.Forms.TextBox txtNewTerminalSN;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label71;
@@ -10986,5 +10958,6 @@
         private Bunifu.Framework.UI.BunifuImageButton btnUpdateAppsInfo;
         private System.Windows.Forms.Label label171;
         private System.Windows.Forms.TextBox txtDueDate;
+        private System.Windows.Forms.TabPage tabPage25;
     }
 }

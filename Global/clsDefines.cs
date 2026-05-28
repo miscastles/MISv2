@@ -56,6 +56,7 @@ namespace MIS
         public const string IR_VENDOR = "Vendor";
         public const string IR_TARGET_INSTALLATION_DATE = "Target Installation date";
         public const string IR_POS_TYPE = "POS Type";
+        public const string IR_POS_CONNECTION_TYPE = "POS Connection Type";
         public const string IR_POS_SETUP = "POS Setup";      
         public const string IR_REQUEST_TYPE = "Request Type";
         public const string IR_REQUEST_PRIORITIZATION = "Request Prioritization";

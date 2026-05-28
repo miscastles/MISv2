@@ -155,6 +155,7 @@ namespace MIS
             dbAPI.FillComboBoxTypeByGroup(cboSource, (int)GroupType.SourceType);
             dbAPI.FillComboBoxTypeByGroup(cboCategory, (int)GroupType.CategoryType);
             dbAPI.FillComboBoxTypeByGroup(cboSubCategory, (int)GroupType.SubCategoryType);
+            dbAPI.FillComboBoxTypeByGroup(cboShipMethod, (int)GroupType.DeploymentMethod);
 
             ComboBoxDefaultSelect();
             AdditionalComBoBoxUnlock(false);
@@ -342,6 +343,7 @@ namespace MIS
                     {
                         txtPOSType.Text = dbFunction.getJSONTagValue(rawdata_info, clsDefines.IR_POS_TYPE, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
                         txtRequestType.Text = dbFunction.getJSONTagValue(rawdata_info, clsDefines.IR_REQUEST_TYPE, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
+                        txtConnectionType.Text = dbFunction.getJSONTagValue(rawdata_info, clsDefines.IR_POS_CONNECTION_TYPE, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
                     }
                     // set dteServiceReqDate / Sechedule date
                     if (!txtIRInstallationDate.Text.Equals(clsDefines.DEV_DATE) && cboSearchServiceType.SelectedItem.ToString().Equals(clsGlobalVariables.STATUS_INSTALLATION_DESC))
@@ -2296,6 +2298,8 @@ namespace MIS
                 if (!fEdit)
                 {
                     SaveServiceDetail();
+
+                    SaveDeploymentDetail();
 
                     // ---------------------------------------------------------------------------------------------
                     // Batch Update
@@ -6346,6 +6350,7 @@ namespace MIS
                 cboSource.Enabled = true;
                 cboCategory.Enabled = true;
                 cboSubCategory.Enabled = true;
+                cboShipMethod.Enabled = true;
             }
             else
             {
@@ -6353,12 +6358,13 @@ namespace MIS
                 cboSource.Enabled = false;
                 cboCategory.Enabled = false;
                 cboSubCategory.Enabled = false;
+                cboShipMethod.Enabled = false;
             }
         }
 
         private void ComboBoxDefaultSelect()
         {
-            cboSource.Text = cboCategory.Text = cboSubCategory.Text = cboBillingType.Text = clsFunction.sDefaultSelect;
+            cboSource.Text = cboCategory.Text = cboSubCategory.Text = cboBillingType.Text = cboShipMethod.Text = clsFunction.sDefaultSelect;
         }
 
         private void btnSearchDispatcher_Click(object sender, EventArgs e)
@@ -6790,6 +6796,11 @@ namespace MIS
                 frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
                 frm.ShowDialog();
             }
+        }
+
+        private void SaveDeploymentDetail()
+        {
+            
         }
     }
 }
