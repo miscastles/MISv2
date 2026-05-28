@@ -319,7 +319,7 @@ namespace MIS.Function
 
                 if (records.Count == 0)
                 {
-                    Prompt.Info("Populating List",$"No Record found");
+                    Prompt.Info("Populating List", $"No Record found");
                     return;
                 }
 
@@ -702,7 +702,8 @@ namespace MIS.Function
             string defaultFilename = "ExportFile.xlsx",
             DataTable[] tables = null,
             string[] sheetNames = null,
-            Color[] headerColors = null)
+            Color[] headerColors = null,
+            string exportPath = null)
         {
             try
             {
@@ -721,6 +722,9 @@ namespace MIS.Function
                     sfd.FilterIndex = 1;
                     sfd.RestoreDirectory = true;
                     sfd.FileName = defaultFilename;
+
+                    if (!string.IsNullOrEmpty(exportPath) && Directory.Exists(exportPath))
+                        sfd.InitialDirectory = exportPath;
 
                     if (sfd.ShowDialog() != DialogResult.OK)
                         return;
@@ -755,7 +759,7 @@ namespace MIS.Function
                                 string colName = dt.Columns[col].ColumnName.ToLower();
 
                                 worksheet.Column(excelCol).Style.Numberformat.Format = "yyyy-mm-dd hh:mm:ss";
-                                
+
                             }
                         }
 
