@@ -39,6 +39,7 @@
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.panel35 = new System.Windows.Forms.Panel();
             this.pnlSearch = new System.Windows.Forms.Panel();
+            this.btnExportExcel = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -105,7 +106,6 @@
             this.txtArchivePath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnOpenFolderPath = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnExportExcel = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
@@ -226,6 +226,24 @@
             this.pnlSearch.Name = "pnlSearch";
             this.pnlSearch.Size = new System.Drawing.Size(776, 111);
             this.pnlSearch.TabIndex = 356;
+            // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.AutoSize = true;
+            this.btnExportExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnExportExcel.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnExportExcel.FlatAppearance.BorderSize = 0;
+            this.btnExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnExportExcel.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnExportExcel.Location = new System.Drawing.Point(412, 75);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnExportExcel.Size = new System.Drawing.Size(176, 32);
+            this.btnExportExcel.TabIndex = 350;
+            this.btnExportExcel.Text = "EXPORT";
+            this.btnExportExcel.UseVisualStyleBackColor = false;
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
             // txtSearch
             // 
@@ -556,7 +574,7 @@
             // 
             // columnHeader16
             // 
-            this.columnHeader16.Text = "ACTION";
+            this.columnHeader16.Text = "SERVICE-RESULT";
             this.columnHeader16.Width = 120;
             // 
             // panel2
@@ -914,24 +932,6 @@
             this.btnOpenFolderPath.TabStop = false;
             this.btnOpenFolderPath.Zoom = 10;
             this.btnOpenFolderPath.Click += new System.EventHandler(this.btnOpenFolderPath_Click);
-            // 
-            // btnExportExcel
-            // 
-            this.btnExportExcel.AutoSize = true;
-            this.btnExportExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnExportExcel.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnExportExcel.FlatAppearance.BorderSize = 0;
-            this.btnExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnExportExcel.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnExportExcel.Location = new System.Drawing.Point(412, 75);
-            this.btnExportExcel.Name = "btnExportExcel";
-            this.btnExportExcel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnExportExcel.Size = new System.Drawing.Size(176, 32);
-            this.btnExportExcel.TabIndex = 350;
-            this.btnExportExcel.Text = "EXPORT";
-            this.btnExportExcel.UseVisualStyleBackColor = false;
-            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
             // frmServiceArchive
             // 
