@@ -52,7 +52,7 @@ namespace MIS
 
         class jsonObj
         {
-            public object outParamValue { get; set; }          
+            public object outParamValue { get; set; }
         }
 
         protected override CreateParams CreateParams
@@ -69,7 +69,7 @@ namespace MIS
         public frmImportTerminal()
         {
             InitializeComponent();
-            
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -88,14 +88,14 @@ namespace MIS
             {
                 ExcelFilePath = ExcelDialog.FileName;
                 txtPathFileName.Text = ExcelDialog.FileName;
-                txtPathFileName.ReadOnly = true;                
-                btnLoadFile.Enabled = false;                
+                txtPathFileName.ReadOnly = true;
+                btnLoadFile.Enabled = false;
                 sExcelFileName = Path.GetFileName(txtPathFileName.Text);
 
                 if (clsSystemSetting.ClassSystemImportCheck > 0)
                 {
                     if (dbAPI.isImportFileName("Search", "Terminal Import", sExcelFileName))
-                    {                        
+                    {
                         dbFunction.SetMessageBox("Import failure:" + "\n" +
                                                  sExcelFileName + " was already processed.", "Import Terminal", clsFunction.IconType.iWarning);
 
@@ -103,7 +103,7 @@ namespace MIS
                         return;
                     }
                 }
-                
+
                 try
                 {
                     // Waiting / Hour Glass
@@ -119,7 +119,7 @@ namespace MIS
                     dbAPI.ExecuteAPI("POST", "Create", "", "", txtSheetName.Text, "", "CreateTempTable");
 
                     dbFunction.ClearDataGrid(grdDummy);
-                    dbFunction.ImportToDummyDataGrid(grdDummy, sSheet, txtPathFileName.Text);                    
+                    dbFunction.ImportToDummyDataGrid(grdDummy, sSheet, txtPathFileName.Text);
 
                     // Back to normal 
                     Cursor.Current = Cursors.Default;
@@ -145,9 +145,9 @@ namespace MIS
                     // Drop table create from sheetname
                     if (txtSheetName.Text.Length > 0)
                         dbAPI.ExecuteAPI("DELETE", "Delete", "", txtSheetName.Text.Replace("`", ""), "Drop Temp Table", "", "DeleteCollectionDetail");
-                    
+
                     if (!ImportToDataGrid()) return;
-                    
+
                     ucStatusDisplay.SetStatus("Validating import file header", Enums.StatusType.Processing);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -168,6 +168,7 @@ namespace MIS
                     btnValidate.Enabled = true;
 
                     cboIClient.Enabled = true;
+                    cboIClient.SelectedIndex = 1;
 
                     Cursor.Current = Cursors.Default; // Back to normal 
 
@@ -182,10 +183,10 @@ namespace MIS
                 {
                     Debug.WriteLine("Exception error " + ex.Message);
                     MessageBox.Show(ex.Message);
-                    btnLoadFile.Enabled = true;                    
+                    btnLoadFile.Enabled = true;
                     return;
                 }
-                
+
             }
         }
         private string GetExcelWorkSheetName()
@@ -204,7 +205,7 @@ namespace MIS
 
             return sWorkSheetName;
         }
-        
+
         bool fContinueConfirm()
         {
             bool fContinue = true;
@@ -237,29 +238,29 @@ namespace MIS
         {
             int iRowCount = 0;
             int iColCount = 0;
-            int i, x = 0;                        
+            int i, x = 0;
             int y = 1;
             int ii = 0;
             bool isValid = true;
 
             // Delivery Date            
             DateTime DDateTime = DateTime.Now;
-         
+
             // Received Date        
-            DateTime RDateTime = DateTime.Now;        
-            
+            DateTime RDateTime = DateTime.Now;
+
             dbFunction.InitDataGridView(grdList);
 
             iRowCount = grdDummy.RowCount;
             iColCount = 15;
             //iColCount = grdDummy.ColumnCount;
 
-            DateTime dteTemp = DateTime.Now;      
-            int iDeliveryDate = dbFunction.GetMapColumnIndex(clsDefines.HDR_TEMPLATE_DeliveryDate);       
-            int iReceiveDate = dbFunction.GetMapColumnIndex(clsDefines.HDR_TEMPLATE_ReceivedDate);      
+            DateTime dteTemp = DateTime.Now;
+            int iDeliveryDate = dbFunction.GetMapColumnIndex(clsDefines.HDR_TEMPLATE_DeliveryDate);
+            int iReceiveDate = dbFunction.GetMapColumnIndex(clsDefines.HDR_TEMPLATE_ReceivedDate);
 
             // Add Column and Set Header            
-            grdList.ColumnCount = iColCount;                  
+            grdList.ColumnCount = iColCount;
             for (i = 0; i < iColCount; i++)
             {
                 string cellParam = grdDummy.Columns[i].HeaderText;
@@ -276,12 +277,12 @@ namespace MIS
                 {
                     grdList.Columns[i].Width = 60;
                 }
-                    
+
                 grdList.Columns[i].Name = cellParam;
 
                 y = i + 1;
                 Debug.WriteLine(y.ToString() + "," + cellParam + "," + cellParam + "," + "0" + "," + y.ToString() + "," + "TERMINAL");
-            }            
+            }
 
             for (i = 0; i < iRowCount; i++)
             {
@@ -289,11 +290,11 @@ namespace MIS
 
                 string sLineNo = grdDummy.Rows[i].Cells[0].Value.ToString(); // Check is not blank
                 string sFieldCheck = grdDummy.Rows[i].Cells[1].Value.ToString(); // Check is not blank
-                
+
                 Debug.WriteLine("------------------------------------");
                 Debug.WriteLine($"Row:[{i}]->SN:[{sFieldCheck}]");
                 Debug.WriteLine("------------------------------------");
-                
+
                 Invoke((MethodInvoker)(() =>
                 {
                     ucStatusDisplay.SetStatus($"Processing line# [{i}]/[{iRowCount}] [{sFieldCheck}]", Enums.StatusType.Processing);
@@ -307,7 +308,7 @@ namespace MIS
                     for (x = 0; x < iColCount; x++)
                     {
                         string cellValue = grdDummy.Rows[i].Cells[x].Value.ToString().ToUpper();
-                        
+
                         // special chraracter cleanup
                         //cellValue = cellValue.Replace("&", "AND");
                         cellValue = cellValue.Replace("|", clsFunction.sNull);
@@ -321,7 +322,7 @@ namespace MIS
                             grdList.Rows[iIndex].Cells[x].Value = clsFunction.sDash;
 
                     }
-                }                          
+                }
             }
 
             //dbFunction.DataGridViewAlternateBackColor(grdList);  
@@ -330,7 +331,7 @@ namespace MIS
 
             return isValid;
         }
-        
+
         private void ClearDataGrid()
         {
             if (grdDummy.RowCount > 0)
@@ -388,9 +389,9 @@ namespace MIS
             grdInventory.RowCount = 0;
 
             lvwDetail.Items.Clear();
-            lvwCount.Items.Clear();            
+            lvwCount.Items.Clear();
         }
-        
+
         private void ListDetails(int iRow)
         {
             int inLineNo = 0;
@@ -411,7 +412,7 @@ namespace MIS
                 Debug.WriteLine(dbFunction.padRightChar(cellParam, " ", iLen) + " -->> " + cellValue);
             }
         }
-        
+
         private void frmTerminalImportExport_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -433,7 +434,7 @@ namespace MIS
             dbFunction.TextBoxUnLock(false, this);
 
             ClearDataGrid();
-           
+
             InitComboBox();
 
             SetInitMode(iInitMode.iDisable);
@@ -444,7 +445,7 @@ namespace MIS
 
             btnGenerate.Enabled = false;
             btnSaveAutoGen.Enabled = false;
-            
+
             fEdit = false;
             fEnableScan = false;
             InitDate();
@@ -452,7 +453,7 @@ namespace MIS
             InitTab();
             InitTimerSerialNo();
             PKTextBoxBackColor(true);
-            
+
             UpdateButton(true, 4);
 
             btnRelease.Enabled = false;
@@ -463,7 +464,7 @@ namespace MIS
             dbAPI.ExecuteAPI("GET", "View", "Type", "TERMINAL", "Mapping", "", "ViewMapping");
 
             chkRelease_CheckedChanged(this, e);
-            
+
             btnClear_Click(this, e);
 
             dbFunction.initTabSelection(tabTerminal, 2);
@@ -475,7 +476,7 @@ namespace MIS
             }
 
             ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
-            
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -487,7 +488,7 @@ namespace MIS
 
             ClearDataGrid();
             ClearListView();
-            
+
             fEdit = false;
             UpdateButton(true, tabTerminal.SelectedIndex);
 
@@ -545,7 +546,7 @@ namespace MIS
             if (!dbFunction.fPromptConfirmation($"Are you sure to save import records on list?")) return;
 
             Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
-            
+
             try
             {
                 SaveTerminalMaster();
@@ -579,9 +580,9 @@ namespace MIS
             {
                 dbFunction.SetMessageBox("Message " + ex.Message, "Terminal import failed", clsFunction.IconType.iError);
             }
-                  
+
             Cursor.Current = Cursors.Default; // Back to normal 
-            
+
             dbFunction.SetMessageBox("Import Terminal successfully saved.", "Saved", clsFunction.IconType.iInformation);
 
             // Show total
@@ -600,7 +601,7 @@ namespace MIS
                 {
                     pTDuplicate = clsSearch.ClassFailedCount = int.Parse(dbFunction.CheckAndSetNumericValue(dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "Total")));
                 }
-                
+
                 if (MessageBox.Show("Terminal import summary below:" +
                                "\n\n" +
                                " >Total SN import success: " + pTSuccess + "\n" +
@@ -686,7 +687,7 @@ namespace MIS
             int iLocationColIndex = GetHeaderColumnIndex(grdList, clsDefines.HDR_TEMPLATE_Location);
 
             if (iRowCount > 0)
-            {             
+            {
                 // Delete File            
                 //string sFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iSerialNo, 0);
                 //dbFile.DeleteCSV(sFileName);
@@ -697,11 +698,11 @@ namespace MIS
                     sRowSQL = "";
                     sSQL = "";
                     sTempSQL = "('" + dbFunction.CheckAndSetNumericValue(txtClientID.Text) + "'," + "'" + dbFunction.CheckAndSetNumericValue(txtTIID.Text) + "',";
-                    
+
                     string pSN = grdList.Rows[i].Cells[1].Value.ToString(); // Check is not blank
 
                     for (x = 0; x < iColCount; x++)
-                    {                        
+                    {
                         string sCellValue = grdList.Rows[i].Cells[x].Value.ToString().Trim();
 
                         // ROCKY - TERMINAL IMPORT: ADD CLEAN UP FOR TERMINAL IMPORTS
@@ -710,7 +711,7 @@ namespace MIS
                         if (sCellValue.Length > 0)
                         {
                             if (iSNColIndex == x)
-                            {                               
+                            {
                                 string sSN = "'" + (sCellValue.Length > 0 ? sCellValue : clsFunction.sDash) + "'";
                                 sCellValue = sSN + "," + sSN;
                             }
@@ -721,7 +722,7 @@ namespace MIS
                                 dbFunction.GetIDFromFile("Terminal Type", sCellValue);
                                 int iTerminalType = clsSearch.ClassOutFileID;
                                 string sType = "'" + (sCellValue.Length > 0 ? sCellValue : clsFunction.sDash) + "'";
-                                sCellValue = sType + "," + iTerminalType.ToString();                                
+                                sCellValue = sType + "," + iTerminalType.ToString();
                             }
 
                             if (iModelColIndex == x)
@@ -730,7 +731,7 @@ namespace MIS
                                 dbFunction.GetIDFromFile("Terminal Model", sCellValue);
                                 int iTerminalModel = clsSearch.ClassOutFileID;
                                 string sModel = "'" + (sCellValue.Length > 0 ? sCellValue : clsFunction.sDash) + "'";
-                                sCellValue = sModel + "," + iTerminalModel.ToString();                                
+                                sCellValue = sModel + "," + iTerminalModel.ToString();
                             }
 
                             if (iBrandColIndex == x)
@@ -739,7 +740,7 @@ namespace MIS
                                 dbFunction.GetIDFromFile("Terminal Brand", sCellValue);
                                 int iTerminalBrand = clsSearch.ClassOutFileID;
                                 string sBrand = "'" + (sCellValue.Length > 0 ? sCellValue : clsFunction.sDash) + "'";
-                                sCellValue = sBrand + "," + iTerminalBrand.ToString();                                
+                                sCellValue = sBrand + "," + iTerminalBrand.ToString();
                             }
 
                             if (iStatusColIndex == x)
@@ -748,7 +749,7 @@ namespace MIS
                                 dbFunction.GetIDFromFile("Status List", sCellValue);
                                 int iTerminalStatus = clsSearch.ClassOutFileID;
                                 string sStatus = "'" + (sCellValue.Length > 0 ? sCellValue : clsFunction.sDash) + "'";
-                                sCellValue = sStatus + "," + iTerminalStatus.ToString();                                
+                                sCellValue = sStatus + "," + iTerminalStatus.ToString();
                             }
 
                             if (iLocationColIndex == x)
@@ -774,8 +775,8 @@ namespace MIS
                             else
                                 sTempSQL = sTempSQL + "'" + (sCellValue.Length > 0 ? sCellValue : clsFunction.sDash) + "',";
 
-                        }                        
-                    }                    
+                        }
+                    }
 
                     sRowSQL = sTempSQL + ")";
 
@@ -796,7 +797,7 @@ namespace MIS
                     {
                         TempArrayDataCol.Add(sRowCSV);
                     }
-                    
+
                     ucStatusDisplay.SetStatus($"Generating CSV line# [{i}]/[{grdList.RowCount}] [{pSN}]", Enums.StatusType.Processing);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -833,8 +834,8 @@ namespace MIS
                             // Write To File
                             iFileNameIndex++;
                             string sNewFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iSerialNo, iFileNameIndex);
-                            Debug.WriteLine("Terminal->sNewFileName="+ sNewFileName);
-                            
+                            Debug.WriteLine("Terminal->sNewFileName=" + sNewFileName);
+
                             ucStatusDisplay.SetStatus($"Creating CSV File [{sNewFileName}]", Enums.StatusType.Create);
                             Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -871,7 +872,7 @@ namespace MIS
                     iFileNameIndex++;
                     string sNewFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iSerialNo, iFileNameIndex);
                     Debug.WriteLine("Terminal->sNewFileName=" + sNewFileName);
-                    
+
                     ucStatusDisplay.SetStatus($"Creating CSV File [{sNewFileName}]", Enums.StatusType.Create);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -885,7 +886,7 @@ namespace MIS
                     for (i = 1; i <= iFileNameIndex; i++)
                     {
                         string sImportFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iSerialNo, i);
-                        
+
                         ucStatusDisplay.SetStatus($"Uploading CSV File [{sImportFileName}]", Enums.StatusType.Create);
                         Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -901,7 +902,7 @@ namespace MIS
 
                     }
                 }
-                
+
                 dbFunction.GetResponseTime("Import Terminal Detail");
 
                 Cursor.Current = Cursors.Default; // Back to normal             
@@ -921,7 +922,7 @@ namespace MIS
             DateTime CurrentDateTime = DateTime.Now;
             string sCurrentDateTime = "";
             string sCurrentUser = clsUser.ClassUserName;
-            
+
             sCurrentDateTime = CurrentDateTime.ToString("yyyy-MM-dd H:mm:ss");
 
             dbFunction.GetRequestTime("AutoGen Import Terminal Detail");
@@ -952,7 +953,7 @@ namespace MIS
                 // Delete File            
                 string sFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iSerialNo, 0);
                 dbFile.DeleteCSV(sFileName);
-                
+
                 foreach (ListViewItem i in lvwGenerateList.Items)
                 {
                     ii++;
@@ -990,37 +991,37 @@ namespace MIS
                         sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(cboABrand.Text) + "'," +
                         sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetNumericValue(clsSearch.ClassTerminalBrandID.ToString()) + "'," +
                         sRowSQL + sRowSQL + "'" + sDeliveryDate + "'," +
-                        sRowSQL + sRowSQL + "'" + sReceiveDate + "'," +                       
+                        sRowSQL + sRowSQL + "'" + sReceiveDate + "'," +
                         sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(dbFunction.CheckDefaultSelectValue(cboALocation.Text)) + "'," +
                         sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text) + "'," +
                         sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(txtPONo.Text) + "'," +
-                        sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(txtInvoNo.Text) + "'," +                                               
+                        sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(txtInvoNo.Text) + "'," +
                         sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(cboAStatus.Text) + "'," +
                         sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetNumericValue(clsSearch.ClassTerminalStatusID.ToString()) + "'," +
                         sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(dbFunction.CheckDefaultSelectValue(cboAAllocation.Text)) + "'," +
-                        sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(dbFunction.CheckDefaultSelectValue(cboAAssetType.Text)) + "'," +                       
-                        sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(txtARemarks.Text) + "')"; 
+                        sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(dbFunction.CheckDefaultSelectValue(cboAAssetType.Text)) + "'," +
+                        sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetStringValue(txtARemarks.Text) + "')";
 
                         if (sSQL.Length > 0)
                             sSQL = sSQL + "," + sRowSQL;
                         else
                             sSQL = sSQL + sRowSQL;
-                        
+
                         sRowCSV = "";
                         sRowCSV = sSQL.Replace("(", "");
                         sRowCSV = sRowCSV.Replace(")", "");
                         sRowCSV = sRowCSV.Replace("'", "");
                         //sCSV = sCSV + sRowCSV + "\n";
 
-                        Debug.WriteLine("ii="+ii.ToString()+"-"+ "sRowCSV=" + sRowCSV);
+                        Debug.WriteLine("ii=" + ii.ToString() + "-" + "sRowCSV=" + sRowCSV);
 
                         if (sRowCSV.Length > 0)
-                            dbFile.WriteCSV(sFileName, sRowCSV);                     
+                            dbFile.WriteCSV(sFileName, sRowCSV);
 
                     }
-                    
+
                 }
-                
+
                 // Upload File to FTP                    
                 ftp ftpClient = new ftp(clsGlobalVariables.strFTPURL, clsGlobalVariables.strFTPUserName, clsGlobalVariables.strFTPPassword);
                 ftpClient.delete(clsGlobalVariables.strFTPUploadPath + sFileName);
@@ -1039,7 +1040,7 @@ namespace MIS
             int ii = 0;
             string sRowSQL = "";
             string sSQL = "";
-            string sRowCSV = "";            
+            string sRowCSV = "";
             int iRowCount = lvwHistoryList.Items.Count;
 
             DateTime CurrentDateTime = DateTime.Now;
@@ -1095,7 +1096,7 @@ namespace MIS
                     sRowSQL + sRowSQL + "'" + sTypeID + "'," +
                     sRowSQL + sRowSQL + "'" + sModelID + "'," +
                     sRowSQL + sRowSQL + "'" + sBrandID + "'," +
-                    sRowSQL + sRowSQL + "'" + (txtMPartNo.Text.Length > 0 ? txtMPartNo.Text : "0") + "'," +                                         
+                    sRowSQL + sRowSQL + "'" + (txtMPartNo.Text.Length > 0 ? txtMPartNo.Text : "0") + "'," +
                     sRowSQL + sRowSQL + "'" + (txtMPONo.Text.Length > 0 ? txtMPONo.Text : "0") + "'," +
                     sRowSQL + sRowSQL + "'" + (txtMInvNo.Text.Length > 0 ? txtMInvNo.Text : "0") + "'," +
                     sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text) + "'," +
@@ -1181,7 +1182,7 @@ namespace MIS
                                 if (sRowCSV.Length > 0)
                                     dbFile.WriteCSV(sFileName, sRowCSV);
 
-                               
+
 
                             }
 
@@ -1197,7 +1198,7 @@ namespace MIS
                         dbAPI.ExecuteAPI("POST", "Import", "CSV", sFileName, "Import Terminal Detail", "", "ImportTerminalDetail");
                     }
                 }
-            }            
+            }
 
             dbFunction.GetResponseTime("Manual Terminal Detail");
         }
@@ -1206,15 +1207,15 @@ namespace MIS
         {
             InitTab();
         }
-        
+
         private void btnClearGenerateList_Click(object sender, EventArgs e)
         {
             lvwGenerateList.Items.Clear();
         }
 
         private void btnClearGenerateEntry_Click(object sender, EventArgs e)
-        {                   
-            dbFunction.ClearTextBox(this);          
+        {
+            dbFunction.ClearTextBox(this);
             dbFunction.TextBoxUnLock(false, this);
             dbFunction.ComBoBoxUnLock(false, this);
             dbFunction.ClearListViewItems(lvwGenerateList);
@@ -1225,16 +1226,16 @@ namespace MIS
             ClearListView();
 
             SetInitMode(iInitMode.iDisable);
-            
+
             btnGenerate.Enabled = false;
-            
-            
+
+
             btnGenerate.Enabled = btnReset.Enabled = false;
-            
+
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
-        {            
+        {
             if (!ValidateFields()) return;
 
             // Check Date Range            
@@ -1243,14 +1244,14 @@ namespace MIS
             if (fEndLimitExceed()) return;
 
             if (!fContinueConfirm()) return;
-            
+
             // Waiting / Hour Glass
             Cursor.Current = Cursors.WaitCursor;
-            
+
             GenerateSN();
 
             //btnGenerate.Enabled = btnReset.Enabled = false;
-            
+
             // Back to normal 
             Cursor.Current = Cursors.Default;
         }
@@ -1258,7 +1259,7 @@ namespace MIS
         private bool ValidateFields()
         {
             Debug.WriteLine("--ValidateFields--");
-            Debug.WriteLine("tabTerminal.SelectedIndex="+ tabTerminal.SelectedIndex);
+            Debug.WriteLine("tabTerminal.SelectedIndex=" + tabTerminal.SelectedIndex);
 
             switch (tabTerminal.SelectedIndex)
             {
@@ -1291,8 +1292,8 @@ namespace MIS
                         if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalModel, txtTerminalModelID.Text)) return false;
                         if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalBrand, txtTerminalBrandID.Text)) return false;
                     }
-                        
-                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iLocation, txtLocationIDFrom.Text)) return false;                   
+
+                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iLocation, txtLocationIDFrom.Text)) return false;
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalStatus, cboMStatus.Text)) return false;
 
                     break;
@@ -1303,7 +1304,7 @@ namespace MIS
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iToLocation, txtLocationIDTo.Text)) return false;
                     break;
             }
-            
+
             return true;
         }
 
@@ -1354,12 +1355,12 @@ namespace MIS
             // Received Date
             DateTime stReceivedDate = dteAReceivedDate.Value;
             string pReceivedDate = stReceivedDate.ToString("yyyy-MM-dd");
-            
+
             if (int.Parse(txtIndexStart.Text) > int.Parse(txtIndexEnd.Text))
             {
                 MessageBox.Show("Index End must be greater than Index Start", "Invalid Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
+
             iStart = int.Parse(txtIndexStart.Text);
             iEnd = int.Parse(txtIndexEnd.Text);
             iPadLength = int.Parse(dbFunction.CheckAndSetNumericValue(txtPadLength.Text));
@@ -1379,7 +1380,7 @@ namespace MIS
 
             for (int i = iStart; i <= iEnd; i++)
             {
-                ii++;     
+                ii++;
                 inLineNo++;
                 ListViewItem item = new ListViewItem(inLineNo.ToString());
                 sSerialNo = txtPrefix.Text + sPad + i.ToString();
@@ -1387,10 +1388,10 @@ namespace MIS
                 bool fExist = dbAPI.CheckTerminalDetail("Search", "Terminal Detail Check", sSerialNo);
                 if (fExist)
                     item.SubItems[0].ForeColor = Color.Red;
-                
+
                 item.SubItems.Add(txtTIID.Text);
-                item.SubItems.Add(inLineNo.ToString());                
-                
+                item.SubItems.Add(inLineNo.ToString());
+
                 item.SubItems.Add(sSerialNo);
                 item.SubItems.Add(txtPartNo.Text);
                 item.SubItems.Add(cboAType.Text);
@@ -1400,7 +1401,7 @@ namespace MIS
                 item.SubItems.Add(txtInvoNo.Text);
                 item.SubItems.Add(pDeliveryDate);
                 item.SubItems.Add(pReceivedDate);
-                
+
                 item.SubItems.Add(txtTerminalTypeID.Text);
                 item.SubItems.Add(txtTerminalModelID.Text);
                 item.SubItems.Add(txtTerminalBrandID.Text);
@@ -1409,16 +1410,16 @@ namespace MIS
 
                 lvwGenerateList.Items.Add(item);
 
-                
+
             }
 
-            dbFunction.ListViewAlternateBackColor(lvwGenerateList);          
+            dbFunction.ListViewAlternateBackColor(lvwGenerateList);
 
             btnSaveAutoGen.Enabled = true;
 
             Cursor.Current = Cursors.Default;
         }
-        
+
         private int GetHeaderColumnIndex(DataGridView obj, string sHeader)
         {
             int iColIndex = 0;
@@ -1436,7 +1437,7 @@ namespace MIS
 
             return iColIndex;
         }
-        
+
         private string GetColumnValue(int iRowIndex, int iColIndex, DataGridView obj)
         {
             string sColumnValue = dbFunction.RemoveUnwantedChar(obj.Rows[iRowIndex].Cells[iColIndex].Value.ToString());
@@ -1447,7 +1448,7 @@ namespace MIS
         {
             grdList.Rows[iRowIndex].DefaultCellStyle.BackColor = Color.PeachPuff;
         }
-        
+
         private bool isValidTerminalList()
         {
             int i = 0;
@@ -1476,20 +1477,20 @@ namespace MIS
 
             // Waiting / Hour Glass
             Cursor.Current = Cursors.WaitCursor;
-            
+
             SaveTerminalMaster();
-            
+
             SaveGenerateSNDetail();
-            
+
             // Back to normal 
             Cursor.Current = Cursors.Default;
-            
+
             dbFunction.SetMessageBox("Auto Generated Terminal successfully saved.", "Saved", clsFunction.IconType.iInformation);
 
             btnImportCancel_Click(this, e);
             btnClearGenerateEntry_Click(this, e);
         }
-        
+
         private void ClearListView()
         {
             lvwGenerateList.Items.Clear();
@@ -1497,7 +1498,7 @@ namespace MIS
             lvwDetail.Items.Clear();
             lvwRelease.Items.Clear();
         }
-        
+
         private void btnAddGenerate_Click(object sender, EventArgs e)
         {
             // Check User Access Rights
@@ -1508,13 +1509,13 @@ namespace MIS
             dbFunction.ClearTextBox(this);
             dbFunction.TextBoxUnLock(true, this);
             dbFunction.ComBoBoxUnLock(true, this);
-            
+
             SetInitMode(iInitMode.iEnable);
 
             UpdateButton(false, tabTerminal.SelectedIndex);
-            
+
             btnGenerate.Enabled = true;
-            
+
             txtPrefix.Focus();
 
             btnGenerate.Enabled = btnReset.Enabled = true;
@@ -1540,7 +1541,7 @@ namespace MIS
                     txtPrefix.BackColor = Color.White;
                     txtPadLength.BackColor = Color.White;
                     txtIndexStart.BackColor = Color.White;
-                    txtIndexEnd.BackColor = Color.White;                    
+                    txtIndexEnd.BackColor = Color.White;
                     break;
                 case iInitMode.iDisable:
                     txtPrefix.Enabled = false;
@@ -1557,8 +1558,8 @@ namespace MIS
         }
 
         private bool isValidHeader()
-        {                       
-            int i = 0;            
+        {
+            int i = 0;
             string sList = "";
             string sMapFrom = "";
             bool fExist = true;
@@ -1590,7 +1591,7 @@ namespace MIS
                 return false;
             }
 
-            return true;            
+            return true;
         }
 
         private bool fEndLimitExceed()
@@ -1612,7 +1613,7 @@ namespace MIS
 
             return isLimit;
         }
-        
+
         private void txtPrefix_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -1654,7 +1655,7 @@ namespace MIS
         {
             if (!fResetConfirm()) return;
 
-            dbFunction.ClearTextBox(this);      
+            dbFunction.ClearTextBox(this);
         }
 
         private void btnAddGenerate_Click_1(object sender, EventArgs e)
@@ -1744,7 +1745,7 @@ namespace MIS
                     if (tabTerminal.SelectedIndex == 2) // Manual
                     {
                         btnSearchTerminalSN_Click(this, e);
-                    }                    
+                    }
                     break;
             }
         }
@@ -1756,7 +1757,7 @@ namespace MIS
 
         private void txtPartNo_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
+
         }
 
         private void InitInventoryHeader()
@@ -1774,8 +1775,8 @@ namespace MIS
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
-            if (dbAPI.isNoRecordFound()) return;            
-            
+            if (dbAPI.isNoRecordFound()) return;
+
             int iColCount = clsArray.TerminalStatusID.Length + arrayHeader.Length;
             grdInventory.ColumnCount = iColCount;
 
@@ -1801,7 +1802,7 @@ namespace MIS
                 int iColIndex = arrayHeader.Length + i;
                 grdInventory.Columns[iColIndex].Width = iColumnWidth;
                 grdInventory.Columns[iColIndex].Name = sHeader;
-            }           
+            }
         }
 
         private void LoadInventoryTypeModel()
@@ -1811,7 +1812,7 @@ namespace MIS
             int y = 0;
             int iCount = 0;
             int iTypeDataRowIndex = 1;
-            
+
             dbAPI.GetTerminalTypeList("View", "", "", "Terminal Type");
             dbAPI.GetTerminalModelList("View", "", "", "Terminal Model");
 
@@ -1833,7 +1834,7 @@ namespace MIS
             int iLossColIndex = 0;
             int iDispatchColIndex = 0;
             int iColIndex = 0;
-            
+
             for (i = 0; i < clsArray.TerminalTypeID.Length; i++)
             {
                 int iIndex = grdInventory.Rows.Add(); // Add Row
@@ -1875,7 +1876,7 @@ namespace MIS
                                 iDispatchColIndex = GetHeaderColumnIndex(grdInventory, "DISPATCH");
 
                                 if (z == iTotalColIndex)
-                                {                                    
+                                {
                                     clsSearch.ClassTerminalTypeID = int.Parse(sTypeID);
                                     clsSearch.ClassTerminalModelID = int.Parse(sModelID);
                                     clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID;
@@ -1885,7 +1886,7 @@ namespace MIS
                                     iCount = 0;
                                     if (dbAPI.isNoRecordFound() == false)
                                         iCount = clsTerminal.ClassTerminalCount;
-                                    
+
                                     //Debug.WriteLine("sType="+sType+"|sModel="+sModel+"|iCount="+iCount.ToString());
                                     grdInventory.Rows[iModelIndex].Cells[iTotalColIndex].Value = iCount.ToString();
                                 }
@@ -1896,37 +1897,37 @@ namespace MIS
                                 if (z == iAvailableColIndex)
                                 {
                                     iColIndex = iAvailableColIndex;
-                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_AVAILABLE;                                                                       
+                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_AVAILABLE;
                                 }
 
                                 if (z == iAllocatedColIndex)
                                 {
                                     iColIndex = iAllocatedColIndex;
-                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_ALLOCATED;                                    
+                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_ALLOCATED;
                                 }
 
                                 if (z == iInstalledColIndex)
                                 {
                                     iColIndex = iInstalledColIndex;
-                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_INSTALLED;                                    
+                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_INSTALLED;
                                 }
 
                                 if (z == iDefectiveColIndex)
                                 {
                                     iColIndex = iDefectiveColIndex;
-                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_DAMAGE;                                    
+                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_DAMAGE;
                                 }
 
                                 if (z == iLoanBorrowColIndex)
                                 {
                                     iColIndex = iLoanBorrowColIndex;
-                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_BORROWED;                                    
+                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_BORROWED;
                                 }
 
                                 if (z == iForRepairColIndex)
                                 {
                                     iColIndex = iForRepairColIndex;
-                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_REPAIR;                                    
+                                    clsSearch.ClassAdvanceSearchValue = clsSearch.ClassTerminalTypeID.ToString() + clsFunction.sPipe + clsSearch.ClassTerminalModelID + clsFunction.sPipe + clsGlobalVariables.STATUS_REPAIR;
                                 }
 
                                 if (z == iLossColIndex)
@@ -1950,12 +1951,12 @@ namespace MIS
                                         iCount = clsTerminal.ClassTerminalCount;
 
                                     grdInventory.Rows[iModelIndex].Cells[iColIndex].Value = iCount.ToString();
-                                }                                
+                                }
                             }
-                            
+
                         }
-                    }                    
-                }                
+                    }
+                }
             }
 
             //dbFunction.DataGridViewAlternateBackColor(grdInventory);
@@ -1964,10 +1965,10 @@ namespace MIS
         }
 
         private void LoadInventoryTotal()
-        {            
+        {
             int iRowIndex = 0;
             int iColIndex = 0;
-            
+
             // Add Row for Grand Total
             int iRowCount = grdInventory.RowCount;
             int iIndex = grdInventory.Rows.Add(); // Add Row
@@ -2038,21 +2039,21 @@ namespace MIS
                 }
             }
         }
-        
+
         private void btnCheckInventory_Click(object sender, EventArgs e)
         {
             if (!fContinueConfirm()) return;
             Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
             dbFunction.ClearDataGrid(grdInventory);
-            
+
 
             InitInventoryHeader();
             LoadInventoryTypeModel();
             LoadInventoryTotal();
-            
+
             Cursor.Current = Cursors.Default; // Back to normal 
         }
-        
+
         private void txtMSerialNo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -2069,12 +2070,12 @@ namespace MIS
                     Counter = 0;
                     tmrSerialNo.Enabled = false;
                 }
-            }            
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            dbFunction.ClearTextBox(this);           
+            dbFunction.ClearTextBox(this);
             dbFunction.TextBoxUnLock(false, this);
             dbFunction.ComBoBoxUnLock(false, this);
             dbFunction.ClearListViewItems(lvwHistoryList);
@@ -2083,12 +2084,12 @@ namespace MIS
             ClearListView();
 
             fEdit = false;
-            
+
             InitDate();
             PKTextBoxBackColor(true);
 
             UpdateButton(true, 4);
-            
+
             btnSearchTerminalSN.Enabled = true;
             btnRelease.Enabled = false;
 
@@ -2113,12 +2114,12 @@ namespace MIS
             fEdit = false;
 
             GetMTextBoxID();
-            
+
             InitDate();
-            
+
             int ID = dbAPI.GetControlID("Terminal Master");
             txtMBatchNo.Text = ID.ToString();
-            
+
             Counter = 0;
             InitTimerSerialNo();
             PKTextBoxBackColor(false);
@@ -2159,7 +2160,7 @@ namespace MIS
                 frmSearchField frm = new frmSearchField();
                 frm.ShowDialog();
             }
-            
+
             if (frmSearchField.fSelected)
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -2170,7 +2171,7 @@ namespace MIS
 
                 txtTerminalID.Text = clsSearch.ClassTerminalID.ToString();
                 txtTerminalSN.Text = clsSearch.ClassTerminalSN;
-                
+
                 PopulateTerminalTextBox(txtTerminalID.Text, txtTerminalSN.Text);
 
                 //if (dbFunction.isValidID(txtTerminalID.Text))
@@ -2189,7 +2190,7 @@ namespace MIS
                                                         clsFunction.sZero + clsFunction.sPipe +
                                                         dbFunction.GetPageLimit();
 
-                
+
                 PopulateMerchantTextBox();
 
                 PopulateLastControlNoTextBox();
@@ -2211,7 +2212,7 @@ namespace MIS
                 txtTerminalID.ReadOnly = true;
 
                 setSelectedHeader();
-                
+
                 Cursor.Current = Cursors.Default;
 
             }
@@ -2219,29 +2220,29 @@ namespace MIS
 
         private void PopulateTerminalTextBox(string sTerminalID, string sTerminalSN)
         {
-                cboMStatus.Text =
-                txtTerminalSN.Text =
-                txtTerminalTypeID.Text =
-                cboMType.Text =
-                txtTerminalModelID.Text =
-                cboMModel.Text =
-                txtTerminalBrandID.Text =
-                cboMBrand.Text =
-                cboMLocation.Text =
-                txtParticularID.Text =
-                cboMAllocation.Text =
-                cboMAssetType.Text =
-                txtMInvNo.Text =
-                txtMPONo.Text =
-                txtMPartNo.Text =
-                txtMRemarks.Text =
-                txtClientID.Text =
-                clsFunction.sNull;
+            cboMStatus.Text =
+            txtTerminalSN.Text =
+            txtTerminalTypeID.Text =
+            cboMType.Text =
+            txtTerminalModelID.Text =
+            cboMModel.Text =
+            txtTerminalBrandID.Text =
+            cboMBrand.Text =
+            cboMLocation.Text =
+            txtParticularID.Text =
+            cboMAllocation.Text =
+            cboMAssetType.Text =
+            txtMInvNo.Text =
+            txtMPONo.Text =
+            txtMPartNo.Text =
+            txtMRemarks.Text =
+            txtClientID.Text =
+            clsFunction.sNull;
 
             if (dbFunction.isValidID(sTerminalID))
             {
                 dbAPI.ExecuteAPI("GET", "Search", "Terminal SN Info", sTerminalID, "Get Info Detail", "", "GetInfoDetail");
-                
+
                 if (dbAPI.isNoRecordFound() == false)
                 {
                     dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
@@ -2262,7 +2263,7 @@ namespace MIS
 
                     txtMPONo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 16);
                     txtMInvNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 17);
-                    
+
                     txtMPartNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 18);
                     txtMRemarks.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 19);
 
@@ -2284,7 +2285,7 @@ namespace MIS
 
                     txtServiceNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 20);
                     txtIRIDNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 21);
-                    
+
                     txtParticularID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 25);
 
                     txtClientID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 27);
@@ -2380,7 +2381,7 @@ namespace MIS
 
             if (!ValidateFields()) return;
 
-            DateTime stReceiveDate = dteMReceiveDate.Value;           
+            DateTime stReceiveDate = dteMReceiveDate.Value;
             string pReceiveDate = stReceiveDate.ToString("yyyy-MM-dd");
 
             DateTime stDeliveryDate = dteMDeliveryDate.Value;
@@ -2391,7 +2392,7 @@ namespace MIS
 
             int iStatus = int.Parse(dbFunction.CheckAndSetNumericValue(txtTerminalStatus.Text));
             int iHoldStatus = int.Parse(dbFunction.CheckAndSetNumericValue(txtHoldStatus.Text));
-            
+
             if (fEdit)
             {
                 if (dbFunction.isValidID(txtTerminalID.Text))
@@ -2417,7 +2418,7 @@ namespace MIS
                         isProceed = true;
                     }
 
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)))                  
+                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)))
                     {
                         isProceed = true;
                     }
@@ -2554,20 +2555,20 @@ namespace MIS
 
                 // Back to normal 
                 Cursor.Current = Cursors.Default;
-                
+
                 dbFunction.SetMessageBox("Manual Terminal successfully saved.", "Saved", clsFunction.IconType.iInformation);
 
             }
 
             // Save Activity
             SaveActivity();
-        
+
             dbFunction.ClearTextBox(this);
             dbFunction.ClearDataGrid(grdList);
             dbFunction.ClearDataGrid(grdInventory);
             //dbFunction.ClearListView(lvwGenerateList);
             //dbFunction.ClearListView(lvwHistoryList);
-            
+
             btnClear_Click(this, e);
         }
 
@@ -2584,7 +2585,7 @@ namespace MIS
                     break;
                 case 2:
                     lblHeader.Text = "TERMINAL" + " " + "[ " + "MANUAL ENTRY" + " ]";
-                    txtTerminalSN.MaxLength = SerialNoMaxLength;                                     
+                    txtTerminalSN.MaxLength = SerialNoMaxLength;
                     break;
                 case 3:
                     lblHeader.Text = "TERMINAL" + " " + "[ " + "RELEASE / TRANSFER" + " ]";
@@ -2599,13 +2600,13 @@ namespace MIS
             {
                 Counter = 0;
                 if (txtTerminalSN.Text.Length > SerialNoMinLength)
-                {                    
+                {
                     tmrSerialNo.Enabled = false;
                     AddSerialNo(txtTerminalSN.Text);
                     txtTerminalSN.Text = "";
                 }
             }
-            
+
             //lblCounter.Text = "Counter: " + Counter.ToString() + " | " + "ReaderInterval: " + ReaderInterval.ToString() + " | " + "ReaderTimeOut: " + ReaderTimeOut.ToString();
 
             Counter++;
@@ -2765,14 +2766,14 @@ namespace MIS
                             AddSerialNo(txtTerminalSN.Text);
                             txtTerminalSN.Text = "";
                         }
-                    }                    
+                    }
                     break;
                 case Keys.Down:
                 case Keys.Up:
                     if (fEnableScan)
                     {
                         lvwHistoryList.Focus();
-                    }                    
+                    }
                     break;
             }
         }
@@ -2793,7 +2794,7 @@ namespace MIS
             {
                 dbFunction.SetMessageBox("Unable to save Terminal Detail." +
                             "\n\n" +
-                            "Serial No: " + txtTerminalSN.Text +                            
+                            "Serial No: " + txtTerminalSN.Text +
                             "\n", "Already exist.", clsFunction.IconType.iWarning);
 
 
@@ -2801,11 +2802,11 @@ namespace MIS
 
             return fExist;
         }
-        
+
         private void GetMTextBoxID()
         {
             // Fill List
-            
+
             dbAPI.GetTerminalTypeList("View", "", "", "Terminal Type");
             dbAPI.GetTerminalModelList("View", "", "", "Terminal Model");
             dbAPI.GetTerminalBrandList("View", "", "", "Terminal Brand");
@@ -2813,7 +2814,7 @@ namespace MIS
             txtTerminalTypeID.Text = dbAPI.GetTerminalTypeFromList(cboMType.Text).ToString();
             txtTerminalModelID.Text = dbAPI.GetTerminalModelFromList(cboMModel.Text).ToString();
             txtTerminalBrandID.Text = dbAPI.GetTerminalBrandFromList(cboMBrand.Text).ToString();
-            
+
         }
 
         private void PKTextBoxBackColor(bool isLock)
@@ -2835,7 +2836,7 @@ namespace MIS
                     txtTerminalSN.BackColor = clsFunction.EntryBackColor;
                     txtTerminalSN.ReadOnly = false;
                 }
-                
+
             }
         }
 
@@ -2939,7 +2940,7 @@ namespace MIS
 
             dteMShipmentDate.Value = DateTime.Now.Date;
             dbFunction.SetDateFormat(dteMShipmentDate, clsFunction.sDateDefaultFormat);
-            
+
         }
 
         private bool CheckDateFromTo(DateTimePicker objFrom, DateTimePicker objTo)
@@ -2976,7 +2977,7 @@ namespace MIS
             if (!cboAModel.Text.Equals(clsFunction.sDefaultSelect))
             {
                 dbFunction.GetIDFromFile("Terminal Model", cboAModel.Text);
-                clsSearch.ClassTerminalModelID = clsSearch.ClassOutFileID;              
+                clsSearch.ClassTerminalModelID = clsSearch.ClassOutFileID;
             }
 
             txtTerminalModelID.Text = clsSearch.ClassTerminalModelID.ToString();
@@ -3071,31 +3072,31 @@ namespace MIS
             obj.View = View.Details;
 
             dbFunction.GetListViewHeaderColumnFromFile("", "LINE#", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
-            obj.Columns.Add(outTitle, outWidth, outAlign);           
+            obj.Columns.Add(outTitle, outWidth, outAlign);
 
             dbFunction.GetListViewHeaderColumnFromFile("", "ServiceNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
-            
+
 
             dbFunction.GetListViewHeaderColumnFromFile("", "ClientID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
-            
+
 
             dbFunction.GetListViewHeaderColumnFromFile("", "MerchantID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
-            
+
 
             dbFunction.GetListViewHeaderColumnFromFile("", "FEID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
-            
+
 
             dbFunction.GetListViewHeaderColumnFromFile("", "Name", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
-            
+
 
             dbFunction.GetListViewHeaderColumnFromFile("", "TID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
-            
+
 
             dbFunction.GetListViewHeaderColumnFromFile("", "MID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
@@ -3109,11 +3110,11 @@ namespace MIS
             //dbFunction.GetListViewHeaderColumnFromFile("", "FE Name", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             dbFunction.GetListViewHeaderColumnFromFile("", "Dummy", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
-            
+
 
             dbFunction.GetListViewHeaderColumnFromFile("", "IRIDNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
-            
+
 
             dbFunction.GetListViewHeaderColumnFromFile("", "Requet ID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
@@ -3122,11 +3123,11 @@ namespace MIS
             //dbFunction.GetListViewHeaderColumnFromFile("", "Request No.", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             dbFunction.GetListViewHeaderColumnFromFile("", "Dummy", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
-            
+
 
             dbFunction.GetListViewHeaderColumnFromFile("", "Request Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
-            
+
 
             dbFunction.GetListViewHeaderColumnFromFile("", "Job Type", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             obj.Columns.Add(outTitle, outWidth, outAlign);
@@ -3144,7 +3145,7 @@ namespace MIS
             obj.Columns.Add(outTitle, outWidth, outAlign);
 
         }
-        
+
         private void SaveActivity()
         {
             string sRowSQL = "";
@@ -3189,10 +3190,10 @@ namespace MIS
             sRowSQL + sRowSQL + " '" + clsFunction.sDash + "') ";
             sSQL = sSQL + sRowSQL;
 
-            Debug.WriteLine("sSQL="+ sSQL);
+            Debug.WriteLine("sSQL=" + sSQL);
 
             dbAPI.ExecuteAPI("POST", "Insert", "", "", "Terminal Activity", sSQL, "InsertCollectionDetail");
-            
+
         }
 
         private void label22_Click(object sender, EventArgs e)
@@ -3209,12 +3210,12 @@ namespace MIS
         {
 
         }
-        
+
         private void UpdateButton(bool isClear, int index)
         {
             Debug.WriteLine("--UpdateButton--");
             Debug.WriteLine("isClear=" + isClear);
-            Debug.WriteLine("index="+ index);
+            Debug.WriteLine("index=" + index);
             Debug.WriteLine("fEdit=" + fEdit);
 
             if (isClear)
@@ -3260,7 +3261,7 @@ namespace MIS
                 btnSave.Enabled = true;
             }
         }
-        
+
         private void btnRelease_Click(object sender, EventArgs e)
         {
             DateTime stReleaseDate = dteMReleaseDate.Value;
@@ -3276,15 +3277,15 @@ namespace MIS
                 dbFunction.SetMessageBox("Terminal status must be AVAILABLE to release.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iExclamation);
                 return;
             }
-            
-            if (MessageBox.Show("Are you sure to release terminal SN " + txtTerminalSN.Text + "\n\n" + 
+
+            if (MessageBox.Show("Are you sure to release terminal SN " + txtTerminalSN.Text + "\n\n" +
                                 "to location " + cboMLocation.Text + "?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.No)
             {
                 return;
             }
-            
+
             Cursor.Current = Cursors.WaitCursor;
-            
+
             dbFunction.GetProcessedByAndDateTime(); // Get modifiedby and datetime
 
             clsSearch.ClassAdvanceSearchValue =
@@ -3340,7 +3341,7 @@ namespace MIS
             UpdateButton(false, tabTerminal.SelectedIndex);
 
             btnRSearch.Enabled = false;
-            
+
             txtTransNo.Text = dbAPI.GetControlID("Terminal Movement Master").ToString();
 
             // Generate ControlID
@@ -3398,8 +3399,8 @@ namespace MIS
         }
 
         private void btnRClear_Click(object sender, EventArgs e)
-        {         
-            dbFunction.ClearTextBox(this);           
+        {
+            dbFunction.ClearTextBox(this);
             dbFunction.TextBoxUnLock(false, this);
             dbFunction.ComBoBoxUnLock(false, this);
             dbFunction.ClearListViewItems(lvwRelease);
@@ -3418,7 +3419,7 @@ namespace MIS
             lblSelectedHeader.Text = lblMode.Text = clsFunction.sDash;
 
             chkRelease_CheckedChanged(this, e);
-            
+
         }
 
         private void btnRAddItem_Click(object sender, EventArgs e)
@@ -3442,7 +3443,7 @@ namespace MIS
                     Cursor.Current = Cursors.WaitCursor;
 
                     LoadSelected(lvwRelease);
-                    
+
                     chkRAll.Checked = false;
 
                     Cursor.Current = Cursors.Default;
@@ -3451,7 +3452,7 @@ namespace MIS
                 {
                     dbFunction.SetMessageBox("Error message " + ex.Message + "\n\n" + clsDefines.CONTACT_ADMIN_MESSAGE, "Release Terminal", clsFunction.IconType.iError);
                 }
-                
+
             }
         }
 
@@ -3461,7 +3462,7 @@ namespace MIS
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isUpdate, clsUser.ClassUserID, 31)) return;
 
             Cursor.Current = Cursors.WaitCursor;
-            
+
             if (!ValidateFields()) return;
 
             if (!isValidTransfer()) return;
@@ -3475,23 +3476,23 @@ namespace MIS
                 if (chkRelease.Checked)
                 {
                     SaveMovementMaster();
-                    SaveMovementDetail();                    
+                    SaveMovementDetail();
                 }
                 else
                 {
                     // Update here                
-                }               
+                }
             }
 
             if (lvwRelease.Items.Count > 0)
             {
                 BulkUpdateTerminalSNDetail(lvwRelease, true);
             }
-            
+
             Cursor.Current = Cursors.Default;
 
             if (fEdit)
-                dbFunction.SetMessageBox((chkRelease.Checked ? "Release/transfer" : "Terminal SN(s)") +  " has been successfully updated.", "Updated", clsFunction.IconType.iExclamation);
+                dbFunction.SetMessageBox((chkRelease.Checked ? "Release/transfer" : "Terminal SN(s)") + " has been successfully updated.", "Updated", clsFunction.IconType.iExclamation);
             else
                 dbFunction.SetMessageBox((chkRelease.Checked ? "Release/transfer" : "Terminal SN(s)") + " has been successfully saved.", "Saved", clsFunction.IconType.iInformation);
 
@@ -3544,12 +3545,12 @@ namespace MIS
 
             return fConfirm;
         }
-        
+
         private void LoadSelected(ListView lvw)
         {
             int i = 0;
             int iLineNo = 0;
-           
+
             if (clsArray.ID.Length > 0)
             {
                 while (clsArray.ID.Length > i)
@@ -3563,11 +3564,11 @@ namespace MIS
                         ListViewItem item = new ListViewItem(iLineNo.ToString());
 
                         item.SubItems.Add(clsArray.ID[i].ToString());
-                        
+
 
                         // Get info
                         dbAPI.ExecuteAPI("GET", "Search", "Terminal SN Info", clsArray.ID[i], "Get Info Detail", "", "GetInfoDetail");
-                        
+
                         if (dbAPI.isNoRecordFound() == false)
                         {
                             dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
@@ -3578,7 +3579,7 @@ namespace MIS
                             string sType = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 8);
                             string sModel = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 9);
                             string sBrand = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 10);
-                            string sLocation = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 13);                           
+                            string sLocation = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 13);
                             string sAssetType = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 15);
                             string sPONo = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 16);
                             string sPartNo = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 18);
@@ -3616,7 +3617,7 @@ namespace MIS
                 }
             }
         }
-        
+
 
         private bool isItemOnList(string pID, string pDescrption)
         {
@@ -3625,7 +3626,7 @@ namespace MIS
             {
                 foreach (ListViewItem i in lvwRelease.Items)
                 {
-                    Debug.WriteLine("i="+i+">>"+i.SubItems[1].Text+" is equal with "+ pID);
+                    Debug.WriteLine("i=" + i + ">>" + i.SubItems[1].Text + " is equal with " + pID);
                     //Debug.WriteLine("i=" + i + ">>" + i.SubItems[3].Text + " is equal with " + pDescrption);
 
                     if ((i.SubItems[1].Text.Equals(pID)))
@@ -3679,11 +3680,11 @@ namespace MIS
             sRowSQL + sRowSQL + " '" + txtRRemarks.Text + "', " +
             sRowSQL + sRowSQL + " '" + clsUser.ClassProcessedBy + "', " +
             sRowSQL + sRowSQL + " '" + clsUser.ClassProcessedDateTime + "', " +
-            sRowSQL + sRowSQL + " '" + clsUser.ClassModifiedBy + "', " +          
+            sRowSQL + sRowSQL + " '" + clsUser.ClassModifiedBy + "', " +
             sRowSQL + sRowSQL + " '" + clsUser.ClassModifiedDateTime + "') ";
             sSQL = sSQL + sRowSQL;
 
-            Debug.WriteLine("sSQL="+ sSQL);
+            Debug.WriteLine("sSQL=" + sSQL);
 
             dbAPI.ExecuteAPI("POST", "Insert", "", "", "Terminal Movement Master", sSQL, "InsertCollectionMaster");
 
@@ -3694,12 +3695,12 @@ namespace MIS
         {
             string sRowSQL = "";
             string sSQL = "";
-            
+
             Debug.WriteLine("--SaveMovementDetail--");
             Debug.WriteLine("fEdit=" + fEdit);
-            
+
             sSQL = "";
-            
+
             dbFunction.GetProcessedByAndDateTime();
 
             foreach (ListViewItem x in lvwRelease.Items)
@@ -3714,7 +3715,7 @@ namespace MIS
                 sRowSQL = " (" + dbFunction.CheckAndSetNumericValue(txtTIID.Text) + ", " +
                 sRowSQL + sRowSQL + " " + iTerminalID + ", " +
                 sRowSQL + sRowSQL + " " + iTerminalTypeID + ", " +
-                sRowSQL + sRowSQL + " " + iTerminalModelID + ", " +              
+                sRowSQL + sRowSQL + " " + iTerminalModelID + ", " +
                 sRowSQL + sRowSQL + " '" + sSerialNo + "') ";
 
                 if (sSQL.Length > 0)
@@ -3732,7 +3733,7 @@ namespace MIS
         private void BulkReleaseTerminalDetail()
         {
             string sRowSQL = "";
-            string sSQL = "";          
+            string sSQL = "";
             int iTerminalID = 0;
             string sSerialNo = "";
             string sLocation = "";
@@ -3741,7 +3742,7 @@ namespace MIS
 
             Debug.WriteLine("--BulkReleaseTerminalDetail--");
             Debug.WriteLine("fEdit=" + fEdit);
-            
+
             dbFunction.GetProcessedByAndDateTime(); // Get processedby and datetime
 
             foreach (ListViewItem i in lvwRelease.Items)
@@ -3758,7 +3759,7 @@ namespace MIS
                     // Update
                     sRowSQL = "";
                     sRowSQL = iTerminalID + "~" +
-                    sRowSQL + sRowSQL + "" +  dbFunction.CheckAndSetNumericValue(txtLocationIDTo.Text) + "~" +
+                    sRowSQL + sRowSQL + "" + dbFunction.CheckAndSetNumericValue(txtLocationIDTo.Text) + "~" +
                     sRowSQL + sRowSQL + "" + sLocation + "~" +
                     sRowSQL + sRowSQL + "" + pReleseDate + "~" +
                     sRowSQL + sRowSQL + "" + clsUser.ClassProcessedBy + "~" +
@@ -3790,7 +3791,7 @@ namespace MIS
         {
             switch (e.KeyCode)
             {
-                
+
                 case Keys.Delete:
 
                     if (lvwRelease.Items.Count > 0)
@@ -3800,7 +3801,7 @@ namespace MIS
                     break;
             }
         }
-        
+
         private void lvwRelease_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvwRelease.SelectedItems.Count > 0)
@@ -3859,10 +3860,10 @@ namespace MIS
         {
             Debug.WriteLine("--GetHeaderList--");
 
-            string sHeader = clsFunction.sNull;           
+            string sHeader = clsFunction.sNull;
             string sRowSQL = clsFunction.sNull;
             string sInsert = clsFunction.sNull;
-            string sInsertQuery = clsFunction.sNull;          
+            string sInsertQuery = clsFunction.sNull;
             int iIndex = 0;
 
             for (int i = 0; i < grdDummy.ColumnCount; i++)
@@ -3903,7 +3904,7 @@ namespace MIS
 
             Cursor.Current = Cursors.WaitCursor;
 
-            clsSearch.ClassClientID = clsSearch.ClassMerchantID = clsSearch.ClassJobType = clsSearch.ClassRegionType = clsSearch.ClassRegionID = clsSearch.ClassIRIDNo = clsSearch.ClassStatus = clsSearch.ClassIsPullOut = clsFunction.iZero;           
+            clsSearch.ClassClientID = clsSearch.ClassMerchantID = clsSearch.ClassJobType = clsSearch.ClassRegionType = clsSearch.ClassRegionID = clsSearch.ClassIRIDNo = clsSearch.ClassStatus = clsSearch.ClassIsPullOut = clsFunction.iZero;
             clsSearch.ClassDateFrom = clsSearch.ClassDateTo = clsFunction.sDateFormat;
             clsSearch.ClassActionMade = clsFunction.sDefaultSelect;
             clsSearch.ClassTerminalSN = txtTerminalSN.Text;
@@ -3926,7 +3927,7 @@ namespace MIS
                                                         clsFunction.sZero + clsFunction.sPipe +
                                                         clsFunction.sZero + clsFunction.sPipe +
                                                         clsFunction.sZero;
-            
+
             dbReportFunc.ViewFSROperation();
 
             Cursor.Current = Cursors.Default;
@@ -3936,7 +3937,7 @@ namespace MIS
         {
             int i = 0;
             int iLineNo = 0;
-            
+
             dbFunction = new clsFunction();
 
             //if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalSN, txtTerminalSN.Text)) return;
@@ -3957,7 +3958,7 @@ namespace MIS
                         // Add to List
                         iLineNo++;
                         ListViewItem item = new ListViewItem(iLineNo.ToString());
-                        
+
                         item.ForeColor = dbFunction.GetColorByStatus(0, dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_ActionMade)); // set forecolor per actionMade
 
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_SERVICENO));
@@ -3966,14 +3967,14 @@ namespace MIS
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_MERCHANTNAME));
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_TID));
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_MID));
-                        
+
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_ServiceJobTypeDescription));
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_IRNO));
 
                         // Servicing Date Info
                         string pJSONString = dbAPI.getInfoDetailJSON("Search", "Servicing Date Info", dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_SERVICENO));
                         dbFunction.parseDelimitedString(pJSONString, clsDefines.gComma, 0);
-                        
+
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_RequestDate));
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CreatedDate));
                         item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ScheduleDate));
@@ -3998,7 +3999,7 @@ namespace MIS
                     dbFunction.ListViewAlternateBackColor(lvwHistoryList);
                 }
             }
-            
+
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -4017,7 +4018,7 @@ namespace MIS
 
             if (frmSearchField.fSelected)
             {
-                
+
             }
         }
 
@@ -4028,7 +4029,7 @@ namespace MIS
             {
                 dbFunction.GetIDFromFile("Location", cboRLocationFrom.Text);
                 clsSearch.ClassLocationIDFrom = clsSearch.ClassOutFileID;
-                
+
             }
             txtLocationIDFrom.Text = clsSearch.ClassLocationIDFrom.ToString();
         }
@@ -4055,7 +4056,7 @@ namespace MIS
             if (grdList.RowCount > 0)
             {
                 grdList.Rows[0].Selected = false;
-                
+
                 ucStatusDisplay.SetStatus($"Total data import: [{grdList.RowCount}]", Enums.StatusType.Success);
             }
         }
@@ -4071,7 +4072,7 @@ namespace MIS
             }
             txtLocationIDFrom.Text = clsSearch.ClassLocationIDFrom.ToString();
         }
-        
+
 
         private void chkAll_CheckedChanged(object sender, EventArgs e)
         {
@@ -4125,7 +4126,7 @@ namespace MIS
             }
             txtClientID.Text = clsSearch.ClassClientID.ToString();
         }
-        
+
         private void chkRelease_CheckedChanged(object sender, EventArgs e)
         {
             if (chkRelease.Checked)
@@ -4135,7 +4136,7 @@ namespace MIS
                 //dteRReleaseDate.Enabled = true;
                 //btnRLocationApply.Enabled = btnRStatusApply.Enabled = false;
                 //btnRApply.Enabled = false;
-                
+
             }
             else
             {
@@ -4158,21 +4159,21 @@ namespace MIS
             string sRowSQL = "";
             string sSQL = "";
             int iTerminalID = 0;
-            string sSerialNo = "";           
-            DateTime stReleaseDate =  (isRelease ? dteRReleaseDate.Value : dteMReleaseDate.Value);
+            string sSerialNo = "";
+            DateTime stReleaseDate = (isRelease ? dteRReleaseDate.Value : dteMReleaseDate.Value);
             string pReleseDate = stReleaseDate.ToString("yyyy-MM-dd");
 
             string pLocationID = dbFunction.CheckAndSetNumericValue(isRelease ? txtLocationIDTo.Text : txtLocationIDFrom.Text);
             string pLocation = dbFunction.CheckAndSetNumericValue(isRelease ? cboRLocationTo.Text : cboRLocationFrom.Text);
-            string pRemarks = dbFunction.CheckAndSetStringValue(isRelease ? txtRRemarks.Text : txtMRemarks.Text);            
+            string pRemarks = dbFunction.CheckAndSetStringValue(isRelease ? txtRRemarks.Text : txtMRemarks.Text);
             string pMovementType = (chkRelease.Checked ? clsDefines.MOVEMENTTYPE_RELEASE : clsDefines.MOVEMENTTYPE_TRANSFER);
-            
+
             dbFunction.GetProcessedByAndDateTime(); // Get processedby and datetime
 
             foreach (ListViewItem i in lvw.Items)
             {
                 sSQL = "";
-                
+
                 foreach (ListViewItem x in lvw.Items)
                 {
                     iTerminalID = int.Parse(x.SubItems[1].Text);
@@ -4185,7 +4186,7 @@ namespace MIS
                     sRowSQL + sRowSQL + "" + cboRStatus.Text + "~" +
                     sRowSQL + sRowSQL + "" + pLocationID + "~" +
                     sRowSQL + sRowSQL + "" + pLocation + "~" +
-                    sRowSQL + sRowSQL + "" + clsUser.ClassUserID + "~" +                  
+                    sRowSQL + sRowSQL + "" + clsUser.ClassUserID + "~" +
                     sRowSQL + sRowSQL + "" + clsUser.ClassProcessedDateTime + "~" +
                     sRowSQL + sRowSQL + "" + pRemarks + "~" +
                     sRowSQL + sRowSQL + "" + pReleseDate + "~" +
@@ -4227,7 +4228,7 @@ namespace MIS
 
             txtTerminalStatus.Text = clsSearch.ClassTerminalStatusID.ToString();
         }
-        
+
         private void btnRLocationApply_Click(object sender, EventArgs e)
         {
             if (!dbFunction.isValidListViewChecked(lvwRelease)) return;
@@ -4265,7 +4266,7 @@ namespace MIS
                     txtTerminalSN.Enabled = false;
                     cboMType.Enabled = cboMModel.Enabled = cboMBrand.Enabled = cboMAssetType.Enabled = cboMAllocation.Enabled = cboMClient.Enabled = false;
                     txtMInvNo.Enabled = txtMPONo.Enabled = txtMPartNo.Enabled = false;
-                    
+
                     dteMReceiveDate.Enabled = false;
                     btnMApplyChanges.Enabled = true;
 
@@ -4277,7 +4278,7 @@ namespace MIS
                 {
                     dbFunction.SetMessageBox("Error message " + ex.Message + "\n\n" + clsDefines.CONTACT_ADMIN_MESSAGE, "Manual Terminal", clsFunction.IconType.iError);
                 }
-             
+
             }
         }
 
@@ -4310,9 +4311,9 @@ namespace MIS
             txtMerchName.Text =
             txtMerchTID.Text =
             txtMerchMID.Text =
-            txtMerchRegion.Text = 
+            txtMerchRegion.Text =
             txtAssignTerminalSN.Text =
-            txtAssignSIMSN.Text = 
+            txtAssignSIMSN.Text =
             txtAssignComponents.Text =
             txtIRStatusDescription.Text =
             clsFunction.sNull;
@@ -4341,15 +4342,15 @@ namespace MIS
                 }
 
                 if (dbFunction.isValidID(txtServiceNo.Text))
-                {   
+                {
                     clsSearch.ClassOutParamValue = dbAPI.getInfoDetailJSON("Search", "Merchant SN Info", txtIRIDNo.Text + clsFunction.sPipe + txtServiceNo.Text);
 
                     dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gComma, 0);
 
                     if (dbFunction.isValidLen(clsSearch.ClassOutParamValue))
-                    {   
-                        txtServiceNo.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SERVICENO);                        
-                        txtFSRNo.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_FSRNO);                        
+                    {
+                        txtServiceNo.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SERVICENO);
+                        txtFSRNo.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_FSRNO);
                     }
 
                 }
@@ -4359,7 +4360,7 @@ namespace MIS
                 //dbFunction.SetMessageBox("Exceptional error " + ex.Message, "Exceptional error", clsFunction.IconType.iWarning);
                 Debug.WriteLine("Exceptional error " + ex.Message);
             }
-            
+
         }
 
         private void PopulateLastControlNoTextBox()
@@ -4372,7 +4373,7 @@ namespace MIS
             txtLastMerchantID.Text =
             txtLastClientID.Text =
             txtLastFEID.Text =
-            txtTService.Text = 
+            txtTService.Text =
             txtTFSR.Text = clsFunction.sNull;
 
             try
@@ -4382,7 +4383,7 @@ namespace MIS
                     dbAPI.ExecuteAPI("GET", "Search", "Last ControlNo Info", clsDefines.TAG_Terminal + clsFunction.sPipe + txtTerminalID.Text, "Get Info Detail", "", "GetInfoDetail");
 
                     Debug.WriteLine("clsSearch.ClassOutParamValue=" + clsSearch.ClassOutParamValue);
-                    
+
                     if (clsSearch.ClassOutParamValue.Length > 0)
                     {
                         jsonObj obj = JsonConvert.DeserializeObject<jsonObj>(clsSearch.ClassOutParamValue);
@@ -4396,7 +4397,7 @@ namespace MIS
                             txtLastClientID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_ClientID);
                             txtLastFEID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_FEID);
                             txtTService.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_ServiceCount);
-                            txtTFSR.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_FSRCount);                           
+                            txtTFSR.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_FSRCount);
                         }
                     }
 
@@ -4445,7 +4446,7 @@ namespace MIS
 
                     if (dbAPI.isNoRecordFound() == false)
                     {
-                        txtFirstServiceMade.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_ServiceJobTypeDescription);                    
+                        txtFirstServiceMade.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_ServiceJobTypeDescription);
                     }
                 }
 
@@ -4475,7 +4476,7 @@ namespace MIS
             {
                 string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwHistoryList, 0);
                 Debug.WriteLine("pSelectedRow=\n" + pSelectedRow);
-                
+
                 rtbJSONFormat.Text = clsFunction.sNull;
                 rtbJSONFormat.Text = pSelectedRow;
 
@@ -4490,7 +4491,7 @@ namespace MIS
                 frm.ShowDialog();
             }
         }
-        
+
         private void grdList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -4506,7 +4507,7 @@ namespace MIS
 
                     string rawdata_info = dbFunction.genJSONFormat(grdList, pLineNo, "", "");
                     Debug.WriteLine("rawdata_info=" + rawdata_info);
-                    dbFunction.populateListViewFromJsonString(dgvRaw, rawdata_info, "", "");                    
+                    dbFunction.populateListViewFromJsonString(dgvRaw, rawdata_info, "", "");
                 }
             }
 
@@ -4534,7 +4535,7 @@ namespace MIS
                                     "Release/transfer",
                                     clsFunction.IconType.iInformation
                                     );
-            
+
             dbFunction.updateListView(lvwRelease, 8, cboRLocationTo.Text, false); // LocationTo            
             dbFunction.updateListView(lvwRelease, 12, cboRStatus.Text, false); // Status
 
@@ -4544,9 +4545,9 @@ namespace MIS
         {
             if (lvwRelease.Items.Count > 0)
             {
-                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwRelease, 0);                               
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwRelease, 0);
                 string jsonResult = dbFunction.genJSONFormat(lvwRelease, lvwRelease.SelectedIndices[0], "", "");
-                
+
                 // Pass JSON to popup window
                 frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
                 frm.ShowDialog();
@@ -4562,7 +4563,7 @@ namespace MIS
             if (!dbFunction.fPromptConfirmation($"Are you sure to validate the records on list?")) return;
 
             Cursor.Current = Cursors.WaitCursor;
-            
+
             ucStatusDisplay.SetStatus($"Validating list...", Enums.StatusType.Processing);
 
             btnImportSave.Enabled = false;
@@ -4656,7 +4657,7 @@ namespace MIS
                             cell.Style.BackColor = Color.White;
                             cell.Style.ForeColor = Color.Black;
                             break;
-                    }                    
+                    }
                 }
             }
 
@@ -4666,7 +4667,7 @@ namespace MIS
             btnImportSave.Enabled = true;
 
             Cursor.Current = Cursors.Default;
-            
+
             ucStatusDisplay.SetStatus($"Validating list..completed.", Enums.StatusType.Success);
 
             dbFunction.SetMessageBox("Validate list complete. Check summary count.", lblHeader.Text, clsFunction.IconType.iInformation);
@@ -4677,7 +4678,7 @@ namespace MIS
             dbFunction.CopyGridToClipboard(grdList);
 
             dbFunction.SetMessageBox($"Data list copied to clipboard!", lblHeader.Text, clsFunction.IconType.iInformation);
-            
+
         }
 
         public void ComputeSummary(DataGridView grid)

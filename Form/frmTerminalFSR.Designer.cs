@@ -7102,6 +7102,7 @@
             // 
             // panel10
             // 
+            this.panel10.Controls.Add(this.button1);
             this.panel10.Controls.Add(this.btnUpdateAppsInfo);
             this.panel10.Controls.Add(this.label75);
             this.panel10.Controls.Add(this.txtMAppVesion);

@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using MIS.Global;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Diagnostics;
-using MIS.Global;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
-using DocumentFormat.OpenXml.Drawing.Diagrams;
+using System.Windows.Forms;
+
+using static MIS.Function.AppUtilities;
 
 namespace MIS
 {
     public partial class frmServiceArchive : Form
     {
 
-        private clsAPI dbAPI;        
+        private clsAPI dbAPI;
         private clsFunction dbFunction;
         private clsFile dbFile;
 
@@ -55,10 +51,12 @@ namespace MIS
             dbFunction.ClearListViewItems(lvwList);
 
             btnClear_Click(this, e);
-            
+
             InitDateRange();
 
             dbAPI.FillComboBoxServiceType(cboSearchServiceType);
+            dbAPI.FillComboBoxFSRMode(cboFSRModeType);
+            dbAPI.FillComboBoxFE(cboFEName);
 
             lblResultList.Text = gReportListHeader;
 
@@ -78,7 +76,7 @@ namespace MIS
         {
             this.WindowState = FormWindowState.Minimized;
         }
-        
+
         private void btnClear_Click(object sender, EventArgs e)
         {
             dbFunction.ClearListViewItems(lvwList);
@@ -95,7 +93,7 @@ namespace MIS
             txtSearch.ReadOnly = false;
 
         }
-        
+
         private void loadData()
         {
             int i = 0;
@@ -113,14 +111,18 @@ namespace MIS
             Cursor.Current = Cursors.WaitCursor;
 
             Debug.WriteLine("--loadData--");
-            
+
             lvwList.Items.Clear();
+
+            clsSearch.ClassFSRMode = cboFSRModeType.Text;
 
             clsSearch.ClassSearchValue = $"{clsSearch.ClassJobType}{clsDefines.gPipe}" +
                                         $"{clsDefines.gZero}{clsDefines.gPipe}" +
                                         $"{clsSearch.ClassDateFrom}{clsDefines.gPipe}" +
                                         $"{clsSearch.ClassDateTo}{clsDefines.gPipe}" +
-                                        $"{clsSearch.ClassSearchString}";
+                                        $"{clsSearch.ClassSearchString}{clsDefines.gPipe}" +
+                                        $"{clsSearch.ClassFSRMode}{clsDefines.gPipe}" +
+                                        $"{clsSearch.ClassParticularID}";
 
             Debug.WriteLine("clsSearch.ClassSearchValue=" + clsSearch.ClassSearchValue);
 
@@ -200,7 +202,7 @@ namespace MIS
                     signCount = int.Parse(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_PngCount));
                     imageCount = int.Parse(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_JpgCount));
                 }
-                
+
                 item.SubItems.Add($"{signCount}");
                 item.SubItems.Add($"{imageCount}");
 
@@ -216,6 +218,12 @@ namespace MIS
 
                 if (isDiagnosticFound) diagFoundCount++;
                 else diagNotFoundCount++;
+
+                string tatStatus = dbAPI.GetValueFromJSONString(pJSONString, "TATStatus");
+                string actionMade = dbAPI.GetValueFromJSONString(pJSONString, "ActionMade");
+
+                item.SubItems.Add(tatStatus);
+                item.SubItems.Add(actionMade);
 
                 lvwList.Items.Add(item);
 
@@ -237,7 +245,7 @@ namespace MIS
             lblDiagTotal.Text = $"{diagFoundCount + diagNotFoundCount}";
 
             Cursor.Current = Cursors.Default;
-         }
+        }
 
 
         private void InitDateRange()
@@ -247,16 +255,27 @@ namespace MIS
 
             dteDateTo.Value = DateTime.Now.Date;
             dbFunction.SetDateFormat(dteDateTo, clsFunction.sStandardDateDefault);
-            
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            clsSearch.ClassParticularID = 0;
+            if (!cboFEName.Text.Equals(clsFunction.sDefaultSelect))
+            {
+                dbFunction.GetIDFromFile("FE List", cboFEName.Text);
+                clsSearch.ClassParticularID = clsSearch.ClassOutFileID; // THIS IS MISSING
+            }
+
+            Debug.WriteLine($"ClassParticularID=[{clsSearch.ClassParticularID}]");
+
             if (!dbFunction.fPromptConfirmation(
                 "Are you sure you want to execute the filter criteria below?" + "\n\n" +
+                " > Field Engineer : " + cboFEName.Text + "\n" +
+                " > FSR Mode     :" + cboFSRModeType.Text + "\n" +
                 " > Service Type : " + cboSearchServiceType.Text + "\n" +
                 " > Date From    : " + dteDateFrom.Value.ToString("MMM-dd-yyyy") + "\n" +
-                " > Date To      : " + dteDateTo.Value.ToString("MMM-dd-yyyy") + "\n\n" +
+                " > Date To      : " + dteDateTo.Value.ToString("MMM-dd-yyyy") + "\n" +
                 "Do you want to continue?"
             )) return;
 
@@ -281,7 +300,7 @@ namespace MIS
             clsSearch.ClassDateTo = dteDateTo.Value.ToString("yyyy-MM-dd");
 
             clsSearch.ClassSearchString = txtSearch.Text.Trim();
-            
+
             loadData();
 
             lblResultList.Text = $"{gReportListHeader} ({lvwList.Items.Count})";
@@ -311,7 +330,7 @@ namespace MIS
 
                     string serviceNo = item.SubItems[serviceNoColumnIndex].Text;
 
-                    string fsrStatusRaw =  dbFunction.StripIcon(item.SubItems[fsrColumnIndex].Text);
+                    string fsrStatusRaw = dbFunction.StripIcon(item.SubItems[fsrColumnIndex].Text);
 
                     Debug.WriteLine($"[ROW] {serviceNo} | RAW STATUS: {fsrStatusRaw}");
 
@@ -425,7 +444,7 @@ namespace MIS
             }
             finally
             {
-                
+
             }
 
             Cursor.Current = Cursors.Default;
@@ -441,6 +460,8 @@ namespace MIS
 
             if (!dbFunction.fPromptConfirmation(
                 "Compress files to ZIP?\n\n" +
+                " > Field Engineer : " + cboFEName.Text + "\n" +
+                " > FSR Mode     :" + cboFSRModeType.Text + "\n" +
                 " > Service Type : " + cboSearchServiceType.Text + "\n" +
                 " > Date From    : " + dteDateFrom.Value.ToString("MMM-dd-yyyy") + "\n" +
                 " > Date To      : " + dteDateTo.Value.ToString("MMM-dd-yyyy") + "\n\n" +
@@ -462,7 +483,7 @@ namespace MIS
 
         private void initArchivePath()
         {
-            txtArchivePath.Text = Path.Combine(dbFile.sArchivePath,clsSearch.ClassBankCode);
+            txtArchivePath.Text = Path.Combine(dbFile.sArchivePath, clsSearch.ClassBankCode);
         }
 
         private void btnOpenFolderPath_Click(object sender, EventArgs e)
@@ -478,13 +499,65 @@ namespace MIS
         {
             if (lvwList.Items.Count > 0)
             {
-                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);                
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);
                 string jsonResult = dbFunction.genJSONFormat(lvwList, lvwList.SelectedIndices[0], "", "");
-                
+
                 // Pass JSON to popup window
                 frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
                 frm.ShowDialog();
             }
+        }
+
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            if (lvwList.Items.Count == 0)
+            {
+                dbFunction.SetMessageBox("No record to export.", lblHeader.Text, clsFunction.IconType.iInformation);
+                return;
+            }
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                DataTable dt = new DataTable();
+
+                foreach (ColumnHeader col in lvwList.Columns)
+                    dt.Columns.Add(col.Text);
+
+                int fsrColIdx = dbFunction.GetListViewColumnIndex(lvwList, "FSR FILE STATUS");
+                int diagColIdx = dbFunction.GetListViewColumnIndex(lvwList, "DIAG FILE STATUS");
+
+
+                foreach (ListViewItem item in lvwList.Items)
+                {
+                    DataRow row = dt.NewRow();
+                    for (int i = 0; i < lvwList.Columns.Count; i++)
+                    {
+                        string cellValue = item.SubItems.Count > i ? item.SubItems[i].Text : "";
+
+                        if (i == fsrColIdx || i == diagColIdx)
+                            cellValue = dbFunction.StripIcon(cellValue);
+
+                        row[i] = cellValue;
+                    }
+                    dt.Rows.Add(row);
+                }
+
+                ExportCustomDataToExcel(
+                    $"FSR_ARCHIVE_{dteDateFrom.Value:dd-MM-yyyy}_{dteDateTo.Value:dd-MM-yyyy}{(cboFEName.Text.Equals(clsFunction.sDefaultSelect) ? "" : $"_{cboFEName.Text}")}{(cboFSRModeType.Text.Equals(clsFunction.sDefaultSelect) ? "" : $"_{cboFSRModeType.Text}")}.xlsx",
+                    new[] { dt },
+                    new[] { "FSR List" },
+                    new[] { Color.ForestGreen },
+                    dbFile.sExportPath
+                );
+            }
+            catch (Exception ex)
+            {
+                dbFunction.SetMessageBox($"Export failed: {ex.Message}", lblHeader.Text, clsFunction.IconType.iError);
+            }
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }
