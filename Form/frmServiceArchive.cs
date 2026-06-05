@@ -247,7 +247,6 @@ namespace MIS
             Cursor.Current = Cursors.Default;
         }
 
-
         private void InitDateRange()
         {
             dteDateFrom.Value = DateTime.Now.Date;
@@ -306,9 +305,96 @@ namespace MIS
             lblResultList.Text = $"{gReportListHeader} ({lvwList.Items.Count})";
         }
 
-        public void downloadFile()
+        private bool validateCompression()
+        {
+            string basePath = $"{dbFile.sArchivePath}\\{clsSearch.ClassBankCode}";
+            dbFile.CheckFolder(basePath);
+
+            int zipFileEntries;
+
+            string zipFileName =
+                $"FSR_ARCHIVE_" +
+                $"{dteDateFrom.Value:yyyy-MM-dd}_" +
+                $"{dteDateTo.Value:yyyy-MM-dd}.zip";
+
+            string zipFilePath = Path.Combine(basePath, zipFileName);
+
+            string[] filesToZip = Directory.GetFiles(basePath, "*_fsr.pdf");
+
+            if (File.Exists(zipFilePath))
+            {
+                long fileSize = new FileInfo(zipFilePath).Length;
+                try
+                {
+                    using (ZipArchive zip = ZipFile.OpenRead(zipFilePath))
+                    {
+                        zipFileEntries = zip.Entries.Count;
+                    }
+                    if (zipFileEntries == 0)
+                    {
+                        DialogResult deleteEmptyCompressedFile = MessageBox.Show(
+                            $"An empty compressed file with the filename of {zipFileName} already exists \n\n" +
+                            $"Delete the file and continue?",
+                            "File Already Exists",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Warning
+                        );
+
+                        if (deleteEmptyCompressedFile == DialogResult.No) return false;
+
+                        try
+                        {
+                            File.Delete(zipFilePath);
+                            return true;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(
+                            $"Error deleting empty file: {ex.Message} please delete the file manually \n\n" +
+                            $"{zipFilePath}",
+                            "File deletion error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                            return false;
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                        $"A compressed file with the filename of {zipFileName} already exists",
+                        "File already exists",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                        );
+
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                    $"Error deleting empty file: {ex.Message} please delete the file manually to continue \n\n" +
+                    $"{zipFilePath}",
+                    "File deletion error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                    return false;
+                }
+
+
+            }
+        
+            return true;
+        }
+
+        private void downloadFile()
         {
             Cursor.Current = Cursors.WaitCursor;
+
+            if (!validateCompression()) return;
 
             try
             {
@@ -372,24 +458,22 @@ namespace MIS
 
         private void compressFiles()
         {
-
             Cursor.Current = Cursors.WaitCursor;
+
 
             try
             {
                 string localBasePath = $"{dbFile.sArchivePath}\\{clsSearch.ClassBankCode}";
 
-                dbFile.CheckFolder(localBasePath); // create folder when not exist
-
                 string zipFileName =
                     $"FSR_ARCHIVE_" +
-                    $"{dteDateFrom.Value:yyyyMMdd}_" +
-                    $"{dteDateTo.Value:yyyyMMdd}.zip";
+                    $"{dteDateFrom.Value:yyyy-MM-dd}_" +
+                    $"{dteDateTo.Value:yyyy-MM-dd}.zip";
 
                 string zipFilePath = Path.Combine(localBasePath, zipFileName);
 
                 string[] filesToZip = Directory.GetFiles(localBasePath, "*_fsr.pdf");
-
+                
                 using (ZipArchive zip = ZipFile.Open(zipFilePath, ZipArchiveMode.Create))
                 {
                     foreach (string file in filesToZip)
@@ -442,10 +526,6 @@ namespace MIS
                     MessageBoxIcon.Error
                 );
             }
-            finally
-            {
-
-            }
 
             Cursor.Current = Cursors.Default;
         }
@@ -455,7 +535,6 @@ namespace MIS
             if (lvwList.Items.Count == 0)
             {
                 dbFunction.SetMessageBox("No record to process.", lblHeader.Text, clsFunction.IconType.iInformation);
-                return;
             }
 
             if (!dbFunction.fPromptConfirmation(
@@ -532,6 +611,7 @@ namespace MIS
                 foreach (ListViewItem item in lvwList.Items)
                 {
                     DataRow row = dt.NewRow();
+
                     for (int i = 0; i < lvwList.Columns.Count; i++)
                     {
                         string cellValue = item.SubItems.Count > i ? item.SubItems[i].Text : "";

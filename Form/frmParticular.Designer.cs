@@ -1118,7 +1118,9 @@ namespace MIS
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(61, 15);
             this.label7.TabIndex = 117;
-            this.label7.Text = "MOBILE NO.";
+            this.label7.Text = (iParticularType == clsGlobalVariables.iFE_Type)
+                ? "MOBILE NO. *"
+                : "MOBILE NO.";
             // 
             // txtMobile
             // 
