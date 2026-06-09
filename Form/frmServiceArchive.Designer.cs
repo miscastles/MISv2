@@ -38,15 +38,23 @@
             this.lblHeader = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.panel35 = new System.Windows.Forms.Panel();
+            this.pnlSearch = new System.Windows.Forms.Panel();
+            this.btnExportExcel = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.pnlDateFilter = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.dteDateFrom = new System.Windows.Forms.DateTimePicker();
             this.dteDateTo = new System.Windows.Forms.DateTimePicker();
+            this.pnlSearchFilter = new System.Windows.Forms.Panel();
             this.label25 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cboFSRModeType = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.cboSearchServiceType = new System.Windows.Forms.ComboBox();
+            this.cboFEName = new System.Windows.Forms.ComboBox();
             this.panel36 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.panel37 = new System.Windows.Forms.Panel();
@@ -66,6 +74,8 @@
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblResultList = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -101,6 +111,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.panel35.SuspendLayout();
+            this.pnlSearch.SuspendLayout();
+            this.pnlDateFilter.SuspendLayout();
+            this.pnlSearchFilter.SuspendLayout();
             this.panel36.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -147,7 +160,7 @@
             this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
             this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
             this.btnMinimize.ImageActive = null;
-            this.btnMinimize.Location = new System.Drawing.Point(1441, 3);
+            this.btnMinimize.Location = new System.Drawing.Point(1441, 4);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(24, 21);
             this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -192,21 +205,45 @@
             // 
             this.panel35.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel35.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel35.Controls.Add(this.txtSearch);
-            this.panel35.Controls.Add(this.label4);
-            this.panel35.Controls.Add(this.btnSearch);
-            this.panel35.Controls.Add(this.label3);
-            this.panel35.Controls.Add(this.label2);
-            this.panel35.Controls.Add(this.dteDateFrom);
-            this.panel35.Controls.Add(this.dteDateTo);
-            this.panel35.Controls.Add(this.label25);
-            this.panel35.Controls.Add(this.cboSearchServiceType);
+            this.panel35.Controls.Add(this.pnlSearch);
+            this.panel35.Controls.Add(this.pnlDateFilter);
+            this.panel35.Controls.Add(this.pnlSearchFilter);
             this.panel35.Controls.Add(this.panel36);
             this.panel35.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel35.Location = new System.Drawing.Point(3, 31);
             this.panel35.Name = "panel35";
-            this.panel35.Size = new System.Drawing.Size(1493, 84);
+            this.panel35.Size = new System.Drawing.Size(1493, 143);
             this.panel35.TabIndex = 450;
+            // 
+            // pnlSearch
+            // 
+            this.pnlSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSearch.Controls.Add(this.btnExportExcel);
+            this.pnlSearch.Controls.Add(this.txtSearch);
+            this.pnlSearch.Controls.Add(this.label4);
+            this.pnlSearch.Controls.Add(this.btnSearch);
+            this.pnlSearch.Location = new System.Drawing.Point(710, 27);
+            this.pnlSearch.Name = "pnlSearch";
+            this.pnlSearch.Size = new System.Drawing.Size(776, 111);
+            this.pnlSearch.TabIndex = 356;
+            // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.AutoSize = true;
+            this.btnExportExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnExportExcel.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnExportExcel.FlatAppearance.BorderSize = 0;
+            this.btnExportExcel.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnExportExcel.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnExportExcel.Location = new System.Drawing.Point(595, 74);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.btnExportExcel.Size = new System.Drawing.Size(176, 32);
+            this.btnExportExcel.TabIndex = 350;
+            this.btnExportExcel.Text = "EXPORT";
+            this.btnExportExcel.UseVisualStyleBackColor = false;
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
             // txtSearch
             // 
@@ -215,9 +252,9 @@
             this.txtSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtSearch.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.ForeColor = System.Drawing.Color.Blue;
-            this.txtSearch.Location = new System.Drawing.Point(693, 50);
+            this.txtSearch.Location = new System.Drawing.Point(2, 28);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(617, 26);
+            this.txtSearch.Size = new System.Drawing.Size(768, 26);
             this.txtSearch.TabIndex = 349;
             // 
             // label4
@@ -225,7 +262,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(690, 34);
+            this.label4.Location = new System.Drawing.Point(2, 10);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 15);
             this.label4.TabIndex = 348;
@@ -240,7 +277,7 @@
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSearch.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSearch.Location = new System.Drawing.Point(1312, 46);
+            this.btnSearch.Location = new System.Drawing.Point(413, 74);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(176, 32);
             this.btnSearch.TabIndex = 347;
@@ -248,27 +285,39 @@
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // label3
+            // pnlDateFilter
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(500, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 15);
-            this.label3.TabIndex = 346;
-            this.label3.Text = "DATE TO";
+            this.pnlDateFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlDateFilter.Controls.Add(this.label13);
+            this.pnlDateFilter.Controls.Add(this.label15);
+            this.pnlDateFilter.Controls.Add(this.dteDateFrom);
+            this.pnlDateFilter.Controls.Add(this.dteDateTo);
+            this.pnlDateFilter.Location = new System.Drawing.Point(503, 27);
+            this.pnlDateFilter.Name = "pnlDateFilter";
+            this.pnlDateFilter.Size = new System.Drawing.Size(204, 111);
+            this.pnlDateFilter.TabIndex = 354;
             // 
-            // label2
+            // label13
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(303, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 15);
-            this.label2.TabIndex = 345;
-            this.label2.Text = "DATE FROM";
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Black;
+            this.label13.Location = new System.Drawing.Point(10, 57);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(47, 15);
+            this.label13.TabIndex = 350;
+            this.label13.Text = "DATE TO";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.Black;
+            this.label15.Location = new System.Drawing.Point(10, 10);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(62, 15);
+            this.label15.TabIndex = 349;
+            this.label15.Text = "DATE FROM";
             // 
             // dteDateFrom
             // 
@@ -276,10 +325,10 @@
             this.dteDateFrom.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dteDateFrom.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dteDateFrom.Location = new System.Drawing.Point(306, 53);
+            this.dteDateFrom.Location = new System.Drawing.Point(13, 28);
             this.dteDateFrom.Name = "dteDateFrom";
             this.dteDateFrom.Size = new System.Drawing.Size(175, 22);
-            this.dteDateFrom.TabIndex = 343;
+            this.dteDateFrom.TabIndex = 347;
             // 
             // dteDateTo
             // 
@@ -287,21 +336,68 @@
             this.dteDateTo.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dteDateTo.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dteDateTo.Location = new System.Drawing.Point(500, 53);
+            this.dteDateTo.Location = new System.Drawing.Point(13, 75);
             this.dteDateTo.Name = "dteDateTo";
             this.dteDateTo.Size = new System.Drawing.Size(175, 22);
-            this.dteDateTo.TabIndex = 344;
+            this.dteDateTo.TabIndex = 348;
+            // 
+            // pnlSearchFilter
+            // 
+            this.pnlSearchFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSearchFilter.Controls.Add(this.label25);
+            this.pnlSearchFilter.Controls.Add(this.label10);
+            this.pnlSearchFilter.Controls.Add(this.cboFSRModeType);
+            this.pnlSearchFilter.Controls.Add(this.label12);
+            this.pnlSearchFilter.Controls.Add(this.cboSearchServiceType);
+            this.pnlSearchFilter.Controls.Add(this.cboFEName);
+            this.pnlSearchFilter.Location = new System.Drawing.Point(3, 27);
+            this.pnlSearchFilter.Name = "pnlSearchFilter";
+            this.pnlSearchFilter.Size = new System.Drawing.Size(498, 111);
+            this.pnlSearchFilter.TabIndex = 355;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label25.ForeColor = System.Drawing.Color.Black;
-            this.label25.Location = new System.Drawing.Point(0, 34);
+            this.label25.Location = new System.Drawing.Point(5, 6);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(74, 15);
             this.label25.TabIndex = 313;
             this.label25.Text = "SERVICE TYPE";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(303, 6);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(56, 15);
+            this.label10.TabIndex = 351;
+            this.label10.Text = "FSR MODE";
+            // 
+            // cboFSRModeType
+            // 
+            this.cboFSRModeType.BackColor = System.Drawing.Color.White;
+            this.cboFSRModeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFSRModeType.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboFSRModeType.FormattingEnabled = true;
+            this.cboFSRModeType.Location = new System.Drawing.Point(306, 24);
+            this.cboFSRModeType.Name = "cboFSRModeType";
+            this.cboFSRModeType.Size = new System.Drawing.Size(187, 26);
+            this.cboFSRModeType.TabIndex = 350;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.Black;
+            this.label12.Location = new System.Drawing.Point(5, 57);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(83, 15);
+            this.label12.TabIndex = 353;
+            this.label12.Text = "FIELD ENGINEER";
             // 
             // cboSearchServiceType
             // 
@@ -309,10 +405,21 @@
             this.cboSearchServiceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSearchServiceType.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSearchServiceType.FormattingEnabled = true;
-            this.cboSearchServiceType.Location = new System.Drawing.Point(3, 52);
+            this.cboSearchServiceType.Location = new System.Drawing.Point(3, 24);
             this.cboSearchServiceType.Name = "cboSearchServiceType";
             this.cboSearchServiceType.Size = new System.Drawing.Size(297, 26);
             this.cboSearchServiceType.TabIndex = 312;
+            // 
+            // cboFEName
+            // 
+            this.cboFEName.BackColor = System.Drawing.Color.White;
+            this.cboFEName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFEName.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboFEName.FormattingEnabled = true;
+            this.cboFEName.Location = new System.Drawing.Point(2, 75);
+            this.cboFEName.Name = "cboFEName";
+            this.cboFEName.Size = new System.Drawing.Size(297, 26);
+            this.cboFEName.TabIndex = 352;
             // 
             // panel36
             // 
@@ -352,9 +459,9 @@
             this.panel1.Controls.Add(this.lvwList);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel1.Location = new System.Drawing.Point(4, 121);
+            this.panel1.Location = new System.Drawing.Point(4, 180);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1493, 436);
+            this.panel1.Size = new System.Drawing.Size(1493, 459);
             this.panel1.TabIndex = 451;
             // 
             // lvwList
@@ -375,7 +482,9 @@
             this.columnHeader11,
             this.columnHeader12,
             this.columnHeader13,
-            this.columnHeader14});
+            this.columnHeader14,
+            this.columnHeader15,
+            this.columnHeader16});
             this.lvwList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvwList.ForeColor = System.Drawing.Color.Black;
@@ -383,7 +492,7 @@
             this.lvwList.HideSelection = false;
             this.lvwList.Location = new System.Drawing.Point(0, 24);
             this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(1491, 410);
+            this.lvwList.Size = new System.Drawing.Size(1491, 433);
             this.lvwList.TabIndex = 312;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
@@ -458,6 +567,16 @@
             this.columnHeader14.Text = "FSR MODE";
             this.columnHeader14.Width = 100;
             // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "TAT STATUS";
+            this.columnHeader15.Width = 120;
+            // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "SERVICE RESULT";
+            this.columnHeader16.Width = 120;
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Gainsboro;
@@ -498,7 +617,7 @@
             this.btnCompress.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCompress.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCompress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnCompress.Location = new System.Drawing.Point(187, 562);
+            this.btnCompress.Location = new System.Drawing.Point(4, 662);
             this.btnCompress.Name = "btnCompress";
             this.btnCompress.Size = new System.Drawing.Size(176, 32);
             this.btnCompress.TabIndex = 452;
@@ -515,7 +634,7 @@
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnClear.Location = new System.Drawing.Point(5, 562);
+            this.btnClear.Location = new System.Drawing.Point(186, 662);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(176, 32);
             this.btnClear.TabIndex = 453;
@@ -536,7 +655,7 @@
             this.panel4.Controls.Add(this.label6);
             this.panel4.Controls.Add(this.panel5);
             this.panel4.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel4.Location = new System.Drawing.Point(1079, 563);
+            this.panel4.Location = new System.Drawing.Point(1073, 661);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(205, 103);
             this.panel4.TabIndex = 454;
@@ -663,7 +782,7 @@
             this.panel7.Controls.Add(this.label18);
             this.panel7.Controls.Add(this.panel8);
             this.panel7.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel7.Location = new System.Drawing.Point(1290, 563);
+            this.panel7.Location = new System.Drawing.Point(1292, 661);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(205, 102);
             this.panel7.TabIndex = 455;
@@ -783,7 +902,7 @@
             this.txtArchivePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtArchivePath.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtArchivePath.ForeColor = System.Drawing.Color.Black;
-            this.txtArchivePath.Location = new System.Drawing.Point(5, 640);
+            this.txtArchivePath.Location = new System.Drawing.Point(5, 738);
             this.txtArchivePath.Name = "txtArchivePath";
             this.txtArchivePath.ReadOnly = true;
             this.txtArchivePath.Size = new System.Drawing.Size(966, 26);
@@ -794,7 +913,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(2, 624);
+            this.label8.Location = new System.Drawing.Point(7, 720);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 15);
             this.label8.TabIndex = 456;
@@ -805,7 +924,7 @@
             this.btnOpenFolderPath.BackColor = System.Drawing.Color.Transparent;
             this.btnOpenFolderPath.Image = global::MIS.Properties.Resources.folder_on;
             this.btnOpenFolderPath.ImageActive = null;
-            this.btnOpenFolderPath.Location = new System.Drawing.Point(974, 640);
+            this.btnOpenFolderPath.Location = new System.Drawing.Point(977, 738);
             this.btnOpenFolderPath.Name = "btnOpenFolderPath";
             this.btnOpenFolderPath.Size = new System.Drawing.Size(26, 28);
             this.btnOpenFolderPath.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -818,7 +937,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1503, 672);
+            this.ClientSize = new System.Drawing.Size(1503, 780);
             this.Controls.Add(this.btnOpenFolderPath);
             this.Controls.Add(this.txtArchivePath);
             this.Controls.Add(this.label8);
@@ -841,7 +960,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
             this.panel35.ResumeLayout(false);
-            this.panel35.PerformLayout();
+            this.pnlSearch.ResumeLayout(false);
+            this.pnlSearch.PerformLayout();
+            this.pnlDateFilter.ResumeLayout(false);
+            this.pnlDateFilter.PerformLayout();
+            this.pnlSearchFilter.ResumeLayout(false);
+            this.pnlSearchFilter.PerformLayout();
             this.panel36.ResumeLayout(false);
             this.panel36.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -878,12 +1002,6 @@
         private System.Windows.Forms.Panel panel36;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel37;
-        private System.Windows.Forms.ComboBox cboSearchServiceType;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dteDateFrom;
-        private System.Windows.Forms.DateTimePicker dteDateTo;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnCompress;
         private System.Windows.Forms.Button btnSearch;
@@ -902,7 +1020,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label lblDiagTotal;
@@ -929,5 +1046,22 @@
         private System.Windows.Forms.TextBox txtArchivePath;
         private System.Windows.Forms.Label label8;
         private Bunifu.Framework.UI.BunifuImageButton btnOpenFolderPath;
+        private System.Windows.Forms.Panel pnlSearchFilter;
+        private System.Windows.Forms.Panel pnlDateFilter;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.DateTimePicker dteDateFrom;
+        private System.Windows.Forms.DateTimePicker dteDateTo;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cboFSRModeType;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox cboSearchServiceType;
+        private System.Windows.Forms.ComboBox cboFEName;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.ColumnHeader columnHeader16;
+        private System.Windows.Forms.Panel pnlSearch;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Button btnExportExcel;
     }
 }

@@ -1099,7 +1099,7 @@ namespace MIS
                         "searchvalue=" + "UNCLOSED TICKET|0|0000-00-00|0000-00-00|[NOT%20SPECIFIED]|SUCCESS|RANGE|"+model.ClientID+"|0|0|"+model.DispatchID+"|[NOT SPECIFIED]|[NOT SPECIFIED]|0|[NOT SPECIFIED]&department=[NOT SPECIFIED]&jobtype=Unclosed Ticket&category=COMPLETED&title=Dispatcher&tcount=" + model.TCount + clsFunction.sAnd +
                         "userkey="+model.UserKey + clsFunction.sAnd +
                         "client="+model.ClientName + clsFunction.sAnd +
-                        "bank="+clsGlobalVariables.strAPIBank + clsFunction.sAnd +
+                        "bank="+model.ClientName + clsFunction.sAnd +
                         "searchmode="+clsFunction.sNull;
 
             Debug.WriteLine("sURL="+ sURL);
@@ -2863,7 +2863,7 @@ namespace MIS
                     model.Folder = clsGlobalVariables.strAPIFolder;
 
                     model.ClientID = clsSystemSetting.ClassSystemClientID;
-                    model.ClientName = clsSystemSetting.ClassSystemClientName;
+                    model.ClientName = clsSearch.ClassBankCode.ToUpper();
                     model.SearchBy = "Service Detail List";
                     model.SearchValue = dbFunction.GetSearchValue("ID");
                     model.DispatchID = int.Parse(dbFunction.CheckAndSetNumericValue(dbFunction.GetSearchValue("ID")));

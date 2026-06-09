@@ -700,6 +700,7 @@
             this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
             this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
             this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
+            this.tabPage25 = new System.Windows.Forms.TabPage();
             this.lblCreatedDate = new System.Windows.Forms.Label();
             this.txtFEPosition = new System.Windows.Forms.TextBox();
             this.label131 = new System.Windows.Forms.Label();
@@ -768,7 +769,6 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
-            this.tabPage25 = new System.Windows.Forms.TabPage();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -9031,6 +9031,16 @@
             this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
             this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
             // 
+            // tabPage25
+            // 
+            this.tabPage25.Location = new System.Drawing.Point(4, 28);
+            this.tabPage25.Name = "tabPage25";
+            this.tabPage25.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage25.Size = new System.Drawing.Size(1376, 849);
+            this.tabPage25.TabIndex = 3;
+            this.tabPage25.Text = "Deployment Information";
+            this.tabPage25.UseVisualStyleBackColor = true;
+            // 
             // lblCreatedDate
             // 
             this.lblCreatedDate.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -9845,16 +9855,6 @@
             this.txtAssistNo.ReadOnly = true;
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
-            // 
-            // tabPage25
-            // 
-            this.tabPage25.Location = new System.Drawing.Point(4, 28);
-            this.tabPage25.Name = "tabPage25";
-            this.tabPage25.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage25.Size = new System.Drawing.Size(1376, 849);
-            this.tabPage25.TabIndex = 3;
-            this.tabPage25.Text = "Deployment Information";
-            this.tabPage25.UseVisualStyleBackColor = true;
             // 
             // frmTerminalFSR
             // 

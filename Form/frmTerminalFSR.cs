@@ -1592,6 +1592,28 @@ namespace MIS
                     }
                 }
 
+                // Check replacement service type if current sim is not empty before saving
+                if (!txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
+                {
+                    if (dbFunction.isValidID(txtRepSIMID.Text))
+                    {
+                        if (!dbFunction.isValidDescription(txtRepSIMCarrier.Text))
+                        {
+                            dbFunction.SetMessageBox("Replacement SIM carrier must not be blank.", "Warning", clsFunction.IconType.iExclamation);
+                            return false;
+                        }
+                    }                    
+                }
+
+                // Check if current sim is not empty before saving
+                if (dbFunction.isValidID(txtCurSIMID.Text))
+                {
+                    if (!dbFunction.isValidDescription(txtCurSIMCarrier.Text))
+                    {
+                        dbFunction.SetMessageBox("Current SIM carrier must not be blank.", "Warning", clsFunction.IconType.iExclamation);
+                        return false;
+                    }
+                }                
             }
 
             // check terminal
