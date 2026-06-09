@@ -1542,6 +1542,19 @@ namespace MIS
                 }
             }
 
+            // check if replacement service type if current sim is not empty before saving
+            if (cboSearchServiceType.SelectedItem.ToString().Equals(clsGlobalVariables.STATUS_REPLACEMENT))
+            {
+                if (dbFunction.isValidID(txtRepSIMID.Text))
+                {
+                    if (dbFunction.isValidDescription(txtRepSIMCarrier.Text))
+                    {
+                        dbFunction.SetMessageBox("Replacement SIM Carrier must not be blank.", "Warning", clsFunction.IconType.iExclamation);
+                        return false;
+                    }
+                }
+            }
+
             return true;
 
         }
