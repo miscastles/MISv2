@@ -1055,7 +1055,7 @@ namespace MIS
         private bool ValidateFields(bool fDispatch)
         {
             bool isBypassSNChecking = false;
-            
+
             string sReqTime = dbFunction.GetDateFromParse(dteReqTime.Text, "h:mm:ss tt", "HH:mm:ss");
 
             // Current Terminal SN
@@ -1074,7 +1074,7 @@ namespace MIS
 
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iMerchantName, txtMerchantName.Text)) return false;
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iMerchantAddress, txtMerchantAddress.Text)) return false;
-            
+
 
             //if (!dbFunction.isValidEntry(clsFunction.CheckType.iServiceType, txtSearchSTID.Text)) return false;
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iClientID, txtClientID.Text)) return false;
@@ -1117,7 +1117,7 @@ namespace MIS
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iRequestor, txtRequestor.Text)) return false;
 
             if (!dbAPI.isRecordExist("Search", "Region", txtMerchantRegion.Text)) {
-                dbFunction.SetMessageBox("Region " + dbFunction.AddBracketStartEnd(txtMerchantRegion.Text) + " does not exist." + "\n\n" + 
+                dbFunction.SetMessageBox("Region " + dbFunction.AddBracketStartEnd(txtMerchantRegion.Text) + " does not exist." + "\n\n" +
                     "Update merchant information to continue.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                 return false;
             }
@@ -1156,12 +1156,12 @@ namespace MIS
             int TCount = int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
             if (TCount >= clsSystemSetting.ClassSystemJobOrderLimit)
             {
-                dbFunction.SetMessageBox("Request ID " + dbFunction.AddBracketStartEnd(txtEntryRequestID.Text) + 
-                                        " have reached its maximum usage limit of " + clsSystemSetting.ClassSystemJobOrderLimit + 
+                dbFunction.SetMessageBox("Request ID " + dbFunction.AddBracketStartEnd(txtEntryRequestID.Text) +
+                                        " have reached its maximum usage limit of " + clsSystemSetting.ClassSystemJobOrderLimit +
                                          ".", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                 return false;
             }
-            
+
 
             // Check change on entry Request ID
             if (fEdit)
@@ -1186,7 +1186,7 @@ namespace MIS
                         "Do you still want to continue?")) return false;
                 }
             }
-            
+
             if (fDispatch)
             {
                 if (!dbFunction.isValidEntry(clsFunction.CheckType.iDispatchID, dbFunction.CheckAndSetNumericValue(txtDispatchID.Text))) return false;
@@ -1197,7 +1197,7 @@ namespace MIS
                 if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                 {
                     if (!dbFunction.isValidID(txtRepTerminalID.Text) && (!dbFunction.isValidID(txtRepSIMID.Text)))
-                    {   
+                    {
                         dbFunction.SetMessageBox("Replace Terminal or SIM should have a value.", "Warning", clsFunction.IconType.iExclamation);
                         return false;
                     }
@@ -1209,9 +1209,9 @@ namespace MIS
                         dbFunction.SetMessageBox("Current terminal must not be blank.", "Warning", clsFunction.IconType.iExclamation);
                         return false;
                     }
-                }           
+                }
             }
-            
+
             // check same current / replace terminal
             if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtRepTerminalID.Text))
             {
@@ -1298,7 +1298,7 @@ namespace MIS
                             }
                         }
                     }
-                    
+
                 }
                 else if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                 {
@@ -1403,7 +1403,7 @@ namespace MIS
                         dbFunction.SetMessageBox("Terminal SN " + dbFunction.AddBracketStartEnd(txtCurTerminalSN.Text) + " already used." + "\n\n" + "Service Type: " + dbFunction.AddBracketStartEnd(txtSearchSTJobTypeDescription.Text) + "\n\n" + clsDefines.CONTACT_ADMIN_MESSAGE, clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                         return false;
                     }
-                        
+
                 }
 
                 if (dbFunction.isValidID(txtCurSIMID.Text))
@@ -1415,11 +1415,11 @@ namespace MIS
                     }
 
                 }
-                
+
             }
 
             if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC) && !fEdit)
-            {   
+            {
                 if (dbFunction.isValidID(txtRepTerminalID.Text))
                 {
                     if (dbAPI.isRecordExist("Search", "Duplicate Assign TerminalSN", txtRepTerminalID.Text))
@@ -1467,7 +1467,7 @@ namespace MIS
             {
                 tabFillUp.TabIndex = 0;
                 dbFunction.SetMessageBox("Problem reported must not be blank", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
-                
+
                 return false;
             }
 
@@ -1511,7 +1511,7 @@ namespace MIS
 
                 if (!dbFunction.isValidCount(lvwProfile2.Items.Count))
                 {
-                    dbFunction.SetMessageBox("Unable to process service changes information."+"\n"+"Profile 2 must not be blank", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    dbFunction.SetMessageBox("Unable to process service changes information." + "\n" + "Profile 2 must not be blank", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                     return false;
                 }
 
@@ -1539,6 +1539,19 @@ namespace MIS
                         clsFunction.IconType.iError
                     );
                     return false;
+                }
+            }
+
+            // check if replacement service type if current sim is not empty before saving
+            if (cboSearchServiceType.SelectedItem.ToString().Equals(clsGlobalVariables.STATUS_REPLACEMENT))
+            {
+                if (dbFunction.isValidID(txtRepSIMID.Text))
+                {
+                    if(dbFunction.isValidDescription(txtRepSIMCarrier.Text)) 
+                    {
+                        dbFunction.SetMessageBox("Replacement SIM Carrier must not be blank.", "Warning", clsFunction.IconType.iExclamation);
+                        return false;
+                    }
                 }
             }
 
@@ -2281,6 +2294,7 @@ namespace MIS
                     clsSearch.ClassStatusDescription = clsGlobalVariables.STATUS_ALLOCATED_DESC;
                     clsSearch.ClassJobTypeStatusDescription = clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC;
                 }
+
 
                 // already serviced
                 if (txtServiceJobTypeStatusDesc.Text.Equals(clsGlobalVariables.JOB_TYPE_STATUS_COMPLETED_DESC) && dbFunction.isValidID(txtSearchFSRNo.Text))
