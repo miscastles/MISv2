@@ -1,4 +1,5 @@
 ﻿using MIS.Controller;
+using MIS.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -13,6 +14,7 @@ namespace MIS
         public static bool fAutoLoadData = false;
         public static bool fModify = false;
         public static bool fCompleted = false;
+
         public static string sHeader = "";
         public static int iTab;
         private clsAPI dbAPI;
@@ -848,118 +850,123 @@ namespace MIS
             txtTAModifiedDateTime.BackColor = clsFunction.DateBackColor;
         }
 
+        private void ClearFields()
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                fAutoLoadData = false;
+                fEdit = false;
+                fCompleted = false;
+                dbFunction.ClearTextBox(this);
+                dbFunction.ClearRichTextBox(this);
+                dbFunction.TextBoxUnLock(false, this);
+                //dbFunction.ComBoBoxUnLock(false, this);
+                dbFunction.DatePickerUnlock(false, this);
+
+                InitButton();
+                InitManualDate();
+                InitManualTime();
+                InitTime();
+                InitStatusTitle(true);
+
+                // Init search button           
+                btnTASearch.Enabled = true;
+                //btnFSRSearch.Enabled = true;
+
+                PKTextBoxBackColor(false);
+                btnAttempt.Enabled = false;
+                //btnSearchMerchant.Enabled = false;
+                InitRemarkCountLimit();
+                //lblSubHeader.Text = "";
+                InitMessageCountLimit();
+                UpdateButton(true);
+                InitCount();
+                chkCloseTicket.CheckState = CheckState.Checked;
+
+                //InitSearchReason();
+
+                btnSearchMerchant.Enabled = false;
+                btnFSRSearch.Enabled = true;
+                //InitSearchRemoveButton(true);
+
+                lblSubHeader.Text = clsFunction.sDash;
+                lblHeader.Text = "FSR";
+                lblReason.Text = "RESOLVED";
+
+                chkBillable.Enabled = true;
+                chkBillable.Checked = true;
+
+                chkIncludeInReport.Enabled = true;
+                chkIncludeInReport.Checked = false;
+
+                btnPreviewSvcHistory.Enabled = btnPreviewFSR.Enabled = btnResetEmail.Enabled = btnSendFSRAndDiagEmail.Enabled = btnViewDiagnostic.Enabled = false;
+
+                EditableServiceDateTime(true);
+
+                // location, current
+                //dbAPI.FillComboBoxLocation(cboCurTerminalLocation);
+                //dbAPI.FillComboBoxLocation(cboCurSIMLocation);
+
+                // location, replace
+                //dbAPI.FillComboBoxLocation(cboRepTerminalLocation);
+                //dbAPI.FillComboBoxLocation(cboRepSIMLocation);
+
+                btnCancelJO.Enabled = false;
+                btnRefreshSN.Enabled = false;
+                btnOverride.Enabled = false;
+                btnRefreshService.Enabled = false;
+                btnUpdateServiceDate.Enabled = false;
+                btnIncludeInReport.Enabled = false;
+
+                dbFunction.ClearListViewItems(lvwList);
+                dbFunction.ClearListViewItems(lvwChanges);
+                dbFunction.ClearListViewItems(lvwStockDetail);
+                dbFunction.ClearListViewItems(lvwRepStockDetail);
+                dbFunction.ClearListViewItems(lvwMM);
+                dbFunction.ClearListViewItems(lvwProfile1);
+                dbFunction.ClearListViewItems(lvwProfile2);
+                dbFunction.ClearListViewItems(lvwRaw);
+
+                //InitChangesListView();
+                //InitServiceHistoryListView();
+
+                lblCreatedDate.Text = clsFunction.sNull;
+
+                //Init Search Button (Search Merchant)
+                btnSearchMerchant.Enabled = false;
+                dbFunction.SetButtonIconImage(btnSearchMerchant);
+
+                //Init Search Button (Search FSR)
+                btnFSRSearch.Enabled = true;
+                dbFunction.SetButtonIconImage(btnFSRSearch);
+
+                btnUpdateMerchRep.Enabled = false;
+                dbFunction.SetButtonIconImage(btnUpdateMerchRep);
+
+                btnUpdateMerchRep.Enabled = false;
+                dbFunction.SetButtonIconImage(btnUpdateMerchRep);
+
+                txtTicketStatus.Text = clsFunction.sNull;
+
+                //setMainTab();
+
+                InitCurrentComBoBox(false);
+                InitReplacementComBoBox(false);
+
+                tabFillUp.TabIndex = 0;
+
+                iniComboBoxSelection(false);
+
+                remainingSeconds = 0;
+                lblCountDown.Visible = false;
+
+                Cursor.Current = Cursors.Default;
+
+            }
+
         private void btnMClear_Click(object sender, EventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
-
-            fAutoLoadData = false;
-            fEdit = false;
-            fCompleted = false;
-            dbFunction.ClearTextBox(this);
-            dbFunction.ClearRichTextBox(this);
-            dbFunction.TextBoxUnLock(false, this);
-            //dbFunction.ComBoBoxUnLock(false, this);
-            dbFunction.DatePickerUnlock(false, this);
-
-            InitButton();
-            InitManualDate();
-            InitManualTime();
-            InitTime();
-            InitStatusTitle(true);
-
-            // Init search button           
-            btnTASearch.Enabled = true;
-            //btnFSRSearch.Enabled = true;
-
-            PKTextBoxBackColor(false);
-            btnAttempt.Enabled = false;
-            //btnSearchMerchant.Enabled = false;
-            InitRemarkCountLimit();
-            //lblSubHeader.Text = "";
-            InitMessageCountLimit();
-            UpdateButton(true);
-            InitCount();
-            chkCloseTicket.CheckState = CheckState.Checked;
-
-            //InitSearchReason();
-
-            btnSearchMerchant.Enabled = false;
-            btnFSRSearch.Enabled = true;
-            //InitSearchRemoveButton(true);
-
-            lblSubHeader.Text = clsFunction.sDash;
-            lblHeader.Text = "FSR";
-            lblReason.Text = "RESOLVED";
-
-            chkBillable.Enabled = true;
-            chkBillable.Checked = true;
-
-            chkIncludeInReport.Enabled = true;
-            chkIncludeInReport.Checked = false;
-
-            btnPreviewSvcHistory.Enabled = btnPreviewFSR.Enabled = btnResetEmail.Enabled = btnSendFSRAndDiagEmail.Enabled = btnViewDiagnostic.Enabled = false;
-
-            EditableServiceDateTime(true);
-
-            // location, current
-            //dbAPI.FillComboBoxLocation(cboCurTerminalLocation);
-            //dbAPI.FillComboBoxLocation(cboCurSIMLocation);
-
-            // location, replace
-            //dbAPI.FillComboBoxLocation(cboRepTerminalLocation);
-            //dbAPI.FillComboBoxLocation(cboRepSIMLocation);
-
-            btnCancelJO.Enabled = false;
-            btnRefreshSN.Enabled = false;
-            btnOverride.Enabled = false;
-            btnRefreshService.Enabled = false;
-            btnUpdateServiceDate.Enabled = false;
-            btnIncludeInReport.Enabled = false;
-
-            dbFunction.ClearListViewItems(lvwList);
-            dbFunction.ClearListViewItems(lvwChanges);
-            dbFunction.ClearListViewItems(lvwStockDetail);
-            dbFunction.ClearListViewItems(lvwRepStockDetail);
-            dbFunction.ClearListViewItems(lvwMM);
-            dbFunction.ClearListViewItems(lvwProfile1);
-            dbFunction.ClearListViewItems(lvwProfile2);
-            dbFunction.ClearListViewItems(lvwRaw);
-
-            //InitChangesListView();
-            //InitServiceHistoryListView();
-
-            lblCreatedDate.Text = clsFunction.sNull;
-
-            //Init Search Button (Search Merchant)
-            btnSearchMerchant.Enabled = false;
-            dbFunction.SetButtonIconImage(btnSearchMerchant);
-
-            //Init Search Button (Search FSR)
-            btnFSRSearch.Enabled = true;
-            dbFunction.SetButtonIconImage(btnFSRSearch);
-
-            btnUpdateMerchRep.Enabled = false;
-            dbFunction.SetButtonIconImage(btnUpdateMerchRep);
-
-            btnUpdateMerchRep.Enabled = false;
-            dbFunction.SetButtonIconImage(btnUpdateMerchRep);
-
-            txtTicketStatus.Text = clsFunction.sNull;
-
-            //setMainTab();
-
-            InitCurrentComBoBox(false);
-            InitReplacementComBoBox(false);
-
-            tabFillUp.TabIndex = 0;
-
-            iniComboBoxSelection(false);
-
-            remainingSeconds = 0;
-            lblCountDown.Visible = false;
-
-            Cursor.Current = Cursors.Default;
-
+            ClearFields();
         }
 
         private void btnAttempt_Click(object sender, EventArgs e)
@@ -1176,7 +1183,8 @@ namespace MIS
                                                     dbFunction.CheckAndSetStringValue(cboRepTerminalLocation.Text) + clsFunction.sPipe +
                                                     dbFunction.CheckAndSetStringValue(cboRepSIMLocation.Text) + clsFunction.sPipe +
 
-                                                    dbFunction.CheckAndSetStringValue(txtMMerchEmail.Text);
+                                                    dbFunction.CheckAndSetStringValue(txtMMerchEmail.Text) + clsFunction.sPipe +
+                                                    dbFunction.CheckAndSetStringValue(txtServiceScheduleDate.Text);
 
                     Debug.WriteLine("Multiple Update->Value=" + clsSearch.ClassAdvanceSearchValue);
 
@@ -1241,7 +1249,8 @@ namespace MIS
                                                             dbFunction.CheckAndSetNumericValue(txtCurSIMSN.Text) + clsFunction.sPipe +
 
                                                             dbFunction.CheckAndSetStringValue(txtVendor.Text) + clsFunction.sPipe +
-                                                            dbFunction.CheckAndSetStringValue(txtRequestor.Text);
+                                                            dbFunction.CheckAndSetStringValue(txtRequestor.Text) + clsFunction.sPipe +
+                                                            dbFunction.CheckAndSetStringValue(txtServiceScheduleDate.Text);
 
                         Debug.WriteLine("Multiple Update->Value=" + clsSearch.ClassAdvanceSearchValue);
 
@@ -1258,122 +1267,122 @@ namespace MIS
                         return;
                     }
 
-                }
 
-                if (chkEmail.Checked)
-                {
-                    EmailNotification((fEdit ? "UPDATED: " : ""));
-                }
-
-                // save service changes information
-                if (dbFunction.isValidID(txtSearchServiceNo.Text))
-                {
-                    if (cboSearchActionMade.Text.CompareTo(dbAPI.GetActionMade()[1]) == 0) // SUCCESS
+                    if (chkEmail.Checked)
                     {
-                        // Update service changes detail
-                        if (lvwChanges.Items.Count > 0)
-                        {
-                            if (dbAPI.isRecordExist("Search", "Dynamic Search", clsDefines.Table_ServiceChangesDetail + clsFunction.sPipe + clsDefines.FieldName_ServiceNo + clsFunction.sPipe + txtSearchServiceNo.Text))
-                            {
-                                dbAPI.ExecuteAPI("PUT", "Update", "Service Changes Detail", txtSearchServiceNo.Text, "", "", "UpdateBulkCollectionDetail");
-                            }
-
-                        }
-
-                        if (lvwStockDetail.Items.Count > 0)
-                        {
-                            dbAPI.BulkUpdateStockMovementDetail(lvwStockDetail, int.Parse(dbFunction.CheckAndSetNumericValue(txtClientID.Text)), false);
-                        }
+                        EmailNotification((fEdit ? "UPDATED: " : ""));
                     }
 
-                    // update dispatcher
-                    if (dbFunction.isValidID(txtDispatchID.Text))
+                    // save service changes information
+                    if (dbFunction.isValidID(txtSearchServiceNo.Text))
                     {
-                        clsSearch.ClassAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsFunction.sPipe +
-                                                            dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text) + clsFunction.sPipe +
-                                                            dbFunction.CheckAndSetNumericValue(txtDispatchID.Text) + clsFunction.sPipe +
-                                                            dbFunction.CheckAndSetStringValue(txtDispatcher.Text);
+                        if (cboSearchActionMade.Text.CompareTo(dbAPI.GetActionMade()[1]) == 0) // SUCCESS
+                        {
+                            // Update service changes detail
+                            if (lvwChanges.Items.Count > 0)
+                            {
+                                if (dbAPI.isRecordExist("Search", "Dynamic Search", clsDefines.Table_ServiceChangesDetail + clsFunction.sPipe + clsDefines.FieldName_ServiceNo + clsFunction.sPipe + txtSearchServiceNo.Text))
+                                {
+                                    dbAPI.ExecuteAPI("PUT", "Update", "Service Changes Detail", txtSearchServiceNo.Text, "", "", "UpdateBulkCollectionDetail");
+                                }
+
+                            }
+
+                            if (lvwStockDetail.Items.Count > 0)
+                            {
+                                dbAPI.BulkUpdateStockMovementDetail(lvwStockDetail, int.Parse(dbFunction.CheckAndSetNumericValue(txtClientID.Text)), false);
+                            }
+                        }
+
+                        // update dispatcher
+                        if (dbFunction.isValidID(txtDispatchID.Text))
+                        {
+                            clsSearch.ClassAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsFunction.sPipe +
+                                                                dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text) + clsFunction.sPipe +
+                                                                dbFunction.CheckAndSetNumericValue(txtDispatchID.Text) + clsFunction.sPipe +
+                                                                dbFunction.CheckAndSetStringValue(txtDispatcher.Text);
+
+                            dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
+
+                            dbAPI.ExecuteAPI("PUT", "Update", "DispatchID", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                        }
+
+
+                        // update dependency
+                        clsSearch.ClassAdvanceSearchValue = txtIRIDNo.Text + clsDefines.gPipe +
+                                                            txtSearchServiceNo.Text + clsDefines.gPipe +
+                                                            dbFunction.getFileID(cboDependency, "All Type") + clsDefines.gPipe +
+                                                            dbFunction.getFileID(cboStatusReason, "All Type");
 
                         dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
 
-                        dbAPI.ExecuteAPI("PUT", "Update", "DispatchID", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                        dbAPI.ExecuteAPI("PUT", "Update", "Dependency", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+
+                        // update beyond reason
+                        clsSearch.ClassAdvanceSearchValue = $"{txtJobType.Text}{clsDefines.gPipe}{txtSearchFSRNo.Text}{clsDefines.gPipe}{txtServiceNo.Text}{clsDefines.gPipe}{txtIRIDNo.Text}{clsDefines.gPipe}{dbFunction.CheckAndSetStringValue(StrClean(txtBeyondReason.Text))}";
+
+                        dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
+
+                        dbAPI.ExecuteAPI("PUT", "Update", "Beyond Reason", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+
+                        // update isReport
+                        clsSearch.ClassAdvanceSearchValue = $"{txtClientID.Text}{clsDefines.gPipe}{txtSearchServiceNo.Text}{clsDefines.gPipe}{txtIRIDNo.Text}{clsDefines.gPipe}" + dbFunction.CheckAndSetBooleanValue(chkIncludeInReport.Checked);
+
+                        dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
+
+                        dbAPI.ExecuteAPI("PUT", "Update", "Servicing-FSR Include In Report", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+
+                    }
+
+                    // Save Terminal Activity
+                    if (clsGlobalVariables.isAPIResponseOK)
+                    {
+                        if (dbFunction.isValidID(txtCurTerminalID.Text) || dbFunction.isValidID(txtRepTerminalID.Text))
+                            SaveTerminalActivity();
                     }
 
 
-                    // update dependency
-                    clsSearch.ClassAdvanceSearchValue = txtIRIDNo.Text + clsDefines.gPipe +
-                                                        txtSearchServiceNo.Text + clsDefines.gPipe +
-                                                        dbFunction.getFileID(cboDependency, "All Type") + clsDefines.gPipe +
-                                                        dbFunction.getFileID(cboStatusReason, "All Type");
+                    // Save SIM Activity
+                    if (clsGlobalVariables.isAPIResponseOK)
+                    {
+                        if (dbFunction.isValidID(txtCurSIMID.Text) || dbFunction.isValidID(txtRepSIMID.Text))
+                            SaveSIMActivity();
+                    }
 
-                    dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
+                    // Save Ticket -> Update In Report
+                    if (chkIncludeInReport.Checked)
+                    {
+                        int pBillable = dbFunction.CheckAndSetBooleanValue(chkBillable.Checked);
+                        int pTicketStatus = int.Parse(clsFunction.sOne);
 
-                    dbAPI.ExecuteAPI("PUT", "Update", "Dependency", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                        pSearchValue = dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text) + clsDefines.gPipe +
+                                       dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsDefines.gPipe +
+                                       pTicketStatus + clsDefines.gPipe +
+                                       clsSearch.ClassCurrentParticularID + clsDefines.gPipe +
+                                       dbFunction.getCurrentDateTime() + clsDefines.gPipe +
+                                       pBillable;
 
-                    // update beyond reason
-                    clsSearch.ClassAdvanceSearchValue = $"{txtJobType.Text}{clsDefines.gPipe}{txtSearchFSRNo.Text}{clsDefines.gPipe}{txtServiceNo.Text}{clsDefines.gPipe}{txtIRIDNo.Text}{clsDefines.gPipe}{dbFunction.CheckAndSetStringValue(StrClean(txtBeyondReason.Text))}";
+                        dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 1);
 
-                    dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
+                        dbAPI.ExecuteAPI("PUT", "Update", "Ticket Status", pSearchValue, "", "", "UpdateCollectionDetail");
+                    }
 
-                    dbAPI.ExecuteAPI("PUT", "Update", "Beyond Reason", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                    dbFunction.SetMessageBox(txtServiceJobTypeDescription.Text + " service has been " + (fEdit ? "updated" : "saved") + " for" +
+                       "\n\n" +
+                        //"Primary Request ID >" + txtRequestID1.Text + "\n" +
+                        "Request ID >" + txtRequestID.Text + "\n" +
+                        "Reference No. >" + txtServiceReferenceNo.Text + "\n" +
+                        "Merchant Name >" + txtMerchantName.Text + "\n" +
+                        "TID >" + txtIRTID.Text + "\n" +
+                        "MID >" + txtIRMID.Text + "\n" +
+                        "Region >" + txtMerchantRegion.Text + "\n" +
+                        "City >" + txtMerchantCity.Text +
+                        "\n\n" +
+                       (chkEmail.Checked ? "Service request emailed to vendor representative." : "")
+                       , (fEdit ? "FSR updated" : "FSR saved") + (chkBillable.Checked ? " & billable" : ""), clsFunction.IconType.iInformation);
 
-                    // update isReport
-                    clsSearch.ClassAdvanceSearchValue = $"{txtClientID.Text}{clsDefines.gPipe}{txtSearchServiceNo.Text}{clsDefines.gPipe}{txtIRIDNo.Text}{clsDefines.gPipe}" + dbFunction.CheckAndSetBooleanValue(chkIncludeInReport.Checked);
-
-                    dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
-
-                    dbAPI.ExecuteAPI("PUT", "Update", "Servicing-FSR Include In Report", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
-
+                    btnMClear_Click(this, e);
                 }
-
-                // Save Terminal Activity
-                if (clsGlobalVariables.isAPIResponseOK)
-                {
-                    if (dbFunction.isValidID(txtCurTerminalID.Text) || dbFunction.isValidID(txtRepTerminalID.Text))
-                        SaveTerminalActivity();
-                }
-
-
-                // Save SIM Activity
-                if (clsGlobalVariables.isAPIResponseOK)
-                {
-                    if (dbFunction.isValidID(txtCurSIMID.Text) || dbFunction.isValidID(txtRepSIMID.Text))
-                        SaveSIMActivity();
-                }
-
-                // Save Ticket -> Update In Report
-                if (chkIncludeInReport.Checked)
-                {
-                    int pBillable = dbFunction.CheckAndSetBooleanValue(chkBillable.Checked);
-                    int pTicketStatus = int.Parse(clsFunction.sOne);
-
-                    pSearchValue = dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text) + clsDefines.gPipe +
-                                   dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsDefines.gPipe +
-                                   pTicketStatus + clsDefines.gPipe +
-                                   clsSearch.ClassCurrentParticularID + clsDefines.gPipe +
-                                   dbFunction.getCurrentDateTime() + clsDefines.gPipe +
-                                   pBillable;
-
-                    dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 1);
-
-                    dbAPI.ExecuteAPI("PUT", "Update", "Ticket Status", pSearchValue, "", "", "UpdateCollectionDetail");
-                }
-
-                dbFunction.SetMessageBox(txtServiceJobTypeDescription.Text + " service has been " + (fEdit ? "updated" : "saved") + " for" +
-                   "\n\n" +
-                    //"Primary Request ID >" + txtRequestID1.Text + "\n" +
-                    "Request ID >" + txtRequestID.Text + "\n" +
-                    "Reference No. >" + txtServiceReferenceNo.Text + "\n" +
-                    "Merchant Name >" + txtMerchantName.Text + "\n" +
-                    "TID >" + txtIRTID.Text + "\n" +
-                    "MID >" + txtIRMID.Text + "\n" +
-                    "Region >" + txtMerchantRegion.Text + "\n" +
-                    "City >" + txtMerchantCity.Text +
-                    "\n\n" +
-                   (chkEmail.Checked ? "Service request emailed to vendor representative." : "")
-                   , (fEdit ? "FSR updated" : "FSR saved") + (chkBillable.Checked ? " & billable" : ""), clsFunction.IconType.iInformation);
-
-                btnMClear_Click(this, e);
             }
             catch (Exception ex)
             {
@@ -1584,7 +1593,7 @@ namespace MIS
                 }
 
                 // Check replacement service type if current sim is not empty before saving
-                if (!txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
+                if (txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                 {
                     if (!dbFunction.isValidDescription(txtRepSIMCarrier.Text))
                     {
@@ -1663,7 +1672,6 @@ namespace MIS
                 dbFunction.SetMessageBox("[Service Date] must not greater than current date.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                 return false;
             }
-
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iTime, sMTimeArrived)) return false;
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iTime, sMReceiptTime)) return false;
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iTime, sMTimeStart)) return false;
@@ -1729,7 +1737,7 @@ namespace MIS
             //if (!dbFunction.isValidDescriptionEntry(dbFunction.getFileID(cboStatusReason, "All Type").ToString(), "Status Reason" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
 
             return true;
-        }
+        }   
 
         private bool ValidateExpenses()
         {
@@ -1746,7 +1754,71 @@ namespace MIS
 
             return fValid;
         }
+ 
+        public void CheckRescheduledReason()
+        {
+            if (dbFunction.isValidID(txtServiceNo.Text) && dbFunction.isValidID(txtIRIDNo.Text) && dbFunction.isValidID(txtMerchantID.Text) && dbFunction.isValidAmount(txtRequestID.Text) && dbFunction.isValidAmount(txtJobType.Text))
+            {
+                if (clsSearch.ClassReasonFuncID == (int)ReasonFuncType.Reschedule_By_Merchant_FuncId)
+                {
+                    string pSearchValue =
+                    txtServiceNo.Text + clsFunction.sPipe +
+                    txtIRIDNo.Text + clsFunction.sPipe +
+                    txtMerchantID.Text + clsFunction.sPipe +
+                    txtRequestID.Text + clsFunction.sPipe +
+                    txtJobType.Text + clsFunction.sPipe +
+                    2;
 
+                    dbAPI.ExecuteAPI("GET", "Search", "Service Attempt", pSearchValue, "Get Info Detail", "", "GetInfoDetail");
+
+                    if (!string.IsNullOrWhiteSpace(clsSearch.ClassOutParamValue))
+                    {
+                        string pServiceNo = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "ServiceNo");
+                        string pRequestID = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "RequestID");
+                        string pActionMade = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "ActionMade");
+                        string pFSRDate = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "FSRDate");
+                        string pReason = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "Reason");
+                        string pDependency = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "Dependency");
+
+                        Debug.WriteLine("[RAIDEN]= " + clsSearch.ClassOutParamValue);
+
+                        DialogResult isContinue = MessageBox.Show(
+                            $"Last attempt ServiceNo: {pServiceNo}\n" +
+                            $"Last attempt RequestID: {pRequestID}\n\n" + 
+                            $"Last Attempt Status: {pActionMade}\n" +
+                            $"Reason: {pReason}\n" +
+                            $"Attempt Date: {pFSRDate}\n" +
+                            $"Attempt Dependency: {pDependency}\n\n" +
+                            $"Current Schedule Date: {txtServiceScheduleDate.Text}\n\n" +
+                            $"Would you like to set a NEW SCHEDULED DATE?",
+                            clsDefines.FIELD_CHECK_MSG,
+                            MessageBoxButtons.YesNoCancel,
+                            MessageBoxIcon.Information
+                        );
+
+                        if (isContinue == DialogResult.Yes)
+                        {
+                            frmServiceJobOrder frm = new frmServiceJobOrder();
+                            frm.Focus();
+                            frm.Show();
+
+                            ClearFields();
+                        }
+
+                        if (isContinue == DialogResult.No)
+                        {
+                            txtReasonID.Text = "5";
+                            txtReasonDesc.Text = txtReason.Text = "REFUSED BY MERCHANT";
+                            txtReasonDesc.BackColor = clsFunction.MKBackColor;
+
+                            clsSearch.ClassReasonID = 5;
+                            clsSearch.ClassReasonDescription = "REFUSED BY MERCHANT";
+                            clsReason.ClassReasonFuncID = (int)ReasonFuncType.Refused_By_Merchant_FuncId;
+                        }
+                    }
+                }
+            }
+        }
 
         private void SaveFSRMaster()
         {
@@ -3541,6 +3613,8 @@ namespace MIS
                 txtReasonID.Text = clsSearch.ClassReasonID.ToString();
                 txtReasonDesc.Text = txtReason.Text = clsSearch.ClassReasonDescription;
                 txtReasonDesc.BackColor = clsFunction.MKBackColor;
+
+                CheckRescheduledReason();
             }
         }
 
@@ -3913,7 +3987,7 @@ namespace MIS
             txtServiceReferenceNo.Text =
             txtServiceCode.Text =
             txtServiceRequestDate.Text =
-            txtServiceScheduleDate.Text =
+            txtServiceScheduleDate.Text = 
             txtProcessedBy.Text =
             txtProcessedDate.Text =
             txtModifiedBy.Text =
@@ -4612,7 +4686,7 @@ namespace MIS
                                   "Kind check the selected record.", "Field checking", clsFunction.IconType.iError);
                     return;
                 }
-
+                
                 // Handle terminal SN has not been released
                 if (clsSearch.ClassIsReleased <= 0)
                 {
@@ -6454,7 +6528,7 @@ namespace MIS
             {
                 dbFunction.SetMessageBox("Service information must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
             }
-        }
+        }   
 
         private void btnIncludeInReport_Click(object sender, EventArgs e)
         {

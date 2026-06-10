@@ -163,6 +163,7 @@ namespace MIS
                             clsSearch.ClassReasonDescription = lvwSearch.SelectedItems[0].SubItems[2].Text;
                             clsSearch.ClassReasonCode = lvwSearch.SelectedItems[0].SubItems[3].Text;
                             clsSearch.ClassReasonIsInput = int.Parse(lvwSearch.SelectedItems[0].SubItems[4].Text);
+                            clsSearch.ClassReasonFuncID = int.Parse(lvwSearch.SelectedItems[0].SubItems[5].Text);
                             break;
                         case SearchType.iFSRAttempt:
                             clsSearch.ClassTAIDNo = int.Parse(lvwSearch.SelectedItems[0].SubItems[1].Text);

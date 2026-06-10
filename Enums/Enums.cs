@@ -106,6 +106,7 @@ namespace MIS.Enums
 
     public enum ReasonFuncType
     {
-        Reschedule_By_Merchant_FuncId = 1
+        Reschedule_By_Merchant_FuncId = 1,
+        Refused_By_Merchant_FuncId = 2
     }
 }

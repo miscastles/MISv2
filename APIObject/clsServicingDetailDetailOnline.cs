@@ -776,14 +776,6 @@ namespace MIS
             set { _MobileID = value; }
         }
 
-        private int _MobileID;
-        [JsonProperty("MobileID")]
-        public int MobileID
-        {
-            get { return _MobileID; }
-            set { _MobileID = value; }
-        }
-
     }
     public class ServicingDetailOnline
     {

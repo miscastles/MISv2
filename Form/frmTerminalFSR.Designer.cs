@@ -161,7 +161,6 @@
             this.txtRepTerminalSN = new System.Windows.Forms.TextBox();
             this.txtSearchRepSIMStatus = new System.Windows.Forms.TextBox();
             this.txtServiceReferenceNo = new System.Windows.Forms.TextBox();
-            this.txtServiceScheduleDate = new System.Windows.Forms.TextBox();
             this.txtServiceRequestNo = new System.Windows.Forms.TextBox();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.lblMainStatus = new System.Windows.Forms.Label();
@@ -321,6 +320,7 @@
             this.label40 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.panel140 = new System.Windows.Forms.Panel();
+            this.txtServiceScheduleDate = new System.Windows.Forms.TextBox();
             this.label163 = new System.Windows.Forms.Label();
             this.txtReportedDate = new System.Windows.Forms.TextBox();
             this.label129 = new System.Windows.Forms.Label();
@@ -700,6 +700,7 @@
             this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
             this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
             this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
+            this.tabPage25 = new System.Windows.Forms.TabPage();
             this.lblCreatedDate = new System.Windows.Forms.Label();
             this.txtFEPosition = new System.Windows.Forms.TextBox();
             this.label131 = new System.Windows.Forms.Label();
@@ -768,7 +769,6 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
-            this.tabPage25 = new System.Windows.Forms.TabPage();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -1005,7 +1005,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(1, 916);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1388, 2);
+            this.panel3.Size = new System.Drawing.Size(1395, 2);
             this.panel3.TabIndex = 306;
             this.panel3.Visible = false;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
@@ -1014,7 +1014,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1387, 0);
+            this.panel4.Location = new System.Drawing.Point(1394, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(2, 916);
             this.panel4.TabIndex = 307;
@@ -1025,7 +1025,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel8.Location = new System.Drawing.Point(1, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1386, 2);
+            this.panel8.Size = new System.Drawing.Size(1393, 2);
             this.panel8.TabIndex = 388;
             // 
             // pnlHeader
@@ -1039,7 +1039,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(1, 2);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1386, 29);
+            this.pnlHeader.Size = new System.Drawing.Size(1393, 29);
             this.pnlHeader.TabIndex = 390;
             // 
             // btnMinimize
@@ -2684,19 +2684,6 @@
             this.txtServiceReferenceNo.Size = new System.Drawing.Size(145, 21);
             this.txtServiceReferenceNo.TabIndex = 433;
             // 
-            // txtServiceScheduleDate
-            // 
-            this.txtServiceScheduleDate.BackColor = System.Drawing.Color.White;
-            this.txtServiceScheduleDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtServiceScheduleDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtServiceScheduleDate.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtServiceScheduleDate.Location = new System.Drawing.Point(102, 23);
-            this.txtServiceScheduleDate.MaxLength = 200;
-            this.txtServiceScheduleDate.Name = "txtServiceScheduleDate";
-            this.txtServiceScheduleDate.ReadOnly = true;
-            this.txtServiceScheduleDate.Size = new System.Drawing.Size(82, 20);
-            this.txtServiceScheduleDate.TabIndex = 352;
-            // 
             // txtServiceRequestNo
             // 
             this.txtServiceRequestNo.BackColor = System.Drawing.Color.White;
@@ -2741,7 +2728,7 @@
             this.tabControl1.Location = new System.Drawing.Point(5, 33);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1384, 881);
+            this.tabControl1.Size = new System.Drawing.Size(1391, 881);
             this.tabControl1.TabIndex = 435;
             // 
             // tabPage1
@@ -2773,7 +2760,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1376, 849);
+            this.tabPage1.Size = new System.Drawing.Size(1383, 849);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
             // 
@@ -4354,7 +4341,7 @@
             // 
             this.label170.AutoSize = true;
             this.label170.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label170.Location = new System.Drawing.Point(236, 27);
+            this.label170.Location = new System.Drawing.Point(237, 26);
             this.label170.Name = "label170";
             this.label170.Size = new System.Drawing.Size(84, 14);
             this.label170.TabIndex = 479;
@@ -4566,7 +4553,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(288, 78);
+            this.label26.Location = new System.Drawing.Point(287, 81);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(35, 14);
             this.label26.TabIndex = 445;
@@ -4688,6 +4675,7 @@
             // 
             // panel140
             // 
+            this.panel140.Controls.Add(this.txtServiceScheduleDate);
             this.panel140.Controls.Add(this.label163);
             this.panel140.Controls.Add(this.txtReportedDate);
             this.panel140.Controls.Add(this.label129);
@@ -4695,17 +4683,28 @@
             this.panel140.Controls.Add(this.label56);
             this.panel140.Controls.Add(this.label23);
             this.panel140.Controls.Add(this.txtServiceRequestDate);
-            this.panel140.Controls.Add(this.txtServiceScheduleDate);
             this.panel140.Location = new System.Drawing.Point(220, 26);
             this.panel140.Name = "panel140";
             this.panel140.Size = new System.Drawing.Size(186, 92);
             this.panel140.TabIndex = 316;
             // 
+            // txtServiceScheduleDate
+            // 
+            this.txtServiceScheduleDate.BackColor = System.Drawing.Color.White;
+            this.txtServiceScheduleDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtServiceScheduleDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtServiceScheduleDate.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtServiceScheduleDate.Location = new System.Drawing.Point(102, 2);
+            this.txtServiceScheduleDate.Name = "txtServiceScheduleDate";
+            this.txtServiceScheduleDate.ReadOnly = true;
+            this.txtServiceScheduleDate.Size = new System.Drawing.Size(82, 20);
+            this.txtServiceScheduleDate.TabIndex = 407;
+            // 
             // label163
             // 
             this.label163.AutoSize = true;
             this.label163.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label163.Location = new System.Drawing.Point(2, 68);
+            this.label163.Location = new System.Drawing.Point(1, 68);
             this.label163.Name = "label163";
             this.label163.Size = new System.Drawing.Size(98, 14);
             this.label163.TabIndex = 358;
@@ -4720,14 +4719,14 @@
             this.txtReportedDate.Location = new System.Drawing.Point(102, 66);
             this.txtReportedDate.Name = "txtReportedDate";
             this.txtReportedDate.ReadOnly = true;
-            this.txtReportedDate.Size = new System.Drawing.Size(81, 20);
+            this.txtReportedDate.Size = new System.Drawing.Size(82, 20);
             this.txtReportedDate.TabIndex = 357;
             // 
             // label129
             // 
             this.label129.AutoSize = true;
             this.label129.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label129.Location = new System.Drawing.Point(3, 46);
+            this.label129.Location = new System.Drawing.Point(1, 48);
             this.label129.Name = "label129";
             this.label129.Size = new System.Drawing.Size(98, 14);
             this.label129.TabIndex = 356;
@@ -4742,14 +4741,14 @@
             this.txtFSRDate.Location = new System.Drawing.Point(102, 44);
             this.txtFSRDate.Name = "txtFSRDate";
             this.txtFSRDate.ReadOnly = true;
-            this.txtFSRDate.Size = new System.Drawing.Size(81, 20);
+            this.txtFSRDate.Size = new System.Drawing.Size(82, 20);
             this.txtFSRDate.TabIndex = 158;
             // 
             // label56
             // 
             this.label56.AutoSize = true;
             this.label56.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label56.Location = new System.Drawing.Point(2, 6);
+            this.label56.Location = new System.Drawing.Point(1, 27);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(91, 14);
             this.label56.TabIndex = 345;
@@ -4759,7 +4758,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(3, 27);
+            this.label23.Location = new System.Drawing.Point(1, 7);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(98, 14);
             this.label23.TabIndex = 355;
@@ -4771,7 +4770,7 @@
             this.txtServiceRequestDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtServiceRequestDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtServiceRequestDate.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtServiceRequestDate.Location = new System.Drawing.Point(102, 2);
+            this.txtServiceRequestDate.Location = new System.Drawing.Point(102, 23);
             this.txtServiceRequestDate.Name = "txtServiceRequestDate";
             this.txtServiceRequestDate.ReadOnly = true;
             this.txtServiceRequestDate.Size = new System.Drawing.Size(82, 20);
@@ -7102,7 +7101,6 @@
             // 
             // panel10
             // 
-            this.panel10.Controls.Add(this.button1);
             this.panel10.Controls.Add(this.btnUpdateAppsInfo);
             this.panel10.Controls.Add(this.label75);
             this.panel10.Controls.Add(this.txtMAppVesion);
@@ -8824,7 +8822,7 @@
             this.tabPage20.Location = new System.Drawing.Point(4, 28);
             this.tabPage20.Name = "tabPage20";
             this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage20.Size = new System.Drawing.Size(1376, 849);
+            this.tabPage20.Size = new System.Drawing.Size(1383, 849);
             this.tabPage20.TabIndex = 1;
             this.tabPage20.Text = "Additional Information";
             this.tabPage20.UseVisualStyleBackColor = true;
@@ -8983,7 +8981,7 @@
             this.tabPage24.Location = new System.Drawing.Point(4, 28);
             this.tabPage24.Name = "tabPage24";
             this.tabPage24.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage24.Size = new System.Drawing.Size(1376, 849);
+            this.tabPage24.Size = new System.Drawing.Size(1383, 849);
             this.tabPage24.TabIndex = 2;
             this.tabPage24.Text = "Helpdesk Information";
             this.tabPage24.UseVisualStyleBackColor = true;
@@ -9031,6 +9029,16 @@
             this.ucHelpDeskServiceInfo.TabIndex = 1;
             this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
             this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
+            // 
+            // tabPage25
+            // 
+            this.tabPage25.Location = new System.Drawing.Point(4, 28);
+            this.tabPage25.Name = "tabPage25";
+            this.tabPage25.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage25.Size = new System.Drawing.Size(1383, 849);
+            this.tabPage25.TabIndex = 3;
+            this.tabPage25.Text = "Deployment Information";
+            this.tabPage25.UseVisualStyleBackColor = true;
             // 
             // lblCreatedDate
             // 
@@ -9847,21 +9855,11 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
-            // tabPage25
-            // 
-            this.tabPage25.Location = new System.Drawing.Point(4, 28);
-            this.tabPage25.Name = "tabPage25";
-            this.tabPage25.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage25.Size = new System.Drawing.Size(1376, 849);
-            this.tabPage25.TabIndex = 3;
-            this.tabPage25.Text = "Deployment Information";
-            this.tabPage25.UseVisualStyleBackColor = true;
-            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1389, 918);
+            this.ClientSize = new System.Drawing.Size(1396, 918);
             this.Controls.Add(this.lblCreatedDate);
             this.Controls.Add(this.panel53);
             this.Controls.Add(this.txtSearchMerchantName);
@@ -10320,7 +10318,6 @@
         private System.Windows.Forms.TextBox txtRepTerminalSNStatus;
         private System.Windows.Forms.TextBox txtCurDockSNStatus;
         private System.Windows.Forms.TextBox txtCurSIMSNStatus;
-        private System.Windows.Forms.TextBox txtServiceScheduleDate;
         private System.Windows.Forms.TextBox txtJobTypeSubDescription;
         private Bunifu.Framework.UI.BunifuImageButton btnSearchExpenses;
         private Bunifu.Framework.UI.BunifuImageButton btnRemoveExpenses;
@@ -10960,5 +10957,6 @@
         private System.Windows.Forms.Label label171;
         private System.Windows.Forms.TextBox txtDueDate;
         private System.Windows.Forms.TabPage tabPage25;
+        private System.Windows.Forms.TextBox txtServiceScheduleDate;
     }
 }

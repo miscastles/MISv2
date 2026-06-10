@@ -1261,6 +1261,7 @@ namespace MIS
                         List<string> ReasonDescriptionCol = new List<String>();
                         List<string> ReasonTypeCol = new List<String>();
                         List<string> ReasonIsInputCol = new List<String>();
+                        List<string> ReasonFuncIDCol = new List<String>();
 
                         // Region Detail
                         List<string> RegionTypeCol = new List<String>();
@@ -3782,7 +3783,7 @@ namespace MIS
                                             clsReason.ClassReasonDescription = element.Description;
                                             clsReason.ClassReasonType = element.Type;
                                             clsReason.ClassReasonIsInput = element.IsInput;
-
+                                            clsReason.ClassReasonFuncID = element.FunctionID;
                                         }
                                         break;
                                     case "View":
@@ -3794,7 +3795,7 @@ namespace MIS
                                             ReasonDescriptionCol.Add(element.Description);
                                             ReasonTypeCol.Add(element.Type);
                                             ReasonIsInputCol.Add(element.IsInput.ToString());
-
+                                            ReasonFuncIDCol.Add(element.FunctionID.ToString());
                                         }
 
                                         clsArray.ReasonID = ReasonIDCol.ToArray();
@@ -3802,6 +3803,7 @@ namespace MIS
                                         clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
                                         clsArray.ReasonType = ReasonTypeCol.ToArray();
                                         clsArray.ReasonIsInput = ReasonIsInputCol.ToArray();
+                                        clsArray.ReasonFuncID = ReasonFuncIDCol.ToArray();
                                         break;
                                 }
                                 break;
@@ -5968,7 +5970,6 @@ namespace MIS
 
         }
 
-      
         public bool isNoRecordFound()
         {
             bool fFound = false;
@@ -7690,7 +7691,7 @@ namespace MIS
                     clsReason.ClassReasonDescription = clsArray.ReasonDescription[i];
                     clsReason.ClassReasonCode = clsArray.ReasonCode[i];
                     clsReason.ClassReasonIsInput = int.Parse(clsArray.ReasonIsInput[i]);
-
+                    clsReason.ClassReasonFuncID = int.Parse(clsArray.ReasonFuncID[i]);
 
                     // Add to List
                     iLineNo++;
@@ -7699,6 +7700,7 @@ namespace MIS
                     item.SubItems.Add(clsReason.ClassReasonDescription);
                     item.SubItems.Add(clsReason.ClassReasonCode);
                     item.SubItems.Add(clsReason.ClassReasonIsInput.ToString());
+                    item.SubItems.Add(clsReason.ClassReasonFuncID.ToString());
 
 
                     obj.Items.Add(item);

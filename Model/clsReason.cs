@@ -15,6 +15,7 @@ namespace MIS
         public static string _Description;
         public static string _Type;
         public static int _ReasonIsInput;
+        public static int _ReasonFuncID;
 
         public static void ResetClass()
         {
@@ -49,6 +50,11 @@ namespace MIS
         {
             get { return _ReasonIsInput; }
             set { _ReasonIsInput = value; }
+        }
+        public static int ClassReasonFuncID
+        {
+            get { return _ReasonFuncID; }
+            set { _ReasonFuncID = value; }
         }
     }
 }

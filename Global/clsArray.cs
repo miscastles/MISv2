@@ -228,6 +228,7 @@ namespace MIS
         public static string[] ReasonDescription;
         public static string[] ReasonType;
         public static string[] ReasonIsInput;
+        public static string[] ReasonFuncID;
 
         // Region Detail
         public static string[] RegionType;

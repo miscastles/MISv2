@@ -144,6 +144,7 @@ namespace MIS
 
         // Reason
         public static int _ReasonID;
+        public static int _ReasonFuncID;
         public static string _ReasonCode;
         public static string _ReasonDescription;
         public static int _ReasonIsInput;
@@ -951,6 +952,11 @@ namespace MIS
         {
             get { return _ReasonID; }
             set { _ReasonID = value; }
+        }
+        public static int ClassReasonFuncID
+        {
+            get { return _ReasonFuncID; }
+            set { _ReasonFuncID = value; }
         }
         public static string ClassReasonCode
         {
@@ -2621,6 +2627,7 @@ namespace MIS
             get { return _BillngFileName; }
             set { _BillngFileName = value; }
         }
+
 
     }
 }
