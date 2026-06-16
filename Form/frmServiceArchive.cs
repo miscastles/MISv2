@@ -1,4 +1,5 @@
-﻿using MIS.Global;
+﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using MIS.Global;
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -108,6 +109,9 @@ namespace MIS
             int signCount = 0;
             int imageCount = 0;
 
+            int fsrFileSize = 0;
+            int diagnosticFileSize = 0;
+
             Cursor.Current = Cursors.WaitCursor;
 
             Debug.WriteLine("--loadData--");
@@ -168,8 +172,40 @@ namespace MIS
 
                 item.UseItemStyleForSubItems = false;
 
+                if(isFSRFound)
+                {
+                    dbAPI.checkFileInfo("FSR", "File Info", fsrFileName);
+
+                    string fsrSizeValue = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "Size");
+
+                    fsrFileSize = dbFunction.isValidDescription(fsrSizeValue)
+                        ? int.Parse(fsrSizeValue)
+                        : 0;
+
+                    isFSRFound = fsrFileSize > 0;
+                }
+
+                if(isDiagnosticFound)
+                {
+                    dbAPI.checkFileInfo("FSR", "File Info", diagnosticFileName);
+
+                    string diagnosticSizeValue = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "Size");
+
+                    diagnosticFileSize = dbFunction.isValidDescription(diagnosticSizeValue)
+                        ? int.Parse(diagnosticSizeValue)
+                        : 0;
+
+                    isDiagnosticFound = diagnosticFileSize > 0;
+                }
+
                 item.SubItems.Add(
                     isFSRFound
+                    ? $"{clsIcons.FOUND} {clsDefines.MSG_FOUND}"
+                    : $"{clsIcons.NOT_FOUND} {clsDefines.MSG_NOT_FOUND}"
+                );
+
+                item.SubItems.Add(
+                    isDiagnosticFound
                     ? $"{clsIcons.FOUND} {clsDefines.MSG_FOUND}"
                     : $"{clsIcons.NOT_FOUND} {clsDefines.MSG_NOT_FOUND}"
                 );
@@ -180,12 +216,6 @@ namespace MIS
                         isFSRFound ? Color.Green : Color.Red;
                 }
 
-                item.SubItems.Add(
-                    isDiagnosticFound
-                    ? $"{clsIcons.FOUND} {clsDefines.MSG_FOUND}"
-                    : $"{clsIcons.NOT_FOUND} {clsDefines.MSG_NOT_FOUND}"
-                );
-
                 if (diagColumnIndex >= 0)
                 {
                     item.SubItems[diagColumnIndex].ForeColor =
@@ -193,6 +223,8 @@ namespace MIS
                 }
 
                 string pJSONStringCount = dbAPI.checkFileInfo("View", "File Count", serviceno);
+
+                string pJSONStringFileInfo = dbAPI.checkFileInfo("View", "File Info", serviceno);
 
                 signCount = 0;
                 imageCount = 0;
@@ -202,6 +234,8 @@ namespace MIS
                     signCount = int.Parse(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_PngCount));
                     imageCount = int.Parse(dbAPI.GetValueFromJSONString(pJSONStringCount, clsDefines.TAG_JpgCount));
                 }
+
+                dbAPI.checkFileInfo("FSR", "File Info", fsrFileName);
 
                 item.SubItems.Add($"{signCount}");
                 item.SubItems.Add($"{imageCount}");
@@ -535,6 +569,7 @@ namespace MIS
             if (lvwList.Items.Count == 0)
             {
                 dbFunction.SetMessageBox("No record to process.", lblHeader.Text, clsFunction.IconType.iInformation);
+                return;
             }
 
             if (!dbFunction.fPromptConfirmation(
@@ -628,8 +663,7 @@ namespace MIS
                     $"FSR_ARCHIVE_{dteDateFrom.Value:dd-MM-yyyy}_{dteDateTo.Value:dd-MM-yyyy}{(cboFEName.Text.Equals(clsFunction.sDefaultSelect) ? "" : $"_{cboFEName.Text}")}{(cboFSRModeType.Text.Equals(clsFunction.sDefaultSelect) ? "" : $"_{cboFSRModeType.Text}")}.xlsx",
                     new[] { dt },
                     new[] { "FSR List" },
-                    new[] { Color.ForestGreen },
-                    dbFile.sExportPath
+                    new[] { Color.ForestGreen }
                 );
             }
             catch (Exception ex)
