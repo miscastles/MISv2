@@ -246,6 +246,8 @@ namespace MIS
                 fAutoLoadData = false;
             }
 
+            initClientSelection();
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -439,6 +441,7 @@ namespace MIS
         private void btnImportCancel_Click(object sender, EventArgs e)
         {
             dbFunction.ClearTextBox(this);
+            dbFunction.ComBoBoxUnLock(false, this);
             //dbFunction.ClearComboBox(this);
             //ClearDataGrid();
 
@@ -449,6 +452,8 @@ namespace MIS
             btnImportSave.Enabled = false;
 
             ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
+
+            initClientSelection();
         }
         
         private bool isValidHeader()
@@ -1184,6 +1189,8 @@ namespace MIS
             btnGenerate.Enabled = btnReset.Enabled = pnlGenerate.Enabled = false;
 
             cboAStatus.Text = cboAAllocation.Text = cboACarrier.Text = cboALocation.Text = clsFunction.sDefaultSelect;
+
+            initClientSelection();
         }
 
         private void txtPrefix_KeyPress(object sender, KeyPressEventArgs e)
@@ -3868,6 +3875,18 @@ namespace MIS
             dbFunction.CopyListViewToClipboard(lvwRelease);
 
             dbFunction.SetMessageBox($"Data list copied to clipboard!", lblHeader.Text, clsFunction.IconType.iInformation);
+        }
+
+        private void initClientSelection()
+        {
+            cboIClient.Enabled = true;
+            cboIClient.SelectedIndex = 1;
+
+            cboMClient.Enabled = true;
+            cboMClient.SelectedIndex = 1;
+
+            cboMClient.Enabled = true;
+            cboMClient.SelectedIndex = 1;
         }
     }
 }

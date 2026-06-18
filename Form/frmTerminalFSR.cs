@@ -1780,8 +1780,6 @@ namespace MIS
                         string pReason = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "Reason");
                         string pDependency = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "Dependency");
 
-                        Debug.WriteLine("[RAIDEN]= " + clsSearch.ClassOutParamValue);
-
                         DialogResult isContinue = MessageBox.Show(
                             $"Last attempt ServiceNo: {pServiceNo}\n" +
                             $"Last attempt RequestID: {pRequestID}\n\n" + 

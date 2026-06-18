@@ -1538,20 +1538,18 @@ namespace MIS
                         clsDefines.FIELD_CHECK_MSG,
                         clsFunction.IconType.iError
                     );
+
                     return false;
                 }
             }
 
             // check if replacement service type if current sim is not empty before saving
-            if (cboSearchServiceType.SelectedItem.ToString().Equals(clsGlobalVariables.STATUS_REPLACEMENT))
+            if (cboSearchServiceType.SelectedItem.ToString().Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC))
             {
-                if (dbFunction.isValidID(txtRepSIMID.Text))
+                if (!dbFunction.isValidDescription(txtRepSIMCarrier.Text))
                 {
-                    if(dbFunction.isValidDescription(txtRepSIMCarrier.Text)) 
-                    {
-                        dbFunction.SetMessageBox("Replacement SIM Carrier must not be blank.", "Warning", clsFunction.IconType.iExclamation);
-                        return false;
-                    }
+                    dbFunction.SetMessageBox("Replacement SIM Carrier must not be blank.", "Warning", clsFunction.IconType.iExclamation);
+                    return false;
                 }
             }
 

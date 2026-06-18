@@ -985,24 +985,24 @@ namespace MIS
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private bool ValidateFields()
         {
             if (JobTypeID.Equals(1))
             {
                 Prompt.Info("Servicing Update", "Installation is not allowed to be selected.");
-                return;
+                return false;
             }
 
             if (cboSearchServiceStatus.SelectedItem?.ToString() == "COMPLETED")
             {
                 Prompt.Info("Servicing Update", "Completed Job Order are not allowed");
-                return;
+                return false;
             }
 
             if (cboSearchServiceType.Text.Equals(clsGlobalVariables.STATUS_INSTALLATION_DESC))
             {
                 Prompt.Info("Servicing Update", "Installation is not allowed to be selected.");
-                return;
+                return false;
             }
 
             if (cboSearchServiceType.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC))
@@ -1010,12 +1010,27 @@ namespace MIS
                 if (repTerminalID.Equals(0) && repSimID.Equals(0))
                 {
                     Prompt.Info("Servicing Update", "Please select a Device to be used");
-                    return;
+                    return false;
+                }
+
+                if(dbAPI.isRecordExist("Search", "Override-Service Check SIMID", $"{repSimID}{clsDefines.gPipe}{IRIDNo}")) 
+                {
+                    Prompt.Info("Servicing Update", "Replacement SIM Already Installed");
+                    return false;
                 }
             }
 
+            return true;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!ValidateFields())
+                return;
+
             UpdateJobOrder(ServiceNo);
         }
+
 
         private void btnSearchFE_Click(object sender, EventArgs e)
         {

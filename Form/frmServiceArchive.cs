@@ -20,6 +20,7 @@ namespace MIS
         private clsFile dbFile;
 
         private const string gReportListHeader = "FSR REPORT LIST";
+        private const string gFileNamePrefix = "FSR_ARCHIVE";
 
         protected override CreateParams CreateParams
         {
@@ -501,6 +502,7 @@ namespace MIS
 
                 string zipFileName =
                     $"FSR_ARCHIVE_" +
+                    $"{clsSearch.ClassBankCode}_{gFileNamePrefix}_" +
                     $"{dteDateFrom.Value:yyyy-MM-dd}_" +
                     $"{dteDateTo.Value:yyyy-MM-dd}.zip";
 

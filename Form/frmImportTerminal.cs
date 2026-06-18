@@ -168,7 +168,6 @@ namespace MIS
                     btnValidate.Enabled = true;
 
                     cboIClient.Enabled = true;
-                    cboIClient.SelectedIndex = 1;
 
                     Cursor.Current = Cursors.Default; // Back to normal 
 
@@ -477,6 +476,8 @@ namespace MIS
 
             ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
 
+            initClientSelection();
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -493,6 +494,8 @@ namespace MIS
             UpdateButton(true, tabTerminal.SelectedIndex);
 
             ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
+
+            initClientSelection();
         }
         private void ListViewAlternateBackColor()
         {
@@ -1232,6 +1235,7 @@ namespace MIS
 
             btnGenerate.Enabled = btnReset.Enabled = false;
 
+            initClientSelection();
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -2098,6 +2102,8 @@ namespace MIS
             btnSearchTerminalSN.Enabled = true;
             lblSelectedHeader.Text = clsFunction.sNull;
             rtbJSONFormat.Text = clsFunction.sNull;
+
+            initClientSelection();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -3420,6 +3426,7 @@ namespace MIS
 
             chkRelease_CheckedChanged(this, e);
 
+            initClientSelection();
         }
 
         private void btnRAddItem_Click(object sender, EventArgs e)
@@ -4740,6 +4747,21 @@ namespace MIS
             dbFunction.CopyListViewToClipboard(lvwRelease);
 
             dbFunction.SetMessageBox($"Data list copied to clipboard!", lblHeader.Text, clsFunction.IconType.iInformation);
+        }
+
+        private void initClientSelection()
+        {
+            cboIClient.Enabled = true;
+            cboIClient.SelectedIndex = 1;
+
+            cboAClient.Enabled = true;
+            cboAClient.SelectedIndex = 1;
+
+            cboMClient.Enabled = true;
+            cboMClient.SelectedIndex = 1;
+
+            cboMClient.Enabled = true;
+            cboMClient.SelectedIndex = 1;
         }
     }
 }
