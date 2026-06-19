@@ -58,7 +58,7 @@ namespace MIS
 
             dbAPI.FillComboBoxServiceType(cboSearchServiceType);
             dbAPI.FillComboBoxFSRMode(cboFSRModeType);
-            dbAPI.FillComboBoxFE(cboFEName);
+            dbAPI.FillComboBoxPositionType(cboFEName, clsDefines.FIELD_ENGINEER_POSITION_TYPE);
 
             lblResultList.Text = gReportListHeader;
 
@@ -297,8 +297,12 @@ namespace MIS
             clsSearch.ClassParticularID = 0;
             if (!cboFEName.Text.Equals(clsFunction.sDefaultSelect))
             {
-                dbFunction.GetIDFromFile("FE List", cboFEName.Text);
-                clsSearch.ClassParticularID = clsSearch.ClassOutFileID; // THIS IS MISSING
+                int rowIndex = cboFEName.SelectedIndex - 1;
+
+                if (rowIndex >= 0 && clsArray.ID.Length > rowIndex)
+                {
+                    clsSearch.ClassParticularID = int.Parse(clsArray.ID[rowIndex]);
+                }
             }
 
             Debug.WriteLine($"ClassParticularID=[{clsSearch.ClassParticularID}]");
