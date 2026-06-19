@@ -76,6 +76,9 @@ namespace MIS
             this.label34 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.pnlSubMenuEnrollment = new System.Windows.Forms.Panel();
+            this.btnZoning = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnLocation = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnTerminalBrand = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnType = new Bunifu.Framework.UI.BunifuFlatButton();
             this.panel12 = new System.Windows.Forms.Panel();
             this.bunifuFlatButton9 = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -1345,6 +1348,9 @@ namespace MIS
             // 
             this.pnlSubMenuEnrollment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pnlSubMenuEnrollment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSubMenuEnrollment.Controls.Add(this.btnZoning);
+            this.pnlSubMenuEnrollment.Controls.Add(this.btnLocation);
+            this.pnlSubMenuEnrollment.Controls.Add(this.btnTerminalBrand);
             this.pnlSubMenuEnrollment.Controls.Add(this.btnType);
             this.pnlSubMenuEnrollment.Controls.Add(this.panel12);
             this.pnlSubMenuEnrollment.Controls.Add(this.bunifuFlatButton9);
@@ -1358,11 +1364,122 @@ namespace MIS
             this.pnlSubMenuEnrollment.Controls.Add(this.btnClient);
             this.pnlSubMenuEnrollment.Controls.Add(this.btnReason);
             this.pnlSubMenuEnrollment.Controls.Add(this.btnExpenses);
-            this.pnlSubMenuEnrollment.Location = new System.Drawing.Point(982, 462);
+            this.pnlSubMenuEnrollment.Location = new System.Drawing.Point(1037, 256);
             this.pnlSubMenuEnrollment.Name = "pnlSubMenuEnrollment";
-            this.pnlSubMenuEnrollment.Size = new System.Drawing.Size(233, 396);
+            this.pnlSubMenuEnrollment.Size = new System.Drawing.Size(233, 497);
             this.pnlSubMenuEnrollment.TabIndex = 261;
             this.pnlSubMenuEnrollment.Visible = false;
+            // 
+            // btnZoning
+            // 
+            this.btnZoning.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnZoning.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnZoning.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnZoning.BorderRadius = 0;
+            this.btnZoning.ButtonText = "          Zoning";
+            this.btnZoning.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnZoning.DisabledColor = System.Drawing.Color.Gray;
+            this.btnZoning.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnZoning.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnZoning.Iconimage = null;
+            this.btnZoning.Iconimage_right = null;
+            this.btnZoning.Iconimage_right_Selected = null;
+            this.btnZoning.Iconimage_Selected = null;
+            this.btnZoning.IconMarginLeft = 0;
+            this.btnZoning.IconMarginRight = 0;
+            this.btnZoning.IconRightVisible = true;
+            this.btnZoning.IconRightZoom = 0D;
+            this.btnZoning.IconVisible = true;
+            this.btnZoning.IconZoom = 40D;
+            this.btnZoning.IsTab = true;
+            this.btnZoning.Location = new System.Drawing.Point(0, 454);
+            this.btnZoning.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnZoning.Name = "btnZoning";
+            this.btnZoning.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnZoning.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnZoning.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnZoning.selected = false;
+            this.btnZoning.Size = new System.Drawing.Size(225, 28);
+            this.btnZoning.TabIndex = 57;
+            this.btnZoning.Text = "          Zoning";
+            this.btnZoning.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnZoning.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnZoning.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnZoning.Click += new System.EventHandler(this.btnZoning_Click);
+            // 
+            // btnLocation
+            // 
+            this.btnLocation.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnLocation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnLocation.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLocation.BorderRadius = 0;
+            this.btnLocation.ButtonText = "          Location";
+            this.btnLocation.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLocation.DisabledColor = System.Drawing.Color.Gray;
+            this.btnLocation.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLocation.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnLocation.Iconimage = null;
+            this.btnLocation.Iconimage_right = null;
+            this.btnLocation.Iconimage_right_Selected = null;
+            this.btnLocation.Iconimage_Selected = null;
+            this.btnLocation.IconMarginLeft = 0;
+            this.btnLocation.IconMarginRight = 0;
+            this.btnLocation.IconRightVisible = true;
+            this.btnLocation.IconRightZoom = 0D;
+            this.btnLocation.IconVisible = true;
+            this.btnLocation.IconZoom = 40D;
+            this.btnLocation.IsTab = true;
+            this.btnLocation.Location = new System.Drawing.Point(0, 420);
+            this.btnLocation.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnLocation.Name = "btnLocation";
+            this.btnLocation.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnLocation.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnLocation.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnLocation.selected = false;
+            this.btnLocation.Size = new System.Drawing.Size(225, 28);
+            this.btnLocation.TabIndex = 56;
+            this.btnLocation.Text = "          Location";
+            this.btnLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLocation.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnLocation.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnLocation.Click += new System.EventHandler(this.btnLocation_Click);
+            // 
+            // btnTerminalBrand
+            // 
+            this.btnTerminalBrand.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnTerminalBrand.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnTerminalBrand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnTerminalBrand.BorderRadius = 0;
+            this.btnTerminalBrand.ButtonText = "          Brand";
+            this.btnTerminalBrand.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTerminalBrand.DisabledColor = System.Drawing.Color.Gray;
+            this.btnTerminalBrand.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTerminalBrand.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnTerminalBrand.Iconimage = null;
+            this.btnTerminalBrand.Iconimage_right = null;
+            this.btnTerminalBrand.Iconimage_right_Selected = null;
+            this.btnTerminalBrand.Iconimage_Selected = null;
+            this.btnTerminalBrand.IconMarginLeft = 0;
+            this.btnTerminalBrand.IconMarginRight = 0;
+            this.btnTerminalBrand.IconRightVisible = true;
+            this.btnTerminalBrand.IconRightZoom = 0D;
+            this.btnTerminalBrand.IconVisible = true;
+            this.btnTerminalBrand.IconZoom = 40D;
+            this.btnTerminalBrand.IsTab = true;
+            this.btnTerminalBrand.Location = new System.Drawing.Point(-1, 140);
+            this.btnTerminalBrand.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnTerminalBrand.Name = "btnTerminalBrand";
+            this.btnTerminalBrand.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnTerminalBrand.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnTerminalBrand.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnTerminalBrand.selected = false;
+            this.btnTerminalBrand.Size = new System.Drawing.Size(225, 28);
+            this.btnTerminalBrand.TabIndex = 55;
+            this.btnTerminalBrand.Text = "          Brand";
+            this.btnTerminalBrand.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTerminalBrand.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnTerminalBrand.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnTerminalBrand.Click += new System.EventHandler(this.btnTerminalBrand_Click_1);
             // 
             // btnType
             // 
@@ -1386,7 +1503,7 @@ namespace MIS
             this.btnType.IconVisible = true;
             this.btnType.IconZoom = 40D;
             this.btnType.IsTab = true;
-            this.btnType.Location = new System.Drawing.Point(-1, 353);
+            this.btnType.Location = new System.Drawing.Point(-1, 385);
             this.btnType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnType.Name = "btnType";
             this.btnType.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1404,7 +1521,7 @@ namespace MIS
             // panel12
             // 
             this.panel12.BackColor = System.Drawing.Color.White;
-            this.panel12.Location = new System.Drawing.Point(20, 214);
+            this.panel12.Location = new System.Drawing.Point(20, 246);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(190, 1);
             this.panel12.TabIndex = 38;
@@ -1432,7 +1549,7 @@ namespace MIS
             this.bunifuFlatButton9.IconVisible = true;
             this.bunifuFlatButton9.IconZoom = 40D;
             this.bunifuFlatButton9.IsTab = true;
-            this.bunifuFlatButton9.Location = new System.Drawing.Point(0, 225);
+            this.bunifuFlatButton9.Location = new System.Drawing.Point(0, 257);
             this.bunifuFlatButton9.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bunifuFlatButton9.Name = "bunifuFlatButton9";
             this.bunifuFlatButton9.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1468,7 +1585,7 @@ namespace MIS
             this.btnTerminalModel.IconVisible = true;
             this.btnTerminalModel.IconZoom = 40D;
             this.btnTerminalModel.IsTab = true;
-            this.btnTerminalModel.Location = new System.Drawing.Point(0, 172);
+            this.btnTerminalModel.Location = new System.Drawing.Point(0, 206);
             this.btnTerminalModel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnTerminalModel.Name = "btnTerminalModel";
             this.btnTerminalModel.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1550,7 +1667,7 @@ namespace MIS
             this.btnTerminalType.IconVisible = true;
             this.btnTerminalType.IconZoom = 40D;
             this.btnTerminalType.IsTab = true;
-            this.btnTerminalType.Location = new System.Drawing.Point(0, 138);
+            this.btnTerminalType.Location = new System.Drawing.Point(0, 172);
             this.btnTerminalType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnTerminalType.Name = "btnTerminalType";
             this.btnTerminalType.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1661,7 +1778,7 @@ namespace MIS
             this.btnResolution.IconVisible = true;
             this.btnResolution.IconZoom = 40D;
             this.btnResolution.IsTab = true;
-            this.btnResolution.Location = new System.Drawing.Point(0, 285);
+            this.btnResolution.Location = new System.Drawing.Point(0, 317);
             this.btnResolution.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnResolution.Name = "btnResolution";
             this.btnResolution.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1735,7 +1852,7 @@ namespace MIS
             this.btnReason.IconVisible = true;
             this.btnReason.IconZoom = 40D;
             this.btnReason.IsTab = true;
-            this.btnReason.Location = new System.Drawing.Point(0, 252);
+            this.btnReason.Location = new System.Drawing.Point(0, 284);
             this.btnReason.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnReason.Name = "btnReason";
             this.btnReason.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1772,7 +1889,7 @@ namespace MIS
             this.btnExpenses.IconVisible = true;
             this.btnExpenses.IconZoom = 40D;
             this.btnExpenses.IsTab = true;
-            this.btnExpenses.Location = new System.Drawing.Point(0, 319);
+            this.btnExpenses.Location = new System.Drawing.Point(0, 351);
             this.btnExpenses.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnExpenses.Name = "btnExpenses";
             this.btnExpenses.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3124,7 +3241,7 @@ namespace MIS
             this.pnlSubMenuServicing.Controls.Add(this.panel17);
             this.pnlSubMenuServicing.Location = new System.Drawing.Point(916, 57);
             this.pnlSubMenuServicing.Name = "pnlSubMenuServicing";
-            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 695);
+            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 682);
             this.pnlSubMenuServicing.TabIndex = 278;
             this.pnlSubMenuServicing.Visible = false;
             this.pnlSubMenuServicing.Paint += new System.Windows.Forms.PaintEventHandler(this.panel15_Paint);
@@ -3151,7 +3268,7 @@ namespace MIS
             this.btnServicingArchieve.IconVisible = true;
             this.btnServicingArchieve.IconZoom = 40D;
             this.btnServicingArchieve.IsTab = true;
-            this.btnServicingArchieve.Location = new System.Drawing.Point(5, 275);
+            this.btnServicingArchieve.Location = new System.Drawing.Point(5, 271);
             this.btnServicingArchieve.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnServicingArchieve.Name = "btnServicingArchieve";
             this.btnServicingArchieve.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3188,7 +3305,7 @@ namespace MIS
             this.btnMaintenanceUpdateMerchantSN.IconVisible = true;
             this.btnMaintenanceUpdateMerchantSN.IconZoom = 40D;
             this.btnMaintenanceUpdateMerchantSN.IsTab = true;
-            this.btnMaintenanceUpdateMerchantSN.Location = new System.Drawing.Point(2, 479);
+            this.btnMaintenanceUpdateMerchantSN.Location = new System.Drawing.Point(2, 470);
             this.btnMaintenanceUpdateMerchantSN.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateMerchantSN.Name = "btnMaintenanceUpdateMerchantSN";
             this.btnMaintenanceUpdateMerchantSN.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3225,7 +3342,7 @@ namespace MIS
             this.btnMaintenanceUpdateServiceStatus.IconVisible = true;
             this.btnMaintenanceUpdateServiceStatus.IconZoom = 40D;
             this.btnMaintenanceUpdateServiceStatus.IsTab = true;
-            this.btnMaintenanceUpdateServiceStatus.Location = new System.Drawing.Point(2, 445);
+            this.btnMaintenanceUpdateServiceStatus.Location = new System.Drawing.Point(2, 436);
             this.btnMaintenanceUpdateServiceStatus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateServiceStatus.Name = "btnMaintenanceUpdateServiceStatus";
             this.btnMaintenanceUpdateServiceStatus.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3262,7 +3379,7 @@ namespace MIS
             this.btnMaintenanceUpdateRequsetID.IconVisible = true;
             this.btnMaintenanceUpdateRequsetID.IconZoom = 40D;
             this.btnMaintenanceUpdateRequsetID.IsTab = true;
-            this.btnMaintenanceUpdateRequsetID.Location = new System.Drawing.Point(2, 412);
+            this.btnMaintenanceUpdateRequsetID.Location = new System.Drawing.Point(2, 403);
             this.btnMaintenanceUpdateRequsetID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateRequsetID.Name = "btnMaintenanceUpdateRequsetID";
             this.btnMaintenanceUpdateRequsetID.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3362,7 +3479,7 @@ namespace MIS
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.White;
-            this.panel7.Location = new System.Drawing.Point(19, 553);
+            this.panel7.Location = new System.Drawing.Point(19, 544);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(190, 1);
             this.panel7.TabIndex = 301;
@@ -3390,7 +3507,7 @@ namespace MIS
             this.bunifuFlatButton11.IconVisible = true;
             this.bunifuFlatButton11.IconZoom = 40D;
             this.bunifuFlatButton11.IsTab = true;
-            this.bunifuFlatButton11.Location = new System.Drawing.Point(-2, 559);
+            this.bunifuFlatButton11.Location = new System.Drawing.Point(-2, 550);
             this.bunifuFlatButton11.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bunifuFlatButton11.Name = "bunifuFlatButton11";
             this.bunifuFlatButton11.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3426,7 +3543,7 @@ namespace MIS
             this.btnMaintenanceFailedService.IconVisible = true;
             this.btnMaintenanceFailedService.IconZoom = 40D;
             this.btnMaintenanceFailedService.IsTab = true;
-            this.btnMaintenanceFailedService.Location = new System.Drawing.Point(-1, 651);
+            this.btnMaintenanceFailedService.Location = new System.Drawing.Point(-1, 642);
             this.btnMaintenanceFailedService.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceFailedService.Name = "btnMaintenanceFailedService";
             this.btnMaintenanceFailedService.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3463,7 +3580,7 @@ namespace MIS
             this.btnMaintenancePendingeFSRGenerator.IconVisible = true;
             this.btnMaintenancePendingeFSRGenerator.IconZoom = 40D;
             this.btnMaintenancePendingeFSRGenerator.IsTab = true;
-            this.btnMaintenancePendingeFSRGenerator.Location = new System.Drawing.Point(0, 618);
+            this.btnMaintenancePendingeFSRGenerator.Location = new System.Drawing.Point(0, 609);
             this.btnMaintenancePendingeFSRGenerator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenancePendingeFSRGenerator.Name = "btnMaintenancePendingeFSRGenerator";
             this.btnMaintenancePendingeFSRGenerator.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3500,7 +3617,7 @@ namespace MIS
             this.btnMaintenanceServiceReverse.IconVisible = true;
             this.btnMaintenanceServiceReverse.IconZoom = 40D;
             this.btnMaintenanceServiceReverse.IsTab = true;
-            this.btnMaintenanceServiceReverse.Location = new System.Drawing.Point(3, 513);
+            this.btnMaintenanceServiceReverse.Location = new System.Drawing.Point(3, 504);
             this.btnMaintenanceServiceReverse.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceServiceReverse.Name = "btnMaintenanceServiceReverse";
             this.btnMaintenanceServiceReverse.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3537,7 +3654,7 @@ namespace MIS
             this.btnMaintenanceUpdateDiagnostic.IconVisible = true;
             this.btnMaintenanceUpdateDiagnostic.IconZoom = 40D;
             this.btnMaintenanceUpdateDiagnostic.IsTab = true;
-            this.btnMaintenanceUpdateDiagnostic.Location = new System.Drawing.Point(2, 382);
+            this.btnMaintenanceUpdateDiagnostic.Location = new System.Drawing.Point(2, 373);
             this.btnMaintenanceUpdateDiagnostic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateDiagnostic.Name = "btnMaintenanceUpdateDiagnostic";
             this.btnMaintenanceUpdateDiagnostic.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3574,7 +3691,7 @@ namespace MIS
             this.btnMaintenanceUpdateCloseTicket.IconVisible = true;
             this.btnMaintenanceUpdateCloseTicket.IconZoom = 40D;
             this.btnMaintenanceUpdateCloseTicket.IsTab = true;
-            this.btnMaintenanceUpdateCloseTicket.Location = new System.Drawing.Point(0, 587);
+            this.btnMaintenanceUpdateCloseTicket.Location = new System.Drawing.Point(0, 578);
             this.btnMaintenanceUpdateCloseTicket.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateCloseTicket.Name = "btnMaintenanceUpdateCloseTicket";
             this.btnMaintenanceUpdateCloseTicket.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3611,7 +3728,7 @@ namespace MIS
             this.btnMaintenanceUpdateAppsInfo.IconVisible = true;
             this.btnMaintenanceUpdateAppsInfo.IconZoom = 40D;
             this.btnMaintenanceUpdateAppsInfo.IsTab = true;
-            this.btnMaintenanceUpdateAppsInfo.Location = new System.Drawing.Point(2, 352);
+            this.btnMaintenanceUpdateAppsInfo.Location = new System.Drawing.Point(2, 343);
             this.btnMaintenanceUpdateAppsInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnMaintenanceUpdateAppsInfo.Name = "btnMaintenanceUpdateAppsInfo";
             this.btnMaintenanceUpdateAppsInfo.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -3629,7 +3746,7 @@ namespace MIS
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(20, 318);
+            this.panel1.Location = new System.Drawing.Point(20, 309);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(190, 1);
             this.panel1.TabIndex = 292;
@@ -3657,7 +3774,7 @@ namespace MIS
             this.bunifuFlatButton2.IconVisible = true;
             this.bunifuFlatButton2.IconZoom = 40D;
             this.bunifuFlatButton2.IsTab = true;
-            this.bunifuFlatButton2.Location = new System.Drawing.Point(0, 325);
+            this.bunifuFlatButton2.Location = new System.Drawing.Point(0, 316);
             this.bunifuFlatButton2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bunifuFlatButton2.Name = "bunifuFlatButton2";
             this.bunifuFlatButton2.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -7030,14 +7147,14 @@ namespace MIS
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(46)))), ((int)(((byte)(59)))));
             this.ClientSize = new System.Drawing.Size(1427, 848);
+            this.Controls.Add(this.pnlSubMenuEnrollment);
+            this.Controls.Add(this.pnlSubMenuServicing);
             this.Controls.Add(this.pnlSubMenuMSP);
             this.Controls.Add(this.pnlSubMenuFinance);
-            this.Controls.Add(this.pnlSubMenuServicing);
             this.Controls.Add(this.pnlSubMenuInventoryEntry);
             this.Controls.Add(this.lblRemainingDays);
             this.Controls.Add(this.pnlSubMenuReports);
             this.Controls.Add(this.pnlSubMenuAdministrative);
-            this.Controls.Add(this.pnlSubMenuEnrollment);
             this.Controls.Add(this.btnMSP);
             this.Controls.Add(this.pnlSubMenuSwitchBank);
             this.Controls.Add(this.pnlLog);
@@ -7458,6 +7575,9 @@ namespace MIS
         private System.Windows.Forms.Panel panel15;
         private BunifuCustomLabel lblSubAppsName;
         private BunifuFlatButton btnServicingArchieve;
+        private BunifuFlatButton btnTerminalBrand;
+        private BunifuFlatButton btnLocation;
+        private BunifuFlatButton btnZoning;
     }
 }
 

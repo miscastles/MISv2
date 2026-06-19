@@ -777,6 +777,38 @@ namespace MIS
             set { _MobileID = value; }
         }
 
+        private string _Reason;
+        [JsonProperty("Reason")]
+        public string Reason
+        {
+            get { return _Reason; }
+            set { _Reason = value; }
+        }
+
+        private string _Dependency;
+        [JsonProperty("Dependency")]
+        public string Dependency
+        {
+            get { return _Dependency; }
+            set { _Dependency = value; }
+        }
+
+        private string _StatusReason;
+        [JsonProperty("StatusReason")]
+        public string StatusReason
+        {
+            get { return _StatusReason; }
+            set { _StatusReason = value; }
+        }
+
+        private int _ZoneID;
+        [JsonProperty("ZoneID")]
+        public int ZoneID
+        {
+            get { return _ZoneID; }
+            set { _ZoneID = value; }
+        }
+
     }
     public class ServicingDetailOnline
     {

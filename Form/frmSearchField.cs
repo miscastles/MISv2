@@ -80,7 +80,8 @@ namespace MIS
             iHelpDesk,
             iTypeList,
             iProblem,
-            iHelpDeskProblem
+            iHelpDeskProblem,
+            iZoning
         }
 
         private void lvwSearch_SelectedIndexChanged(object sender, EventArgs e)
@@ -163,6 +164,7 @@ namespace MIS
                             clsSearch.ClassReasonDescription = lvwSearch.SelectedItems[0].SubItems[2].Text;
                             clsSearch.ClassReasonCode = lvwSearch.SelectedItems[0].SubItems[3].Text;
                             clsSearch.ClassReasonIsInput = int.Parse(lvwSearch.SelectedItems[0].SubItems[4].Text);
+                            clsSearch.ClassReasonFuncID = int.Parse(lvwSearch.SelectedItems[0].SubItems[5].Text);
                             break;
                         case SearchType.iFSRAttempt:
                             clsSearch.ClassTAIDNo = int.Parse(lvwSearch.SelectedItems[0].SubItems[1].Text);
@@ -295,6 +297,14 @@ namespace MIS
                             clsSearch.ClassJobTypeDescription = lvwSearch.SelectedItems[0].SubItems[12].Text;
 
                             break;
+                        case SearchType.iZoning:
+                            clsSearch.ClassZoneID = int.Parse(lvwSearch.SelectedItems[0].SubItems[1].Text);
+                            clsSearch.ClassZCluster = lvwSearch.SelectedItems[0].SubItems[2].Text;
+                            clsSearch.ClassZZone = lvwSearch.SelectedItems[0].SubItems[3].Text;
+                            clsSearch.ClassZRegion = lvwSearch.SelectedItems[0].SubItems[4].Text;
+                            clsSearch.ClassZArea = lvwSearch.SelectedItems[0].SubItems[5].Text;
+                            clsSearch.ClassZCityMunicipal = lvwSearch.SelectedItems[0].SubItems[6].Text;
+                            break;
 
                     }                             
                 }
@@ -352,6 +362,7 @@ namespace MIS
             clsSearch.ClassLocationID =
             clsSearch.ClassServiceStatus =
             clsSearch.ClassIsReleased =
+            clsSearch.ClassZoneID =
             clsFunction.iZero;
 
             // Clear
@@ -379,6 +390,8 @@ namespace MIS
             }
 
             lblSearchMessage.Text = $"{clsSearch.ClassBankDisplayName}";
+
+            setSearchTextBoxInitialValue();
 
             Cursor.Current = Cursors.Default;
         }
@@ -752,6 +765,12 @@ namespace MIS
                     }
 
                     break;
+
+                case SearchType.iZoning:
+                    clsSearch.ClassAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtSearch.Text);
+
+                    dbAPI.FillListViewZoning(lvwSearch, clsSearch.ClassAdvanceSearchValue);
+                    break;
             }
             
             lblSearchStatus.Text = lvwSearch.Items.Count.ToString() + " " + "record(s) found.";
@@ -943,6 +962,17 @@ namespace MIS
                                    "> Created Date: " + dbFunction.GetSearchValue("Created Date") + "\n" +
                                    "> Request Date: " + dbFunction.GetSearchValue("Request Date");
 
+                        isConfrim = true;
+                        break;
+                    case SearchType.iZoning:
+                        pMessage = "Are you sure to select the following Zoning details below:\n" +
+                                   clsFunction.sLineSeparator + "\n" +
+                                   "> Zone ID.: " + dbFunction.GetSearchValue("ZoneID") + "\n" +
+                                   "> Cluster: " + dbFunction.GetSearchValue("Cluster") + "\n" +
+                                   "> Zone: " + dbFunction.GetSearchValue("Zone") + "\n" +
+                                   "> Region: " + dbFunction.GetSearchValue("Region") + "\n" +
+                                   "> Area: " + dbFunction.GetSearchValue("Area") + "\n" +                                   
+                                   "> City/Municipal: " + dbFunction.GetSearchValue("City/Municipal");
                         isConfrim = true;
                         break;
                 }
@@ -1148,6 +1178,22 @@ namespace MIS
                     lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
                     iFormWidth += outWidth;
 
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Zone", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "ZRegion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Area", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "CityMunicipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
                     break;
 
                 case SearchType.iMerchantList:
@@ -1280,6 +1326,22 @@ namespace MIS
                     lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
                     iFormWidth += outWidth;
 
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Zone", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "ZRegion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Area", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "CityMunicipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+                    iFormWidth += outWidth;
+
                     break;
                 
                 case SearchType.iFE:
@@ -1343,6 +1405,22 @@ namespace MIS
                     iFormWidth += outWidth;
 
                     dbFunction.GetListViewHeaderColumnFromFile("", "Province", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Zone", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "ZRegion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Area", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "CityMunicipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
                     lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
                     iFormWidth += outWidth;
 
@@ -1531,6 +1609,10 @@ namespace MIS
                     iFormWidth += outWidth;
 
                     dbFunction.GetListViewHeaderColumnFromFile("", "ReasonIsInput", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "FunctionID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
                     lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
                     iFormWidth += outWidth;
 
@@ -2420,6 +2502,39 @@ namespace MIS
 
                     break;
 
+                case SearchType.iZoning:
+                    lvwSearch.View = View.Details;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "LINE#", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "ZoneID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Cluster", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Zone", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Region", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Area", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "City/Municipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    break;
+
             }            
         }
 
@@ -2529,6 +2644,10 @@ namespace MIS
                     break;
                 case SearchType.iHelpDeskProblem:
                     lblSearchString.Text = lblSearchString.Text + " " + "MERCHANT NAME / TID / MID / REQUEST ID / REFERENCE NO / ASSIST NO / PROBLEM NO / PROBLEM REPORTED / HELPDESK / TEAM LEAD";
+                    break;
+
+                case SearchType.iZoning:
+                    lblSearchString.Text = lblSearchString.Text + " " + "CLUSTER / ZONE / REGION / AREA / CITY / MUNICIPAL";
                     break;
 
                 default:
@@ -2883,6 +3002,20 @@ namespace MIS
                 // Apply it to your ListView
                 SetListViewTextColor(lvwSearch, clsDefines.TAG_HD_Status, colorMap);
                 */
+            }
+        }
+        private void setSearchTextBoxInitialValue()
+        {
+            string pSearchValue = string.IsNullOrWhiteSpace(sSearchChar)
+                ? ""
+                : StrClean(sSearchChar);
+
+            switch (iSearchType)
+            {
+                case SearchType.iZoning:
+
+                    txtSearch.Text = pSearchValue;
+                    break;
             }
         }
     }

@@ -275,6 +275,14 @@ namespace MIS
             get { return _CustomerNo; }
             set { _CustomerNo = value; }
         }
-        
+
+        // Zoning
+        public static int _ZoneID;
+        public static int ClassZoneID
+        {
+            get { return _ZoneID; }
+            set { _ZoneID = value; }
+        }
+
     }
 }

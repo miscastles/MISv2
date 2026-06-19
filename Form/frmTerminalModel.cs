@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using static MIS.Function.AppUtilities;
 
 namespace MIS
 {
@@ -153,7 +154,7 @@ namespace MIS
             {                
                 sSQL = "";
                 sRowSQL = "";
-                sRowSQL = "('" + txtDescription.Text + "'," +                
+                sRowSQL = "('" + StrClean(txtDescription.Text) + "'," +                
                 sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetNumericValue(txtTypeID.Text) + "') ";
                 sSQL = sSQL + sRowSQL;
 
@@ -168,7 +169,7 @@ namespace MIS
             else
             {
                 clsSearch.ClassAdvanceSearchValue = txtID.Text + clsFunction.sPipe +
-                                                    txtDescription.Text + clsFunction.sPipe + txtTypeID.Text;
+                                                    StrClean(txtDescription.Text) + clsFunction.sPipe + txtTypeID.Text;
 
                 Debug.WriteLine("UpdateTerminalModel::" + "clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
 

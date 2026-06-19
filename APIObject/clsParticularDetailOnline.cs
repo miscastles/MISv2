@@ -604,6 +604,14 @@ namespace MIS
             set { _detail_info = value; }
         }
 
+        private int _ZoneID;
+        [JsonProperty("ZoneID")]
+        public int ZoneID
+        {
+            get { return _ZoneID; }
+            set { _ZoneID = value; }
+        }
+
 
     }
 

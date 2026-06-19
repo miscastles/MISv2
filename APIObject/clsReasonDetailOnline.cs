@@ -48,6 +48,14 @@ namespace MIS
             get { return _IsInput; }
             set { _IsInput = value; }
         }
+
+        private int _FunctionID;
+        [JsonProperty("FunctionID")]
+        public int FunctionID
+        {
+            get { return _FunctionID; }
+            set { _FunctionID = value; }
+        }
     }
     public class ReasonDetailOnline
     {

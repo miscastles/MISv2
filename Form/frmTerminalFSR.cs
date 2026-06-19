@@ -1,19 +1,20 @@
-﻿using System;
+﻿using iText.Forms.Form.Element;
+using MIS.Controller;
+using MIS.Enums;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 using static MIS.Function.AppUtilities;
-using Newtonsoft.Json;
-using System.Threading;
-using MIS.Controller;
-using MIS.Enums;
-using System.IO;
 
 namespace MIS
 {
@@ -145,12 +146,16 @@ namespace MIS
             btnOverride.Enabled = false;
             btnUpdateServiceDate.Enabled = false;
             btnIncludeInReport.Enabled = false;
+            btnCloseTicket.Enabled = false;
 
             chkBillable.Enabled = true;
             chkBillable.Checked = true;
 
             chkIncludeInReport.Enabled = true;
             chkIncludeInReport.Checked = false;
+
+            chkCloseTicket.Enabled = true;
+            chkCloseTicket.Checked = false;
 
             btnPreviewSvcHistory.Enabled = btnPreviewFSR.Enabled = btnResetEmail.Enabled = btnSendFSRAndDiagEmail.Enabled = btnViewDiagnostic.Enabled = false;
 
@@ -376,6 +381,9 @@ namespace MIS
                         txtPOSType.Text = dbFunction.getJSONTagValue(rawdata_info, clsDefines.IR_POS_TYPE, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
                         txtRequestType.Text = dbFunction.getJSONTagValue(rawdata_info, clsDefines.IR_REQUEST_TYPE, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
                     }
+
+                    // Zoning
+                    txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);
 
                     // Assigned SN
                     dbAPI.ExecuteAPI("GET", "Search", "Merchant Current Terminal SN", txtIRIDNo.Text, "Get Info Detail", "", "GetInfoDetail");
@@ -888,8 +896,7 @@ namespace MIS
             InitMessageCountLimit();
             UpdateButton(true);
             InitCount();
-            chkCloseTicket.CheckState = CheckState.Checked;
-
+            
             //InitSearchReason();
 
             btnSearchMerchant.Enabled = false;
@@ -905,6 +912,9 @@ namespace MIS
 
             chkIncludeInReport.Enabled = true;
             chkIncludeInReport.Checked = false;
+
+            chkCloseTicket.Enabled = true;
+            chkCloseTicket.Checked = false;
 
             btnPreviewSvcHistory.Enabled = btnPreviewFSR.Enabled = btnResetEmail.Enabled = btnSendFSRAndDiagEmail.Enabled = btnViewDiagnostic.Enabled = false;
 
@@ -924,6 +934,7 @@ namespace MIS
             btnRefreshService.Enabled = false;
             btnUpdateServiceDate.Enabled = false;
             btnIncludeInReport.Enabled = false;
+            btnCloseTicket.Enabled = false;
 
             dbFunction.ClearListViewItems(lvwList);
             dbFunction.ClearListViewItems(lvwChanges);
@@ -1351,7 +1362,7 @@ namespace MIS
                 }
 
                 // Save Ticket -> Update In Report
-                if (chkIncludeInReport.Checked)
+                if (chkCloseTicket.Checked)
                 {
                     int pBillable = dbFunction.CheckAndSetBooleanValue(chkBillable.Checked);
                     int pTicketStatus = int.Parse(clsFunction.sOne);
@@ -1737,6 +1748,14 @@ namespace MIS
             // check for RequestID's mismatch
             if (!dbFunction.isValidRequestID(txtRequestID.Text, txtFSRRequestID.Text)) return false;
 
+            // check close ticket
+            if (!isValidRescheduleTicketClosure())
+                return false;
+
+            // Zoning
+            if (!dbFunction.isValidDescriptionEntry(txtZoneID.Text, "Zone ID" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+            if (!dbFunction.isValidDescriptionEntry(txtZZone.Text, "Zone" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+
             // check dependency
             //if (!dbFunction.isValidDescriptionEntry(dbFunction.getFileID(cboDependency, "All Type").ToString(), "Dependency" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
 
@@ -2034,16 +2053,12 @@ namespace MIS
             {
                 if (cboSearchActionMade.Text.CompareTo(dbAPI.GetActionMade()[1]) == 0) // SUCCESS
                 {
-                    chkCloseTicket.CheckState = CheckState.Checked;
-                    chkCloseTicket.Enabled = false;
                     lblReason.Text = "RESOLVED";
 
                 }
 
                 if (cboSearchActionMade.Text.CompareTo(dbAPI.GetActionMade()[2]) == 0) // NEGATIVE
                 {
-                    chkCloseTicket.CheckState = CheckState.Checked;
-                    chkCloseTicket.Enabled = false;
                     lblReason.Text = "NEGATIVE";                   
                 }
 
@@ -2590,6 +2605,7 @@ namespace MIS
                     btnCancelJO.Enabled = true;
                     btnRefreshService.Enabled = true;
                     btnIncludeInReport.Enabled = true;
+                    btnCloseTicket.Enabled = true;
 
                     // Init header
                     lblHeader.Text = "CREATE FSR" + " " + dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
@@ -2609,6 +2625,9 @@ namespace MIS
                         btnSave.Enabled = false;
                         return;
                     }
+
+                    // Zoning
+                    getZoningInfo();
 
                     Cursor.Current = Cursors.Default;
                 }
@@ -2774,6 +2793,7 @@ namespace MIS
                     btnRefreshService.Enabled = true;
                     btnUpdateServiceDate.Enabled = true;
                     btnIncludeInReport.Enabled = true;
+                    btnCloseTicket.Enabled = true;
 
                     setFSRMode();
 
@@ -2804,6 +2824,9 @@ namespace MIS
 
                     if (dbFunction.isValidID(txtSearchFSRNo.Text))
                         getSignAndImageCount();
+
+                    // Zoning
+                    getZoningInfo();
 
                     btnClear.Focus();
 
@@ -3556,6 +3579,7 @@ namespace MIS
                 txtReasonID.Text = clsSearch.ClassReasonID.ToString();
                 txtReasonDesc.Text = txtReason.Text = clsSearch.ClassReasonDescription;
                 txtReasonDesc.BackColor = clsFunction.MKBackColor;
+                txtReasonFunctionID.Text = $"{clsSearch.ClassReasonFuncID}";
             }
         }
 
@@ -4557,6 +4581,9 @@ namespace MIS
                         if (dbFunction.isValidID(txtFSRNo.Text))
                             txtFSRRequestID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 32);
 
+                        // FunctionID
+                        txtReasonFunctionID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 41);
+
                         // check isReport
                         string sReport = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 33);
                         isReport = (sReport.Equals(clsFunction.sOne) ? true : false);
@@ -4569,7 +4596,7 @@ namespace MIS
                         txtMerchantSign.Text = (dbAPI.isFileExist("Search", "Check Upload File", pFileName) ? clsDefines.gYes : clsDefines.gNo);
 
                         txtGeneralFReference.Text = getGeneralActionTaken();
-                        
+
                     }
 
                 }
@@ -5659,6 +5686,30 @@ namespace MIS
             dbFunction.GetListViewHeaderColumnFromFile("", "FSRMode", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
+            dbFunction.GetListViewHeaderColumnFromFile("", "Reason", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Dependency", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "StatusReason", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Zone", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Cluster", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "ZRegion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Area", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "CityMunicipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
         }
 
         private void LoadServicingDetail()
@@ -5738,6 +5789,32 @@ namespace MIS
                         : clsDefines.MANUAL_FSR;
 
                     item.SubItems.Add(FSRModeCol);
+
+                    item.SubItems.Add(clsArray.ReasonDescription[i]);
+                    item.SubItems.Add(clsArray.Dependency[i]);
+                    item.SubItems.Add(clsArray.StatusReason[i]);
+
+                    // get zoning info
+                    if (dbFunction.isValidID(clsArray.ZoneID[i]))
+                    {
+                        string pJSONStringZoning = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{clsArray.ZoneID[i]}");
+                        if (dbFunction.isValidDescription(pJSONStringZoning))
+                        {
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Zone));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Cluster));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Region));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Area));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_CityMunicipal));
+                        }
+                    }
+                    else
+                    {
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                    }
 
                     lvwList.Items.Add(item);
 
@@ -6574,6 +6651,48 @@ namespace MIS
                 // Pass JSON to popup window
                 frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
                 frm.ShowDialog();
+            }
+        }
+
+        private bool isValidRescheduleTicketClosure()
+        {
+            bool isValid = true;
+
+            if (cboSearchActionMade.Text.CompareTo(dbAPI.GetActionMade()[2]) == 0) // NEGATIVE
+            {
+                int functionID = int.Parse(dbFunction.CheckAndSetNumericValue(txtReasonFunctionID.Text));
+                if ((functionID == (int)ReasonFuncType.Reschedule_By_Merchant_FuncId) && chkCloseTicket.Checked)
+                {
+                    dbFunction.SetMessageBox($"Unable to close the ticket due to reschedulling\n\n" +
+                        $"Last Attempt Status: {cboSearchActionMade.Text}\n" +
+                        $"Reason: {txtReason.Text}\n" +
+                        $"Attempt Date: {dteMFSRDate.Value.ToString("MM-dd-yyyy")}\n" +
+                        $"Attempt Dependency: {cboDependency.Text}\n\n" +
+                        $"Current Schedule Date: {txtServiceScheduleDate.Text}", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+
+                    chkCloseTicket.Checked = false;
+
+                    isValid = false;
+                }
+            }
+
+            return isValid;
+        }
+
+        private void getZoningInfo()
+        {
+            txtZZone.Text = txtZZone.Text = txtZRegion.Text = txtZArea.Text = txtZCityMunicipal.Text = clsDefines.gNull;
+
+            if (dbFunction.isValidID(txtZoneID.Text))
+            {
+                string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{txtZoneID.Text}");
+                if (dbFunction.isValidDescription(pJSONString))
+                {
+                    txtZZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);
+                    txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
+                    txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
+                    txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
+                }
             }
         }
     }

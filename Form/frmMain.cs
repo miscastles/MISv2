@@ -3089,16 +3089,19 @@ namespace MIS
             int lineNo = 1;
             foreach (var b in banks)
             {
-                if (!b.DisplayName.Equals(clsFunction.sDefaultSelect))
+                if (b.Enable > 0)
                 {
-                    var item = new ListViewItem(lineNo.ToString());
-                    item.SubItems.Add(lineNo.ToString());
-                    item.SubItems.Add(b.Code);
-                    item.SubItems.Add(b.DisplayName);
-                    lvw.Items.Add(item);
+                    if (!b.DisplayName.Equals(clsFunction.sDefaultSelect))
+                    {
+                        var item = new ListViewItem(lineNo.ToString());
+                        item.SubItems.Add(lineNo.ToString());
+                        item.SubItems.Add(b.Code);
+                        item.SubItems.Add(b.DisplayName);
+                        lvw.Items.Add(item);
 
-                    lineNo++;
-                }                
+                        lineNo++;
+                    }
+                }                                
             }
             
         }
@@ -3215,6 +3218,42 @@ namespace MIS
             dbAPI.ResetAdvanceSearch();            
             frmServiceArchive frm = new frmServiceArchive();
             frm.Text = "SERVICE- ARCHIVE";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnTerminalBrand_Click_1(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 9)) return;
+
+            InitMenu(0, false);
+            frmTerminalBrand frm = new frmTerminalBrand();
+            frm.Text = "ENROLLMENT-TERMINAL BRAND";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnLocation_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 9)) return;
+
+            InitMenu(0, false);
+            frmMLocation frm = new frmMLocation();
+            frm.Text = "ENROLLMENT-LOCATION";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnZoning_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 9)) return;
+
+            InitMenu(0, false);
+            frmMZoning frm = new frmMZoning();
+            frm.Text = "ENROLLMENT-ZONING";
             frm.WindowState = FormWindowState.Normal;
             frm.Show();
         }

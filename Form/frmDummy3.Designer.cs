@@ -220,6 +220,11 @@
             this.textBox31 = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.textBox32 = new System.Windows.Forms.TextBox();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPage19 = new System.Windows.Forms.TabPage();
+            this.panel25 = new System.Windows.Forms.Panel();
+            this.tabPage20 = new System.Windows.Forms.TabPage();
+            this.panel26 = new System.Windows.Forms.Panel();
             this.tabMain.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.panel134.SuspendLayout();
@@ -271,6 +276,9 @@
             this.panel22.SuspendLayout();
             this.panel23.SuspendLayout();
             this.tabPage18.SuspendLayout();
+            this.tabControl3.SuspendLayout();
+            this.tabPage19.SuspendLayout();
+            this.tabPage20.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabMain
@@ -2711,11 +2719,70 @@
             this.textBox32.TabIndex = 439;
             this.textBox32.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // tabControl3
+            // 
+            this.tabControl3.Appearance = System.Windows.Forms.TabAppearance.Buttons;
+            this.tabControl3.Controls.Add(this.tabPage19);
+            this.tabControl3.Controls.Add(this.tabPage20);
+            this.tabControl3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl3.Location = new System.Drawing.Point(480, 236);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(412, 165);
+            this.tabControl3.TabIndex = 495;
+            // 
+            // tabPage19
+            // 
+            this.tabPage19.Controls.Add(this.panel25);
+            this.tabPage19.ForeColor = System.Drawing.Color.Black;
+            this.tabPage19.Location = new System.Drawing.Point(4, 27);
+            this.tabPage19.Name = "tabPage19";
+            this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage19.Size = new System.Drawing.Size(404, 134);
+            this.tabPage19.TabIndex = 3;
+            this.tabPage19.Text = "FUNCTION";
+            this.tabPage19.UseVisualStyleBackColor = true;
+            // 
+            // panel25
+            // 
+            this.panel25.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel25.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel25.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel25.Location = new System.Drawing.Point(3, 3);
+            this.panel25.Name = "panel25";
+            this.panel25.Size = new System.Drawing.Size(398, 128);
+            this.panel25.TabIndex = 474;
+            // 
+            // tabPage20
+            // 
+            this.tabPage20.Controls.Add(this.panel26);
+            this.tabPage20.ForeColor = System.Drawing.Color.Black;
+            this.tabPage20.Location = new System.Drawing.Point(4, 27);
+            this.tabPage20.Name = "tabPage20";
+            this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage20.Size = new System.Drawing.Size(404, 134);
+            this.tabPage20.TabIndex = 2;
+            this.tabPage20.Text = "HISTORY";
+            this.tabPage20.UseVisualStyleBackColor = true;
+            // 
+            // panel26
+            // 
+            this.panel26.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel26.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel26.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel26.Location = new System.Drawing.Point(3, 3);
+            this.panel26.Name = "panel26";
+            this.panel26.Size = new System.Drawing.Size(398, 128);
+            this.panel26.TabIndex = 474;
+            // 
             // frmDummy3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1197, 599);
+            this.Controls.Add(this.tabControl3);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tabMain);
@@ -2802,6 +2869,9 @@
             this.panel23.PerformLayout();
             this.tabPage18.ResumeLayout(false);
             this.tabPage18.PerformLayout();
+            this.tabControl3.ResumeLayout(false);
+            this.tabPage19.ResumeLayout(false);
+            this.tabPage20.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3000,5 +3070,10 @@
         private System.Windows.Forms.TextBox textBox31;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.TextBox textBox32;
+        private System.Windows.Forms.TabControl tabControl3;
+        private System.Windows.Forms.TabPage tabPage19;
+        private System.Windows.Forms.Panel panel25;
+        private System.Windows.Forms.TabPage tabPage20;
+        private System.Windows.Forms.Panel panel26;
     }
 }

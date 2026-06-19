@@ -1671,8 +1671,6 @@ namespace MIS
                     Task.Delay(delay); // Asynchronously wait without blocking UI
                 }
 
-                //dbAPI.ExecuteAPI("POST", "Insert", "", "", "Particular", sSQL, "InsertMaintenanceMaster");
-
                 // ----------------------------------------------------------
                 // Limit line# of csv created depends on iRecordMinLimit
                 // ----------------------------------------------------------

@@ -1436,6 +1436,14 @@ namespace MIS
                         List<string> NoteToSelfCol = new List<String>();
 
                         List<string> Detail_InfoCol = new List<String>();
+                        List<string> FunctionIDCol = new List<String>();
+
+                        // Zoning
+                        List<string> ZoneIDCol = new List<String>();
+
+                        // Dependency
+                        List<string> DependencyCol = new List<String>();
+                        List<string> StatusReasonCol = new List<String>();
 
                         switch (MaintenanceType)
                         {
@@ -1956,6 +1964,7 @@ namespace MIS
                                                 ClientIDCol.Add(element.ClientID.ToString());
                                                 RegionCol.Add(element.Region);
                                                 ProvinceCol.Add(element.Province);
+                                                ZoneIDCol.Add(element.ZoneID.ToString());
 
                                             }
 
@@ -1978,6 +1987,7 @@ namespace MIS
                                             clsArray.ClientID = ClientIDCol.ToArray();
                                             clsArray.Region = RegionCol.ToArray();
                                             clsArray.Province = ProvinceCol.ToArray();
+                                            clsArray.ZoneID = ZoneIDCol.ToArray();
 
                                         }
                                         else if (SearchBy.CompareTo("Merchant List") == 0)
@@ -3771,6 +3781,7 @@ namespace MIS
                                 ReasonDescriptionCol.Clear();
                                 ReasonTypeCol.Clear();
                                 ReasonIsInputCol.Clear();
+                                FunctionIDCol.Clear();
                                 switch (StatementType)
                                 {
                                     case "Search":
@@ -3782,6 +3793,7 @@ namespace MIS
                                             clsReason.ClassReasonDescription = element.Description;
                                             clsReason.ClassReasonType = element.Type;
                                             clsReason.ClassReasonIsInput = element.IsInput;
+                                            clsReason.ClassFunctionID = element.FunctionID;
 
                                         }
                                         break;
@@ -3794,6 +3806,7 @@ namespace MIS
                                             ReasonDescriptionCol.Add(element.Description);
                                             ReasonTypeCol.Add(element.Type);
                                             ReasonIsInputCol.Add(element.IsInput.ToString());
+                                            FunctionIDCol.Add(element.FunctionID.ToString());
 
                                         }
 
@@ -3802,6 +3815,7 @@ namespace MIS
                                         clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
                                         clsArray.ReasonType = ReasonTypeCol.ToArray();
                                         clsArray.ReasonIsInput = ReasonIsInputCol.ToArray();
+                                        clsArray.FunctionID = FunctionIDCol.ToArray();
                                         break;
                                 }
                                 break;
@@ -4386,6 +4400,11 @@ namespace MIS
                                                     ModifiedDateTimeCol.Add(element.ModifiedDateTime);
                                                     MobileIDCol.Add(element.MobileID.ToString());
 
+                                                    ReasonDescriptionCol.Add(element.Reason.ToString());
+                                                    DependencyCol.Add(element.Dependency.ToString());
+                                                    StatusReasonCol.Add(element.StatusReason.ToString());
+                                                    ZoneIDCol.Add(element.ZoneID.ToString());
+
                                                 }
 
                                                 clsArray.ServiceNo = ServiceNoCol.ToArray();
@@ -4425,6 +4444,11 @@ namespace MIS
                                                 clsArray.ModifiedBy = ModifiedByCol.ToArray();
                                                 clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
                                                 clsArray.MobileID = MobileIDCol.ToArray();
+
+                                                clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
+                                                clsArray.Dependency = DependencyCol.ToArray();
+                                                clsArray.StatusReason = StatusReasonCol.ToArray();
+                                                clsArray.ZoneID = ZoneIDCol.ToArray();
 
                                                 break;
                                             case "ServiceNo":
@@ -4819,6 +4843,9 @@ namespace MIS
                                                 clsParticular.ClassRentalTerms = int.Parse(element.RentalTerms.ToString());
                                                 clsParticular.ClassAccountNo = element.AccountNo.ToString();
                                                 clsParticular.ClassCustomerNo = element.CustomerNo.ToString();
+
+                                                // Zoning
+                                                clsParticular.ClassZoneID = element.ZoneID;
 
                                             }
                                         }
@@ -5519,7 +5546,9 @@ namespace MIS
                                             SearchBy.Equals("Billing-Type") ||
                                             SearchBy.Equals("Expenses Service Detail") ||
                                             SearchBy.Equals("FSR Service Detail") ||
-                                            SearchBy.Equals("ERM Settlement Report-Per Zero Trans")
+                                            SearchBy.Equals("ERM Settlement Report-Per Zero Trans") ||
+                                            SearchBy.Equals("Zoning Lookup") ||
+                                            SearchBy.Equals("Zoning List")
                                             )
                                         {
                                             foreach (var element in Detail46.data)
@@ -7690,6 +7719,7 @@ namespace MIS
                     clsReason.ClassReasonDescription = clsArray.ReasonDescription[i];
                     clsReason.ClassReasonCode = clsArray.ReasonCode[i];
                     clsReason.ClassReasonIsInput = int.Parse(clsArray.ReasonIsInput[i]);
+                    clsReason.ClassFunctionID = int.Parse(clsArray.FunctionID[i]);
 
 
                     // Add to List
@@ -7699,6 +7729,7 @@ namespace MIS
                     item.SubItems.Add(clsReason.ClassReasonDescription);
                     item.SubItems.Add(clsReason.ClassReasonCode);
                     item.SubItems.Add(clsReason.ClassReasonIsInput.ToString());
+                    item.SubItems.Add(clsReason.ClassFunctionID.ToString());
 
 
                     obj.Items.Add(item);
@@ -7922,6 +7953,26 @@ namespace MIS
 
                     item.SubItems.Add(clsArray.Region[i]);
                     item.SubItems.Add(clsArray.Province[i]);
+
+                    // get zoning info
+                    if (dbFunction.isValidID(clsArray.ZoneID[i]))
+                    {
+                        string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{clsArray.ZoneID[i]}");
+                        if (dbFunction.isValidDescription(pJSONString))
+                        {
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal));
+                        }
+                    }
+                    else
+                    {
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                    }
 
                     obj.Items.Add(item);
 
@@ -12440,6 +12491,85 @@ namespace MIS
             }
 
             return fFound;
+        }
+
+        public void FillComboBoxZonnigLookup(ComboBox obj, string pSearchValue)
+        {
+            int i = 0;
+            bool fSelect = false;
+
+
+            ExecuteAPI("GET", "View", "Zoning Lookup", pSearchValue, "Advance Detail", "", "ViewAdvanceDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK) return;
+
+            if (isNoRecordFound()) return;
+
+            obj.Items.Clear();
+
+            while (clsArray.ID.Length > i)
+            {
+                string pDescription = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Description);
+
+                if (!fSelect)
+                {
+                    obj.Items.Add(clsFunction.sDefaultSelect);
+                    fSelect = true;
+                }
+
+                obj.Items.Add(pDescription);
+
+                i++;
+            }
+
+            if (i > 0)
+                obj.SelectedIndex = 0;
+        }
+
+        public void FillListViewZoning(ListView obj, string SearchValue)
+        {
+            int i = 0;
+            int iLineNo = 0;
+
+            dbFunction = new clsFunction();
+
+            obj.Items.Clear();
+
+            ExecuteAPI("GET", "View", "Zoning List", SearchValue, "Advance Detail", "", "ViewAdvanceDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK) return;
+
+            if (isNoRecordFound() == false)
+            {
+                obj.Items.Clear();
+                while (clsArray.ID.Length > i)
+                {
+                    // Add to List
+                    iLineNo++;
+                    ListViewItem item = new ListViewItem(iLineNo.ToString());
+
+                    string pZoneID = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_ZoneID);
+                    string pCluster = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Cluster);
+                    string pZone = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Zone);
+                    string pRegion = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Region);
+                    string pArea = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Area);
+                    string pCityMunicipal = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_CityMunicipal);
+                    
+                    item.SubItems.Add(pZoneID);
+                    item.SubItems.Add(pCluster);
+                    item.SubItems.Add(pZone);
+                    item.SubItems.Add(pRegion);
+                    item.SubItems.Add(pArea);
+                    item.SubItems.Add(pCityMunicipal);
+
+                    obj.Items.Add(item);
+
+                    i++;
+                }
+
+                dbFunction.ListViewAlternateBackColor(obj);
+            }
+
         }
 
     }

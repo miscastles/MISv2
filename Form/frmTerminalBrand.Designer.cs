@@ -54,6 +54,7 @@ namespace MIS
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.bunifuCards2.SuspendLayout();
             this.bunifuCards1.SuspendLayout();
             this.pnlHeader.SuspendLayout();
@@ -68,6 +69,8 @@ namespace MIS
             this.bunifuCards2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.bunifuCards2.BottomSahddow = true;
             this.bunifuCards2.color = System.Drawing.Color.Gray;
+            this.bunifuCards2.Controls.Add(this.label1);
+            this.bunifuCards2.Controls.Add(this.txtID);
             this.bunifuCards2.Controls.Add(this.txtDescription);
             this.bunifuCards2.Controls.Add(this.label2);
             this.bunifuCards2.LeftSahddow = false;
@@ -75,7 +78,7 @@ namespace MIS
             this.bunifuCards2.Name = "bunifuCards2";
             this.bunifuCards2.RightSahddow = true;
             this.bunifuCards2.ShadowDepth = 20;
-            this.bunifuCards2.Size = new System.Drawing.Size(523, 34);
+            this.bunifuCards2.Size = new System.Drawing.Size(523, 67);
             this.bunifuCards2.TabIndex = 313;
             // 
             // txtDescription
@@ -84,7 +87,7 @@ namespace MIS
             this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDescription.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDescription.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtDescription.Location = new System.Drawing.Point(110, 7);
+            this.txtDescription.Location = new System.Drawing.Point(110, 37);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(408, 20);
             this.txtDescription.TabIndex = 102;
@@ -94,11 +97,11 @@ namespace MIS
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(0, 9);
+            this.label2.Location = new System.Drawing.Point(0, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 15);
+            this.label2.Size = new System.Drawing.Size(76, 15);
             this.label2.TabIndex = 101;
-            this.label2.Text = "BRAND *";
+            this.label2.Text = "DESCRIPTION *";
             // 
             // bunifuCards1
             // 
@@ -109,11 +112,11 @@ namespace MIS
             this.bunifuCards1.color = System.Drawing.Color.Gray;
             this.bunifuCards1.Controls.Add(this.lvwList);
             this.bunifuCards1.LeftSahddow = false;
-            this.bunifuCards1.Location = new System.Drawing.Point(4, 68);
+            this.bunifuCards1.Location = new System.Drawing.Point(4, 103);
             this.bunifuCards1.Name = "bunifuCards1";
             this.bunifuCards1.RightSahddow = true;
             this.bunifuCards1.ShadowDepth = 20;
-            this.bunifuCards1.Size = new System.Drawing.Size(522, 295);
+            this.bunifuCards1.Size = new System.Drawing.Size(522, 299);
             this.bunifuCards1.TabIndex = 312;
             // 
             // lvwList
@@ -131,7 +134,7 @@ namespace MIS
             this.lvwList.HideSelection = false;
             this.lvwList.Location = new System.Drawing.Point(0, 0);
             this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(520, 293);
+            this.lvwList.Size = new System.Drawing.Size(520, 297);
             this.lvwList.TabIndex = 103;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
@@ -156,7 +159,6 @@ namespace MIS
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.Maroon;
             this.pnlHeader.Controls.Add(this.bunifuImageButton1);
-            this.pnlHeader.Controls.Add(this.txtID);
             this.pnlHeader.Controls.Add(this.btnExit);
             this.pnlHeader.Controls.Add(this.bunifuCustomLabel1);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
@@ -182,9 +184,10 @@ namespace MIS
             // 
             this.txtID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtID.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtID.Location = new System.Drawing.Point(241, 2);
+            this.txtID.Location = new System.Drawing.Point(110, 11);
             this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(60, 20);
+            this.txtID.ReadOnly = true;
+            this.txtID.Size = new System.Drawing.Size(405, 20);
             this.txtID.TabIndex = 102;
             this.txtID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtID.Visible = false;
@@ -223,7 +226,7 @@ namespace MIS
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSave.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSave.Location = new System.Drawing.Point(86, 363);
+            this.btnSave.Location = new System.Drawing.Point(86, 404);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(81, 26);
             this.btnSave.TabIndex = 310;
@@ -237,14 +240,14 @@ namespace MIS
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel4.Location = new System.Drawing.Point(530, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(2, 394);
+            this.panel4.Size = new System.Drawing.Size(2, 435);
             this.panel4.TabIndex = 308;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(1, 394);
+            this.panel3.Location = new System.Drawing.Point(1, 435);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(531, 2);
             this.panel3.TabIndex = 307;
@@ -258,7 +261,7 @@ namespace MIS
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnClear.Location = new System.Drawing.Point(168, 363);
+            this.btnClear.Location = new System.Drawing.Point(168, 404);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(81, 26);
             this.btnClear.TabIndex = 311;
@@ -275,7 +278,7 @@ namespace MIS
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnAdd.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnAdd.Location = new System.Drawing.Point(4, 363);
+            this.btnAdd.Location = new System.Drawing.Point(4, 404);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(81, 26);
             this.btnAdd.TabIndex = 309;
@@ -294,7 +297,7 @@ namespace MIS
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1, 396);
+            this.panel2.Size = new System.Drawing.Size(1, 437);
             this.panel2.TabIndex = 306;
             // 
             // bunifuDragControl2
@@ -304,11 +307,21 @@ namespace MIS
             this.bunifuDragControl2.TargetControl = this.pnlHeader;
             this.bunifuDragControl2.Vertical = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(0, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 15);
+            this.label1.TabIndex = 105;
+            this.label1.Text = "UNIQUE ID*";
+            // 
             // frmTerminalBrand
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(532, 396);
+            this.ClientSize = new System.Drawing.Size(532, 437);
             this.Controls.Add(this.bunifuCards2);
             this.Controls.Add(this.bunifuCards1);
             this.Controls.Add(this.pnlHeader);
@@ -359,5 +372,6 @@ namespace MIS
         private System.Windows.Forms.Panel panel2;
         private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton1;
         private BunifuDragControl bunifuDragControl2;
+        private System.Windows.Forms.Label label1;
     }
 }

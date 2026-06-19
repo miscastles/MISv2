@@ -317,7 +317,15 @@ namespace MIS.AppMainActivity
         {
             public static void Leasing(CrystalReportViewer rptViewer)
             {
-                GenerateReport("Leasing-Invoice", clsSearch.ClassSearchValue, "", new rptBillingLeasingInvoice(), rptViewer);
+                switch (clsSearch.ClassBankCode)
+                {
+                    case "bpi":
+                        GenerateReport("Leasing-Invoice", clsSearch.ClassSearchValue, "", new rptBillingBPILeasingInvoice(), rptViewer);
+                        break;
+                    default:
+                        GenerateReport("Leasing-Invoice", clsSearch.ClassSearchValue, "", new rptBillingLeasingInvoice(), rptViewer);
+                        break;
+                }                
             }
 
             public static void Services(CrystalReportViewer rptViewer)
@@ -327,12 +335,30 @@ namespace MIS.AppMainActivity
 
             public static void Tle(CrystalReportViewer rptViewer)
             {
-                GenerateReport("TLE-Invoice", clsSearch.ClassSearchValue, "", new rptBillingTleInvoice(), rptViewer);
+                switch (clsSearch.ClassBankCode)
+                {
+                    case "bpi":
+                        GenerateReport("TLE-Invoice", clsSearch.ClassSearchValue, "", new rptBillingBPITLEInvoice(), rptViewer);
+                        break;
+                    default:
+                        GenerateReport("TLE-Invoice", clsSearch.ClassSearchValue, "", new rptBillingTleInvoice(), rptViewer);
+                        break;
+                }
+                
             }
 
             public static void WareHouse(CrystalReportViewer rptViewer)
             {
-                GenerateReport("Warehouse-Invoice", clsSearch.ClassSearchValue, "", new rptBillingTleInvoice(), rptViewer);
+                switch (clsSearch.ClassBankCode)
+                {
+                    case "bpi":
+                        GenerateReport("Warehouse-Invoice", clsSearch.ClassSearchValue, "", new rptBillingBPITLEInvoice(), rptViewer);
+                        break;
+                    default:
+                        GenerateReport("Warehouse-Invoice", clsSearch.ClassSearchValue, "", new rptBillingTleInvoice(), rptViewer);
+                        break;
+                }
+                
             }
 
             public static void WeePaySimInvoice(CrystalReportViewer rptViewer)

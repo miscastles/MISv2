@@ -51,42 +51,7 @@ namespace MIS
         {
             lvwList.Items.Clear();
         }
-        private void ClearTextBox()
-        {
-            Action<Control.ControlCollection> func = null;
-
-            func = (controls) =>
-            {
-                foreach (Control control in controls)
-                    if (control is TextBox)
-                        (control as TextBox).Clear();
-                    else
-                        func(control.Controls);
-            };
-
-            func(Controls);
-        }
-
-        private void ClearComboBox()
-        {
-            Action<Control.ControlCollection> func = null;
-
-            func = (controls) =>
-            {
-                foreach (Control control in controls)
-                    if (control is ComboBox)
-                    {
-                        (control as ComboBox).Items.Clear();
-                        (control as ComboBox).Text = "";
-                    }
-                    else
-                    {
-                        func(control.Controls);
-                    }
-            };
-
-            func(Controls);
-        }
+        
         private void InitButton()
         {
             if (fEdit)
@@ -102,30 +67,6 @@ namespace MIS
         }
         private bool ValidateFields()
         {
-            /*
-            bool fValid = false;
-
-            if (txtName.Text.Length > 0 &&
-                //txtProvince.Text.Length > 0 &&
-                //txtRegion.Text.Length > 0 &&
-                dbFunction.isValidID(txtCountryID.Text) &&
-                (iParticularType == clsGlobalVariables.iFE_Type ? (txtEmail.Text.Length > 0 ? true : false) : true) &&
-                (iParticularType == clsGlobalVariables.iFE_Type ? (txtMobile.Text.Length > 0 ? true : false) : true))
-                fValid = true;
-
-            if (!fValid)
-            {
-                MessageBox.Show("Check the following field(s) listed below:\n\n" +
-                                "*Name\n" +
-                                //"*Country\n" +
-                                //"*City\n" +
-                                //"*Province\n" +
-                                (iParticularType == clsGlobalVariables.iFE_Type ? "*Email\n*Mobile\n" : "") +                                
-                                "\n" +
-                                "Field(s) with asterisk(*) must not be blank.", "Incomplete Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            */
-
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iName, txtName.Text)) return false;
             //if (!dbFunction.isValidEntry(clsFunction.CheckType.iCity, txtProvince.Text)) return false;
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iRegionType, txtRegionType.Text)) return false;
@@ -143,6 +84,13 @@ namespace MIS
                 if (!dbFunction.isValidEntry(clsFunction.CheckType.iEmail, txtEmail.Text)) return false;
             }
 
+            // Zoning
+            if (iParticularType == clsGlobalVariables.iMerchant_Type)
+            {
+                if (!dbFunction.isValidDescriptionEntry(txtZoneID.Text, "Zone ID" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+                if (!dbFunction.isValidDescriptionEntry(txtZone.Text, "Zone" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+            }            
+
             return true;
         }
 
@@ -154,7 +102,7 @@ namespace MIS
         private void btnAdd_Click(object sender, EventArgs e)
         {
             fEdit = false;
-            ClearTextBox();
+            dbFunction.ClearTextBox(this);
             InitButton();
             btnSave.Enabled = true;
             btnAdd.Enabled = false;
@@ -165,6 +113,7 @@ namespace MIS
 
             btnProvinceSearch.Enabled = true;
             btnAddProvince.Enabled = true;
+            btnZoneSearch.Enabled = true;
 
             // ROCKY - PARTICULAR: ADDITIONAL PARTICULAR INFO - ADD GENDER COMBOBOX
             FillGenderComboBox(cboGender);
@@ -181,6 +130,8 @@ namespace MIS
             btnPrevWaiver.Enabled = true;
             btnPrevSchoolReq.Enabled = true;
 
+            txtParticularID.ReadOnly = txtZoneID.ReadOnly = true;
+
             //dbAPI.FillComboBoxEmploymentStatus(cboEmploymentStatus);
 
             txtName.Focus();
@@ -191,7 +142,7 @@ namespace MIS
             Cursor.Current = Cursors.WaitCursor;
 
             fEdit = false;
-            ClearTextBox();
+            dbFunction.ClearTextBox(this);
             //ClearComboBox();
             InitButton();
             SetParticularName();
@@ -203,6 +154,7 @@ namespace MIS
 
             btnProvinceSearch.Enabled = false;
             btnAddProvince.Enabled = false;
+            btnZoneSearch.Enabled = false;
 
             //dbAPI.FillComboBoxEmploymentStatus(cboEmploymentStatus);
 
@@ -237,7 +189,7 @@ namespace MIS
             btnPrevWaiver.Enabled = false;
             btnPrevSchoolReq.Enabled = false;
 
-            txtParticularID.ReadOnly = true;
+            txtParticularID.ReadOnly = txtZoneID.ReadOnly = true;
 
             Cursor.Current = Cursors.Default;
         }
@@ -382,7 +334,8 @@ namespace MIS
                 sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtNbiClearance.Text) + "', " +
                 sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtSchoolCred.Text) + "', " +
                 sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtApplicationForm.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtWaiverForm.Text) + "') ";
+                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtWaiverForm.Text) + "', " +
+                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtZoneID.Text) + "') ";
 
                 sSQL = sSQL + sRowSQL;
                 //sSQL = sSQL.Replace("&", "AND");
@@ -453,7 +406,8 @@ namespace MIS
                                                     dbFunction.CheckAndSetStringValue(txtNbiClearance.Text) + clsFunction.sPipe +
                                                     dbFunction.CheckAndSetStringValue(txtSchoolCred.Text) + clsFunction.sPipe +
                                                     dbFunction.CheckAndSetStringValue(txtApplicationForm.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtWaiverForm.Text);
+                                                    dbFunction.CheckAndSetStringValue(txtWaiverForm.Text) + clsFunction.sPipe +
+                                                    dbFunction.CheckAndSetNumericValue(txtZoneID.Text);
 
                 //clsSearch.ClassAdvanceSearchValue = clsSearch.ClassAdvanceSearchValue.Replace("&", "AND");
 
@@ -488,8 +442,8 @@ namespace MIS
             dbFunction = new clsFunction();
             dbFile = new clsFile();
 
-            ClearTextBox();
-            ClearComboBox();
+            dbFunction.ClearTextBox(this);
+            dbFunction.ClearComboBox(this);
             InitButton();
             InitCheckBox();
             SetParticularName();
@@ -506,6 +460,7 @@ namespace MIS
 
             btnProvinceSearch.Enabled = false;
             btnAddProvince.Enabled = false;
+            btnZoneSearch.Enabled = false;
 
             grpParticular.Enabled = false;
 
@@ -516,25 +471,25 @@ namespace MIS
                 tcEmployee.Enabled = true;
             }
 
-            grpMerchant.Enabled = false;
+            tabMerchant.Enabled = false;
 
             if (iParticularType == clsGlobalVariables.iMerchant_Type_List)
             {
-                grpMerchant.Enabled = true;
+                tabMerchant.Enabled = true;
                 tabParticular.TabPages.Remove(tabPage2);
             }
 
             // ROCKY - PARTICULAR: REMOVE PARTICULAR TAB  
             if (iParticularType == clsGlobalVariables.iMerchant_Type)
             {
-                grpMerchant.Enabled = true;
+                tabMerchant.Enabled = true;
                 tabParticular.TabPages.Remove(tabPage2);
             }
 
             // ROCKY - PARTICULAR: REMOVE PARTICULAR TAB 
             if (iParticularType == clsGlobalVariables.iClient_Type)
             {
-                grpMerchant.Enabled = true;
+                tabMerchant.Enabled = true;
                 tabParticular.TabPages.Remove(tabPage2);
             }
 
@@ -556,7 +511,10 @@ namespace MIS
             FillGenderComboBox(cboEducLevel);
             dtpDateResign.Value = new DateTime(2000, 1, 1);
 
-            txtParticularID.ReadOnly = true;
+            txtParticularID.ReadOnly = txtZoneID.ReadOnly = true;
+
+            ComboBoxDefaultSelect();
+            
         }
 
         private void SetParticularName()
@@ -623,6 +581,7 @@ namespace MIS
 
                     btnProvinceSearch.Enabled = true;
                     btnAddProvince.Enabled = true;
+                    btnZoneSearch.Enabled = true;
 
                     dbFunction.TextBoxUnLock(true, this);
                     dbFunction.ComBoBoxUnLock(true, this);
@@ -1083,6 +1042,7 @@ namespace MIS
 
                 btnProvinceSearch.Enabled = true;
                 btnAddProvince.Enabled = true;
+                btnZoneSearch.Enabled = true;
 
                 PKTextBoxBackColor(false);
 
@@ -1114,6 +1074,12 @@ namespace MIS
                 btnUploadAppForm.Enabled = true;
                 btnUploadWaiver.Enabled = true;
                 btnUploadSchoolReq.Enabled = true;
+
+                txtParticularID.ReadOnly = txtZoneID.ReadOnly = true;
+
+                // Zoning
+                txtZoneID.Text = clsParticular.ClassZoneID.ToString();
+                getZoningInfo();
             }
 
             Cursor.Current = Cursors.Default;
@@ -1566,6 +1532,56 @@ namespace MIS
                 PreviewRequirements($"WAIVER_{txtCode.Text}");
             }
 
+        }
+
+        private void ComboBoxDefaultSelect()
+        {
+            cboDepartment.Text = cboPosition.Text = cboEmploymentStatus.Text = clsFunction.sDefaultSelect;
+
+            // For merchant
+            cboRentalType.Text = cboRentalTerms.Text = clsFunction.sDefaultSelect;
+
+        }
+
+        private void btnZoneSearch_Click(object sender, EventArgs e)
+        {
+            frmSearchField.iSearchType = frmSearchField.SearchType.iZoning;
+            frmSearchField.sHeader = "VIEW ZONING";
+            frmSearchField.sSearchChar = txtProvince.Text;
+            frmSearchField.isCheckBoxes = false;
+            frmSearchField frm = new frmSearchField();
+            frm.ShowDialog();
+
+            if (frmSearchField.fSelected)
+            {
+                txtZoneID.Text = $"{clsSearch.ClassZoneID}";
+
+                getZoningInfo();
+            }
+        }
+
+        private void btnAddZoning_Click(object sender, EventArgs e)
+        {
+            frmMZoning frm = new frmMZoning();
+            frm.ShowDialog();
+        }
+
+        private void getZoningInfo()
+        {
+            txtZZone.Text = txtZone.Text = txtZCluster.Text = txtZRegion.Text = txtZArea.Text = txtZCityMunicipal.Text = clsDefines.gNull;
+
+            if (dbFunction.isValidID(txtZoneID.Text))
+            {
+                string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{txtZoneID.Text}");
+                if (dbFunction.isValidDescription(pJSONString))
+                {
+                    txtZZone.Text = txtZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);
+                    txtZCluster.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Cluster);
+                    txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
+                    txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
+                    txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
+                }
+            }
         }
     }
 }

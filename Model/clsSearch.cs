@@ -2622,5 +2622,54 @@ namespace MIS
             set { _BillngFileName = value; }
         }
 
+        public static int _ReasonFuncID;
+        public static int ClassReasonFuncID
+        {
+            get { return _ReasonFuncID; }
+            set { _ReasonFuncID = value; }
+        }
+
+        // Zonning
+        public static int _ZoneID;
+        public static int ClassZoneID
+        {
+            get { return _ZoneID; }
+            set { _ZoneID = value; }
+        }
+
+        public static string _ZCluster;
+        public static string ClassZCluster
+        {
+            get { return _ZCluster; }
+            set { _ZCluster = value; }
+        }
+
+        public static string _ZZone;
+        public static string ClassZZone
+        {
+            get { return _ZZone; }
+            set { _ZZone = value; }
+        }
+
+        public static string _ZRegion;
+        public static string ClassZRegion
+        {
+            get { return _ZRegion; }
+            set { _ZRegion = value; }
+        }
+
+        public static string _ZArea;
+        public static string ClassZArea
+        {
+            get { return _ZArea; }
+            set { _ZArea = value; }
+        }
+
+        public static string _ZCityMunicipal;
+        public static string ClassZCityMunicipal
+        {
+            get { return _ZCityMunicipal; }
+            set { _ZCityMunicipal = value; }
+        }
     }
 }

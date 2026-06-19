@@ -184,7 +184,9 @@ namespace MIS
                     break;
 
                 case 4: // WAREHOUSE
+
                     getInvoiceDetails(id, Result);
+
                     break;
 
                 default:

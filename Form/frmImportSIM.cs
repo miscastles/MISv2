@@ -228,6 +228,10 @@ namespace MIS
             InitTimerSerialNo();
             PKTextBoxBackColor(true);
 
+            dbFunction.ClearTextBox(this);
+            dbFunction.TextBoxUnLock(false, this);
+            dbFunction.ClearComboBox(this);
+
             InitComboBox();
 
             btnAddAutoGen.Focus();
@@ -441,8 +445,10 @@ namespace MIS
         private void btnImportCancel_Click(object sender, EventArgs e)
         {
             dbFunction.ClearTextBox(this);
-            //dbFunction.ClearComboBox(this);
-            //ClearDataGrid();
+            dbFunction.TextBoxUnLock(false, this);
+            dbFunction.ClearComboBox(this);
+
+            InitComboBox();
 
             dbFunction.ClearDataGrid(grdDummy);
             dbFunction.ClearDataGrid(grdList);
@@ -1181,8 +1187,15 @@ namespace MIS
             btnSaveAutoGen.Enabled = false;
             btnAddAutoGen.Enabled = true;
 
+            dbFunction.ClearTextBox(this);
+            dbFunction.TextBoxUnLock(false, this);
+            dbFunction.ClearComboBox(this);
+
+            InitComboBox();
+
             dbFunction.TextBoxUnLock(false, this);
             dbFunction.ComBoBoxUnLock(false, this);
+
             dbFunction.ClearListViewItems(lvwGenerateList);
             
             btnGenerate.Enabled = btnReset.Enabled = pnlGenerate.Enabled = false;
@@ -3882,10 +3895,7 @@ namespace MIS
             cboIClient.SelectedIndex = 1;
 
             cboMClient.Enabled = true;
-            cboMClient.SelectedIndex = 1;
-
-            cboMClient.Enabled = true;
-            cboMClient.SelectedIndex = 1;
+            cboMClient.SelectedIndex = 1;            
         }
     }
 }

@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>54</ApplicationRevision>
+    <ApplicationRevision>56</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -592,6 +592,18 @@
     <Compile Include="Form\frmServiceArchive.Designer.cs">
       <DependentUpon>frmServiceArchive.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\frmMLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmMLocation.Designer.cs">
+      <DependentUpon>frmMLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmMZoning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmMZoning.Designer.cs">
+      <DependentUpon>frmMZoning.cs</DependentUpon>
+    </Compile>
     <Compile Include="Function\DataGridViewHelper.cs" />
     <Compile Include="Function\clsErrorHelper.cs" />
     <Compile Include="Function\clsExcelOpenXmlExporter.cs" />
@@ -974,6 +986,7 @@
     <Compile Include="Model\modelPrivacyDetail.cs" />
     <Compile Include="Model\modelPrivacyMaster.cs" />
     <Compile Include="Model\modelStock.cs" />
+    <Compile Include="Model\modelZoning.cs" />
     <Compile Include="Model\ReportInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1563,8 +1576,14 @@
     <EmbeddedResource Include="Form\frmLeaveType.resx">
       <DependentUpon>frmLeaveType.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmMLocation.resx">
+      <DependentUpon>frmMLocation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\frmMRequestID.resx">
       <DependentUpon>frmMRequestID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmMZoning.resx">
+      <DependentUpon>frmMZoning.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmPendingFailedService.resx">
       <DependentUpon>frmPendingFailedService.cs</DependentUpon>

@@ -73,10 +73,8 @@
             this.txtOtherServiceTypeID = new System.Windows.Forms.TextBox();
             this.txtMMClientName = new System.Windows.Forms.TextBox();
             this.txtSPAddress = new System.Windows.Forms.TextBox();
-            this.chkCloseTicket = new System.Windows.Forms.CheckBox();
             this.txtRegionID = new System.Windows.Forms.TextBox();
             this.txtMAmount = new System.Windows.Forms.TextBox();
-            this.txtMerchantID = new System.Windows.Forms.TextBox();
             this.txtReasonCode = new System.Windows.Forms.TextBox();
             this.txtResolutionID = new System.Windows.Forms.TextBox();
             this.txtTAServiceTypeStatus = new System.Windows.Forms.TextBox();
@@ -98,6 +96,7 @@
             this.txtRepTerminalTypeID = new System.Windows.Forms.TextBox();
             this.btnAttempt = new System.Windows.Forms.Button();
             this.txtRepDockID = new System.Windows.Forms.TextBox();
+            this.txtMerchantID = new System.Windows.Forms.TextBox();
             this.txtClientID = new System.Windows.Forms.TextBox();
             this.txtReasonID = new System.Windows.Forms.TextBox();
             this.txtRequestID = new System.Windows.Forms.TextBox();
@@ -167,6 +166,9 @@
             this.lblMainStatus = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel173 = new System.Windows.Forms.Panel();
+            this.btnCloseTicket = new System.Windows.Forms.Button();
+            this.chkCloseTicket = new System.Windows.Forms.CheckBox();
             this.panel151 = new System.Windows.Forms.Panel();
             this.btnIncludeInReport = new System.Windows.Forms.Button();
             this.chkIncludeInReport = new System.Windows.Forms.CheckBox();
@@ -458,6 +460,7 @@
             this.btnRemoveReason = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnSearchReason = new Bunifu.Framework.UI.BunifuImageButton();
             this.panel125 = new System.Windows.Forms.Panel();
+            this.txtReasonFunctionID = new System.Windows.Forms.TextBox();
             this.label54 = new System.Windows.Forms.Label();
             this.panel126 = new System.Windows.Forms.Panel();
             this.panel36 = new System.Windows.Forms.Panel();
@@ -636,6 +639,11 @@
             this.label157 = new System.Windows.Forms.Label();
             this.txtIRTID = new System.Windows.Forms.TextBox();
             this.txtIRMID = new System.Windows.Forms.TextBox();
+            this.tabPage26 = new System.Windows.Forms.TabPage();
+            this.txtMerchantEmail = new System.Windows.Forms.TextBox();
+            this.label90 = new System.Windows.Forms.Label();
+            this.label93 = new System.Windows.Forms.Label();
+            this.label92 = new System.Windows.Forms.Label();
             this.tabPage17 = new System.Windows.Forms.TabPage();
             this.label158 = new System.Windows.Forms.Label();
             this.label159 = new System.Windows.Forms.Label();
@@ -661,11 +669,15 @@
             this.label166 = new System.Windows.Forms.Label();
             this.label165 = new System.Windows.Forms.Label();
             this.panel54 = new System.Windows.Forms.Panel();
-            this.txtMerchantEmail = new System.Windows.Forms.TextBox();
-            this.label90 = new System.Windows.Forms.Label();
-            this.label92 = new System.Windows.Forms.Label();
-            this.label93 = new System.Windows.Forms.Label();
-            this.label94 = new System.Windows.Forms.Label();
+            this.txtZoneID = new System.Windows.Forms.TextBox();
+            this.txtZCityMunicipal = new System.Windows.Forms.TextBox();
+            this.label174 = new System.Windows.Forms.Label();
+            this.txtZArea = new System.Windows.Forms.TextBox();
+            this.label173 = new System.Windows.Forms.Label();
+            this.txtZRegion = new System.Windows.Forms.TextBox();
+            this.label172 = new System.Windows.Forms.Label();
+            this.txtZZone = new System.Windows.Forms.TextBox();
+            this.label118 = new System.Windows.Forms.Label();
             this.panel55 = new System.Windows.Forms.Panel();
             this.label95 = new System.Windows.Forms.Label();
             this.txtMerchantRegion = new System.Windows.Forms.TextBox();
@@ -781,6 +793,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel173.SuspendLayout();
             this.panel151.SuspendLayout();
             this.panel78.SuspendLayout();
             this.panel79.SuspendLayout();
@@ -939,6 +952,7 @@
             this.panel44.SuspendLayout();
             this.tabControl7.SuspendLayout();
             this.tabPage16.SuspendLayout();
+            this.tabPage26.SuspendLayout();
             this.tabPage17.SuspendLayout();
             this.tabPage12.SuspendLayout();
             this.tabPage13.SuspendLayout();
@@ -996,16 +1010,16 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1, 918);
+            this.panel2.Size = new System.Drawing.Size(1, 920);
             this.panel2.TabIndex = 304;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(1, 916);
+            this.panel3.Location = new System.Drawing.Point(1, 918);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1388, 2);
+            this.panel3.Size = new System.Drawing.Size(1390, 2);
             this.panel3.TabIndex = 306;
             this.panel3.Visible = false;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
@@ -1014,9 +1028,9 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1387, 0);
+            this.panel4.Location = new System.Drawing.Point(1389, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(2, 916);
+            this.panel4.Size = new System.Drawing.Size(2, 918);
             this.panel4.TabIndex = 307;
             // 
             // panel8
@@ -1025,7 +1039,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel8.Location = new System.Drawing.Point(1, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1386, 2);
+            this.panel8.Size = new System.Drawing.Size(1388, 2);
             this.panel8.TabIndex = 388;
             // 
             // pnlHeader
@@ -1039,7 +1053,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(1, 2);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1386, 29);
+            this.pnlHeader.Size = new System.Drawing.Size(1388, 29);
             this.pnlHeader.TabIndex = 390;
             // 
             // btnMinimize
@@ -1103,7 +1117,7 @@
             this.lblHeader.Name = "lblHeader";
             this.lblHeader.Size = new System.Drawing.Size(477, 19);
             this.lblHeader.TabIndex = 7;
-            this.lblHeader.Text = "FSR";
+            this.lblHeader.Text = "MANUAL FSR";
             // 
             // txtAttemptCnt
             // 
@@ -1370,10 +1384,8 @@
             this.panel6.Controls.Add(this.txtOtherServiceTypeID);
             this.panel6.Controls.Add(this.txtMMClientName);
             this.panel6.Controls.Add(this.txtSPAddress);
-            this.panel6.Controls.Add(this.chkCloseTicket);
             this.panel6.Controls.Add(this.txtRegionID);
             this.panel6.Controls.Add(this.txtMAmount);
-            this.panel6.Controls.Add(this.txtMerchantID);
             this.panel6.Controls.Add(this.txtReasonCode);
             this.panel6.Controls.Add(this.txtResolutionID);
             this.panel6.Controls.Add(this.txtTAServiceTypeStatus);
@@ -1541,22 +1553,6 @@
             this.txtSPAddress.UseWaitCursor = true;
             this.txtSPAddress.Visible = false;
             // 
-            // chkCloseTicket
-            // 
-            this.chkCloseTicket.AutoSize = true;
-            this.chkCloseTicket.Checked = true;
-            this.chkCloseTicket.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCloseTicket.Enabled = false;
-            this.chkCloseTicket.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCloseTicket.ForeColor = System.Drawing.Color.Red;
-            this.chkCloseTicket.Location = new System.Drawing.Point(3, 248);
-            this.chkCloseTicket.Name = "chkCloseTicket";
-            this.chkCloseTicket.Size = new System.Drawing.Size(226, 20);
-            this.chkCloseTicket.TabIndex = 428;
-            this.chkCloseTicket.Text = "CLOSE SERVICE REQUEST TICKET";
-            this.chkCloseTicket.UseVisualStyleBackColor = true;
-            this.chkCloseTicket.Visible = false;
-            // 
             // txtRegionID
             // 
             this.txtRegionID.BackColor = System.Drawing.Color.White;
@@ -1582,18 +1578,6 @@
             this.txtMAmount.Size = new System.Drawing.Size(28, 20);
             this.txtMAmount.TabIndex = 358;
             this.txtMAmount.Text = "0.00";
-            // 
-            // txtMerchantID
-            // 
-            this.txtMerchantID.BackColor = System.Drawing.Color.White;
-            this.txtMerchantID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMerchantID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtMerchantID.Font = new System.Drawing.Font("Courier New", 6.75F);
-            this.txtMerchantID.Location = new System.Drawing.Point(34, 83);
-            this.txtMerchantID.Name = "txtMerchantID";
-            this.txtMerchantID.Size = new System.Drawing.Size(28, 18);
-            this.txtMerchantID.TabIndex = 348;
-            this.txtMerchantID.WordWrap = false;
             // 
             // txtReasonCode
             // 
@@ -1869,6 +1853,20 @@
             this.txtRepDockID.Size = new System.Drawing.Size(28, 18);
             this.txtRepDockID.TabIndex = 416;
             this.txtRepDockID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtMerchantID
+            // 
+            this.txtMerchantID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.txtMerchantID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMerchantID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtMerchantID.Font = new System.Drawing.Font("Courier New", 9F);
+            this.txtMerchantID.Location = new System.Drawing.Point(156, 2);
+            this.txtMerchantID.Name = "txtMerchantID";
+            this.txtMerchantID.ReadOnly = true;
+            this.txtMerchantID.Size = new System.Drawing.Size(73, 21);
+            this.txtMerchantID.TabIndex = 348;
+            this.txtMerchantID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMerchantID.WordWrap = false;
             // 
             // txtClientID
             // 
@@ -2367,10 +2365,10 @@
             this.txtMerchantContactPerson.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMerchantContactPerson.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMerchantContactPerson.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMerchantContactPerson.Location = new System.Drawing.Point(61, 47);
+            this.txtMerchantContactPerson.Location = new System.Drawing.Point(63, 3);
             this.txtMerchantContactPerson.Name = "txtMerchantContactPerson";
             this.txtMerchantContactPerson.ReadOnly = true;
-            this.txtMerchantContactPerson.Size = new System.Drawing.Size(219, 20);
+            this.txtMerchantContactPerson.Size = new System.Drawing.Size(331, 20);
             this.txtMerchantContactPerson.TabIndex = 130;
             // 
             // txtMerchantMobileNo
@@ -2379,10 +2377,10 @@
             this.txtMerchantMobileNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMerchantMobileNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMerchantMobileNo.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMerchantMobileNo.Location = new System.Drawing.Point(61, 68);
+            this.txtMerchantMobileNo.Location = new System.Drawing.Point(63, 25);
             this.txtMerchantMobileNo.Name = "txtMerchantMobileNo";
             this.txtMerchantMobileNo.ReadOnly = true;
-            this.txtMerchantMobileNo.Size = new System.Drawing.Size(219, 20);
+            this.txtMerchantMobileNo.Size = new System.Drawing.Size(115, 20);
             this.txtMerchantMobileNo.TabIndex = 134;
             // 
             // txtMerchantTelNo
@@ -2413,7 +2411,7 @@
             this.groupBox4.Controls.Add(this.txtTARemarks);
             this.groupBox4.Controls.Add(this.label35);
             this.groupBox4.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(1687, 177);
+            this.groupBox4.Location = new System.Drawing.Point(1770, 440);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(334, 140);
             this.groupBox4.TabIndex = 398;
@@ -2747,6 +2745,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.panel173);
             this.tabPage1.Controls.Add(this.panel151);
             this.tabPage1.Controls.Add(this.panel78);
             this.tabPage1.Controls.Add(this.btnRefreshService);
@@ -2777,39 +2776,74 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
             // 
+            // panel173
+            // 
+            this.panel173.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.panel173.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel173.Controls.Add(this.btnCloseTicket);
+            this.panel173.Controls.Add(this.chkCloseTicket);
+            this.panel173.Location = new System.Drawing.Point(417, 824);
+            this.panel173.Name = "panel173";
+            this.panel173.Size = new System.Drawing.Size(112, 28);
+            this.panel173.TabIndex = 498;
+            // 
+            // btnCloseTicket
+            // 
+            this.btnCloseTicket.AutoSize = true;
+            this.btnCloseTicket.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnCloseTicket.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnCloseTicket.FlatAppearance.BorderSize = 0;
+            this.btnCloseTicket.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseTicket.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCloseTicket.ForeColor = System.Drawing.Color.White;
+            this.btnCloseTicket.Location = new System.Drawing.Point(-1, -2);
+            this.btnCloseTicket.Name = "btnCloseTicket";
+            this.btnCloseTicket.Size = new System.Drawing.Size(91, 26);
+            this.btnCloseTicket.TabIndex = 489;
+            this.btnCloseTicket.Text = "CLOSE TICKET?";
+            this.btnCloseTicket.UseVisualStyleBackColor = false;
+            // 
+            // chkCloseTicket
+            // 
+            this.chkCloseTicket.AutoSize = true;
+            this.chkCloseTicket.Location = new System.Drawing.Point(92, 4);
+            this.chkCloseTicket.Name = "chkCloseTicket";
+            this.chkCloseTicket.Size = new System.Drawing.Size(15, 14);
+            this.chkCloseTicket.TabIndex = 437;
+            this.chkCloseTicket.UseVisualStyleBackColor = true;
+            // 
             // panel151
             // 
             this.panel151.BackColor = System.Drawing.Color.Purple;
             this.panel151.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel151.Controls.Add(this.btnIncludeInReport);
             this.panel151.Controls.Add(this.chkIncludeInReport);
-            this.panel151.Location = new System.Drawing.Point(351, 823);
+            this.panel151.Location = new System.Drawing.Point(273, 824);
             this.panel151.Name = "panel151";
-            this.panel151.Size = new System.Drawing.Size(119, 28);
+            this.panel151.Size = new System.Drawing.Size(141, 28);
             this.panel151.TabIndex = 497;
             // 
             // btnIncludeInReport
             // 
             this.btnIncludeInReport.AutoSize = true;
             this.btnIncludeInReport.BackColor = System.Drawing.Color.Purple;
-            this.btnIncludeInReport.Enabled = false;
             this.btnIncludeInReport.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnIncludeInReport.FlatAppearance.BorderSize = 0;
-            this.btnIncludeInReport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnIncludeInReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIncludeInReport.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIncludeInReport.ForeColor = System.Drawing.Color.White;
-            this.btnIncludeInReport.Location = new System.Drawing.Point(-1, 0);
+            this.btnIncludeInReport.Location = new System.Drawing.Point(-1, -1);
             this.btnIncludeInReport.Name = "btnIncludeInReport";
-            this.btnIncludeInReport.Size = new System.Drawing.Size(95, 26);
+            this.btnIncludeInReport.Size = new System.Drawing.Size(120, 26);
             this.btnIncludeInReport.TabIndex = 489;
-            this.btnIncludeInReport.Text = "CLOSE TICKET?";
+            this.btnIncludeInReport.Text = "INCLUDE IN REPORT?";
             this.btnIncludeInReport.UseVisualStyleBackColor = false;
             this.btnIncludeInReport.Click += new System.EventHandler(this.btnIncludeInReport_Click);
             // 
             // chkIncludeInReport
             // 
             this.chkIncludeInReport.AutoSize = true;
-            this.chkIncludeInReport.Location = new System.Drawing.Point(100, 7);
+            this.chkIncludeInReport.Location = new System.Drawing.Point(122, 5);
             this.chkIncludeInReport.Name = "chkIncludeInReport";
             this.chkIncludeInReport.Size = new System.Drawing.Size(15, 14);
             this.chkIncludeInReport.TabIndex = 437;
@@ -3029,16 +3063,16 @@
             // btnRefreshService
             // 
             this.btnRefreshService.AutoSize = true;
-            this.btnRefreshService.BackColor = System.Drawing.Color.Green;
+            this.btnRefreshService.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.btnRefreshService.Enabled = false;
             this.btnRefreshService.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnRefreshService.FlatAppearance.BorderSize = 0;
             this.btnRefreshService.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnRefreshService.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefreshService.ForeColor = System.Drawing.Color.White;
-            this.btnRefreshService.Location = new System.Drawing.Point(738, 824);
+            this.btnRefreshService.Location = new System.Drawing.Point(750, 824);
             this.btnRefreshService.Name = "btnRefreshService";
-            this.btnRefreshService.Size = new System.Drawing.Size(110, 26);
+            this.btnRefreshService.Size = new System.Drawing.Size(106, 26);
             this.btnRefreshService.TabIndex = 494;
             this.btnRefreshService.Text = "REFRESH SERVICE";
             this.btnRefreshService.UseVisualStyleBackColor = false;
@@ -3079,11 +3113,11 @@
             this.btnOverride.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnOverride.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOverride.ForeColor = System.Drawing.Color.White;
-            this.btnOverride.Location = new System.Drawing.Point(587, 824);
+            this.btnOverride.Location = new System.Drawing.Point(636, 824);
             this.btnOverride.Name = "btnOverride";
-            this.btnOverride.Size = new System.Drawing.Size(150, 26);
+            this.btnOverride.Size = new System.Drawing.Size(110, 26);
             this.btnOverride.TabIndex = 493;
-            this.btnOverride.Text = "OVERRIDE SERVICE RESULT";
+            this.btnOverride.Text = "OVERRIDE SERVICE";
             this.btnOverride.UseVisualStyleBackColor = false;
             this.btnOverride.Click += new System.EventHandler(this.btnOverride_Click);
             // 
@@ -3147,7 +3181,7 @@
             // lblCountDown
             // 
             this.lblCountDown.Font = new System.Drawing.Font("Century Gothic", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCountDown.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(153)))), ((int)(((byte)(51)))));
+            this.lblCountDown.ForeColor = System.Drawing.Color.Blue;
             this.lblCountDown.Location = new System.Drawing.Point(314, 80);
             this.lblCountDown.Name = "lblCountDown";
             this.lblCountDown.Size = new System.Drawing.Size(78, 49);
@@ -4169,9 +4203,9 @@
             this.btnCancelJO.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancelJO.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelJO.ForeColor = System.Drawing.Color.White;
-            this.btnCancelJO.Location = new System.Drawing.Point(471, 824);
+            this.btnCancelJO.Location = new System.Drawing.Point(532, 824);
             this.btnCancelJO.Name = "btnCancelJO";
-            this.btnCancelJO.Size = new System.Drawing.Size(114, 26);
+            this.btnCancelJO.Size = new System.Drawing.Size(101, 26);
             this.btnCancelJO.TabIndex = 488;
             this.btnCancelJO.Text = "CANCEL SERVICE";
             this.btnCancelJO.UseVisualStyleBackColor = false;
@@ -4293,9 +4327,9 @@
             this.panel175.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel175.Controls.Add(this.chkBillable);
             this.panel175.Controls.Add(this.label64);
-            this.panel175.Location = new System.Drawing.Point(850, 823);
+            this.panel175.Location = new System.Drawing.Point(860, 823);
             this.panel175.Name = "panel175";
-            this.panel175.Size = new System.Drawing.Size(110, 28);
+            this.panel175.Size = new System.Drawing.Size(100, 28);
             this.panel175.TabIndex = 475;
             // 
             // chkBillable
@@ -4303,7 +4337,7 @@
             this.chkBillable.AutoSize = true;
             this.chkBillable.Checked = true;
             this.chkBillable.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBillable.Location = new System.Drawing.Point(90, 7);
+            this.chkBillable.Location = new System.Drawing.Point(80, 6);
             this.chkBillable.Name = "chkBillable";
             this.chkBillable.Size = new System.Drawing.Size(15, 14);
             this.chkBillable.TabIndex = 437;
@@ -4315,7 +4349,7 @@
             this.label64.BackColor = System.Drawing.Color.Transparent;
             this.label64.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label64.ForeColor = System.Drawing.Color.White;
-            this.label64.Location = new System.Drawing.Point(7, 7);
+            this.label64.Location = new System.Drawing.Point(7, 5);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(66, 14);
             this.label64.TabIndex = 436;
@@ -6185,6 +6219,7 @@
             // panel125
             // 
             this.panel125.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.panel125.Controls.Add(this.txtReasonFunctionID);
             this.panel125.Controls.Add(this.label54);
             this.panel125.Controls.Add(this.panel126);
             this.panel125.Controls.Add(this.txtReasonID);
@@ -6193,6 +6228,19 @@
             this.panel125.Name = "panel125";
             this.panel125.Size = new System.Drawing.Size(480, 24);
             this.panel125.TabIndex = 311;
+            // 
+            // txtReasonFunctionID
+            // 
+            this.txtReasonFunctionID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.txtReasonFunctionID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtReasonFunctionID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtReasonFunctionID.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReasonFunctionID.Location = new System.Drawing.Point(332, 3);
+            this.txtReasonFunctionID.Name = "txtReasonFunctionID";
+            this.txtReasonFunctionID.Size = new System.Drawing.Size(71, 21);
+            this.txtReasonFunctionID.TabIndex = 357;
+            this.txtReasonFunctionID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtReasonFunctionID.WordWrap = false;
             // 
             // label54
             // 
@@ -8181,6 +8229,7 @@
             // 
             this.tabControl7.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl7.Controls.Add(this.tabPage16);
+            this.tabControl7.Controls.Add(this.tabPage26);
             this.tabControl7.Controls.Add(this.tabPage17);
             this.tabControl7.Controls.Add(this.tabPage12);
             this.tabControl7.Controls.Add(this.tabPage13);
@@ -8216,7 +8265,7 @@
             this.txtRequestType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRequestType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtRequestType.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtRequestType.Location = new System.Drawing.Point(276, 24);
+            this.txtRequestType.Location = new System.Drawing.Point(276, 25);
             this.txtRequestType.MaxLength = 255;
             this.txtRequestType.Name = "txtRequestType";
             this.txtRequestType.ReadOnly = true;
@@ -8239,7 +8288,7 @@
             this.txtPOSType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPOSType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPOSType.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtPOSType.Location = new System.Drawing.Point(63, 24);
+            this.txtPOSType.Location = new System.Drawing.Point(63, 25);
             this.txtPOSType.MaxLength = 255;
             this.txtPOSType.Name = "txtPOSType";
             this.txtPOSType.ReadOnly = true;
@@ -8281,12 +8330,12 @@
             this.txtIRTID.BackColor = System.Drawing.Color.White;
             this.txtIRTID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtIRTID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtIRTID.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIRTID.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIRTID.Location = new System.Drawing.Point(63, 3);
             this.txtIRTID.MaxLength = 8;
             this.txtIRTID.Name = "txtIRTID";
             this.txtIRTID.ReadOnly = true;
-            this.txtIRTID.Size = new System.Drawing.Size(115, 20);
+            this.txtIRTID.Size = new System.Drawing.Size(115, 21);
             this.txtIRTID.TabIndex = 155;
             // 
             // txtIRMID
@@ -8294,13 +8343,70 @@
             this.txtIRMID.BackColor = System.Drawing.Color.White;
             this.txtIRMID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtIRMID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtIRMID.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIRMID.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIRMID.Location = new System.Drawing.Point(212, 3);
             this.txtIRMID.MaxLength = 15;
             this.txtIRMID.Name = "txtIRMID";
             this.txtIRMID.ReadOnly = true;
-            this.txtIRMID.Size = new System.Drawing.Size(183, 20);
+            this.txtIRMID.Size = new System.Drawing.Size(183, 21);
             this.txtIRMID.TabIndex = 157;
+            // 
+            // tabPage26
+            // 
+            this.tabPage26.Controls.Add(this.txtMerchantEmail);
+            this.tabPage26.Controls.Add(this.label90);
+            this.tabPage26.Controls.Add(this.txtMerchantContactPerson);
+            this.tabPage26.Controls.Add(this.label93);
+            this.tabPage26.Controls.Add(this.label92);
+            this.tabPage26.Controls.Add(this.txtMerchantMobileNo);
+            this.tabPage26.Location = new System.Drawing.Point(4, 27);
+            this.tabPage26.Name = "tabPage26";
+            this.tabPage26.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage26.Size = new System.Drawing.Size(397, 51);
+            this.tabPage26.TabIndex = 6;
+            this.tabPage26.Text = "CONTACT INFO";
+            this.tabPage26.UseVisualStyleBackColor = true;
+            // 
+            // txtMerchantEmail
+            // 
+            this.txtMerchantEmail.BackColor = System.Drawing.Color.White;
+            this.txtMerchantEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMerchantEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtMerchantEmail.Location = new System.Drawing.Point(242, 25);
+            this.txtMerchantEmail.Name = "txtMerchantEmail";
+            this.txtMerchantEmail.ReadOnly = true;
+            this.txtMerchantEmail.Size = new System.Drawing.Size(152, 20);
+            this.txtMerchantEmail.TabIndex = 319;
+            // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label90.Location = new System.Drawing.Point(184, 29);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(49, 14);
+            this.label90.TabIndex = 318;
+            this.label90.Text = "EMAIL:";
+            // 
+            // label93
+            // 
+            this.label93.AutoSize = true;
+            this.label93.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label93.Location = new System.Drawing.Point(5, 7);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(49, 14);
+            this.label93.TabIndex = 315;
+            this.label93.Text = "PERSON";
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label92.Location = new System.Drawing.Point(5, 29);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(56, 14);
+            this.label92.TabIndex = 316;
+            this.label92.Text = "MOBILE#";
             // 
             // tabPage17
             // 
@@ -8593,70 +8699,122 @@
             // 
             // panel54
             // 
-            this.panel54.Controls.Add(this.txtMerchantEmail);
-            this.panel54.Controls.Add(this.label90);
-            this.panel54.Controls.Add(this.txtMerchantContactPerson);
-            this.panel54.Controls.Add(this.label92);
-            this.panel54.Controls.Add(this.label93);
-            this.panel54.Controls.Add(this.txtMerchantMobileNo);
-            this.panel54.Controls.Add(this.label94);
+            this.panel54.Controls.Add(this.txtZoneID);
+            this.panel54.Controls.Add(this.txtZCityMunicipal);
+            this.panel54.Controls.Add(this.label174);
+            this.panel54.Controls.Add(this.txtZArea);
+            this.panel54.Controls.Add(this.label173);
+            this.panel54.Controls.Add(this.txtZRegion);
+            this.panel54.Controls.Add(this.label172);
+            this.panel54.Controls.Add(this.txtZZone);
+            this.panel54.Controls.Add(this.label118);
             this.panel54.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel54.Location = new System.Drawing.Point(268, 0);
             this.panel54.Name = "panel54";
             this.panel54.Size = new System.Drawing.Size(282, 112);
             this.panel54.TabIndex = 6;
             // 
-            // txtMerchantEmail
+            // txtZoneID
             // 
-            this.txtMerchantEmail.BackColor = System.Drawing.Color.White;
-            this.txtMerchantEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMerchantEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMerchantEmail.Location = new System.Drawing.Point(61, 90);
-            this.txtMerchantEmail.Name = "txtMerchantEmail";
-            this.txtMerchantEmail.ReadOnly = true;
-            this.txtMerchantEmail.Size = new System.Drawing.Size(219, 20);
-            this.txtMerchantEmail.TabIndex = 319;
+            this.txtZoneID.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtZoneID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZoneID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZoneID.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZoneID.Location = new System.Drawing.Point(219, 27);
+            this.txtZoneID.Name = "txtZoneID";
+            this.txtZoneID.ReadOnly = true;
+            this.txtZoneID.Size = new System.Drawing.Size(61, 20);
+            this.txtZoneID.TabIndex = 373;
+            this.txtZoneID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtZoneID.WordWrap = false;
             // 
-            // label90
+            // txtZCityMunicipal
             // 
-            this.label90.AutoSize = true;
-            this.label90.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label90.Location = new System.Drawing.Point(3, 94);
-            this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(49, 14);
-            this.label90.TabIndex = 318;
-            this.label90.Text = "EMAIL:";
+            this.txtZCityMunicipal.BackColor = System.Drawing.Color.White;
+            this.txtZCityMunicipal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZCityMunicipal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZCityMunicipal.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZCityMunicipal.Location = new System.Drawing.Point(60, 90);
+            this.txtZCityMunicipal.Name = "txtZCityMunicipal";
+            this.txtZCityMunicipal.ReadOnly = true;
+            this.txtZCityMunicipal.Size = new System.Drawing.Size(220, 20);
+            this.txtZCityMunicipal.TabIndex = 322;
             // 
-            // label92
+            // label174
             // 
-            this.label92.AutoSize = true;
-            this.label92.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label92.Location = new System.Drawing.Point(3, 72);
-            this.label92.Name = "label92";
-            this.label92.Size = new System.Drawing.Size(56, 14);
-            this.label92.TabIndex = 316;
-            this.label92.Text = "MOBILE#";
+            this.label174.AutoSize = true;
+            this.label174.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label174.Location = new System.Drawing.Point(4, 94);
+            this.label174.Name = "label174";
+            this.label174.Size = new System.Drawing.Size(35, 14);
+            this.label174.TabIndex = 323;
+            this.label174.Text = "CITY";
             // 
-            // label93
+            // txtZArea
             // 
-            this.label93.AutoSize = true;
-            this.label93.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label93.Location = new System.Drawing.Point(3, 51);
-            this.label93.Name = "label93";
-            this.label93.Size = new System.Drawing.Size(49, 14);
-            this.label93.TabIndex = 315;
-            this.label93.Text = "PERSON";
+            this.txtZArea.BackColor = System.Drawing.Color.White;
+            this.txtZArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZArea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZArea.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZArea.Location = new System.Drawing.Point(60, 69);
+            this.txtZArea.Name = "txtZArea";
+            this.txtZArea.ReadOnly = true;
+            this.txtZArea.Size = new System.Drawing.Size(220, 20);
+            this.txtZArea.TabIndex = 320;
             // 
-            // label94
+            // label173
             // 
-            this.label94.AutoSize = true;
-            this.label94.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label94.ForeColor = System.Drawing.Color.Navy;
-            this.label94.Location = new System.Drawing.Point(3, 32);
-            this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(196, 14);
-            this.label94.TabIndex = 314;
-            this.label94.Text = "PRIMARY CONTACT INFORMATION";
+            this.label173.AutoSize = true;
+            this.label173.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label173.Location = new System.Drawing.Point(5, 74);
+            this.label173.Name = "label173";
+            this.label173.Size = new System.Drawing.Size(35, 14);
+            this.label173.TabIndex = 321;
+            this.label173.Text = "AREA";
+            // 
+            // txtZRegion
+            // 
+            this.txtZRegion.BackColor = System.Drawing.Color.White;
+            this.txtZRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZRegion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZRegion.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZRegion.Location = new System.Drawing.Point(60, 48);
+            this.txtZRegion.Name = "txtZRegion";
+            this.txtZRegion.ReadOnly = true;
+            this.txtZRegion.Size = new System.Drawing.Size(220, 20);
+            this.txtZRegion.TabIndex = 318;
+            // 
+            // label172
+            // 
+            this.label172.AutoSize = true;
+            this.label172.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label172.Location = new System.Drawing.Point(5, 54);
+            this.label172.Name = "label172";
+            this.label172.Size = new System.Drawing.Size(49, 14);
+            this.label172.TabIndex = 319;
+            this.label172.Text = "REGION";
+            // 
+            // txtZZone
+            // 
+            this.txtZZone.BackColor = System.Drawing.Color.White;
+            this.txtZZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZZone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZZone.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZZone.Location = new System.Drawing.Point(60, 27);
+            this.txtZZone.Name = "txtZZone";
+            this.txtZZone.ReadOnly = true;
+            this.txtZZone.Size = new System.Drawing.Size(158, 20);
+            this.txtZZone.TabIndex = 316;
+            // 
+            // label118
+            // 
+            this.label118.AutoSize = true;
+            this.label118.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label118.Location = new System.Drawing.Point(5, 33);
+            this.label118.Name = "label118";
+            this.label118.Size = new System.Drawing.Size(35, 14);
+            this.label118.TabIndex = 317;
+            this.label118.Text = "ZONE";
             // 
             // panel55
             // 
@@ -8758,6 +8916,7 @@
             this.panel49.Controls.Add(this.label125);
             this.panel49.Controls.Add(this.label96);
             this.panel49.Controls.Add(this.panel50);
+            this.panel49.Controls.Add(this.txtMerchantID);
             this.panel49.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel49.Location = new System.Drawing.Point(0, 0);
             this.panel49.Name = "panel49";
@@ -9860,7 +10019,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1389, 918);
+            this.ClientSize = new System.Drawing.Size(1391, 920);
             this.Controls.Add(this.lblCreatedDate);
             this.Controls.Add(this.panel53);
             this.Controls.Add(this.txtSearchMerchantName);
@@ -9922,6 +10081,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.panel173.ResumeLayout(false);
+            this.panel173.PerformLayout();
             this.panel151.ResumeLayout(false);
             this.panel151.PerformLayout();
             this.panel78.ResumeLayout(false);
@@ -10149,6 +10310,8 @@
             this.tabControl7.ResumeLayout(false);
             this.tabPage16.ResumeLayout(false);
             this.tabPage16.PerformLayout();
+            this.tabPage26.ResumeLayout(false);
+            this.tabPage26.PerformLayout();
             this.tabPage17.ResumeLayout(false);
             this.tabPage17.PerformLayout();
             this.tabPage12.ResumeLayout(false);
@@ -10300,7 +10463,6 @@
         private System.Windows.Forms.TextBox txtRepSIMID;
         private System.Windows.Forms.TextBox txtCurDockID;
         private System.Windows.Forms.TextBox txtCurDockSN;
-        private System.Windows.Forms.CheckBox chkCloseTicket;
         private System.Windows.Forms.TextBox txtServiceRequestNo;
         private Bunifu.Framework.UI.BunifuCustomLabel lblSubHeader;
         private System.Windows.Forms.ComboBox cboSearchRepTerminalStatus;
@@ -10363,7 +10525,6 @@
         private System.Windows.Forms.Label label91;
         private System.Windows.Forms.Label label92;
         private System.Windows.Forms.Label label93;
-        private System.Windows.Forms.Label label94;
         private System.Windows.Forms.Panel panel55;
         private System.Windows.Forms.Label label95;
         private System.Windows.Forms.TextBox txtMerchantRegion;
@@ -10959,5 +11120,19 @@
         private System.Windows.Forms.Label label171;
         private System.Windows.Forms.TextBox txtDueDate;
         private System.Windows.Forms.TabPage tabPage25;
+        private System.Windows.Forms.TabPage tabPage26;
+        private System.Windows.Forms.TextBox txtZCityMunicipal;
+        private System.Windows.Forms.Label label174;
+        private System.Windows.Forms.TextBox txtZArea;
+        private System.Windows.Forms.Label label173;
+        private System.Windows.Forms.TextBox txtZRegion;
+        private System.Windows.Forms.Label label172;
+        private System.Windows.Forms.TextBox txtZZone;
+        private System.Windows.Forms.Label label118;
+        private System.Windows.Forms.Panel panel173;
+        private System.Windows.Forms.Button btnCloseTicket;
+        private System.Windows.Forms.CheckBox chkCloseTicket;
+        private System.Windows.Forms.TextBox txtReasonFunctionID;
+        private System.Windows.Forms.TextBox txtZoneID;
     }
 }

@@ -49,6 +49,10 @@ namespace MIS
         private string pHoldEntryRequestID = clsFunction.sNull;
         private string pHoldEntryReferenceNo = clsFunction.sNull;
 
+        // variable for reschedule ticket closure
+        private bool fRescheduleTicket = false;
+        private string gScheduleDate = "";
+
         private enum searchType
         {
             iTerminal, iSIM, iDocker
@@ -123,9 +127,7 @@ namespace MIS
             InitDate();
 
             lblHeader.Text = lblHeader.Text + " " + "[ " + sHeader + " ]";
-        
-            dbFunction.ComBoBoxUnLock(false, this);
-
+            
             InitStatusTitle(true);
             
             UpdateButton(true);
@@ -157,8 +159,11 @@ namespace MIS
             dbAPI.FillComboBoxTypeByGroup(cboSubCategory, (int)GroupType.SubCategoryType);
             dbAPI.FillComboBoxTypeByGroup(cboShipMethod, (int)GroupType.DeploymentMethod);
 
+            // Zoning Loolup            
+            getZoningInfo();
+
             ComboBoxDefaultSelect();
-            AdditionalComBoBoxUnlock(false);
+            AdditionalComBoBoxUnlock(false);            
 
             // chkDispatch.Enabled = true;
             // chkDispatch.Checked = true;
@@ -193,7 +198,11 @@ namespace MIS
             }
 
             tabFillUp.TabIndex = 0;
-            
+
+            // variable for reschedule ticket closure
+            gScheduleDate = "";
+            fRescheduleTicket = false;
+
             Cursor.Current = Cursors.Default;
 
         }
@@ -326,6 +335,12 @@ namespace MIS
                         txtRequestor.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 25);
                         
                     }
+
+                    // Zoning
+                    if (!fEdit)                    
+                        txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);                    
+                    else                    
+                        txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 29);
                     
                     // rawdata_info
                     if (dbFunction.isValidDescription(rawdata_info))
@@ -360,6 +375,7 @@ namespace MIS
                     dbAPI.ExecuteAPI("GET", "Search", "Merchant Current SIM SN", dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text), "Get Info Detail", "", "GetInfoDetail");
                     txtAssignedSIMID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 1);
                     txtAssignedSIMSN.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 2);
+
                 }
             }
           
@@ -851,9 +867,13 @@ namespace MIS
             btnPreviewSvcHistory.Enabled = btnCancelJO.Enabled = btnRefreshSN.Enabled = false;
 
             ComboBoxDefaultSelect();
-            AdditionalComBoBoxUnlock(false);
+            AdditionalComBoBoxUnlock(false);            
 
             tabFillUp.TabIndex = 0;
+
+            // variable for reschedule ticket closure
+            gScheduleDate = "";
+            fRescheduleTicket = false;
 
             Cursor.Current = Cursors.Default;
 
@@ -1549,11 +1569,36 @@ namespace MIS
                 {
                     if (dbFunction.isValidDescription(txtRepSIMCarrier.Text))
                     {
-                        dbFunction.SetMessageBox("Replacement SIM Carrier must not be blank.", "Warning", clsFunction.IconType.iExclamation);
+                        dbFunction.SetMessageBox("Replacement SIM Carrier must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iExclamation);
                         return false;
                     }
                 }
             }
+
+            // --------------------------------------
+            // check for carrier
+            // --------------------------------------
+            if (dbFunction.isValidID(txtCurSIMID.Text))
+            {
+                if (!dbFunction.isValidDescription(txtCurSIMCarrier.Text))
+                {
+                    dbFunction.SetMessageBox("Current SIM Carrier must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+            }
+
+            if (dbFunction.isValidID(txtRepSIMID.Text))
+            {
+                if (!dbFunction.isValidDescription(txtRepSIMCarrier.Text))
+                {
+                    dbFunction.SetMessageBox("Replace SIM Carrier must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+            }
+
+            // Zoning
+            if (!dbFunction.isValidDescriptionEntry(txtZoneID.Text, "Zone ID" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+            if (!dbFunction.isValidDescriptionEntry(txtZZone.Text, "Zone" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
 
             return true;
 
@@ -1933,6 +1978,32 @@ namespace MIS
 
                     item.SubItems.Add(FSRModeCol);
 
+                    item.SubItems.Add(clsArray.ReasonDescription[i]);
+                    item.SubItems.Add(clsArray.Dependency[i]);
+                    item.SubItems.Add(clsArray.StatusReason[i]);
+
+                    // get zoning info
+                    if (dbFunction.isValidID(clsArray.ZoneID[i]))
+                    {
+                        string pJSONStringZoning = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{clsArray.ZoneID[i]}");
+                        if (dbFunction.isValidDescription(pJSONStringZoning))
+                        {
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Zone));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Cluster));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Region));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Area));
+                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_CityMunicipal));
+                        }
+                    }
+                    else
+                    {
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                    }
+
                     lvwList.Items.Add(item);
 
                     i++;
@@ -2224,6 +2295,23 @@ namespace MIS
                 {
                     dbFunction.SetMessageBox("Service already completed. Update not allowed." + "\n\n" + clsDefines.CONTACT_ADMIN_MESSAGE, clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                     return;
+                }
+
+                // check reschedule ticket closure
+                if (fRescheduleTicket && dbFunction.isValidDescription(gScheduleDate))
+                {
+                    string pScheduleDate = dteServiceReqDate.Value.ToString("MM-dd-yyyy");
+                    if (gScheduleDate.CompareTo(pScheduleDate) == 0)
+                    {
+                        string pMessage = $"Schedule Date Information:\n\n" +
+                            $"Last Attempt Schedule Date: {gScheduleDate}\n\n" +
+                            $"Current Schedule Date: {pScheduleDate}\n\n" +
+                            $"THE SCHEDULE DATE HAS NOT BEEN UPDATED.\n\n" +
+                            $"Are you sure you want to save this Job Order?";
+
+                        if (!dbFunction.fPromptConfirmation(pMessage)) 
+                            return;
+                    }
                 }
 
                 if (!ValidateFields(isDispatch)) return;
@@ -3179,6 +3267,30 @@ namespace MIS
             dbFunction.GetListViewHeaderColumnFromFile("", "FSRMode", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
+            dbFunction.GetListViewHeaderColumnFromFile("", "Reason", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Dependency", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "StatusReason", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Zone", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Cluster", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "ZRegion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Area", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "CityMunicipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
         }
         
         private bool isValidServiceRequest()
@@ -4037,7 +4149,7 @@ namespace MIS
                     clsSearch.ClassIRIDNo = int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text));
                     dbAPI.FillListViewChangesMapping(lvwChanges, "", "");
 
-                    AdditionalComBoBoxUnlock(true);
+                    AdditionalComBoBoxUnlock(true);                    
 
                     if (!fEdit)
                         getApplicationInfo();
@@ -4069,6 +4181,13 @@ namespace MIS
                     tabFillUp.TabIndex = 0;
 
                     btnPreviewFSR.Enabled = btnViewDiagnostic.Enabled = btnUpdateServiceDate.Enabled = btnUpdateMerchRep.Enabled = btnUpdateServiceType.Enabled = false;
+
+                    if (!fAutoLoadData)
+                    {
+                        displayRescheduleTicketClosure();
+                    }
+
+                    getZoningInfo();
 
                     btnClear.Focus();
 
@@ -4461,7 +4580,7 @@ namespace MIS
 
                     btnUpdateServiceType.Enabled = true;
 
-                    AdditionalComBoBoxUnlock(true);
+                    AdditionalComBoBoxUnlock(true);                    
 
                     // Init header
                     lblHeader.Text = "UPDATE JOB ORDER" + " " + dbFunction.AddBracketStartEnd(cboSearchServiceType.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
@@ -4471,6 +4590,8 @@ namespace MIS
 
                     if (dbFunction.isValidID(txtSearchFSRNo.Text))
                         getSignAndImageCount();
+
+                    getZoningInfo();
 
                     btnClear.Focus();
 
@@ -6815,5 +6936,63 @@ namespace MIS
         {
             
         }
+
+        private void displayRescheduleTicketClosure()
+        {
+            gScheduleDate = "";
+            fRescheduleTicket = false;
+
+            string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", $"{txtServiceJobType.Text}{clsDefines.gPipe}{txtMerchantID.Text}{clsDefines.gPipe}{txtIRIDNo.Text}");
+
+            if (dbFunction.isValidDescription(pJSONString))
+            {
+                string pServiceNo = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_SERVICENO);
+                string pRequestID = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRNO);
+                string pActionMade = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ActionMade);
+                string pReason = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Reason);
+                string pFSRDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate);
+                string pRequestDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_RequestDate);
+                string pScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ScheduleDate);
+                string pDependency = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Dependency);
+                string pStatusReason = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_StatusReason);
+                string pRemarks = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Remarks);
+                int pFunctionID = int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FunctionID));
+
+                if (pFunctionID.Equals((int)ReasonFuncType.Reschedule_By_Merchant_FuncId) && pActionMade.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE))
+                {
+                    dbFunction.SetMessageBox($"Service last attempt information:\n\n" +
+                            $"Last Attempt Service No.: {pServiceNo}\n" +
+                            $"Last Attempt Request ID: {pRequestID}\n" +
+                            $"Last Attempt Status: {pActionMade}\n" +
+                            $"Reason: {pReason}\n" +
+                            $"Attempt Date: {pFSRDate}\n" +
+                            $"Attempt Dependency: {pDependency}\n\n" +
+                            $"Current Schedule Date: {pScheduleDate}\n\n" +
+                            $"Remarks: {pRemarks}", "Information", clsFunction.IconType.iInformation);
+
+
+                    gScheduleDate = pScheduleDate;
+                    fRescheduleTicket = true;
+                }                
+            }
+        }
+
+        private void getZoningInfo()
+        {
+            txtZZone.Text = txtZZone.Text = txtZRegion.Text = txtZArea.Text = txtZCityMunicipal.Text = clsDefines.gNull;
+
+            if (dbFunction.isValidID(txtZoneID.Text))
+            {
+                string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{txtZoneID.Text}");
+                if (dbFunction.isValidDescription(pJSONString))
+                {
+                    txtZZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);                    
+                    txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
+                    txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
+                    txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
+                }
+            }
+        }
+
     }
 }

@@ -1089,8 +1089,8 @@ namespace MIS
                     sRowSQL = "";
                     sRowSQL = "('" + (txtTIID.Text.Length > 0 ? txtTIID.Text : "0") + "'," +
                     sRowSQL + sRowSQL + "'" + sLineNo + "'," +
-                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(txtTerminalSN.Text)) + "'," +
-                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(txtTerminalSN.Text)) + "'," +
+                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(StrClean(txtTerminalSN.Text))) + "'," +
+                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(StrClean(txtTerminalSN.Text))) + "'," +
                     sRowSQL + sRowSQL + "'" + cboMType.Text + "'," +
                     sRowSQL + sRowSQL + "'" + cboMModel.Text + "'," +
                     sRowSQL + sRowSQL + "'" + cboMBrand.Text + "'," +
@@ -1099,9 +1099,9 @@ namespace MIS
                     sRowSQL + sRowSQL + "'" + sTypeID + "'," +
                     sRowSQL + sRowSQL + "'" + sModelID + "'," +
                     sRowSQL + sRowSQL + "'" + sBrandID + "'," +
-                    sRowSQL + sRowSQL + "'" + (txtMPartNo.Text.Length > 0 ? txtMPartNo.Text : "0") + "'," +                                         
-                    sRowSQL + sRowSQL + "'" + (txtMPONo.Text.Length > 0 ? txtMPONo.Text : "0") + "'," +
-                    sRowSQL + sRowSQL + "'" + (txtMInvNo.Text.Length > 0 ? txtMInvNo.Text : "0") + "'," +
+                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(StrClean(txtMPartNo.Text))) + "'," +                                         
+                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(StrClean(txtMPONo.Text))) + "'," +
+                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(StrClean(txtMInvNo.Text))) + "'," +
                     sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text) + "'," +
                     sRowSQL + sRowSQL + "'" + cboMLocation.Text + "'," +
                     sRowSQL + sRowSQL + "'" + dbFunction.CheckAndSetNumericValue(txtParticularID.Text) + "'," +

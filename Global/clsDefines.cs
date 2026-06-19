@@ -735,5 +735,16 @@ namespace MIS
         public const string TAG_TransType = "TransType";
         public const string TAG_TransMonth = "TransMonth";
 
+        // Zonning
+        public const string TAG_ZoneID = "ZoneID";
+        public const string TAG_Zone = "Zone";
+        public const string TAG_Region = "Region";
+        public const string TAG_Area = "Area";
+        public const string TAG_CityMunicipal = "CityMunicipal";
+        public const string TAG_Cluster = "Cluster";
+
+        public const string TAG_FunctionID = "FunctionID";
+
+
     }
 }

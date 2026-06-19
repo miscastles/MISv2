@@ -227,7 +227,7 @@ namespace MIS
         public static string[] ReasonCode;
         public static string[] ReasonDescription;
         public static string[] ReasonType;
-        public static string[] ReasonIsInput;
+        public static string[] ReasonIsInput;        
 
         // Region Detail
         public static string[] RegionType;
@@ -421,10 +421,18 @@ namespace MIS
         public static string[] MobileID;
         public static string[] detail_info;
 
+        public static string[] FunctionID;
+
         // Selected
         public static string[] SearchKey;
         public static string[] SearchValue;
 
+        // Zoning
+        public static string[] ZoneID;
+
+        // Dependency        
+        public static string[] Dependency;
+        public static string[] StatusReason;
 
         public static string[] arrDTRHeader = new string[] { "CHECK-IN", "CHECK-OUT", "THRS", "OVERTIME-IN", "OVERTIME-OUT", "THRS", "REMARKS" };
     }

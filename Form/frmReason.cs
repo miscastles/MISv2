@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using MIS.Controller;
+using static MIS.Function.AppUtilities;
 
 namespace MIS
 {
@@ -140,7 +141,7 @@ namespace MIS
                 sSQL = "";
                 sRowSQL = "";
                 sRowSQL = " ('" + dbFunction.padLeftChar(txtCode.Text, clsFunction.sPadZero, 4) + "', " +
-                sRowSQL + sRowSQL + " '" + txtDescription.Text + "', " +
+                sRowSQL + sRowSQL + " '" + StrClean(txtDescription.Text) + "', " +
                 sRowSQL + sRowSQL + " '" + cboType.Text + "') ";
                 sSQL = sSQL + sRowSQL;
 
@@ -155,7 +156,7 @@ namespace MIS
             {
                 clsSearch.ClassAdvanceSearchValue = txtID.Text + clsFunction.sPipe +
                                                 txtCode.Text + clsFunction.sPipe +
-                                                txtDescription.Text + clsFunction.sPipe +
+                                                StrClean(txtDescription.Text) + clsFunction.sPipe +
                                                 cboType.Text;
 
                 Debug.WriteLine("SaveReasonDetail::" + "clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using static MIS.Function.AppUtilities;
 
 namespace MIS
 {
@@ -144,7 +145,7 @@ namespace MIS
             if (!fEdit)
             {
                 sRowSQL = "";
-                sRowSQL = " ('" + txtDescription.Text + "') ";
+                sRowSQL = " ('" + StrClean(txtDescription.Text) + "') ";
                 sSQL = sSQL + sRowSQL;
 
                 dbAPI.ExecuteAPI("POST", "Insert", "", "", "Terminal Status", sSQL, "InsertMaintenanceMaster");
@@ -157,7 +158,7 @@ namespace MIS
             else
             {
                 clsSearch.ClassAdvanceSearchValue = txtID.Text + clsFunction.sPipe +
-                                                    txtDescription.Text;
+                                                    StrClean(txtDescription.Text);
 
                 Debug.WriteLine("UpdateTerminalStatus::" + "clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
 

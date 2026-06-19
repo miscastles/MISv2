@@ -184,12 +184,11 @@
             // 
             // lblSearchMessage
             // 
-            this.lblSearchMessage.AutoSize = true;
-            this.lblSearchMessage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSearchMessage.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSearchMessage.ForeColor = System.Drawing.Color.Yellow;
-            this.lblSearchMessage.Location = new System.Drawing.Point(386, 8);
+            this.lblSearchMessage.Location = new System.Drawing.Point(3, 8);
             this.lblSearchMessage.Name = "lblSearchMessage";
-            this.lblSearchMessage.Size = new System.Drawing.Size(56, 14);
+            this.lblSearchMessage.Size = new System.Drawing.Size(432, 14);
             this.lblSearchMessage.TabIndex = 329;
             this.lblSearchMessage.Text = "MESSAGE";
             this.lblSearchMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -517,7 +516,6 @@
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).EndInit();
             this.pnlHeader2.ResumeLayout(false);
-            this.pnlHeader2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
             this.pnlNavigator.ResumeLayout(false);
             this.pnlNavigator.PerformLayout();
