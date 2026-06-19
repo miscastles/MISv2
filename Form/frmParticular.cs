@@ -132,8 +132,6 @@ namespace MIS
 
             txtParticularID.ReadOnly = txtZoneID.ReadOnly = true;
 
-            //dbAPI.FillComboBoxEmploymentStatus(cboEmploymentStatus);
-
             txtName.Focus();
         }
 

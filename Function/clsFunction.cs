@@ -6829,6 +6829,56 @@ namespace MIS
                 : text.Trim();
         }
 
+        public bool findAndSelectListViewItem(ListView lvw, string pSearch)
+        {
+            if (string.IsNullOrWhiteSpace(pSearch))
+                return false;
+
+            pSearch = pSearch.Trim().ToUpper();
+
+            // Exact Match
+            foreach (ListViewItem item in lvw.Items)
+            {
+                foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
+                {
+                    if (subItem.Text.ToUpper() == pSearch)
+                    {
+                        lvw.SelectedItems.Clear();
+
+                        item.Selected = true;
+                        item.Focused = true;
+                        item.EnsureVisible();
+
+                        lvw.Focus();
+
+                        return true;
+                    }
+                }
+            }
+
+            // Partial Match
+            foreach (ListViewItem item in lvw.Items)
+            {
+                foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
+                {
+                    if (subItem.Text.ToUpper().Contains(pSearch))
+                    {
+                        lvw.SelectedItems.Clear();
+
+                        item.Selected = true;
+                        item.Focused = true;
+                        item.EnsureVisible();
+
+                        lvw.Focus();
+
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
     }
 
 }

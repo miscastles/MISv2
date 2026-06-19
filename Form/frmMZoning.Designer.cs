@@ -37,6 +37,11 @@
             this.bunifuCustomLabel1 = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
+            this.cboCityMunicipal = new System.Windows.Forms.ComboBox();
+            this.cboArea = new System.Windows.Forms.ComboBox();
+            this.cboRegion = new System.Windows.Forms.ComboBox();
+            this.cboZone = new System.Windows.Forms.ComboBox();
+            this.cboCluster = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,7 +51,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.bunifuCards1 = new Bunifu.Framework.UI.BunifuCards();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lvwList = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -59,11 +64,8 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.cboCluster = new System.Windows.Forms.ComboBox();
-            this.cboZone = new System.Windows.Forms.ComboBox();
-            this.cboRegion = new System.Windows.Forms.ComboBox();
-            this.cboArea = new System.Windows.Forms.ComboBox();
-            this.cboCityMunicipal = new System.Windows.Forms.ComboBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -160,6 +162,56 @@
             this.bunifuCards2.Size = new System.Drawing.Size(650, 165);
             this.bunifuCards2.TabIndex = 300;
             // 
+            // cboCityMunicipal
+            // 
+            this.cboCityMunicipal.BackColor = System.Drawing.Color.White;
+            this.cboCityMunicipal.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboCityMunicipal.FormattingEnabled = true;
+            this.cboCityMunicipal.Location = new System.Drawing.Point(110, 136);
+            this.cboCityMunicipal.Name = "cboCityMunicipal";
+            this.cboCityMunicipal.Size = new System.Drawing.Size(534, 22);
+            this.cboCityMunicipal.TabIndex = 367;
+            // 
+            // cboArea
+            // 
+            this.cboArea.BackColor = System.Drawing.Color.White;
+            this.cboArea.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboArea.FormattingEnabled = true;
+            this.cboArea.Location = new System.Drawing.Point(110, 110);
+            this.cboArea.Name = "cboArea";
+            this.cboArea.Size = new System.Drawing.Size(534, 22);
+            this.cboArea.TabIndex = 366;
+            // 
+            // cboRegion
+            // 
+            this.cboRegion.BackColor = System.Drawing.Color.White;
+            this.cboRegion.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboRegion.FormattingEnabled = true;
+            this.cboRegion.Location = new System.Drawing.Point(110, 84);
+            this.cboRegion.Name = "cboRegion";
+            this.cboRegion.Size = new System.Drawing.Size(534, 22);
+            this.cboRegion.TabIndex = 365;
+            // 
+            // cboZone
+            // 
+            this.cboZone.BackColor = System.Drawing.Color.White;
+            this.cboZone.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboZone.FormattingEnabled = true;
+            this.cboZone.Location = new System.Drawing.Point(111, 58);
+            this.cboZone.Name = "cboZone";
+            this.cboZone.Size = new System.Drawing.Size(534, 22);
+            this.cboZone.TabIndex = 364;
+            // 
+            // cboCluster
+            // 
+            this.cboCluster.BackColor = System.Drawing.Color.White;
+            this.cboCluster.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboCluster.FormattingEnabled = true;
+            this.cboCluster.Location = new System.Drawing.Point(111, 32);
+            this.cboCluster.Name = "cboCluster";
+            this.cboCluster.Size = new System.Drawing.Size(534, 22);
+            this.cboCluster.TabIndex = 363;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -237,8 +289,9 @@
             this.bunifuCards1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.bunifuCards1.BottomSahddow = true;
             this.bunifuCards1.color = System.Drawing.Color.Gray;
+            this.bunifuCards1.Controls.Add(this.btnSearch);
             this.bunifuCards1.Controls.Add(this.bunifuSeparator1);
-            this.bunifuCards1.Controls.Add(this.textBox5);
+            this.bunifuCards1.Controls.Add(this.txtSearch);
             this.bunifuCards1.Controls.Add(this.label7);
             this.bunifuCards1.Controls.Add(this.lvwList);
             this.bunifuCards1.LeftSahddow = false;
@@ -261,16 +314,17 @@
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
             // 
-            // textBox5
+            // txtSearch
             // 
-            this.textBox5.BackColor = System.Drawing.Color.White;
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox5.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBox5.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(110, 8);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(531, 20);
-            this.textBox5.TabIndex = 113;
+            this.txtSearch.BackColor = System.Drawing.Color.White;
+            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSearch.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Location = new System.Drawing.Point(110, 8);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(451, 20);
+            this.txtSearch.TabIndex = 113;
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // label7
             // 
@@ -304,6 +358,7 @@
             this.lvwList.TabIndex = 103;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
+            this.lvwList.DoubleClick += new System.EventHandler(this.lvwList_DoubleClick);
             // 
             // columnHeader1
             // 
@@ -312,8 +367,8 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "ID";
-            this.columnHeader2.Width = 0;
+            this.columnHeader2.Text = "ZONEID";
+            this.columnHeader2.Width = 90;
             // 
             // columnHeader3
             // 
@@ -355,6 +410,7 @@
             this.btnAdd.TabIndex = 304;
             this.btnAdd.Text = "NEW";
             this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnClear
             // 
@@ -371,6 +427,7 @@
             this.btnClear.TabIndex = 303;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnSave
             // 
@@ -387,62 +444,48 @@
             this.btnSave.TabIndex = 302;
             this.btnSave.Text = "SAVE";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // cboCluster
+            // btnRefresh
             // 
-            this.cboCluster.BackColor = System.Drawing.Color.White;
-            this.cboCluster.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboCluster.FormattingEnabled = true;
-            this.cboCluster.Location = new System.Drawing.Point(111, 32);
-            this.cboCluster.Name = "cboCluster";
-            this.cboCluster.Size = new System.Drawing.Size(534, 22);
-            this.cboCluster.TabIndex = 363;
+            this.btnRefresh.AutoSize = true;
+            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnRefresh.FlatAppearance.BorderSize = 0;
+            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnRefresh.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnRefresh.Location = new System.Drawing.Point(572, 500);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(81, 26);
+            this.btnRefresh.TabIndex = 305;
+            this.btnRefresh.Text = "REFRESH";
+            this.btnRefresh.UseVisualStyleBackColor = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // cboZone
+            // btnSearch
             // 
-            this.cboZone.BackColor = System.Drawing.Color.White;
-            this.cboZone.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboZone.FormattingEnabled = true;
-            this.cboZone.Location = new System.Drawing.Point(111, 58);
-            this.cboZone.Name = "cboZone";
-            this.cboZone.Size = new System.Drawing.Size(534, 22);
-            this.cboZone.TabIndex = 364;
-            // 
-            // cboRegion
-            // 
-            this.cboRegion.BackColor = System.Drawing.Color.White;
-            this.cboRegion.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboRegion.FormattingEnabled = true;
-            this.cboRegion.Location = new System.Drawing.Point(110, 84);
-            this.cboRegion.Name = "cboRegion";
-            this.cboRegion.Size = new System.Drawing.Size(534, 22);
-            this.cboRegion.TabIndex = 365;
-            // 
-            // cboArea
-            // 
-            this.cboArea.BackColor = System.Drawing.Color.White;
-            this.cboArea.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboArea.FormattingEnabled = true;
-            this.cboArea.Location = new System.Drawing.Point(110, 110);
-            this.cboArea.Name = "cboArea";
-            this.cboArea.Size = new System.Drawing.Size(534, 22);
-            this.cboArea.TabIndex = 366;
-            // 
-            // cboCityMunicipal
-            // 
-            this.cboCityMunicipal.BackColor = System.Drawing.Color.White;
-            this.cboCityMunicipal.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboCityMunicipal.FormattingEnabled = true;
-            this.cboCityMunicipal.Location = new System.Drawing.Point(110, 136);
-            this.cboCityMunicipal.Name = "cboCityMunicipal";
-            this.cboCityMunicipal.Size = new System.Drawing.Size(534, 22);
-            this.cboCityMunicipal.TabIndex = 367;
+            this.btnSearch.AutoSize = true;
+            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnSearch.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnSearch.FlatAppearance.BorderSize = 0;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSearch.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnSearch.Location = new System.Drawing.Point(563, 6);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(81, 26);
+            this.btnSearch.TabIndex = 306;
+            this.btnSearch.Text = "REFRESH";
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // frmMZoning
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 533);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSave);
@@ -453,6 +496,7 @@
             this.KeyPreview = true;
             this.Name = "frmMZoning";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.frmMZoning_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).EndInit();
@@ -490,7 +534,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label label7;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
         private System.Windows.Forms.Button btnAdd;
@@ -502,5 +546,7 @@
         private System.Windows.Forms.ComboBox cboArea;
         private System.Windows.Forms.ComboBox cboRegion;
         private System.Windows.Forms.ComboBox cboZone;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnSearch;
     }
 }

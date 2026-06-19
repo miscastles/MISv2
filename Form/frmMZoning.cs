@@ -1,25 +1,342 @@
-﻿using System;
+﻿using MIS.Controller;
+using MIS.Function;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MIS.Function.AppUtilities;
 
 namespace MIS
 {
     public partial class frmMZoning : Form
     {
+        private clsAPI dbAPI;
+        private clsINI dbSetting;
+        private clsFile dbFile;
+        private clsFunction dbFunction;
+
+        public static string sHeader;
+        bool fEdit = false;
+
+        protected override CreateParams CreateParams
+        {
+            // Override CreateParams to enable double-buffering for child controls
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
+                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
+                return cp;
+            }
+        }
+
         public frmMZoning()
         {
             InitializeComponent();
+
+            dbFunction = new clsFunction();
+            dbFunction.setDoubleBuffer(lvwList, true);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void frmMZoning_Load(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            dbAPI = new clsAPI();
+            dbSetting = new clsINI();
+            dbFile = new clsFile();
+            dbFunction = new clsFunction();
+
+            dbFunction.ClearTextBox(this);            
+            dbFunction.TextBoxUnLock(false, this);
+            dbFunction.ComBoBoxUnLock(false, this);
+
+            dbAPI.FillComboBoxZonnigLookup(cboZone, "Zone");
+            dbAPI.FillComboBoxZonnigLookup(cboCluster, "Cluster");
+            dbAPI.FillComboBoxZonnigLookup(cboRegion, "Region");
+            dbAPI.FillComboBoxZonnigLookup(cboArea, "Area");
+            dbAPI.FillComboBoxZonnigLookup(cboCityMunicipal, "City");
+
+            // register all combobox entry will be uppercase
+            clsComboBox.RegisterUpperCase(cboCluster);
+            clsComboBox.RegisterUpperCase(cboZone);
+            clsComboBox.RegisterUpperCase(cboRegion);
+            clsComboBox.RegisterUpperCase(cboArea);
+            clsComboBox.RegisterUpperCase(cboCityMunicipal);
+
+            loadData();
+
+            fEdit = false;
+            InitButton();
+
+            ComboBoxDefaultSelect();
+
+            initSearchTextBox(true);
+            txtSearch.Focus();
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void InitButton()
+        {
+            if (fEdit)
+            {
+                btnAdd.Enabled = false;
+                btnSave.Enabled = true;
+            }
+            else
+            {
+                btnAdd.Enabled = true;
+                btnSave.Enabled = false;
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            fEdit = false;
+            dbFunction.ClearTextBox(this);
+            InitButton();
+            btnSave.Enabled = true;
+            btnAdd.Enabled = false;
+           
+            dbFunction.TextBoxUnLock(true, this);
+            dbFunction.ComBoBoxUnLock(true, this);
+
+            initSearchTextBox(false);
+
+            cboCluster.Focus();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            int ID = 0;
+            string sRowSQL = "";
+            string sSQL = "";
+            string sSearchValue = "";
+
+            if (!ValidateFields()) return;
+
+            if (!fEdit)
+            {
+                if (!dbFunction.fSavingConfirm(false)) return;
+
+            }
+            else
+            {
+                if (!dbFunction.fSavingConfirm(true)) return;
+
+                ID = int.Parse(txtID.Text);
+            }
+
+            if (!fEdit)
+            {
+
+                sSearchValue = $"{cboCluster.Text}{clsFunction.sPipe}" +
+                                $"{cboRegion.Text}{clsFunction.sPipe}" +
+                                $"{cboArea.Text}{clsFunction.sPipe}" +
+                                $"{cboCityMunicipal.Text}{clsFunction.sPipe}" +
+                                $"{cboZone.Text}";
+
+                if (dbAPI.isRecordExist("Search", "Zoning", sSearchValue))
+                {
+                    dbFunction.SetMessageBox("Zoning details already exist.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return;
+                }
+
+                // Insert
+                sRowSQL = "";
+                sSQL = "";
+                sRowSQL = " ('" + StrClean(dbFunction.CheckAndSetStringValue(cboCluster.Text)) + "', " +                
+                sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(cboRegion.Text)) + "'," +
+                sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(cboArea.Text)) + "'," +
+                sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(cboCityMunicipal.Text)) + "'," +
+                sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(cboZone.Text)) + "') ";
+                sSQL = sSQL + sRowSQL;
+
+                Debug.WriteLine("Update::" + "sSQL=" + sSQL);
+
+                dbAPI.ExecuteAPI("POST", "Insert", "", "", "Zoning", sSQL, "InsertMaintenanceMaster");
+
+                MessageBox.Show("New Zoning successfully saved", "Saved",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1);
+            }
+            else
+            {
+                clsSearch.ClassAdvanceSearchValue = $"{txtID.Text}{clsFunction.sPipe}" +
+                    $"{StrClean(dbFunction.CheckAndSetStringValue(cboCluster.Text))}{clsFunction.sPipe}" +
+                    $"{StrClean(dbFunction.CheckAndSetStringValue(cboRegion.Text))}{clsFunction.sPipe}" +
+                    $"{StrClean(dbFunction.CheckAndSetStringValue(cboArea.Text))}{clsFunction.sPipe}" +                    
+                    $"{StrClean(dbFunction.CheckAndSetStringValue(cboCityMunicipal.Text))}{clsFunction.sPipe}" +
+                    $"{StrClean(dbFunction.CheckAndSetStringValue(cboZone.Text))}";
+
+                Debug.WriteLine("Insert::" + "clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
+
+                dbAPI.ExecuteAPI("PUT", "Update", "Zoning", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+
+                MessageBox.Show("Zoning has been successfully modified", "Edited",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1);
+            }
+
+            btnRefresh_Click(this, e);
+
+            btnClear_Click(this, e);
+
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            dbFunction.ClearTextBox(this);            
+            dbFunction.TextBoxUnLock(false, this);
+            dbFunction.ComBoBoxUnLock(false, this);
+
+            fEdit = false;            
+            InitButton();
+
+            ComboBoxDefaultSelect();
+
+            initSearchTextBox(true);
+
+            txtSearch.Focus();
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void ComboBoxDefaultSelect()
+        {
+            cboZone.Text = cboCluster.Text = cboRegion.Text = cboArea.Text = cboCityMunicipal.Text = clsFunction.sDefaultSelect;
+        }
+
+        private void loadData()
+        {
+            int i = 0;
+            int iLineNo = 0;
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            lvwList.Items.Clear();
+
+            dbAPI.ExecuteAPI("GET", "View", "Zoning List", "", "Advance Detail", "", "ViewAdvanceDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK) return;
+            if (dbAPI.isNoRecordFound() == false)
+            {
+                lvwList.Items.Clear();
+                while (clsArray.ID.Length > i)
+                {
+                    // Add to List
+                    iLineNo++;
+                    ListViewItem item = new ListViewItem(iLineNo.ToString());
+
+                    string pZoneID = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_ZoneID);
+                    string pCluster = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Cluster);
+                    string pZone = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Zone);
+                    string pRegion = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Region);
+                    string pArea = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Area);
+                    string pCityMunicipal = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_CityMunicipal);
+
+                    item.SubItems.Add(pZoneID);
+                    item.SubItems.Add(pCluster);
+                    item.SubItems.Add(pZone);
+                    item.SubItems.Add(pRegion);
+                    item.SubItems.Add(pArea);
+                    item.SubItems.Add(pCityMunicipal);
+
+                    lvwList.Items.Add(item);
+
+                    i++;
+                }
+
+                dbFunction.ListViewAlternateBackColor(lvwList);
+            }
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private bool ValidateFields()
+        {
+            if (!dbFunction.isValidDescriptionEntry(cboCluster.Text, "Cluster" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+            if (!dbFunction.isValidDescriptionEntry(cboZone.Text, "Zone" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+            if (!dbFunction.isValidDescriptionEntry(cboRegion.Text, "Region" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+            if (!dbFunction.isValidDescriptionEntry(cboArea.Text, "Area" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+            if (!dbFunction.isValidDescriptionEntry(cboCityMunicipal.Text, "City/Municipal" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+
+            return true;
+        }
+
+        private void lvwList_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvwList.SelectedItems[0].SubItems[1].Text.Length > 0)
+            {
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);
+                Debug.WriteLine("pSelectedRow=\n" + pSelectedRow);
+
+                dbFunction.ComBoBoxUnLock(true, this);
+
+                txtID.Text = dbFunction.GetSearchValue("ZoneID");
+                cboCluster.Text = dbFunction.GetSearchValue("Cluster");
+                cboZone.Text = dbFunction.GetSearchValue("Zone");
+                cboRegion.Text = dbFunction.GetSearchValue("Region");
+                cboArea.Text = dbFunction.GetSearchValue("Area");
+                cboCityMunicipal.Text = dbFunction.GetSearchValue("City/Municipal");
+
+                fEdit = true;                
+                btnAdd.Enabled = false;
+                btnSave.Enabled = true;
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            loadData();
+        }
+
+        private void initSearchTextBox(bool isEnable)
+        {
+            txtSearch.Enabled = isEnable;
+            if (isEnable)
+            {
+                txtSearch.BackColor = Color.White;
+                txtSearch.ReadOnly = false;
+            }
+            else
+            {
+                txtSearch.BackColor = Color.WhiteSmoke;
+                txtSearch.ReadOnly = true;
+            }
+
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    dbFunction.findAndSelectListViewItem(lvwList, txtSearch.Text);   
+                    break;
+                
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            dbFunction.findAndSelectListViewItem(lvwList, txtSearch.Text);
         }
     }
 }

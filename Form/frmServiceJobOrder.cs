@@ -6971,6 +6971,17 @@ namespace MIS
                             $"Remarks: {pRemarks}", "Information", clsFunction.IconType.iInformation);
 
 
+                    // set schedule date
+                    if (!string.IsNullOrWhiteSpace(pFSRDate))
+                    {
+                        DateTime dt;
+
+                        if (DateTime.TryParse(pFSRDate, out dt))
+                        {
+                            dteServiceReqDate.Value = dt;
+                        }
+                    }
+
                     gScheduleDate = pScheduleDate;
                     fRescheduleTicket = true;
                 }                

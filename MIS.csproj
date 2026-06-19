@@ -604,6 +604,7 @@
     <Compile Include="Form\frmMZoning.Designer.cs">
       <DependentUpon>frmMZoning.cs</DependentUpon>
     </Compile>
+    <Compile Include="Function\clsComboBox.cs" />
     <Compile Include="Function\DataGridViewHelper.cs" />
     <Compile Include="Function\clsErrorHelper.cs" />
     <Compile Include="Function\clsExcelOpenXmlExporter.cs" />
