@@ -109,6 +109,9 @@ namespace MIS
             int signCount = 0;
             int imageCount = 0;
 
+            int fsrFileSize = 0;
+            int diagnosticFileSize = 0;
+
             Cursor.Current = Cursors.WaitCursor;
 
             Debug.WriteLine("--loadData--");
@@ -168,6 +171,32 @@ namespace MIS
                 int imageColumnIndex = dbFunction.GetListViewColumnIndex(lvwList, "IMAGE COUNT");
 
                 item.UseItemStyleForSubItems = false;
+
+                if (isFSRFound)
+                {
+                    dbAPI.checkFileInfo("FSR", "File Info", fsrFileName);
+
+                    string fsrSizeValue = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "Size");
+
+                    fsrFileSize = dbFunction.isValidDescription(fsrSizeValue)
+                        ? int.Parse(fsrSizeValue)
+                        : 0;
+
+                    isFSRFound = fsrFileSize > 0;
+                }
+
+                if (isDiagnosticFound)
+                {
+                    dbAPI.checkFileInfo("FSR", "File Info", diagnosticFileName);
+
+                    string diagnosticSizeValue = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, "Size");
+
+                    diagnosticFileSize = dbFunction.isValidDescription(diagnosticSizeValue)
+                        ? int.Parse(diagnosticSizeValue)
+                        : 0;
+
+                    isDiagnosticFound = diagnosticFileSize > 0;
+                }
 
                 item.SubItems.Add(
                     isFSRFound

@@ -987,32 +987,8 @@ namespace MIS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (JobTypeID.Equals(1))
-            {
-                Prompt.Info("Servicing Update", "Installation is not allowed to be selected.");
+            if (!ValidateFields())
                 return;
-            }
-
-            if (cboSearchServiceStatus.SelectedItem?.ToString() == "COMPLETED")
-            {
-                Prompt.Info("Servicing Update", "Completed Job Order are not allowed");
-                return;
-            }
-
-            if (cboSearchServiceType.Text.Equals(clsGlobalVariables.STATUS_INSTALLATION_DESC))
-            {
-                Prompt.Info("Servicing Update", "Installation is not allowed to be selected.");
-                return;
-            }
-
-            if (cboSearchServiceType.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC))
-            {
-                if (repTerminalID.Equals(0) && repSimID.Equals(0))
-                {
-                    Prompt.Info("Servicing Update", "Please select a Device to be used");
-                    return;
-                }
-            }
 
             UpdateJobOrder(ServiceNo);
         }
@@ -1077,6 +1053,44 @@ namespace MIS
                 pnRepTerminal.Enabled = false;
                 pnRepSim.Enabled = false;
             }
+        }
+
+        private bool ValidateFields()
+        {
+            if (JobTypeID.Equals(1))
+            {
+                Prompt.Info("Servicing Update", "Installation is not allowed to be selected.");
+                return false;
+            }
+
+            if (cboSearchServiceStatus.SelectedItem?.ToString() == "COMPLETED")
+            {
+                Prompt.Info("Servicing Update", "Completed Job Order are not allowed");
+                return false;
+            }
+
+            if (cboSearchServiceType.Text.Equals(clsGlobalVariables.STATUS_INSTALLATION_DESC))
+            {
+                Prompt.Info("Servicing Update", "Installation is not allowed to be selected.");
+                return false;
+            }
+
+            if (cboSearchServiceType.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC))
+            {
+                if (repTerminalID.Equals(0) && repSimID.Equals(0))
+                {
+                    Prompt.Info("Servicing Update", "Please select a Device to be used");
+                    return false;
+                }
+
+                if (dbAPI.isRecordExist("Search", "Override-Service Check SIMID", $"{repSimID}{clsDefines.gPipe}{IRIDNo}"))
+                {
+                    Prompt.Info("Servicing Update", "Replacement SIM Already Installed");
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

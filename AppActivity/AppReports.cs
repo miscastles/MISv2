@@ -330,7 +330,15 @@ namespace MIS.AppMainActivity
 
             public static void Services(CrystalReportViewer rptViewer)
             {
-                GenerateReport("Service-Invoice", clsSearch.ClassSearchValue, "", new rptBillingServicingInvoice(), rptViewer);
+                switch (clsSearch.ClassBankCode)
+                {   
+                    case "bpi":
+                        GenerateReport("Service-Invoice", clsSearch.ClassSearchValue, "", new rptBillingBPIServicingInvoice(), rptViewer);
+                        break;
+                    default:
+                        GenerateReport("Service-Invoice", clsSearch.ClassSearchValue, "", new rptBillingServicingInvoice(), rptViewer);
+                        break;
+                }
             }
 
             public static void Tle(CrystalReportViewer rptViewer)
