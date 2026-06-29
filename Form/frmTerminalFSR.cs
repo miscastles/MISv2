@@ -180,6 +180,7 @@ namespace MIS
             // dependency
             dbAPI.FillComboBoxDepedency(cboDependency);
             dbAPI.FillComboBoxStatusReason(cboStatusReason);
+            dbAPI.FillComboBoxIssueCategory(cboIssueCategory);
 
             iniComboBoxSelection(false);
 
@@ -1125,6 +1126,7 @@ namespace MIS
                 clsSearch.ClassBillable = chkBillable.Checked ? true : false;
                 clsSearch.ClassDependency = cboDependency.Text;
                 clsSearch.ClassStatusReason = cboStatusReason.Text;
+                clsSearch.ClassIssueCategory = cboIssueCategory.Text;
 
                 // service confirmation window
                 frmServiceConfirmation frmServiceConfirmation = new frmServiceConfirmation();
@@ -1324,7 +1326,8 @@ namespace MIS
                     clsSearch.ClassAdvanceSearchValue = txtIRIDNo.Text + clsDefines.gPipe +
                                                         txtSearchServiceNo.Text + clsDefines.gPipe +
                                                         dbFunction.getFileID(cboDependency, "All Type") + clsDefines.gPipe +
-                                                        dbFunction.getFileID(cboStatusReason, "All Type");
+                                                        dbFunction.getFileID(cboStatusReason, "All Type") + clsDefines.gPipe +
+                                                        dbFunction.getFileID(cboIssueCategory, "Issue Category");
 
                     dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
 
@@ -2629,6 +2632,12 @@ namespace MIS
                     // Zoning
                     getZoningInfo();
 
+                    if (!dbAPI.checkZoningInfo(int.Parse(txtZoneID.Text), txtMerchantName.Text))
+                    {
+                        btnSave.Enabled = false;
+                        return;
+                    }
+
                     Cursor.Current = Cursors.Default;
                 }
                 catch (Exception ex)
@@ -2827,6 +2836,12 @@ namespace MIS
 
                     // Zoning
                     getZoningInfo();
+
+                    if (!dbAPI.checkZoningInfo(int.Parse(txtZoneID.Text), txtMerchantName.Text))
+                    {
+                        btnSave.Enabled = false;
+                        return;
+                    }
 
                     btnClear.Focus();
 
@@ -4583,6 +4598,9 @@ namespace MIS
 
                         // FunctionID
                         txtReasonFunctionID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 41);
+
+                        // Issue Category
+                        cboIssueCategory.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 42);
 
                         // check isReport
                         string sReport = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 33);
@@ -6381,11 +6399,15 @@ namespace MIS
         {
             cboSearchActionMade.Text = cboDependency.Text = cboStatusReason.Text = 
             cboCurTerminalLocation.Text = cboSearchCurTerminalStatus.Text = cboCurSIMLocation.Text = cboSearchCurSIMStatus.Text =
-            cboRepTerminalLocation.Text = cboSearchRepTerminalStatus.Text = cboRepSIMLocation.Text = cboSearchRepSIMStatus.Text = clsFunction.sDefaultSelect;
+            cboRepTerminalLocation.Text = cboSearchRepTerminalStatus.Text = cboRepSIMLocation.Text = cboSearchRepSIMStatus.Text = 
+            cboIssueCategory.Text = 
+            clsFunction.sDefaultSelect;
 
             cboSearchActionMade.Enabled = cboDependency.Enabled = cboStatusReason.Enabled =
             cboCurTerminalLocation.Enabled = cboSearchCurTerminalStatus.Enabled = cboCurSIMLocation.Enabled = cboSearchCurSIMStatus.Enabled =
-            cboRepTerminalLocation.Enabled = cboSearchRepTerminalStatus.Enabled = cboRepSIMLocation.Enabled = cboSearchRepSIMStatus.Enabled = isEnable;
+            cboRepTerminalLocation.Enabled = cboSearchRepTerminalStatus.Enabled = cboRepSIMLocation.Enabled = cboSearchRepSIMStatus.Enabled = 
+            cboIssueCategory.Enabled =
+            isEnable;
         }
 
         private string getGeneralActionTaken()

@@ -3433,6 +3433,9 @@ namespace MIS
                 case "Rental Fee List":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_RENTALFEELIST_FILENAME;
                     break;
+                case "Issue Category":
+                    pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_ISSUECATEGORYLIST_FILENAME;
+                    break;
                 case "All Type":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_ALLTYPE_FILENAME;
                     break;

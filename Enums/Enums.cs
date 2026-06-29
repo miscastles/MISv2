@@ -46,7 +46,8 @@ namespace MIS.Enums
         MDRInstType = 22,
         ResultStatusType = 23,
         Depedency = 24,
-        StatusReason = 25
+        StatusReason = 25,
+        IssueCategory = 28
     }
 
     public enum OptionType

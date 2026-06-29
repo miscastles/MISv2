@@ -91,6 +91,8 @@
             this.txtServicedDate = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.bunifuSeparator8 = new Bunifu.Framework.UI.BunifuSeparator();
+            this.txtIssueCategory = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -170,7 +172,7 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(9, 47);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 16);
+            this.label1.Size = new System.Drawing.Size(79, 16);
             this.label1.TabIndex = 316;
             this.label1.Text = "JOB ORDER";
             // 
@@ -208,7 +210,7 @@
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(9, 187);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 16);
+            this.label2.Size = new System.Drawing.Size(79, 16);
             this.label2.TabIndex = 318;
             this.label2.Text = "MERCHANT";
             // 
@@ -233,7 +235,7 @@
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(9, 212);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(27, 16);
+            this.label3.Size = new System.Drawing.Size(26, 16);
             this.label3.TabIndex = 320;
             this.label3.Text = "TID";
             // 
@@ -258,7 +260,7 @@
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(8, 242);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(33, 16);
+            this.label4.Size = new System.Drawing.Size(32, 16);
             this.label4.TabIndex = 322;
             this.label4.Text = "MID";
             // 
@@ -268,7 +270,7 @@
             this.bunifuSeparator1.ForeColor = System.Drawing.Color.DimGray;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(10, 467);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(13, 494);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(472, 10);
             this.bunifuSeparator1.TabIndex = 324;
@@ -281,7 +283,7 @@
             this.txtTerminalSN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTerminalSN.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTerminalSN.ForeColor = System.Drawing.Color.Blue;
-            this.txtTerminalSN.Location = new System.Drawing.Point(132, 487);
+            this.txtTerminalSN.Location = new System.Drawing.Point(135, 514);
             this.txtTerminalSN.Name = "txtTerminalSN";
             this.txtTerminalSN.Size = new System.Drawing.Size(345, 19);
             this.txtTerminalSN.TabIndex = 326;
@@ -294,9 +296,9 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(6, 487);
+            this.label5.Location = new System.Drawing.Point(9, 514);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(116, 16);
+            this.label5.Size = new System.Drawing.Size(115, 16);
             this.label5.TabIndex = 325;
             this.label5.Text = "TERMINAL SN (C)";
             // 
@@ -306,7 +308,7 @@
             this.txtSIMSN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSIMSN.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSIMSN.ForeColor = System.Drawing.Color.Blue;
-            this.txtSIMSN.Location = new System.Drawing.Point(132, 516);
+            this.txtSIMSN.Location = new System.Drawing.Point(135, 543);
             this.txtSIMSN.Name = "txtSIMSN";
             this.txtSIMSN.Size = new System.Drawing.Size(345, 19);
             this.txtSIMSN.TabIndex = 328;
@@ -319,9 +321,9 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(6, 516);
+            this.label6.Location = new System.Drawing.Point(9, 543);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 16);
+            this.label6.Size = new System.Drawing.Size(75, 16);
             this.label6.TabIndex = 327;
             this.label6.Text = "SIM SN (C)";
             // 
@@ -331,7 +333,7 @@
             this.bunifuSeparator2.ForeColor = System.Drawing.Color.DimGray;
             this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bunifuSeparator2.LineThickness = 1;
-            this.bunifuSeparator2.Location = new System.Drawing.Point(8, 541);
+            this.bunifuSeparator2.Location = new System.Drawing.Point(11, 568);
             this.bunifuSeparator2.Name = "bunifuSeparator2";
             this.bunifuSeparator2.Size = new System.Drawing.Size(474, 10);
             this.bunifuSeparator2.TabIndex = 329;
@@ -344,7 +346,7 @@
             this.txtRepSIMSN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtRepSIMSN.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepSIMSN.ForeColor = System.Drawing.Color.Green;
-            this.txtRepSIMSN.Location = new System.Drawing.Point(164, 586);
+            this.txtRepSIMSN.Location = new System.Drawing.Point(167, 613);
             this.txtRepSIMSN.Name = "txtRepSIMSN";
             this.txtRepSIMSN.Size = new System.Drawing.Size(315, 19);
             this.txtRepSIMSN.TabIndex = 333;
@@ -357,9 +359,9 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(7, 586);
+            this.label7.Location = new System.Drawing.Point(10, 613);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(76, 16);
+            this.label7.Size = new System.Drawing.Size(75, 16);
             this.label7.TabIndex = 332;
             this.label7.Text = "SIM SN (N)";
             // 
@@ -369,7 +371,7 @@
             this.txtRepTerminalSN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtRepTerminalSN.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepTerminalSN.ForeColor = System.Drawing.Color.Green;
-            this.txtRepTerminalSN.Location = new System.Drawing.Point(186, 557);
+            this.txtRepTerminalSN.Location = new System.Drawing.Point(189, 584);
             this.txtRepTerminalSN.Name = "txtRepTerminalSN";
             this.txtRepTerminalSN.Size = new System.Drawing.Size(293, 19);
             this.txtRepTerminalSN.TabIndex = 331;
@@ -382,9 +384,9 @@
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(7, 557);
+            this.label8.Location = new System.Drawing.Point(10, 584);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(116, 16);
+            this.label8.Size = new System.Drawing.Size(115, 16);
             this.label8.TabIndex = 330;
             this.label8.Text = "TERMINAL SN (N)";
             // 
@@ -424,11 +426,11 @@
             // 
             // label9
             // 
-            this.label9.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(48, 704);
+            this.label9.Location = new System.Drawing.Point(48, 723);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(386, 57);
+            this.label9.Size = new System.Drawing.Size(386, 38);
             this.label9.TabIndex = 432;
             this.label9.Text = "Make sure the information above is correct before proceeding.";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -454,7 +456,7 @@
             this.label10.ForeColor = System.Drawing.Color.Black;
             this.label10.Location = new System.Drawing.Point(8, 277);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(108, 16);
+            this.label10.Size = new System.Drawing.Size(107, 16);
             this.label10.TabIndex = 433;
             this.label10.Text = "FIELD ENGINEER";
             // 
@@ -466,7 +468,7 @@
             this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(7, 359);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(77, 16);
+            this.label11.Size = new System.Drawing.Size(76, 16);
             this.label11.TabIndex = 435;
             this.label11.Text = "DISPATCH?";
             // 
@@ -511,7 +513,7 @@
             this.bunifuSeparator4.ForeColor = System.Drawing.Color.DimGray;
             this.bunifuSeparator4.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bunifuSeparator4.LineThickness = 1;
-            this.bunifuSeparator4.Location = new System.Drawing.Point(12, 609);
+            this.bunifuSeparator4.Location = new System.Drawing.Point(15, 636);
             this.bunifuSeparator4.Name = "bunifuSeparator4";
             this.bunifuSeparator4.Size = new System.Drawing.Size(472, 10);
             this.bunifuSeparator4.TabIndex = 439;
@@ -539,7 +541,7 @@
             this.label12.ForeColor = System.Drawing.Color.Black;
             this.label12.Location = new System.Drawing.Point(9, 73);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(79, 16);
+            this.label12.Size = new System.Drawing.Size(78, 16);
             this.label12.TabIndex = 440;
             this.label12.Text = "REQUEST ID";
             // 
@@ -556,7 +558,7 @@
             this.txtComponents.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtComponents.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComponents.ForeColor = System.Drawing.Color.Blue;
-            this.txtComponents.Location = new System.Drawing.Point(11, 641);
+            this.txtComponents.Location = new System.Drawing.Point(14, 668);
             this.txtComponents.Multiline = true;
             this.txtComponents.Name = "txtComponents";
             this.txtComponents.Size = new System.Drawing.Size(231, 52);
@@ -569,9 +571,9 @@
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(7, 622);
+            this.label13.Location = new System.Drawing.Point(10, 649);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(123, 16);
+            this.label13.Size = new System.Drawing.Size(122, 16);
             this.label13.TabIndex = 443;
             this.label13.Text = "COMPONENTS (C)";
             // 
@@ -581,7 +583,7 @@
             this.bunifuSeparator5.ForeColor = System.Drawing.Color.DimGray;
             this.bunifuSeparator5.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bunifuSeparator5.LineThickness = 1;
-            this.bunifuSeparator5.Location = new System.Drawing.Point(11, 699);
+            this.bunifuSeparator5.Location = new System.Drawing.Point(11, 710);
             this.bunifuSeparator5.Name = "bunifuSeparator5";
             this.bunifuSeparator5.Size = new System.Drawing.Size(473, 10);
             this.bunifuSeparator5.TabIndex = 444;
@@ -594,9 +596,9 @@
             this.label14.BackColor = System.Drawing.Color.Transparent;
             this.label14.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(245, 622);
+            this.label14.Location = new System.Drawing.Point(248, 649);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(123, 16);
+            this.label14.Size = new System.Drawing.Size(122, 16);
             this.label14.TabIndex = 446;
             this.label14.Text = "COMPONENTS (N)";
             // 
@@ -606,7 +608,7 @@
             this.txtRepComponents.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtRepComponents.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepComponents.ForeColor = System.Drawing.Color.Green;
-            this.txtRepComponents.Location = new System.Drawing.Point(248, 641);
+            this.txtRepComponents.Location = new System.Drawing.Point(251, 668);
             this.txtRepComponents.Multiline = true;
             this.txtRepComponents.Name = "txtRepComponents";
             this.txtRepComponents.Size = new System.Drawing.Size(231, 53);
@@ -634,7 +636,7 @@
             this.label15.ForeColor = System.Drawing.Color.Black;
             this.label15.Location = new System.Drawing.Point(8, 387);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(70, 16);
+            this.label15.Size = new System.Drawing.Size(69, 16);
             this.label15.TabIndex = 447;
             this.label15.Text = "BILLABLE?";
             // 
@@ -659,7 +661,7 @@
             this.label16.ForeColor = System.Drawing.Color.Black;
             this.label16.Location = new System.Drawing.Point(7, 304);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(85, 16);
+            this.label16.Size = new System.Drawing.Size(84, 16);
             this.label16.TabIndex = 449;
             this.label16.Text = "DISPATCHER";
             // 
@@ -697,7 +699,7 @@
             this.label17.ForeColor = System.Drawing.Color.Black;
             this.label17.Location = new System.Drawing.Point(7, 332);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(81, 16);
+            this.label17.Size = new System.Drawing.Size(80, 16);
             this.label17.TabIndex = 452;
             this.label17.Text = "REQUESTOR";
             // 
@@ -722,7 +724,7 @@
             this.label18.ForeColor = System.Drawing.Color.Black;
             this.label18.Location = new System.Drawing.Point(7, 423);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(92, 16);
+            this.label18.Size = new System.Drawing.Size(91, 16);
             this.label18.TabIndex = 454;
             this.label18.Text = "DEPENDENCY";
             // 
@@ -747,7 +749,7 @@
             this.label19.ForeColor = System.Drawing.Color.Black;
             this.label19.Location = new System.Drawing.Point(7, 449);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(109, 16);
+            this.label19.Size = new System.Drawing.Size(108, 16);
             this.label19.TabIndex = 456;
             this.label19.Text = "STATUS REASON";
             // 
@@ -785,7 +787,7 @@
             this.label20.ForeColor = System.Drawing.Color.Black;
             this.label20.Location = new System.Drawing.Point(9, 98);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(98, 16);
+            this.label20.Size = new System.Drawing.Size(97, 16);
             this.label20.TabIndex = 459;
             this.label20.Text = "REQUEST DATE";
             // 
@@ -810,7 +812,7 @@
             this.label21.ForeColor = System.Drawing.Color.Black;
             this.label21.Location = new System.Drawing.Point(9, 123);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(107, 16);
+            this.label21.Size = new System.Drawing.Size(106, 16);
             this.label21.TabIndex = 461;
             this.label21.Text = "SCHEDULE DATE";
             // 
@@ -835,7 +837,7 @@
             this.label22.ForeColor = System.Drawing.Color.Black;
             this.label22.Location = new System.Drawing.Point(9, 148);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(105, 16);
+            this.label22.Size = new System.Drawing.Size(104, 16);
             this.label22.TabIndex = 463;
             this.label22.Text = "SERVICED DATE";
             // 
@@ -852,12 +854,39 @@
             this.bunifuSeparator8.Transparency = 255;
             this.bunifuSeparator8.Vertical = false;
             // 
+            // txtIssueCategory
+            // 
+            this.txtIssueCategory.BackColor = System.Drawing.Color.White;
+            this.txtIssueCategory.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtIssueCategory.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIssueCategory.ForeColor = System.Drawing.Color.Blue;
+            this.txtIssueCategory.Location = new System.Drawing.Point(121, 474);
+            this.txtIssueCategory.Name = "txtIssueCategory";
+            this.txtIssueCategory.Size = new System.Drawing.Size(357, 19);
+            this.txtIssueCategory.TabIndex = 467;
+            this.txtIssueCategory.Text = "-";
+            this.txtIssueCategory.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.BackColor = System.Drawing.Color.Transparent;
+            this.label23.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.Black;
+            this.label23.Location = new System.Drawing.Point(8, 474);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(115, 16);
+            this.label23.TabIndex = 466;
+            this.label23.Text = "ISSUE CATEGORY";
+            // 
             // frmServiceConfirmation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(497, 821);
+            this.Controls.Add(this.txtIssueCategory);
+            this.Controls.Add(this.label23);
             this.Controls.Add(this.bunifuSeparator8);
             this.Controls.Add(this.txtServicedDate);
             this.Controls.Add(this.label22);
@@ -991,5 +1020,7 @@
         private System.Windows.Forms.TextBox txtServicedDate;
         private System.Windows.Forms.Label label22;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator8;
+        private System.Windows.Forms.TextBox txtIssueCategory;
+        private System.Windows.Forms.Label label23;
     }
 }

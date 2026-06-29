@@ -12573,6 +12573,55 @@ namespace MIS
 
         }
 
+        public void FillComboBoxIssueCategory(ComboBox obj)
+        {
+            int i = 0;
+            bool fSelect = false;
+            List<TypeController> mList = null;
+
+            obj.Items.Clear();
+            mList = _mTypeController.getDetailList(clsFunction.sZero + clsFunction.sPipe + (int)OtherType.IssueCategory);
+
+            if (mList != null)
+            {
+                if (mList != null)
+                {
+                    foreach (var itemData in mList)
+                    {
+                        if (!fSelect)
+                        {
+                            obj.Items.Add(clsFunction.sDefaultSelect);
+                            fSelect = true;
+                        }
+
+                        obj.Items.Add(itemData.Description);
+
+                    }
+
+                    if (i > 0)
+                        obj.SelectedIndex = 0;
+
+                }
+            }
+        }
+
+        public bool checkZoningInfo(int zoneID, string merchant)
+        {
+            bool isValid = true;
+
+            if (!dbFunction.isValidID(zoneID.ToString()))
+            {
+                dbFunction.SetMessageBox(
+                    $"Merchant [{merchant}] has no zoning information.\nPlease enroll the merchant before proceeding.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
     }
 
 }

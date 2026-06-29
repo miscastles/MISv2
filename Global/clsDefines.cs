@@ -42,6 +42,7 @@ namespace MIS
         public const string RESP_ALLTYPE_FILENAME = "respAllType.json";
         public const string RESP_BANKLIST_FILENAME = "respBankList.json";
         public const string RESP_DATABASELIST_FILENAME = "respDatabaseList.json";
+        public const string RESP_ISSUECATEGORYLIST_FILENAME = "respIssueCategoryList.json";
 
         public const string CONTACT_ADMIN_MESSAGE = "Please contact system administrator.";
         public const string MUST_NOT_BLANK_MESSAGE = " must not be blank.";

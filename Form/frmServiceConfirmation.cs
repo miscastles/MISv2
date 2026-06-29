@@ -61,7 +61,8 @@ namespace MIS
             txtRepComponents.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassRepComponents);
             txtBillable.Text = dbFunction.CheckAndSetStringValue(clsSearch.isBillable ? clsDefines.gYes : clsDefines.gNo);
             txtDependency.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassDependency);
-            txtStatusReason.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassStatusReason);            
+            txtStatusReason.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassStatusReason);
+            txtIssueCategory.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassIssueCategory);
         }
 
         private void frmServiceConfirmation_Load(object sender, EventArgs e)

@@ -4189,6 +4189,12 @@ namespace MIS
 
                     getZoningInfo();
 
+                    if (!dbAPI.checkZoningInfo(int.Parse(txtZoneID.Text), txtMerchantName.Text))
+                    {
+                        btnDispatchJO.Enabled = false;
+                        return;
+                    }
+
                     btnClear.Focus();
 
                     Cursor.Current = Cursors.Default;
@@ -4592,6 +4598,12 @@ namespace MIS
                         getSignAndImageCount();
 
                     getZoningInfo();
+
+                    if (!dbAPI.checkZoningInfo(int.Parse(txtZoneID.Text), txtMerchantName.Text))
+                    {
+                        btnDispatchJO.Enabled = false;
+                        return;
+                    }
 
                     btnClear.Focus();
 
@@ -7004,6 +7016,5 @@ namespace MIS
                 }
             }
         }
-
     }
 }

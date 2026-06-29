@@ -2671,5 +2671,12 @@ namespace MIS
             get { return _ZCityMunicipal; }
             set { _ZCityMunicipal = value; }
         }
+
+        public static string _IssueCategory;
+        public static string ClassIssueCategory
+        {
+            get { return _IssueCategory; }
+            set { _IssueCategory = value; }
+        }
     }
 }
