@@ -270,7 +270,7 @@
             this.bunifuSeparator1.ForeColor = System.Drawing.Color.DimGray;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(13, 494);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(11, 494);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(472, 10);
             this.bunifuSeparator1.TabIndex = 324;
@@ -282,8 +282,8 @@
             this.txtTerminalSN.BackColor = System.Drawing.Color.White;
             this.txtTerminalSN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTerminalSN.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTerminalSN.ForeColor = System.Drawing.Color.Blue;
-            this.txtTerminalSN.Location = new System.Drawing.Point(135, 514);
+            this.txtTerminalSN.ForeColor = System.Drawing.Color.Green;
+            this.txtTerminalSN.Location = new System.Drawing.Point(134, 514);
             this.txtTerminalSN.Name = "txtTerminalSN";
             this.txtTerminalSN.Size = new System.Drawing.Size(345, 19);
             this.txtTerminalSN.TabIndex = 326;
@@ -296,7 +296,7 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(9, 514);
+            this.label5.Location = new System.Drawing.Point(7, 514);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(115, 16);
             this.label5.TabIndex = 325;
@@ -307,8 +307,8 @@
             this.txtSIMSN.BackColor = System.Drawing.Color.White;
             this.txtSIMSN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSIMSN.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSIMSN.ForeColor = System.Drawing.Color.Blue;
-            this.txtSIMSN.Location = new System.Drawing.Point(135, 543);
+            this.txtSIMSN.ForeColor = System.Drawing.Color.Green;
+            this.txtSIMSN.Location = new System.Drawing.Point(134, 543);
             this.txtSIMSN.Name = "txtSIMSN";
             this.txtSIMSN.Size = new System.Drawing.Size(345, 19);
             this.txtSIMSN.TabIndex = 328;
@@ -321,7 +321,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(9, 543);
+            this.label6.Location = new System.Drawing.Point(7, 543);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 16);
             this.label6.TabIndex = 327;
@@ -333,7 +333,7 @@
             this.bunifuSeparator2.ForeColor = System.Drawing.Color.DimGray;
             this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bunifuSeparator2.LineThickness = 1;
-            this.bunifuSeparator2.Location = new System.Drawing.Point(11, 568);
+            this.bunifuSeparator2.Location = new System.Drawing.Point(9, 568);
             this.bunifuSeparator2.Name = "bunifuSeparator2";
             this.bunifuSeparator2.Size = new System.Drawing.Size(474, 10);
             this.bunifuSeparator2.TabIndex = 329;
@@ -345,8 +345,8 @@
             this.txtRepSIMSN.BackColor = System.Drawing.Color.White;
             this.txtRepSIMSN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtRepSIMSN.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRepSIMSN.ForeColor = System.Drawing.Color.Green;
-            this.txtRepSIMSN.Location = new System.Drawing.Point(167, 613);
+            this.txtRepSIMSN.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.txtRepSIMSN.Location = new System.Drawing.Point(166, 613);
             this.txtRepSIMSN.Name = "txtRepSIMSN";
             this.txtRepSIMSN.Size = new System.Drawing.Size(315, 19);
             this.txtRepSIMSN.TabIndex = 333;
@@ -359,7 +359,7 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(10, 613);
+            this.label7.Location = new System.Drawing.Point(8, 613);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 16);
             this.label7.TabIndex = 332;
@@ -370,8 +370,8 @@
             this.txtRepTerminalSN.BackColor = System.Drawing.Color.White;
             this.txtRepTerminalSN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtRepTerminalSN.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRepTerminalSN.ForeColor = System.Drawing.Color.Green;
-            this.txtRepTerminalSN.Location = new System.Drawing.Point(189, 584);
+            this.txtRepTerminalSN.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.txtRepTerminalSN.Location = new System.Drawing.Point(188, 584);
             this.txtRepTerminalSN.Name = "txtRepTerminalSN";
             this.txtRepTerminalSN.Size = new System.Drawing.Size(293, 19);
             this.txtRepTerminalSN.TabIndex = 331;
@@ -384,7 +384,7 @@
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(10, 584);
+            this.label8.Location = new System.Drawing.Point(8, 584);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(115, 16);
             this.label8.TabIndex = 330;
@@ -428,9 +428,9 @@
             // 
             this.label9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(48, 723);
+            this.label9.Location = new System.Drawing.Point(56, 723);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(386, 38);
+            this.label9.Size = new System.Drawing.Size(384, 38);
             this.label9.TabIndex = 432;
             this.label9.Text = "Make sure the information above is correct before proceeding.";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -491,7 +491,7 @@
             this.bunifuSeparator3.ForeColor = System.Drawing.Color.DimGray;
             this.bunifuSeparator3.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bunifuSeparator3.LineThickness = 1;
-            this.bunifuSeparator3.Location = new System.Drawing.Point(12, 764);
+            this.bunifuSeparator3.Location = new System.Drawing.Point(11, 764);
             this.bunifuSeparator3.Name = "bunifuSeparator3";
             this.bunifuSeparator3.Size = new System.Drawing.Size(471, 10);
             this.bunifuSeparator3.TabIndex = 437;
@@ -513,7 +513,7 @@
             this.bunifuSeparator4.ForeColor = System.Drawing.Color.DimGray;
             this.bunifuSeparator4.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bunifuSeparator4.LineThickness = 1;
-            this.bunifuSeparator4.Location = new System.Drawing.Point(15, 636);
+            this.bunifuSeparator4.Location = new System.Drawing.Point(13, 636);
             this.bunifuSeparator4.Name = "bunifuSeparator4";
             this.bunifuSeparator4.Size = new System.Drawing.Size(472, 10);
             this.bunifuSeparator4.TabIndex = 439;
@@ -558,7 +558,7 @@
             this.txtComponents.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtComponents.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComponents.ForeColor = System.Drawing.Color.Blue;
-            this.txtComponents.Location = new System.Drawing.Point(14, 668);
+            this.txtComponents.Location = new System.Drawing.Point(12, 668);
             this.txtComponents.Multiline = true;
             this.txtComponents.Name = "txtComponents";
             this.txtComponents.Size = new System.Drawing.Size(231, 52);
@@ -571,7 +571,7 @@
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(10, 649);
+            this.label13.Location = new System.Drawing.Point(8, 649);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(122, 16);
             this.label13.TabIndex = 443;
@@ -583,7 +583,7 @@
             this.bunifuSeparator5.ForeColor = System.Drawing.Color.DimGray;
             this.bunifuSeparator5.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bunifuSeparator5.LineThickness = 1;
-            this.bunifuSeparator5.Location = new System.Drawing.Point(11, 710);
+            this.bunifuSeparator5.Location = new System.Drawing.Point(9, 710);
             this.bunifuSeparator5.Name = "bunifuSeparator5";
             this.bunifuSeparator5.Size = new System.Drawing.Size(473, 10);
             this.bunifuSeparator5.TabIndex = 444;

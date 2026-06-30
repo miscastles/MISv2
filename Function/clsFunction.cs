@@ -6882,6 +6882,30 @@ namespace MIS
             return false;
         }
 
+
+        public string FormatSerialNumber(string serialNo)
+        {
+            if (string.IsNullOrWhiteSpace(serialNo))
+                return string.Empty;
+
+            // Remove existing separators/spaces
+            serialNo = serialNo.Replace("-", "")
+                               .Replace(" ", "")
+                               .Trim();
+
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < serialNo.Length; i++)
+            {
+                if (i > 0 && i % 4 == 0)
+                    sb.Append("-");
+
+                sb.Append(serialNo[i]);
+            }
+
+            return sb.ToString();
+        }
+
     }
 
 }

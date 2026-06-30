@@ -41,6 +41,8 @@ namespace MIS
 
         private void setServiceInfo()
         {
+            string value = clsFunction.sDash;
+
             txtServiceType.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassServiceTypeDesc);
             txtRequestID.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassRequestID);
             txtRequestDate.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassRequestDate);
@@ -53,16 +55,22 @@ namespace MIS
             txtVendorDispatcher.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassDispatcherName);
             txtRequestor.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassRequestor);
             txtDispatch.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassIsDispatch ? clsDefines.gYes : clsDefines.gNo);
-            txtTerminalSN.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassTerminalSN);
-            txtSIMSN.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassSIMSerialNo);
-            txtRepTerminalSN.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassRepTerminalSN);
-            txtRepSIMSN.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassRepSIMSN);
+            txtTerminalSN.Text = dbFunction.FormatSerialNumber(dbFunction.CheckAndSetStringValue(clsSearch.ClassTerminalSN));
+            txtSIMSN.Text = dbFunction.FormatSerialNumber(dbFunction.CheckAndSetStringValue(clsSearch.ClassSIMSerialNo));
+            txtRepTerminalSN.Text = dbFunction.FormatSerialNumber(dbFunction.CheckAndSetStringValue(clsSearch.ClassRepTerminalSN));
+            txtRepSIMSN.Text = dbFunction.FormatSerialNumber(dbFunction.CheckAndSetStringValue(clsSearch.ClassRepSIMSN));
             txtComponents.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassComponents);
             txtRepComponents.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassRepComponents);
             txtBillable.Text = dbFunction.CheckAndSetStringValue(clsSearch.isBillable ? clsDefines.gYes : clsDefines.gNo);
-            txtDependency.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassDependency);
-            txtStatusReason.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassStatusReason);
-            txtIssueCategory.Text = dbFunction.CheckAndSetStringValue(clsSearch.ClassIssueCategory);
+
+            value = dbFunction.CheckAndSetStringValue(clsSearch.ClassDependency);
+            txtDependency.Text =  (value.Equals(clsFunction.sDefaultSelect) ? clsFunction.sDash : value);
+
+            value = dbFunction.CheckAndSetStringValue(clsSearch.ClassStatusReason);
+            txtStatusReason.Text = (value.Equals(clsFunction.sDefaultSelect) ? clsFunction.sDash : value);
+
+            value = dbFunction.CheckAndSetStringValue(clsSearch.ClassIssueCategory);
+            txtIssueCategory.Text = (value.Equals(clsFunction.sDefaultSelect) ? clsFunction.sDash : value);
         }
 
         private void frmServiceConfirmation_Load(object sender, EventArgs e)
