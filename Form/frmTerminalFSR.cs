@@ -1081,6 +1081,9 @@ namespace MIS
                     }
                 }
 
+                // check close ticket
+                if (!isValidRescheduleTicketClosure()) return;
+
                 // check service already completed
                 if (txtServiceJobTypeStatusDesc.Text.Equals(clsGlobalVariables.JOB_TYPE_STATUS_COMPLETED_DESC))
                 {
@@ -1750,10 +1753,6 @@ namespace MIS
 
             // check for RequestID's mismatch
             if (!dbFunction.isValidRequestID(txtRequestID.Text, txtFSRRequestID.Text)) return false;
-
-            // check close ticket
-            if (!isValidRescheduleTicketClosure())
-                return false;
 
             // Zoning
             if (!dbFunction.isValidDescriptionEntry(txtZoneID.Text, "Zone ID" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
@@ -6503,6 +6502,9 @@ namespace MIS
 
             if (dbFunction.isValidID(txtSearchFSRNo.Text) && dbFunction.isValidID(txtSearchServiceNo.Text) && dbFunction.isValidID(txtMerchantID.Text) && dbFunction.isValidID(txtIRIDNo.Text))
             {
+                // check close ticket
+                if (!isValidRescheduleTicketClosure()) return;
+
                 if (!dbFunction.CheckTimeFromTo(dteMTimeStart, dteMTimeEnd, "Time Start/End", true)) return;
 
                 if (!dbFunction.CheckTimeFromTo(dteMTimeArrived, dteMReceiptTime, "Time Arrived/Receipt", false)) return;
@@ -6687,7 +6689,7 @@ namespace MIS
                 {
                     dbFunction.SetMessageBox($"Unable to close the ticket due to reschedulling\n\n" +
                         $"Last Attempt Status: {cboSearchActionMade.Text}\n" +
-                        $"Reason: {txtReason.Text}\n" +
+                        $"Reason: {txtReasonDesc.Text}\n" +
                         $"Attempt Date: {dteMFSRDate.Value.ToString("MM-dd-yyyy")}\n" +
                         $"Attempt Dependency: {cboDependency.Text}\n\n" +
                         $"Current Schedule Date: {txtServiceScheduleDate.Text}", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);

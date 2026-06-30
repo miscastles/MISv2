@@ -376,6 +376,11 @@
             this.label57 = new System.Windows.Forms.Label();
             this.panel166 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
+            this.panel174 = new System.Windows.Forms.Panel();
+            this.panel189 = new System.Windows.Forms.Panel();
+            this.cboIssueCategory = new System.Windows.Forms.ComboBox();
+            this.panel190 = new System.Windows.Forms.Panel();
+            this.label94 = new System.Windows.Forms.Label();
             this.panel181 = new System.Windows.Forms.Panel();
             this.panel182 = new System.Windows.Forms.Panel();
             this.cboStatusReason = new System.Windows.Forms.ComboBox();
@@ -781,11 +786,6 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
-            this.panel174 = new System.Windows.Forms.Panel();
-            this.panel189 = new System.Windows.Forms.Panel();
-            this.cboIssueCategory = new System.Windows.Forms.ComboBox();
-            this.panel190 = new System.Windows.Forms.Panel();
-            this.label94 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -859,6 +859,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSearchMerchant)).BeginInit();
             this.panel165.SuspendLayout();
             this.panel13.SuspendLayout();
+            this.panel174.SuspendLayout();
+            this.panel189.SuspendLayout();
+            this.panel190.SuspendLayout();
             this.panel181.SuspendLayout();
             this.panel182.SuspendLayout();
             this.panel183.SuspendLayout();
@@ -1002,9 +1005,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddResolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).BeginInit();
             this.panel53.SuspendLayout();
-            this.panel174.SuspendLayout();
-            this.panel189.SuspendLayout();
-            this.panel190.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -5311,6 +5311,61 @@
             this.panel13.Size = new System.Drawing.Size(957, 522);
             this.panel13.TabIndex = 440;
             this.panel13.Paint += new System.Windows.Forms.PaintEventHandler(this.panel13_Paint);
+            // 
+            // panel174
+            // 
+            this.panel174.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel174.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel174.Controls.Add(this.panel189);
+            this.panel174.Controls.Add(this.panel190);
+            this.panel174.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel174.Location = new System.Drawing.Point(441, 4);
+            this.panel174.Name = "panel174";
+            this.panel174.Size = new System.Drawing.Size(139, 52);
+            this.panel174.TabIndex = 480;
+            // 
+            // panel189
+            // 
+            this.panel189.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel189.Controls.Add(this.cboIssueCategory);
+            this.panel189.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel189.Location = new System.Drawing.Point(0, 24);
+            this.panel189.Name = "panel189";
+            this.panel189.Size = new System.Drawing.Size(137, 27);
+            this.panel189.TabIndex = 313;
+            // 
+            // cboIssueCategory
+            // 
+            this.cboIssueCategory.BackColor = System.Drawing.Color.White;
+            this.cboIssueCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboIssueCategory.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboIssueCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.cboIssueCategory.FormattingEnabled = true;
+            this.cboIssueCategory.Location = new System.Drawing.Point(-2, 1);
+            this.cboIssueCategory.Name = "cboIssueCategory";
+            this.cboIssueCategory.Size = new System.Drawing.Size(138, 24);
+            this.cboIssueCategory.TabIndex = 349;
+            // 
+            // panel190
+            // 
+            this.panel190.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.panel190.Controls.Add(this.label94);
+            this.panel190.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel190.Location = new System.Drawing.Point(0, 0);
+            this.panel190.Name = "panel190";
+            this.panel190.Size = new System.Drawing.Size(137, 24);
+            this.panel190.TabIndex = 311;
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label94.ForeColor = System.Drawing.Color.Black;
+            this.label94.Location = new System.Drawing.Point(3, 4);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(135, 15);
+            this.label94.TabIndex = 310;
+            this.label94.Text = "SELECT ISSUE CATEGORY";
             // 
             // panel181
             // 
@@ -10024,61 +10079,6 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
-            // panel174
-            // 
-            this.panel174.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel174.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel174.Controls.Add(this.panel189);
-            this.panel174.Controls.Add(this.panel190);
-            this.panel174.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel174.Location = new System.Drawing.Point(441, 4);
-            this.panel174.Name = "panel174";
-            this.panel174.Size = new System.Drawing.Size(139, 52);
-            this.panel174.TabIndex = 480;
-            // 
-            // panel189
-            // 
-            this.panel189.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel189.Controls.Add(this.cboIssueCategory);
-            this.panel189.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel189.Location = new System.Drawing.Point(0, 24);
-            this.panel189.Name = "panel189";
-            this.panel189.Size = new System.Drawing.Size(137, 27);
-            this.panel189.TabIndex = 313;
-            // 
-            // cboIssueCategory
-            // 
-            this.cboIssueCategory.BackColor = System.Drawing.Color.White;
-            this.cboIssueCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboIssueCategory.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboIssueCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.cboIssueCategory.FormattingEnabled = true;
-            this.cboIssueCategory.Location = new System.Drawing.Point(-2, 1);
-            this.cboIssueCategory.Name = "cboIssueCategory";
-            this.cboIssueCategory.Size = new System.Drawing.Size(138, 24);
-            this.cboIssueCategory.TabIndex = 349;
-            // 
-            // panel190
-            // 
-            this.panel190.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
-            this.panel190.Controls.Add(this.label94);
-            this.panel190.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel190.Location = new System.Drawing.Point(0, 0);
-            this.panel190.Name = "panel190";
-            this.panel190.Size = new System.Drawing.Size(137, 24);
-            this.panel190.TabIndex = 311;
-            // 
-            // label94
-            // 
-            this.label94.AutoSize = true;
-            this.label94.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label94.ForeColor = System.Drawing.Color.Black;
-            this.label94.Location = new System.Drawing.Point(3, 4);
-            this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(135, 15);
-            this.label94.TabIndex = 310;
-            this.label94.Text = "SELECT ISSUE CATEGORY";
-            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10239,6 +10239,10 @@
             this.panel165.ResumeLayout(false);
             this.panel165.PerformLayout();
             this.panel13.ResumeLayout(false);
+            this.panel174.ResumeLayout(false);
+            this.panel189.ResumeLayout(false);
+            this.panel190.ResumeLayout(false);
+            this.panel190.PerformLayout();
             this.panel181.ResumeLayout(false);
             this.panel182.ResumeLayout(false);
             this.panel183.ResumeLayout(false);
@@ -10440,10 +10444,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).EndInit();
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
-            this.panel174.ResumeLayout(false);
-            this.panel189.ResumeLayout(false);
-            this.panel190.ResumeLayout(false);
-            this.panel190.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

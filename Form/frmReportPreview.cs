@@ -4375,7 +4375,8 @@ namespace MIS
                                                                                                         clsSearch.ClassDetailDateFrom + clsFunction.sPipe +
                                                                                                         clsSearch.ClassDetailDateTo + clsFunction.sPipe +
                                                                                                         clsSearch.ClassIsExcludePending + clsFunction.sPipe +
-                                                                                                        clsSearch.ClassReasonID, "spViewReport");
+                                                                                                        clsSearch.ClassReasonID + clsFunction.sPipe +
+                                                                                                        clsSearch.ClassReportStatus, "spViewReport");
                             dbFile.WriteSysytemLog($"View Detail Service Attempt...complete"); // add log
                         }
 

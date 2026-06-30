@@ -5007,6 +5007,7 @@ namespace MIS
                                         else if ((SearchBy.Equals("Type")) ||
                                                 (SearchBy.Equals("Type List")) ||
                                                 (SearchBy.Equals("Rental Fee List")) ||
+                                                (SearchBy.Equals("Issue Category")) ||
                                                 (SearchBy.Equals("All Type")))
                                         {
                                             foreach (var element in Detail38.data)
@@ -10340,6 +10341,9 @@ namespace MIS
                 case "Rental Fee List":
                     sTemp = clsDefines.RESP_RENTALFEELIST_FILENAME;
                     break;
+                case "Issue Category":
+                    sTemp = clsDefines.RESP_ISSUECATEGORYLIST_FILENAME;
+                    break;
                 case "All Type":
                     sTemp = clsDefines.RESP_ALLTYPE_FILENAME;
                     break;
@@ -10510,7 +10514,11 @@ namespace MIS
             control.AnimateStatus();
             clsSearch.ClassSearchValue = clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero;
             dbAPI.ExecuteAPI("GET", "View", "Province", clsSearch.ClassSearchValue, "Province", "", "ViewRegionDetail");
-            
+
+            control.sMessage = "Creating issue category list file.";
+            control.AnimateStatus();
+            dbAPI.ExecuteAPI("GET", "View", "Issue Category", "", "Type", "", "ViewType");
+
             control.sMessage = "Creating type file.";
             control.AnimateStatus();
             dbAPI.ExecuteAPI("GET", "View", "All Type", "", "Type", "", "ViewType");

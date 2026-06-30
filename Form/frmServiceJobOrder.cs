@@ -52,6 +52,7 @@ namespace MIS
         // variable for reschedule ticket closure
         private bool fRescheduleTicket = false;
         private string gScheduleDate = "";
+        private string gAttemptDate = "";
 
         private enum searchType
         {
@@ -201,6 +202,7 @@ namespace MIS
 
             // variable for reschedule ticket closure
             gScheduleDate = "";
+            gAttemptDate = "";
             fRescheduleTicket = false;
 
             Cursor.Current = Cursors.Default;
@@ -873,6 +875,7 @@ namespace MIS
 
             // variable for reschedule ticket closure
             gScheduleDate = "";
+            gAttemptDate = "";
             fRescheduleTicket = false;
 
             Cursor.Current = Cursors.Default;
@@ -2304,7 +2307,7 @@ namespace MIS
                     if (gScheduleDate.CompareTo(pScheduleDate) == 0)
                     {
                         string pMessage = $"Schedule Date Information:\n\n" +
-                            $"Last Attempt Schedule Date: {gScheduleDate}\n\n" +
+                            $"Last Attempt Date: {gAttemptDate}\n\n" +
                             $"Current Schedule Date: {pScheduleDate}\n\n" +
                             $"THE SCHEDULE DATE HAS NOT BEEN UPDATED.\n\n" +
                             $"Are you sure you want to save this Job Order?";
@@ -6952,6 +6955,7 @@ namespace MIS
         private void displayRescheduleTicketClosure()
         {
             gScheduleDate = "";
+            gAttemptDate = "";
             fRescheduleTicket = false;
 
             string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", $"{txtServiceJobType.Text}{clsDefines.gPipe}{txtMerchantID.Text}{clsDefines.gPipe}{txtIRIDNo.Text}");
@@ -6984,17 +6988,18 @@ namespace MIS
 
 
                     // set schedule date
-                    if (!string.IsNullOrWhiteSpace(pFSRDate))
+                    if (!string.IsNullOrWhiteSpace(pScheduleDate))
                     {
                         DateTime dt;
 
-                        if (DateTime.TryParse(pFSRDate, out dt))
+                        if (DateTime.TryParse(pScheduleDate, out dt))
                         {
                             dteServiceReqDate.Value = dt;
                         }
                     }
 
                     gScheduleDate = pScheduleDate;
+                    gAttemptDate = pFSRDate;
                     fRescheduleTicket = true;
                 }                
             }

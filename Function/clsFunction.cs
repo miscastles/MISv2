@@ -3549,6 +3549,10 @@ namespace MIS
                         IDCol.Add(element.TypeID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+                    case "Issue Category":
+                        IDCol.Add(element.TypeID.ToString());
+                        DescriptionCol.Add(element.Description);
+                        break;
                 }
             }
 

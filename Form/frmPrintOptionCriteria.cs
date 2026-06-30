@@ -1180,7 +1180,8 @@ namespace MIS
                     clsSearch.ClassAdvanceSearchValue = getDateFilter() + clsFunction.sPipe +
                                                          clsSearch.ClassDateFrom + clsFunction.sPipe +
                                                          clsSearch.ClassDateTo + clsFunction.sPipe +
-                                                         clsSearch.ClassClientID;
+                                                         clsSearch.ClassClientID + clsFunction.sPipe +
+                                                         clsSearch.ClassReportStatus;
                     break;
 
                 case 58: // HELPDESK KPI
@@ -1198,7 +1199,8 @@ namespace MIS
                     clsSearch.ClassAdvanceSearchValue = getDateFilter() + clsFunction.sPipe +
                                                          clsSearch.ClassDateFrom + clsFunction.sPipe +
                                                          clsSearch.ClassDateTo + clsFunction.sPipe +
-                                                         clsSearch.ClassClientID;
+                                                         clsSearch.ClassClientID + clsFunction.sPipe +
+                                                         clsSearch.ClassReportStatus;
                     break;
 
             }
@@ -2071,6 +2073,7 @@ namespace MIS
 
                 case 57: // HELPDESK DETAIL REPORT
                     gbParticular.Enabled = true;
+                    gbReportStatus.Enabled = true;
                     cboSearchClient.Enabled = true;
                     btnSearchFE.Enabled = btnSearchDispatcher.Enabled = false;
 
@@ -2083,6 +2086,7 @@ namespace MIS
 
                 case 58: // HELPDESK KPI
                     gbParticular.Enabled = true;
+                    gbReportStatus.Enabled = true;
                     cboSearchClient.Enabled = true;
                     btnSearchFE.Enabled = btnSearchDispatcher.Enabled = false;
 
