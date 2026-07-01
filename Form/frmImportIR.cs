@@ -2375,6 +2375,8 @@ namespace MIS
 
                 FillMerchantTextBox();
 
+                getZoningInfo();
+
                 // ROCKY --  CHECK STATUS: FIX FOR RETRIEVAL OF NEWLY ADDED MERCHANTS
                 if (fEdit && isUpdate)
                 {
@@ -3121,7 +3123,10 @@ namespace MIS
                         dteInstDate.Value = DateTime.Parse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 19));
 
                         txtMInstruction.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 21);
-                        
+
+                        // Zoning
+                        txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);
+
                         cboRequestType.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 35);
 
                         txtMSetup.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 25);
@@ -3133,7 +3138,7 @@ namespace MIS
                         txtRentalFeeID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 22);
                         cboPOSType.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 23); // -- Issue Retrieval of POS
                         txtRentalFee.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 24);
-                        
+
                         // rawdata_info
                         if (dbFunction.isValidDescription(rawdata_info))
                             dbFunction.populateListViewFromJsonString(dgvRaw, rawdata_info, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
@@ -4159,6 +4164,23 @@ namespace MIS
             txtSIMSN.Text = 
             txtSIMCarrier.Text =
             clsFunction.sNull;
+        }
+
+        private void getZoningInfo()
+        {
+            txtZZone.Text = txtZZone.Text = txtZRegion.Text = txtZArea.Text = txtZCityMunicipal.Text = clsDefines.gNull;
+
+            if (dbFunction.isValidID(txtZoneID.Text))
+            {
+                string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{txtZoneID.Text}");
+                if (dbFunction.isValidDescription(pJSONString))
+                {
+                    txtZZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);
+                    txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
+                    txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
+                    txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
+                }
+            }
         }
     }
 }

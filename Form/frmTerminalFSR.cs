@@ -4527,6 +4527,7 @@ namespace MIS
         {
             bool isBillable = false;
             bool isReport = false;
+            bool isTicket = false;
 
             txtSearchFSRNo.Text = clsFunction.sNull;
 
@@ -4605,6 +4606,11 @@ namespace MIS
                         string sReport = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 33);
                         isReport = (sReport.Equals(clsFunction.sOne) ? true : false);
                         chkIncludeInReport.Checked = isReport;
+
+                        // check isTicket
+                        string sTicket = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 43);
+                        isTicket = (sTicket.Equals(clsFunction.sOne) ? true : false);
+                        chkCloseTicket.Checked = isTicket;
 
                         cboSearchActionMade.Text = clsSearch.ClassActionMade;
                         
@@ -6530,6 +6536,7 @@ namespace MIS
                     " > Time Start: " + dteMTimeStart.Text + "\n" +
                     " > Time End: " + dteMTimeEnd.Text + "\n\n" +
                     " > Update In Report: " + dbFunction.setBooleanToYesNo(chkIncludeInReport.Checked) + "\n" +
+                    " > Close Ticket: " + dbFunction.setBooleanToYesNo(chkCloseTicket.Checked) + "\n" +
                     " > Billable: " + dbFunction.setBooleanToYesNo(chkBillable.Checked) + "\n" +
                     "\n\n" +
                     "Are you sure to continue update?"
@@ -6544,6 +6551,15 @@ namespace MIS
                 string pTimeStart = dbFunction.CheckAndSetDatePickerValueToTime(dteMTimeStart);
                 string pTimeEnd = dbFunction.CheckAndSetDatePickerValueToTime(dteMTimeEnd);
 
+                int pUserID = 0;
+                string pTicketDateTime = $"{clsFunction.sDateFormat} {clsFunction.sTimeDefault}";
+
+                if (chkCloseTicket.Checked)
+                {
+                    pUserID = clsSearch.ClassCurrentParticularID;
+                    pTicketDateTime = dbFunction.getCurrentDateTime();
+                }
+
                 pSearchValue = $"{txtFSRNo.Text}{clsDefines.gPipe}{txtSearchServiceNo.Text}{clsDefines.gPipe}{txtIRIDNo.Text}{clsDefines.gPipe}" +
                                     $"{pDate}{clsDefines.gPipe}{pTime}{clsDefines.gPipe}" +
                                     $"{pFSRDate}{clsDefines.gPipe}" +
@@ -6554,9 +6570,12 @@ namespace MIS
                                     $"{StrClean(txtMActionTaken.Text)}{clsDefines.gPipe}" +
                                     $"{StrClean(txtMAnyComments.Text)}{clsDefines.gPipe}" +
                                     $"{StrClean(txtMMerchRemarks.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetBooleanValue(chkIncludeInReport.Checked)}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetBooleanValue(chkIncludeInReport.Checked)}{clsDefines.gPipe}" +                                    
                                     $"{dbFunction.CheckAndSetBooleanValue(chkBillable.Checked)}{clsDefines.gPipe}" +
-                                    $"{cboSearchActionMade.Text}";
+                                    $"{cboSearchActionMade.Text}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetBooleanValue(chkCloseTicket.Checked)}{clsDefines.gPipe}" +
+                                    $"{pUserID}{clsDefines.gPipe}" +
+                                    $"{pTicketDateTime}";
 
                 dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 
@@ -6681,22 +6700,45 @@ namespace MIS
         private bool isValidRescheduleTicketClosure()
         {
             bool isValid = true;
+            string pMinScheduleDate = "";
+            string pMaxScheduleDate = "";
 
+            string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtJobType.Text)}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetStringValue(txtSearchIRNo.Text)}";
+
+            string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", pSearchValue);
+
+            if (dbFunction.isValidDescription(pJSONString))
+            {
+                pMinScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MinScheduleDate);
+                pMaxScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MaxScheduleDate);
+            }
+            
             if (cboSearchActionMade.Text.CompareTo(dbAPI.GetActionMade()[2]) == 0) // NEGATIVE
             {
                 int functionID = int.Parse(dbFunction.CheckAndSetNumericValue(txtReasonFunctionID.Text));
                 if ((functionID == (int)ReasonFuncType.Reschedule_By_Merchant_FuncId) && chkCloseTicket.Checked)
                 {
-                    dbFunction.SetMessageBox($"Unable to close the ticket due to reschedulling\n\n" +
-                        $"Last Attempt Status: {cboSearchActionMade.Text}\n" +
-                        $"Reason: {txtReasonDesc.Text}\n" +
-                        $"Attempt Date: {dteMFSRDate.Value.ToString("MM-dd-yyyy")}\n" +
-                        $"Attempt Dependency: {cboDependency.Text}\n\n" +
-                        $"Current Schedule Date: {txtServiceScheduleDate.Text}", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    if (!pMinScheduleDate.Equals(pMaxScheduleDate))
+                    {
+                        chkCloseTicket.Checked = true;
+                        isValid = true;
+                    }                        
+                    else
+                    {
+                        dbFunction.SetMessageBox($"Unable to close the ticket due to reschedulling\n\n" +
+                            $"Last Attempt Status: {cboSearchActionMade.Text}\n" +
+                            $"Reason: {txtReasonDesc.Text}\n" +
+                            $"Attempt Date: {dteMFSRDate.Value.ToString("MM-dd-yyyy")}\n" +
+                            $"Attempt Dependency: {cboDependency.Text}\n\n" +
+                            $"Current Schedule Date: {txtServiceScheduleDate.Text}", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
 
-                    chkCloseTicket.Checked = false;
+                        chkCloseTicket.Checked = false;
 
-                    isValid = false;
+                        isValid = false;
+                    }                        
                 }
             }
 

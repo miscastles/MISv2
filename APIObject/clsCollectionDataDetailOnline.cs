@@ -791,6 +791,47 @@ namespace MIS
             set { _FSRDate = value; }
         }
 
+        // Zoning
+        private int _ZoneID;
+        [JsonProperty("ZoneID")]
+        public int ZoneID
+        {
+            get { return _ZoneID; }
+            set { _ZoneID = value; }
+        }
+
+        private string _Cluster;
+        [JsonProperty("Cluster")]
+        public string Cluster
+        {
+            get { return _Cluster; }
+            set { _Cluster = value; }
+        }
+
+        private string _Area;
+        [JsonProperty("Area")]
+        public string Area
+        {
+            get { return _Area; }
+            set { _Area = value; }
+        }
+
+        private string _CityMunicipal;
+        [JsonProperty("CityMunicipal")]
+        public string CityMunicipal
+        {
+            get { return _CityMunicipal; }
+            set { _CityMunicipal = value; }
+        }
+
+        private string _ZoneName;
+        [JsonProperty("ZoneName")]
+        public string ZoneName
+        {
+            get { return _ZoneName; }
+            set { _ZoneName = value; }
+        }
+
     }
 
     public class CollectionDataDetailOnline

@@ -5557,7 +5557,7 @@
             this.txtZCityMunicipal.MaxLength = 8;
             this.txtZCityMunicipal.Name = "txtZCityMunicipal";
             this.txtZCityMunicipal.ReadOnly = true;
-            this.txtZCityMunicipal.Size = new System.Drawing.Size(224, 20);
+            this.txtZCityMunicipal.Size = new System.Drawing.Size(222, 20);
             this.txtZCityMunicipal.TabIndex = 376;
             // 
             // txtZArea

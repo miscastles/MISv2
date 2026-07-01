@@ -98,7 +98,6 @@ namespace MIS
             this.chkOverwrite = new System.Windows.Forms.CheckBox();
             this.lblSelectedRow = new System.Windows.Forms.Label();
             this.panel37 = new System.Windows.Forms.Panel();
-            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
             this.label7 = new System.Windows.Forms.Label();
@@ -333,6 +332,17 @@ namespace MIS
             this.lvwSearch = new System.Windows.Forms.ListView();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.txtRentalFeeID = new System.Windows.Forms.TextBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.txtZZone = new System.Windows.Forms.TextBox();
+            this.label175 = new System.Windows.Forms.Label();
+            this.txtZRegion = new System.Windows.Forms.TextBox();
+            this.label176 = new System.Windows.Forms.Label();
+            this.txtZArea = new System.Windows.Forms.TextBox();
+            this.label177 = new System.Windows.Forms.Label();
+            this.txtZCityMunicipal = new System.Windows.Forms.TextBox();
+            this.label178 = new System.Windows.Forms.Label();
+            this.txtZoneID = new System.Windows.Forms.TextBox();
+            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddMerchant)).BeginInit();
@@ -417,9 +427,9 @@ namespace MIS
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1344, 35);
+            this.panel4.Location = new System.Drawing.Point(1348, 35);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(2, 714);
+            this.panel4.Size = new System.Drawing.Size(2, 769);
             this.panel4.TabIndex = 300;
             // 
             // txtID
@@ -451,9 +461,9 @@ namespace MIS
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(1, 749);
+            this.panel3.Location = new System.Drawing.Point(1, 804);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1345, 2);
+            this.panel3.Size = new System.Drawing.Size(1349, 2);
             this.panel3.TabIndex = 299;
             // 
             // lblHeader
@@ -473,12 +483,13 @@ namespace MIS
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 35);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1, 716);
+            this.panel2.Size = new System.Drawing.Size(1, 771);
             this.panel2.TabIndex = 298;
             // 
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.Maroon;
+            this.pnlHeader.Controls.Add(this.txtZoneID);
             this.pnlHeader.Controls.Add(this.txtProfileConfigInfo);
             this.pnlHeader.Controls.Add(this.btnValidate);
             this.pnlHeader.Controls.Add(this.txtProfile_Info);
@@ -494,7 +505,7 @@ namespace MIS
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1346, 35);
+            this.pnlHeader.Size = new System.Drawing.Size(1350, 35);
             this.pnlHeader.TabIndex = 297;
             // 
             // txtProfileConfigInfo
@@ -759,7 +770,7 @@ namespace MIS
             this.txtClientID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtClientID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClientID.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClientID.Location = new System.Drawing.Point(403, 3);
+            this.txtClientID.Location = new System.Drawing.Point(405, 3);
             this.txtClientID.Name = "txtClientID";
             this.txtClientID.Size = new System.Drawing.Size(65, 20);
             this.txtClientID.TabIndex = 302;
@@ -780,7 +791,7 @@ namespace MIS
             this.tabTerminal.Location = new System.Drawing.Point(9, 42);
             this.tabTerminal.Name = "tabTerminal";
             this.tabTerminal.SelectedIndex = 0;
-            this.tabTerminal.Size = new System.Drawing.Size(1336, 704);
+            this.tabTerminal.Size = new System.Drawing.Size(1336, 757);
             this.tabTerminal.TabIndex = 301;
             this.tabTerminal.SelectedIndexChanged += new System.EventHandler(this.tabTerminal_SelectedIndexChanged);
             // 
@@ -798,7 +809,7 @@ namespace MIS
             this.tabPage2.Location = new System.Drawing.Point(4, 28);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1328, 672);
+            this.tabPage2.Size = new System.Drawing.Size(1328, 725);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Import File";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -812,7 +823,7 @@ namespace MIS
             this.btnCopyClipboard.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCopyClipboard.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCopyClipboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnCopyClipboard.Location = new System.Drawing.Point(620, 646);
+            this.btnCopyClipboard.Location = new System.Drawing.Point(620, 695);
             this.btnCopyClipboard.Name = "btnCopyClipboard";
             this.btnCopyClipboard.Size = new System.Drawing.Size(112, 26);
             this.btnCopyClipboard.TabIndex = 538;
@@ -994,7 +1005,7 @@ namespace MIS
             this.panel35.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel35.Location = new System.Drawing.Point(909, 176);
             this.panel35.Name = "panel35";
-            this.panel35.Size = new System.Drawing.Size(417, 493);
+            this.panel35.Size = new System.Drawing.Size(417, 543);
             this.panel35.TabIndex = 502;
             // 
             // tabControl1
@@ -1004,7 +1015,7 @@ namespace MIS
             this.tabControl1.Location = new System.Drawing.Point(2, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(414, 460);
+            this.tabControl1.Size = new System.Drawing.Size(414, 510);
             this.tabControl1.TabIndex = 481;
             // 
             // tabPage8
@@ -1014,7 +1025,7 @@ namespace MIS
             this.tabPage8.Location = new System.Drawing.Point(4, 23);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(406, 433);
+            this.tabPage8.Size = new System.Drawing.Size(406, 483);
             this.tabPage8.TabIndex = 0;
             this.tabPage8.Text = "Basic Information";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -1027,7 +1038,7 @@ namespace MIS
             this.tabInfo.Location = new System.Drawing.Point(6, 6);
             this.tabInfo.Name = "tabInfo";
             this.tabInfo.SelectedIndex = 0;
-            this.tabInfo.Size = new System.Drawing.Size(409, 391);
+            this.tabInfo.Size = new System.Drawing.Size(409, 442);
             this.tabInfo.TabIndex = 479;
             // 
             // tabPage7
@@ -1035,7 +1046,7 @@ namespace MIS
             this.tabPage7.Controls.Add(this.dgvRaw);
             this.tabPage7.Location = new System.Drawing.Point(4, 25);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(401, 362);
+            this.tabPage7.Size = new System.Drawing.Size(401, 413);
             this.tabPage7.TabIndex = 4;
             this.tabPage7.Text = "Raw Data";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1046,7 +1057,7 @@ namespace MIS
             this.dgvRaw.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRaw.Location = new System.Drawing.Point(0, 0);
             this.dgvRaw.Name = "dgvRaw";
-            this.dgvRaw.Size = new System.Drawing.Size(401, 362);
+            this.dgvRaw.Size = new System.Drawing.Size(401, 413);
             this.dgvRaw.TabIndex = 0;
             // 
             // tabPage4
@@ -1054,7 +1065,7 @@ namespace MIS
             this.tabPage4.Controls.Add(this.dgvProfile);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(401, 362);
+            this.tabPage4.Size = new System.Drawing.Size(401, 413);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Profile Config";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1065,7 +1076,7 @@ namespace MIS
             this.dgvProfile.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvProfile.Location = new System.Drawing.Point(0, 0);
             this.dgvProfile.Name = "dgvProfile";
-            this.dgvProfile.Size = new System.Drawing.Size(401, 362);
+            this.dgvProfile.Size = new System.Drawing.Size(401, 413);
             this.dgvProfile.TabIndex = 1;
             // 
             // btnUpdateRawData
@@ -1078,7 +1089,7 @@ namespace MIS
             this.btnUpdateRawData.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnUpdateRawData.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdateRawData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnUpdateRawData.Location = new System.Drawing.Point(3, 401);
+            this.btnUpdateRawData.Location = new System.Drawing.Point(3, 451);
             this.btnUpdateRawData.Name = "btnUpdateRawData";
             this.btnUpdateRawData.Size = new System.Drawing.Size(399, 29);
             this.btnUpdateRawData.TabIndex = 306;
@@ -1095,7 +1106,7 @@ namespace MIS
             this.tabPage9.Location = new System.Drawing.Point(4, 23);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(406, 433);
+            this.tabPage9.Size = new System.Drawing.Size(406, 483);
             this.tabPage9.TabIndex = 1;
             this.tabPage9.Text = "Bulk";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -1109,7 +1120,7 @@ namespace MIS
             this.bthCheckAll.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.bthCheckAll.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bthCheckAll.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.bthCheckAll.Location = new System.Drawing.Point(1, 398);
+            this.bthCheckAll.Location = new System.Drawing.Point(1, 451);
             this.bthCheckAll.Name = "bthCheckAll";
             this.bthCheckAll.Size = new System.Drawing.Size(136, 29);
             this.bthCheckAll.TabIndex = 482;
@@ -1126,7 +1137,7 @@ namespace MIS
             this.btnCheckBulk.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCheckBulk.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCheckBulk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnCheckBulk.Location = new System.Drawing.Point(138, 398);
+            this.btnCheckBulk.Location = new System.Drawing.Point(138, 451);
             this.btnCheckBulk.Name = "btnCheckBulk";
             this.btnCheckBulk.Size = new System.Drawing.Size(117, 29);
             this.btnCheckBulk.TabIndex = 481;
@@ -1139,7 +1150,7 @@ namespace MIS
             this.grdBulk.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdBulk.Location = new System.Drawing.Point(3, 3);
             this.grdBulk.Name = "grdBulk";
-            this.grdBulk.Size = new System.Drawing.Size(401, 392);
+            this.grdBulk.Size = new System.Drawing.Size(401, 444);
             this.grdBulk.TabIndex = 3;
             // 
             // btnUpdateListRawData
@@ -1152,7 +1163,7 @@ namespace MIS
             this.btnUpdateListRawData.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnUpdateListRawData.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdateListRawData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnUpdateListRawData.Location = new System.Drawing.Point(256, 398);
+            this.btnUpdateListRawData.Location = new System.Drawing.Point(256, 451);
             this.btnUpdateListRawData.Name = "btnUpdateListRawData";
             this.btnUpdateListRawData.Size = new System.Drawing.Size(150, 29);
             this.btnUpdateListRawData.TabIndex = 480;
@@ -1181,7 +1192,7 @@ namespace MIS
             this.chkOverwrite.ForeColor = System.Drawing.Color.Red;
             this.chkOverwrite.Location = new System.Drawing.Point(3, 2);
             this.chkOverwrite.Name = "chkOverwrite";
-            this.chkOverwrite.Size = new System.Drawing.Size(107, 20);
+            this.chkOverwrite.Size = new System.Drawing.Size(106, 20);
             this.chkOverwrite.TabIndex = 103;
             this.chkOverwrite.Text = "Overwrite?";
             this.chkOverwrite.UseVisualStyleBackColor = true;
@@ -1205,14 +1216,6 @@ namespace MIS
             this.panel37.Name = "panel37";
             this.panel37.Size = new System.Drawing.Size(415, 2);
             this.panel37.TabIndex = 0;
-            // 
-            // ucStatusDisplay
-            // 
-            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 642);
-            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucStatusDisplay.Name = "ucStatusDisplay";
-            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
-            this.ucStatusDisplay.TabIndex = 346;
             // 
             // txtRemarks
             // 
@@ -1400,11 +1403,11 @@ namespace MIS
             this.bunifuCards3.Controls.Add(this.grdDummy);
             this.bunifuCards3.Controls.Add(this.grdList);
             this.bunifuCards3.LeftSahddow = false;
-            this.bunifuCards3.Location = new System.Drawing.Point(6, 122);
+            this.bunifuCards3.Location = new System.Drawing.Point(6, 123);
             this.bunifuCards3.Name = "bunifuCards3";
             this.bunifuCards3.RightSahddow = false;
             this.bunifuCards3.ShadowDepth = 20;
-            this.bunifuCards3.Size = new System.Drawing.Size(901, 519);
+            this.bunifuCards3.Size = new System.Drawing.Size(901, 566);
             this.bunifuCards3.TabIndex = 297;
             // 
             // grdDummy
@@ -1443,7 +1446,7 @@ namespace MIS
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.grdList.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdList.Size = new System.Drawing.Size(899, 517);
+            this.grdList.Size = new System.Drawing.Size(899, 564);
             this.grdList.TabIndex = 105;
             this.grdList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdList_CellDoubleClick);
             this.grdList.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.grdList_RowPostPaint);
@@ -1457,7 +1460,7 @@ namespace MIS
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCancel.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnCancel.Location = new System.Drawing.Point(818, 645);
+            this.btnCancel.Location = new System.Drawing.Point(818, 694);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(90, 26);
             this.btnCancel.TabIndex = 304;
@@ -1474,7 +1477,7 @@ namespace MIS
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSave.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSave.Location = new System.Drawing.Point(732, 645);
+            this.btnSave.Location = new System.Drawing.Point(732, 694);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(85, 26);
             this.btnSave.TabIndex = 302;
@@ -1499,7 +1502,7 @@ namespace MIS
             this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1328, 672);
+            this.tabPage1.Size = new System.Drawing.Size(1328, 725);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Manual Entry";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1565,7 +1568,7 @@ namespace MIS
             this.panel7.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel7.Location = new System.Drawing.Point(910, 180);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(415, 458);
+            this.panel7.Size = new System.Drawing.Size(415, 507);
             this.panel7.TabIndex = 481;
             // 
             // panel33
@@ -1573,7 +1576,7 @@ namespace MIS
             this.panel33.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel33.Location = new System.Drawing.Point(0, 24);
             this.panel33.Name = "panel33";
-            this.panel33.Size = new System.Drawing.Size(413, 432);
+            this.panel33.Size = new System.Drawing.Size(413, 481);
             this.panel33.TabIndex = 312;
             // 
             // panel38
@@ -2327,7 +2330,7 @@ namespace MIS
             this.panel114.Controls.Add(this.panel115);
             this.panel114.Controls.Add(this.panel118);
             this.panel114.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel114.Location = new System.Drawing.Point(6, 424);
+            this.panel114.Location = new System.Drawing.Point(6, 473);
             this.panel114.Name = "panel114";
             this.panel114.Size = new System.Drawing.Size(899, 214);
             this.panel114.TabIndex = 475;
@@ -2679,7 +2682,7 @@ namespace MIS
             this.panel12.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel12.Location = new System.Drawing.Point(6, 6);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(478, 161);
+            this.panel12.Size = new System.Drawing.Size(478, 242);
             this.panel12.TabIndex = 474;
             // 
             // panel13
@@ -2693,7 +2696,7 @@ namespace MIS
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel13.Location = new System.Drawing.Point(0, 24);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(476, 135);
+            this.panel13.Size = new System.Drawing.Size(476, 216);
             this.panel13.TabIndex = 312;
             // 
             // panel14
@@ -2757,15 +2760,22 @@ namespace MIS
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel15.Location = new System.Drawing.Point(0, 0);
             this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(476, 135);
+            this.panel15.Size = new System.Drawing.Size(476, 216);
             this.panel15.TabIndex = 4;
             // 
             // panel24
             // 
+            this.panel24.Controls.Add(this.txtZCityMunicipal);
+            this.panel24.Controls.Add(this.label178);
+            this.panel24.Controls.Add(this.txtZArea);
+            this.panel24.Controls.Add(this.label177);
+            this.panel24.Controls.Add(this.txtZRegion);
+            this.panel24.Controls.Add(this.label176);
+            this.panel24.Controls.Add(this.txtZZone);
+            this.panel24.Controls.Add(this.label175);
+            this.panel24.Controls.Add(this.label50);
             this.panel24.Controls.Add(this.txtMerchantEmail);
             this.panel24.Controls.Add(this.label10);
-            this.panel24.Controls.Add(this.txtMerchantTelNo);
-            this.panel24.Controls.Add(this.label11);
             this.panel24.Controls.Add(this.txtMerchantMobile);
             this.panel24.Controls.Add(this.label14);
             this.panel24.Controls.Add(this.label15);
@@ -2774,7 +2784,7 @@ namespace MIS
             this.panel24.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel24.Location = new System.Drawing.Point(193, 0);
             this.panel24.Name = "panel24";
-            this.panel24.Size = new System.Drawing.Size(287, 135);
+            this.panel24.Size = new System.Drawing.Size(287, 216);
             this.panel24.TabIndex = 6;
             // 
             // txtMerchantEmail
@@ -2782,7 +2792,7 @@ namespace MIS
             this.txtMerchantEmail.BackColor = System.Drawing.Color.White;
             this.txtMerchantEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMerchantEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMerchantEmail.Location = new System.Drawing.Point(58, 110);
+            this.txtMerchantEmail.Location = new System.Drawing.Point(58, 89);
             this.txtMerchantEmail.Name = "txtMerchantEmail";
             this.txtMerchantEmail.ReadOnly = true;
             this.txtMerchantEmail.Size = new System.Drawing.Size(221, 20);
@@ -2792,7 +2802,7 @@ namespace MIS
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(6, 113);
+            this.label10.Location = new System.Drawing.Point(6, 91);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(37, 15);
             this.label10.TabIndex = 326;
@@ -2804,7 +2814,7 @@ namespace MIS
             this.txtMerchantTelNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMerchantTelNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMerchantTelNo.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMerchantTelNo.Location = new System.Drawing.Point(58, 89);
+            this.txtMerchantTelNo.Location = new System.Drawing.Point(1393, 649);
             this.txtMerchantTelNo.Name = "txtMerchantTelNo";
             this.txtMerchantTelNo.ReadOnly = true;
             this.txtMerchantTelNo.Size = new System.Drawing.Size(221, 20);
@@ -2814,7 +2824,7 @@ namespace MIS
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(6, 93);
+            this.label11.Location = new System.Drawing.Point(1361, 653);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 15);
             this.label11.TabIndex = 325;
@@ -2884,7 +2894,7 @@ namespace MIS
             this.panel25.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel25.Location = new System.Drawing.Point(0, 0);
             this.panel25.Name = "panel25";
-            this.panel25.Size = new System.Drawing.Size(193, 135);
+            this.panel25.Size = new System.Drawing.Size(193, 216);
             this.panel25.TabIndex = 5;
             // 
             // txtMerchantRegion
@@ -2893,10 +2903,10 @@ namespace MIS
             this.txtMerchantRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMerchantRegion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMerchantRegion.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMerchantRegion.Location = new System.Drawing.Point(6, 90);
+            this.txtMerchantRegion.Location = new System.Drawing.Point(5, 172);
             this.txtMerchantRegion.Name = "txtMerchantRegion";
             this.txtMerchantRegion.ReadOnly = true;
-            this.txtMerchantRegion.Size = new System.Drawing.Size(184, 20);
+            this.txtMerchantRegion.Size = new System.Drawing.Size(185, 20);
             this.txtMerchantRegion.TabIndex = 317;
             // 
             // txtMerchantProvince
@@ -2905,10 +2915,10 @@ namespace MIS
             this.txtMerchantProvince.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMerchantProvince.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMerchantProvince.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMerchantProvince.Location = new System.Drawing.Point(6, 112);
+            this.txtMerchantProvince.Location = new System.Drawing.Point(5, 194);
             this.txtMerchantProvince.Name = "txtMerchantProvince";
             this.txtMerchantProvince.ReadOnly = true;
-            this.txtMerchantProvince.Size = new System.Drawing.Size(184, 20);
+            this.txtMerchantProvince.Size = new System.Drawing.Size(185, 20);
             this.txtMerchantProvince.TabIndex = 316;
             // 
             // txtMerchantAddress
@@ -2922,7 +2932,7 @@ namespace MIS
             this.txtMerchantAddress.Name = "txtMerchantAddress";
             this.txtMerchantAddress.ReadOnly = true;
             this.txtMerchantAddress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtMerchantAddress.Size = new System.Drawing.Size(181, 45);
+            this.txtMerchantAddress.Size = new System.Drawing.Size(181, 126);
             this.txtMerchantAddress.TabIndex = 315;
             // 
             // label17
@@ -2941,7 +2951,7 @@ namespace MIS
             this.panel26.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel26.Location = new System.Drawing.Point(0, 0);
             this.panel26.Name = "panel26";
-            this.panel26.Size = new System.Drawing.Size(476, 135);
+            this.panel26.Size = new System.Drawing.Size(476, 216);
             this.panel26.TabIndex = 3;
             // 
             // panel27
@@ -2949,7 +2959,7 @@ namespace MIS
             this.panel27.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel27.Location = new System.Drawing.Point(0, 0);
             this.panel27.Name = "panel27";
-            this.panel27.Size = new System.Drawing.Size(476, 135);
+            this.panel27.Size = new System.Drawing.Size(476, 216);
             this.panel27.TabIndex = 2;
             // 
             // panel28
@@ -2957,7 +2967,7 @@ namespace MIS
             this.panel28.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel28.Location = new System.Drawing.Point(0, 0);
             this.panel28.Name = "panel28";
-            this.panel28.Size = new System.Drawing.Size(476, 135);
+            this.panel28.Size = new System.Drawing.Size(476, 216);
             this.panel28.TabIndex = 1;
             // 
             // panel29
@@ -2965,7 +2975,7 @@ namespace MIS
             this.panel29.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel29.Location = new System.Drawing.Point(0, 0);
             this.panel29.Name = "panel29";
-            this.panel29.Size = new System.Drawing.Size(476, 135);
+            this.panel29.Size = new System.Drawing.Size(476, 216);
             this.panel29.TabIndex = 0;
             // 
             // panel30
@@ -3006,9 +3016,9 @@ namespace MIS
             this.panel56.Controls.Add(this.panel57);
             this.panel56.Controls.Add(this.panel69);
             this.panel56.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel56.Location = new System.Drawing.Point(6, 245);
+            this.panel56.Location = new System.Drawing.Point(6, 337);
             this.panel56.Name = "panel56";
-            this.panel56.Size = new System.Drawing.Size(478, 178);
+            this.panel56.Size = new System.Drawing.Size(478, 134);
             this.panel56.TabIndex = 472;
             // 
             // panel57
@@ -3022,7 +3032,7 @@ namespace MIS
             this.panel57.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel57.Location = new System.Drawing.Point(0, 24);
             this.panel57.Name = "panel57";
-            this.panel57.Size = new System.Drawing.Size(476, 152);
+            this.panel57.Size = new System.Drawing.Size(476, 108);
             this.panel57.TabIndex = 312;
             // 
             // panel58
@@ -3069,15 +3079,13 @@ namespace MIS
             this.panel59.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel59.Location = new System.Drawing.Point(0, 0);
             this.panel59.Name = "panel59";
-            this.panel59.Size = new System.Drawing.Size(476, 152);
+            this.panel59.Size = new System.Drawing.Size(476, 108);
             this.panel59.TabIndex = 4;
             // 
             // panel63
             // 
             this.panel63.Controls.Add(this.txtClientEmail);
             this.panel63.Controls.Add(this.label89);
-            this.panel63.Controls.Add(this.txtClientTelNo);
-            this.panel63.Controls.Add(this.label90);
             this.panel63.Controls.Add(this.txtClientMobile);
             this.panel63.Controls.Add(this.label91);
             this.panel63.Controls.Add(this.label92);
@@ -3086,7 +3094,7 @@ namespace MIS
             this.panel63.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel63.Location = new System.Drawing.Point(193, 0);
             this.panel63.Name = "panel63";
-            this.panel63.Size = new System.Drawing.Size(287, 152);
+            this.panel63.Size = new System.Drawing.Size(287, 108);
             this.panel63.TabIndex = 6;
             // 
             // txtClientEmail
@@ -3116,7 +3124,7 @@ namespace MIS
             this.txtClientTelNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtClientTelNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClientTelNo.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtClientTelNo.Location = new System.Drawing.Point(182, 64);
+            this.txtClientTelNo.Location = new System.Drawing.Point(1377, 675);
             this.txtClientTelNo.Name = "txtClientTelNo";
             this.txtClientTelNo.ReadOnly = true;
             this.txtClientTelNo.Size = new System.Drawing.Size(95, 20);
@@ -3126,7 +3134,7 @@ namespace MIS
             // 
             this.label90.AutoSize = true;
             this.label90.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label90.Location = new System.Drawing.Point(152, 68);
+            this.label90.Location = new System.Drawing.Point(1367, 679);
             this.label90.Name = "label90";
             this.label90.Size = new System.Drawing.Size(29, 15);
             this.label90.TabIndex = 325;
@@ -3141,7 +3149,7 @@ namespace MIS
             this.txtClientMobile.Location = new System.Drawing.Point(58, 64);
             this.txtClientMobile.Name = "txtClientMobile";
             this.txtClientMobile.ReadOnly = true;
-            this.txtClientMobile.Size = new System.Drawing.Size(94, 20);
+            this.txtClientMobile.Size = new System.Drawing.Size(219, 20);
             this.txtClientMobile.TabIndex = 322;
             // 
             // label91
@@ -3194,7 +3202,7 @@ namespace MIS
             this.panel64.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel64.Location = new System.Drawing.Point(0, 0);
             this.panel64.Name = "panel64";
-            this.panel64.Size = new System.Drawing.Size(193, 152);
+            this.panel64.Size = new System.Drawing.Size(193, 108);
             this.panel64.TabIndex = 5;
             // 
             // label87
@@ -3219,7 +3227,7 @@ namespace MIS
             this.txtClientAddress.Name = "txtClientAddress";
             this.txtClientAddress.ReadOnly = true;
             this.txtClientAddress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtClientAddress.Size = new System.Drawing.Size(187, 106);
+            this.txtClientAddress.Size = new System.Drawing.Size(187, 63);
             this.txtClientAddress.TabIndex = 135;
             // 
             // panel65
@@ -3227,7 +3235,7 @@ namespace MIS
             this.panel65.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel65.Location = new System.Drawing.Point(0, 0);
             this.panel65.Name = "panel65";
-            this.panel65.Size = new System.Drawing.Size(476, 152);
+            this.panel65.Size = new System.Drawing.Size(476, 108);
             this.panel65.TabIndex = 3;
             // 
             // panel66
@@ -3235,7 +3243,7 @@ namespace MIS
             this.panel66.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel66.Location = new System.Drawing.Point(0, 0);
             this.panel66.Name = "panel66";
-            this.panel66.Size = new System.Drawing.Size(476, 152);
+            this.panel66.Size = new System.Drawing.Size(476, 108);
             this.panel66.TabIndex = 2;
             // 
             // panel67
@@ -3243,7 +3251,7 @@ namespace MIS
             this.panel67.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel67.Location = new System.Drawing.Point(0, 0);
             this.panel67.Name = "panel67";
-            this.panel67.Size = new System.Drawing.Size(476, 152);
+            this.panel67.Size = new System.Drawing.Size(476, 108);
             this.panel67.TabIndex = 1;
             // 
             // panel68
@@ -3251,7 +3259,7 @@ namespace MIS
             this.panel68.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel68.Location = new System.Drawing.Point(0, 0);
             this.panel68.Name = "panel68";
-            this.panel68.Size = new System.Drawing.Size(476, 152);
+            this.panel68.Size = new System.Drawing.Size(476, 108);
             this.panel68.TabIndex = 0;
             // 
             // panel69
@@ -3557,7 +3565,7 @@ namespace MIS
             this.panel8.Controls.Add(this.panel9);
             this.panel8.Controls.Add(this.panel10);
             this.panel8.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel8.Location = new System.Drawing.Point(6, 169);
+            this.panel8.Location = new System.Drawing.Point(6, 262);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(478, 74);
             this.panel8.TabIndex = 468;
@@ -3756,7 +3764,7 @@ namespace MIS
             this.btnMClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnMClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnMClear.Location = new System.Drawing.Point(171, 644);
+            this.btnMClear.Location = new System.Drawing.Point(171, 693);
             this.btnMClear.Name = "btnMClear";
             this.btnMClear.Size = new System.Drawing.Size(81, 26);
             this.btnMClear.TabIndex = 308;
@@ -3773,7 +3781,7 @@ namespace MIS
             this.btnMAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnMAdd.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnMAdd.Location = new System.Drawing.Point(7, 644);
+            this.btnMAdd.Location = new System.Drawing.Point(7, 693);
             this.btnMAdd.Name = "btnMAdd";
             this.btnMAdd.Size = new System.Drawing.Size(81, 26);
             this.btnMAdd.TabIndex = 306;
@@ -3791,7 +3799,7 @@ namespace MIS
             this.btnMSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnMSave.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnMSave.Location = new System.Drawing.Point(89, 644);
+            this.btnMSave.Location = new System.Drawing.Point(89, 693);
             this.btnMSave.Name = "btnMSave";
             this.btnMSave.Size = new System.Drawing.Size(81, 26);
             this.btnMSave.TabIndex = 307;
@@ -4017,13 +4025,143 @@ namespace MIS
             this.txtRentalFeeID.Visible = false;
             this.txtRentalFeeID.WordWrap = false;
             // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label50.ForeColor = System.Drawing.Color.Navy;
+            this.label50.Location = new System.Drawing.Point(6, 113);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(133, 14);
+            this.label50.TabIndex = 328;
+            this.label50.Text = "ZONING INFORMATION";
+            // 
+            // txtZZone
+            // 
+            this.txtZZone.BackColor = System.Drawing.Color.White;
+            this.txtZZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZZone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZZone.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZZone.Location = new System.Drawing.Point(58, 130);
+            this.txtZZone.MaxLength = 8;
+            this.txtZZone.Name = "txtZZone";
+            this.txtZZone.ReadOnly = true;
+            this.txtZZone.Size = new System.Drawing.Size(221, 20);
+            this.txtZZone.TabIndex = 375;
+            // 
+            // label175
+            // 
+            this.label175.AutoSize = true;
+            this.label175.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label175.Location = new System.Drawing.Point(7, 135);
+            this.label175.Name = "label175";
+            this.label175.Size = new System.Drawing.Size(35, 14);
+            this.label175.TabIndex = 374;
+            this.label175.Text = "ZONE";
+            // 
+            // txtZRegion
+            // 
+            this.txtZRegion.BackColor = System.Drawing.Color.White;
+            this.txtZRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZRegion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZRegion.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZRegion.Location = new System.Drawing.Point(58, 151);
+            this.txtZRegion.MaxLength = 8;
+            this.txtZRegion.Name = "txtZRegion";
+            this.txtZRegion.ReadOnly = true;
+            this.txtZRegion.Size = new System.Drawing.Size(221, 20);
+            this.txtZRegion.TabIndex = 377;
+            // 
+            // label176
+            // 
+            this.label176.AutoSize = true;
+            this.label176.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label176.Location = new System.Drawing.Point(7, 155);
+            this.label176.Name = "label176";
+            this.label176.Size = new System.Drawing.Size(49, 14);
+            this.label176.TabIndex = 376;
+            this.label176.Text = "REGION";
+            // 
+            // txtZArea
+            // 
+            this.txtZArea.BackColor = System.Drawing.Color.White;
+            this.txtZArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZArea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZArea.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZArea.Location = new System.Drawing.Point(58, 172);
+            this.txtZArea.MaxLength = 8;
+            this.txtZArea.Name = "txtZArea";
+            this.txtZArea.ReadOnly = true;
+            this.txtZArea.Size = new System.Drawing.Size(221, 20);
+            this.txtZArea.TabIndex = 379;
+            // 
+            // label177
+            // 
+            this.label177.AutoSize = true;
+            this.label177.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label177.Location = new System.Drawing.Point(7, 174);
+            this.label177.Name = "label177";
+            this.label177.Size = new System.Drawing.Size(35, 14);
+            this.label177.TabIndex = 378;
+            this.label177.Text = "AREA";
+            // 
+            // txtZCityMunicipal
+            // 
+            this.txtZCityMunicipal.BackColor = System.Drawing.Color.White;
+            this.txtZCityMunicipal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZCityMunicipal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZCityMunicipal.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZCityMunicipal.Location = new System.Drawing.Point(58, 193);
+            this.txtZCityMunicipal.MaxLength = 8;
+            this.txtZCityMunicipal.Name = "txtZCityMunicipal";
+            this.txtZCityMunicipal.ReadOnly = true;
+            this.txtZCityMunicipal.Size = new System.Drawing.Size(221, 20);
+            this.txtZCityMunicipal.TabIndex = 381;
+            // 
+            // label178
+            // 
+            this.label178.AutoSize = true;
+            this.label178.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label178.Location = new System.Drawing.Point(6, 197);
+            this.label178.Name = "label178";
+            this.label178.Size = new System.Drawing.Size(35, 14);
+            this.label178.TabIndex = 380;
+            this.label178.Text = "CITY";
+            // 
+            // txtZoneID
+            // 
+            this.txtZoneID.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.txtZoneID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZoneID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZoneID.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZoneID.Location = new System.Drawing.Point(786, 7);
+            this.txtZoneID.Name = "txtZoneID";
+            this.txtZoneID.ReadOnly = true;
+            this.txtZoneID.Size = new System.Drawing.Size(61, 20);
+            this.txtZoneID.TabIndex = 382;
+            this.txtZoneID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtZoneID.Visible = false;
+            this.txtZoneID.WordWrap = false;
+            // 
+            // ucStatusDisplay
+            // 
+            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
+            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ucStatusDisplay.Name = "ucStatusDisplay";
+            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
+            this.ucStatusDisplay.TabIndex = 346;
+            // 
             // frmImportIR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1346, 751);
+            this.ClientSize = new System.Drawing.Size(1350, 806);
             this.Controls.Add(this.txtRentalFeeID);
             this.Controls.Add(this.panel32);
+            this.Controls.Add(this.txtMerchantTelNo);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.txtClientTelNo);
+            this.Controls.Add(this.label90);
             this.Controls.Add(this.lblCountMID);
             this.Controls.Add(this.btnAddMerchantImport);
             this.Controls.Add(this.groupBox3);
@@ -4468,5 +4606,15 @@ namespace MIS
         private System.Windows.Forms.TextBox txtSIMCarrier;
         private System.Windows.Forms.TextBox txtTerminalModel;
         private System.Windows.Forms.TextBox txtTerminalType;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.TextBox txtZZone;
+        private System.Windows.Forms.Label label175;
+        private System.Windows.Forms.TextBox txtZRegion;
+        private System.Windows.Forms.Label label176;
+        private System.Windows.Forms.TextBox txtZArea;
+        private System.Windows.Forms.Label label177;
+        private System.Windows.Forms.TextBox txtZCityMunicipal;
+        private System.Windows.Forms.Label label178;
+        private System.Windows.Forms.TextBox txtZoneID;
     }
 }

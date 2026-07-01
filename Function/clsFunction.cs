@@ -54,7 +54,7 @@ namespace MIS
         public const string sValueDateFormat = "yyyy-MM-dd";
         public const string sTimeFormat = "00:00:00";
         public const string sDateDefault = "00-00-0000";
-        public const string sTimeDefault = "00:00:00 00";
+        public const string sTimeDefault = "00:00:00";
         public const string sInvalidTime = "00:00:00";
         public const string sDefaultAmount = "0.00";
         public const string sDateDefaultFormat = "ddd, MMM-dd-yyyy";
@@ -3436,6 +3436,9 @@ namespace MIS
                 case "Issue Category":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_ISSUECATEGORYLIST_FILENAME;
                     break;
+                case "Zoning List":
+                    pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_ZONINGLIST_FILENAME;
+                    break;
                 case "All Type":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_ALLTYPE_FILENAME;
                     break;
@@ -3552,6 +3555,10 @@ namespace MIS
                     case "Issue Category":
                         IDCol.Add(element.TypeID.ToString());
                         DescriptionCol.Add(element.Description);
+                        break;
+                    case "Zoning List":
+                        IDCol.Add(element.ZoneID.ToString());
+                        DescriptionCol.Add(element.CityMunicipal);
                         break;
                 }
             }

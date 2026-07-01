@@ -8370,12 +8370,14 @@ namespace MIS
 
                     int pStatus = int.Parse(clsArray.ServiceStatus[i]);
 
+                    string pJobTypeStatusDescription = clsArray.JobTypeStatusDescription[i];
+
                     if (isFailed || clsArray.ActionMade[i].Equals(clsGlobalVariables.STATUS_NEGATIVE_DESC))
                     {
                         pStatus = clsGlobalVariables.STATUS_NEGATIVE;
                         clsArray.ServiceStatusDescription[i] = clsGlobalVariables.ACTION_MADE_NEGATIVE;
                     }
-                    
+
                     item.ForeColor = dbFunction.GetColorByStatus(pStatus, clsArray.ServiceStatusDescription[i]); // set forecolor per status
 
                     item.SubItems.Add(clsArray.ServiceNo[i].ToString());
@@ -10344,9 +10346,12 @@ namespace MIS
                 case "Issue Category":
                     sTemp = clsDefines.RESP_ISSUECATEGORYLIST_FILENAME;
                     break;
+                case "Zoning List":
+                    sTemp = clsDefines.RESP_ZONINGLIST_FILENAME;
+                    break;
                 case "All Type":
                     sTemp = clsDefines.RESP_ALLTYPE_FILENAME;
-                    break;
+                    break;               
 
             }
 
@@ -10522,6 +10527,10 @@ namespace MIS
             control.sMessage = "Creating type file.";
             control.AnimateStatus();
             dbAPI.ExecuteAPI("GET", "View", "All Type", "", "Type", "", "ViewType");
+
+            control.sMessage = "Creating zoning list file.";
+            control.AnimateStatus();
+            dbAPI.ExecuteAPI("GET", "View", "Zoning List", "", "Advance Detail", "", "ViewAdvanceDetail");
 
             Cursor.Current = Cursors.Default;
 

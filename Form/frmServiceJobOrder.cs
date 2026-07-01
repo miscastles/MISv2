@@ -4002,6 +4002,13 @@ namespace MIS
             }
             else
             {
+                // Service Result
+                if (!dbFunction.isValidComboBoxValue(cboSearchServiceType.Text))
+                {
+                    dbFunction.SetMessageBox("Please choose a value for service type.", "Requeired field", clsFunction.IconType.iExclamation);
+                    return;
+                }
+
                 frmSearchField.iSearchType = frmSearchField.SearchType.iMerchant;
                 frmSearchField.sHeader = "MERCHANT";
                 frmSearchField.isCheckBoxes = false;
@@ -4054,6 +4061,8 @@ namespace MIS
                     txtServiceStatusDescription.Text = clsSearch.ClassServiceStatusDescription.ToString();
 
                     FillMerchantTextBox();
+
+                    if (!displayIRStatus(this, e)) return;
 
                     PKTextBoxReadOnly(false);
 
@@ -6958,7 +6967,12 @@ namespace MIS
             gAttemptDate = "";
             fRescheduleTicket = false;
 
-            string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", $"{txtServiceJobType.Text}{clsDefines.gPipe}{txtMerchantID.Text}{clsDefines.gPipe}{txtIRIDNo.Text}");
+            string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtServiceJobType.Text)}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetStringValue(txtEntryRequestID.Text)}";
+
+            string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", pSearchValue);
 
             if (dbFunction.isValidDescription(pJSONString))
             {
@@ -7020,6 +7034,47 @@ namespace MIS
                     txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
                 }
             }
+        }
+
+        private bool displayIRStatus(object sender, EventArgs e)
+        {
+            bool isValid = true;
+
+            if (txtIRStatusDescription.Text.Equals(clsGlobalVariables.STATUS_DISPATCH_DESC))
+            {
+                if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC))
+                {
+                    string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtSearchSTJobType.Text)}{clsDefines.gPipe}" +
+                                      $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}";
+
+                    if (!dbAPI.isRecordExist("Search", "Merchant IR Status", pSearchValue))
+                    {
+                        dbFunction.SetMessageBox(
+                        "The merchant is currently in an invalid status.\n\n" +
+                        "To continue, the system will reset the merchant status from DISPATCH to AVAILABLE.",                        
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                        // api call to update merchant status
+                        pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
+                                        $"{clsGlobalVariables.STATUS_AVAILABLE}{clsDefines.gPipe}" +
+                                        $"{clsGlobalVariables.STATUS_AVAILABLE_DESC}";
+                        dbAPI.ExecuteAPI("PUT", "Update", "Update IR Detail Status", pSearchValue, "", "", "UpdateCollectionDetail");
+
+                        dbFunction.SetMessageBox(
+                        "Merchant status updated successfully.\n\n" +
+                        "You may now retry creating the INSTALLATION Job Order.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iInformation);
+
+                        btnClear_Click(this, e);
+
+                        isValid = false;
+                    }
+                }                
+            }
+
+            return isValid;
         }
     }
 }
