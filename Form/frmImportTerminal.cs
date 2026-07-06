@@ -2442,7 +2442,13 @@ namespace MIS
                     if (dbAPI.isRecordExist("Search", "TerminalSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtTerminalID.Text))
                     {
                         if (iHoldStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))
-                            isProceed = true;
+                        {
+                            if (dbAPI.isRecordExist("Search", "TerminalID Installed", txtTerminalID.Text))
+                            {
+                                isProceed = true;
+                            }
+                        }
+
                     }
 
                 }

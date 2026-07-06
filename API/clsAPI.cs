@@ -5550,7 +5550,8 @@ namespace MIS
                                             SearchBy.Equals("ERM Settlement Report-Per Zero Trans") ||
                                             SearchBy.Equals("Zoning Lookup") ||
                                             SearchBy.Equals("Zoning List") ||
-                                            SearchBy.Equals("Location List")
+                                            SearchBy.Equals("Location List") ||
+                                            SearchBy.Equals("Incentives Service Detail")
                                             )
                                         {
                                             foreach (var element in Detail46.data)

@@ -227,11 +227,12 @@ namespace MIS
             DataSet rtnDs = new DataSet();
 
             Debug.WriteLine("--GetReportWithStoredProcedure--");
-            Debug.WriteLine(" > ReportID="+ ReportID);
-            Debug.WriteLine(" > StatementType=" + StatementType);
-            Debug.WriteLine(" > SearchBy=" + SearchBy);
-            Debug.WriteLine(" > SearchValue=" + SearchValue);
-            Debug.WriteLine(" > StoreProcedureName=" + StoreProcedureName);
+            Debug.WriteLine($" > ReportID=[{clsReport.ClassReportID}]");
+            Debug.WriteLine($" > ReportDesc=[{clsReport.ClassReportDesc}]");
+            Debug.WriteLine($" > StatementType=[{StatementType}]");
+            Debug.WriteLine($" > SearchBy=[{SearchBy}]");
+            Debug.WriteLine($" > SearchValue=[{SearchValue}]");
+            Debug.WriteLine($" > StoreProcedureName=[{StoreProcedureName}]");
             Debug.WriteLine("--GetReportWithStoredProcedure--");
 
             Debug.WriteLine("--Stored Procedure(Report) --");
@@ -300,10 +301,12 @@ namespace MIS
             DataSet rtnDs = new DataSet();
 
             Debug.WriteLine("--getStoredProcedureDateSet--");
-            Debug.WriteLine(" > StatementType=" + StatementType);
-            Debug.WriteLine(" > SearchBy=" + SearchBy);
-            Debug.WriteLine(" > SearchValue=" + SearchValue);
-            Debug.WriteLine(" > StoreProcedureName=" + StoreProcedureName);
+            Debug.WriteLine($" > ReportID=[{clsReport.ClassReportID}]");
+            Debug.WriteLine($" > ReportDesc=[{clsReport.ClassReportDesc}]");
+            Debug.WriteLine($" > StatementType=[{StatementType}]");
+            Debug.WriteLine($" > SearchBy=[{SearchBy}]");
+            Debug.WriteLine($" > SearchValue=[{SearchValue}]");
+            Debug.WriteLine($" > StoreProcedureName=[{StoreProcedureName}]");
             Debug.WriteLine("--getStoredProcedureDateSet--");
 
             Debug.WriteLine("--Stored Procedure(Report) --");

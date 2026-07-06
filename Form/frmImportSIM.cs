@@ -1712,7 +1712,13 @@ namespace MIS
                     if (dbAPI.isRecordExist("Search", "SIMSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtSIMID.Text))
                     {
                         if (iHoldStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))
-                            isProceed = true;
+                        {
+                            if (dbAPI.isRecordExist("Search", "SIMID Installed", txtSIMID.Text))
+                            {
+                                isProceed = true;
+                            }
+                        }
+
                     }
                 }
 
