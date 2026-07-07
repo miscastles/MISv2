@@ -6575,7 +6575,9 @@ namespace MIS
                                     $"{cboSearchActionMade.Text}{clsDefines.gPipe}" +
                                     $"{dbFunction.CheckAndSetBooleanValue(chkCloseTicket.Checked)}{clsDefines.gPipe}" +
                                     $"{pUserID}{clsDefines.gPipe}" +
-                                    $"{pTicketDateTime}";
+                                    $"{pTicketDateTime}{clsDefines.gPipe}" +
+                                    $"{clsUser.ClassUserFullName}{clsDefines.gPipe}" +
+                                    $"{dbFunction.getCurrentDateTime()}";
 
                 dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 

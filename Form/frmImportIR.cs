@@ -194,6 +194,8 @@ namespace MIS
                     dbFunction.ComBoBoxUnLock(true, this);
                     dbFunction.TextBoxUnLock(true, this);
 
+                    initClientSelection();
+
                 }
                 catch (Exception ex)
                 {
@@ -4181,6 +4183,12 @@ namespace MIS
                     txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
                 }
             }
+        }
+
+        private void initClientSelection()
+        {
+            cboSearchClient.Enabled = true;
+            cboSearchClient.SelectedIndex = 1;
         }
     }
 }

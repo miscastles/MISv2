@@ -191,6 +191,8 @@ namespace MIS
 
                     dbFunction.isValidRequestID(_mServicingDetailController.IRNo, _mServicingDetailController.IRNo_fsr);
 
+                    getIRInfo();
+
                     txtNewRequestID.Focus();
                 }
                 else
@@ -211,6 +213,21 @@ namespace MIS
             else
                 dbAPI.GenerateID(true, txtNewRequestID, txtServiceNo, "Servicing Detail", clsDefines.CONTROLID_PREFIX_NO_REQUESTID);
 
+        }
+
+        private void getIRInfo()
+        {
+            if (dbFunction.isValidID(txtServiceNo.Text))
+            {
+                string json = dbAPI.getInfoDetailJSON("Search", "Merchant SN Info", txtIRIDNo.Text + clsFunction.sPipe + txtServiceNo.Text);
+
+                dbFunction.parseDelimitedString(json, clsDefines.gComma, 0);
+
+                if (dbFunction.isValidDescription(json))
+                {
+                    txtRequestID.Text = dbAPI.GetValueFromJSONString(json, clsDefines.TAG_IRNO);                    
+                }
+            }
         }
     }
 }

@@ -1084,6 +1084,18 @@ namespace MIS
             // Current Terminal SN
             if (isDispatch)
             {
+                if (!dbFunction.isValidDescription(txtCurTerminalSN.Text) || !dbFunction.isValidDescription(txtCurSIMSN.Text))
+                {
+                    dbFunction.SetMessageBox(
+                        "Terminal Serial Number and SIM Serial Number\n\n" +
+                        "must be populated when Dispatch is checked.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iExclamation
+                    );
+
+                    return false;
+                }
+
                 if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalID, txtCurTerminalID.Text)) return false;
                 if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurTerminalSN, txtCurTerminalSN.Text)) return false;
             }
