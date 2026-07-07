@@ -604,6 +604,7 @@ namespace MIS
             set { _detail_info = value; }
         }
 
+        // Zoning
         private int _ZoneID;
         [JsonProperty("ZoneID")]
         public int ZoneID
@@ -612,6 +613,45 @@ namespace MIS
             set { _ZoneID = value; }
         }
 
+        private string _Zone;
+        [JsonProperty("Zone")]
+        public string Zone
+        {
+            get { return _Zone; }
+            set { _Zone = value; }
+        }
+
+        private string _ZRegion;
+        [JsonProperty("ZRegion")]
+        public string ZRegion
+        {
+            get { return _ZRegion; }
+            set { _ZRegion = value; }
+        }
+
+        private string _Area;
+        [JsonProperty("Area")]
+        public string Area
+        {
+            get { return _Area; }
+            set { _Area = value; }
+        }
+
+        private string _CityMunicipal;
+        [JsonProperty("CityMunicipal")]
+        public string CityMunicipal
+        {
+            get { return _CityMunicipal; }
+            set { _CityMunicipal = value; }
+        }
+
+        private string _Cluster;
+        [JsonProperty("Cluster")]
+        public string Cluster
+        {
+            get { return _Cluster; }
+            set { _Cluster = value; }
+        }
 
     }
 

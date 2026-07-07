@@ -429,6 +429,11 @@ namespace MIS
 
         // Zoning
         public static string[] ZoneID;
+        public static string[] Zone;
+        public static string[] ZRegion;
+        public static string[] Area;
+        public static string[] CityMunicipal;
+        public static string[] Cluster;
 
         // Dependency        
         public static string[] Dependency;

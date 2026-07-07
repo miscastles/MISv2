@@ -1440,6 +1440,11 @@ namespace MIS
 
                         // Zoning
                         List<string> ZoneIDCol = new List<String>();
+                        List<string> ZoneCol = new List<String>();
+                        List<string> ZRegionCol = new List<String>();
+                        List<string> AreaCol = new List<String>();
+                        List<string> CityMunicipalCol = new List<String>();
+                        List<string> ClusterCol = new List<String>();
 
                         // Dependency
                         List<string> DependencyCol = new List<String>();
@@ -1964,7 +1969,14 @@ namespace MIS
                                                 ClientIDCol.Add(element.ClientID.ToString());
                                                 RegionCol.Add(element.Region);
                                                 ProvinceCol.Add(element.Province);
+
+                                                // Zoning
                                                 ZoneIDCol.Add(element.ZoneID.ToString());
+                                                ZoneCol.Add(element.Zone);
+                                                ZRegionCol.Add(element.ZRegion);
+                                                AreaCol.Add(element.Area);
+                                                CityMunicipalCol.Add(element.CityMunicipal);
+                                                ClusterCol.Add(element.Cluster);
 
                                             }
 
@@ -1987,7 +1999,14 @@ namespace MIS
                                             clsArray.ClientID = ClientIDCol.ToArray();
                                             clsArray.Region = RegionCol.ToArray();
                                             clsArray.Province = ProvinceCol.ToArray();
+
+                                            // Zoning
                                             clsArray.ZoneID = ZoneIDCol.ToArray();
+                                            clsArray.Zone = ZoneCol.ToArray();
+                                            clsArray.ZRegion = ZRegionCol.ToArray();
+                                            clsArray.Area = AreaCol.ToArray();
+                                            clsArray.CityMunicipal = CityMunicipalCol.ToArray();
+                                            clsArray.Cluster = ClusterCol.ToArray();
 
                                         }
                                         else if (SearchBy.CompareTo("Merchant List") == 0)
@@ -7957,25 +7976,12 @@ namespace MIS
                     item.SubItems.Add(clsArray.Region[i]);
                     item.SubItems.Add(clsArray.Province[i]);
 
-                    // get zoning info
-                    if (dbFunction.isValidID(clsArray.ZoneID[i]))
-                    {
-                        string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{clsArray.ZoneID[i]}");
-                        if (dbFunction.isValidDescription(pJSONString))
-                        {
-                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone));
-                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region));
-                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area));
-                            item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal));
-                        }
-                    }
-                    else
-                    {
-                        item.SubItems.Add(clsFunction.sDash);
-                        item.SubItems.Add(clsFunction.sDash);
-                        item.SubItems.Add(clsFunction.sDash);
-                        item.SubItems.Add(clsFunction.sDash);
-                    }
+                    // Zoning
+                    item.SubItems.Add(clsArray.Zone[i]);
+                    item.SubItems.Add(clsArray.ZRegion[i]);
+                    item.SubItems.Add(clsArray.Area[i]);
+                    item.SubItems.Add(clsArray.CityMunicipal[i]);
+
 
                     obj.Items.Add(item);
 

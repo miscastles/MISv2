@@ -741,6 +741,7 @@ namespace MIS
         public const string TAG_ZoneID = "ZoneID";
         public const string TAG_Zone = "Zone";
         public const string TAG_Region = "Region";
+        public const string TAG_ZRegion = "ZRegion";
         public const string TAG_Area = "Area";
         public const string TAG_CityMunicipal = "CityMunicipal";
         public const string TAG_Cluster = "Cluster";
