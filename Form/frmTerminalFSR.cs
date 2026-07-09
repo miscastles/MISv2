@@ -665,7 +665,6 @@ namespace MIS
 
         }
 
-
         private void PopulateReplaceTerminalTextBox(string sTerminalID, string sTerminalSN)
         {
             if ((sTerminalID.CompareTo(clsFunction.sZero) == 0) && (sTerminalSN.CompareTo(clsFunction.sZero) == 0 || sTerminalSN.CompareTo(clsFunction.sDash) == 0))

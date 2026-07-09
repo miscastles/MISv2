@@ -58,6 +58,7 @@ namespace MIS
         private int RegionID { get; set; }
         private int RegionType { get; set; }
 
+        private int IssueCategoryID { get; set; }
 
         protected override CreateParams CreateParams
         {
@@ -406,6 +407,7 @@ namespace MIS
 
             DependencyID   = dbFunction.getFileID(cboDependency, "All Type");
             StatusReasonID = dbFunction.getFileID(cboStatusReason, "All Type");
+            IssueCategoryID = dbFunction.getFileID(cboIssueCategory, "Issue Category");
         }
 
         private void getCurrentDevice(int iridNo, bool isTerminal)
@@ -581,7 +583,8 @@ namespace MIS
             cboSource.SelectedItem = JFunc.getValue(json, TAG_HD_Source);
             cboCategory.SelectedItem = JFunc.getValue(json, TAG_HD_Category);
             cboSubCategory.SelectedItem = JFunc.getValue(json, TAG_HD_SubCategory);
-            
+            cboIssueCategory.SelectedItem = JFunc.getValue(json, TAG_HD_IssueCategory);
+
         }
 
         // Disabled/Enabled Controls
@@ -1064,9 +1067,8 @@ namespace MIS
                 CreatedID       = clsSearch.ClassCurrentParticularID,
                 CreatedAt       = dbFunction.getCurrentDateTime(),
                 JobType         = cboSearchServiceType.SelectedValue,
-                Status          = cboSearchServiceStatus.Text,
+                Status          = cboSearchServiceStatus.Text
             };
-
             try
             {
                 // Reset
@@ -1145,8 +1147,9 @@ namespace MIS
                 AppVersion      = txtFUAppVersion.Text,
                 AppCRC          = txtFUAppCRC.Text,
                 ProblemReportedID       = ProblemReportedID,
-                DependencyID = DependencyID,
-                StatusReasonID = StatusReasonID
+                DependencyID   =  DependencyID,
+                StatusReasonID =  StatusReasonID,
+                IssueCategoryID = IssueCategoryID
             };
 
             try
@@ -1238,7 +1241,8 @@ namespace MIS
 
                     AppVersion      = txtFUAppVersion.Text,
                     AppCRC          = txtFUAppCRC.Text,
-                    ProblemReportedID = ProblemReportedID
+                    ProblemReportedID = ProblemReportedID,
+                    IssueCategoryID   = IssueCategoryID
                     // New Details here
 
                 };
@@ -1255,6 +1259,19 @@ namespace MIS
                     dbAPI.ExecuteAPI("PUT", "Update", "Helpdesk-Details", IFormat.Update(Data), "", "", "UpdateCollectionDetail");
 
                     if (dbAPI.isNoRecordFound()) return;
+                    
+                    // If ActionMade = Success change the IssueCategory for fsr aswell
+                    if (dbFunction.isValidID(txtServiceNo.Text) && cboSearchServiceStatus.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS))
+                    {
+                        string pSearchValue = $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                                              $"{txtServiceNo.Text}{clsDefines.gPipe}" +
+                                              $"{dbFunction.getFileID(cboDependency, "All Type")}{clsDefines.gPipe}" +
+                                              $"{dbFunction.getFileID(cboStatusReason, "All Type")}{clsDefines.gPipe}" +
+                                              $"{dbFunction.getFileID(cboIssueCategory, "Issue Category")}";
+
+                        dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 1);
+                        dbAPI.ExecuteAPI("PUT", "Update", "Dependency", pSearchValue, "", "", "UpdateCollectionDetail");
+                    }
 
                     Prompt.Info("Update Succesful","Succesfully Update" +
                                 $"\n\nREQUEST ID: {txtRequestNo.Text}" +
@@ -1502,9 +1519,11 @@ namespace MIS
 
             dbAPI.FillComboBoxDepedency(cboDependency);
             dbAPI.FillComboBoxStatusReason(cboStatusReason);
+            dbAPI.FillComboBoxIssueCategory(cboIssueCategory);
 
             cboDependency.SelectedIndex = 0;
             cboStatusReason.SelectedIndex = 0;
+            cboIssueCategory.SelectedIndex = 0;
 
             BindComboBox(LoadJobType(""), cboSearchServiceType);
         }
@@ -2210,6 +2229,17 @@ namespace MIS
                         dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
                         dbAPI.ExecuteAPI("PUT", "Update", "Complete Helpdesk Service-FSR", pSearchValue, "", "", "UpdateCollectionDetail");
                     }
+                    
+                    // Include FSR IssueCategory Selection when created Helpdesk is SUCCESS
+                    txtIRIDNo.Text = IRIDNo.ToString();
+                    pSearchValue = $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                                   $"{txtServiceNo.Text}{clsDefines.gPipe}" +
+                                   $"{dbFunction.getFileID(cboDependency, "All Type")}{clsDefines.gPipe}" +
+                                   $"{dbFunction.getFileID(cboStatusReason, "All Type")}{clsDefines.gPipe}" +
+                                   $"{dbFunction.getFileID(cboIssueCategory, "Issue Category")}";
+
+                    dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 1);
+                    dbAPI.ExecuteAPI("PUT", "Update", "Dependency", pSearchValue, "", "", "UpdateCollectionDetail");
                 }
                 else
                 {

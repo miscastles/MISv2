@@ -21,7 +21,7 @@ namespace MIS
         public static string strPassword = "";
         public static string strSecurity = "False";
         public static string strPort = "";
-        public static string strTimeOut = "5000";       
+        public static string strTimeOut = "5000";        
 
         // API
         public static string strAPIURL = "";
@@ -436,6 +436,8 @@ namespace MIS
 
         public static DataSet globalDataSet= null;
         public static DataTable globalDataTable = null;
+
+        public static bool isReportWarmUp = false;
 
     }
 }

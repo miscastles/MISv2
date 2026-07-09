@@ -540,6 +540,8 @@ namespace MIS
 
             try
             {
+                if (!validateImportData()) return;
+
                 SaveSIMMaster();
 
                 SaveSIMImportDetail();
@@ -1725,6 +1727,13 @@ namespace MIS
             }
             else
             {
+                // check SN already exist
+                if (dbAPI.isRecordExist("Search", "SIM Detail Check", dbFunction.CheckAndSetStringValue(txtSIMSN.Text)))
+                {
+                    dbFunction.SetMessageBox($"Serial Number [{txtSIMSN.Text}] already exists.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return;
+                }
+
                 isProceed = true;
             }
 
@@ -3902,6 +3911,109 @@ namespace MIS
 
             cboMClient.Enabled = true;
             cboMClient.SelectedIndex = 1;            
+        }
+
+        private bool validateImportData()
+        {
+            bool isValid = false;
+
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                string serialNo = Convert.ToString(row.Cells[1].Value).Trim();
+                string carrier = Convert.ToString(row.Cells[2].Value).Trim();
+                string location = Convert.ToString(row.Cells[5].Value).Trim();
+                string status = Convert.ToString(row.Cells[6].Value).Trim();
+
+                Debug.WriteLine($"serialNo=[{serialNo}]");
+                Debug.WriteLine($"carrier=[{carrier}]");
+                Debug.WriteLine($"location=[{location}]");
+                Debug.WriteLine($"status=[{status}]");
+
+                // Required Fields
+                if (string.IsNullOrWhiteSpace(serialNo))
+                {
+                    dbFunction.SetMessageBox(
+                        "Serial Number must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(carrier))
+                {
+                    dbFunction.SetMessageBox(
+                        "Carrier must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(location))
+                {
+                    dbFunction.SetMessageBox(
+                        "Location must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(status))
+                {
+                    dbFunction.SetMessageBox(
+                        "Status must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (dbAPI.isRecordExist("Search", "SerialNo Check", serialNo))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Serial Number [{serialNo}] already exists.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "SIM Carrier Check", carrier))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Carrier [{carrier}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "Location", location))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Location [{location}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "Terminal Status", status))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Location [{status}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+            }
+
+            return isValid;
+
         }
     }
 }

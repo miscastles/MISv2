@@ -398,6 +398,11 @@
             this.panel108 = new System.Windows.Forms.Panel();
             this.label42 = new System.Windows.Forms.Label();
             this.panel109 = new System.Windows.Forms.Panel();
+            this.panel174 = new System.Windows.Forms.Panel();
+            this.panel189 = new System.Windows.Forms.Panel();
+            this.cboIssueCategory = new System.Windows.Forms.ComboBox();
+            this.panel190 = new System.Windows.Forms.Panel();
+            this.label94 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -505,6 +510,9 @@
             this.panel106.SuspendLayout();
             this.panel107.SuspendLayout();
             this.panel108.SuspendLayout();
+            this.panel174.SuspendLayout();
+            this.panel189.SuspendLayout();
+            this.panel190.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -721,6 +729,7 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.panel174);
             this.tabPage3.Controls.Add(this.panel56);
             this.tabPage3.Controls.Add(this.panel93);
             this.tabPage3.Controls.Add(this.panel53);
@@ -1040,9 +1049,9 @@
             this.panel93.Controls.Add(this.panel94);
             this.panel93.Controls.Add(this.panel101);
             this.panel93.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel93.Location = new System.Drawing.Point(483, 326);
+            this.panel93.Location = new System.Drawing.Point(633, 326);
             this.panel93.Name = "panel93";
-            this.panel93.Size = new System.Drawing.Size(477, 55);
+            this.panel93.Size = new System.Drawing.Size(327, 55);
             this.panel93.TabIndex = 501;
             // 
             // panel94
@@ -1056,7 +1065,7 @@
             this.panel94.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel94.Location = new System.Drawing.Point(0, 24);
             this.panel94.Name = "panel94";
-            this.panel94.Size = new System.Drawing.Size(475, 29);
+            this.panel94.Size = new System.Drawing.Size(325, 29);
             this.panel94.TabIndex = 312;
             // 
             // panel95
@@ -1068,7 +1077,7 @@
             this.panel95.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel95.Location = new System.Drawing.Point(0, 0);
             this.panel95.Name = "panel95";
-            this.panel95.Size = new System.Drawing.Size(475, 27);
+            this.panel95.Size = new System.Drawing.Size(325, 27);
             this.panel95.TabIndex = 5;
             // 
             // txtReasonDesc
@@ -1080,7 +1089,7 @@
             this.txtReasonDesc.Location = new System.Drawing.Point(3, 2);
             this.txtReasonDesc.Name = "txtReasonDesc";
             this.txtReasonDesc.ReadOnly = true;
-            this.txtReasonDesc.Size = new System.Drawing.Size(415, 21);
+            this.txtReasonDesc.Size = new System.Drawing.Size(267, 21);
             this.txtReasonDesc.TabIndex = 149;
             this.txtReasonDesc.TextChanged += new System.EventHandler(this.txtReasonDesc_TextChanged);
             // 
@@ -1090,7 +1099,7 @@
             this.btnSearchReason.Enabled = false;
             this.btnSearchReason.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchReason.Image")));
             this.btnSearchReason.ImageActive = null;
-            this.btnSearchReason.Location = new System.Drawing.Point(420, 2);
+            this.btnSearchReason.Location = new System.Drawing.Point(272, 2);
             this.btnSearchReason.Name = "btnSearchReason";
             this.btnSearchReason.Size = new System.Drawing.Size(24, 21);
             this.btnSearchReason.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1105,7 +1114,7 @@
             this.btnRemoveReason.Enabled = false;
             this.btnRemoveReason.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveReason.Image")));
             this.btnRemoveReason.ImageActive = null;
-            this.btnRemoveReason.Location = new System.Drawing.Point(446, 2);
+            this.btnRemoveReason.Location = new System.Drawing.Point(298, 2);
             this.btnRemoveReason.Name = "btnRemoveReason";
             this.btnRemoveReason.Size = new System.Drawing.Size(24, 21);
             this.btnRemoveReason.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1119,7 +1128,7 @@
             this.panel96.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel96.Location = new System.Drawing.Point(0, 0);
             this.panel96.Name = "panel96";
-            this.panel96.Size = new System.Drawing.Size(475, 29);
+            this.panel96.Size = new System.Drawing.Size(325, 29);
             this.panel96.TabIndex = 4;
             // 
             // panel97
@@ -1127,7 +1136,7 @@
             this.panel97.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel97.Location = new System.Drawing.Point(0, 0);
             this.panel97.Name = "panel97";
-            this.panel97.Size = new System.Drawing.Size(475, 29);
+            this.panel97.Size = new System.Drawing.Size(325, 29);
             this.panel97.TabIndex = 3;
             // 
             // panel98
@@ -1135,7 +1144,7 @@
             this.panel98.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel98.Location = new System.Drawing.Point(0, 0);
             this.panel98.Name = "panel98";
-            this.panel98.Size = new System.Drawing.Size(475, 29);
+            this.panel98.Size = new System.Drawing.Size(325, 29);
             this.panel98.TabIndex = 2;
             // 
             // panel99
@@ -1143,7 +1152,7 @@
             this.panel99.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel99.Location = new System.Drawing.Point(0, 0);
             this.panel99.Name = "panel99";
-            this.panel99.Size = new System.Drawing.Size(475, 29);
+            this.panel99.Size = new System.Drawing.Size(325, 29);
             this.panel99.TabIndex = 1;
             // 
             // panel100
@@ -1151,7 +1160,7 @@
             this.panel100.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel100.Location = new System.Drawing.Point(0, 0);
             this.panel100.Name = "panel100";
-            this.panel100.Size = new System.Drawing.Size(475, 29);
+            this.panel100.Size = new System.Drawing.Size(325, 29);
             this.panel100.TabIndex = 0;
             // 
             // panel101
@@ -1162,7 +1171,7 @@
             this.panel101.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel101.Location = new System.Drawing.Point(0, 0);
             this.panel101.Name = "panel101";
-            this.panel101.Size = new System.Drawing.Size(475, 24);
+            this.panel101.Size = new System.Drawing.Size(325, 24);
             this.panel101.TabIndex = 311;
             // 
             // label27
@@ -1182,7 +1191,7 @@
             this.panel102.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel102.Location = new System.Drawing.Point(0, 23);
             this.panel102.Name = "panel102";
-            this.panel102.Size = new System.Drawing.Size(475, 1);
+            this.panel102.Size = new System.Drawing.Size(325, 1);
             this.panel102.TabIndex = 0;
             // 
             // panel53
@@ -3731,7 +3740,7 @@
             this.label20.ForeColor = System.Drawing.Color.Black;
             this.label20.Location = new System.Drawing.Point(3, 4);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(139, 16);
+            this.label20.Size = new System.Drawing.Size(138, 16);
             this.label20.TabIndex = 310;
             this.label20.Text = "SELECT SERVICE TYPE";
             // 
@@ -4183,7 +4192,7 @@
             this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(3, 4);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(155, 16);
+            this.label11.Size = new System.Drawing.Size(154, 16);
             this.label11.TabIndex = 310;
             this.label11.Text = "SELECT SERVICE STATUS";
             // 
@@ -4713,6 +4722,62 @@
             this.panel109.Size = new System.Drawing.Size(408, 1);
             this.panel109.TabIndex = 0;
             // 
+            // panel174
+            // 
+            this.panel174.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel174.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel174.Controls.Add(this.panel189);
+            this.panel174.Controls.Add(this.panel190);
+            this.panel174.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel174.Location = new System.Drawing.Point(483, 326);
+            this.panel174.Name = "panel174";
+            this.panel174.Size = new System.Drawing.Size(149, 55);
+            this.panel174.TabIndex = 503;
+            // 
+            // panel189
+            // 
+            this.panel189.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel189.Controls.Add(this.cboIssueCategory);
+            this.panel189.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel189.Location = new System.Drawing.Point(0, 24);
+            this.panel189.Name = "panel189";
+            this.panel189.Size = new System.Drawing.Size(147, 27);
+            this.panel189.TabIndex = 313;
+            // 
+            // cboIssueCategory
+            // 
+            this.cboIssueCategory.BackColor = System.Drawing.Color.White;
+            this.cboIssueCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboIssueCategory.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboIssueCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.cboIssueCategory.FormattingEnabled = true;
+            this.cboIssueCategory.Location = new System.Drawing.Point(-2, 1);
+            this.cboIssueCategory.Name = "cboIssueCategory";
+            this.cboIssueCategory.Size = new System.Drawing.Size(145, 24);
+            this.cboIssueCategory.TabIndex = 349;
+            // 
+            // panel190
+            // 
+            this.panel190.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            this.panel190.Controls.Add(this.label94);
+            this.panel190.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel190.Location = new System.Drawing.Point(0, 0);
+            this.panel190.Name = "panel190";
+            this.panel190.Size = new System.Drawing.Size(147, 24);
+            this.panel190.TabIndex = 311;
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            this.label94.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label94.ForeColor = System.Drawing.Color.Black;
+            this.label94.Location = new System.Drawing.Point(3, 4);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(135, 15);
+            this.label94.TabIndex = 310;
+            this.label94.Text = "SELECT ISSUE CATEGORY";
+            // 
             // frmHelpDesk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4899,6 +4964,10 @@
             this.panel107.PerformLayout();
             this.panel108.ResumeLayout(false);
             this.panel108.PerformLayout();
+            this.panel174.ResumeLayout(false);
+            this.panel189.ResumeLayout(false);
+            this.panel190.ResumeLayout(false);
+            this.panel190.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5274,5 +5343,10 @@
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Panel panel174;
+        private System.Windows.Forms.Panel panel189;
+        private System.Windows.Forms.ComboBox cboIssueCategory;
+        private System.Windows.Forms.Panel panel190;
+        private System.Windows.Forms.Label label94;
     }
 }

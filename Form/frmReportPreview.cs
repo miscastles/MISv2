@@ -1,23 +1,24 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using MIS.AppMainActivity;
+using MIS.Function;
+using MIS.Report;
+using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
-using System.IO;
-using System.Diagnostics;
-using System.Threading;
-using MIS.Report;
-using MIS.AppMainActivity;
 using static MIS.AppMainActivity.AppReports;
+using static MIS.clsFunction;
 using static MIS.Function.AppUtilities;
-using OfficeOpenXml;
-using MIS.Function;
 
 namespace MIS
 {
@@ -60,312 +61,321 @@ namespace MIS
 
             Cursor.Current = Cursors.WaitCursor;
 
-            dbAPI = new clsAPI();
-            dbFunction = new clsFunction();
-
-            dbSetting = new clsINI();
-            dbSetting.InitDatabaseSetting();
-
-            dbConnect = new clsClientConnection();
-            fConnected = dbConnect.ConnectDBServerClient();
-            
-            dbFile = new clsFile();
-
-            dbExcelOpenXmlExporter = new clsExcelOpenXmlExporter();
-
-            Debug.WriteLine("sReportID="+ sReportID);
-            Debug.WriteLine("clsSearch.isMDRBreakdown=" + clsSearch.isMDRBreakdown);
-
-            if (!fConnected)
-            {
-                MessageBox.Show("Unable to connect to database. Contact administrator", "Connection Failed", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                Application.Exit();
-            }
-
-            ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
-            Task.Delay(500); // Asynchronously wait without blocking UI
-
-            ucStatusDisplay.SetStatus($"Preparing report {clsSearch.ClassReportDescription}", Enums.StatusType.Processing);
-            Task.Delay(500); // Asynchronously wait without blocking UI
-
-            warmUpReport(); // warm-up report
-
-            // Report Name
-            this.Text = "Report Preview " + "[ " + clsReport.ClassReportDesc + " ]";
-            
             try
-            {                
-                switch (sReportID)
+            {
+                dbAPI = new clsAPI();
+                dbFunction = new clsFunction();
+
+                dbSetting = new clsINI();
+                dbSetting.InitDatabaseSetting();
+
+                dbConnect = new clsClientConnection();
+                fConnected = dbConnect.ConnectDBServerClient();
+
+                dbFile = new clsFile();
+
+                dbExcelOpenXmlExporter = new clsExcelOpenXmlExporter();
+
+                Debug.WriteLine("sReportID=" + sReportID);
+                Debug.WriteLine("clsSearch.isMDRBreakdown=" + clsSearch.isMDRBreakdown);
+
+                if (!fConnected)
                 {
-                    case 0:
-                        TAReport();
-                        break;
-
-                    case 1:
-                        InventoryTerminalDetailReport();
-                        break;
-
-                    case 2:
-                        IRReport();
-                        break;
-
-                    case 3: // SIM DETAIL INVENTORY REPORT
-                        InventorySIMDetailReport();
-                        break;
-
-                    case 4: // FSR REPORT (OPERATION)
-                        FSRReport();
-                        break;
-
-                    case 5: // FSR REPORT (FIELD ENGINEER)
-                        FieldServiceReport();                            
-                        break;
-
-                    case 6: // ERM BILLING REPORT
-                        if (clsSearch.isMDRBreakdown)
-                            ERMBillingWithMDR();
-                        else
-                            ERMBilling();
-                        break;
-
-                    case 7:
-                        FSRService();
-                        break;
-
-                    case 8: // SERVICE REQUEST SUMMARY REPORT
-                        InstallationSummaryReport();
-                        break;
-
-                    case 9: // SERVICE REQUEST DETAIL REPORT
-                        InstallationReport();
-                        break;
-
-                    case 10: // SERVICING REQUEST REPORT
-                        ServicingDetailTempReport();
-                        break;
-
-                    case 11: // SERVICE HISTORY REPORT                     
-                        //ServiceHistoryReport();
-                        ServiceHistoryDetailReport();
-                        break;
-
-                    case 12: // QRCODE REPORT
-                        QRCodeReport();
-                        break;
-
-                    case 13: // TIMESHEET REPORT
-                    case 21: // MISSING/INCOMPLETE TIMESHEET REPORT
-                        TimeSheetReport();
-                        break;
-
-                    case 14: // WORK ARRANGEMENT REPORT
-                        WorkArrangementReport();
-                        break;
-
-                    case 15: // HOLIDAY REPORT
-                        HolidayReport();
-                        break;
-
-                    case 16: // LEAVE APPLICATION REPORT
-                        LeaveApplicationReport();
-                        break;
-
-                    case 17: // LEAVE ASSIGNMENT REPORT
-                        LeaveAssignmentReport();
-                        break;
-
-                    case 18: // CLIENT FSR REPORT
-                        FSRClientReport();
-                        break;
-
-                    case 19: // TERMINAL SUMMARY(LOCATION) INVENTORY REPORT
-                        InventoryTerminalSummaryReport();
-                        break;
-
-                    case 20: // TERMINAL ALLOCATION(SERVICING) REPORT
-                        InventorySIMSummaryReport();
-                        break;
-
-                    case 23: // OPERATION FSR REPORT
-                        FSROperationReport();
-                        break;
-
-                    case 25: // TERMINAL RELEASED SUMMARY REPORT
-                        ReleaseTerminalSummaryReport();
-                        break;
-
-                    case 26: // TERMINAL RELEASED DETAIL REPORT
-                        ReleaseTerminalDetailReport();
-                        break;
-
-                    case 27: // SIM RELEASED DETAIL REPORT
-                        ReleaseSIMDetailReport();
-                        break;
-
-                    case 28: // SIM RELEASED SUMMARY REPORT
-                        ReleaseSIMSummaryReport();
-                        break;
-
-                    case 29: // POS RENTAL REPORT
-                        POSRentalReport();
-                        break;
-
-                    case 30: // TERMINAL IMPORT REPORT
-                        TerminalImportReport();
-                        break;
-
-                    // ROCKY - SIM IMPORT: ADD SIM IMPORT REPORT
-                    case 31: // SIM IMPORT REPORT
-                        SIMImportReport();
-                        break;
-
-                    case 32: // TERMINAL SUMMARY(TYPE/MODEL) INVENTORY REPORT
-                        InventoryTerminalTypeModelSummaryReport();
-                        break;
-
-                    case 33: // SIM SUMMARY(TELCO) INVENTORY REPORT
-                        InventorySIMTelcoSummaryReport();
-                        break;
-
-                    // ROCKY - PARTICULAR: ADD PARTICULAR DETAILS REPORT 
-                    case 34: // PARTICULAR DETAILS REPORT
-                        ParticularDetailsReport();
-                        break;
-
-                    // ROCKY - PARTICULAR: ADD PARTICULAR REQUIREMENTS DETAIL REPORT 
-                    case 35: // PARTICULAR DETAILS REPORT
-                        ParticularRequirementsReport();
-                        break;
-
-                    // ROCKY - BILLING: ADD SECURITY BANK BILLING REPORT
-                    case 36:
-                        SecurityBankBillingReport();
-                        break;
-
-                    // ROCKY - BILLING: ADD METROBANK SERVICE REPORT
-                    case 37:
-                        // Servicing Summary
-                        Summary.Services(myViewer);
-                        break;
-
-                    case 38:
-                        // Net Matrix Summary
-                        Summary.Leasing(myViewer);
-                        break;
-
-                    case 39:
-                        // Weepay Inventory Summary
-                        Summary.WeePayInventory(myViewer);
-                        break;
-
-                    case 40:
-                        // Weepay Sim Summary
-                        Summary.WeePaySimDetails(myViewer);
-                        break;
-                    
-                    case 42: // eDiagnostic
-                        eDiagnostic();
-                        break;
-
-                    case 43: // SERVICE SUMMARY REPORT(TYPE)
-                        ServiceSummaryReport();
-                        break;
-
-                    case 44: // SERVICE DETAIL REPORT(TYPE)
-                        ServiceDetailReport();
-                        break;
-
-                    case 45: // INSTALLATION SUMMARY REPORT
-                        ServiceInstallationSummaryReport();
-                        break;
-
-                    case 46: // INSTALLATION DETAIL REPORT
-                        ServiceInstallationDetailReport();
-                        break;
-
-                    case 47: // ACTIVE TERMINAL REPORT
-                        ActiveTerminalReport();
-                        break;
-
-                    case 48: // ACTIVE POS SUMMARY REPORT
-                        ActiveSIMReport();
-                        break;
-
-                    case 49: // ACTIVE POS DETAIL REPORT
-                        ActiveTerminalDetailReport();
-                        break;
-
-                    case 52: // MONTHLY COMPLETED SERVICE REPORT
-                        MonthlyServiceCountReport();
-                        break;
-
-                    case 53: // SERVICE INSTALLATION REPORT
-                        ServiceInstallationReport();
-                        break;
-
-                    case 54: // SERVICE MAINTENANCE REPORT
-                        ServiceMaintenanceReport();
-                        break;
-
-                    case 55: // SERVICE PULLOUT REPORT
-                        ServicePullOutReport();
-                        break;
-
-                    case 56: // UNCLOSED TICKET REPORT
-                        UnclosedServiceTicketReport();
-                        break;
-
-                    case 57: // HELPDESK DETAIL REPORT
-                        HelpdeskSummaryReport();
-                        break;
-
-                    case 58:
-                        HelpdeskKPIReport();
-                        break;
-
-                    // INVOICES
-                    case 1001:
-                        // Servicing Invoice
-                            Invoice.Services(myViewer);
-                        break;
-
-                    case 1002:
-                        // Net Matrix Invoice
-                            Invoice.Leasing(myViewer);
-                        break;
-
-                    case 1003:
-                        // TLE Invoice
-                          Invoice.Tle(myViewer); 
-                        break;
-
-                    case 1004:
-                        // Weepay Sim Invoice
-                        Invoice.WeePaySimInvoice(myViewer);
-                        break;
-
-                    case 1005:
-                        // Warehouse Invoice
-                        Invoice.WareHouse(myViewer);
-                        break;
-      
-                    default:
-                        dbFunction.SetMessageBox("Report ID " + dbFunction.AddBracketStartEnd(sReportID.ToString()) + " does not defined.", "Report Preview", clsFunction.IconType.iError);
-                        break;
+                    MessageBox.Show("Unable to connect to database. Contact administrator", "Connection Failed", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Application.Exit();
                 }
+
+                ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
+                Task.Delay(500); // Asynchronously wait without blocking UI
+
+                ucStatusDisplay.SetStatus($"Preparing report {clsSearch.ClassReportDescription}", Enums.StatusType.Processing);
+                Task.Delay(500); // Asynchronously wait without blocking UI
+
+                if (!clsGlobalVariables.isReportWarmUp)
+                    warmUpReport(); // warm-up report
+
+                // Report Name
+                this.Text = "Report Preview " + "[ " + clsReport.ClassReportDesc + " ]";
+
+                try
+                {
+                    switch (sReportID)
+                    {
+                        case 0:
+                            TAReport();
+                            break;
+
+                        case 1:
+                            InventoryTerminalDetailReport();
+                            break;
+
+                        case 2:
+                            IRReport();
+                            break;
+
+                        case 3: // SIM DETAIL INVENTORY REPORT
+                            InventorySIMDetailReport();
+                            break;
+
+                        case 4: // FSR REPORT (OPERATION)
+                            FSRReport();
+                            break;
+
+                        case 5: // FSR REPORT (FIELD ENGINEER)
+                            FieldServiceReport();
+                            break;
+
+                        case 6: // ERM BILLING REPORT
+                            if (clsSearch.isMDRBreakdown)
+                                ERMBillingWithMDR();
+                            else
+                                ERMBilling();
+                            break;
+
+                        case 7:
+                            FSRService();
+                            break;
+
+                        case 8: // SERVICE REQUEST SUMMARY REPORT
+                            InstallationSummaryReport();
+                            break;
+
+                        case 9: // SERVICE REQUEST DETAIL REPORT
+                            InstallationReport();
+                            break;
+
+                        case 10: // SERVICING REQUEST REPORT
+                            ServicingDetailTempReport();
+                            break;
+
+                        case 11: // SERVICE HISTORY REPORT                     
+                                 //ServiceHistoryReport();
+                            ServiceHistoryDetailReport();
+                            break;
+
+                        case 12: // QRCODE REPORT
+                            QRCodeReport();
+                            break;
+
+                        case 13: // TIMESHEET REPORT
+                        case 21: // MISSING/INCOMPLETE TIMESHEET REPORT
+                            TimeSheetReport();
+                            break;
+
+                        case 14: // WORK ARRANGEMENT REPORT
+                            WorkArrangementReport();
+                            break;
+
+                        case 15: // HOLIDAY REPORT
+                            HolidayReport();
+                            break;
+
+                        case 16: // LEAVE APPLICATION REPORT
+                            LeaveApplicationReport();
+                            break;
+
+                        case 17: // LEAVE ASSIGNMENT REPORT
+                            LeaveAssignmentReport();
+                            break;
+
+                        case 18: // CLIENT FSR REPORT
+                            FSRClientReport();
+                            break;
+
+                        case 19: // TERMINAL SUMMARY(LOCATION) INVENTORY REPORT
+                            InventoryTerminalSummaryReport();
+                            break;
+
+                        case 20: // TERMINAL ALLOCATION(SERVICING) REPORT
+                            InventorySIMSummaryReport();
+                            break;
+
+                        case 23: // OPERATION FSR REPORT
+                            FSROperationReport();
+                            break;
+
+                        case 25: // TERMINAL RELEASED SUMMARY REPORT
+                            ReleaseTerminalSummaryReport();
+                            break;
+
+                        case 26: // TERMINAL RELEASED DETAIL REPORT
+                            ReleaseTerminalDetailReport();
+                            break;
+
+                        case 27: // SIM RELEASED DETAIL REPORT
+                            ReleaseSIMDetailReport();
+                            break;
+
+                        case 28: // SIM RELEASED SUMMARY REPORT
+                            ReleaseSIMSummaryReport();
+                            break;
+
+                        case 29: // POS RENTAL REPORT
+                            POSRentalReport();
+                            break;
+
+                        case 30: // TERMINAL IMPORT REPORT
+                            TerminalImportReport();
+                            break;
+
+                        // ROCKY - SIM IMPORT: ADD SIM IMPORT REPORT
+                        case 31: // SIM IMPORT REPORT
+                            SIMImportReport();
+                            break;
+
+                        case 32: // TERMINAL SUMMARY(TYPE/MODEL) INVENTORY REPORT
+                            InventoryTerminalTypeModelSummaryReport();
+                            break;
+
+                        case 33: // SIM SUMMARY(TELCO) INVENTORY REPORT
+                            InventorySIMTelcoSummaryReport();
+                            break;
+
+                        // ROCKY - PARTICULAR: ADD PARTICULAR DETAILS REPORT 
+                        case 34: // PARTICULAR DETAILS REPORT
+                            ParticularDetailsReport();
+                            break;
+
+                        // ROCKY - PARTICULAR: ADD PARTICULAR REQUIREMENTS DETAIL REPORT 
+                        case 35: // PARTICULAR DETAILS REPORT
+                            ParticularRequirementsReport();
+                            break;
+
+                        // ROCKY - BILLING: ADD SECURITY BANK BILLING REPORT
+                        case 36:
+                            SecurityBankBillingReport();
+                            break;
+
+                        // ROCKY - BILLING: ADD METROBANK SERVICE REPORT
+                        case 37:
+                            // Servicing Summary
+                            Summary.Services(myViewer);
+                            break;
+
+                        case 38:
+                            // Net Matrix Summary
+                            Summary.Leasing(myViewer);
+                            break;
+
+                        case 39:
+                            // Weepay Inventory Summary
+                            Summary.WeePayInventory(myViewer);
+                            break;
+
+                        case 40:
+                            // Weepay Sim Summary
+                            Summary.WeePaySimDetails(myViewer);
+                            break;
+
+                        case 42: // eDiagnostic
+                            eDiagnostic();
+                            break;
+
+                        case 43: // SERVICE SUMMARY REPORT(TYPE)
+                            ServiceSummaryReport();
+                            break;
+
+                        case 44: // SERVICE DETAIL REPORT(TYPE)
+                            ServiceDetailReport();
+                            break;
+
+                        case 45: // INSTALLATION SUMMARY REPORT
+                            ServiceInstallationSummaryReport();
+                            break;
+
+                        case 46: // INSTALLATION DETAIL REPORT
+                            ServiceInstallationDetailReport();
+                            break;
+
+                        case 47: // ACTIVE TERMINAL REPORT
+                            ActiveTerminalReport();
+                            break;
+
+                        case 48: // ACTIVE POS SUMMARY REPORT
+                            ActiveSIMReport();
+                            break;
+
+                        case 49: // ACTIVE POS DETAIL REPORT
+                            ActiveTerminalDetailReport();
+                            break;
+
+                        case 52: // MONTHLY COMPLETED SERVICE REPORT
+                            MonthlyServiceCountReport();
+                            break;
+
+                        case 53: // SERVICE INSTALLATION REPORT
+                            ServiceInstallationReport();
+                            break;
+
+                        case 54: // SERVICE MAINTENANCE REPORT
+                            ServiceMaintenanceReport();
+                            break;
+
+                        case 55: // SERVICE PULLOUT REPORT
+                            ServicePullOutReport();
+                            break;
+
+                        case 56: // UNCLOSED TICKET REPORT
+                            UnclosedServiceTicketReport();
+                            break;
+
+                        case 57: // HELPDESK DETAIL REPORT
+                            HelpdeskSummaryReport();
+                            break;
+
+                        case 58:
+                            HelpdeskKPIReport();
+                            break;
+
+                        // INVOICES
+                        case 1001:
+                            // Servicing Invoice
+                            Invoice.Services(myViewer);
+                            break;
+
+                        case 1002:
+                            // Net Matrix Invoice
+                            Invoice.Leasing(myViewer);
+                            break;
+
+                        case 1003:
+                            // TLE Invoice
+                            Invoice.Tle(myViewer);
+                            break;
+
+                        case 1004:
+                            // Weepay Sim Invoice
+                            Invoice.WeePaySimInvoice(myViewer);
+                            break;
+
+                        case 1005:
+                            // Warehouse Invoice
+                            Invoice.WareHouse(myViewer);
+                            break;
+
+                        default:
+                            dbFunction.SetMessageBox("Report ID " + dbFunction.AddBracketStartEnd(sReportID.ToString()) + " does not defined.", "Report Preview", clsFunction.IconType.iError);
+                            break;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    dbFile.WriteAPILog(2, "ReportPreview, ReportID=" + clsSearch.ClassReportID + "\n" + "Error " + ex.Message);
+                    MessageBox.Show(ex.Message, "Report ID " + dbFunction.AddBracketStartEnd(clsSearch.ClassReportID.ToString()) + ",Report " + dbFunction.AddBracketStartEnd(clsSearch.ClassReportDescription), MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+
+                initButton();
+
+                initTabButton(this, e);
                 
             }
             catch (Exception ex)
             {
-                dbFile.WriteAPILog(2, "ReportPreview, ReportID=" + clsSearch.ClassReportID + "\n" + "Error " + ex.Message);
-                MessageBox.Show(ex.Message, "Report ID " + dbFunction.AddBracketStartEnd(clsSearch.ClassReportID.ToString()) + ",Report " + dbFunction.AddBracketStartEnd(clsSearch.ClassReportDescription), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+                dbFunction.SetMessageBox($"Unable to preview report:\n\n{ex.Message}", "ReportViewer", IconType.iError);
             }
 
-            initButton();
-
-            initTabButton(this, e);
-            
             Cursor.Current = Cursors.Default;
         }
 
@@ -825,13 +835,13 @@ namespace MIS
             }
             
         }
-        
+
         private void FieldServiceReport()
         {
             string ReportPath = "";
             string reportFullPath = "";
-            
-            ReportPath = GetReportPath();        
+
+            ReportPath = GetReportPath();
             reportFullPath = Path.Combine(ReportPath, "rptEFSRv2.rpt");
             Debug.WriteLine("reportFullPath=" + reportFullPath);
 
@@ -841,16 +851,16 @@ namespace MIS
                 return;
             }
 
-           try
+            try
             {
 
                 DataSet dsReport = dbConnect.GetReportWithStoredProcedure(clsSearch.ClassReportID, clsSearch.ClassStatementType, clsSearch.ClassSearchBy, clsSearch.ClassSearchValue, clsSearch.ClassStoredProcedureName, lvwList);
                 rptEFSRv2 rptViewer = new rptEFSRv2();
 
                 if (!isValidReportDataSet(dsReport, reportFullPath)) return;
-                
+
                 rptViewer.Load(reportFullPath);
-                
+
                 rptViewer.SetDataSource(dsReport.Tables[0]);
 
                 SetReceiptReportHeader(rptViewer);
@@ -868,17 +878,17 @@ namespace MIS
                 }
                 else
                 {
-                    myViewer.ReportSource = rptViewer;                    
+                    myViewer.ReportSource = rptViewer;
                     myViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None; // hide toggle tree view
                 }
-                
-            }            
+
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n" + "[" + reportFullPath + "]", "Report could not be created",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);                
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
 
         private void SetFSRWithTAReceiptUser(ReportClass rptViewer)
@@ -2939,16 +2949,16 @@ namespace MIS
             }
         }
 
-        private void ReportExport(ReportClass rptViewer,  string pPDFExportFileName)
+        private void ReportExport(ReportClass rptViewer, string pPDFExportFileName)
         {
             pPDFExportFileName = pPDFExportFileName + ".pdf";
             Debug.WriteLine("--ReportExport--");
-            Debug.WriteLine("pReportFileName="+ pPDFExportFileName);
+            Debug.WriteLine("pReportFileName=" + pPDFExportFileName);
 
             dbFile.DeleteFile(dbFile.sExportPath + pPDFExportFileName);
 
             rptViewer.ExportToDisk(ExportFormatType.PortableDocFormat, dbFile.sExportPath + pPDFExportFileName);
-            
+
         }
 
         void POSRentalReport()
@@ -4210,29 +4220,38 @@ namespace MIS
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            myViewer.Visible = lvwList.Visible = false;
-            btnExport.Enabled = false;
-
-            if (isReportView)
+            try
             {
-                ucStatusDisplay.SetStatus($"Preparing report view {clsSearch.ClassReportDescription}", Enums.StatusType.Processing);
-                Task.Delay(500); // Asynchronously wait without blocking UI
+                myViewer.Visible = lvwList.Visible = false;
+                btnExport.Enabled = false;
 
-                myViewer.Visible = true;
-                myViewer.Dock = DockStyle.Fill;
+                if (isReportView)
+                {
+                    ucStatusDisplay.SetStatus($"Preparing report view {clsSearch.ClassReportDescription}", Enums.StatusType.Processing);
+                    Task.Delay(500); // Asynchronously wait without blocking UI
+
+                    myViewer.Visible = true;
+                    myViewer.Dock = DockStyle.Fill;
+                }
+                else
+                {
+                    ucStatusDisplay.SetStatus($"Exporting report list view {clsSearch.ClassReportDescription}", Enums.StatusType.Processing);
+                    Task.Delay(500); // Asynchronously wait without blocking UI
+
+                    lvwList.Visible = true;
+                    lvwList.Dock = DockStyle.Fill;
+                    btnExport.Enabled = true;
+                }
+
+                lblRecordCount.Text = "RECORD COUNT: " + (clsGlobalVariables.globalDataTable != null ? clsGlobalVariables.globalDataTable.Rows.Count.ToString() : clsFunction.sZero);                
             }
-            else
+            catch (Exception ex)
             {
-                ucStatusDisplay.SetStatus($"Exporting report list view {clsSearch.ClassReportDescription}", Enums.StatusType.Processing);
-                Task.Delay(500); // Asynchronously wait without blocking UI
-
-                lvwList.Visible = true;
-                lvwList.Dock = DockStyle.Fill;
-                btnExport.Enabled = true;
+                dbFunction.SetMessageBox($"Unable to initialize report:\n\n{ex.Message}", "initReport", IconType.iError);
             }
 
-            lblRecordCount.Text = "RECORD COUNT: " + (clsGlobalVariables.globalDataTable!=null ? clsGlobalVariables.globalDataTable.Rows.Count.ToString() : clsFunction.sZero);
             Cursor.Current = Cursors.Default;
+
         }
 
         private void btnReportView_Click(object sender, EventArgs e)
@@ -4845,12 +4864,16 @@ namespace MIS
                     myViewer.ReportSource = rptViewer;
                     myViewer.Refresh();
                     myViewer.ReportSource = null;
+
+                    clsGlobalVariables.isReportWarmUp = true;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + "\n[" + reportFullPath + "]",
                     "Report could not be created", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                clsGlobalVariables.isReportWarmUp = false;
             }
 
             Cursor.Current = Cursors.Default;

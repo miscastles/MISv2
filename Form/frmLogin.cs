@@ -255,6 +255,7 @@ namespace MIS
 
                     clsSearch.ClassStatus = clsGlobalVariables.LOGIN_STATUS;
                     clsSearch.ClassStatusDescription = clsGlobalVariables.LOGIN_STATUS_DESC;
+                    clsGlobalVariables.isReportWarmUp = false;
 
                     if (IsSwitchBankMode)
                     {

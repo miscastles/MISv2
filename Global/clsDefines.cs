@@ -579,6 +579,7 @@ namespace MIS
         public const string TAG_HD_AppCrc = "AppCrc";
         public const string TAG_HD_ProblemID = "ProblemID";
         public const string TAG_HD_TicketStatus = "TicketStatus";
+        public const string TAG_HD_IssueCategory = "IssueCategory";
 
         // Helpdesk Master
         public const string TAG_HD_ID = "ID";

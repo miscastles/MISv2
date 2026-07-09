@@ -552,6 +552,8 @@ namespace MIS
             
             try
             {
+                if (!validateImportData()) return;
+
                 SaveTerminalMaster();
 
                 SaveTerminalImportDetail();
@@ -2456,6 +2458,13 @@ namespace MIS
             }
             else
             {
+                // check SN already exist
+                if (dbAPI.isRecordExist("Search", "SerialNo Check", dbFunction.CheckAndSetStringValue(txtTerminalSN.Text)))
+                {
+                    dbFunction.SetMessageBox($"Serial Number [{txtTerminalSN.Text}] already exists.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return;
+                }
+
                 isProceed = true;
             }
 
@@ -4768,6 +4777,162 @@ namespace MIS
 
             cboMClient.Enabled = true;
             cboMClient.SelectedIndex = 1;
+        }
+
+        private bool validateImportData()
+        {
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                string serialNo = Convert.ToString(row.Cells[1].Value).Trim();
+                string type = Convert.ToString(row.Cells[3].Value).Trim();
+                string model = Convert.ToString(row.Cells[4].Value).Trim();
+                string brand = Convert.ToString(row.Cells[5].Value).Trim();
+                string location = Convert.ToString(row.Cells[8].Value).Trim();
+                string status = Convert.ToString(row.Cells[11].Value).Trim();
+                string assetType = Convert.ToString(row.Cells[13].Value).Trim();
+
+                Debug.WriteLine($"serialNo=[{serialNo}]");
+                Debug.WriteLine($"type=[{type}]");
+                Debug.WriteLine($"model=[{model}]");
+                Debug.WriteLine($"brand=[{brand}]");
+                Debug.WriteLine($"location=[{location}]");
+                Debug.WriteLine($"status=[{status}]");
+                Debug.WriteLine($"assetType=[{assetType}]");
+
+                // Required Fields
+                if (string.IsNullOrWhiteSpace(serialNo))
+                {
+                    dbFunction.SetMessageBox(
+                        "Serial Number must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(type))
+                {
+                    dbFunction.SetMessageBox(
+                        "Type must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(model))
+                {
+                    dbFunction.SetMessageBox(
+                        "Model must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(brand))
+                {
+                    dbFunction.SetMessageBox(
+                        "Brand must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(location))
+                {
+                    dbFunction.SetMessageBox(
+                        "Location must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(status))
+                {
+                    dbFunction.SetMessageBox(
+                        "Status must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(assetType))
+                {
+                    dbFunction.SetMessageBox(
+                        "Asset Type must not be blank.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                // Duplicate Serial Number
+                if (dbAPI.isRecordExist("Search", "SerialNo Check", serialNo))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Serial Number [{serialNo}] already exists.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                // Reference Validation
+                if (!dbAPI.isRecordExist("Search", "Terminal Type", type))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Type [{type}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "Terminal Model", model))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Model [{model}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "Terminal Brand", brand))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Brand [{brand}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "Location", location))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Location [{location}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "Terminal Status", status))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Status [{status}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "Asset Type", assetType))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Asset Type [{assetType}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

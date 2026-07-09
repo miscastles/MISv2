@@ -1081,23 +1081,48 @@ namespace MIS
             
             string sReqTime = dbFunction.GetDateFromParse(dteReqTime.Text, "h:mm:ss tt", "HH:mm:ss");
 
-            // Current Terminal SN
+            // checking SN's if dispatch
             if (isDispatch)
             {
-                if (!dbFunction.isValidDescription(txtCurTerminalSN.Text) || !dbFunction.isValidDescription(txtCurSIMSN.Text))
+                if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                 {
-                    dbFunction.SetMessageBox(
-                        "Terminal Serial Number and SIM Serial Number\n\n" +
-                        "must be populated when Dispatch is checked.",
-                        clsDefines.FIELD_CHECK_MSG,
-                        clsFunction.IconType.iExclamation
-                    );
+                    // Replacement Terminal/SIM (at least one is required)
+                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalID, txtRepTerminalID.Text) &&
+                        !dbFunction.isValidEntry(clsFunction.CheckType.iSIMID, txtRepSIMID.Text))
+                    {
+                        dbFunction.SetMessageBox(
+                            "Either the Replacement Terminal Serial Number or Replacement SIM Serial Number must be filled.",
+                            cboSearchServiceType.Text,
+                            clsFunction.IconType.iExclamation);
 
-                    return false;
+                        return false;
+                    }                    
                 }
+                else
+                { 
+                    // Current Terminal (mandatory)
+                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalID, txtCurTerminalID.Text))
+                    {
+                        dbFunction.SetMessageBox(
+                            "Current Terminal Serial Number is mandatory.",
+                            cboSearchServiceType.Text,
+                            clsFunction.IconType.iExclamation);
 
-                if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalID, txtCurTerminalID.Text)) return false;
-                if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurTerminalSN, txtCurTerminalSN.Text)) return false;
+                        return false;
+                    }
+
+                    // Current Terminal or SIM (optional only if this business rule is still needed)
+                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalID, txtCurTerminalID.Text) ||
+                        !dbFunction.isValidEntry(clsFunction.CheckType.iSIMID, txtCurSIMID.Text))
+                    {
+                        dbFunction.SetMessageBox(
+                            "Either the Current Terminal Serial Number or Current SIM Serial Number must be filled.",
+                            cboSearchServiceType.Text,
+                            clsFunction.IconType.iExclamation);
+
+                        return false;
+                    }
+                }
             }
 
             // Service Result

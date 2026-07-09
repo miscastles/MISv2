@@ -1601,18 +1601,34 @@ namespace MIS
             Debug.WriteLine("clsReport.ClassReportDesc=" + clsReport.ClassReportDesc);
             Debug.WriteLine("clsSearch.ClassIsExportToPDF=" + clsSearch.ClassIsExportToPDF);
 
-            frmReportViewer.sReportToView = clsReport.ClassReportDesc;
-            frmReportViewer.sReportID = clsSearch.ClassReportID;
-            frmReportViewer frm = new frmReportViewer();
+            Debug.WriteLine("clsSearch.ClassReportID=" + clsSearch.ClassReportID);
+            Debug.WriteLine("clsSearch.ClassStatementType=" + clsSearch.ClassStatementType);
+            Debug.WriteLine("clsSearch.ClassSearchBy=" + clsSearch.ClassSearchBy);
+            Debug.WriteLine("clsSearch.ClassSearchValue=" + clsSearch.ClassSearchValue);
+            Debug.WriteLine("clsSearch.ClassStoredProcedureName=" + clsSearch.ClassStoredProcedureName);
 
-            // Do not show preview when auto export to pdf file
-            if (clsSearch.ClassIsExportToPDF)
+            Debug.WriteLine($"CALL {clsSearch.ClassStoredProcedureName}({AddDoubleQuoteStartEnd(clsSearch.ClassStatementType)}, {AddDoubleQuoteStartEnd(clsSearch.ClassSearchBy)}, {AddDoubleQuoteStartEnd(clsSearch.ClassSearchValue)})");
+
+            try
             {
-                frm.Size = new Size(0, 0);
-                frm.WindowState = FormWindowState.Normal;
-            }
+                frmReportViewer.sReportToView = clsReport.ClassReportDesc;
+                frmReportViewer.sReportID = clsSearch.ClassReportID;
+                frmReportViewer frm = new frmReportViewer();
 
-            frm.Show();
+                // Do not show preview when auto export to pdf file
+                if (clsSearch.ClassIsExportToPDF)
+                {
+                    frm.Size = new Size(0, 0);
+                    frm.WindowState = FormWindowState.Normal;
+                }
+
+                frm.Show();
+            }
+            catch (Exception ex)
+            {
+                SetMessageBox($"Unable to generate report:\n\n{ex.Message}", "ProcessReport", IconType.iError);
+            }
+            
         }
 
         public string FormatDate(string sFromFormat, string sToFormat, string sDate)
@@ -5055,6 +5071,15 @@ namespace MIS
             return pOutput;
         }
 
+        public string AddDoubleQuoteStartEnd(string pString)
+        {
+            string pOutput = "";
+
+            pOutput = $"\"{pString}\""; ;
+
+            return pOutput;
+        }
+
         public byte[] streamToByteArray(Stream input)
         {
             MemoryStream ms = new MemoryStream();
@@ -6915,8 +6940,7 @@ namespace MIS
             }
 
             return sb.ToString();
-        }
-
+        }        
     }
 
 }
