@@ -989,6 +989,7 @@
     <Compile Include="Model\modelStock.cs" />
     <Compile Include="Model\modelZoning.cs" />
     <Compile Include="Model\ReportInfo.cs" />
+    <Compile Include="Model\SystemInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\rptActiveDetailTerminal.cs">

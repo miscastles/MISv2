@@ -1,5 +1,7 @@
-﻿using MIS.Controller;
+﻿using CrystalDecisions.Shared.Json;
+using MIS.Controller;
 using MIS.Enums;
+using MIS.Function;
 using MIS.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -12644,6 +12646,51 @@ namespace MIS
             }
 
             return isValid;
+        }
+
+        public bool validateSystemClock()
+        {
+            string json = getInfoDetailJSON("Search", "System Info", "");
+
+            dbFunction.parseDelimitedString(json, clsDefines.gComma, 0);
+
+            SystemInfo info = JsonConvert.DeserializeObject<SystemInfo>(json);
+
+            Debug.WriteLine($"Server : {info.ServerDateTime}");
+            Debug.WriteLine($"Local  : {info.LocalDateTime}");
+            Debug.WriteLine($"Diff   : {info.ClockDifference.TotalSeconds} seconds");
+            Debug.WriteLine($"Clock Sync : {info.IsClockSynchronized}");
+            Debug.WriteLine($"Server TZ  : {info.ServerTimeZone}");
+            Debug.WriteLine($"Local TZ   : {info.LocalTimeZone}");
+
+            if (!info.IsClockSynchronized)
+            {
+                string pDescription =
+                    "Your computer's date and time are not synchronized with the server.\n\n" +
+                    $"Server Date/Time : {info.ServerDateTime:yyyy-MM-dd hh:mm:ss tt}\n" +
+                    $"PC Date/Time     : {info.LocalDateTime:yyyy-MM-dd hh:mm:ss tt}\n" +
+                    $"Time Difference  : {Math.Abs(info.ClockDifference.TotalMinutes):N1} minute(s)";
+
+                if (!info.IsTimeZoneSynchronized)
+                {
+                    pDescription +=
+                        "\n\nTime Zone Mismatch:" +
+                        $"\nServer Time Zone : {info.ServerTimeZone}" +
+                        $"\nPC Time Zone     : {info.LocalTimeZone}";
+                }
+
+                pDescription +=
+                    "\n\nPlease correct your computer's date, time, or time zone settings before continuing.";
+
+                dbFunction.SetMessageBox(
+                    pDescription,
+                    "System Clock Validation",
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            return true;
         }
 
     }
