@@ -2453,6 +2453,23 @@ namespace MIS
 
                     }
 
+                    if (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                    {
+                        if (dbAPI.isRecordExist("Search", "TerminalID Active Installed", txtTerminalID.Text))
+                        {
+                            dbFunction.SetMessageBox(
+                                "TerminalSN " + dbFunction.AddBracketStartEnd(txtTerminalSN.Text) +
+                                "\n\nThis Terminal is still actively installed and cannot be set to " + cboMStatus.Text,
+                                "Update failed",
+                                clsFunction.IconType.iError
+                            );
+
+                            return;
+                        }
+
+                        isProceed = true;
+                    }
+
                 }
 
             }
