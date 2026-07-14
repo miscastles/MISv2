@@ -1711,6 +1711,19 @@ namespace MIS
                         isProceed = true;
                     }
 
+                    if (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                    {
+                        dbFunction.SetMessageBox(
+                            "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                            "\n\nThis SIM is set to " + dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) +
+                            " and cannot be set to " + cboMStatus.Text,
+                            "Update failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
                     if (dbAPI.isRecordExist("Search", "SIMSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtSIMID.Text))
                     {
                         if (iHoldStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))

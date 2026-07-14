@@ -2441,6 +2441,19 @@ namespace MIS
                         isProceed = true;
                     }
 
+                    if (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                    {
+                        dbFunction.SetMessageBox(
+                            "TerminalSN " + dbFunction.AddBracketStartEnd(txtTerminalSN.Text) +
+                            "\n\nThis Terminal is set to " + dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) +
+                            " and cannot be set to " + cboMStatus.Text,
+                            "Update failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
                     if (dbAPI.isRecordExist("Search", "TerminalSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtTerminalID.Text))
                     {
                         if (iHoldStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))
