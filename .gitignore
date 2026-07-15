@@ -13,3 +13,10 @@ bin/
 
 # Visual Studio cache/options directory
 .vs/
+
+# NuGet packages
+packages/
+*.nupkg
+
+# User-specific project files
+*.csproj.user
