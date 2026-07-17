@@ -264,14 +264,27 @@
             this.label146 = new System.Windows.Forms.Label();
             this.txtMobileTerminalID = new System.Windows.Forms.TextBox();
             this.panel11 = new System.Windows.Forms.Panel();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPage26 = new System.Windows.Forms.TabPage();
+            this.panel230 = new System.Windows.Forms.Panel();
             this.label73 = new System.Windows.Forms.Label();
-            this.label129 = new System.Windows.Forms.Label();
-            this.txtProcessedDate = new System.Windows.Forms.TextBox();
-            this.txtProcessedBy = new System.Windows.Forms.TextBox();
-            this.label120 = new System.Windows.Forms.Label();
-            this.txtDispatchBy = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.txtProcessedBy = new System.Windows.Forms.TextBox();
+            this.label129 = new System.Windows.Forms.Label();
             this.txtDispatchDate = new System.Windows.Forms.TextBox();
+            this.txtProcessedDate = new System.Windows.Forms.TextBox();
+            this.txtDispatchBy = new System.Windows.Forms.TextBox();
+            this.label120 = new System.Windows.Forms.Label();
+            this.tabPage27 = new System.Windows.Forms.TabPage();
+            this.panel231 = new System.Windows.Forms.Panel();
+            this.txtFsrServicedDate = new System.Windows.Forms.TextBox();
+            this.label180 = new System.Windows.Forms.Label();
+            this.txtFsrServicedBy = new System.Windows.Forms.TextBox();
+            this.label181 = new System.Windows.Forms.Label();
+            this.txtSvcTicketDate = new System.Windows.Forms.TextBox();
+            this.label74 = new System.Windows.Forms.Label();
+            this.txtSvcTicketBy = new System.Windows.Forms.TextBox();
+            this.label179 = new System.Windows.Forms.Label();
             this.panel191 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panel192 = new System.Windows.Forms.Panel();
@@ -455,19 +468,19 @@
             this.panel229 = new System.Windows.Forms.Panel();
             this.tabFillUp = new System.Windows.Forms.TabControl();
             this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.txtHelpDeskRemarks = new System.Windows.Forms.TextBox();
-            this.label149 = new System.Windows.Forms.Label();
-            this.txtRemarks = new System.Windows.Forms.TextBox();
-            this.label106 = new System.Windows.Forms.Label();
             this.panel90 = new System.Windows.Forms.Panel();
             this.panel91 = new System.Windows.Forms.Panel();
+            this.txtHelpDeskRemarks = new System.Windows.Forms.TextBox();
             this.txtHelpDeskActionMade = new System.Windows.Forms.TextBox();
+            this.txtRemarks = new System.Windows.Forms.TextBox();
+            this.label149 = new System.Windows.Forms.Label();
             this.label153 = new System.Windows.Forms.Label();
             this.txtHelpDeskActualProblemFound = new System.Windows.Forms.TextBox();
             this.label150 = new System.Windows.Forms.Label();
             this.txtProbReported = new System.Windows.Forms.TextBox();
             this.txtRMInstruction = new System.Windows.Forms.TextBox();
             this.panel105 = new System.Windows.Forms.Panel();
+            this.label106 = new System.Windows.Forms.Label();
             this.label111 = new System.Windows.Forms.Label();
             this.label70 = new System.Windows.Forms.Label();
             this.panel106 = new System.Windows.Forms.Panel();
@@ -735,6 +748,10 @@
             this.tabPage23 = new System.Windows.Forms.TabPage();
             this.lvwRaw = new System.Windows.Forms.ListView();
             this.tabPage19 = new System.Windows.Forms.TabPage();
+            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
+            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
+            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
+            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.panel168 = new System.Windows.Forms.Panel();
             this.panel196 = new System.Windows.Forms.Panel();
             this.panel208 = new System.Windows.Forms.Panel();
@@ -803,23 +820,6 @@
             this.txtSearchSTServiceJobTypeDescription = new System.Windows.Forms.TextBox();
             this.panel53 = new System.Windows.Forms.Panel();
             this.btnTASearch = new Bunifu.Framework.UI.BunifuImageButton();
-            this.tabControl3 = new System.Windows.Forms.TabControl();
-            this.tabPage26 = new System.Windows.Forms.TabPage();
-            this.panel230 = new System.Windows.Forms.Panel();
-            this.tabPage27 = new System.Windows.Forms.TabPage();
-            this.panel231 = new System.Windows.Forms.Panel();
-            this.txtFsrServicedDate = new System.Windows.Forms.TextBox();
-            this.label180 = new System.Windows.Forms.Label();
-            this.txtFsrServicedBy = new System.Windows.Forms.TextBox();
-            this.label181 = new System.Windows.Forms.Label();
-            this.txtSvcTicketDate = new System.Windows.Forms.TextBox();
-            this.label74 = new System.Windows.Forms.Label();
-            this.txtSvcTicketBy = new System.Windows.Forms.TextBox();
-            this.label179 = new System.Windows.Forms.Label();
-            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
-            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
-            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
-            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -856,6 +856,11 @@
             this.panel172.SuspendLayout();
             this.tabPage7.SuspendLayout();
             this.panel11.SuspendLayout();
+            this.tabControl3.SuspendLayout();
+            this.tabPage26.SuspendLayout();
+            this.panel230.SuspendLayout();
+            this.tabPage27.SuspendLayout();
+            this.panel231.SuspendLayout();
             this.panel191.SuspendLayout();
             this.panel179.SuspendLayout();
             this.panel180.SuspendLayout();
@@ -1031,11 +1036,6 @@
             this.panel6.SuspendLayout();
             this.panel53.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).BeginInit();
-            this.tabControl3.SuspendLayout();
-            this.tabPage26.SuspendLayout();
-            this.panel230.SuspendLayout();
-            this.tabPage27.SuspendLayout();
-            this.panel231.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -4069,6 +4069,49 @@
             this.panel11.Size = new System.Drawing.Size(410, 111);
             this.panel11.TabIndex = 491;
             // 
+            // tabControl3
+            // 
+            this.tabControl3.Appearance = System.Windows.Forms.TabAppearance.Buttons;
+            this.tabControl3.Controls.Add(this.tabPage26);
+            this.tabControl3.Controls.Add(this.tabPage27);
+            this.tabControl3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl3.Location = new System.Drawing.Point(-2, 26);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(414, 85);
+            this.tabControl3.TabIndex = 498;
+            // 
+            // tabPage26
+            // 
+            this.tabPage26.Controls.Add(this.panel230);
+            this.tabPage26.ForeColor = System.Drawing.Color.Black;
+            this.tabPage26.Location = new System.Drawing.Point(4, 27);
+            this.tabPage26.Name = "tabPage26";
+            this.tabPage26.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage26.Size = new System.Drawing.Size(406, 54);
+            this.tabPage26.TabIndex = 3;
+            this.tabPage26.Text = "JOB ORDER";
+            this.tabPage26.UseVisualStyleBackColor = true;
+            // 
+            // panel230
+            // 
+            this.panel230.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel230.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel230.Controls.Add(this.label73);
+            this.panel230.Controls.Add(this.label14);
+            this.panel230.Controls.Add(this.txtProcessedBy);
+            this.panel230.Controls.Add(this.label129);
+            this.panel230.Controls.Add(this.txtDispatchDate);
+            this.panel230.Controls.Add(this.txtProcessedDate);
+            this.panel230.Controls.Add(this.txtDispatchBy);
+            this.panel230.Controls.Add(this.label120);
+            this.panel230.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel230.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel230.Location = new System.Drawing.Point(3, 3);
+            this.panel230.Name = "panel230";
+            this.panel230.Size = new System.Drawing.Size(400, 48);
+            this.panel230.TabIndex = 474;
+            // 
             // label73
             // 
             this.label73.AutoSize = true;
@@ -4079,27 +4122,15 @@
             this.label73.TabIndex = 440;
             this.label73.Text = "DATE";
             // 
-            // label129
+            // label14
             // 
-            this.label129.AutoSize = true;
-            this.label129.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label129.Location = new System.Drawing.Point(2, 5);
-            this.label129.Name = "label129";
-            this.label129.Size = new System.Drawing.Size(98, 14);
-            this.label129.TabIndex = 439;
-            this.label129.Text = "PROCESSSED BY";
-            // 
-            // txtProcessedDate
-            // 
-            this.txtProcessedDate.BackColor = System.Drawing.Color.White;
-            this.txtProcessedDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtProcessedDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtProcessedDate.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtProcessedDate.Location = new System.Drawing.Point(316, 3);
-            this.txtProcessedDate.Name = "txtProcessedDate";
-            this.txtProcessedDate.ReadOnly = true;
-            this.txtProcessedDate.Size = new System.Drawing.Size(81, 20);
-            this.txtProcessedDate.TabIndex = 438;
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(279, 26);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(35, 14);
+            this.label14.TabIndex = 388;
+            this.label14.Text = "DATE";
             // 
             // txtProcessedBy
             // 
@@ -4113,15 +4144,40 @@
             this.txtProcessedBy.Size = new System.Drawing.Size(171, 20);
             this.txtProcessedBy.TabIndex = 437;
             // 
-            // label120
+            // label129
             // 
-            this.label120.AutoSize = true;
-            this.label120.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label120.Location = new System.Drawing.Point(2, 26);
-            this.label120.Name = "label120";
-            this.label120.Size = new System.Drawing.Size(98, 14);
-            this.label120.TabIndex = 392;
-            this.label120.Text = "DISPATCHED BY";
+            this.label129.AutoSize = true;
+            this.label129.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label129.Location = new System.Drawing.Point(2, 5);
+            this.label129.Name = "label129";
+            this.label129.Size = new System.Drawing.Size(98, 14);
+            this.label129.TabIndex = 439;
+            this.label129.Text = "PROCESSSED BY";
+            // 
+            // txtDispatchDate
+            // 
+            this.txtDispatchDate.BackColor = System.Drawing.Color.White;
+            this.txtDispatchDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDispatchDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDispatchDate.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDispatchDate.ForeColor = System.Drawing.Color.Black;
+            this.txtDispatchDate.Location = new System.Drawing.Point(316, 24);
+            this.txtDispatchDate.Name = "txtDispatchDate";
+            this.txtDispatchDate.ReadOnly = true;
+            this.txtDispatchDate.Size = new System.Drawing.Size(81, 20);
+            this.txtDispatchDate.TabIndex = 389;
+            // 
+            // txtProcessedDate
+            // 
+            this.txtProcessedDate.BackColor = System.Drawing.Color.White;
+            this.txtProcessedDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtProcessedDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtProcessedDate.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtProcessedDate.Location = new System.Drawing.Point(316, 3);
+            this.txtProcessedDate.Name = "txtProcessedDate";
+            this.txtProcessedDate.ReadOnly = true;
+            this.txtProcessedDate.Size = new System.Drawing.Size(81, 20);
+            this.txtProcessedDate.TabIndex = 438;
             // 
             // txtDispatchBy
             // 
@@ -4136,28 +4192,134 @@
             this.txtDispatchBy.Size = new System.Drawing.Size(171, 20);
             this.txtDispatchBy.TabIndex = 393;
             // 
-            // label14
+            // label120
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(279, 26);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(35, 14);
-            this.label14.TabIndex = 388;
-            this.label14.Text = "DATE";
+            this.label120.AutoSize = true;
+            this.label120.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label120.Location = new System.Drawing.Point(2, 26);
+            this.label120.Name = "label120";
+            this.label120.Size = new System.Drawing.Size(98, 14);
+            this.label120.TabIndex = 392;
+            this.label120.Text = "DISPATCHED BY";
             // 
-            // txtDispatchDate
+            // tabPage27
             // 
-            this.txtDispatchDate.BackColor = System.Drawing.Color.White;
-            this.txtDispatchDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDispatchDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDispatchDate.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDispatchDate.ForeColor = System.Drawing.Color.Black;
-            this.txtDispatchDate.Location = new System.Drawing.Point(316, 24);
-            this.txtDispatchDate.Name = "txtDispatchDate";
-            this.txtDispatchDate.ReadOnly = true;
-            this.txtDispatchDate.Size = new System.Drawing.Size(81, 20);
-            this.txtDispatchDate.TabIndex = 389;
+            this.tabPage27.Controls.Add(this.panel231);
+            this.tabPage27.ForeColor = System.Drawing.Color.Black;
+            this.tabPage27.Location = new System.Drawing.Point(4, 27);
+            this.tabPage27.Name = "tabPage27";
+            this.tabPage27.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage27.Size = new System.Drawing.Size(406, 54);
+            this.tabPage27.TabIndex = 2;
+            this.tabPage27.Text = "FSR";
+            this.tabPage27.UseVisualStyleBackColor = true;
+            // 
+            // panel231
+            // 
+            this.panel231.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel231.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel231.Controls.Add(this.txtFsrServicedDate);
+            this.panel231.Controls.Add(this.label180);
+            this.panel231.Controls.Add(this.txtFsrServicedBy);
+            this.panel231.Controls.Add(this.label181);
+            this.panel231.Controls.Add(this.txtSvcTicketDate);
+            this.panel231.Controls.Add(this.label74);
+            this.panel231.Controls.Add(this.txtSvcTicketBy);
+            this.panel231.Controls.Add(this.label179);
+            this.panel231.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel231.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel231.Location = new System.Drawing.Point(3, 3);
+            this.panel231.Name = "panel231";
+            this.panel231.Size = new System.Drawing.Size(400, 48);
+            this.panel231.TabIndex = 474;
+            // 
+            // txtFsrServicedDate
+            // 
+            this.txtFsrServicedDate.BackColor = System.Drawing.Color.White;
+            this.txtFsrServicedDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFsrServicedDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFsrServicedDate.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtFsrServicedDate.Location = new System.Drawing.Point(315, 2);
+            this.txtFsrServicedDate.Name = "txtFsrServicedDate";
+            this.txtFsrServicedDate.ReadOnly = true;
+            this.txtFsrServicedDate.Size = new System.Drawing.Size(82, 20);
+            this.txtFsrServicedDate.TabIndex = 458;
+            // 
+            // label180
+            // 
+            this.label180.AutoSize = true;
+            this.label180.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label180.Location = new System.Drawing.Point(279, 4);
+            this.label180.Name = "label180";
+            this.label180.Size = new System.Drawing.Size(35, 14);
+            this.label180.TabIndex = 457;
+            this.label180.Text = "DATE";
+            // 
+            // txtFsrServicedBy
+            // 
+            this.txtFsrServicedBy.BackColor = System.Drawing.Color.White;
+            this.txtFsrServicedBy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFsrServicedBy.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFsrServicedBy.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtFsrServicedBy.Location = new System.Drawing.Point(115, 2);
+            this.txtFsrServicedBy.Name = "txtFsrServicedBy";
+            this.txtFsrServicedBy.ReadOnly = true;
+            this.txtFsrServicedBy.Size = new System.Drawing.Size(164, 20);
+            this.txtFsrServicedBy.TabIndex = 456;
+            // 
+            // label181
+            // 
+            this.label181.AutoSize = true;
+            this.label181.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label181.Location = new System.Drawing.Point(1, 6);
+            this.label181.Name = "label181";
+            this.label181.Size = new System.Drawing.Size(84, 14);
+            this.label181.TabIndex = 455;
+            this.label181.Text = "SERVICED BY";
+            // 
+            // txtSvcTicketDate
+            // 
+            this.txtSvcTicketDate.BackColor = System.Drawing.Color.White;
+            this.txtSvcTicketDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSvcTicketDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSvcTicketDate.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtSvcTicketDate.Location = new System.Drawing.Point(315, 23);
+            this.txtSvcTicketDate.Name = "txtSvcTicketDate";
+            this.txtSvcTicketDate.ReadOnly = true;
+            this.txtSvcTicketDate.Size = new System.Drawing.Size(82, 20);
+            this.txtSvcTicketDate.TabIndex = 454;
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label74.Location = new System.Drawing.Point(279, 27);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(35, 14);
+            this.label74.TabIndex = 453;
+            this.label74.Text = "DATE";
+            // 
+            // txtSvcTicketBy
+            // 
+            this.txtSvcTicketBy.BackColor = System.Drawing.Color.White;
+            this.txtSvcTicketBy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSvcTicketBy.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSvcTicketBy.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtSvcTicketBy.Location = new System.Drawing.Point(115, 23);
+            this.txtSvcTicketBy.Name = "txtSvcTicketBy";
+            this.txtSvcTicketBy.ReadOnly = true;
+            this.txtSvcTicketBy.Size = new System.Drawing.Size(164, 20);
+            this.txtSvcTicketBy.TabIndex = 452;
+            // 
+            // label179
+            // 
+            this.label179.AutoSize = true;
+            this.label179.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label179.Location = new System.Drawing.Point(1, 27);
+            this.label179.Name = "label179";
+            this.label179.Size = new System.Drawing.Size(112, 14);
+            this.label179.TabIndex = 451;
+            this.label179.Text = "CLOSE TICKET BY";
             // 
             // panel191
             // 
@@ -6309,59 +6471,6 @@
             this.tabPage9.TabIndex = 0;
             this.tabPage9.Text = "PROBLEM REPORTED / RM INSTRUCTIONS / REMARKS";
             // 
-            // txtHelpDeskRemarks
-            // 
-            this.txtHelpDeskRemarks.BackColor = System.Drawing.Color.White;
-            this.txtHelpDeskRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtHelpDeskRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtHelpDeskRemarks.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHelpDeskRemarks.Location = new System.Drawing.Point(635, 77);
-            this.txtHelpDeskRemarks.MaxLength = 1000;
-            this.txtHelpDeskRemarks.Multiline = true;
-            this.txtHelpDeskRemarks.Name = "txtHelpDeskRemarks";
-            this.txtHelpDeskRemarks.ReadOnly = true;
-            this.txtHelpDeskRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtHelpDeskRemarks.Size = new System.Drawing.Size(310, 70);
-            this.txtHelpDeskRemarks.TabIndex = 312;
-            // 
-            // label149
-            // 
-            this.label149.AutoSize = true;
-            this.label149.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
-            this.label149.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label149.ForeColor = System.Drawing.Color.Red;
-            this.label149.Location = new System.Drawing.Point(633, 60);
-            this.label149.Name = "label149";
-            this.label149.Size = new System.Drawing.Size(122, 15);
-            this.label149.TabIndex = 311;
-            this.label149.Text = "REMARKS (HELPDESK)";
-            // 
-            // txtRemarks
-            // 
-            this.txtRemarks.BackColor = System.Drawing.Color.White;
-            this.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtRemarks.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRemarks.Location = new System.Drawing.Point(635, 2);
-            this.txtRemarks.MaxLength = 1000;
-            this.txtRemarks.Multiline = true;
-            this.txtRemarks.Name = "txtRemarks";
-            this.txtRemarks.ReadOnly = true;
-            this.txtRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRemarks.Size = new System.Drawing.Size(310, 56);
-            this.txtRemarks.TabIndex = 8;
-            // 
-            // label106
-            // 
-            this.label106.AutoSize = true;
-            this.label106.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label106.ForeColor = System.Drawing.Color.Black;
-            this.label106.Location = new System.Drawing.Point(632, 6);
-            this.label106.Name = "label106";
-            this.label106.Size = new System.Drawing.Size(130, 15);
-            this.label106.TabIndex = 310;
-            this.label106.Text = "REMARKS (JOB ORDER)";
-            // 
             // panel90
             // 
             this.panel90.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -6390,6 +6499,21 @@
             this.panel91.Size = new System.Drawing.Size(946, 151);
             this.panel91.TabIndex = 312;
             // 
+            // txtHelpDeskRemarks
+            // 
+            this.txtHelpDeskRemarks.BackColor = System.Drawing.Color.White;
+            this.txtHelpDeskRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHelpDeskRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtHelpDeskRemarks.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHelpDeskRemarks.Location = new System.Drawing.Point(635, 77);
+            this.txtHelpDeskRemarks.MaxLength = 1000;
+            this.txtHelpDeskRemarks.Multiline = true;
+            this.txtHelpDeskRemarks.Name = "txtHelpDeskRemarks";
+            this.txtHelpDeskRemarks.ReadOnly = true;
+            this.txtHelpDeskRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtHelpDeskRemarks.Size = new System.Drawing.Size(310, 70);
+            this.txtHelpDeskRemarks.TabIndex = 312;
+            // 
             // txtHelpDeskActionMade
             // 
             this.txtHelpDeskActionMade.BackColor = System.Drawing.Color.White;
@@ -6404,6 +6528,33 @@
             this.txtHelpDeskActionMade.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtHelpDeskActionMade.Size = new System.Drawing.Size(314, 70);
             this.txtHelpDeskActionMade.TabIndex = 316;
+            // 
+            // txtRemarks
+            // 
+            this.txtRemarks.BackColor = System.Drawing.Color.White;
+            this.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtRemarks.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRemarks.Location = new System.Drawing.Point(635, 2);
+            this.txtRemarks.MaxLength = 1000;
+            this.txtRemarks.Multiline = true;
+            this.txtRemarks.Name = "txtRemarks";
+            this.txtRemarks.ReadOnly = true;
+            this.txtRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtRemarks.Size = new System.Drawing.Size(310, 56);
+            this.txtRemarks.TabIndex = 8;
+            // 
+            // label149
+            // 
+            this.label149.AutoSize = true;
+            this.label149.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            this.label149.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label149.ForeColor = System.Drawing.Color.Red;
+            this.label149.Location = new System.Drawing.Point(633, 60);
+            this.label149.Name = "label149";
+            this.label149.Size = new System.Drawing.Size(122, 15);
+            this.label149.TabIndex = 311;
+            this.label149.Text = "REMARKS (HELPDESK)";
             // 
             // label153
             // 
@@ -6484,6 +6635,17 @@
             this.panel105.Name = "panel105";
             this.panel105.Size = new System.Drawing.Size(946, 24);
             this.panel105.TabIndex = 311;
+            // 
+            // label106
+            // 
+            this.label106.AutoSize = true;
+            this.label106.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label106.ForeColor = System.Drawing.Color.Black;
+            this.label106.Location = new System.Drawing.Point(632, 6);
+            this.label106.Name = "label106";
+            this.label106.Size = new System.Drawing.Size(130, 15);
+            this.label106.TabIndex = 310;
+            this.label106.Text = "REMARKS (JOB ORDER)";
             // 
             // label111
             // 
@@ -9419,6 +9581,49 @@
             this.tabPage19.Text = "Helpdesk Information";
             this.tabPage19.UseVisualStyleBackColor = true;
             // 
+            // ucHelpDeskEntryInfo
+            // 
+            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
+            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
+            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
+            this.ucHelpDeskEntryInfo.TabIndex = 4;
+            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
+            // 
+            // ucVendorHelpDeskTeamLeadInfo
+            // 
+            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
+            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
+            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
+            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
+            // 
+            // ucVendorHelpDeskRepInfo
+            // 
+            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
+            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
+            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
+            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
+            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskRepInfo.VendorName = "";
+            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
+            // 
+            // ucHelpDeskServiceInfo
+            // 
+            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
+            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
+            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
+            this.ucHelpDeskServiceInfo.TabIndex = 0;
+            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
+            // 
             // panel168
             // 
             this.panel168.BackColor = System.Drawing.SystemColors.Control;
@@ -10191,211 +10396,6 @@
             this.btnTASearch.TabStop = false;
             this.btnTASearch.Zoom = 10;
             // 
-            // tabControl3
-            // 
-            this.tabControl3.Appearance = System.Windows.Forms.TabAppearance.Buttons;
-            this.tabControl3.Controls.Add(this.tabPage26);
-            this.tabControl3.Controls.Add(this.tabPage27);
-            this.tabControl3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl3.Location = new System.Drawing.Point(-2, 26);
-            this.tabControl3.Name = "tabControl3";
-            this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(414, 85);
-            this.tabControl3.TabIndex = 498;
-            // 
-            // tabPage26
-            // 
-            this.tabPage26.Controls.Add(this.panel230);
-            this.tabPage26.ForeColor = System.Drawing.Color.Black;
-            this.tabPage26.Location = new System.Drawing.Point(4, 27);
-            this.tabPage26.Name = "tabPage26";
-            this.tabPage26.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage26.Size = new System.Drawing.Size(406, 54);
-            this.tabPage26.TabIndex = 3;
-            this.tabPage26.Text = "JOB ORDER";
-            this.tabPage26.UseVisualStyleBackColor = true;
-            // 
-            // panel230
-            // 
-            this.panel230.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel230.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel230.Controls.Add(this.label73);
-            this.panel230.Controls.Add(this.label14);
-            this.panel230.Controls.Add(this.txtProcessedBy);
-            this.panel230.Controls.Add(this.label129);
-            this.panel230.Controls.Add(this.txtDispatchDate);
-            this.panel230.Controls.Add(this.txtProcessedDate);
-            this.panel230.Controls.Add(this.txtDispatchBy);
-            this.panel230.Controls.Add(this.label120);
-            this.panel230.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel230.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel230.Location = new System.Drawing.Point(3, 3);
-            this.panel230.Name = "panel230";
-            this.panel230.Size = new System.Drawing.Size(400, 48);
-            this.panel230.TabIndex = 474;
-            // 
-            // tabPage27
-            // 
-            this.tabPage27.Controls.Add(this.panel231);
-            this.tabPage27.ForeColor = System.Drawing.Color.Black;
-            this.tabPage27.Location = new System.Drawing.Point(4, 27);
-            this.tabPage27.Name = "tabPage27";
-            this.tabPage27.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage27.Size = new System.Drawing.Size(406, 54);
-            this.tabPage27.TabIndex = 2;
-            this.tabPage27.Text = "FSR";
-            this.tabPage27.UseVisualStyleBackColor = true;
-            // 
-            // panel231
-            // 
-            this.panel231.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel231.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel231.Controls.Add(this.txtFsrServicedDate);
-            this.panel231.Controls.Add(this.label180);
-            this.panel231.Controls.Add(this.txtFsrServicedBy);
-            this.panel231.Controls.Add(this.label181);
-            this.panel231.Controls.Add(this.txtSvcTicketDate);
-            this.panel231.Controls.Add(this.label74);
-            this.panel231.Controls.Add(this.txtSvcTicketBy);
-            this.panel231.Controls.Add(this.label179);
-            this.panel231.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel231.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel231.Location = new System.Drawing.Point(3, 3);
-            this.panel231.Name = "panel231";
-            this.panel231.Size = new System.Drawing.Size(400, 48);
-            this.panel231.TabIndex = 474;
-            // 
-            // txtFsrServicedDate
-            // 
-            this.txtFsrServicedDate.BackColor = System.Drawing.Color.White;
-            this.txtFsrServicedDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFsrServicedDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtFsrServicedDate.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtFsrServicedDate.Location = new System.Drawing.Point(315, 2);
-            this.txtFsrServicedDate.Name = "txtFsrServicedDate";
-            this.txtFsrServicedDate.ReadOnly = true;
-            this.txtFsrServicedDate.Size = new System.Drawing.Size(82, 20);
-            this.txtFsrServicedDate.TabIndex = 458;
-            // 
-            // label180
-            // 
-            this.label180.AutoSize = true;
-            this.label180.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label180.Location = new System.Drawing.Point(279, 4);
-            this.label180.Name = "label180";
-            this.label180.Size = new System.Drawing.Size(35, 14);
-            this.label180.TabIndex = 457;
-            this.label180.Text = "DATE";
-            // 
-            // txtFsrServicedBy
-            // 
-            this.txtFsrServicedBy.BackColor = System.Drawing.Color.White;
-            this.txtFsrServicedBy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFsrServicedBy.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtFsrServicedBy.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtFsrServicedBy.Location = new System.Drawing.Point(115, 2);
-            this.txtFsrServicedBy.Name = "txtFsrServicedBy";
-            this.txtFsrServicedBy.ReadOnly = true;
-            this.txtFsrServicedBy.Size = new System.Drawing.Size(164, 20);
-            this.txtFsrServicedBy.TabIndex = 456;
-            // 
-            // label181
-            // 
-            this.label181.AutoSize = true;
-            this.label181.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label181.Location = new System.Drawing.Point(1, 6);
-            this.label181.Name = "label181";
-            this.label181.Size = new System.Drawing.Size(84, 14);
-            this.label181.TabIndex = 455;
-            this.label181.Text = "SERVICED BY";
-            // 
-            // txtSvcTicketDate
-            // 
-            this.txtSvcTicketDate.BackColor = System.Drawing.Color.White;
-            this.txtSvcTicketDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSvcTicketDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSvcTicketDate.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtSvcTicketDate.Location = new System.Drawing.Point(315, 23);
-            this.txtSvcTicketDate.Name = "txtSvcTicketDate";
-            this.txtSvcTicketDate.ReadOnly = true;
-            this.txtSvcTicketDate.Size = new System.Drawing.Size(82, 20);
-            this.txtSvcTicketDate.TabIndex = 454;
-            // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label74.Location = new System.Drawing.Point(279, 27);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(35, 14);
-            this.label74.TabIndex = 453;
-            this.label74.Text = "DATE";
-            // 
-            // txtSvcTicketBy
-            // 
-            this.txtSvcTicketBy.BackColor = System.Drawing.Color.White;
-            this.txtSvcTicketBy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSvcTicketBy.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSvcTicketBy.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtSvcTicketBy.Location = new System.Drawing.Point(115, 23);
-            this.txtSvcTicketBy.Name = "txtSvcTicketBy";
-            this.txtSvcTicketBy.ReadOnly = true;
-            this.txtSvcTicketBy.Size = new System.Drawing.Size(164, 20);
-            this.txtSvcTicketBy.TabIndex = 452;
-            // 
-            // label179
-            // 
-            this.label179.AutoSize = true;
-            this.label179.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label179.Location = new System.Drawing.Point(1, 27);
-            this.label179.Name = "label179";
-            this.label179.Size = new System.Drawing.Size(112, 14);
-            this.label179.TabIndex = 451;
-            this.label179.Text = "CLOSE TICKET BY";
-            // 
-            // ucHelpDeskEntryInfo
-            // 
-            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
-            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
-            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
-            this.ucHelpDeskEntryInfo.TabIndex = 4;
-            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
-            // 
-            // ucVendorHelpDeskTeamLeadInfo
-            // 
-            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
-            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
-            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
-            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
-            // 
-            // ucVendorHelpDeskRepInfo
-            // 
-            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
-            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
-            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
-            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
-            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskRepInfo.VendorName = "";
-            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
-            // 
-            // ucHelpDeskServiceInfo
-            // 
-            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
-            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
-            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
-            this.ucHelpDeskServiceInfo.TabIndex = 0;
-            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
-            // 
             // frmServiceJobOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10501,6 +10501,13 @@
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
             this.panel11.ResumeLayout(false);
+            this.tabControl3.ResumeLayout(false);
+            this.tabPage26.ResumeLayout(false);
+            this.panel230.ResumeLayout(false);
+            this.panel230.PerformLayout();
+            this.tabPage27.ResumeLayout(false);
+            this.panel231.ResumeLayout(false);
+            this.panel231.PerformLayout();
             this.panel191.ResumeLayout(false);
             this.panel191.PerformLayout();
             this.panel179.ResumeLayout(false);
@@ -10746,13 +10753,6 @@
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).EndInit();
-            this.tabControl3.ResumeLayout(false);
-            this.tabPage26.ResumeLayout(false);
-            this.panel230.ResumeLayout(false);
-            this.panel230.PerformLayout();
-            this.tabPage27.ResumeLayout(false);
-            this.panel231.ResumeLayout(false);
-            this.panel231.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

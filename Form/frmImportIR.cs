@@ -734,8 +734,8 @@ namespace MIS
             if (!dbFunction.isValidDataGridValue(clsFunction.ImportType.iIRImportDetail, dbAPI, grdList, txtFileName.Text, 1, false)) return;
 
             // check region
-            ucStatusDisplay.SetStatus($"Checking required fields...", Enums.StatusType.Processing);
-            if (!dbFunction.isValidDataGridValue(clsFunction.ImportType.iIRImportDetail, dbAPI, grdList, txtFileName.Text, 4, false)) return;
+            //ucStatusDisplay.SetStatus($"Checking required fields...", Enums.StatusType.Processing);
+            //if (!dbFunction.isValidDataGridValue(clsFunction.ImportType.iIRImportDetail, dbAPI, grdList, txtFileName.Text, 4, false)) return;
 
             // check valid request id prefix
             ucStatusDisplay.SetStatus($"Checking request id prefix...", Enums.StatusType.Processing);
@@ -765,14 +765,14 @@ namespace MIS
 
             if (!ValidateFields(2)) return;
 
+            if (!validateImportData()) return;
+
             if (!dbFunction.fPromptConfirmation("Cross-check complete.\nProceed with saving the imported records?"))
                 return;
             
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
-
-                if (!validateImportData()) return;
 
                 ucStatusDisplay.SetStatus($"Processing region...", Enums.StatusType.Processing);
                 InsertRegion();
@@ -818,8 +818,8 @@ namespace MIS
                 processDataGridView(grdList);
 
                 // update merchant ZoneID
-                //ucStatusDisplay.SetStatus($"Updating merchant Zone...", Enums.StatusType.Processing);
-                //updateMerchantZone();
+                ucStatusDisplay.SetStatus($"Updating merchant Zone...", Enums.StatusType.Processing);
+                updateMerchantZone();
 
                 // ------------------------------------------------------------------------------------------
                 // Upload physical attach file
@@ -4381,30 +4381,23 @@ namespace MIS
                     return false;
                 }
 
-                if (!dbAPI.isRecordExist("Search", "Zoning Area", area1))
+                // check Zoning Matchinog
+                if (!dbAPI.isRecordExist("Search", "Zoning Matching", $"{address}{clsDefines.gPipe}{area1}{clsDefines.gPipe}{city}"))
                 {
                     dbFunction.SetMessageBox(
-                        $"Area 1 [{area1}] must be enrolled.",
-                        clsDefines.FIELD_CHECK_MSG,
-                        clsFunction.IconType.iError);
-                    return false;
-                }
+                                            $"Line#: {row.Index + 1}\n" +
+                                            $"Request ID: [{requestid}]\n" +
+                                            $"Merchant: [{merchantname}]\n" +
+                                            $"TID: [{tid}]\n" +
+                                            $"MID: [{mid}]\n" +
+                                            $"Area: [{area1}]\n" +
+                                            $"City: [{city}]\n" +
+                                            $"Address: [{address}]\n\n" +
+                                            "Zoning match not found.\n" +
+                                            "Please verify the information above or enroll the location in the Zoning.",
+                                            clsDefines.FIELD_CHECK_MSG,
+                                            clsFunction.IconType.iError);
 
-                if (!dbAPI.isRecordExist("Search", "Zoning CityMunicipal", city))
-                {
-                    dbFunction.SetMessageBox(
-                        $"City [{city}] must be enrolled.",
-                        clsDefines.FIELD_CHECK_MSG,
-                        clsFunction.IconType.iError);
-                    return false;
-                }
-
-                if (!dbAPI.isRecordExist("Search", "Zoning Area-CityMunicipal", $"{area1}{clsDefines.gPipe}{city}"))
-                {
-                    dbFunction.SetMessageBox(
-                        $"Area [{area1}] and City [{city}] must be enrolled.",
-                        clsDefines.FIELD_CHECK_MSG,
-                        clsFunction.IconType.iError);
                     return false;
                 }
 
@@ -4415,21 +4408,43 @@ namespace MIS
 
         private void updateMerchantZone()
         {
+            string pSearchValue = "";
             foreach (DataGridViewRow row in grdList.Rows)
             {
-                string merchantname = Convert.ToString(row.Cells[14].Value).Trim();                
+                string requestid = Convert.ToString(row.Cells[0].Value).Trim();
+                string merchantname = Convert.ToString(row.Cells[14].Value).Trim();
+                string mid = Convert.ToString(row.Cells[12].Value).Trim();
+                string tid = Convert.ToString(row.Cells[13].Value).Trim();
+                string address = Convert.ToString(row.Cells[15].Value).Trim();
                 string city = Convert.ToString(row.Cells[16].Value).Trim();
                 string area1 = Convert.ToString(row.Cells[17].Value).Trim();
-                
-                Debug.WriteLine($"merchantname=[{merchantname}]");                
+
+                Debug.WriteLine($"requestid=[{requestid}]");
+                Debug.WriteLine($"merchantname=[{merchantname}]");
+                Debug.WriteLine($"mid=[{mid}]");
+                Debug.WriteLine($"tid=[{tid}]");
+                Debug.WriteLine($"address=[{address}]");
                 Debug.WriteLine($"city=[{city}]");
                 Debug.WriteLine($"area1=[{area1}]");
 
                 if ((!string.IsNullOrWhiteSpace(merchantname)) &&
+                        (!string.IsNullOrWhiteSpace(address)) &&
                         (!string.IsNullOrWhiteSpace(city)) &&
                         (!string.IsNullOrWhiteSpace(area1)))
                 {
 
+                    pSearchValue = $"{requestid}{clsDefines.gPipe}" +
+                                    $"{merchantname}{clsDefines.gPipe}" +
+                                    $"{tid}{clsDefines.gPipe}" +
+                                    $"{mid}{clsDefines.gPipe}" +
+                                    $"{address}{clsDefines.gPipe}" +
+                                    $"{area1}{clsDefines.gPipe}" +
+                                    $"{city}";
+
+                    dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
+                    dbAPI.ExecuteAPI("PUT", "Update", "Merchant-ZoneID", pSearchValue, "", "", "UpdateCollectionDetail");
+                    
                 }                
             }
         }

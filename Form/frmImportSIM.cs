@@ -509,31 +509,6 @@ namespace MIS
             // check file in use
             if (!dbFunction.checkFileInUse(txtPathFileName.Text)) return;
 
-            // check client
-            //if (!dbFunction.isValidDescriptionEntry(cboIClient.Text, "Client" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return;
-
-            //// check ready
-            //if (!dbFunction.isValidID(txtReady.Text))
-            //{
-            //    dbFunction.SetMessageBox(
-            //        "No valid records found to import. Please validate your list.",
-            //        lblHeader.Text,
-            //        clsFunction.IconType.iError
-            //    );
-            //    return;
-            //}
-
-            //// check restricted
-            //if (dbFunction.isValidID(txtRestricted.Text))
-            //{
-            //    dbFunction.SetMessageBox(
-            //        "Import blocked: Some items are currently restricted or in use.",
-            //        lblHeader.Text,
-            //        clsFunction.IconType.iError
-            //    );
-            //    return;
-            //}
-
             if (!dbFunction.fPromptConfirmation($"Are you sure to save import records on list?")) return;
 
             Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
