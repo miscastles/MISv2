@@ -111,6 +111,7 @@ namespace MIS
         public static string ExceptionMessage = "";
         public static bool isAPIResponseOK = false;
         public static string sAPIResponseCode = "";
+        public static string strException = "";
         public static int iAPIRecordCount = 0;
         public static string SUCCESS_RESPONSE = "200";
         public static string API_RESPONSE_ERROR = "300";

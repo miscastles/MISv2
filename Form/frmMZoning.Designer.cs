@@ -50,6 +50,7 @@
             this.txtID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.bunifuCards1 = new Bunifu.Framework.UI.BunifuCards();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -65,7 +66,6 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -87,7 +87,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(659, 29);
+            this.pnlHeader.Size = new System.Drawing.Size(825, 29);
             this.pnlHeader.TabIndex = 289;
             // 
             // bunifuImageButton1
@@ -108,7 +108,7 @@
             this.btnExit.BackColor = System.Drawing.Color.Maroon;
             this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
             this.btnExit.ImageActive = null;
-            this.btnExit.Location = new System.Drawing.Point(623, 2);
+            this.btnExit.Location = new System.Drawing.Point(791, 2);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(25, 25);
             this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -159,7 +159,7 @@
             this.bunifuCards2.Name = "bunifuCards2";
             this.bunifuCards2.RightSahddow = true;
             this.bunifuCards2.ShadowDepth = 20;
-            this.bunifuCards2.Size = new System.Drawing.Size(650, 165);
+            this.bunifuCards2.Size = new System.Drawing.Size(817, 165);
             this.bunifuCards2.TabIndex = 300;
             // 
             // cboCityMunicipal
@@ -169,7 +169,7 @@
             this.cboCityMunicipal.FormattingEnabled = true;
             this.cboCityMunicipal.Location = new System.Drawing.Point(110, 136);
             this.cboCityMunicipal.Name = "cboCityMunicipal";
-            this.cboCityMunicipal.Size = new System.Drawing.Size(534, 22);
+            this.cboCityMunicipal.Size = new System.Drawing.Size(699, 22);
             this.cboCityMunicipal.TabIndex = 367;
             // 
             // cboArea
@@ -179,7 +179,7 @@
             this.cboArea.FormattingEnabled = true;
             this.cboArea.Location = new System.Drawing.Point(110, 110);
             this.cboArea.Name = "cboArea";
-            this.cboArea.Size = new System.Drawing.Size(534, 22);
+            this.cboArea.Size = new System.Drawing.Size(699, 22);
             this.cboArea.TabIndex = 366;
             // 
             // cboRegion
@@ -189,7 +189,7 @@
             this.cboRegion.FormattingEnabled = true;
             this.cboRegion.Location = new System.Drawing.Point(110, 84);
             this.cboRegion.Name = "cboRegion";
-            this.cboRegion.Size = new System.Drawing.Size(534, 22);
+            this.cboRegion.Size = new System.Drawing.Size(699, 22);
             this.cboRegion.TabIndex = 365;
             // 
             // cboZone
@@ -199,7 +199,7 @@
             this.cboZone.FormattingEnabled = true;
             this.cboZone.Location = new System.Drawing.Point(111, 58);
             this.cboZone.Name = "cboZone";
-            this.cboZone.Size = new System.Drawing.Size(534, 22);
+            this.cboZone.Size = new System.Drawing.Size(699, 22);
             this.cboZone.TabIndex = 364;
             // 
             // cboCluster
@@ -209,7 +209,7 @@
             this.cboCluster.FormattingEnabled = true;
             this.cboCluster.Location = new System.Drawing.Point(111, 32);
             this.cboCluster.Name = "cboCluster";
-            this.cboCluster.Size = new System.Drawing.Size(534, 22);
+            this.cboCluster.Size = new System.Drawing.Size(699, 22);
             this.cboCluster.TabIndex = 363;
             // 
             // label6
@@ -269,7 +269,7 @@
             this.txtID.Location = new System.Drawing.Point(110, 8);
             this.txtID.Name = "txtID";
             this.txtID.ReadOnly = true;
-            this.txtID.Size = new System.Drawing.Size(533, 20);
+            this.txtID.Size = new System.Drawing.Size(698, 20);
             this.txtID.TabIndex = 102;
             // 
             // label2
@@ -299,8 +299,25 @@
             this.bunifuCards1.Name = "bunifuCards1";
             this.bunifuCards1.RightSahddow = true;
             this.bunifuCards1.ShadowDepth = 20;
-            this.bunifuCards1.Size = new System.Drawing.Size(650, 294);
+            this.bunifuCards1.Size = new System.Drawing.Size(816, 397);
             this.bunifuCards1.TabIndex = 301;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.AutoSize = true;
+            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnSearch.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnSearch.FlatAppearance.BorderSize = 0;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSearch.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnSearch.Location = new System.Drawing.Point(730, 6);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(81, 26);
+            this.btnSearch.TabIndex = 306;
+            this.btnSearch.Text = "REFRESH";
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // bunifuSeparator1
             // 
@@ -309,7 +326,7 @@
             this.bunifuSeparator1.LineThickness = 1;
             this.bunifuSeparator1.Location = new System.Drawing.Point(3, 34);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
-            this.bunifuSeparator1.Size = new System.Drawing.Size(635, 3);
+            this.bunifuSeparator1.Size = new System.Drawing.Size(805, 9);
             this.bunifuSeparator1.TabIndex = 114;
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
@@ -322,7 +339,7 @@
             this.txtSearch.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.Location = new System.Drawing.Point(110, 8);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(451, 20);
+            this.txtSearch.Size = new System.Drawing.Size(618, 20);
             this.txtSearch.TabIndex = 113;
             this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
@@ -354,7 +371,7 @@
             this.lvwList.HideSelection = false;
             this.lvwList.Location = new System.Drawing.Point(2, 43);
             this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(640, 243);
+            this.lvwList.Size = new System.Drawing.Size(807, 349);
             this.lvwList.TabIndex = 103;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
@@ -368,7 +385,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "ZONEID";
-            this.columnHeader2.Width = 90;
+            this.columnHeader2.Width = 70;
             // 
             // columnHeader3
             // 
@@ -378,7 +395,7 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "ZONE";
-            this.columnHeader4.Width = 120;
+            this.columnHeader4.Width = 100;
             // 
             // columnHeader7
             // 
@@ -388,12 +405,12 @@
             // columnHeader5
             // 
             this.columnHeader5.Text = "AREA";
-            this.columnHeader5.Width = 120;
+            this.columnHeader5.Width = 180;
             // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "CITY/MUNICIPAL";
-            this.columnHeader6.Width = 210;
+            this.columnHeader6.Width = 240;
             // 
             // btnAdd
             // 
@@ -404,7 +421,7 @@
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnAdd.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnAdd.Location = new System.Drawing.Point(6, 500);
+            this.btnAdd.Location = new System.Drawing.Point(7, 607);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(81, 26);
             this.btnAdd.TabIndex = 304;
@@ -421,7 +438,7 @@
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnClear.Location = new System.Drawing.Point(170, 500);
+            this.btnClear.Location = new System.Drawing.Point(171, 607);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(81, 26);
             this.btnClear.TabIndex = 303;
@@ -438,7 +455,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSave.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSave.Location = new System.Drawing.Point(88, 500);
+            this.btnSave.Location = new System.Drawing.Point(89, 607);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(81, 26);
             this.btnSave.TabIndex = 302;
@@ -455,7 +472,7 @@
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnRefresh.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnRefresh.Location = new System.Drawing.Point(572, 500);
+            this.btnRefresh.Location = new System.Drawing.Point(735, 607);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(81, 26);
             this.btnRefresh.TabIndex = 305;
@@ -463,28 +480,11 @@
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // btnSearch
-            // 
-            this.btnSearch.AutoSize = true;
-            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnSearch.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnSearch.FlatAppearance.BorderSize = 0;
-            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnSearch.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSearch.Location = new System.Drawing.Point(563, 6);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(81, 26);
-            this.btnSearch.TabIndex = 306;
-            this.btnSearch.Text = "REFRESH";
-            this.btnSearch.UseVisualStyleBackColor = false;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
             // frmMZoning
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 533);
+            this.ClientSize = new System.Drawing.Size(825, 645);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnClear);

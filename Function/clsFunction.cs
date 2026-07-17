@@ -4444,6 +4444,7 @@ namespace MIS
                                              "> Type : " + pType + Environment.NewLine +
                                              "> Model : " + pModel + Environment.NewLine +
                                              "> Brand : " + pBrand + Environment.NewLine +
+                                             "> Location : " + pLocation + Environment.NewLine +
                                              "> Status : " + pStatus + Environment.NewLine +
                                              sSingleLineSeparator + Environment.NewLine;
                                 }
@@ -4454,6 +4455,7 @@ namespace MIS
                                     " > Type" + Environment.NewLine +
                                     " > Model" + Environment.NewLine +
                                     " > Brand" + Environment.NewLine +
+                                    " > Locaion" + Environment.NewLine +
                                     " > Status";
                             break;
 
@@ -4480,6 +4482,7 @@ namespace MIS
                                              "> Serial No. : " + pSerialNo + Environment.NewLine +
                                              "> Carrier : " + pCarrier + Environment.NewLine +
                                              "> Status : " + pStatus + Environment.NewLine +
+                                             "> Location : " + pLocation + Environment.NewLine +
                                              sSingleLineSeparator + Environment.NewLine;
                                 }
                             }
@@ -4487,7 +4490,8 @@ namespace MIS
                             sHint = "Mandatory fields must not be blank." + Environment.NewLine +
                                     " > Serial No." + Environment.NewLine +
                                     " > Carrier" + Environment.NewLine +
-                                    " > Status";
+                                    " > Status" + Environment.NewLine +
+                                    " > Location";
                             break;
 
                         case ImportType.iImportStock:
@@ -4519,6 +4523,7 @@ namespace MIS
                                              "> Model : " + pModel + Environment.NewLine +
                                              "> Brand : " + pBrand + Environment.NewLine +
                                              "> Status : " + pStatus + Environment.NewLine +
+                                             "> Location : " + pLocation + Environment.NewLine +
                                              sSingleLineSeparator + Environment.NewLine;
                                 }
                             }
@@ -4528,7 +4533,8 @@ namespace MIS
                                 " > Type" + Environment.NewLine +
                                 " > Model" + Environment.NewLine +
                                 " > Brand" + Environment.NewLine +
-                                " > Status";
+                                " > Status" + Environment.NewLine +
+                                " > Location";
                             break;
                     }
 

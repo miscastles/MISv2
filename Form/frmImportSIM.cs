@@ -509,31 +509,6 @@ namespace MIS
             // check file in use
             if (!dbFunction.checkFileInUse(txtPathFileName.Text)) return;
 
-            // check client
-            //if (!dbFunction.isValidDescriptionEntry(cboIClient.Text, "Client" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return;
-
-            //// check ready
-            //if (!dbFunction.isValidID(txtReady.Text))
-            //{
-            //    dbFunction.SetMessageBox(
-            //        "No valid records found to import. Please validate your list.",
-            //        lblHeader.Text,
-            //        clsFunction.IconType.iError
-            //    );
-            //    return;
-            //}
-
-            //// check restricted
-            //if (dbFunction.isValidID(txtRestricted.Text))
-            //{
-            //    dbFunction.SetMessageBox(
-            //        "Import blocked: Some items are currently restricted or in use.",
-            //        lblHeader.Text,
-            //        clsFunction.IconType.iError
-            //    );
-            //    return;
-            //}
-
             if (!dbFunction.fPromptConfirmation($"Are you sure to save import records on list?")) return;
 
             Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
@@ -1743,7 +1718,7 @@ namespace MIS
                             dbFunction.SetMessageBox(
                                 "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
                                 "\n\nThis SIM is still actively installed and cannot be set to " + cboMStatus.Text,
-                                "Update failed",    
+                                "Update failed",
                                 clsFunction.IconType.iError
                             );
 
@@ -1752,7 +1727,6 @@ namespace MIS
 
                         isProceed = true;
                     }
-
                 }
 
             }
@@ -3950,6 +3924,9 @@ namespace MIS
 
             foreach (DataGridViewRow row in grdList.Rows)
             {
+                if (row.IsNewRow)
+                    continue;
+
                 string serialNo = Convert.ToString(row.Cells[1].Value).Trim();
                 string carrier = Convert.ToString(row.Cells[2].Value).Trim();
                 string location = Convert.ToString(row.Cells[5].Value).Trim();
