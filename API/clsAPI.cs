@@ -283,7 +283,7 @@ namespace MIS
                 dbDump.WriteAPILog(0, clsGlobalVariables.strJSONRequest);
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message);
             }
@@ -465,9 +465,11 @@ namespace MIS
                 dbDump.WriteAPILog(1, clsGlobalVariables.strJSONResponse);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
+                clsGlobalVariables.sAPIResponseCode = clsGlobalVariables.API_RESPONSE_ERROR;
+                clsGlobalVariables.strException = ex.ToString();
+                PromptAPIMessage(true, clsGlobalVariables.API_RESPONSE_ERROR);
             }
 
             //Debug.WriteLine("--APIPUTRequest==>End--");
@@ -805,7 +807,6 @@ namespace MIS
                                                                     ",StatementType=" + dbFunction.AddBracketStartEnd(StatementType) +
                                                                     ",SearchBy=" +dbFunction.AddBracketStartEnd(SearchBy) + 
                                                                     ",MaintenanceType="+dbFunction.AddBracketStartEnd(MaintenanceType));
-
             try
             {
                 // GET - Search / View
@@ -865,17 +866,9 @@ namespace MIS
             {
                 dbDump.WriteSysytemLog($"API FAILED...Message[{ex.Message}]"); // add log
 
-                dbFunction.SetMessageBox("Error executing API" + "\n\n" +
-                                          ">Method:" + dbFunction.AddBracketStartEnd(clsSearch.ClassAPIMethod) + "\n" +
-                                           ">Action:" + dbFunction.AddBracketStartEnd(clsSearch.ClassAction) + "\n" +
-                                           ">StatementType:" + dbFunction.AddBracketStartEnd(clsSearch.ClassStatementType) + "\n" +
-                                           ">SearchBy:" + dbFunction.AddBracketStartEnd(clsSearch.ClassSearchBy) + "\n" +
-                                           ">SearchValue:" + dbFunction.AddBracketStartEnd(clsSearch.ClassSearchValue) + "\n" +
-                                           ">MaintenanceType:" + dbFunction.AddBracketStartEnd(clsSearch.ClassMaintenanceType) + "\n" +
-                                           ">SQL:" + dbFunction.AddBracketStartEnd(clsSearch.ClassSQL) + "\n" +
-                                            clsFunction.sLineSeparator + "\n\n" +
-                                            "Error Message:" + dbFunction.AddBracketStartEnd(ex.Message) + "\n\n" +
-                                            clsDefines.CONTACT_ADMIN_MESSAGE, "API execution failed.", clsFunction.IconType.iError);
+                clsGlobalVariables.sAPIResponseCode = clsGlobalVariables.API_RESPONSE_ERROR;
+                clsGlobalVariables.strException = ex.ToString();
+                PromptAPIMessage(true, clsGlobalVariables.API_RESPONSE_ERROR);
             }
             
             ValidateResponse Response = new ValidateResponse();
@@ -937,6 +930,7 @@ namespace MIS
                 clsGlobalVariables.isAPIResponseOK = false;
                 clsGlobalVariables.ExceptionMessage = ex.Message;
                 clsGlobalVariables.sAPIResponseCode = clsGlobalVariables.UNDEFINED_ERROR;
+                clsGlobalVariables.strException = ex.ToString();
                 PromptAPIMessage(true, clsGlobalVariables.API_RESPONSE_ERROR);
 
                 return;
@@ -957,6 +951,7 @@ namespace MIS
                 clsGlobalVariables.isAPIResponseOK = false;
                 clsGlobalVariables.ExceptionMessage = ex.Message;
                 clsGlobalVariables.sAPIResponseCode = clsGlobalVariables.UNDEFINED_ERROR;
+                clsGlobalVariables.strException = ex.ToString();
                 PromptAPIMessage(true, clsGlobalVariables.API_RESPONSE_ERROR);
 
                 return;
@@ -987,3407 +982,2451 @@ namespace MIS
                 }
                 else
                 {
-                    clsGlobalVariables.isAPIResponseOK = true;
+                    try
+                    {
+                        clsGlobalVariables.isAPIResponseOK = true;
 
-                    if (APIMethod.CompareTo(clsGlobalVariables.sAPIMethod_PUT) == 0)
-                    {
-                        //MessageBox.Show(Response.message);
-                    }
-                    else if (APIMethod.CompareTo(clsGlobalVariables.sAPIMethod_DELETE) == 0)
-                    {
-                        //MessageBox.Show(Response.message);
-                    }
-                    else if (APIMethod.CompareTo(clsGlobalVariables.sAPIMethod_POST) == 0)
-                    {
-                        try
-                        {                            
-                            switch (Action)
+                        if (APIMethod.CompareTo(clsGlobalVariables.sAPIMethod_PUT) == 0)
+                        {
+                            //MessageBox.Show(Response.message);
+                        }
+                        else if (APIMethod.CompareTo(clsGlobalVariables.sAPIMethod_DELETE) == 0)
+                        {
+                            //MessageBox.Show(Response.message);
+                        }
+                        else if (APIMethod.CompareTo(clsGlobalVariables.sAPIMethod_POST) == 0)
+                        {
+                            try
                             {
-                                case "InsertCollectionMaster": // Get Last Inserted ID                                
-                                    LastIDDetailOnline DetailLastInsert1 = JsonConvert.DeserializeObject<LastIDDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                    clsLastID.RecordFound = false;
-
-                                    foreach (var element in DetailLastInsert1.data)
-                                    {
-                                        clsLastID.RecordFound = true;
-                                        clsLastID.ClassLastInsertedID = element.LastInsertID;
-                                        clsLastID.ClassLastTableName = element.LastTableName;
-                                    }
-                                    break;
-                                case "InsertMaintenanceMaster":
-                                    LastIDDetailOnline DetailLastInsert2 = JsonConvert.DeserializeObject<LastIDDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                    clsLastID.RecordFound = false;
-                                    clsLastID.ClassLastInsertedID = 0;
-                                    clsLastID.ClassLastInsertedCityID = 0;
-                                    clsLastID.ClassLastInsertedProvinceID = 0;
-
-                                    foreach (var element in DetailLastInsert2.data)
-                                    {
-                                        clsLastID.RecordFound = true;
-                                        clsLastID.ClassLastInsertedID = element.LastInsertID;
-                                        clsLastID.ClassLastTableName = element.LastTableName;
-                                    }
-
-                                    switch (MaintenanceType)
-                                    {
-                                        case "City":
-                                            clsLastID.ClassLastInsertedCityID = clsLastID.ClassLastInsertedID;
-                                            break;
-                                        case "Province":
-                                            clsLastID.ClassLastInsertedProvinceID = clsLastID.ClassLastInsertedID;
-                                            break;
-                                    }
-
-                                    break;
-                                case "InsertCollectionDetail": // Get Last Inserted ID                                
-                                    LastIDDetailOnline DetailLastInsert3 = JsonConvert.DeserializeObject<LastIDDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                    clsLastID.RecordFound = false;
-
-                                    foreach (var element in DetailLastInsert3.data)
-                                    {
-                                        clsLastID.RecordFound = true;
-                                        clsLastID.ClassLastInsertedID = element.LastInsertID;
-                                        clsLastID.ClassLastTableName = element.LastTableName;
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(Response.message, ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                            return;
-                        }
-                        
-                    }
-                    else
-                    {
-                        // Local Array Variable
-                        List<string> IDCol = new List<String>();
-                        List<string> DescriptionCol = new List<String>();
-                        List<string> CodeCol = new List<String>();
-                        List<string> ServiceStatusCol = new List<String>();
-                        List<string> ServiceStatusDescriptionCol = new List<String>();
-                        List<string> ReferenceNoCol = new List<String>();
-
-                        List<string> ProviderIDCol = new List<String>();
-                        List<string> NameCol = new List<String>();
-                        List<string> AddressCol = new List<String>();
-                        List<string> TelNoCol = new List<String>();
-                        List<string> MobileCol = new List<String>();
-                        List<string> FaxCol = new List<String>();
-                        List<string> EmailCol = new List<String>();
-                        List<string> ContractTermsCol = new List<String>();
-
-                        List<string> UserIDCol = new List<String>();
-                        List<string> UserNameCol = new List<String>();
-                        List<string> PasswordCol = new List<String>();
-                        List<string> FullNameCol = new List<String>();
-                        List<string> UserTypeCol = new List<String>();
-                        List<string> MD5PasswordCol = new List<String>();
-                        List<string> MobileIDCol = new List<String>();
-                        List<string> MobileTerminalIDCol = new List<String>();
-                        List<string> MobileTerminalNameCol = new List<String>();
-
-                        List<string> LogIDCol = new List<String>();
-                        List<string> ComputerIPCol = new List<String>();
-                        List<string> ComputerNameCol = new List<String>();
-                        List<string> SessionStatusCol = new List<String>();
-                        List<string> SessionStatusDescriptionCol = new List<String>();
-                        List<string> LogInDateCol = new List<String>();
-                        List<string> LogInTimeCol = new List<String>();
-                        List<string> LogOutDateCol = new List<String>();
-                        List<string> LogOutTimeCol = new List<String>();
-                        List<string> LogPublishVersionCol = new List<String>();
-
-                        List<string> ContactNoCol = new List<String>();
-                        List<string> CityCol = new List<String>();
-                        List<string> ProvinceCol = new List<String>();
-                        List<string> RegionCol = new List<String>();
-
-                        List<string> ParticularIDCol = new List<String>();
-                        List<string> ProvinceIDCol = new List<String>();
-                        List<string> CityIDCol = new List<String>();
-                        List<string> ParticularTypeIDCol = new List<String>();
-                        List<string> ParticularDescriptionCol = new List<String>();
-                        List<string> ParticularNameCol = new List<String>();                        
-                        List<string> Address2Col = new List<String>();
-                        List<string> Address3Col = new List<String>();
-                        List<string> Address4Col = new List<String>();
-                        List<string> ContactPersonCol = new List<String>();
-
-                        List<string> MapIDCol = new List<String>();
-                        List<string> MapFromCol = new List<String>();
-                        List<string> MapToCol = new List<String>();
-                        List<string> DelimeterCol = new List<String>();
-                        List<string> ColumnIndexCol = new List<String>();
-                        List<string> isMustCol = new List<String>();
-                        List<string> FormatCol = new List<String>();
-
-                        List<string> FSRNoCol = new List<String>();
-                        List<string> FSRIDCol = new List<String>();
-                        List<string> NoCol = new List<String>();
-                        List<string> MerchantCol = new List<String>();
-                        List<string> MIDCol = new List<String>();
-                        List<string> TIDCol = new List<String>();
-                        List<string> TimeArrivedCol = new List<String>();
-                        List<string> TimeStartCol = new List<String>();
-                        List<string> InvoiceNoCol = new List<String>();
-                        List<string> BatchNoCol = new List<String>();                        
-                        List<string> FSRCol = new List<String>();
-                        List<string> FSRDateCol = new List<String>();
-                        List<string> FSRTimeCol = new List<String>();
-                        List<string> TxnAmtCol = new List<String>();
-                        List<string> TimeEndCol = new List<String>();
-                        List<string> TerminalSNCol = new List<String>();
-                        List<string> MerchantContactNoCol = new List<String>();
-                        List<string> MerchantRepresentativeCol = new List<String>();
-                        List<string> FENameCol = new List<String>();
-                        List<string> FEEmailCol = new List<String>();
-                        List<string> SerialNoCol = new List<String>();
-                        List<string> SerialNoListCol = new List<String>();
-                        List<string> FSRStatusDescriptionCol = new List<String>();
-                        List<string> FSRServiceStatusCol = new List<String>();
-                        List<string> FSRServiceStatusDescriptionCol = new List<String>();
-                        List<string> FSRRemarksCol = new List<String>();
-                        List<string> ProcessTypeCol = new List<String>();
-                        List<string> DateFromCol = new List<String>();
-                        List<string> DateToCol = new List<String>();
-                        List<string> DateCol = new List<String>();
-                        List<string> TimeCol = new List<String>();
-
-                        List<string> AuthCodeCol = new List<String>();
-                        List<string> RefNoCol = new List<String>();
-                        List<string> NRICCol = new List<String>();
-                        List<string> AdditionalInformationCol = new List<String>();
-                        
-                        List<string> TerminalIDCol = new List<String>();
-                        List<string> TIIDCol = new List<String>();
-                        List<string> TerminalTypeIDCol = new List<String>();
-                        List<string> TerminalModelIDCol = new List<String>();
-                        List<string> TerminalBrandIDCol = new List<String>();                        
-                        List<string> TypeCol = new List<String>();
-                        List<string> ModelCol = new List<String>();
-                        List<string> BrandCol = new List<String>();
-                        List<string> DeliveryDateCol = new List<String>();
-                        List<string> ReceiveDateCol = new List<String>();
-                        List<string> TerminalStatusCol = new List<String>();
-                        List<string> TerminalStatusTypeCol = new List<String>();
-                        List<string> TerminalStatusDescriptionCol = new List<String>();
-                        List<string> TerminalCountCol = new List<String>();
-                        List<string> TerminalPartNoCol = new List<String>();
-                        List<string> TerminalPONoCol = new List<String>();
-                        List<string> TerminalInvNoCol = new List<String>();
-                        List<string> TerminalTypeDescriptionCol = new List<String>();
-                        List<string> TerminalModelsDescriptionCol = new List<String>();
-                        List<string> TerminalBrandDescriptionCol = new List<String>();
-
-
-                        List<string> MerchantIDCol = new List<String>();                        
-                        List<string> MerchantNameCol = new List<String>();
-                        List<string> MerchantEmailCol = new List<String>();
-
-                        List<string> IRIDNoCol = new List<String>();
-                        List<string> IRIDCol = new List<String>();
-                        List<string> IRNoCol = new List<String>();
-                        List<string> IRDateCol = new List<String>();
-                        List<string> InstallationDateCol = new List<String>();
-                        List<string> IRImportDateCol = new List<String>();                        
-
-                        List<string> TAIDNoCol = new List<String>();
-                        List<string> TAIDCol = new List<String>();                        
-                        List<string> ClientIDCol = new List<String>();
-                        List<string> ServiceProviderIDCol = new List<String>();                        
-                        List<string> FEIDCol = new List<String>();                        
-                        List<string> ServiceTypeIDCol = new List<String>();
-                        List<string> OtherServiceTypeIDCol = new List<String>();                       
-                        List<string> ClientNameCol = new List<String>();
-                        List<string> ServiceProviderNameCol = new List<String>();
-                        List<string> TypeDescriptionCol = new List<String>();
-                        List<string> ModelDescriptionCol = new List<String>();
-                        List<string> BrandDescriptionCol = new List<String>();                        
-                        List<string> TADateTimeCol = new List<String>();
-                        List<string> TAProcessedByCol = new List<String>();
-                        List<string> TAModifiedByCol = new List<String>();
-                        List<string> TAProcessedDateTimeCol = new List<String>();
-                        List<string> TAModifiedDateTimeCol = new List<String>();
-                        List<string> TARemarksCol = new List<String>();
-                        List<string> TACommentsCol = new List<String>();
-                        List<string> ServiceTypeDescriptionCol = new List<String>();
-                        List<string> OtherServiceTypeDescriptionCol = new List<String>();
-                        List<string> IRImportDateTimeCol = new List<String>();
-                        List<string> RegionIDCol = new List<String>();
-                        List<string> ServiceTypeStatusCol = new List<String>();
-                        List<string> ServiceTypeStatusDescriptionCol = new List<String>();
-                        List<string> PowerSNCol = new List<String>();
-                        List<string> DockIDCol = new List<String>();
-                        List<string> DockSNCol = new List<String>();
-                        List<string> ServiceCodeCol = new List<String>();
-
-                        // SIM
-                        List<string> SIMIDCol = new List<String>();
-                        List<string> SIMSerialNoCol = new List<String>();
-                        List<string> SIMCarrierCol = new List<String>();
-                        List<string> AssignedToCol = new List<String>();
-                        List<string> RemarksCol = new List<String>();
-                        List<string> SIMStatusCol = new List<String>();
-                        List<string> SIMStatusDescriptionCol = new List<String>();
-
-                        // Report
-                        List<string> ReportIDCol = new List<String>();
-                        List<string> ReportDescCol = new List<String>();
-                        List<string> ReportTypeCol = new List<String>();
-                        List<string> ReportOrderDisplayCol = new List<String>();
-
-                        // Header
-                        List<string> HeaderIDCol = new List<String>();
-                        List<string> Header1Col = new List<String>();
-                        List<string> Header2Col = new List<String>();
-                        List<string> Header3Col = new List<String>();
-                        List<string> Header4Col = new List<String>();
-                        List<string> Header5Col = new List<String>();
-
-                        // IR
-                        List<string> IRStatusCol = new List<String>();
-                        List<string> IRStatusDescriptionCol = new List<String>();
-
-                        // System
-                        List<string> SysIDCol = new List<String>();
-                        List<string> PublishDateCol = new List<String>();
-                        List<string> PublishVersionCol = new List<String>();
-
-                        // Reason
-                        List<string> ReasonIDCol = new List<String>();
-                        List<string> ReasonCodeCol = new List<String>();
-                        List<string> ReasonDescriptionCol = new List<String>();
-                        List<string> ReasonTypeCol = new List<String>();
-                        List<string> ReasonIsInputCol = new List<String>();
-
-                        // Region Detail
-                        List<string> RegionTypeCol = new List<String>();
-
-                        // Service Call
-                        List<string> SCNoCol = new List<String>();
-                        List<string> SCDateTimeCol = new List<String>();
-                        List<string> ReferralIDCol = new List<String>();
-                        List<string> CustomerNameCol = new List<String>();
-                        List<string> CustomerContactNoCol = new List<String>();
-                        List<string> ReportedProblemCol = new List<String>();
-                        List<string> ArrangementMadeCol = new List<String>();
-                        List<string> SCReqDateCol = new List<String>();
-                        List<string> SCReqTimeCol = new List<String>();
-                        List<string> SCShipDateCol = new List<String>();
-                        List<string> SCShipTimeCol = new List<String>();
-                        List<string> TrackingNoCol = new List<String>();
-                        List<string> SCStatusCol = new List<String>();
-
-                        // Servicing Detail
-                        List<string> ServiceNoCol = new List<String>();
-                        List<string> CounterNoCol = new List<String>();
-                        List<string> RequestNoCol = new List<String>();
-                        List<string> ServiceDateTimeCol = new List<String>();
-                        List<string> ServiceDateCol = new List<String>();
-                        List<string> ServiceReqDateCol = new List<String>();
-                        List<string> ServiceTimeCol = new List<String>();                      
-                        List<string> ServiceReqTimeCol = new List<String>();
-                        List<string> LastServiceRequestCol = new List<String>();
-                        List<string> NewServiceRequestCol = new List<String>();
-                        List<string> ReplaceTerminalSNCol = new List<String>();
-                        List<string> ReplaceSIMSNCol = new List<String>();
-                        List<string> ReplaceDockSNCol = new List<String>();
-                        List<string> JobTypeCol = new List<String>();
-                        List<string> JobTypeDescriptionCol = new List<String>();
-                        List<string> JobTypeSubDescriptionCol = new List<String>();
-                        List<string> JobTypeStatusDescriptionCol = new List<String>();
-                        List<string> ServiceJobTypeDescriptionCol = new List<String>();
-                        List<string> ActionMadeCol = new List<String>();
-
-                        List<string> CurTerminalSNStatusCol = new List<String>();
-                        List<string> CurSIMSNStatusCol = new List<String>();
-                        List<string> CurDockSNStatusCol = new List<String>();
-                        List<string> CurTerminalSNStatusDescriptionCol = new List<String>();
-                        List<string> CurSIMSNStatusDescriptionCol = new List<String>();
-                        List<string> CurDockSNStatusDescriptionCol = new List<String>();
-
-                        List<string> RepTerminalSNStatusCol = new List<String>();
-                        List<string> RepSIMSNStatusCol = new List<String>();
-                        List<string> RepDockSNStatusCol = new List<String>();
-                        List<string> RepTerminalSNStatusDescriptionCol = new List<String>();
-                        List<string> RepSIMSNStatusDescriptionCol = new List<String>();
-                        List<string> RepDockSNStatusDescriptionCol = new List<String>();
-
-                        List<string> ProcessedByCol = new List<String>();
-                        List<string> ModifiedByCol = new List<String>();
-                        List<string> ProcessedDateTimeCol = new List<String>();
-                        List<string> ModifiedDateTimeCol = new List<String>();
-
-                        // Expenses
-                        List<string> ExpensesIDCol = new List<String>();
-                        List<string> TExpensesCol = new List<String>();
-
-                        // FSR
-                        List<string> ProblemReportedCol = new List<String>();
-                        List<string> ActualProblemReportedCol = new List<String>();
-                        List<string> ActionTakenCol = new List<String>();
-                        List<string> AnyCommentsCol = new List<String>();
-
-                        // Type                        
-                        List<string> QueryStringCol = new List<String>();
-                        List<string> TypeValueCol = new List<String>();
-
-                        // Holiday
-                        List<string> HolidayIDCol = new List<String>();
-                        List<string> HolidayDateCol = new List<String>();
-                        List<string> isActiveCol = new List<String>();
-
-                        // LeaveType
-                        List<string> LeaveNoCol = new List<String>();
-                        List<string> LeaveTypeIDCol = new List<String>();                        
-                        List<string> CreditLimitCol = new List<String>();
-                        List<string> LeaveCreditCol = new List<String>();
-
-                        // Department
-                        List<string> DepartmentIDCol = new List<String>();
-                        List<string> DepartmentCol = new List<String>();
-
-                        // Position
-                        List<string> PositionIDCol = new List<String>();
-                        List<string> PositionCol = new List<String>();
-
-                        List<string> EmploymentStatusCol = new List<String>();
-
-                        // Movement
-                        List<string> DurationCol = new List<String>();
-                        List<string> DateTypeCol = new List<String>();
-                        List<string> LeaveCodeCol = new List<String>();
-                        List<string> LeaveDescCol = new List<String>();
-
-                        List<string> AppVersionCol = new List<String>();
-                        List<string> AppCRCCol = new List<String>();
-
-                        List<string> PrimaryNumCol = new List<String>();
-                        List<string> SecondaryNumCol = new List<String>();
-
-                        // TimeSheet
-                        List<string> TimeSheetIDCol = new List<String>();
-                        List<string> TimeSheetDateCol = new List<String>();
-                        List<string> TimeInCol = new List<String>();
-                        List<string> TimeOutCol = new List<String>();
-                        List<string> THoursCol = new List<String>();
-                        List<string> TTimeCol = new List<String>();
-                        List<string> TimeStatusCol = new List<String>();
-                        List<string> LocalIPCol = new List<String>();
-                        List<string> RemoteIPCol = new List<String>();
-                        List<string> CountryCodeCol = new List<String>();
-                        List<string> CountryNameCol = new List<String>();
-                        List<string> TerminalNameCol = new List<String>();
-
-                        // WorkType
-                        List<string> WorkTypeIDCol = new List<String>();
-                        List<string> WorkTypeCol = new List<String>();
-
-                        // Work Arrangement
-                        List<string> WorkArrangementIDCol = new List<String>();
-                        List<string> DateFromToCol = new List<String>();
-
-                        // Leave Movement                        
-                        List<string> LeaveRemarksCol = new List<String>();
-                        List<string> TLeaveTakenCol = new List<String>();
-
-                        // Privacy
-                        List<string> PrivacyIDCol = new List<String>();
-                        List<string> FormCol = new List<String>();
-                        List<string> isAddCol = new List<String>();
-                        List<string> isDeleteCol = new List<String>();
-                        List<string> isUpdateCol = new List<String>();
-                        List<string> isViewCol = new List<String>();
-                        List<string> isPrintCol = new List<String>();
-                        List<string> isCheckedCol = new List<String>();
-
-                        // Country
-                        List<string> CountryIDCol = new List<String>();
-                        List<string> CountryCol = new List<String>();
-
-                        List<string> LocationCol = new List<String>();
-                        List<string> AllocationCol = new List<String>();
-                        List<string> AssetTypeCol = new List<String>();
-
-                        // Movement
-                        List<string> TransNoCol = new List<String>();
-                        List<string> TransDateCol = new List<String>();
-                        List<string> TransTimeCol = new List<String>();
-                        List<string> ReleaseDateCol = new List<String>();                    
-                        List<string> FromLocationIDCol = new List<String>();
-                        List<string> FromLocationCol = new List<String>();
-                        List<string> ToLocationIDCol = new List<String>();
-                        List<string> ToLocationCol = new List<String>();
-
-                        // POS Rental
-                        List<string> RentalFeeCol = new List<String>();
-                        List<string> InvoiceIDCol = new List<String>();
-                        List<string> AccountNoCol = new List<String>();
-                        List<string> CustomerNoCol = new List<String>();
-                        List<string> InvoiceDateCol = new List<String>();
-                        List<string> DateCoveredFromCol = new List<String>();
-                        List<string> DateCoveredToCol = new List<String>();
-                        List<string> DateDueCol = new List<String>();
-                        List<string> TAmtDueCol = new List<String>();
-                        List<string> ModeOfPaymentCol = new List<String>();
-                        List<string> NoteToCustomerCol = new List<String>();
-                        List<string> NoteToSelfCol = new List<String>();
-
-                        List<string> Detail_InfoCol = new List<String>();
-                        List<string> FunctionIDCol = new List<String>();
-
-                        // Zoning
-                        List<string> ZoneIDCol = new List<String>();
-                        List<string> ZoneCol = new List<String>();
-                        List<string> ZRegionCol = new List<String>();
-                        List<string> AreaCol = new List<String>();
-                        List<string> CityMunicipalCol = new List<String>();
-                        List<string> ClusterCol = new List<String>();
-
-                        // Dependency
-                        List<string> DependencyCol = new List<String>();
-                        List<string> StatusReasonCol = new List<String>();
-
-                        switch (MaintenanceType)
-                        {
-                            case "Service Type":
-                                ServiceTypeDetailOnline Detail1 = JsonConvert.DeserializeObject<ServiceTypeDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsServiceType.RecordFound = false;
-                                clsServiceType.ClassServiceStatus = clsFunction.iZero;
-
-                                switch (StatementType)
+                                switch (Action)
                                 {
-                                    case "Search":
+                                    case "InsertCollectionMaster": // Get Last Inserted ID                                
+                                        LastIDDetailOnline DetailLastInsert1 = JsonConvert.DeserializeObject<LastIDDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                        clsLastID.RecordFound = false;
 
-                                        if (SearchBy.CompareTo("JobTypeDescription") == 0)
+                                        foreach (var element in DetailLastInsert1.data)
                                         {
-                                            foreach (var element in Detail1.data)
-                                            {
-                                                clsServiceType.RecordFound = true;                                                
-                                                clsServiceType.ClassServiceStatus = element.ServiceStatus;                                                
-                                            }
+                                            clsLastID.RecordFound = true;
+                                            clsLastID.ClassLastInsertedID = element.LastInsertID;
+                                            clsLastID.ClassLastTableName = element.LastTableName;
                                         }
-                                        else
+                                        break;
+                                    case "InsertMaintenanceMaster":
+                                        LastIDDetailOnline DetailLastInsert2 = JsonConvert.DeserializeObject<LastIDDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                        clsLastID.RecordFound = false;
+                                        clsLastID.ClassLastInsertedID = 0;
+                                        clsLastID.ClassLastInsertedCityID = 0;
+                                        clsLastID.ClassLastInsertedProvinceID = 0;
+
+                                        foreach (var element in DetailLastInsert2.data)
                                         {
+                                            clsLastID.RecordFound = true;
+                                            clsLastID.ClassLastInsertedID = element.LastInsertID;
+                                            clsLastID.ClassLastTableName = element.LastTableName;
+                                        }
+
+                                        switch (MaintenanceType)
+                                        {
+                                            case "City":
+                                                clsLastID.ClassLastInsertedCityID = clsLastID.ClassLastInsertedID;
+                                                break;
+                                            case "Province":
+                                                clsLastID.ClassLastInsertedProvinceID = clsLastID.ClassLastInsertedID;
+                                                break;
+                                        }
+
+                                        break;
+                                    case "InsertCollectionDetail": // Get Last Inserted ID                                
+                                        LastIDDetailOnline DetailLastInsert3 = JsonConvert.DeserializeObject<LastIDDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                        clsLastID.RecordFound = false;
+
+                                        foreach (var element in DetailLastInsert3.data)
+                                        {
+                                            clsLastID.RecordFound = true;
+                                            clsLastID.ClassLastInsertedID = element.LastInsertID;
+                                            clsLastID.ClassLastTableName = element.LastTableName;
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(Response.message, ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                                return;
+                            }
+
+                        }
+                        else
+                        {
+                            // Local Array Variable
+                            List<string> IDCol = new List<String>();
+                            List<string> DescriptionCol = new List<String>();
+                            List<string> CodeCol = new List<String>();
+                            List<string> ServiceStatusCol = new List<String>();
+                            List<string> ServiceStatusDescriptionCol = new List<String>();
+                            List<string> ReferenceNoCol = new List<String>();
+
+                            List<string> ProviderIDCol = new List<String>();
+                            List<string> NameCol = new List<String>();
+                            List<string> AddressCol = new List<String>();
+                            List<string> TelNoCol = new List<String>();
+                            List<string> MobileCol = new List<String>();
+                            List<string> FaxCol = new List<String>();
+                            List<string> EmailCol = new List<String>();
+                            List<string> ContractTermsCol = new List<String>();
+
+                            List<string> UserIDCol = new List<String>();
+                            List<string> UserNameCol = new List<String>();
+                            List<string> PasswordCol = new List<String>();
+                            List<string> FullNameCol = new List<String>();
+                            List<string> UserTypeCol = new List<String>();
+                            List<string> MD5PasswordCol = new List<String>();
+                            List<string> MobileIDCol = new List<String>();
+                            List<string> MobileTerminalIDCol = new List<String>();
+                            List<string> MobileTerminalNameCol = new List<String>();
+
+                            List<string> LogIDCol = new List<String>();
+                            List<string> ComputerIPCol = new List<String>();
+                            List<string> ComputerNameCol = new List<String>();
+                            List<string> SessionStatusCol = new List<String>();
+                            List<string> SessionStatusDescriptionCol = new List<String>();
+                            List<string> LogInDateCol = new List<String>();
+                            List<string> LogInTimeCol = new List<String>();
+                            List<string> LogOutDateCol = new List<String>();
+                            List<string> LogOutTimeCol = new List<String>();
+                            List<string> LogPublishVersionCol = new List<String>();
+
+                            List<string> ContactNoCol = new List<String>();
+                            List<string> CityCol = new List<String>();
+                            List<string> ProvinceCol = new List<String>();
+                            List<string> RegionCol = new List<String>();
+
+                            List<string> ParticularIDCol = new List<String>();
+                            List<string> ProvinceIDCol = new List<String>();
+                            List<string> CityIDCol = new List<String>();
+                            List<string> ParticularTypeIDCol = new List<String>();
+                            List<string> ParticularDescriptionCol = new List<String>();
+                            List<string> ParticularNameCol = new List<String>();
+                            List<string> Address2Col = new List<String>();
+                            List<string> Address3Col = new List<String>();
+                            List<string> Address4Col = new List<String>();
+                            List<string> ContactPersonCol = new List<String>();
+
+                            List<string> MapIDCol = new List<String>();
+                            List<string> MapFromCol = new List<String>();
+                            List<string> MapToCol = new List<String>();
+                            List<string> DelimeterCol = new List<String>();
+                            List<string> ColumnIndexCol = new List<String>();
+                            List<string> isMustCol = new List<String>();
+                            List<string> FormatCol = new List<String>();
+
+                            List<string> FSRNoCol = new List<String>();
+                            List<string> FSRIDCol = new List<String>();
+                            List<string> NoCol = new List<String>();
+                            List<string> MerchantCol = new List<String>();
+                            List<string> MIDCol = new List<String>();
+                            List<string> TIDCol = new List<String>();
+                            List<string> TimeArrivedCol = new List<String>();
+                            List<string> TimeStartCol = new List<String>();
+                            List<string> InvoiceNoCol = new List<String>();
+                            List<string> BatchNoCol = new List<String>();
+                            List<string> FSRCol = new List<String>();
+                            List<string> FSRDateCol = new List<String>();
+                            List<string> FSRTimeCol = new List<String>();
+                            List<string> TxnAmtCol = new List<String>();
+                            List<string> TimeEndCol = new List<String>();
+                            List<string> TerminalSNCol = new List<String>();
+                            List<string> MerchantContactNoCol = new List<String>();
+                            List<string> MerchantRepresentativeCol = new List<String>();
+                            List<string> FENameCol = new List<String>();
+                            List<string> FEEmailCol = new List<String>();
+                            List<string> SerialNoCol = new List<String>();
+                            List<string> SerialNoListCol = new List<String>();
+                            List<string> FSRStatusDescriptionCol = new List<String>();
+                            List<string> FSRServiceStatusCol = new List<String>();
+                            List<string> FSRServiceStatusDescriptionCol = new List<String>();
+                            List<string> FSRRemarksCol = new List<String>();
+                            List<string> ProcessTypeCol = new List<String>();
+                            List<string> DateFromCol = new List<String>();
+                            List<string> DateToCol = new List<String>();
+                            List<string> DateCol = new List<String>();
+                            List<string> TimeCol = new List<String>();
+
+                            List<string> AuthCodeCol = new List<String>();
+                            List<string> RefNoCol = new List<String>();
+                            List<string> NRICCol = new List<String>();
+                            List<string> AdditionalInformationCol = new List<String>();
+
+                            List<string> TerminalIDCol = new List<String>();
+                            List<string> TIIDCol = new List<String>();
+                            List<string> TerminalTypeIDCol = new List<String>();
+                            List<string> TerminalModelIDCol = new List<String>();
+                            List<string> TerminalBrandIDCol = new List<String>();
+                            List<string> TypeCol = new List<String>();
+                            List<string> ModelCol = new List<String>();
+                            List<string> BrandCol = new List<String>();
+                            List<string> DeliveryDateCol = new List<String>();
+                            List<string> ReceiveDateCol = new List<String>();
+                            List<string> TerminalStatusCol = new List<String>();
+                            List<string> TerminalStatusTypeCol = new List<String>();
+                            List<string> TerminalStatusDescriptionCol = new List<String>();
+                            List<string> TerminalCountCol = new List<String>();
+                            List<string> TerminalPartNoCol = new List<String>();
+                            List<string> TerminalPONoCol = new List<String>();
+                            List<string> TerminalInvNoCol = new List<String>();
+                            List<string> TerminalTypeDescriptionCol = new List<String>();
+                            List<string> TerminalModelsDescriptionCol = new List<String>();
+                            List<string> TerminalBrandDescriptionCol = new List<String>();
+
+
+                            List<string> MerchantIDCol = new List<String>();
+                            List<string> MerchantNameCol = new List<String>();
+                            List<string> MerchantEmailCol = new List<String>();
+
+                            List<string> IRIDNoCol = new List<String>();
+                            List<string> IRIDCol = new List<String>();
+                            List<string> IRNoCol = new List<String>();
+                            List<string> IRDateCol = new List<String>();
+                            List<string> InstallationDateCol = new List<String>();
+                            List<string> IRImportDateCol = new List<String>();
+
+                            List<string> TAIDNoCol = new List<String>();
+                            List<string> TAIDCol = new List<String>();
+                            List<string> ClientIDCol = new List<String>();
+                            List<string> ServiceProviderIDCol = new List<String>();
+                            List<string> FEIDCol = new List<String>();
+                            List<string> ServiceTypeIDCol = new List<String>();
+                            List<string> OtherServiceTypeIDCol = new List<String>();
+                            List<string> ClientNameCol = new List<String>();
+                            List<string> ServiceProviderNameCol = new List<String>();
+                            List<string> TypeDescriptionCol = new List<String>();
+                            List<string> ModelDescriptionCol = new List<String>();
+                            List<string> BrandDescriptionCol = new List<String>();
+                            List<string> TADateTimeCol = new List<String>();
+                            List<string> TAProcessedByCol = new List<String>();
+                            List<string> TAModifiedByCol = new List<String>();
+                            List<string> TAProcessedDateTimeCol = new List<String>();
+                            List<string> TAModifiedDateTimeCol = new List<String>();
+                            List<string> TARemarksCol = new List<String>();
+                            List<string> TACommentsCol = new List<String>();
+                            List<string> ServiceTypeDescriptionCol = new List<String>();
+                            List<string> OtherServiceTypeDescriptionCol = new List<String>();
+                            List<string> IRImportDateTimeCol = new List<String>();
+                            List<string> RegionIDCol = new List<String>();
+                            List<string> ServiceTypeStatusCol = new List<String>();
+                            List<string> ServiceTypeStatusDescriptionCol = new List<String>();
+                            List<string> PowerSNCol = new List<String>();
+                            List<string> DockIDCol = new List<String>();
+                            List<string> DockSNCol = new List<String>();
+                            List<string> ServiceCodeCol = new List<String>();
+
+                            // SIM
+                            List<string> SIMIDCol = new List<String>();
+                            List<string> SIMSerialNoCol = new List<String>();
+                            List<string> SIMCarrierCol = new List<String>();
+                            List<string> AssignedToCol = new List<String>();
+                            List<string> RemarksCol = new List<String>();
+                            List<string> SIMStatusCol = new List<String>();
+                            List<string> SIMStatusDescriptionCol = new List<String>();
+
+                            // Report
+                            List<string> ReportIDCol = new List<String>();
+                            List<string> ReportDescCol = new List<String>();
+                            List<string> ReportTypeCol = new List<String>();
+                            List<string> ReportOrderDisplayCol = new List<String>();
+
+                            // Header
+                            List<string> HeaderIDCol = new List<String>();
+                            List<string> Header1Col = new List<String>();
+                            List<string> Header2Col = new List<String>();
+                            List<string> Header3Col = new List<String>();
+                            List<string> Header4Col = new List<String>();
+                            List<string> Header5Col = new List<String>();
+
+                            // IR
+                            List<string> IRStatusCol = new List<String>();
+                            List<string> IRStatusDescriptionCol = new List<String>();
+
+                            // System
+                            List<string> SysIDCol = new List<String>();
+                            List<string> PublishDateCol = new List<String>();
+                            List<string> PublishVersionCol = new List<String>();
+
+                            // Reason
+                            List<string> ReasonIDCol = new List<String>();
+                            List<string> ReasonCodeCol = new List<String>();
+                            List<string> ReasonDescriptionCol = new List<String>();
+                            List<string> ReasonTypeCol = new List<String>();
+                            List<string> ReasonIsInputCol = new List<String>();
+
+                            // Region Detail
+                            List<string> RegionTypeCol = new List<String>();
+
+                            // Service Call
+                            List<string> SCNoCol = new List<String>();
+                            List<string> SCDateTimeCol = new List<String>();
+                            List<string> ReferralIDCol = new List<String>();
+                            List<string> CustomerNameCol = new List<String>();
+                            List<string> CustomerContactNoCol = new List<String>();
+                            List<string> ReportedProblemCol = new List<String>();
+                            List<string> ArrangementMadeCol = new List<String>();
+                            List<string> SCReqDateCol = new List<String>();
+                            List<string> SCReqTimeCol = new List<String>();
+                            List<string> SCShipDateCol = new List<String>();
+                            List<string> SCShipTimeCol = new List<String>();
+                            List<string> TrackingNoCol = new List<String>();
+                            List<string> SCStatusCol = new List<String>();
+
+                            // Servicing Detail
+                            List<string> ServiceNoCol = new List<String>();
+                            List<string> CounterNoCol = new List<String>();
+                            List<string> RequestNoCol = new List<String>();
+                            List<string> ServiceDateTimeCol = new List<String>();
+                            List<string> ServiceDateCol = new List<String>();
+                            List<string> ServiceReqDateCol = new List<String>();
+                            List<string> ServiceTimeCol = new List<String>();
+                            List<string> ServiceReqTimeCol = new List<String>();
+                            List<string> LastServiceRequestCol = new List<String>();
+                            List<string> NewServiceRequestCol = new List<String>();
+                            List<string> ReplaceTerminalSNCol = new List<String>();
+                            List<string> ReplaceSIMSNCol = new List<String>();
+                            List<string> ReplaceDockSNCol = new List<String>();
+                            List<string> JobTypeCol = new List<String>();
+                            List<string> JobTypeDescriptionCol = new List<String>();
+                            List<string> JobTypeSubDescriptionCol = new List<String>();
+                            List<string> JobTypeStatusDescriptionCol = new List<String>();
+                            List<string> ServiceJobTypeDescriptionCol = new List<String>();
+                            List<string> ActionMadeCol = new List<String>();
+
+                            List<string> CurTerminalSNStatusCol = new List<String>();
+                            List<string> CurSIMSNStatusCol = new List<String>();
+                            List<string> CurDockSNStatusCol = new List<String>();
+                            List<string> CurTerminalSNStatusDescriptionCol = new List<String>();
+                            List<string> CurSIMSNStatusDescriptionCol = new List<String>();
+                            List<string> CurDockSNStatusDescriptionCol = new List<String>();
+
+                            List<string> RepTerminalSNStatusCol = new List<String>();
+                            List<string> RepSIMSNStatusCol = new List<String>();
+                            List<string> RepDockSNStatusCol = new List<String>();
+                            List<string> RepTerminalSNStatusDescriptionCol = new List<String>();
+                            List<string> RepSIMSNStatusDescriptionCol = new List<String>();
+                            List<string> RepDockSNStatusDescriptionCol = new List<String>();
+
+                            List<string> ProcessedByCol = new List<String>();
+                            List<string> ModifiedByCol = new List<String>();
+                            List<string> ProcessedDateTimeCol = new List<String>();
+                            List<string> ModifiedDateTimeCol = new List<String>();
+
+                            // Expenses
+                            List<string> ExpensesIDCol = new List<String>();
+                            List<string> TExpensesCol = new List<String>();
+
+                            // FSR
+                            List<string> ProblemReportedCol = new List<String>();
+                            List<string> ActualProblemReportedCol = new List<String>();
+                            List<string> ActionTakenCol = new List<String>();
+                            List<string> AnyCommentsCol = new List<String>();
+
+                            // Type                        
+                            List<string> QueryStringCol = new List<String>();
+                            List<string> TypeValueCol = new List<String>();
+
+                            // Holiday
+                            List<string> HolidayIDCol = new List<String>();
+                            List<string> HolidayDateCol = new List<String>();
+                            List<string> isActiveCol = new List<String>();
+
+                            // LeaveType
+                            List<string> LeaveNoCol = new List<String>();
+                            List<string> LeaveTypeIDCol = new List<String>();
+                            List<string> CreditLimitCol = new List<String>();
+                            List<string> LeaveCreditCol = new List<String>();
+
+                            // Department
+                            List<string> DepartmentIDCol = new List<String>();
+                            List<string> DepartmentCol = new List<String>();
+
+                            // Position
+                            List<string> PositionIDCol = new List<String>();
+                            List<string> PositionCol = new List<String>();
+
+                            List<string> EmploymentStatusCol = new List<String>();
+
+                            // Movement
+                            List<string> DurationCol = new List<String>();
+                            List<string> DateTypeCol = new List<String>();
+                            List<string> LeaveCodeCol = new List<String>();
+                            List<string> LeaveDescCol = new List<String>();
+
+                            List<string> AppVersionCol = new List<String>();
+                            List<string> AppCRCCol = new List<String>();
+
+                            List<string> PrimaryNumCol = new List<String>();
+                            List<string> SecondaryNumCol = new List<String>();
+
+                            // TimeSheet
+                            List<string> TimeSheetIDCol = new List<String>();
+                            List<string> TimeSheetDateCol = new List<String>();
+                            List<string> TimeInCol = new List<String>();
+                            List<string> TimeOutCol = new List<String>();
+                            List<string> THoursCol = new List<String>();
+                            List<string> TTimeCol = new List<String>();
+                            List<string> TimeStatusCol = new List<String>();
+                            List<string> LocalIPCol = new List<String>();
+                            List<string> RemoteIPCol = new List<String>();
+                            List<string> CountryCodeCol = new List<String>();
+                            List<string> CountryNameCol = new List<String>();
+                            List<string> TerminalNameCol = new List<String>();
+
+                            // WorkType
+                            List<string> WorkTypeIDCol = new List<String>();
+                            List<string> WorkTypeCol = new List<String>();
+
+                            // Work Arrangement
+                            List<string> WorkArrangementIDCol = new List<String>();
+                            List<string> DateFromToCol = new List<String>();
+
+                            // Leave Movement                        
+                            List<string> LeaveRemarksCol = new List<String>();
+                            List<string> TLeaveTakenCol = new List<String>();
+
+                            // Privacy
+                            List<string> PrivacyIDCol = new List<String>();
+                            List<string> FormCol = new List<String>();
+                            List<string> isAddCol = new List<String>();
+                            List<string> isDeleteCol = new List<String>();
+                            List<string> isUpdateCol = new List<String>();
+                            List<string> isViewCol = new List<String>();
+                            List<string> isPrintCol = new List<String>();
+                            List<string> isCheckedCol = new List<String>();
+
+                            // Country
+                            List<string> CountryIDCol = new List<String>();
+                            List<string> CountryCol = new List<String>();
+
+                            List<string> LocationCol = new List<String>();
+                            List<string> AllocationCol = new List<String>();
+                            List<string> AssetTypeCol = new List<String>();
+
+                            // Movement
+                            List<string> TransNoCol = new List<String>();
+                            List<string> TransDateCol = new List<String>();
+                            List<string> TransTimeCol = new List<String>();
+                            List<string> ReleaseDateCol = new List<String>();
+                            List<string> FromLocationIDCol = new List<String>();
+                            List<string> FromLocationCol = new List<String>();
+                            List<string> ToLocationIDCol = new List<String>();
+                            List<string> ToLocationCol = new List<String>();
+
+                            // POS Rental
+                            List<string> RentalFeeCol = new List<String>();
+                            List<string> InvoiceIDCol = new List<String>();
+                            List<string> AccountNoCol = new List<String>();
+                            List<string> CustomerNoCol = new List<String>();
+                            List<string> InvoiceDateCol = new List<String>();
+                            List<string> DateCoveredFromCol = new List<String>();
+                            List<string> DateCoveredToCol = new List<String>();
+                            List<string> DateDueCol = new List<String>();
+                            List<string> TAmtDueCol = new List<String>();
+                            List<string> ModeOfPaymentCol = new List<String>();
+                            List<string> NoteToCustomerCol = new List<String>();
+                            List<string> NoteToSelfCol = new List<String>();
+
+                            List<string> Detail_InfoCol = new List<String>();
+                            List<string> FunctionIDCol = new List<String>();
+
+                            // Zoning
+                            List<string> ZoneIDCol = new List<String>();
+                            List<string> ZoneCol = new List<String>();
+                            List<string> ZRegionCol = new List<String>();
+                            List<string> AreaCol = new List<String>();
+                            List<string> CityMunicipalCol = new List<String>();
+                            List<string> ClusterCol = new List<String>();
+
+                            // Dependency
+                            List<string> DependencyCol = new List<String>();
+                            List<string> StatusReasonCol = new List<String>();
+
+                            switch (MaintenanceType)
+                            {
+                                case "Service Type":
+                                    ServiceTypeDetailOnline Detail1 = JsonConvert.DeserializeObject<ServiceTypeDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsServiceType.RecordFound = false;
+                                    clsServiceType.ClassServiceStatus = clsFunction.iZero;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+
+                                            if (SearchBy.CompareTo("JobTypeDescription") == 0)
+                                            {
+                                                foreach (var element in Detail1.data)
+                                                {
+                                                    clsServiceType.RecordFound = true;
+                                                    clsServiceType.ClassServiceStatus = element.ServiceStatus;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                foreach (var element in Detail1.data)
+                                                {
+                                                    clsServiceType.RecordFound = true;
+                                                    clsServiceType.ClassServiceTypeID = element.ServiceTypeID;
+                                                    clsServiceType.ClassDescription = element.Description;
+                                                    clsServiceType.ClassCode = element.Code;
+                                                    clsServiceType.ClassServiceStatus = element.ServiceStatus;
+                                                    clsServiceType.ClassStatusDescription = element.ServiceStatusDescription;
+                                                }
+                                            }
+
+                                            break;
+                                        case "View":
+                                            string sServiceTypeList = "";
+                                            string sServiceStatusList = "";
+
                                             foreach (var element in Detail1.data)
                                             {
                                                 clsServiceType.RecordFound = true;
-                                                clsServiceType.ClassServiceTypeID = element.ServiceTypeID;
-                                                clsServiceType.ClassDescription = element.Description;
-                                                clsServiceType.ClassCode = element.Code;
-                                                clsServiceType.ClassServiceStatus = element.ServiceStatus;
-                                                clsServiceType.ClassStatusDescription = element.ServiceStatusDescription;
-                                            }
-                                        }
-                                        
-                                        break;
-                                    case "View":
-                                        string sServiceTypeList = "";
-                                        string sServiceStatusList = "";
+                                                IDCol.Add(element.ServiceTypeID.ToString());
+                                                DescriptionCol.Add(element.Description);
+                                                CodeCol.Add(element.Code);
+                                                ServiceStatusCol.Add(element.ServiceStatus.ToString());
+                                                ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
+                                                JobTypeDescriptionCol.Add(element.JobTypeDescription);
+                                                ServiceJobTypeDescriptionCol.Add(element.ServiceJobTypeDescription);
 
-                                        foreach (var element in Detail1.data)
-                                        {
-                                            clsServiceType.RecordFound = true;
-                                            IDCol.Add(element.ServiceTypeID.ToString());
-                                            DescriptionCol.Add(element.Description);
-                                            CodeCol.Add(element.Code);
-                                            ServiceStatusCol.Add(element.ServiceStatus.ToString());
-                                            ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
-                                            JobTypeDescriptionCol.Add(element.JobTypeDescription);
-                                            ServiceJobTypeDescriptionCol.Add(element.ServiceJobTypeDescription);
+                                                // Service Type List
+                                                sServiceTypeList = sServiceTypeList + element.Description + Environment.NewLine;
+
+                                                // Service Status List
+                                                sServiceStatusList = sServiceStatusList + element.ServiceStatusDescription + Environment.NewLine;
+
+                                            }
+
+                                            clsArray.ServiceTypeID = IDCol.ToArray();
+                                            clsArray.Description = DescriptionCol.ToArray();
+                                            clsArray.ServiceTypeDescription = DescriptionCol.ToArray();
+                                            clsArray.Code = CodeCol.ToArray();
+                                            clsArray.ServiceStatus = ServiceStatusCol.ToArray();
+                                            clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
+                                            clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
+                                            clsArray.ServiceJobTypeDescription = ServiceJobTypeDescriptionCol.ToArray();
 
                                             // Service Type List
-                                            sServiceTypeList = sServiceTypeList + element.Description + Environment.NewLine;
+                                            clsSearch.ClassServiceTypeList = sServiceTypeList;
 
                                             // Service Status List
-                                            sServiceStatusList = sServiceStatusList + element.ServiceStatusDescription + Environment.NewLine;
+                                            clsSearch.ClassServiceStatusList = sServiceStatusList;
 
-                                        }
+                                            break;
+                                    }
+                                    break;
+                                case "Terminal Type":
+                                case "Terminal Base":
+                                    TerminalTypeDetailOnline Detail2 = JsonConvert.DeserializeObject<TerminalTypeDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsTerminalType.ResetClass();
+                                    clsTerminalType.RecordFound = false;
 
-                                        clsArray.ServiceTypeID = IDCol.ToArray();
-                                        clsArray.Description = DescriptionCol.ToArray();
-                                        clsArray.ServiceTypeDescription = DescriptionCol.ToArray();
-                                        clsArray.Code = CodeCol.ToArray();
-                                        clsArray.ServiceStatus = ServiceStatusCol.ToArray();
-                                        clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
-                                        clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
-                                        clsArray.ServiceJobTypeDescription = ServiceJobTypeDescriptionCol.ToArray();
-
-                                        // Service Type List
-                                        clsSearch.ClassServiceTypeList = sServiceTypeList;
-
-                                        // Service Status List
-                                        clsSearch.ClassServiceStatusList = sServiceStatusList;
-
-                                        break;
-                                }
-                                break;
-                            case "Terminal Type":
-                            case "Terminal Base":
-                                TerminalTypeDetailOnline Detail2 = JsonConvert.DeserializeObject<TerminalTypeDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsTerminalType.ResetClass();
-                                clsTerminalType.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail2.data)
-                                        {
-                                            clsTerminalType.RecordFound = true;
-                                            clsTerminalType.ClassTerminalTypeID = element.TerminalTypeID;
-                                            clsTerminalType.ClassDescription = element.Description;
-                                        }
-                                        break;
-                                    case "View":
-                                        clsSearch.ClassTerminalTypeList = "";
-                                        foreach (var element in Detail2.data)
-                                        {
-                                            clsTerminalType.RecordFound = true;
-                                            IDCol.Add(element.TerminalTypeID.ToString());
-                                            DescriptionCol.Add(element.Description);
-
-                                            clsSearch.ClassTerminalTypeList = clsSearch.ClassTerminalTypeList + element.Description + Environment.NewLine;
-                                        }
-
-                                        clsArray.TerminalTypeID = IDCol.ToArray();
-                                        clsArray.Description = DescriptionCol.ToArray();
-                                        clsArray.TypeDescription = DescriptionCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "Service Provider":
-                                ServiceProviderDetailOnline Detail3 = JsonConvert.DeserializeObject<ServiceProviderDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsServiceProvider.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail3.data)
-                                        {
-                                            clsServiceProvider.RecordFound = true;
-                                            clsServiceProvider.ClassProviderID = element.ProviderID;
-                                            clsServiceProvider.ClassName = element.Name;
-                                            clsServiceProvider.ClassAddress = element.Address;
-                                            clsServiceProvider.ClassTelNo = element.TelNo;
-                                            clsServiceProvider.ClassMobile = element.Mobile;
-                                            clsServiceProvider.ClassFax = element.Fax;
-                                            clsServiceProvider.ClassEmail = element.Email;
-                                            clsServiceProvider.ClassContactTerms = element.ContractTerms;
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail3.data)
-                                        {
-                                            clsServiceProvider.RecordFound = true;
-                                            ProviderIDCol.Add(element.ProviderID.ToString());
-                                            NameCol.Add(element.Name);
-                                            AddressCol.Add(element.Address);
-                                            TelNoCol.Add(element.TelNo);
-                                            MobileCol.Add(element.Mobile);
-                                            FaxCol.Add(element.Fax);
-                                            EmailCol.Add(element.Email);
-                                            ContractTermsCol.Add(element.ContractTerms);
-                                        }
-
-                                        clsArray.ProviderID = ProviderIDCol.ToArray();
-                                        clsArray.Name = NameCol.ToArray();
-                                        clsArray.Address = AddressCol.ToArray();
-                                        clsArray.TelNo = TelNoCol.ToArray();
-                                        clsArray.MobileNo = MobileCol.ToArray();
-                                        clsArray.Fax = FaxCol.ToArray();
-                                        clsArray.Email = EmailCol.ToArray();
-                                        clsArray.ContractTerms = ContractTermsCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "Other Service Type":
-                                OtherServiceTypeDetailOnline Detail4 = JsonConvert.DeserializeObject<OtherServiceTypeDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsOtherServiceType.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail4.data)
-                                        {
-                                            clsOtherServiceType.RecordFound = true;
-                                            clsOtherServiceType.ClassOtherServiceTypeID = element.OtherServiceTypeID;
-                                            clsOtherServiceType.ClassDescription = element.Description;
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail4.data)
-                                        {
-                                            clsOtherServiceType.RecordFound = true;
-                                            IDCol.Add(element.OtherServiceTypeID.ToString());
-                                            DescriptionCol.Add(element.Description);
-                                        }
-
-                                        clsArray.OtherServiceTypeID = IDCol.ToArray();
-                                        clsArray.Description = DescriptionCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "User":
-                                UserDetailOnline Detail5 = JsonConvert.DeserializeObject<UserDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsUser.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail5.data)
-                                        {
-                                            clsUser.RecordFound = true;
-                                            clsUser.ClassUserID = element.UserID;
-                                            clsUser.ClassParticularID = element.ParticularID;
-                                            clsUser.ClassUserName = element.UserName;
-                                            clsUser.ClassUserFullName = element.FullName;
-                                            clsUser.ClassPassword = element.Password;
-                                            clsUser.ClassUserType = element.UserType;
-                                            clsUser.ClassisActive = (element.isActive > 0 ? true : false);
-                                            clsUser.ClassisAppVersion = (element.isAppVersion > 0 ? true : false);
-                                            clsUser.ClassMD5Password = element.MD5Password;
-                                        }
-                                        break;
-                                    case "View":
-
-                                        switch (SearchBy)
-                                        {
-                                            case "User Log":
-                                                foreach (var element in Detail5.data)
-                                                {
-                                                    clsUser.RecordFound = true;
-                                                    UserIDCol.Add(element.UserID.ToString());
-                                                    UserNameCol.Add(element.UserName);
-                                                    FullNameCol.Add(element.FullName);
-                                                    PasswordCol.Add(element.Password);
-                                                    UserTypeCol.Add(element.UserType);
-                                                    LogIDCol.Add(element.LogID.ToString());
-                                                    SessionStatusCol.Add(element.SessionStatus.ToString());
-                                                    ComputerIPCol.Add(element.ComputerIP);
-                                                    ComputerNameCol.Add(element.ComputerName);
-                                                    SessionStatusDescriptionCol.Add(element.SessionStatusDescription);
-                                                    LogInDateCol.Add(element.LogInDate);
-                                                    LogInTimeCol.Add(element.LogInTime);
-                                                    LogOutDateCol.Add(element.LogOutDate);
-                                                    LogOutTimeCol.Add(element.LogOutTime);
-                                                    LogPublishVersionCol.Add(element.PublishVersion);
-
-                                                }
-
-                                                clsArray.UserID = UserIDCol.ToArray();
-                                                clsArray.UserName = UserNameCol.ToArray();
-                                                clsArray.FullName = FullNameCol.ToArray();
-                                                clsArray.Password = PasswordCol.ToArray();
-                                                clsArray.UserType = UserTypeCol.ToArray();
-                                                clsArray.LogID = LogIDCol.ToArray();
-                                                clsArray.SessionStatus = SessionStatusCol.ToArray();
-                                                clsArray.ComputerIP = ComputerIPCol.ToArray();
-                                                clsArray.ComputerName = ComputerNameCol.ToArray();
-                                                clsArray.SessionStatusDescription = SessionStatusDescriptionCol.ToArray();
-                                                clsArray.LogInDate = LogInDateCol.ToArray();
-                                                clsArray.LogInTime = LogInTimeCol.ToArray();
-                                                clsArray.LogOutDate = LogOutDateCol.ToArray();
-                                                clsArray.LogOutTime = LogOutTimeCol.ToArray();
-                                                clsArray.LogPublishVersion = LogPublishVersionCol.ToArray();
-
-                                                break;
-                                            case "Who Is Online":
-                                                foreach (var element in Detail5.data)
-                                                {
-                                                    clsUser.RecordFound = true;
-                                                    UserIDCol.Add(element.UserID.ToString());
-                                                    UserNameCol.Add(element.UserName);
-                                                    FullNameCol.Add(element.FullName);                                                    
-                                                    UserTypeCol.Add(element.UserType);
-                                                    LogIDCol.Add(element.LogID.ToString());                                                    
-                                                    ComputerIPCol.Add(element.ComputerIP);
-                                                    ComputerNameCol.Add(element.ComputerName);
-                                                    LogInTimeCol.Add(element.LogInTime);
-                                                }
-
-                                                clsArray.UserID = UserIDCol.ToArray();
-                                                clsArray.UserName = UserNameCol.ToArray();
-                                                clsArray.FullName = FullNameCol.ToArray();                                                
-                                                clsArray.UserType = UserTypeCol.ToArray();
-                                                clsArray.LogID = LogIDCol.ToArray();                                                
-                                                clsArray.ComputerIP = ComputerIPCol.ToArray();
-                                                clsArray.ComputerName = ComputerNameCol.ToArray();                                                                                                
-                                                clsArray.LogInTime = LogInTimeCol.ToArray();                                                
-
-                                                break;
-                                            default:
-                                                foreach (var element in Detail5.data)
-                                                {
-                                                    clsUser.RecordFound = true;
-                                                    UserIDCol.Add(element.UserID.ToString());
-                                                    ParticularIDCol.Add(element.ParticularID.ToString());
-                                                    UserNameCol.Add(element.UserName);
-                                                    FullNameCol.Add(element.FullName);
-                                                    PasswordCol.Add(element.Password);
-                                                    UserTypeCol.Add(element.UserType);
-                                                    MD5PasswordCol.Add(element.MD5Password);
-                                                    MobileIDCol.Add(element.MobileID);
-                                                    MobileTerminalIDCol.Add(element.MobileTerminalID);
-                                                    MobileTerminalNameCol.Add(element.MobileTerminalName);
-                                                }
-
-                                                clsArray.UserID = UserIDCol.ToArray();
-                                                clsArray.ParticularID = ParticularIDCol.ToArray();
-                                                clsArray.UserName = UserNameCol.ToArray();
-                                                clsArray.FullName = FullNameCol.ToArray();
-                                                clsArray.Password = PasswordCol.ToArray();
-                                                clsArray.UserType = UserTypeCol.ToArray();
-                                                clsArray.MD5Password = MD5PasswordCol.ToArray();
-                                                clsArray.MobileID = MobileIDCol.ToArray();
-                                                clsArray.MobileTerminalID = MobileTerminalIDCol.ToArray();
-                                                clsArray.MobileTerminalName = MobileTerminalNameCol.ToArray();
-                                                break;
-                                        }                                        
-                                        break;
-                                }
-                                break;
-                            case "Terminal Status":
-                                TerminalStatusDetailOnline Detail6 = JsonConvert.DeserializeObject<TerminalStatusDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsTerminalStatus.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail6.data)
-                                        {
-                                            clsTerminalStatus.RecordFound = true;
-                                            clsTerminalStatus.ClassTerminalStatusID = element.TerminalStatusID;
-                                            clsTerminalStatus.ClassDescription = element.Description;
-                                            clsTerminalStatus.ClassTerminalStatusType = element.TerminalStatusType;
-                                        }
-                                        break;
-                                    case "View":
-                                        clsSearch.ClassTerminalStatusList = "";
-                                        foreach (var element in Detail6.data)
-                                        {
-                                            clsTerminalStatus.RecordFound = true;
-                                            IDCol.Add(element.TerminalStatusID.ToString());
-                                            DescriptionCol.Add(element.Description);
-                                            TerminalStatusTypeCol.Add(element.TerminalStatusType.ToString());
-
-                                            clsSearch.ClassTerminalStatusList = clsSearch.ClassTerminalStatusList + element.Description + Environment.NewLine;
-                                        }
-
-                                        clsArray.TerminalStatusID = IDCol.ToArray();
-                                        clsArray.Description = DescriptionCol.ToArray();
-                                        clsArray.TerminalStatusDescription = DescriptionCol.ToArray();
-                                        clsArray.TerminalStatusType = TerminalStatusTypeCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "Terminal Model":
-                                TerminalModelDetailOnline Detail7 = JsonConvert.DeserializeObject<TerminalModelDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsTerminalModel.ResetClass();
-                                clsTerminalModel.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail7.data)
-                                        {
-                                            clsTerminalModel.RecordFound = true;
-                                            clsTerminalModel.ClassTerminalModelID = element.TerminalModelID;
-                                            clsTerminalModel.ClassDescription = element.Description;
-
-                                        }
-                                        break;
-                                    case "View":
-                                        clsSearch.ClassTerminalModelList = "";
-                                        foreach (var element in Detail7.data)
-                                        {
-                                            clsTerminalModel.RecordFound = true;
-                                            IDCol.Add(element.TerminalModelID.ToString());
-                                            DescriptionCol.Add(element.Description);
-                                            TerminalTypeIDCol.Add(element.TerminalTypeID.ToString());
-                                            TerminalTypeDescriptionCol.Add(element.TerminalTypeDescription);
-
-                                            clsSearch.ClassTerminalModelList = clsSearch.ClassTerminalModelList + element.Description + Environment.NewLine;
-                                        }
-
-                                        clsArray.TerminalModelID = IDCol.ToArray();
-                                        clsArray.Description = DescriptionCol.ToArray();
-                                        clsArray.ModelDescription = DescriptionCol.ToArray();
-                                        clsArray.TerminalTypeID = TerminalTypeIDCol.ToArray();
-                                        clsArray.TypeDescription = TerminalTypeDescriptionCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "FE":
-                                FEDetailOnline Detail8 = JsonConvert.DeserializeObject<FEDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsFE.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail8.data)
-                                        {
-                                            clsFE.RecordFound = true;
-                                            clsFE.ClassFEID = element.FEID;
-                                            clsFE.ClassName = element.Name;
-                                            clsFE.ClassAddress = element.Address;
-                                            clsFE.ClassContactNo = element.ContactNo;
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail8.data)
-                                        {
-                                            clsFE.RecordFound = true;
-                                            IDCol.Add(element.FEID.ToString());
-                                            NameCol.Add(element.Name);
-                                            AddressCol.Add(element.Address);
-                                            ContactNoCol.Add(element.ContactNo);
-                                        }
-
-                                        clsArray.FEID = IDCol.ToArray();
-                                        clsArray.Name = NameCol.ToArray();
-                                        clsArray.Address = AddressCol.ToArray();
-                                        clsArray.ContactNo = ContactNoCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "City":
-                                CityDetailOnline Detail9 = JsonConvert.DeserializeObject<CityDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsCity.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail9.data)
-                                        {
-                                            clsCity.RecordFound = true;
-                                            clsCity.ClassCityID = element.CityID;
-                                            clsCity.ClassCity = element.City;
-                                        }
-                                        break;
-                                    case "View":
-                                        clsSearch.ClassCityList = "";
-                                        foreach (var element in Detail9.data)
-                                        {
-                                            clsCity.RecordFound = true;
-                                            IDCol.Add(element.CityID.ToString());
-                                            CityCol.Add(element.City);
-
-                                            clsSearch.ClassCityList = clsSearch.ClassCityList + element.City + Environment.NewLine;
-                                        }
-
-                                        clsArray.CityID = IDCol.ToArray();
-                                        clsArray.City = CityCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "Province":
-                                ProvinceDetailOnline Detail10 = JsonConvert.DeserializeObject<ProvinceDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsProvince.RecordFound = false;
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail10.data)
-                                        {
-                                            clsProvince.RecordFound = true;
-                                            clsProvince.ClassProvinceID = element.ProvinceID;
-                                            clsProvince.ClassProvince = element.Province;
-                                        }
-                                        break;
-                                    case "View":
-                                        string sProvinceList = "";
-                                        clsSearch.ClassProvinceList = "";
-
-                                        foreach (var element in Detail10.data)
-                                        {
-                                            clsProvince.RecordFound = true;
-                                            IDCol.Add(element.ProvinceID.ToString());
-                                            ProvinceCol.Add(element.Province);
-
-                                            sProvinceList = sProvinceList + element.Province + Environment.NewLine;
-                                        }
-
-                                        clsArray.ProvinceID = IDCol.ToArray();
-                                        clsArray.Province = ProvinceCol.ToArray();
-
-                                        clsSearch.ClassProvinceList = sProvinceList;
-                                        break;
-                                }
-                                break;
-                            case "Particular":
-                                ParticularDetailOnline Detail11 = JsonConvert.DeserializeObject<ParticularDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsParticular.RecordFound = false;
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail11.data)
-                                        {
-                                            clsParticular.RecordFound = true;
-                                            clsParticular.ClassParticularID = int.Parse(element.ParticularID.ToString());
-                                            clsParticular.ClassProvinceID = int.Parse(element.ProvinceID.ToString());
-                                            clsParticular.ClassCityID = int.Parse(element.CityID.ToString());
-                                            clsParticular.ClassParticularTypeID = int.Parse(element.ParticularTypeID.ToString());
-                                            clsParticular.ClassParticularName = element.ParticularName.ToString();
-                                            clsParticular.ClassAddress = element.Address.ToString();
-                                            clsParticular.ClassAddress2 = element.Address2.ToString();
-                                            clsParticular.ClassAddress3 = element.Address3.ToString();
-                                            clsParticular.ClassAddress4 = element.Address4.ToString();
-                                            clsParticular.ClassContactPerson = element.ContactPerson.ToString();
-                                            clsParticular.ClassTelNo = element.TelNo.ToString();
-                                            clsParticular.ClassMobile = element.Mobile.ToString();
-                                            clsParticular.ClassFax = element.Fax.ToString();
-                                        }
-
-                                        break;
-                                    case "View":
-
-                                        clsSearch.ClassFENameList = "";
-                                        clsSearch.ClassClientNameList = "";
-                                        clsSearch.ClassSPNameList = "";
-
-                                        if (SearchBy.CompareTo("Particular List") == 0)
-                                        {
-                                            foreach (var element in Detail11.data)
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail2.data)
                                             {
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                ParticularNameCol.Add(element.ParticularName);
+                                                clsTerminalType.RecordFound = true;
+                                                clsTerminalType.ClassTerminalTypeID = element.TerminalTypeID;
+                                                clsTerminalType.ClassDescription = element.Description;
+                                            }
+                                            break;
+                                        case "View":
+                                            clsSearch.ClassTerminalTypeList = "";
+                                            foreach (var element in Detail2.data)
+                                            {
+                                                clsTerminalType.RecordFound = true;
+                                                IDCol.Add(element.TerminalTypeID.ToString());
+                                                DescriptionCol.Add(element.Description);
+
+                                                clsSearch.ClassTerminalTypeList = clsSearch.ClassTerminalTypeList + element.Description + Environment.NewLine;
+                                            }
+
+                                            clsArray.TerminalTypeID = IDCol.ToArray();
+                                            clsArray.Description = DescriptionCol.ToArray();
+                                            clsArray.TypeDescription = DescriptionCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "Service Provider":
+                                    ServiceProviderDetailOnline Detail3 = JsonConvert.DeserializeObject<ServiceProviderDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsServiceProvider.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail3.data)
+                                            {
+                                                clsServiceProvider.RecordFound = true;
+                                                clsServiceProvider.ClassProviderID = element.ProviderID;
+                                                clsServiceProvider.ClassName = element.Name;
+                                                clsServiceProvider.ClassAddress = element.Address;
+                                                clsServiceProvider.ClassTelNo = element.TelNo;
+                                                clsServiceProvider.ClassMobile = element.Mobile;
+                                                clsServiceProvider.ClassFax = element.Fax;
+                                                clsServiceProvider.ClassEmail = element.Email;
+                                                clsServiceProvider.ClassContactTerms = element.ContractTerms;
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail3.data)
+                                            {
+                                                clsServiceProvider.RecordFound = true;
+                                                ProviderIDCol.Add(element.ProviderID.ToString());
+                                                NameCol.Add(element.Name);
                                                 AddressCol.Add(element.Address);
-                                                MobileCol.Add(element.Mobile);
-                                                TelNoCol.Add(element.TelNo);
-                                                DepartmentCol.Add(element.Department);
-                                                PositionCol.Add(element.Position);
-                                                EmploymentStatusCol.Add(element.EmploymentStatus);
-                                                ContactPersonCol.Add(element.ContactPerson);
-                                                EmailCol.Add(element.Email);
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                IRNoCol.Add(element.IRNo);
-                                                TIDCol.Add(element.TID);
-                                                MIDCol.Add(element.MID);
-                                                IRStatusCol.Add(element.IRStatus.ToString());
-                                                IRStatusDescriptionCol.Add(element.IRStatusDescription);
-                                                ClientIDCol.Add(element.ClientID.ToString());
-                                                RegionCol.Add(element.Region);
-                                                ProvinceCol.Add(element.Province);
-
-                                                // Zoning
-                                                ZoneIDCol.Add(element.ZoneID.ToString());
-                                                ZoneCol.Add(element.Zone);
-                                                ZRegionCol.Add(element.ZRegion);
-                                                AreaCol.Add(element.Area);
-                                                CityMunicipalCol.Add(element.CityMunicipal);
-                                                ClusterCol.Add(element.Cluster);
-
-                                            }
-
-                                            clsArray.ParticularID = ParticularIDCol.ToArray();
-                                            clsArray.ParticularName = ParticularNameCol.ToArray();
-                                            clsArray.Address = AddressCol.ToArray();
-                                            clsArray.MobileNo = MobileCol.ToArray();
-                                            clsArray.TelNo = TelNoCol.ToArray();
-                                            clsArray.DepartmentDesc = DepartmentCol.ToArray();
-                                            clsArray.PositionDesc = PositionCol.ToArray();
-                                            clsArray.EmploymentStatus = EmploymentStatusCol.ToArray();
-                                            clsArray.ContactPerson = ContactPersonCol.ToArray();
-                                            clsArray.Email = EmailCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.IRStatus = IRStatusCol.ToArray();
-                                            clsArray.IRStatusDescription = IRStatusDescriptionCol.ToArray();
-                                            clsArray.ClientID = ClientIDCol.ToArray();
-                                            clsArray.Region = RegionCol.ToArray();
-                                            clsArray.Province = ProvinceCol.ToArray();
-
-                                            // Zoning
-                                            clsArray.ZoneID = ZoneIDCol.ToArray();
-                                            clsArray.Zone = ZoneCol.ToArray();
-                                            clsArray.ZRegion = ZRegionCol.ToArray();
-                                            clsArray.Area = AreaCol.ToArray();
-                                            clsArray.CityMunicipal = CityMunicipalCol.ToArray();
-                                            clsArray.Cluster = ClusterCol.ToArray();
-
-                                        }
-                                        else if (SearchBy.CompareTo("Merchant List") == 0)
-                                        {
-                                            foreach (var element in Detail11.data)
-                                            {
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                ParticularNameCol.Add(element.ParticularName);
-                                            }
-
-                                            clsArray.ParticularID = ParticularIDCol.ToArray();
-                                            clsArray.ParticularName = ParticularNameCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("Client List") == 0)
-                                        {
-                                            foreach (var element in Detail11.data)
-                                            {
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                ParticularNameCol.Add(element.ParticularName);
-
-                                                clsSearch.ClassClientNameList = clsSearch.ClassClientNameList + element.ParticularName + Environment.NewLine;
-                                            }
-
-                                            clsArray.ClientID = ParticularIDCol.ToArray();
-                                            clsArray.ClientName = ParticularNameCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("Field Engineer List") == 0)
-                                        {
-                                            foreach (var element in Detail11.data)
-                                            {
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                ParticularNameCol.Add(element.ParticularName);
-
-                                                clsSearch.ClassFENameList = clsSearch.ClassFENameList + element.ParticularName + Environment.NewLine;
-                                            }
-
-                                            clsArray.FEID = ParticularIDCol.ToArray();
-                                            clsArray.FEName = ParticularNameCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("Service Provider List") == 0)
-                                        {
-                                            foreach (var element in Detail11.data)
-                                            {
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                ParticularNameCol.Add(element.ParticularName);
-
-                                                clsSearch.ClassSPNameList = clsSearch.ClassSPNameList + element.ParticularName + Environment.NewLine;
-                                            }
-
-                                            clsArray.ServiceProviderID = ParticularIDCol.ToArray();
-                                            clsArray.ServiceProviderName = ParticularNameCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("Particular List 2") == 0)
-                                        {
-                                            foreach (var element in Detail11.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-                                                IDCol.Add(element.ID.ToString());
-                                                Detail_InfoCol.Add(element.detail_info);
-                                            }
-
-                                            clsArray.ID = IDCol.ToArray();
-                                            clsArray.detail_info = Detail_InfoCol.ToArray();
-                                        }
-                                        else
-                                        {
-                                            foreach (var element in Detail11.data)
-                                            {
-                                                clsParticular.RecordFound = true;
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                ProvinceIDCol.Add(element.ProvinceID.ToString());
-                                                CityIDCol.Add(element.CityID.ToString());
-                                                ParticularTypeIDCol.Add(element.ParticularTypeID.ToString());
-                                                RegionIDCol.Add(element.RegionID.ToString());
-                                                RegionTypeCol.Add(element.RegionType.ToString());
-                                                ParticularDescriptionCol.Add(element.ParticularDescription);
-                                                ParticularNameCol.Add(element.ParticularName);
-                                                AddressCol.Add(element.Address);
-                                                Address2Col.Add(element.Address2);
-                                                Address3Col.Add(element.Address3);
-                                                Address4Col.Add(element.Address4);
-                                                ContactPersonCol.Add(element.ContactPerson);
                                                 TelNoCol.Add(element.TelNo);
                                                 MobileCol.Add(element.Mobile);
                                                 FaxCol.Add(element.Fax);
                                                 EmailCol.Add(element.Email);
                                                 ContractTermsCol.Add(element.ContractTerms);
-                                                ProvinceCol.Add(element.Province);
-                                                RegionCol.Add(element.Region);
-                                                CityCol.Add(element.City);
                                             }
 
-                                            clsArray.ParticularID = ParticularIDCol.ToArray();
-                                            clsArray.ProvinceID = ProvinceIDCol.ToArray();
-                                            clsArray.CityID = CityIDCol.ToArray();
-                                            clsArray.RegionID = RegionIDCol.ToArray();
-                                            clsArray.RegionType = RegionTypeCol.ToArray();
-                                            clsArray.City = CityCol.ToArray();
-                                            clsArray.Province = ProvinceCol.ToArray();
-                                            clsArray.ParticularTypeID = ParticularTypeIDCol.ToArray();
-                                            clsArray.ParticularDescription = ParticularDescriptionCol.ToArray();
-                                            clsArray.ParticularName = ParticularNameCol.ToArray();
+                                            clsArray.ProviderID = ProviderIDCol.ToArray();
+                                            clsArray.Name = NameCol.ToArray();
                                             clsArray.Address = AddressCol.ToArray();
-                                            clsArray.Address2 = Address2Col.ToArray();
-                                            clsArray.Address3 = Address3Col.ToArray();
-                                            clsArray.Address4 = Address4Col.ToArray();
-                                            clsArray.ContactPerson = ContactPersonCol.ToArray();
                                             clsArray.TelNo = TelNoCol.ToArray();
                                             clsArray.MobileNo = MobileCol.ToArray();
                                             clsArray.Fax = FaxCol.ToArray();
                                             clsArray.Email = EmailCol.ToArray();
                                             clsArray.ContractTerms = ContractTermsCol.ToArray();
-                                            clsArray.Region = RegionCol.ToArray();
-                                        }
+                                            break;
+                                    }
+                                    break;
+                                case "Other Service Type":
+                                    OtherServiceTypeDetailOnline Detail4 = JsonConvert.DeserializeObject<OtherServiceTypeDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsOtherServiceType.RecordFound = false;
 
-                                        break;
-                                }
-                                break;
-                            case "Mapping":
-                                MappingDetailOnline Detail12 = JsonConvert.DeserializeObject<MappingDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsMapping.RecordFound = false;
-                                clsMapping.ClassRecordCount = 0;
-
-                                // Clear
-                                IDCol.Clear();
-                                MapFromCol.Clear();
-                                MapToCol.Clear();
-                                DelimeterCol.Clear();
-                                ColumnIndexCol.Clear();
-                                isMustCol.Clear();
-                                FormatCol.Clear();
-                              
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail12.data)
-                                        {
-                                            clsMapping.RecordFound = true;
-                                            clsMapping.ClassMapID = element.MapID;
-                                            clsMapping.ClassMapFrom = element.MapFrom;
-                                            clsMapping.ClassMapTo = element.MapTo;
-                                            clsMapping.ClassDelimeter = element.Delimeter;
-                                            clsMapping.ClassColumnIndex = element.ColumnIndex;
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail12.data)
-                                        {
-                                            clsMapping.RecordFound = true;
-                                            IDCol.Add(element.MapID.ToString());
-                                            MapFromCol.Add(element.MapFrom);
-                                            MapToCol.Add(element.MapTo);
-                                            DelimeterCol.Add(element.Delimeter);
-                                            ColumnIndexCol.Add(element.ColumnIndex);
-                                            isMustCol.Add(element.isMust.ToString());
-                                            FormatCol.Add(element.Format);
-
-
-                                        }
-
-                                        // Loop And Store To Array
-                                        clsArray.MapID = IDCol.ToArray();
-                                        clsArray.MapFrom = MapFromCol.ToArray();
-                                        clsArray.MapTo = MapToCol.ToArray();
-                                        clsArray.MapDelimeter = DelimeterCol.ToArray();
-                                        clsArray.MapColumnIndex = ColumnIndexCol.ToArray();
-                                        clsArray.isMust = isMustCol.ToArray();
-                                        clsArray.Format = FormatCol.ToArray();
-
-                                        clsMapping.ClassRecordCount = clsArray.MapID.Length;
-
-                                        break;
-                                }
-                                break;
-                            case "Last Insert ID":
-                                LastIDDetailOnline Detail13 = JsonConvert.DeserializeObject<LastIDDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsLastID.RecordFound = false;
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail13.data)
-                                        {
-                                            clsLastID.RecordFound = true;
-                                            clsLastID.ClassLastInsertedID = element.LastInsertID;
-                                        }
-                                        break;
-                                    case "View":
-                                        List<string> LastInsertedIDCol = new List<String>();
-
-                                        foreach (var element in Detail13.data)
-                                        {
-                                            clsLastID.RecordFound = true;
-                                            LastInsertedIDCol.Add(element.LastInsertID.ToString());
-                                        }
-
-                                        clsArray.LastInsertedID = LastInsertedIDCol.ToArray();
-
-                                        break;
-                                }
-                                break;
-                            case "FSR":
-                                FSRDetailOnline Detail14 = JsonConvert.DeserializeObject<FSRDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsFSR.RecordFound = false;
-
-                                FSRNoCol.Clear();
-                                FSRIDCol.Clear();
-                                MerchantCol.Clear();
-                                MIDCol.Clear();
-                                TIDCol.Clear();
-                                TimeArrivedCol.Clear();
-                                TimeStartCol.Clear();
-                                FSRCol.Clear();
-                                FSRDateCol.Clear();
-                                FSRTimeCol.Clear();
-                                MerchantContactNoCol.Clear();
-                                MerchantRepresentativeCol.Clear();
-                                DateFromCol.Clear();
-                                DateToCol.Clear();
-                                TxnAmtCol.Clear();
-                                ServiceNoCol.Clear();
-                                RequestNoCol.Clear();
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                    case "View":
-
-                                        if (SearchBy.CompareTo("Download Completed FSR") == 0)
-                                        {
-                                            foreach (var element in Detail14.data)
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail4.data)
                                             {
-                                                clsFSR.RecordFound = true;
-                                                FSRNoCol.Add(element.FSRNo.ToString());
-                                                FSRIDCol.Add(element.FSRID.ToString());
-                                                MerchantCol.Add(element.Merchant);
-                                                MIDCol.Add(element.MID);
-                                                TIDCol.Add(element.TID);
-                                                TimeArrivedCol.Add(element.TimeArrived);
-                                                TimeStartCol.Add(element.TimeStart);
-                                                FSRCol.Add(element.FSR);
-                                                FSRDateCol.Add(element.FSRDate);
-                                                FSRTimeCol.Add(element.FSRTime);
-                                                TxnAmtCol.Add(element.TxnAmt);
-                                                MerchantContactNoCol.Add(element.MerchantContactNo);
-                                                MerchantRepresentativeCol.Add(element.MerchantRepresentative);
+                                                clsOtherServiceType.RecordFound = true;
+                                                clsOtherServiceType.ClassOtherServiceTypeID = element.OtherServiceTypeID;
+                                                clsOtherServiceType.ClassDescription = element.Description;
                                             }
-                                            clsArray.FSRNo = FSRNoCol.ToArray();
-                                            clsArray.FSRID = FSRIDCol.ToArray();
-                                            clsArray.Merchant = MerchantCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.TimeArrived = TimeArrivedCol.ToArray();
-                                            clsArray.TimeStart = TimeStartCol.ToArray();
-                                            clsArray.FSR = FSRCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                            clsArray.FSRTime = FSRTimeCol.ToArray();
-                                            clsArray.TxnAmt = TxnAmtCol.ToArray();
-                                            clsArray.TimeEnd = TimeEndCol.ToArray();
-                                            clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
-                                            clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("FSR Temp Detail") == 0)
-                                        {
-                                            foreach (var element in Detail14.data)
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail4.data)
                                             {
-                                                clsFSR.RecordFound = true;
-                                                FSRNoCol.Add(element.FSRNo.ToString());
-                                                NoCol.Add(element.No.ToString());
-                                                MerchantCol.Add(element.Merchant);
-                                                MIDCol.Add(element.MID.Trim());
-                                                TIDCol.Add(element.TID);
-                                                InvoiceNoCol.Add(element.InvoiceNo);
-                                                BatchNoCol.Add(element.BatchNo);
-                                                FSRCol.Add(element.FSR);
-                                                FSRDateCol.Add(element.FSRDate);
-                                                FSRTimeCol.Add(element.FSRTime);
-                                                TxnAmtCol.Add(element.TxnAmt);
-                                                TimeEndCol.Add(element.TimeEnd);
-                                                TerminalSNCol.Add(element.TerminalSN);
-                                                MerchantContactNoCol.Add(element.MerchantContactNo);
-                                                MerchantRepresentativeCol.Add(element.MerchantRepresentative);
-                                                FENameCol.Add(element.FEName);
-                                                SerialNoCol.Add(element.SerialNo);
-                                            }
-                                            clsArray.FSRNo = FSRNoCol.ToArray();
-                                            clsArray.No = NoCol.ToArray();
-                                            clsArray.MerchantName = MerchantCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.InvoiceNo = InvoiceNoCol.ToArray();
-                                            clsArray.BatchNo = BatchNoCol.ToArray();
-                                            clsArray.FSR = FSRCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                            clsArray.FSRTime = FSRTimeCol.ToArray();
-                                            clsArray.TxnAmt = TxnAmtCol.ToArray();
-                                            clsArray.TimeEnd = TimeEndCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
-                                            clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.SerialNo = SerialNoCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("FSR Temp Detail Date Filter") == 0)
-                                        {
-                                            foreach (var element in Detail14.data)
-                                            {
-                                                clsFSR.RecordFound = true;
-                                                DateFromCol.Add(element.DateFrom);
-                                                DateToCol.Add(element.DateTo);
+                                                clsOtherServiceType.RecordFound = true;
+                                                IDCol.Add(element.OtherServiceTypeID.ToString());
+                                                DescriptionCol.Add(element.Description);
                                             }
 
-                                            clsArray.DateFrom = DateFromCol.ToArray();
-                                            clsArray.DateTo = DateToCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("FSR FillUp") == 0)
-                                        {
-                                            foreach (var element in Detail14.data)
+                                            clsArray.OtherServiceTypeID = IDCol.ToArray();
+                                            clsArray.Description = DescriptionCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "User":
+                                    UserDetailOnline Detail5 = JsonConvert.DeserializeObject<UserDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsUser.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail5.data)
                                             {
-                                                clsFSR.RecordFound = true;
-                                                FSRNoCol.Add(element.FSRNo.ToString());
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                ProblemReportedCol.Add(element.ProblemReported);
-                                                ActualProblemReportedCol.Add(element.ActualProblemReported);
-                                                ActionTakenCol.Add(element.ActionTaken);
-                                                AnyCommentsCol.Add(element.AnyComments);
-                                                ReasonIDCol.Add(element.ReasonID.ToString());
-                                                ReasonCodeCol.Add(element.ReasonCode);
-                                                ReasonDescriptionCol.Add(element.ReasonDescription);
-                                                MerchantContactNoCol.Add(element.MerchantContactNo);
-                                                MerchantRepresentativeCol.Add(element.MerchantRepresentative);
+                                                clsUser.RecordFound = true;
+                                                clsUser.ClassUserID = element.UserID;
+                                                clsUser.ClassParticularID = element.ParticularID;
+                                                clsUser.ClassUserName = element.UserName;
+                                                clsUser.ClassUserFullName = element.FullName;
+                                                clsUser.ClassPassword = element.Password;
+                                                clsUser.ClassUserType = element.UserType;
+                                                clsUser.ClassisActive = (element.isActive > 0 ? true : false);
+                                                clsUser.ClassisAppVersion = (element.isAppVersion > 0 ? true : false);
+                                                clsUser.ClassMD5Password = element.MD5Password;
+                                            }
+                                            break;
+                                        case "View":
+
+                                            switch (SearchBy)
+                                            {
+                                                case "User Log":
+                                                    foreach (var element in Detail5.data)
+                                                    {
+                                                        clsUser.RecordFound = true;
+                                                        UserIDCol.Add(element.UserID.ToString());
+                                                        UserNameCol.Add(element.UserName);
+                                                        FullNameCol.Add(element.FullName);
+                                                        PasswordCol.Add(element.Password);
+                                                        UserTypeCol.Add(element.UserType);
+                                                        LogIDCol.Add(element.LogID.ToString());
+                                                        SessionStatusCol.Add(element.SessionStatus.ToString());
+                                                        ComputerIPCol.Add(element.ComputerIP);
+                                                        ComputerNameCol.Add(element.ComputerName);
+                                                        SessionStatusDescriptionCol.Add(element.SessionStatusDescription);
+                                                        LogInDateCol.Add(element.LogInDate);
+                                                        LogInTimeCol.Add(element.LogInTime);
+                                                        LogOutDateCol.Add(element.LogOutDate);
+                                                        LogOutTimeCol.Add(element.LogOutTime);
+                                                        LogPublishVersionCol.Add(element.PublishVersion);
+
+                                                    }
+
+                                                    clsArray.UserID = UserIDCol.ToArray();
+                                                    clsArray.UserName = UserNameCol.ToArray();
+                                                    clsArray.FullName = FullNameCol.ToArray();
+                                                    clsArray.Password = PasswordCol.ToArray();
+                                                    clsArray.UserType = UserTypeCol.ToArray();
+                                                    clsArray.LogID = LogIDCol.ToArray();
+                                                    clsArray.SessionStatus = SessionStatusCol.ToArray();
+                                                    clsArray.ComputerIP = ComputerIPCol.ToArray();
+                                                    clsArray.ComputerName = ComputerNameCol.ToArray();
+                                                    clsArray.SessionStatusDescription = SessionStatusDescriptionCol.ToArray();
+                                                    clsArray.LogInDate = LogInDateCol.ToArray();
+                                                    clsArray.LogInTime = LogInTimeCol.ToArray();
+                                                    clsArray.LogOutDate = LogOutDateCol.ToArray();
+                                                    clsArray.LogOutTime = LogOutTimeCol.ToArray();
+                                                    clsArray.LogPublishVersion = LogPublishVersionCol.ToArray();
+
+                                                    break;
+                                                case "Who Is Online":
+                                                    foreach (var element in Detail5.data)
+                                                    {
+                                                        clsUser.RecordFound = true;
+                                                        UserIDCol.Add(element.UserID.ToString());
+                                                        UserNameCol.Add(element.UserName);
+                                                        FullNameCol.Add(element.FullName);
+                                                        UserTypeCol.Add(element.UserType);
+                                                        LogIDCol.Add(element.LogID.ToString());
+                                                        ComputerIPCol.Add(element.ComputerIP);
+                                                        ComputerNameCol.Add(element.ComputerName);
+                                                        LogInTimeCol.Add(element.LogInTime);
+                                                    }
+
+                                                    clsArray.UserID = UserIDCol.ToArray();
+                                                    clsArray.UserName = UserNameCol.ToArray();
+                                                    clsArray.FullName = FullNameCol.ToArray();
+                                                    clsArray.UserType = UserTypeCol.ToArray();
+                                                    clsArray.LogID = LogIDCol.ToArray();
+                                                    clsArray.ComputerIP = ComputerIPCol.ToArray();
+                                                    clsArray.ComputerName = ComputerNameCol.ToArray();
+                                                    clsArray.LogInTime = LogInTimeCol.ToArray();
+
+                                                    break;
+                                                default:
+                                                    foreach (var element in Detail5.data)
+                                                    {
+                                                        clsUser.RecordFound = true;
+                                                        UserIDCol.Add(element.UserID.ToString());
+                                                        ParticularIDCol.Add(element.ParticularID.ToString());
+                                                        UserNameCol.Add(element.UserName);
+                                                        FullNameCol.Add(element.FullName);
+                                                        PasswordCol.Add(element.Password);
+                                                        UserTypeCol.Add(element.UserType);
+                                                        MD5PasswordCol.Add(element.MD5Password);
+                                                        MobileIDCol.Add(element.MobileID);
+                                                        MobileTerminalIDCol.Add(element.MobileTerminalID);
+                                                        MobileTerminalNameCol.Add(element.MobileTerminalName);
+                                                    }
+
+                                                    clsArray.UserID = UserIDCol.ToArray();
+                                                    clsArray.ParticularID = ParticularIDCol.ToArray();
+                                                    clsArray.UserName = UserNameCol.ToArray();
+                                                    clsArray.FullName = FullNameCol.ToArray();
+                                                    clsArray.Password = PasswordCol.ToArray();
+                                                    clsArray.UserType = UserTypeCol.ToArray();
+                                                    clsArray.MD5Password = MD5PasswordCol.ToArray();
+                                                    clsArray.MobileID = MobileIDCol.ToArray();
+                                                    clsArray.MobileTerminalID = MobileTerminalIDCol.ToArray();
+                                                    clsArray.MobileTerminalName = MobileTerminalNameCol.ToArray();
+                                                    break;
+                                            }
+                                            break;
+                                    }
+                                    break;
+                                case "Terminal Status":
+                                    TerminalStatusDetailOnline Detail6 = JsonConvert.DeserializeObject<TerminalStatusDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsTerminalStatus.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail6.data)
+                                            {
+                                                clsTerminalStatus.RecordFound = true;
+                                                clsTerminalStatus.ClassTerminalStatusID = element.TerminalStatusID;
+                                                clsTerminalStatus.ClassDescription = element.Description;
+                                                clsTerminalStatus.ClassTerminalStatusType = element.TerminalStatusType;
+                                            }
+                                            break;
+                                        case "View":
+                                            clsSearch.ClassTerminalStatusList = "";
+                                            foreach (var element in Detail6.data)
+                                            {
+                                                clsTerminalStatus.RecordFound = true;
+                                                IDCol.Add(element.TerminalStatusID.ToString());
+                                                DescriptionCol.Add(element.Description);
+                                                TerminalStatusTypeCol.Add(element.TerminalStatusType.ToString());
+
+                                                clsSearch.ClassTerminalStatusList = clsSearch.ClassTerminalStatusList + element.Description + Environment.NewLine;
+                                            }
+
+                                            clsArray.TerminalStatusID = IDCol.ToArray();
+                                            clsArray.Description = DescriptionCol.ToArray();
+                                            clsArray.TerminalStatusDescription = DescriptionCol.ToArray();
+                                            clsArray.TerminalStatusType = TerminalStatusTypeCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "Terminal Model":
+                                    TerminalModelDetailOnline Detail7 = JsonConvert.DeserializeObject<TerminalModelDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsTerminalModel.ResetClass();
+                                    clsTerminalModel.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail7.data)
+                                            {
+                                                clsTerminalModel.RecordFound = true;
+                                                clsTerminalModel.ClassTerminalModelID = element.TerminalModelID;
+                                                clsTerminalModel.ClassDescription = element.Description;
 
                                             }
-                                            clsArray.FSRNo = FSRNoCol.ToArray();
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                            clsArray.ProblemReported = ProblemReportedCol.ToArray();
-                                            clsArray.ActualProblemReported = ActualProblemReportedCol.ToArray();
-                                            clsArray.ActionTaken = ActionTakenCol.ToArray();
-                                            clsArray.AnyComments = AnyCommentsCol.ToArray();
-                                            clsArray.ReasonID = ReasonIDCol.ToArray();
-                                            clsArray.ReasonCode = ReasonCodeCol.ToArray();
-                                            clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
-                                            clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
-                                            clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("FSR") == 0)
-                                        {
-                                            foreach (var element in Detail14.data)
+                                            break;
+                                        case "View":
+                                            clsSearch.ClassTerminalModelList = "";
+                                            foreach (var element in Detail7.data)
                                             {
-                                                clsFSR.RecordFound = true;
-                                                FSRNoCol.Add(element.FSRNo.ToString());
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                TAIDNoCol.Add(element.TAIDNo.ToString());
-                                                ClientIDCol.Add(element.ClientID.ToString());
-                                                FSRDateCol.Add(element.FSRDate.ToString());
-                                                IRNoCol.Add(element.IRNo);
-                                                MerchantCol.Add(element.Merchant);
-                                                TIDCol.Add(element.TID);
-                                                MIDCol.Add(element.MID);
-                                                TerminalSNCol.Add(element.TerminalSN);
-                                                SIMSerialNoCol.Add(element.SIMSN);
-                                                PrimaryNumCol.Add(element.PrimaryNum);
-                                                SecondaryNumCol.Add(element.SecondaryNum);
-                                                AppVersionCol.Add(element.AppVersion);
-                                                AppCRCCol.Add(element.AppCRC);
-                                                RequestNoCol.Add(element.RequestNo);
-                                                JobTypeDescriptionCol.Add(element.JobTypeDescription);
-                                                FENameCol.Add(element.FEName);
-                                                ServiceDateTimeCol.Add(element.ServiceDateTime);
-                                                ServiceDateCol.Add(element.ServiceDate);
-                                                ServiceTimeCol.Add(element.ServiceTime);
-                                                ServiceReqDateCol.Add(element.ServiceReqDate);
-                                                ServiceReqTimeCol.Add(element.ServiceReqTime);
+                                                clsTerminalModel.RecordFound = true;
+                                                IDCol.Add(element.TerminalModelID.ToString());
+                                                DescriptionCol.Add(element.Description);
+                                                TerminalTypeIDCol.Add(element.TerminalTypeID.ToString());
+                                                TerminalTypeDescriptionCol.Add(element.TerminalTypeDescription);
 
-
-                                            }
-                                            clsArray.FSRNo = FSRNoCol.ToArray();
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.TAIDNo = TAIDNoCol.ToArray();
-                                            clsArray.ClientID = ClientIDCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.Merchant = MerchantCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                            clsArray.PrimaryNum = PrimaryNumCol.ToArray();
-                                            clsArray.SecondaryNum = SecondaryNumCol.ToArray();
-                                            clsArray.AppVersion = AppVersionCol.ToArray();
-                                            clsArray.AppCRC = AppCRCCol.ToArray();
-                                            clsArray.RequestNo = RequestNoCol.ToArray();
-                                            clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
-                                            clsArray.ServiceDate = ServiceDateCol.ToArray();
-                                            clsArray.ServiceTime = ServiceTimeCol.ToArray();
-                                            clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
-                                            clsArray.ServiceReqTime = ServiceReqTimeCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("FSRNo") == 0)
-                                        {
-                                            foreach (var element in Detail14.data)
-                                            {
-                                                clsFSR.RecordFound = true;
-                                                FSRNoCol.Add(element.FSRNo.ToString());
-                                                FSRIDCol.Add(element.FSRID.ToString());
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                TAIDNoCol.Add(element.TAIDNo.ToString());
-                                                IRNoCol.Add(element.IRNo);
-                                                MerchantCol.Add(element.Merchant);
-                                                TIDCol.Add(element.TID);
-                                                MIDCol.Add(element.MID);
-                                                TerminalSNCol.Add(element.TerminalSN);
-                                                SIMSerialNoCol.Add(element.SIMSN);
-                                                PowerSNCol.Add(element.PowerSN);
-                                                DockSNCol.Add(element.DockSN);
-                                                TimeArrivedCol.Add(element.TimeArrived);
-                                                TimeStartCol.Add(element.TimeStart);
-                                                FSRCol.Add(element.FSR);
-                                                FSRDateCol.Add(element.FSRDate);
-                                                FSRTimeCol.Add(element.FSRTime);
-                                                TimeEndCol.Add(element.TimeEnd);
-                                                MerchantContactNoCol.Add(element.MerchantContactNo);
-                                                MerchantRepresentativeCol.Add(element.MerchantRepresentative);
-                                                FENameCol.Add(element.FEName);
-                                                SerialNoCol.Add(element.SerialNo);
-                                                ActionMadeCol.Add(element.ActionMade);
-                                                ProblemReportedCol.Add(element.ProblemReported);
-                                                ActualProblemReportedCol.Add(element.ActualProblemReported);
-                                                ActionTakenCol.Add(element.ActionTaken);
-                                                ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription);
-
+                                                clsSearch.ClassTerminalModelList = clsSearch.ClassTerminalModelList + element.Description + Environment.NewLine;
                                             }
 
-                                            clsArray.FSRNo = FSRNoCol.ToArray();
-                                            clsArray.FSRID = FSRIDCol.ToArray();
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.TAIDNo = TAIDNoCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.Merchant = MerchantCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                            clsArray.PowerSN = PowerSNCol.ToArray();
-                                            clsArray.DockSN = DockSNCol.ToArray();
-                                            clsArray.TimeArrived = TimeArrivedCol.ToArray();
-                                            clsArray.TimeStart = TimeStartCol.ToArray();
-                                            clsArray.FSR = FSRCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                            clsArray.FSRTime = FSRTimeCol.ToArray();
-                                            clsArray.TimeEnd = TimeEndCol.ToArray();
-                                            clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
-                                            clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.SerialNo = SerialNoCol.ToArray();
-                                            clsArray.ActionMade = ActionMadeCol.ToArray();
-                                            clsArray.ProblemReported = ProblemReportedCol.ToArray();
-                                            clsArray.ActualProblemReported = ActualProblemReportedCol.ToArray();
-                                            clsArray.ActionTaken = ActionTakenCol.ToArray();
-                                            clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();                                            
+                                            clsArray.TerminalModelID = IDCol.ToArray();
+                                            clsArray.Description = DescriptionCol.ToArray();
+                                            clsArray.ModelDescription = DescriptionCol.ToArray();
+                                            clsArray.TerminalTypeID = TerminalTypeIDCol.ToArray();
+                                            clsArray.TypeDescription = TerminalTypeDescriptionCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "FE":
+                                    FEDetailOnline Detail8 = JsonConvert.DeserializeObject<FEDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsFE.RecordFound = false;
 
-                                        }
-                                        else
-                                        {
-                                            foreach (var element in Detail14.data)
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail8.data)
                                             {
-                                                clsFSR.RecordFound = true;
-                                                FSRIDCol.Add(element.FSRID.ToString());
-                                                NoCol.Add(element.No);
-                                                MerchantCol.Add(element.Merchant);
-                                                MIDCol.Add(element.MID);
-                                                TIDCol.Add(element.TID);
-                                                InvoiceNoCol.Add(element.InvoiceNo);
-                                                BatchNoCol.Add(element.BatchNo);
-                                                TimeArrivedCol.Add(element.TimeArrived);
-                                                TimeStartCol.Add(element.TimeStart);
-                                                FSRCol.Add(element.FSR);
-                                                ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription);
-                                                ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
-                                                FSRDateCol.Add(element.FSRDate);
-                                                FSRTimeCol.Add(element.FSRTime);
-                                                TxnAmtCol.Add(element.TxnAmt);
-                                                TimeEndCol.Add(element.TimeEnd);
-                                                TerminalSNCol.Add(element.TerminalSN);
-                                                MerchantContactNoCol.Add(element.MerchantContactNo);
-                                                MerchantRepresentativeCol.Add(element.MerchantRepresentative);
-                                                FENameCol.Add(element.FEName);
-                                                SerialNoCol.Add(element.SerialNo);
-                                                FSRStatusDescriptionCol.Add(element.FSRStatusDescription);
-                                                ProcessTypeCol.Add(element.ProcessType);
-                                                IRNoCol.Add(element.IRNo);
-                                                ClientNameCol.Add(element.ClientName);
-                                                SIMSerialNoCol.Add(element.SIMSN);
-                                                PowerSNCol.Add(element.PowerSN);
-                                                DockSNCol.Add(element.DockSN);
-                                                TypeDescriptionCol.Add(element.TypeDescription);
-                                                ModelDescriptionCol.Add(element.ModelDescription);
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                RequestNoCol.Add(element.RequestNo);
-                                                JobTypeDescriptionCol.Add(element.JobTypeDescription);
-                                                ServiceJobTypeDescriptionCol.Add(element.ServiceJobTypeDescription);
+                                                clsFE.RecordFound = true;
+                                                clsFE.ClassFEID = element.FEID;
+                                                clsFE.ClassName = element.Name;
+                                                clsFE.ClassAddress = element.Address;
+                                                clsFE.ClassContactNo = element.ContactNo;
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail8.data)
+                                            {
+                                                clsFE.RecordFound = true;
+                                                IDCol.Add(element.FEID.ToString());
+                                                NameCol.Add(element.Name);
+                                                AddressCol.Add(element.Address);
+                                                ContactNoCol.Add(element.ContactNo);
+                                            }
+
+                                            clsArray.FEID = IDCol.ToArray();
+                                            clsArray.Name = NameCol.ToArray();
+                                            clsArray.Address = AddressCol.ToArray();
+                                            clsArray.ContactNo = ContactNoCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "City":
+                                    CityDetailOnline Detail9 = JsonConvert.DeserializeObject<CityDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsCity.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail9.data)
+                                            {
+                                                clsCity.RecordFound = true;
+                                                clsCity.ClassCityID = element.CityID;
+                                                clsCity.ClassCity = element.City;
+                                            }
+                                            break;
+                                        case "View":
+                                            clsSearch.ClassCityList = "";
+                                            foreach (var element in Detail9.data)
+                                            {
+                                                clsCity.RecordFound = true;
+                                                IDCol.Add(element.CityID.ToString());
+                                                CityCol.Add(element.City);
+
+                                                clsSearch.ClassCityList = clsSearch.ClassCityList + element.City + Environment.NewLine;
+                                            }
+
+                                            clsArray.CityID = IDCol.ToArray();
+                                            clsArray.City = CityCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "Province":
+                                    ProvinceDetailOnline Detail10 = JsonConvert.DeserializeObject<ProvinceDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsProvince.RecordFound = false;
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail10.data)
+                                            {
+                                                clsProvince.RecordFound = true;
+                                                clsProvince.ClassProvinceID = element.ProvinceID;
+                                                clsProvince.ClassProvince = element.Province;
+                                            }
+                                            break;
+                                        case "View":
+                                            string sProvinceList = "";
+                                            clsSearch.ClassProvinceList = "";
+
+                                            foreach (var element in Detail10.data)
+                                            {
+                                                clsProvince.RecordFound = true;
+                                                IDCol.Add(element.ProvinceID.ToString());
+                                                ProvinceCol.Add(element.Province);
+
+                                                sProvinceList = sProvinceList + element.Province + Environment.NewLine;
+                                            }
+
+                                            clsArray.ProvinceID = IDCol.ToArray();
+                                            clsArray.Province = ProvinceCol.ToArray();
+
+                                            clsSearch.ClassProvinceList = sProvinceList;
+                                            break;
+                                    }
+                                    break;
+                                case "Particular":
+                                    ParticularDetailOnline Detail11 = JsonConvert.DeserializeObject<ParticularDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsParticular.RecordFound = false;
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail11.data)
+                                            {
+                                                clsParticular.RecordFound = true;
+                                                clsParticular.ClassParticularID = int.Parse(element.ParticularID.ToString());
+                                                clsParticular.ClassProvinceID = int.Parse(element.ProvinceID.ToString());
+                                                clsParticular.ClassCityID = int.Parse(element.CityID.ToString());
+                                                clsParticular.ClassParticularTypeID = int.Parse(element.ParticularTypeID.ToString());
+                                                clsParticular.ClassParticularName = element.ParticularName.ToString();
+                                                clsParticular.ClassAddress = element.Address.ToString();
+                                                clsParticular.ClassAddress2 = element.Address2.ToString();
+                                                clsParticular.ClassAddress3 = element.Address3.ToString();
+                                                clsParticular.ClassAddress4 = element.Address4.ToString();
+                                                clsParticular.ClassContactPerson = element.ContactPerson.ToString();
+                                                clsParticular.ClassTelNo = element.TelNo.ToString();
+                                                clsParticular.ClassMobile = element.Mobile.ToString();
+                                                clsParticular.ClassFax = element.Fax.ToString();
+                                            }
+
+                                            break;
+                                        case "View":
+
+                                            clsSearch.ClassFENameList = "";
+                                            clsSearch.ClassClientNameList = "";
+                                            clsSearch.ClassSPNameList = "";
+
+                                            if (SearchBy.CompareTo("Particular List") == 0)
+                                            {
+                                                foreach (var element in Detail11.data)
+                                                {
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    ParticularNameCol.Add(element.ParticularName);
+                                                    AddressCol.Add(element.Address);
+                                                    MobileCol.Add(element.Mobile);
+                                                    TelNoCol.Add(element.TelNo);
+                                                    DepartmentCol.Add(element.Department);
+                                                    PositionCol.Add(element.Position);
+                                                    EmploymentStatusCol.Add(element.EmploymentStatus);
+                                                    ContactPersonCol.Add(element.ContactPerson);
+                                                    EmailCol.Add(element.Email);
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    IRNoCol.Add(element.IRNo);
+                                                    TIDCol.Add(element.TID);
+                                                    MIDCol.Add(element.MID);
+                                                    IRStatusCol.Add(element.IRStatus.ToString());
+                                                    IRStatusDescriptionCol.Add(element.IRStatusDescription);
+                                                    ClientIDCol.Add(element.ClientID.ToString());
+                                                    RegionCol.Add(element.Region);
+                                                    ProvinceCol.Add(element.Province);
+
+                                                    // Zoning
+                                                    ZoneIDCol.Add(element.ZoneID.ToString());
+                                                    ZoneCol.Add(element.Zone);
+                                                    ZRegionCol.Add(element.ZRegion);
+                                                    AreaCol.Add(element.Area);
+                                                    CityMunicipalCol.Add(element.CityMunicipal);
+                                                    ClusterCol.Add(element.Cluster);
+
+                                                }
+
+                                                clsArray.ParticularID = ParticularIDCol.ToArray();
+                                                clsArray.ParticularName = ParticularNameCol.ToArray();
+                                                clsArray.Address = AddressCol.ToArray();
+                                                clsArray.MobileNo = MobileCol.ToArray();
+                                                clsArray.TelNo = TelNoCol.ToArray();
+                                                clsArray.DepartmentDesc = DepartmentCol.ToArray();
+                                                clsArray.PositionDesc = PositionCol.ToArray();
+                                                clsArray.EmploymentStatus = EmploymentStatusCol.ToArray();
+                                                clsArray.ContactPerson = ContactPersonCol.ToArray();
+                                                clsArray.Email = EmailCol.ToArray();
+                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.IRStatus = IRStatusCol.ToArray();
+                                                clsArray.IRStatusDescription = IRStatusDescriptionCol.ToArray();
+                                                clsArray.ClientID = ClientIDCol.ToArray();
+                                                clsArray.Region = RegionCol.ToArray();
+                                                clsArray.Province = ProvinceCol.ToArray();
+
+                                                // Zoning
+                                                clsArray.ZoneID = ZoneIDCol.ToArray();
+                                                clsArray.Zone = ZoneCol.ToArray();
+                                                clsArray.ZRegion = ZRegionCol.ToArray();
+                                                clsArray.Area = AreaCol.ToArray();
+                                                clsArray.CityMunicipal = CityMunicipalCol.ToArray();
+                                                clsArray.Cluster = ClusterCol.ToArray();
+
+                                            }
+                                            else if (SearchBy.CompareTo("Merchant List") == 0)
+                                            {
+                                                foreach (var element in Detail11.data)
+                                                {
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    ParticularNameCol.Add(element.ParticularName);
+                                                }
+
+                                                clsArray.ParticularID = ParticularIDCol.ToArray();
+                                                clsArray.ParticularName = ParticularNameCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("Client List") == 0)
+                                            {
+                                                foreach (var element in Detail11.data)
+                                                {
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    ParticularNameCol.Add(element.ParticularName);
+
+                                                    clsSearch.ClassClientNameList = clsSearch.ClassClientNameList + element.ParticularName + Environment.NewLine;
+                                                }
+
+                                                clsArray.ClientID = ParticularIDCol.ToArray();
+                                                clsArray.ClientName = ParticularNameCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("Field Engineer List") == 0)
+                                            {
+                                                foreach (var element in Detail11.data)
+                                                {
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    ParticularNameCol.Add(element.ParticularName);
+
+                                                    clsSearch.ClassFENameList = clsSearch.ClassFENameList + element.ParticularName + Environment.NewLine;
+                                                }
+
+                                                clsArray.FEID = ParticularIDCol.ToArray();
+                                                clsArray.FEName = ParticularNameCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("Service Provider List") == 0)
+                                            {
+                                                foreach (var element in Detail11.data)
+                                                {
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    ParticularNameCol.Add(element.ParticularName);
+
+                                                    clsSearch.ClassSPNameList = clsSearch.ClassSPNameList + element.ParticularName + Environment.NewLine;
+                                                }
+
+                                                clsArray.ServiceProviderID = ParticularIDCol.ToArray();
+                                                clsArray.ServiceProviderName = ParticularNameCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("Particular List 2") == 0)
+                                            {
+                                                foreach (var element in Detail11.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    IDCol.Add(element.ID.ToString());
+                                                    Detail_InfoCol.Add(element.detail_info);
+                                                }
+
+                                                clsArray.ID = IDCol.ToArray();
+                                                clsArray.detail_info = Detail_InfoCol.ToArray();
+                                            }
+                                            else
+                                            {
+                                                foreach (var element in Detail11.data)
+                                                {
+                                                    clsParticular.RecordFound = true;
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    ProvinceIDCol.Add(element.ProvinceID.ToString());
+                                                    CityIDCol.Add(element.CityID.ToString());
+                                                    ParticularTypeIDCol.Add(element.ParticularTypeID.ToString());
+                                                    RegionIDCol.Add(element.RegionID.ToString());
+                                                    RegionTypeCol.Add(element.RegionType.ToString());
+                                                    ParticularDescriptionCol.Add(element.ParticularDescription);
+                                                    ParticularNameCol.Add(element.ParticularName);
+                                                    AddressCol.Add(element.Address);
+                                                    Address2Col.Add(element.Address2);
+                                                    Address3Col.Add(element.Address3);
+                                                    Address4Col.Add(element.Address4);
+                                                    ContactPersonCol.Add(element.ContactPerson);
+                                                    TelNoCol.Add(element.TelNo);
+                                                    MobileCol.Add(element.Mobile);
+                                                    FaxCol.Add(element.Fax);
+                                                    EmailCol.Add(element.Email);
+                                                    ContractTermsCol.Add(element.ContractTerms);
+                                                    ProvinceCol.Add(element.Province);
+                                                    RegionCol.Add(element.Region);
+                                                    CityCol.Add(element.City);
+                                                }
+
+                                                clsArray.ParticularID = ParticularIDCol.ToArray();
+                                                clsArray.ProvinceID = ProvinceIDCol.ToArray();
+                                                clsArray.CityID = CityIDCol.ToArray();
+                                                clsArray.RegionID = RegionIDCol.ToArray();
+                                                clsArray.RegionType = RegionTypeCol.ToArray();
+                                                clsArray.City = CityCol.ToArray();
+                                                clsArray.Province = ProvinceCol.ToArray();
+                                                clsArray.ParticularTypeID = ParticularTypeIDCol.ToArray();
+                                                clsArray.ParticularDescription = ParticularDescriptionCol.ToArray();
+                                                clsArray.ParticularName = ParticularNameCol.ToArray();
+                                                clsArray.Address = AddressCol.ToArray();
+                                                clsArray.Address2 = Address2Col.ToArray();
+                                                clsArray.Address3 = Address3Col.ToArray();
+                                                clsArray.Address4 = Address4Col.ToArray();
+                                                clsArray.ContactPerson = ContactPersonCol.ToArray();
+                                                clsArray.TelNo = TelNoCol.ToArray();
+                                                clsArray.MobileNo = MobileCol.ToArray();
+                                                clsArray.Fax = FaxCol.ToArray();
+                                                clsArray.Email = EmailCol.ToArray();
+                                                clsArray.ContractTerms = ContractTermsCol.ToArray();
+                                                clsArray.Region = RegionCol.ToArray();
+                                            }
+
+                                            break;
+                                    }
+                                    break;
+                                case "Mapping":
+                                    MappingDetailOnline Detail12 = JsonConvert.DeserializeObject<MappingDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsMapping.RecordFound = false;
+                                    clsMapping.ClassRecordCount = 0;
+
+                                    // Clear
+                                    IDCol.Clear();
+                                    MapFromCol.Clear();
+                                    MapToCol.Clear();
+                                    DelimeterCol.Clear();
+                                    ColumnIndexCol.Clear();
+                                    isMustCol.Clear();
+                                    FormatCol.Clear();
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail12.data)
+                                            {
+                                                clsMapping.RecordFound = true;
+                                                clsMapping.ClassMapID = element.MapID;
+                                                clsMapping.ClassMapFrom = element.MapFrom;
+                                                clsMapping.ClassMapTo = element.MapTo;
+                                                clsMapping.ClassDelimeter = element.Delimeter;
+                                                clsMapping.ClassColumnIndex = element.ColumnIndex;
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail12.data)
+                                            {
+                                                clsMapping.RecordFound = true;
+                                                IDCol.Add(element.MapID.ToString());
+                                                MapFromCol.Add(element.MapFrom);
+                                                MapToCol.Add(element.MapTo);
+                                                DelimeterCol.Add(element.Delimeter);
+                                                ColumnIndexCol.Add(element.ColumnIndex);
+                                                isMustCol.Add(element.isMust.ToString());
+                                                FormatCol.Add(element.Format);
+
 
                                             }
 
                                             // Loop And Store To Array
-                                            clsArray.FSRID = FSRIDCol.ToArray();
-                                            clsArray.No = NoCol.ToArray();
-                                            clsArray.Merchant = MerchantCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.InvoiceNo = InvoiceNoCol.ToArray();
-                                            clsArray.BatchNo = BatchNoCol.ToArray();
-                                            clsArray.TimeArrived = TimeArrivedCol.ToArray();
-                                            clsArray.TimeStart = TimeStartCol.ToArray();
-                                            clsArray.FSR = FSRCol.ToArray();
-                                            clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
-                                            clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                            clsArray.FSRTime = FSRTimeCol.ToArray();
-                                            clsArray.TxnAmt = TxnAmtCol.ToArray();
-                                            clsArray.TimeEnd = TimeEndCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
-                                            clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.SerialNo = SerialNoCol.ToArray();
-                                            clsArray.FSRStatusDescription = FSRStatusDescriptionCol.ToArray();
-                                            clsArray.ProcessType = ProcessTypeCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.ClientName = ClientNameCol.ToArray();
-                                            clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                            clsArray.PowerSN = PowerSNCol.ToArray();
-                                            clsArray.DockSN = DockSNCol.ToArray();
-                                            clsArray.TypeDescription = TypeDescriptionCol.ToArray();
-                                            clsArray.ModelDescription = ModelDescriptionCol.ToArray();
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                            clsArray.RequestNo = RequestNoCol.ToArray();
-                                            clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
-                                            clsArray.ServiceJobTypeDescription = ServiceJobTypeDescriptionCol.ToArray();
-                                        }                                        
-                                        break;
-                                }
-                                break;                            
-                            case "Terminal Brand":
-                                TerminalBrandDetailOnline Detail15 = JsonConvert.DeserializeObject<TerminalBrandDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsTerminalBrand.ResetClass();
-                                clsTerminalBrand.RecordFound = false;
+                                            clsArray.MapID = IDCol.ToArray();
+                                            clsArray.MapFrom = MapFromCol.ToArray();
+                                            clsArray.MapTo = MapToCol.ToArray();
+                                            clsArray.MapDelimeter = DelimeterCol.ToArray();
+                                            clsArray.MapColumnIndex = ColumnIndexCol.ToArray();
+                                            clsArray.isMust = isMustCol.ToArray();
+                                            clsArray.Format = FormatCol.ToArray();
 
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail15.data)
-                                        {
-                                            clsTerminalBrand.RecordFound = true;
-                                            clsTerminalBrand.ClassTerminalBrandID = element.TerminalBrandID;
-                                            clsTerminalBrand.ClassDescription = element.Description;
-                                        }
-                                        break;
-                                    case "View":
-                                        clsSearch.ClassTerminalBrandList = "";
-                                        foreach (var element in Detail15.data)
-                                        {
-                                            clsTerminalBrand.RecordFound = true;
-                                            IDCol.Add(element.TerminalBrandID.ToString());
-                                            DescriptionCol.Add(element.Description);
+                                            clsMapping.ClassRecordCount = clsArray.MapID.Length;
 
-                                            clsSearch.ClassTerminalBrandList = clsSearch.ClassTerminalBrandList + element.Description + Environment.NewLine;
-                                        }
-
-                                        clsArray.TerminalBrandID = IDCol.ToArray();
-                                        clsArray.Description = DescriptionCol.ToArray();
-                                        clsArray.BrandDescription = DescriptionCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "Terminal":
-                            case "Stock Detail":
-                                TerminalDetailOnline Detail16 = JsonConvert.DeserializeObject<TerminalDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsTerminal.RecordFound = false;
-
-                                TerminalIDCol.Clear();
-                                SerialNoCol.Clear();
-                                TypeCol.Clear();
-                                ModelCol.Clear();
-                                BrandCol.Clear();
-                                TerminalPartNoCol.Clear();
-                                TerminalStatusCol.Clear();
-                                TerminalStatusDescriptionCol.Clear();
-                                SIMIDCol.Clear();
-                                SerialNoCol.Clear();
-                                SIMCarrierCol.Clear();
-                                SIMStatusCol.Clear();
-                                SIMStatusDescriptionCol.Clear();
-
-                                if (StatementType.CompareTo("Search") == 0 ||
-                                    StatementType.CompareTo("View") == 0)
-
-                                {
-                                    if (SearchBy.CompareTo("TerminalSN List") == 0 ||
-                                        SearchBy.CompareTo("Stock Detail List") == 0)
-                                    {
-                                        foreach (var element in Detail16.data)
-                                        {
-                                            clsTerminal.RecordFound = true;
-                                            TerminalIDCol.Add(element.TerminalID.ToString());
-                                            SerialNoCol.Add(element.SerialNo);
-                                            TypeCol.Add(element.TerminalType);
-                                            ModelCol.Add(element.TerminalModel);
-                                            BrandCol.Add(element.TerminalBrand);
-                                            TerminalPartNoCol.Add(element.PartNo);
-                                            TerminalStatusCol.Add(element.TerminalStatus.ToString());
-                                            TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription);
-                                            MerchantNameCol.Add(element.MerchantName);
-                                            TIDCol.Add(element.TID);
-                                            MIDCol.Add(element.MID);
-                                            IRNoCol.Add(element.IRNo);
-                                            ClientNameCol.Add(element.ClientName);
-                                            LocationCol.Add(element.Location);
-                                            AllocationCol.Add(element.Allocation);
-                                            AssetTypeCol.Add(element.AssetType);
-                                            DeliveryDateCol.Add(element.DeliveryDate);
-                                            ReceiveDateCol.Add(element.ReceiveDate);
-                                            ReleaseDateCol.Add(element.ReleaseDate);
-                                        }
-
-                                        clsArray.TerminalID = TerminalIDCol.ToArray();
-                                        clsArray.SerialNo = SerialNoCol.ToArray();
-                                        clsArray.TerminalSN = SerialNoCol.ToArray();
-                                        clsArray.TerminalType = TypeCol.ToArray();
-                                        clsArray.TerminalModel = ModelCol.ToArray();
-                                        clsArray.TerminalBrand = BrandCol.ToArray();
-                                        clsArray.TerminalPartNo = TerminalPartNoCol.ToArray();
-                                        clsArray.TerminalStatus = TerminalStatusCol.ToArray();
-                                        clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
-                                        clsArray.MerchantName = MerchantNameCol.ToArray();
-                                        clsArray.TID = TIDCol.ToArray();
-                                        clsArray.MID = MIDCol.ToArray();
-                                        clsArray.IRNo = IRNoCol.ToArray();
-                                        clsArray.ClientName = ClientNameCol.ToArray();
-                                        clsArray.Location = LocationCol.ToArray();
-                                        clsArray.Allocation = AllocationCol.ToArray();
-                                        clsArray.AssetType = AssetTypeCol.ToArray();
-                                        clsArray.DeliveryDate = DeliveryDateCol.ToArray();
-                                        clsArray.ReceiveDate = ReceiveDateCol.ToArray();
-                                        clsArray.ReleaseDate = ReleaseDateCol.ToArray();
+                                            break;
                                     }
-                                    else if (SearchBy.CompareTo("SIMSN List") == 0)
+                                    break;
+                                case "Last Insert ID":
+                                    LastIDDetailOnline Detail13 = JsonConvert.DeserializeObject<LastIDDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsLastID.RecordFound = false;
+                                    switch (StatementType)
                                     {
-                                        foreach (var element in Detail16.data)
-                                        {
-                                            clsTerminal.RecordFound = true;
-                                            SIMIDCol.Add(element.SIMID.ToString());
-                                            SerialNoCol.Add(element.SerialNo);
-                                            SIMCarrierCol.Add(element.Carrier);
-                                            SIMStatusCol.Add(element.SIMStatus.ToString());
-                                            SIMStatusDescriptionCol.Add(element.SIMStatusDescription);                                            
-                                            MerchantNameCol.Add(element.MerchantName);
-                                            TIDCol.Add(element.TID);
-                                            MIDCol.Add(element.MID);
-                                            IRNoCol.Add(element.IRNo);
-                                            ClientNameCol.Add(element.ClientName);
-                                            LocationCol.Add(element.Location);
-                                            AllocationCol.Add(element.Allocation);
-                                            DeliveryDateCol.Add(element.DeliveryDate);
-                                            ReceiveDateCol.Add(element.ReceiveDate);
-                                            ReleaseDateCol.Add(element.ReleaseDate);
-                                        }
-
-                                        clsArray.SIMID = SIMIDCol.ToArray();
-                                        clsArray.SerialNo = SerialNoCol.ToArray();
-                                        clsArray.TerminalSN = SerialNoCol.ToArray();
-                                        clsArray.SIMSerialNo = SerialNoCol.ToArray();
-                                        clsArray.SIMCarrier = SIMCarrierCol.ToArray();
-                                        clsArray.SIMStatus = SIMStatusCol.ToArray();
-                                        clsArray.SIMStatusDescription = SIMStatusDescriptionCol.ToArray();
-                                        clsArray.MerchantName = MerchantNameCol.ToArray();
-                                        clsArray.TID = TIDCol.ToArray();
-                                        clsArray.MID = MIDCol.ToArray();
-                                        clsArray.IRNo = IRNoCol.ToArray();
-                                        clsArray.ClientName = ClientNameCol.ToArray();
-                                        clsArray.Location = LocationCol.ToArray();
-                                        clsArray.Allocation = AllocationCol.ToArray();
-                                        clsArray.DeliveryDate = DeliveryDateCol.ToArray();
-                                        clsArray.ReceiveDate = ReceiveDateCol.ToArray();
-                                        clsArray.ReleaseDate = ReleaseDateCol.ToArray();
-                                    }
-                                    else if (SearchBy.CompareTo("Terminal Status Description") == 0)
-                                    {
-                                        foreach (var element in Detail16.data)
-                                        {
-                                            clsTerminal.RecordFound = true;
-                                            TerminalIDCol.Add(element.TerminalID.ToString());
-                                            TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription);
-                                        }
-
-                                        clsArray.TerminalID = TerminalIDCol.ToArray();
-                                        clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
-                                    }
-                                    else if (SearchBy.CompareTo("SIM Status Description") == 0)
-                                    {
-                                        foreach (var element in Detail16.data)
-                                        {
-                                            clsTerminal.RecordFound = true;
-                                            SIMIDCol.Add(element.SIMID.ToString());
-                                            SIMStatusDescriptionCol.Add(element.SIMStatusDescription);
-                                        }
-
-                                        clsArray.SIMID = SIMIDCol.ToArray();
-                                        clsArray.SIMStatusDescription = SIMStatusDescriptionCol.ToArray();
-                                    }
-                                    else
-                                    {
-                                        foreach (var element in Detail16.data)
-                                        {
-                                            clsTerminal.RecordFound = true;
-                                            TerminalIDCol.Add(element.TerminalID.ToString());
-                                            TIIDCol.Add(element.TIID.ToString());
-                                            TerminalTypeIDCol.Add(element.TerminalTypeID.ToString());
-                                            TerminalModelIDCol.Add(element.TerminalModelID.ToString());
-                                            TerminalBrandIDCol.Add(element.TerminalBrandID.ToString());
-                                            NoCol.Add(element.No);
-                                            SerialNoCol.Add(element.SerialNo);
-                                            TypeCol.Add(element.TerminalType);
-                                            ModelCol.Add(element.TerminalModel);
-                                            BrandCol.Add(element.TerminalBrand);
-                                            DeliveryDateCol.Add(element.DeliveryDate);
-                                            ReceiveDateCol.Add(element.ReceiveDate);
-                                            TerminalStatusCol.Add(element.TerminalStatus);
-                                            TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription);
-                                            TerminalPartNoCol.Add(element.PartNo);
-                                            TerminalPONoCol.Add(element.PONo);
-                                            TerminalInvNoCol.Add(element.InvNo);
-                                            RemarksCol.Add(element.Remarks);
-
-                                        }
-
-                                        clsArray.TerminalID = TerminalIDCol.ToArray();
-                                        clsArray.TIID = TIIDCol.ToArray();
-                                        clsArray.TerminalTypeID = TerminalTypeIDCol.ToArray();
-                                        clsArray.TerminalModelID = TerminalModelIDCol.ToArray();
-                                        clsArray.TerminalBrandID = TerminalBrandIDCol.ToArray();
-                                        clsArray.No = NoCol.ToArray();
-                                        clsArray.SerialNo = SerialNoCol.ToArray();
-                                        clsArray.TerminalSN = SerialNoCol.ToArray();
-                                        clsArray.TerminalType = TypeCol.ToArray();
-                                        clsArray.TerminalModel = ModelCol.ToArray();
-                                        clsArray.TerminalBrand = BrandCol.ToArray();
-                                        clsArray.DeliveryDate = DeliveryDateCol.ToArray();
-                                        clsArray.ReceiveDate = ReceiveDateCol.ToArray();
-                                        clsArray.TerminalStatus = TerminalStatusCol.ToArray();
-                                        clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
-                                        clsArray.TerminalPartNo = TerminalPartNoCol.ToArray();
-                                        clsArray.TerminalPONo = TerminalPONoCol.ToArray();
-                                        clsArray.TerminalInvNo = TerminalInvNoCol.ToArray();
-                                        clsArray.Remarks = RemarksCol.ToArray();
-                                    }
-                                }
-                                break;
-                            case "Particular Count":
-                                ParticularDetailOnline Detail17 = JsonConvert.DeserializeObject<ParticularDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsParticular.RecordFound = false;
-
-                                foreach (var element in Detail17.data)
-                                {
-                                    clsParticular.RecordFound = true;
-                                    clsParticular.ClassParticularID = element.ParticularID;
-                                    clsParticular.ClassParticularName = element.ParticularName;
-                                }
-
-                                break;
-                            case "CheckRecordExist":
-                            case "CheckFileExist":                            
-                                CheckRecordExistDetailOnline Detail18 = JsonConvert.DeserializeObject<CheckRecordExistDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsCheckRecordExist.RecordFound = false;
-
-                                foreach (var element in Detail18.data)
-                                {
-                                    clsCheckRecordExist.RecordFound = true;
-                                }
-
-                                break;
-                            case "Merchant":
-                                MerchantDetailOnline Detail19 = JsonConvert.DeserializeObject<MerchantDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsMerchant.RecordFound = false;
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                    case "View":
-                                        foreach (var element in Detail19.data)
-                                        {
-                                            clsMerchant.RecordFound = true;
-                                            MerchantIDCol.Add(element.MerchantID.ToString());
-                                            CityIDCol.Add(element.CityID.ToString());
-                                            ProvinceIDCol.Add(element.ProvinceID.ToString());
-                                            MerchantNameCol.Add(element.MerchantName.ToString());
-                                            AddressCol.Add(element.Address.ToString());
-                                            CityCol.Add(element.City.ToString());
-                                            ProvinceCol.Add(element.Province.ToString());
-                                            ContactPersonCol.Add(element.ContactPerson.ToString());
-                                            ContactNoCol.Add(element.ContactNo.ToString());
-
-                                        }
-
-                                        // Loop And Store To Array
-                                        clsArray.MerchantID = MerchantIDCol.ToArray();
-                                        clsArray.CityID = CityIDCol.ToArray();
-                                        clsArray.ProvinceID = ProvinceIDCol.ToArray();
-                                        clsArray.MerchantName = MerchantNameCol.ToArray();
-                                        clsArray.Address = AddressCol.ToArray();
-                                        clsArray.City = CityCol.ToArray();
-                                        clsArray.Province = ProvinceCol.ToArray();
-                                        clsArray.ContactPerson = ContactPersonCol.ToArray();
-                                        clsArray.ContactNo = ContactNoCol.ToArray();
-
-                                        break;
-                                }
-                                break;
-                            case "IR":
-                                IRDetailOnline Detail20 = JsonConvert.DeserializeObject<IRDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsIR.RecordFound = false;
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                    case "View":
-
-                                        if (SearchBy.CompareTo("IRNo List") == 0 || SearchBy.CompareTo("IRNo List2") == 0)
-                                        {
-                                            foreach (var element in Detail20.data)
+                                        case "Search":
+                                            foreach (var element in Detail13.data)
                                             {
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                IRNoCol.Add(element.IRNo.ToString());
-                                                MerchantNameCol.Add(element.MerchantName.ToString());
+                                                clsLastID.RecordFound = true;
+                                                clsLastID.ClassLastInsertedID = element.LastInsertID;
+                                            }
+                                            break;
+                                        case "View":
+                                            List<string> LastInsertedIDCol = new List<String>();
+
+                                            foreach (var element in Detail13.data)
+                                            {
+                                                clsLastID.RecordFound = true;
+                                                LastInsertedIDCol.Add(element.LastInsertID.ToString());
                                             }
 
-                                            // Loop And Store To Array
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.MerchantName = MerchantNameCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("Dispatch Servicing 2") == 0)
-                                        {
+                                            clsArray.LastInsertedID = LastInsertedIDCol.ToArray();
 
-                                            foreach (var element in Detail20.data)
+                                            break;
+                                    }
+                                    break;
+                                case "FSR":
+                                    FSRDetailOnline Detail14 = JsonConvert.DeserializeObject<FSRDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsFSR.RecordFound = false;
+
+                                    FSRNoCol.Clear();
+                                    FSRIDCol.Clear();
+                                    MerchantCol.Clear();
+                                    MIDCol.Clear();
+                                    TIDCol.Clear();
+                                    TimeArrivedCol.Clear();
+                                    TimeStartCol.Clear();
+                                    FSRCol.Clear();
+                                    FSRDateCol.Clear();
+                                    FSRTimeCol.Clear();
+                                    MerchantContactNoCol.Clear();
+                                    MerchantRepresentativeCol.Clear();
+                                    DateFromCol.Clear();
+                                    DateToCol.Clear();
+                                    TxnAmtCol.Clear();
+                                    ServiceNoCol.Clear();
+                                    RequestNoCol.Clear();
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                        case "View":
+
+                                            if (SearchBy.CompareTo("Download Completed FSR") == 0)
                                             {
-                                                clsSearch.RecordFound = true;
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                ClientIDCol.Add(element.ClientID.ToString());
-                                                MerchantIDCol.Add(element.MerchantID.ToString());
-                                                FEIDCol.Add(element.FEID.ToString());
+                                                foreach (var element in Detail14.data)
+                                                {
+                                                    clsFSR.RecordFound = true;
+                                                    FSRNoCol.Add(element.FSRNo.ToString());
+                                                    FSRIDCol.Add(element.FSRID.ToString());
+                                                    MerchantCol.Add(element.Merchant);
+                                                    MIDCol.Add(element.MID);
+                                                    TIDCol.Add(element.TID);
+                                                    TimeArrivedCol.Add(element.TimeArrived);
+                                                    TimeStartCol.Add(element.TimeStart);
+                                                    FSRCol.Add(element.FSR);
+                                                    FSRDateCol.Add(element.FSRDate);
+                                                    FSRTimeCol.Add(element.FSRTime);
+                                                    TxnAmtCol.Add(element.TxnAmt);
+                                                    MerchantContactNoCol.Add(element.MerchantContactNo);
+                                                    MerchantRepresentativeCol.Add(element.MerchantRepresentative);
+                                                }
+                                                clsArray.FSRNo = FSRNoCol.ToArray();
+                                                clsArray.FSRID = FSRIDCol.ToArray();
+                                                clsArray.Merchant = MerchantCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.TimeArrived = TimeArrivedCol.ToArray();
+                                                clsArray.TimeStart = TimeStartCol.ToArray();
+                                                clsArray.FSR = FSRCol.ToArray();
+                                                clsArray.FSRDate = FSRDateCol.ToArray();
+                                                clsArray.FSRTime = FSRTimeCol.ToArray();
+                                                clsArray.TxnAmt = TxnAmtCol.ToArray();
+                                                clsArray.TimeEnd = TimeEndCol.ToArray();
+                                                clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
+                                                clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("FSR Temp Detail") == 0)
+                                            {
+                                                foreach (var element in Detail14.data)
+                                                {
+                                                    clsFSR.RecordFound = true;
+                                                    FSRNoCol.Add(element.FSRNo.ToString());
+                                                    NoCol.Add(element.No.ToString());
+                                                    MerchantCol.Add(element.Merchant);
+                                                    MIDCol.Add(element.MID.Trim());
+                                                    TIDCol.Add(element.TID);
+                                                    InvoiceNoCol.Add(element.InvoiceNo);
+                                                    BatchNoCol.Add(element.BatchNo);
+                                                    FSRCol.Add(element.FSR);
+                                                    FSRDateCol.Add(element.FSRDate);
+                                                    FSRTimeCol.Add(element.FSRTime);
+                                                    TxnAmtCol.Add(element.TxnAmt);
+                                                    TimeEndCol.Add(element.TimeEnd);
+                                                    TerminalSNCol.Add(element.TerminalSN);
+                                                    MerchantContactNoCol.Add(element.MerchantContactNo);
+                                                    MerchantRepresentativeCol.Add(element.MerchantRepresentative);
+                                                    FENameCol.Add(element.FEName);
+                                                    SerialNoCol.Add(element.SerialNo);
+                                                }
+                                                clsArray.FSRNo = FSRNoCol.ToArray();
+                                                clsArray.No = NoCol.ToArray();
+                                                clsArray.MerchantName = MerchantCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.InvoiceNo = InvoiceNoCol.ToArray();
+                                                clsArray.BatchNo = BatchNoCol.ToArray();
+                                                clsArray.FSR = FSRCol.ToArray();
+                                                clsArray.FSRDate = FSRDateCol.ToArray();
+                                                clsArray.FSRTime = FSRTimeCol.ToArray();
+                                                clsArray.TxnAmt = TxnAmtCol.ToArray();
+                                                clsArray.TimeEnd = TimeEndCol.ToArray();
+                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
+                                                clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
+                                                clsArray.SerialNo = SerialNoCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("FSR Temp Detail Date Filter") == 0)
+                                            {
+                                                foreach (var element in Detail14.data)
+                                                {
+                                                    clsFSR.RecordFound = true;
+                                                    DateFromCol.Add(element.DateFrom);
+                                                    DateToCol.Add(element.DateTo);
+                                                }
+
+                                                clsArray.DateFrom = DateFromCol.ToArray();
+                                                clsArray.DateTo = DateToCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("FSR FillUp") == 0)
+                                            {
+                                                foreach (var element in Detail14.data)
+                                                {
+                                                    clsFSR.RecordFound = true;
+                                                    FSRNoCol.Add(element.FSRNo.ToString());
+                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                    ProblemReportedCol.Add(element.ProblemReported);
+                                                    ActualProblemReportedCol.Add(element.ActualProblemReported);
+                                                    ActionTakenCol.Add(element.ActionTaken);
+                                                    AnyCommentsCol.Add(element.AnyComments);
+                                                    ReasonIDCol.Add(element.ReasonID.ToString());
+                                                    ReasonCodeCol.Add(element.ReasonCode);
+                                                    ReasonDescriptionCol.Add(element.ReasonDescription);
+                                                    MerchantContactNoCol.Add(element.MerchantContactNo);
+                                                    MerchantRepresentativeCol.Add(element.MerchantRepresentative);
+
+                                                }
+                                                clsArray.FSRNo = FSRNoCol.ToArray();
+                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                clsArray.ProblemReported = ProblemReportedCol.ToArray();
+                                                clsArray.ActualProblemReported = ActualProblemReportedCol.ToArray();
+                                                clsArray.ActionTaken = ActionTakenCol.ToArray();
+                                                clsArray.AnyComments = AnyCommentsCol.ToArray();
+                                                clsArray.ReasonID = ReasonIDCol.ToArray();
+                                                clsArray.ReasonCode = ReasonCodeCol.ToArray();
+                                                clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
+                                                clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
+                                                clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("FSR") == 0)
+                                            {
+                                                foreach (var element in Detail14.data)
+                                                {
+                                                    clsFSR.RecordFound = true;
+                                                    FSRNoCol.Add(element.FSRNo.ToString());
+                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    TAIDNoCol.Add(element.TAIDNo.ToString());
+                                                    ClientIDCol.Add(element.ClientID.ToString());
+                                                    FSRDateCol.Add(element.FSRDate.ToString());
+                                                    IRNoCol.Add(element.IRNo);
+                                                    MerchantCol.Add(element.Merchant);
+                                                    TIDCol.Add(element.TID);
+                                                    MIDCol.Add(element.MID);
+                                                    TerminalSNCol.Add(element.TerminalSN);
+                                                    SIMSerialNoCol.Add(element.SIMSN);
+                                                    PrimaryNumCol.Add(element.PrimaryNum);
+                                                    SecondaryNumCol.Add(element.SecondaryNum);
+                                                    AppVersionCol.Add(element.AppVersion);
+                                                    AppCRCCol.Add(element.AppCRC);
+                                                    RequestNoCol.Add(element.RequestNo);
+                                                    JobTypeDescriptionCol.Add(element.JobTypeDescription);
+                                                    FENameCol.Add(element.FEName);
+                                                    ServiceDateTimeCol.Add(element.ServiceDateTime);
+                                                    ServiceDateCol.Add(element.ServiceDate);
+                                                    ServiceTimeCol.Add(element.ServiceTime);
+                                                    ServiceReqDateCol.Add(element.ServiceReqDate);
+                                                    ServiceReqTimeCol.Add(element.ServiceReqTime);
+
+
+                                                }
+                                                clsArray.FSRNo = FSRNoCol.ToArray();
+                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                clsArray.TAIDNo = TAIDNoCol.ToArray();
+                                                clsArray.ClientID = ClientIDCol.ToArray();
+                                                clsArray.FSRDate = FSRDateCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.Merchant = MerchantCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                clsArray.PrimaryNum = PrimaryNumCol.ToArray();
+                                                clsArray.SecondaryNum = SecondaryNumCol.ToArray();
+                                                clsArray.AppVersion = AppVersionCol.ToArray();
+                                                clsArray.AppCRC = AppCRCCol.ToArray();
+                                                clsArray.RequestNo = RequestNoCol.ToArray();
+                                                clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
+                                                clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
+                                                clsArray.ServiceDate = ServiceDateCol.ToArray();
+                                                clsArray.ServiceTime = ServiceTimeCol.ToArray();
+                                                clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
+                                                clsArray.ServiceReqTime = ServiceReqTimeCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("FSRNo") == 0)
+                                            {
+                                                foreach (var element in Detail14.data)
+                                                {
+                                                    clsFSR.RecordFound = true;
+                                                    FSRNoCol.Add(element.FSRNo.ToString());
+                                                    FSRIDCol.Add(element.FSRID.ToString());
+                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    TAIDNoCol.Add(element.TAIDNo.ToString());
+                                                    IRNoCol.Add(element.IRNo);
+                                                    MerchantCol.Add(element.Merchant);
+                                                    TIDCol.Add(element.TID);
+                                                    MIDCol.Add(element.MID);
+                                                    TerminalSNCol.Add(element.TerminalSN);
+                                                    SIMSerialNoCol.Add(element.SIMSN);
+                                                    PowerSNCol.Add(element.PowerSN);
+                                                    DockSNCol.Add(element.DockSN);
+                                                    TimeArrivedCol.Add(element.TimeArrived);
+                                                    TimeStartCol.Add(element.TimeStart);
+                                                    FSRCol.Add(element.FSR);
+                                                    FSRDateCol.Add(element.FSRDate);
+                                                    FSRTimeCol.Add(element.FSRTime);
+                                                    TimeEndCol.Add(element.TimeEnd);
+                                                    MerchantContactNoCol.Add(element.MerchantContactNo);
+                                                    MerchantRepresentativeCol.Add(element.MerchantRepresentative);
+                                                    FENameCol.Add(element.FEName);
+                                                    SerialNoCol.Add(element.SerialNo);
+                                                    ActionMadeCol.Add(element.ActionMade);
+                                                    ProblemReportedCol.Add(element.ProblemReported);
+                                                    ActualProblemReportedCol.Add(element.ActualProblemReported);
+                                                    ActionTakenCol.Add(element.ActionTaken);
+                                                    ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription);
+
+                                                }
+
+                                                clsArray.FSRNo = FSRNoCol.ToArray();
+                                                clsArray.FSRID = FSRIDCol.ToArray();
+                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                clsArray.TAIDNo = TAIDNoCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.Merchant = MerchantCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                clsArray.PowerSN = PowerSNCol.ToArray();
+                                                clsArray.DockSN = DockSNCol.ToArray();
+                                                clsArray.TimeArrived = TimeArrivedCol.ToArray();
+                                                clsArray.TimeStart = TimeStartCol.ToArray();
+                                                clsArray.FSR = FSRCol.ToArray();
+                                                clsArray.FSRDate = FSRDateCol.ToArray();
+                                                clsArray.FSRTime = FSRTimeCol.ToArray();
+                                                clsArray.TimeEnd = TimeEndCol.ToArray();
+                                                clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
+                                                clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
+                                                clsArray.SerialNo = SerialNoCol.ToArray();
+                                                clsArray.ActionMade = ActionMadeCol.ToArray();
+                                                clsArray.ProblemReported = ProblemReportedCol.ToArray();
+                                                clsArray.ActualProblemReported = ActualProblemReportedCol.ToArray();
+                                                clsArray.ActionTaken = ActionTakenCol.ToArray();
+                                                clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
+
+                                            }
+                                            else
+                                            {
+                                                foreach (var element in Detail14.data)
+                                                {
+                                                    clsFSR.RecordFound = true;
+                                                    FSRIDCol.Add(element.FSRID.ToString());
+                                                    NoCol.Add(element.No);
+                                                    MerchantCol.Add(element.Merchant);
+                                                    MIDCol.Add(element.MID);
+                                                    TIDCol.Add(element.TID);
+                                                    InvoiceNoCol.Add(element.InvoiceNo);
+                                                    BatchNoCol.Add(element.BatchNo);
+                                                    TimeArrivedCol.Add(element.TimeArrived);
+                                                    TimeStartCol.Add(element.TimeStart);
+                                                    FSRCol.Add(element.FSR);
+                                                    ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription);
+                                                    ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
+                                                    FSRDateCol.Add(element.FSRDate);
+                                                    FSRTimeCol.Add(element.FSRTime);
+                                                    TxnAmtCol.Add(element.TxnAmt);
+                                                    TimeEndCol.Add(element.TimeEnd);
+                                                    TerminalSNCol.Add(element.TerminalSN);
+                                                    MerchantContactNoCol.Add(element.MerchantContactNo);
+                                                    MerchantRepresentativeCol.Add(element.MerchantRepresentative);
+                                                    FENameCol.Add(element.FEName);
+                                                    SerialNoCol.Add(element.SerialNo);
+                                                    FSRStatusDescriptionCol.Add(element.FSRStatusDescription);
+                                                    ProcessTypeCol.Add(element.ProcessType);
+                                                    IRNoCol.Add(element.IRNo);
+                                                    ClientNameCol.Add(element.ClientName);
+                                                    SIMSerialNoCol.Add(element.SIMSN);
+                                                    PowerSNCol.Add(element.PowerSN);
+                                                    DockSNCol.Add(element.DockSN);
+                                                    TypeDescriptionCol.Add(element.TypeDescription);
+                                                    ModelDescriptionCol.Add(element.ModelDescription);
+                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                    RequestNoCol.Add(element.RequestNo);
+                                                    JobTypeDescriptionCol.Add(element.JobTypeDescription);
+                                                    ServiceJobTypeDescriptionCol.Add(element.ServiceJobTypeDescription);
+
+                                                }
+
+                                                // Loop And Store To Array
+                                                clsArray.FSRID = FSRIDCol.ToArray();
+                                                clsArray.No = NoCol.ToArray();
+                                                clsArray.Merchant = MerchantCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.InvoiceNo = InvoiceNoCol.ToArray();
+                                                clsArray.BatchNo = BatchNoCol.ToArray();
+                                                clsArray.TimeArrived = TimeArrivedCol.ToArray();
+                                                clsArray.TimeStart = TimeStartCol.ToArray();
+                                                clsArray.FSR = FSRCol.ToArray();
+                                                clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
+                                                clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
+                                                clsArray.FSRDate = FSRDateCol.ToArray();
+                                                clsArray.FSRTime = FSRTimeCol.ToArray();
+                                                clsArray.TxnAmt = TxnAmtCol.ToArray();
+                                                clsArray.TimeEnd = TimeEndCol.ToArray();
+                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
+                                                clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
+                                                clsArray.SerialNo = SerialNoCol.ToArray();
+                                                clsArray.FSRStatusDescription = FSRStatusDescriptionCol.ToArray();
+                                                clsArray.ProcessType = ProcessTypeCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.ClientName = ClientNameCol.ToArray();
+                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                clsArray.PowerSN = PowerSNCol.ToArray();
+                                                clsArray.DockSN = DockSNCol.ToArray();
+                                                clsArray.TypeDescription = TypeDescriptionCol.ToArray();
+                                                clsArray.ModelDescription = ModelDescriptionCol.ToArray();
+                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                clsArray.RequestNo = RequestNoCol.ToArray();
+                                                clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
+                                                clsArray.ServiceJobTypeDescription = ServiceJobTypeDescriptionCol.ToArray();
+                                            }
+                                            break;
+                                    }
+                                    break;
+                                case "Terminal Brand":
+                                    TerminalBrandDetailOnline Detail15 = JsonConvert.DeserializeObject<TerminalBrandDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsTerminalBrand.ResetClass();
+                                    clsTerminalBrand.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail15.data)
+                                            {
+                                                clsTerminalBrand.RecordFound = true;
+                                                clsTerminalBrand.ClassTerminalBrandID = element.TerminalBrandID;
+                                                clsTerminalBrand.ClassDescription = element.Description;
+                                            }
+                                            break;
+                                        case "View":
+                                            clsSearch.ClassTerminalBrandList = "";
+                                            foreach (var element in Detail15.data)
+                                            {
+                                                clsTerminalBrand.RecordFound = true;
+                                                IDCol.Add(element.TerminalBrandID.ToString());
+                                                DescriptionCol.Add(element.Description);
+
+                                                clsSearch.ClassTerminalBrandList = clsSearch.ClassTerminalBrandList + element.Description + Environment.NewLine;
+                                            }
+
+                                            clsArray.TerminalBrandID = IDCol.ToArray();
+                                            clsArray.Description = DescriptionCol.ToArray();
+                                            clsArray.BrandDescription = DescriptionCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "Terminal":
+                                case "Stock Detail":
+                                    TerminalDetailOnline Detail16 = JsonConvert.DeserializeObject<TerminalDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsTerminal.RecordFound = false;
+
+                                    TerminalIDCol.Clear();
+                                    SerialNoCol.Clear();
+                                    TypeCol.Clear();
+                                    ModelCol.Clear();
+                                    BrandCol.Clear();
+                                    TerminalPartNoCol.Clear();
+                                    TerminalStatusCol.Clear();
+                                    TerminalStatusDescriptionCol.Clear();
+                                    SIMIDCol.Clear();
+                                    SerialNoCol.Clear();
+                                    SIMCarrierCol.Clear();
+                                    SIMStatusCol.Clear();
+                                    SIMStatusDescriptionCol.Clear();
+
+                                    if (StatementType.CompareTo("Search") == 0 ||
+                                        StatementType.CompareTo("View") == 0)
+
+                                    {
+                                        if (SearchBy.CompareTo("TerminalSN List") == 0 ||
+                                            SearchBy.CompareTo("Stock Detail List") == 0)
+                                        {
+                                            foreach (var element in Detail16.data)
+                                            {
+                                                clsTerminal.RecordFound = true;
+                                                TerminalIDCol.Add(element.TerminalID.ToString());
+                                                SerialNoCol.Add(element.SerialNo);
+                                                TypeCol.Add(element.TerminalType);
+                                                ModelCol.Add(element.TerminalModel);
+                                                BrandCol.Add(element.TerminalBrand);
+                                                TerminalPartNoCol.Add(element.PartNo);
+                                                TerminalStatusCol.Add(element.TerminalStatus.ToString());
+                                                TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription);
                                                 MerchantNameCol.Add(element.MerchantName);
                                                 TIDCol.Add(element.TID);
                                                 MIDCol.Add(element.MID);
-                                                ClientNameCol.Add(element.ClientName);
-                                                FENameCol.Add(element.FEName);
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
                                                 IRNoCol.Add(element.IRNo);
-                                                IRDateCol.Add(element.IRDate);
-                                                InstallationDateCol.Add(element.InstallationDate);
-                                                RequestNoCol.Add(element.RequestNo.ToString());
-                                                ServiceDateCol.Add(element.ServiceDate);
-                                                ServiceReqDateCol.Add(element.ServiceReqDate);                                             
-                                                JobTypeDescriptionCol.Add(element.JobTypeDescription);
-                                                ActionMadeCol.Add(element.ActionMade);
-                                                ReferenceNoCol.Add(element.ReferenceNo);
-                                                FSRDateCol.Add(element.FSRDate);
-                                                ServiceStatusCol.Add(element.ServiceStatus.ToString());
-                                                ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
-                                                JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription);
-                                                FSRNoCol.Add(element.FSRNo.ToString());
-                                                TerminalSNCol.Add(element.TerminalSN);
-                                                SIMSerialNoCol.Add(element.SIMSerialNo);
-                                                ReplaceTerminalSNCol.Add(element.ReplaceTerminalSN);
-                                                ReplaceSIMSNCol.Add(element.ReplaceSIMSN);
-                                                
+                                                ClientNameCol.Add(element.ClientName);
+                                                LocationCol.Add(element.Location);
+                                                AllocationCol.Add(element.Allocation);
+                                                AssetTypeCol.Add(element.AssetType);
+                                                DeliveryDateCol.Add(element.DeliveryDate);
+                                                ReceiveDateCol.Add(element.ReceiveDate);
+                                                ReleaseDateCol.Add(element.ReleaseDate);
                                             }
 
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                            clsArray.ClientID = ClientIDCol.ToArray();
-                                            clsArray.MerchantID = MerchantIDCol.ToArray();
-                                            clsArray.FEID = FEIDCol.ToArray();
+                                            clsArray.TerminalID = TerminalIDCol.ToArray();
+                                            clsArray.SerialNo = SerialNoCol.ToArray();
+                                            clsArray.TerminalSN = SerialNoCol.ToArray();
+                                            clsArray.TerminalType = TypeCol.ToArray();
+                                            clsArray.TerminalModel = ModelCol.ToArray();
+                                            clsArray.TerminalBrand = BrandCol.ToArray();
+                                            clsArray.TerminalPartNo = TerminalPartNoCol.ToArray();
+                                            clsArray.TerminalStatus = TerminalStatusCol.ToArray();
+                                            clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
                                             clsArray.MerchantName = MerchantNameCol.ToArray();
                                             clsArray.TID = TIDCol.ToArray();
                                             clsArray.MID = MIDCol.ToArray();
-                                            clsArray.ClientName = ClientNameCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
                                             clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.IRDate = IRDateCol.ToArray();
-                                            clsArray.InstallationDate = InstallationDateCol.ToArray();
-                                            clsArray.RequestNo = RequestNoCol.ToArray();
-                                            clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
-                                            clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
-                                            clsArray.ActionMade = ActionMadeCol.ToArray();
-                                            clsArray.ReferenceNo = ReferenceNoCol.ToArray();
-                                            clsArray.ServiceDate = ServiceDateCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                            clsArray.ServiceStatus = ServiceStatusCol.ToArray();
-                                            clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
-                                            clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
-                                            clsArray.FSRNo = FSRNoCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                            clsArray.ReplaceTerminalSN = ReplaceTerminalSNCol.ToArray();
-                                            clsArray.ReplaceSIMSN = ReplaceSIMSNCol.ToArray();
+                                            clsArray.ClientName = ClientNameCol.ToArray();
+                                            clsArray.Location = LocationCol.ToArray();
+                                            clsArray.Allocation = AllocationCol.ToArray();
+                                            clsArray.AssetType = AssetTypeCol.ToArray();
+                                            clsArray.DeliveryDate = DeliveryDateCol.ToArray();
+                                            clsArray.ReceiveDate = ReceiveDateCol.ToArray();
+                                            clsArray.ReleaseDate = ReleaseDateCol.ToArray();
                                         }
-                                        else if (SearchBy.CompareTo("Multi-Merchant Info") == 0)
+                                        else if (SearchBy.CompareTo("SIMSN List") == 0)
                                         {
-                                            foreach (var element in Detail20.data)
+                                            foreach (var element in Detail16.data)
                                             {
-                                                MerchantIDCol.Add(element.MerchantID.ToString());
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                clsTerminal.RecordFound = true;
+                                                SIMIDCol.Add(element.SIMID.ToString());
+                                                SerialNoCol.Add(element.SerialNo);
+                                                SIMCarrierCol.Add(element.Carrier);
+                                                SIMStatusCol.Add(element.SIMStatus.ToString());
+                                                SIMStatusDescriptionCol.Add(element.SIMStatusDescription);
+                                                MerchantNameCol.Add(element.MerchantName);
                                                 TIDCol.Add(element.TID);
                                                 MIDCol.Add(element.MID);
                                                 IRNoCol.Add(element.IRNo);
-                                                IRStatusCol.Add(element.IRStatus.ToString());
-                                                IRStatusDescriptionCol.Add(element.IRStatusDescription);
-
-                                            }
-
-                                            // Loop And Store To Array
-                                            clsArray.MerchantID = MerchantIDCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.IRStatus = IRStatusCol.ToArray();
-                                            clsArray.IRStatusDescription = IRStatusDescriptionCol.ToArray();
-
-                                        }
-                                        else if (SearchBy.CompareTo("POS Rental IR List") == 0)
-                                        {
-                                            foreach (var element in Detail20.data)
-                                            {
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                IRNoCol.Add(element.IRNo.ToString());
-                                                MerchantIDCol.Add(element.MerchantID.ToString());
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                TIDCol.Add(element.TID);
-                                                MIDCol.Add(element.MID);
-                                                DescriptionCol.Add(element.Description);
-                                                RentalFeeCol.Add(element.RentalFee.ToString());
-
-
-                                            }
-
-                                            // Loop And Store To Array
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.MerchantID = MerchantIDCol.ToArray();
-                                            clsArray.ParticularID = ParticularIDCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.Description = DescriptionCol.ToArray();
-                                            clsArray.RentalFee = RentalFeeCol.ToArray();
-
-                                        }
-                                        else
-                                        {
-                                            foreach (var element in Detail20.data)
-                                            {
-                                                clsIR.RecordFound = true;
-                                                TAIDNoCol.Add(element.TAIDNo.ToString());
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                IRIDCol.Add(element.IRID.ToString());
-                                                IRNoCol.Add(element.IRNo.ToString());
-                                                IRDateCol.Add(element.IRDate.ToString());
-                                                InstallationDateCol.Add(element.InstallationDate.ToString());
-                                                MerchantIDCol.Add(element.MerchantID.ToString());
-                                                ParticularNameCol.Add(element.ParticularName.ToString());
-                                                AddressCol.Add(element.Address.ToString());
-                                                Address2Col.Add(element.Address2.ToString());
-                                                Address3Col.Add(element.Address3.ToString());
-                                                Address4Col.Add(element.Address4.ToString());
-                                                ContactPersonCol.Add(element.ContactPerson.ToString());
-                                                TelNoCol.Add(element.TelNo.ToString());
-                                                MobileCol.Add(element.Mobile.ToString());
-                                                EmailCol.Add(element.Email.ToString());
-                                                CityCol.Add(element.City.ToString());
-                                                ProvinceCol.Add(element.Province.ToString());
-                                                TIDCol.Add(element.TID.ToString());
-                                                MIDCol.Add(element.MID.ToString());
-                                                IRStatusCol.Add(element.IRStatus.ToString());
-                                                IRStatusDescriptionCol.Add(element.IRStatusDescription.ToString());
-                                                ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription.ToString());
-                                                IRImportDateCol.Add(element.ImportDateTime.ToString());
-                                                RegionIDCol.Add(element.RegionID.ToString());
-                                                TerminalIDCol.Add(element.TerminalID.ToString());
-                                                TerminalSNCol.Add(element.TerminalSN.ToString());
-                                                SIMIDCol.Add(element.SIMID.ToString());
-                                                SIMSerialNoCol.Add(element.SIMSerialNo.ToString());
-                                                DockIDCol.Add(element.DockID.ToString());
-                                                DockSNCol.Add(element.DockSN.ToString());
-                                                ClientIDCol.Add(element.ClientID.ToString());
-                                                ClientNameCol.Add(element.ClientName.ToString());
-                                                ServiceProviderIDCol.Add(element.ServiceProviderID.ToString());
-                                                ServiceProviderNameCol.Add(element.ServiceProviderName.ToString());
-                                                FEIDCol.Add(element.FEID.ToString());
-                                                FENameCol.Add(element.FEName.ToString());
-                                                ProcessedDateTimeCol.Add(element.ProcessedDateTime.ToString());
-                                                ProcessedByCol.Add(element.ProcessedBy.ToString());
-                                                ProcessTypeCol.Add(element.ProcessType.ToString());
-                                                ServiceStatusCol.Add(element.ServiceStatus.ToString());
-                                                ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription.ToString());
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                RequestNoCol.Add(element.RequestNo.ToString());
-                                                JobTypeDescriptionCol.Add(element.JobTypeDescription.ToString());
-                                                JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription.ToString());
-                                                ServiceDateTimeCol.Add(element.ServiceDateTime.ToString());
-                                                ReasonIDCol.Add(element.ReasonID.ToString());
-                                                ReasonCodeCol.Add(element.ReasonCode);
-                                                ReasonDescriptionCol.Add(element.ReasonDescription);
-                                                FSRNoCol.Add(element.FSRNo.ToString());
-                                                TimeArrivedCol.Add(element.TimeArrived);
-                                                TimeStartCol.Add(element.TimeStart);
-                                                FSRDateCol.Add(element.FSRDate);
-                                                FSRTimeCol.Add(element.FSRTime);
-                                                TimeEndCol.Add(element.TimeEnd);
-                                                MerchantContactNoCol.Add(element.MerchantContactNo);
-                                                MerchantRepresentativeCol.Add(element.MerchantRepresentative);
-                                                SerialNoListCol.Add(element.SerialNoList);
-                                                PrimaryNumCol.Add(element.PrimaryNum);
-                                                SecondaryNumCol.Add(element.SecondaryNum);
-                                                AppVersionCol.Add(element.AppVersion);
-                                                AppCRCCol.Add(element.AppCRC);
-
-                                            }
-
-                                            // Loop And Store To Array
-                                            clsArray.TAIDNo = TAIDNoCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.IRID = IRIDCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.IRDate = IRDateCol.ToArray();
-                                            clsArray.InstallationDate = InstallationDateCol.ToArray();
-                                            clsArray.MerchantID = MerchantIDCol.ToArray();
-                                            clsArray.ParticularName = ParticularNameCol.ToArray();
-                                            clsArray.Address = AddressCol.ToArray();
-                                            clsArray.Address2 = Address2Col.ToArray();
-                                            clsArray.Address3 = Address3Col.ToArray();
-                                            clsArray.Address4 = Address4Col.ToArray();
-                                            clsArray.ContactPerson = ContactPersonCol.ToArray();
-                                            clsArray.TelNo = TelNoCol.ToArray();
-                                            clsArray.MobileNo = MobileCol.ToArray();
-                                            clsArray.Email = EmailCol.ToArray();
-                                            clsArray.City = CityCol.ToArray();
-                                            clsArray.Province = ProvinceCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.IRStatus = IRStatusCol.ToArray();
-                                            clsArray.IRStatusDescription = IRStatusDescriptionCol.ToArray();
-                                            clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
-                                            clsArray.IRImportDateTime = IRImportDateCol.ToArray();
-                                            clsArray.RegionID = RegionIDCol.ToArray();
-                                            clsArray.TerminalID = TerminalIDCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.SIMID = SIMIDCol.ToArray();
-                                            clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                            clsArray.DockID = DockIDCol.ToArray();
-                                            clsArray.DockSN = DockSNCol.ToArray();
-                                            clsArray.ClientID = ClientIDCol.ToArray();
-                                            clsArray.ClientName = ClientNameCol.ToArray();
-                                            clsArray.ServiceProviderID = ServiceProviderIDCol.ToArray();
-                                            clsArray.ServiceProviderName = ServiceProviderNameCol.ToArray();
-                                            clsArray.FEID = FEIDCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
-                                            clsArray.ProcessedBy = ProcessedByCol.ToArray();
-                                            clsArray.ProcessType = ProcessTypeCol.ToArray();
-                                            clsArray.ServiceStatus = ServiceStatusCol.ToArray();
-                                            clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                            clsArray.RequestNo = RequestNoCol.ToArray();
-                                            clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
-                                            clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
-                                            clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
-                                            clsArray.ReasonID = ReasonIDCol.ToArray();
-                                            clsArray.ReasonCode = ReasonCodeCol.ToArray();
-                                            clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
-                                            clsArray.FSRNo = FSRNoCol.ToArray();
-                                            clsArray.TimeArrived = TimeArrivedCol.ToArray();
-                                            clsArray.TimeStart = TimeStartCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                            clsArray.FSRTime = FSRTimeCol.ToArray();
-                                            clsArray.TimeEnd = TimeEndCol.ToArray();
-                                            clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
-                                            clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
-                                            clsArray.SerialNoList = SerialNoCol.ToArray();
-                                            clsArray.PrimaryNum = PrimaryNumCol.ToArray();
-                                            clsArray.SecondaryNum = SecondaryNumCol.ToArray();
-                                            clsArray.AppVersion = AppVersionCol.ToArray();
-                                            clsArray.AppCRC = AppCRCCol.ToArray();
-                                        }
-
-                                        break;
-                                }
-                                break;
-                            case "TA":
-                                TADetailOnline Detail21 = JsonConvert.DeserializeObject<TADetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsTA.RecordFound = false;
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail21.data)
-                                        {
-                                            clsTA.RecordFound = true;
-                                            clsTA.ClassIRNo = element.IRNo;
-                                            clsTA.ClassIRDate = element.IRDate;
-                                            clsTA.ClassMerchantName = element.MerchantName;
-                                            clsTA.ClassClientName = element.ClientName;
-                                            clsTA.ClassServiceProviderName = element.ServiceProviderName;
-                                            clsTA.ClassFEName = element.FEName;
-                                            clsTA.ClassTADateTime = element.TADateTime;
-                                            clsTA.ClassServiceTypeDescription = element.ServiceTypeDescription;
-                                        }
-                                        break;
-                                    case "View":
-
-                                        if (SearchBy.CompareTo("Advance SIM") == 0 ||
-                                            SearchBy.CompareTo("SIM") == 0)
-                                        {
-                                            foreach (var element in Detail21.data)
-                                            {
-                                                clsTA.RecordFound = true;
-                                                SIMIDCol.Add(element.SIMID.ToString());
-                                                BatchNoCol.Add(element.BatchNo.ToString());
-                                                SerialNoCol.Add(element.SerialNo.ToString());
-                                                TerminalSNCol.Add(element.TerminalSN.ToString());
-                                                SIMCarrierCol.Add(element.Carrier.ToString());
-                                                FEIDCol.Add(element.FEID.ToString());
-                                                AssignedToCol.Add(element.AssignedTo.ToString());
-                                                RemarksCol.Add(element.Remarks.ToString());
-                                                DeliveryDateCol.Add(element.DeliveryDate.ToString());
-                                                ReceiveDateCol.Add(element.ReceiveDate.ToString());
-                                                SIMStatusCol.Add(element.SIMStatus.ToString());
-                                                SIMStatusDescriptionCol.Add(element.SIMStatusDescription.ToString());
-                                                IRNoCol.Add(element.IRNo.ToString());
-                                                IRDateCol.Add(element.IRDate.ToString());
-                                                InstallationDateCol.Add(element.InstallationDate.ToString());
-                                                ClientNameCol.Add(element.ClientName.ToString());
-                                                MerchantNameCol.Add(element.MerchantName.ToString());
-                                                ServiceProviderNameCol.Add(element.ServiceProviderName.ToString());
-                                                FENameCol.Add(element.FEName.ToString());
-                                                TADateTimeCol.Add(element.TADateTime.ToString());
+                                                ClientNameCol.Add(element.ClientName);
+                                                LocationCol.Add(element.Location);
+                                                AllocationCol.Add(element.Allocation);
+                                                DeliveryDateCol.Add(element.DeliveryDate);
+                                                ReceiveDateCol.Add(element.ReceiveDate);
+                                                ReleaseDateCol.Add(element.ReleaseDate);
                                             }
 
                                             clsArray.SIMID = SIMIDCol.ToArray();
-                                            clsArray.BatchNo = BatchNoCol.ToArray();
                                             clsArray.SerialNo = SerialNoCol.ToArray();
+                                            clsArray.TerminalSN = SerialNoCol.ToArray();
+                                            clsArray.SIMSerialNo = SerialNoCol.ToArray();
                                             clsArray.SIMCarrier = SIMCarrierCol.ToArray();
-                                            clsArray.FEID = FEIDCol.ToArray();
-                                            clsArray.AssignedTo = AssignedToCol.ToArray();
-                                            clsArray.Remarks = RemarksCol.ToArray();
-                                            clsArray.DeliveryDate = DeliveryDateCol.ToArray();
-                                            clsArray.ReceiveDate = ReceiveDateCol.ToArray();
                                             clsArray.SIMStatus = SIMStatusCol.ToArray();
                                             clsArray.SIMStatusDescription = SIMStatusDescriptionCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.IRDate = IRDateCol.ToArray();
-                                            clsArray.InstallationDate = InstallationDateCol.ToArray();
-                                            clsArray.ClientName = ClientNameCol.ToArray();
                                             clsArray.MerchantName = MerchantNameCol.ToArray();
-                                            clsArray.ServiceProviderName = ServiceProviderNameCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.TADateTime = TADateTimeCol.ToArray();
-
-                                        }
-                                        else if (SearchBy.CompareTo("Advance Terminal") == 0)
-                                        {
-                                            foreach (var element in Detail21.data)
-                                            {
-                                                clsTA.RecordFound = true;
-                                                SerialNoCol.Add(element.SerialNo.ToString());
-                                                DeliveryDateCol.Add(element.DeliveryDate.ToString());
-                                                ReceiveDateCol.Add(element.ReceiveDate.ToString());
-                                                TerminalStatusCol.Add(element.TerminalStatus.ToString());
-                                                TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription.ToString());
-                                                TAIDNoCol.Add(element.TAIDNo.ToString());
-                                                TAIDCol.Add(element.TAID.ToString());
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                ClientIDCol.Add(element.ClientID.ToString());
-                                                ServiceProviderIDCol.Add(element.ServiceProviderID.ToString());
-                                                MerchantIDCol.Add(element.MerchantID.ToString());
-                                                FEIDCol.Add(element.FEID.ToString());
-                                                TerminalIDCol.Add(element.TerminalID.ToString());
-                                                TerminalTypeIDCol.Add(element.TerminalTypeID.ToString());
-                                                TerminalModelIDCol.Add(element.TerminalModelID.ToString());
-                                                TerminalBrandIDCol.Add(element.TerminalBrandID.ToString());
-                                                ServiceTypeIDCol.Add(element.ServiceTypeID.ToString());
-                                                OtherServiceTypeIDCol.Add(element.OtherServiceTypeID.ToString());
-                                                IRNoCol.Add(element.IRNo.ToString());
-                                                TerminalSNCol.Add(element.TerminalSN.ToString());
-                                                MerchantNameCol.Add(element.MerchantName.ToString());
-                                                TIDCol.Add(element.TID.ToString());
-                                                MIDCol.Add(element.MID.ToString());
-                                                ClientNameCol.Add(element.ClientName.ToString());
-                                                ServiceProviderNameCol.Add(element.ServiceProviderName.ToString());
-                                                FENameCol.Add(element.FEName.ToString());
-                                                TypeDescriptionCol.Add(element.TypeDescription.ToString());
-                                                ModelDescriptionCol.Add(element.ModelDescription.ToString());
-                                                BrandDescriptionCol.Add(element.BrandDescription.ToString());
-                                                IRDateCol.Add(element.IRDate.ToString());
-                                                InstallationDateCol.Add(element.InstallationDate.ToString());
-                                                FSRDateCol.Add(element.FSRDate.ToString());
-                                                TADateTimeCol.Add(element.TADateTime.ToString());
-                                                TAProcessedByCol.Add(element.TAProcessedBy.ToString());
-                                                TAModifiedByCol.Add(element.TAModifiedBy.ToString());
-                                                TAProcessedDateTimeCol.Add(element.TAProcessedDateTime.ToString());
-                                                TAModifiedDateTimeCol.Add(element.TAModifiedDateTime.ToString());
-                                                TARemarksCol.Add(element.TARemarks.ToString());
-                                                TACommentsCol.Add(element.TAComments.ToString());
-                                                ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription.ToString());
-                                                OtherServiceTypeDescriptionCol.Add(element.OtherServiceTypeDescription.ToString());
-                                                SIMIDCol.Add(element.SIMID.ToString());
-                                                SIMSerialNoCol.Add(element.SIMSerialNo.ToString());
-                                                SIMCarrierCol.Add(element.SIMCarrier.ToString());
-                                                IRImportDateTimeCol.Add(element.IRImportDateTime.ToString());
-                                                RegionIDCol.Add(element.RegionID.ToString());
-                                                RegionCol.Add(element.Region.ToString());
-                                                ServiceTypeStatusCol.Add(element.ServiceTypeStatus.ToString());
-                                                ServiceTypeStatusDescriptionCol.Add(element.ServiceTypeStatusDescription.ToString());
-                                                DockIDCol.Add(element.DockID.ToString());
-                                                DockSNCol.Add(element.DockSN.ToString());
-                                            }
-
-                                            // Loop And Store To Array
-                                            clsArray.SerialNo = SerialNoCol.ToArray();
+                                            clsArray.TID = TIDCol.ToArray();
+                                            clsArray.MID = MIDCol.ToArray();
+                                            clsArray.IRNo = IRNoCol.ToArray();
+                                            clsArray.ClientName = ClientNameCol.ToArray();
+                                            clsArray.Location = LocationCol.ToArray();
+                                            clsArray.Allocation = AllocationCol.ToArray();
                                             clsArray.DeliveryDate = DeliveryDateCol.ToArray();
                                             clsArray.ReceiveDate = ReceiveDateCol.ToArray();
-                                            clsArray.TerminalStatus = TerminalStatusCol.ToArray();
-                                            clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
-                                            clsArray.TAIDNo = TAIDNoCol.ToArray();
-                                            clsArray.TAID = TAIDCol.ToArray();
-                                            clsArray.IRID = IRIDCol.ToArray();
-                                            clsArray.ClientID = ClientIDCol.ToArray();
-                                            clsArray.ServiceProviderID = ServiceProviderIDCol.ToArray();
-                                            clsArray.MerchantID = MerchantIDCol.ToArray();
-                                            clsArray.FEID = FEIDCol.ToArray();
-                                            clsArray.TerminalID = TerminalIDCol.ToArray();
-                                            clsArray.TerminalTypeID = TerminalTypeIDCol.ToArray();
-                                            clsArray.TerminalModelID = TerminalModelIDCol.ToArray();
-                                            clsArray.TerminalBrandID = TerminalBrandIDCol.ToArray();
-                                            clsArray.ServiceTypeID = ServiceTypeIDCol.ToArray();
-                                            clsArray.OtherServiceTypeID = OtherServiceTypeIDCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.MerchantName = MerchantNameCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.ClientName = ClientNameCol.ToArray();
-                                            clsArray.ServiceProviderName = ServiceProviderNameCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.TypeDescription = TypeDescriptionCol.ToArray();
-                                            clsArray.ModelDescription = ModelDescriptionCol.ToArray();
-                                            clsArray.BrandDescription = BrandDescriptionCol.ToArray();
-                                            clsArray.IRDate = IRDateCol.ToArray();
-                                            clsArray.InstallationDate = InstallationDateCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                            clsArray.TADateTime = TADateTimeCol.ToArray();
-                                            clsArray.TAProcessedBy = TAProcessedByCol.ToArray();
-                                            clsArray.TAModifiedBy = TAModifiedByCol.ToArray();
-                                            clsArray.TAProcessedDateTime = TAProcessedDateTimeCol.ToArray();
-                                            clsArray.TAModifiedDateTime = TAModifiedDateTimeCol.ToArray();
-                                            clsArray.TARemarks = TARemarksCol.ToArray();
-                                            clsArray.TAComments = TACommentsCol.ToArray();
-                                            clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
-                                            clsArray.OtherServiceTypeDescription = OtherServiceTypeDescriptionCol.ToArray();
-                                            clsArray.SIMID = SIMIDCol.ToArray();
-                                            clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                            clsArray.SIMCarrier = SIMCarrierCol.ToArray();
-                                            clsArray.IRImportDateTime = IRImportDateTimeCol.ToArray();
-                                            clsArray.RegionID = RegionIDCol.ToArray();
-                                            clsArray.Region = RegionCol.ToArray();
-                                            clsArray.ServiceTypeStatus = ServiceTypeStatusCol.ToArray();
-                                            clsArray.ServiceTypeStatusDescription = ServiceTypeStatusDescriptionCol.ToArray();
-                                            clsArray.DockID = DockIDCol.ToArray();
-                                            clsArray.DockSN = DockSNCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("Advance Servicing") == 0 ||
-                                                 SearchBy.CompareTo("TA Detail") == 0)
-                                        {
-                                            foreach (var element in Detail21.data)
-                                            {
-                                                clsTA.RecordFound = true;
-                                                SerialNoCol.Add(element.SerialNo.ToString());
-                                                DeliveryDateCol.Add(element.DeliveryDate.ToString());
-                                                ReceiveDateCol.Add(element.ReceiveDate.ToString());
-                                                TerminalStatusCol.Add(element.TerminalStatus.ToString());
-                                                TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription.ToString());
-                                                TAIDNoCol.Add(element.TAIDNo.ToString());
-                                                TAIDCol.Add(element.TAID.ToString());
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                ClientIDCol.Add(element.ClientID.ToString());
-                                                ServiceProviderIDCol.Add(element.ServiceProviderID.ToString());
-                                                MerchantIDCol.Add(element.MerchantID.ToString());
-                                                FEIDCol.Add(element.FEID.ToString());
-                                                TerminalIDCol.Add(element.TerminalID.ToString());
-                                                TerminalTypeIDCol.Add(element.TerminalTypeID.ToString());
-                                                TerminalModelIDCol.Add(element.TerminalModelID.ToString());
-                                                TerminalBrandIDCol.Add(element.TerminalBrandID.ToString());
-                                                ServiceTypeIDCol.Add(element.ServiceTypeID.ToString());
-                                                OtherServiceTypeIDCol.Add(element.OtherServiceTypeID.ToString());
-                                                IRNoCol.Add(element.IRNo.ToString());
-                                                TerminalSNCol.Add(element.TerminalSN.ToString());
-                                                MerchantNameCol.Add(element.MerchantName.ToString());
-                                                TIDCol.Add(element.TID.ToString());
-                                                MIDCol.Add(element.MID.ToString());
-                                                ClientNameCol.Add(element.ClientName.ToString());
-                                                ServiceProviderNameCol.Add(element.ServiceProviderName.ToString());
-                                                FENameCol.Add(element.FEName.ToString());
-                                                TypeDescriptionCol.Add(element.TypeDescription.ToString());
-                                                ModelDescriptionCol.Add(element.ModelDescription.ToString());
-                                                BrandDescriptionCol.Add(element.BrandDescription.ToString());
-                                                IRDateCol.Add(element.IRDate.ToString());
-                                                InstallationDateCol.Add(element.InstallationDate.ToString());
-                                                FSRDateCol.Add(element.FSRDate.ToString());
-                                                TADateTimeCol.Add(element.TADateTime.ToString());
-                                                TAProcessedByCol.Add(element.TAProcessedBy.ToString());
-                                                TAModifiedByCol.Add(element.TAModifiedBy.ToString());
-                                                TAProcessedDateTimeCol.Add(element.TAProcessedDateTime.ToString());
-                                                TAModifiedDateTimeCol.Add(element.TAModifiedDateTime.ToString());
-                                                TARemarksCol.Add(element.TARemarks.ToString());
-                                                TACommentsCol.Add(element.TAComments.ToString());
-                                                ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription.ToString());
-                                                OtherServiceTypeDescriptionCol.Add(element.OtherServiceTypeDescription.ToString());
-                                                SIMIDCol.Add(element.SIMID.ToString());
-                                                SIMSerialNoCol.Add(element.SIMSerialNo.ToString());
-                                                SIMCarrierCol.Add(element.SIMCarrier.ToString());
-                                                IRImportDateTimeCol.Add(element.IRImportDateTime.ToString());
-                                                RegionIDCol.Add(element.RegionID.ToString());
-                                                RegionCol.Add(element.Region.ToString());
-                                                ServiceTypeStatusCol.Add(element.ServiceTypeStatus.ToString());
-                                                ServiceTypeStatusDescriptionCol.Add(element.ServiceTypeStatusDescription.ToString());
-                                                DockIDCol.Add(element.DockID.ToString());
-                                                DockSNCol.Add(element.DockSN.ToString());
-                                                JobTypeCol.Add(element.JobType.ToString());
-                                                JobTypeDescriptionCol.Add(element.JobTypeDescription.ToString());
-                                                JobTypeSubDescriptionCol.Add(element.JobTypeSubDescription.ToString());
-                                                JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription.ToString());
-                                                ServiceDateTimeCol.Add(element.ServiceDateTime.ToString());
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-
-                                            }
-
-                                            // Loop And Store To Array
-                                            clsArray.SerialNo = SerialNoCol.ToArray();
-                                            clsArray.DeliveryDate = DeliveryDateCol.ToArray();
-                                            clsArray.ReceiveDate = ReceiveDateCol.ToArray();
-                                            clsArray.TerminalStatus = TerminalStatusCol.ToArray();
-                                            clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
-                                            clsArray.TAIDNo = TAIDNoCol.ToArray();
-                                            clsArray.TAID = TAIDCol.ToArray();
-                                            clsArray.IRID = IRIDCol.ToArray();
-                                            clsArray.ClientID = ClientIDCol.ToArray();
-                                            clsArray.ServiceProviderID = ServiceProviderIDCol.ToArray();
-                                            clsArray.MerchantID = MerchantIDCol.ToArray();
-                                            clsArray.FEID = FEIDCol.ToArray();
-                                            clsArray.TerminalID = TerminalIDCol.ToArray();
-                                            clsArray.TerminalTypeID = TerminalTypeIDCol.ToArray();
-                                            clsArray.TerminalModelID = TerminalModelIDCol.ToArray();
-                                            clsArray.TerminalBrandID = TerminalBrandIDCol.ToArray();
-                                            clsArray.ServiceTypeID = ServiceTypeIDCol.ToArray();
-                                            clsArray.OtherServiceTypeID = OtherServiceTypeIDCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.MerchantName = MerchantNameCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.ClientName = ClientNameCol.ToArray();
-                                            clsArray.ServiceProviderName = ServiceProviderNameCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.TypeDescription = TypeDescriptionCol.ToArray();
-                                            clsArray.ModelDescription = ModelDescriptionCol.ToArray();
-                                            clsArray.BrandDescription = BrandDescriptionCol.ToArray();
-                                            clsArray.IRDate = IRDateCol.ToArray();
-                                            clsArray.InstallationDate = InstallationDateCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                            clsArray.TADateTime = TADateTimeCol.ToArray();
-                                            clsArray.TAProcessedBy = TAProcessedByCol.ToArray();
-                                            clsArray.TAModifiedBy = TAModifiedByCol.ToArray();
-                                            clsArray.TAProcessedDateTime = TAProcessedDateTimeCol.ToArray();
-                                            clsArray.TAModifiedDateTime = TAModifiedDateTimeCol.ToArray();
-                                            clsArray.TARemarks = TARemarksCol.ToArray();
-                                            clsArray.TAComments = TACommentsCol.ToArray();
-                                            clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
-                                            clsArray.OtherServiceTypeDescription = OtherServiceTypeDescriptionCol.ToArray();
-                                            clsArray.SIMID = SIMIDCol.ToArray();
-                                            clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                            clsArray.SIMCarrier = SIMCarrierCol.ToArray();
-                                            clsArray.IRImportDateTime = IRImportDateTimeCol.ToArray();
-                                            clsArray.RegionID = RegionIDCol.ToArray();
-                                            clsArray.Region = RegionCol.ToArray();
-                                            clsArray.ServiceTypeStatus = ServiceTypeStatusCol.ToArray();
-                                            clsArray.ServiceTypeStatusDescription = ServiceTypeStatusDescriptionCol.ToArray();
-                                            clsArray.DockID = DockIDCol.ToArray();
-                                            clsArray.DockSN = DockSNCol.ToArray();
-                                            clsArray.JobType = JobTypeCol.ToArray();
-                                            clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
-                                            clsArray.JobTypeSubDescription = JobTypeSubDescriptionCol.ToArray();
-                                            clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
-                                            clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("TA List") == 0)
-                                        {
-                                            foreach (var element in Detail21.data)
-                                            {
-                                                clsTA.RecordFound = true;
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                TAIDNoCol.Add(element.TAIDNo.ToString());
-                                                ClientIDCol.Add(element.ClientID.ToString());
-                                                FEIDCol.Add(element.FEID.ToString());
-                                                ServiceProviderIDCol.Add(element.ServiceProviderID.ToString());
-                                                MerchantIDCol.Add(element.MerchantID.ToString());
-                                                RegionIDCol.Add(element.RegionID.ToString());
-                                                RegionTypeCol.Add(element.RegionType.ToString());
-                                                RequestNoCol.Add(element.RequestNo);
-                                                ReferenceNoCol.Add(element.ReferenceNo);
-                                                ServiceDateTimeCol.Add(element.ServiceDateTime);
-                                                ServiceDateCol.Add(element.ServiceDate);
-                                                ServiceTimeCol.Add(element.ServiceTime);
-                                                ServiceReqDateCol.Add(element.ServiceReqDate);
-                                                ServiceReqTimeCol.Add(element.ServiceReqTime);
-                                                JobTypeDescriptionCol.Add(element.JobTypeDescription);
-                                                JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription);
-                                                ServiceStatusCol.Add(element.ServiceStatus.ToString());
-                                                ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
-                                                IRNoCol.Add(element.IRNo);
-                                                MerchantNameCol.Add(element.MerchantName);
-                                                TIDCol.Add(element.TID);
-                                                MIDCol.Add(element.MID);
-                                                TerminalIDCol.Add(element.TerminalID.ToString());
-                                                TerminalSNCol.Add(element.TerminalSN);
-                                                SIMIDCol.Add(element.SIMID.ToString());
-                                                SIMSerialNoCol.Add(element.SIMSerialNo);
-                                                DockIDCol.Add(element.DockID.ToString());
-                                                DockSNCol.Add(element.DockSN);
-                                                PrimaryNumCol.Add(element.PrimaryNum.ToString());
-                                                SecondaryNumCol.Add(element.SecondaryNum.ToString());
-                                            }
-
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.TAIDNo = TAIDNoCol.ToArray();
-                                            clsArray.ClientID = ClientIDCol.ToArray();
-                                            clsArray.MerchantID = MerchantIDCol.ToArray();
-                                            clsArray.FEID = FEIDCol.ToArray();
-                                            clsArray.ServiceProviderID = ServiceProviderIDCol.ToArray();
-                                            clsArray.RegionID = RegionIDCol.ToArray();
-                                            clsArray.RegionType = RegionTypeCol.ToArray();
-                                            clsArray.RequestNo = RequestNoCol.ToArray();
-                                            clsArray.ReferenceNo = ReferenceNoCol.ToArray();
-                                            clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
-                                            clsArray.ServiceDate = ServiceDateCol.ToArray();
-                                            clsArray.ServiceTime = ServiceTimeCol.ToArray();
-                                            clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
-                                            clsArray.ServiceReqTime = ServiceReqTimeCol.ToArray();
-                                            clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
-                                            clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
-                                            clsArray.ServiceStatus = ServiceStatusCol.ToArray();
-                                            clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.MerchantName = MerchantNameCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.TerminalID = TerminalIDCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.SIMID = SIMIDCol.ToArray();
-                                            clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                            clsArray.DockID = DockIDCol.ToArray();
-                                            clsArray.DockSN = DockSNCol.ToArray();
-                                            clsArray.PrimaryNum = PrimaryNumCol.ToArray();
-                                            clsArray.SecondaryNum = SecondaryNumCol.ToArray();
-                                            
-                                        }                                            
-                                        else
-                                        {
-                                            foreach (var element in Detail21.data)
-                                            {
-                                                clsTA.RecordFound = true;
-                                                SerialNoCol.Add(element.SerialNo.ToString());
-                                                DeliveryDateCol.Add(element.DeliveryDate.ToString());
-                                                ReceiveDateCol.Add(element.ReceiveDate.ToString());
-                                                TerminalStatusCol.Add(element.TerminalStatus.ToString());
-                                                TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription.ToString());
-                                                TAIDNoCol.Add(element.TAIDNo.ToString());
-                                                TAIDCol.Add(element.TAID.ToString());
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                ClientIDCol.Add(element.ClientID.ToString());
-                                                ServiceProviderIDCol.Add(element.ServiceProviderID.ToString());
-                                                MerchantIDCol.Add(element.MerchantID.ToString());
-                                                FEIDCol.Add(element.FEID.ToString());
-                                                TerminalIDCol.Add(element.TerminalID.ToString());
-                                                TerminalTypeIDCol.Add(element.TerminalTypeID.ToString());
-                                                TerminalModelIDCol.Add(element.TerminalModelID.ToString());
-                                                TerminalBrandIDCol.Add(element.TerminalBrandID.ToString());
-                                                ServiceTypeIDCol.Add(element.ServiceTypeID.ToString());
-                                                OtherServiceTypeIDCol.Add(element.OtherServiceTypeID.ToString());
-                                                IRNoCol.Add(element.IRNo.ToString());
-                                                TerminalSNCol.Add(element.TerminalSN.ToString());
-                                                MerchantNameCol.Add(element.MerchantName.ToString());
-                                                TIDCol.Add(element.TID.ToString());
-                                                MIDCol.Add(element.MID.ToString());
-                                                ClientNameCol.Add(element.ClientName.ToString());
-                                                ServiceProviderNameCol.Add(element.ServiceProviderName.ToString());
-                                                FENameCol.Add(element.FEName.ToString());
-                                                TypeDescriptionCol.Add(element.TypeDescription.ToString());
-                                                ModelDescriptionCol.Add(element.ModelDescription.ToString());
-                                                BrandDescriptionCol.Add(element.BrandDescription.ToString());
-                                                IRDateCol.Add(element.IRDate.ToString());
-                                                InstallationDateCol.Add(element.InstallationDate.ToString());
-                                                FSRDateCol.Add(element.FSRDate.ToString());
-                                                TADateTimeCol.Add(element.TADateTime.ToString());
-                                                TAProcessedByCol.Add(element.TAProcessedBy.ToString());
-                                                TAModifiedByCol.Add(element.TAModifiedBy.ToString());
-                                                TAProcessedDateTimeCol.Add(element.TAProcessedDateTime.ToString());
-                                                TAModifiedDateTimeCol.Add(element.TAModifiedDateTime.ToString());
-                                                TARemarksCol.Add(element.TARemarks.ToString());
-                                                TACommentsCol.Add(element.TAComments.ToString());
-                                                ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription.ToString());
-                                                OtherServiceTypeDescriptionCol.Add(element.OtherServiceTypeDescription.ToString());
-                                                SIMIDCol.Add(element.SIMID.ToString());
-                                                SIMSerialNoCol.Add(element.SIMSerialNo.ToString());
-                                                SIMCarrierCol.Add(element.SIMCarrier.ToString());
-                                                IRImportDateTimeCol.Add(element.IRImportDateTime.ToString());
-                                                RegionIDCol.Add(element.RegionID.ToString());
-                                                RegionTypeCol.Add(element.RegionType.ToString());
-                                                RegionCol.Add(element.Region.ToString());
-                                                ServiceTypeStatusCol.Add(element.ServiceTypeStatus.ToString());
-                                                ServiceTypeStatusDescriptionCol.Add(element.ServiceTypeStatusDescription.ToString());
-                                                DockIDCol.Add(element.DockID.ToString());
-                                                DockSNCol.Add(element.DockSN.ToString());
-                                                JobTypeCol.Add(element.JobType.ToString());
-                                                JobTypeDescriptionCol.Add(element.JobTypeDescription.ToString());
-                                                JobTypeSubDescriptionCol.Add(element.JobTypeSubDescription.ToString());
-                                                JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription.ToString());
-                                                ServiceDateTimeCol.Add(element.ServiceDateTime.ToString());
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                RequestNoCol.Add(element.RequestNo.ToString());
-                                                PrimaryNumCol.Add(element.PrimaryNum);
-                                                SecondaryNumCol.Add(element.SecondaryNum);
-                                                AppVersionCol.Add(element.AppVersion.ToString());
-                                                AppCRCCol.Add(element.AppCRC.ToString());
-                                            }
-
-                                            // Loop And Store To Array
-                                            clsArray.SerialNo = SerialNoCol.ToArray();
-                                            clsArray.DeliveryDate = DeliveryDateCol.ToArray();
-                                            clsArray.ReceiveDate = ReceiveDateCol.ToArray();
-                                            clsArray.TerminalStatus = TerminalStatusCol.ToArray();
-                                            clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
-                                            clsArray.TAIDNo = TAIDNoCol.ToArray();
-                                            clsArray.TAID = TAIDCol.ToArray();
-                                            clsArray.IRID = IRIDCol.ToArray();
-                                            clsArray.ClientID = ClientIDCol.ToArray();
-                                            clsArray.ServiceProviderID = ServiceProviderIDCol.ToArray();
-                                            clsArray.MerchantID = MerchantIDCol.ToArray();
-                                            clsArray.FEID = FEIDCol.ToArray();
-                                            clsArray.TerminalID = TerminalIDCol.ToArray();
-                                            clsArray.TerminalTypeID = TerminalTypeIDCol.ToArray();
-                                            clsArray.TerminalModelID = TerminalModelIDCol.ToArray();
-                                            clsArray.TerminalBrandID = TerminalBrandIDCol.ToArray();
-                                            clsArray.ServiceTypeID = ServiceTypeIDCol.ToArray();
-                                            clsArray.OtherServiceTypeID = OtherServiceTypeIDCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                            clsArray.MerchantName = MerchantNameCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                            clsArray.ClientName = ClientNameCol.ToArray();
-                                            clsArray.ServiceProviderName = ServiceProviderNameCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.TypeDescription = TypeDescriptionCol.ToArray();
-                                            clsArray.ModelDescription = ModelDescriptionCol.ToArray();
-                                            clsArray.BrandDescription = BrandDescriptionCol.ToArray();
-                                            clsArray.IRDate = IRDateCol.ToArray();
-                                            clsArray.InstallationDate = InstallationDateCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                            clsArray.TADateTime = TADateTimeCol.ToArray();
-                                            clsArray.TAProcessedBy = TAProcessedByCol.ToArray();
-                                            clsArray.TAModifiedBy = TAModifiedByCol.ToArray();
-                                            clsArray.TAProcessedDateTime = TAProcessedDateTimeCol.ToArray();
-                                            clsArray.TAModifiedDateTime = TAModifiedDateTimeCol.ToArray();
-                                            clsArray.TARemarks = TARemarksCol.ToArray();
-                                            clsArray.TAComments = TACommentsCol.ToArray();
-                                            clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
-                                            clsArray.OtherServiceTypeDescription = OtherServiceTypeDescriptionCol.ToArray();
-                                            clsArray.SIMID = SIMIDCol.ToArray();
-                                            clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                            clsArray.SIMCarrier = SIMCarrierCol.ToArray();
-                                            clsArray.IRImportDateTime = IRImportDateTimeCol.ToArray();
-                                            clsArray.RegionID = RegionIDCol.ToArray();
-                                            clsArray.RegionType = RegionTypeCol.ToArray();
-                                            clsArray.Region = RegionCol.ToArray();
-                                            clsArray.ServiceTypeStatus = ServiceTypeStatusCol.ToArray();
-                                            clsArray.ServiceTypeStatusDescription = ServiceTypeStatusDescriptionCol.ToArray();
-                                            clsArray.DockID = DockIDCol.ToArray();
-                                            clsArray.DockSN = DockSNCol.ToArray();
-                                            clsArray.JobType = JobTypeCol.ToArray();
-                                            clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
-                                            clsArray.JobTypeSubDescription = JobTypeSubDescriptionCol.ToArray();
-                                            clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
-                                            clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                            clsArray.RequestNo = RequestNoCol.ToArray();
-                                            clsArray.PrimaryNum = PrimaryNumCol.ToArray();
-                                            clsArray.SecondaryNum = SecondaryNumCol.ToArray();
-                                            clsArray.AppVersion = AppVersionCol.ToArray();
-                                            clsArray.AppCRC = AppCRCCol.ToArray();
-                                        }
-
-                                        break;
-                                }
-                                break;
-                            case "Report":
-                                ReportDetailOnline Detail22 = JsonConvert.DeserializeObject<ReportDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsReport.ClassRecordFound = false;
-                                switch (StatementType)
-                                {
-                                    case "View":
-                                        foreach (var element in Detail22.data)
-                                        {
-                                            clsReport.ClassRecordFound = true;
-
-
-                                            List<string> ReportID = new List<String>();
-                                            List<string> ReportDesc = new List<String>();
-                                            List<string> ReportType = new List<String>();
-                                            List<string> ReportOrderDisplay = new List<String>();
-
-
-                                            ReportIDCol.Add(element.ReportID.ToString());
-                                            ReportDescCol.Add(element.ReportDesc.ToString());
-                                            ReportTypeCol.Add(element.ReportType.ToString());
-                                            ReportOrderDisplayCol.Add(element.ReportOrderDisplay.ToString());
-                                        }
-
-                                        // Loop And Store To Array
-                                        clsArray.ReportID = ReportIDCol.ToArray();
-                                        clsArray.ReportDesc = ReportDescCol.ToArray();
-                                        clsArray.ReportType = ReportTypeCol.ToArray();
-                                        clsArray.ReportOrderDisplay = ReportOrderDisplayCol.ToArray();
-
-                                        break;
-                                }
-                                break;
-                            case "Header":
-                                HeaderDetailOnline Detail23 = JsonConvert.DeserializeObject<HeaderDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsHeader.ClassRecordFound = false;
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail23.data)
-                                        {
-                                            clsHeader.ClassRecordFound = true;
-                                            clsHeader.ClassHeaderID = element.HeaderID;
-                                            clsHeader.ClassName = element.Name;
-                                            clsHeader.ClassHeader1 = element.Header1;
-                                            clsHeader.ClassHeader2 = element.Header2;
-                                            clsHeader.ClassHeader3 = element.Header3;
-                                            clsHeader.ClassHeader4 = element.Header4;
-                                            clsHeader.ClassHeader5 = element.Header5;
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail23.data)
-                                        {
-                                            clsHeader.ClassRecordFound = true;
-                                            HeaderIDCol.Add(element.HeaderID.ToString());
-                                            NameCol.Add(element.Name);
-                                            Header1Col.Add(element.Header1);
-                                            Header2Col.Add(element.Header2);
-                                            Header3Col.Add(element.Header3);
-                                            Header4Col.Add(element.Header4);
-                                            Header5Col.Add(element.Header5);
-                                        }
-
-                                        clsArray.HeaderID = HeaderIDCol.ToArray();
-                                        clsArray.Name = NameCol.ToArray();
-                                        clsArray.Header1 = Header1Col.ToArray();
-                                        clsArray.Header2 = Header2Col.ToArray();
-                                        clsArray.Header3 = Header3Col.ToArray();
-                                        clsArray.Header4 = Header4Col.ToArray();
-                                        clsArray.Header5 = Header5Col.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "Region":
-                                RegionDetailOnline Detail24 = JsonConvert.DeserializeObject<RegionDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsRegion.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail24.data)
-                                        {
-                                            clsRegion.RecordFound = true;
-                                            clsRegion.ClassRegionID = element.RegionID;
-                                            clsRegion.ClassRegion = element.Region;
-                                        }
-                                        break;
-                                    case "View":
-                                        
-                                        if (SearchBy.Equals("RegionDetail"))
-                                        {
-                                            foreach (var element in Detail24.data)
-                                            {
-                                                clsRegion.RecordFound = true;
-                                                IDCol.Add(element.RegionID.ToString());
-                                                ProvinceCol.Add(element.Province);
-                                            }
-
-                                            clsArray.RegionID = IDCol.ToArray();
-                                            clsArray.Province = ProvinceCol.ToArray();
-                                        }
-                                        else
-                                        {
-                                            foreach (var element in Detail24.data)
-                                            {
-                                                clsRegion.RecordFound = true;
-                                                IDCol.Add(element.RegionID.ToString());
-                                                RegionCol.Add(element.Region);
-                                            }
-
-                                            clsArray.RegionID = IDCol.ToArray();
-                                            clsArray.Region = RegionCol.ToArray();
-                                        }
-
-                                        
-                                        break;
-                                }
-                                break;
-                            case "System":
-                                SystemSettingDetailOnline Detail25 = JsonConvert.DeserializeObject<SystemSettingDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsSystemSetting.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail25.data)
-                                        {
-                                            clsSystemSetting.RecordFound = true;
-                                            clsSystemSetting.ClassSystemID = element.SysID;
-                                            clsSystemSetting.ClassSystemPublishDate = element.PublishDate;
-                                            clsSystemSetting.ClassSystemPublishVersion = element.PublishVersion;
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail25.data)
-                                        {
-                                            clsSystemSetting.RecordFound = true;
-                                            SysIDCol.Add(element.SysID.ToString());
-                                            PublishDateCol.Add(element.PublishDate);
-                                            PublishVersionCol.Add(element.PublishVersion);
-                                        }
-
-                                        clsArray.SysID = SysIDCol.ToArray();
-                                        clsArray.PublishDate = PublishDateCol.ToArray();
-                                        clsArray.PublishVersion = PublishVersionCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "Get Count":
-                                TerminalDetailOnline Detail26 = JsonConvert.DeserializeObject<TerminalDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail26.data)
-                                        {
-                                            clsTerminal.ClassTerminalCount = int.Parse(element.TerminalCount);
-                                        }
-
-                                        break;
-                                }
-                                break;
-                            case "Reason":
-                                ReasonDetailOnline Detail27 = JsonConvert.DeserializeObject<ReasonDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsReason.ClassRecordFound = false;
-                                ReasonIDCol.Clear();
-                                ReasonCodeCol.Clear();
-                                ReasonDescriptionCol.Clear();
-                                ReasonTypeCol.Clear();
-                                ReasonIsInputCol.Clear();
-                                FunctionIDCol.Clear();
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail27.data)
-                                        {
-                                            clsReason.ClassRecordFound = true;
-                                            clsReason.ClassReasonID = element.ReasonID;
-                                            clsReason.ClassReasonCode = element.Code;
-                                            clsReason.ClassReasonDescription = element.Description;
-                                            clsReason.ClassReasonType = element.Type;
-                                            clsReason.ClassReasonIsInput = element.IsInput;
-                                            clsReason.ClassFunctionID = element.FunctionID;
-
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail27.data)
-                                        {
-                                            clsReason.ClassRecordFound = true;
-                                            ReasonIDCol.Add(element.ReasonID.ToString());
-                                            ReasonCodeCol.Add(element.Code);
-                                            ReasonDescriptionCol.Add(element.Description);
-                                            ReasonTypeCol.Add(element.Type);
-                                            ReasonIsInputCol.Add(element.IsInput.ToString());
-                                            FunctionIDCol.Add(element.FunctionID.ToString());
-
-                                        }
-
-                                        clsArray.ReasonID = ReasonIDCol.ToArray();
-                                        clsArray.ReasonCode = ReasonCodeCol.ToArray();
-                                        clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
-                                        clsArray.ReasonType = ReasonTypeCol.ToArray();
-                                        clsArray.ReasonIsInput = ReasonIsInputCol.ToArray();
-                                        clsArray.FunctionID = FunctionIDCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "FSR Attempt":
-                                FSRDetailOnline Detail28 = JsonConvert.DeserializeObject<FSRDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsFSR.RecordFound = false;
-                                FSRNoCol.Clear();
-                                FSRDateCol.Clear();
-                                FSRTimeCol.Clear();
-                                FSRServiceStatusCol.Clear();
-                                FSRServiceStatusDescriptionCol.Clear();
-                                FSRRemarksCol.Clear();
-
-                                switch (StatementType)
-                                {
-                                    case "View":
-                                        foreach (var element in Detail28.data)
-                                        {
-                                            clsFSR.RecordFound = true;
-                                            FSRNoCol.Add(element.FSRNo.ToString());
-                                            FSRDateCol.Add(element.FSRDate);
-                                            FSRTimeCol.Add(element.FSRTime);
-                                            FSRServiceStatusCol.Add(element.ServiceStatus.ToString());
-                                            FSRServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
-                                            FSRRemarksCol.Add(element.Remarks);
-                                        }
-
-                                        clsArray.FSRNo = FSRNoCol.ToArray();
-                                        clsArray.FSRDate = FSRDateCol.ToArray();
-                                        clsArray.FSRTime = FSRTimeCol.ToArray();
-                                        clsArray.FSRServiceStatus = FSRServiceStatusCol.ToArray();
-                                        clsArray.FSRServiceStatusDescription = FSRServiceStatusDescriptionCol.ToArray();
-                                        clsArray.FSRRemarks = FSRRemarksCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "CheckControlID":
-                                CheckControlIDDetailOnline Detail29 = JsonConvert.DeserializeObject<CheckControlIDDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsCheckControlID.RecordFound = false;
-
-                                foreach (var element in Detail29.data)
-                                {
-                                    clsCheckControlID.ClassControlID = element.ControlID;
-                                }
-
-                                break;
-                            case "Region Detail":
-                                RegionDetailDetailOnline Detail30 = JsonConvert.DeserializeObject<RegionDetailDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsRegionDetail.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail30.data)
-                                        {
-                                            clsRegionDetail.RecordFound = true;
-                                            clsRegionDetail.ClassRegionID = element.RegionID;
-                                            clsRegionDetail.ClassRegionType = element.RegionType;
-                                            clsRegionDetail.ClassProvince = element.Province;
-                                            clsRegionDetail.ClassRegion = element.Region;
-                                        }
-                                        break;
-                                    case "View":
-                                        string sRegionList = "";
-                                        string sProvinceList = "";
-                                        foreach (var element in Detail30.data)
-                                        {
-                                            clsRegionDetail.RecordFound = true;
-                                            RegionIDCol.Add(element.RegionID.ToString());
-                                            RegionTypeCol.Add(element.RegionType.ToString());
-                                            ProvinceCol.Add(element.Province);
-                                            RegionCol.Add(element.Region);
-
-                                            sProvinceList = sProvinceList + element.Province + Environment.NewLine; // Province List
-                                            sRegionList = sRegionList + element.Region + Environment.NewLine; // Region List
-                                        }
-
-                                        clsArray.RegionID = RegionIDCol.ToArray();
-                                        clsArray.RegionType = RegionTypeCol.ToArray();
-                                        clsArray.RegionProvince = ProvinceCol.ToArray();
-                                        clsArray.Region = RegionCol.ToArray();
-
-                                        clsSearch.ClassProvinceList = sProvinceList; // Province List
-                                        clsSearch.ClassRegionList = sRegionList; // Region List
-
-                                        break;
-                                }
-                                break;
-                            case "SIM Detail":
-                                SIMDetailOnline Detail31 = JsonConvert.DeserializeObject<SIMDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsSIM.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail31.data)
-                                        {
-                                            clsSIM.RecordFound = true;
-                                            clsSIM.ClassSIMID = element.SIMID;
-                                            clsSIM.ClassSIMSN = element.SIMSerialNo;
-                                            clsSIM.ClassSIMCarrier = element.SIMCarrier;
-                                            clsSIM.ClassSIMStatus = element.SIMStatus;
-                                            clsSIM.ClassSIMStatusDescription = element.SIMStatusDescription;
-                                        }
-
-                                        break;
-                                    case "View":
-
-                                        if (SearchBy.Equals("Service History"))
-                                        {
-                                            foreach (var element in Detail31.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-                                                SIMIDCol.Add(element.SIMID.ToString());
-                                                ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
-                                                ParticularNameCol.Add(element.ParticularName);
-                                                RemarksCol.Add(element.Remarks);
-                                                DateCol.Add(element.Date);
-                                                TimeCol.Add(element.Time);
-                                                ProcessedByCol.Add(element.ProcessedBy);
-                                                ProcessedDateTimeCol.Add(element.ProcessedDateTime);
-                                                IRNoCol.Add(element.IRNo);
-                                                TIDCol.Add(element.TID);
-                                                MIDCol.Add(element.MID);
-
-
-                                            }
-
-                                            clsArray.SIMID = SIMIDCol.ToArray();
-                                            clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
-                                            clsArray.ParticularName = ParticularNameCol.ToArray();
-                                            clsArray.Remarks = RemarksCol.ToArray();
-                                            clsArray.Date = DateCol.ToArray();
-                                            clsArray.Time = TimeCol.ToArray();
-                                            clsArray.ProcessedBy = ProcessedByCol.ToArray();
-                                            clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                        }
-                                        else if (SearchBy.Equals("Release Movement Master"))
-                                        {
-                                            foreach (var element in Detail31.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-
-                                                TransNoCol.Add(element.TransNo.ToString());
-                                                TransDateCol.Add(element.TransDate);
-                                                TransTimeCol.Add(element.TransTime);
-                                                ReleaseDateCol.Add(element.ReleaseDate);
-                                                RequestNoCol.Add(element.RequestNo);
-                                                ReferenceNoCol.Add(element.ReferenceNo);
-                                                RemarksCol.Add(element.Remarks);
-                                                ProcessedByCol.Add(element.ProcessedBy);
-                                                ProcessedDateTimeCol.Add(element.ProcessedDateTime);
-                                                ModifiedByCol.Add(element.ModifiedBy);
-                                                ModifiedDateTimeCol.Add(element.ModifiedDateTime);
-                                                UserIDCol.Add(element.UserID.ToString());
-                                                FromLocationIDCol.Add(element.FromLocationID.ToString());
-                                                FromLocationCol.Add(element.FromLocation);
-                                                ToLocationIDCol.Add(element.ToLocationID.ToString());
-                                                ToLocationCol.Add(element.ToLocation);
-
-                                            }
-
-                                            clsArray.TransNo = TransNoCol.ToArray();
-                                            clsArray.TransDate = TransDateCol.ToArray();
-                                            clsArray.TransTime = TransTimeCol.ToArray();
                                             clsArray.ReleaseDate = ReleaseDateCol.ToArray();
-                                            clsArray.RequestNo = RequestNoCol.ToArray();
-                                            clsArray.ReferenceNo = ReferenceNoCol.ToArray();
-                                            clsArray.Remarks = RemarksCol.ToArray();
-                                            clsArray.ProcessedBy = ProcessedByCol.ToArray();
-                                            clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
-                                            clsArray.ModifiedBy = ModifiedByCol.ToArray();
-                                            clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
-                                            clsArray.UserID = UserIDCol.ToArray();
-                                            clsArray.FromLocationID = FromLocationIDCol.ToArray();
-                                            clsArray.FromLocation = FromLocationCol.ToArray();
-                                            clsArray.ToLocationID = ToLocationIDCol.ToArray();
-                                            clsArray.ToLocation = ToLocationCol.ToArray();
                                         }
-                                        else
+                                        else if (SearchBy.CompareTo("Terminal Status Description") == 0)
                                         {
-                                            foreach (var element in Detail31.data)
+                                            foreach (var element in Detail16.data)
                                             {
-                                                clsSIM.RecordFound = true;
+                                                clsTerminal.RecordFound = true;
+                                                TerminalIDCol.Add(element.TerminalID.ToString());
+                                                TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription);
+                                            }
+
+                                            clsArray.TerminalID = TerminalIDCol.ToArray();
+                                            clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
+                                        }
+                                        else if (SearchBy.CompareTo("SIM Status Description") == 0)
+                                        {
+                                            foreach (var element in Detail16.data)
+                                            {
+                                                clsTerminal.RecordFound = true;
                                                 SIMIDCol.Add(element.SIMID.ToString());
-                                                SIMSerialNoCol.Add(element.SIMSerialNo);
-                                                SIMCarrierCol.Add(element.SIMCarrier);
-                                                SIMStatusCol.Add(element.SIMStatus.ToString());
                                                 SIMStatusDescriptionCol.Add(element.SIMStatusDescription);
                                             }
 
                                             clsArray.SIMID = SIMIDCol.ToArray();
-                                            clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                            clsArray.SIMCarrier = SIMCarrierCol.ToArray();
-                                            clsArray.SIMStatus = SIMStatusCol.ToArray();
                                             clsArray.SIMStatusDescription = SIMStatusDescriptionCol.ToArray();
                                         }
-                                        
-
-                                        break;
-                                }
-
-                                break;
-                            case "Service Call":
-                                ServiceCallDetailOnline Detail32 = JsonConvert.DeserializeObject<ServiceCallDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsServiceCall.RecordFound = false;
-                                switch (StatementType)
-                                {
-                                    case "View":
-                                        foreach (var element in Detail32.data)
+                                        else
                                         {
-                                            clsServiceCall.RecordFound = true;
-                                            SCNoCol.Add(element.SCNo.ToString());
-                                            SCDateTimeCol.Add(element.SCDateTime);
-                                            ReferralIDCol.Add(element.ReferralID);
-                                            CustomerNameCol.Add(element.CustomerName);
-                                            CustomerContactNoCol.Add(element.CustomerContactNo);
-                                            ReportedProblemCol.Add(element.ReportedProblem);
-                                            ArrangementMadeCol.Add(element.ArrangementMade);
-                                            SCReqDateCol.Add(element.SCReqDate);
-                                            SCReqTimeCol.Add(element.SCReqTime);
-                                            SCShipDateCol.Add(element.SCShipDate);
-                                            SCShipTimeCol.Add(element.SCShipTime);
-                                            TrackingNoCol.Add(element.TrackingNo);
-                                            SCStatusCol.Add(element.SCStatus);
+                                            foreach (var element in Detail16.data)
+                                            {
+                                                clsTerminal.RecordFound = true;
+                                                TerminalIDCol.Add(element.TerminalID.ToString());
+                                                TIIDCol.Add(element.TIID.ToString());
+                                                TerminalTypeIDCol.Add(element.TerminalTypeID.ToString());
+                                                TerminalModelIDCol.Add(element.TerminalModelID.ToString());
+                                                TerminalBrandIDCol.Add(element.TerminalBrandID.ToString());
+                                                NoCol.Add(element.No);
+                                                SerialNoCol.Add(element.SerialNo);
+                                                TypeCol.Add(element.TerminalType);
+                                                ModelCol.Add(element.TerminalModel);
+                                                BrandCol.Add(element.TerminalBrand);
+                                                DeliveryDateCol.Add(element.DeliveryDate);
+                                                ReceiveDateCol.Add(element.ReceiveDate);
+                                                TerminalStatusCol.Add(element.TerminalStatus);
+                                                TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription);
+                                                TerminalPartNoCol.Add(element.PartNo);
+                                                TerminalPONoCol.Add(element.PONo);
+                                                TerminalInvNoCol.Add(element.InvNo);
+                                                RemarksCol.Add(element.Remarks);
+
+                                            }
+
+                                            clsArray.TerminalID = TerminalIDCol.ToArray();
+                                            clsArray.TIID = TIIDCol.ToArray();
+                                            clsArray.TerminalTypeID = TerminalTypeIDCol.ToArray();
+                                            clsArray.TerminalModelID = TerminalModelIDCol.ToArray();
+                                            clsArray.TerminalBrandID = TerminalBrandIDCol.ToArray();
+                                            clsArray.No = NoCol.ToArray();
+                                            clsArray.SerialNo = SerialNoCol.ToArray();
+                                            clsArray.TerminalSN = SerialNoCol.ToArray();
+                                            clsArray.TerminalType = TypeCol.ToArray();
+                                            clsArray.TerminalModel = ModelCol.ToArray();
+                                            clsArray.TerminalBrand = BrandCol.ToArray();
+                                            clsArray.DeliveryDate = DeliveryDateCol.ToArray();
+                                            clsArray.ReceiveDate = ReceiveDateCol.ToArray();
+                                            clsArray.TerminalStatus = TerminalStatusCol.ToArray();
+                                            clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
+                                            clsArray.TerminalPartNo = TerminalPartNoCol.ToArray();
+                                            clsArray.TerminalPONo = TerminalPONoCol.ToArray();
+                                            clsArray.TerminalInvNo = TerminalInvNoCol.ToArray();
+                                            clsArray.Remarks = RemarksCol.ToArray();
                                         }
+                                    }
+                                    break;
+                                case "Particular Count":
+                                    ParticularDetailOnline Detail17 = JsonConvert.DeserializeObject<ParticularDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsParticular.RecordFound = false;
 
-                                        clsArray.SCNo = SCNoCol.ToArray();
-                                        clsArray.SCDateTime = SCDateTimeCol.ToArray();
-                                        clsArray.ReferralID = ReferralIDCol.ToArray();
-                                        clsArray.CustomerName = CustomerNameCol.ToArray();
-                                        clsArray.CustomerContactNo = CustomerContactNoCol.ToArray();
-                                        clsArray.ReportedProblem = ReportedProblemCol.ToArray();
-                                        clsArray.ArrangementMade = ArrangementMadeCol.ToArray();
-                                        clsArray.SCReqDate = SCReqDateCol.ToArray();
-                                        clsArray.SCReqTime = SCReqTimeCol.ToArray();
-                                        clsArray.SCShipDate = SCShipDateCol.ToArray();
-                                        clsArray.SCShipTime = SCShipTimeCol.ToArray();
-                                        clsArray.TrackingNo = TrackingNoCol.ToArray();
-                                        clsArray.SCStatus = SCStatusCol.ToArray();
+                                    foreach (var element in Detail17.data)
+                                    {
+                                        clsParticular.RecordFound = true;
+                                        clsParticular.ClassParticularID = element.ParticularID;
+                                        clsParticular.ClassParticularName = element.ParticularName;
+                                    }
 
-                                        break;
-                                }
-                                break;
-                            case "Servicing Detail":
-                                ServicingDetailOnline Detail33 = JsonConvert.DeserializeObject<ServicingDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsServicingDetail.RecordFound = false;
-                                
-                                ServiceNoCol.Clear();
-                                TAIDNoCol.Clear();
-                                IRIDNoCol.Clear();
-                                IRNoCol.Clear();
-                                TIDCol.Clear();
-                                MIDCol.Clear();
-                                TerminalIDCol.Clear();
-                                TerminalSNCol.Clear();
-                                TerminalStatusDescriptionCol.Clear();
-                                TypeDescriptionCol.Clear();
-                                ModelDescriptionCol.Clear();
-                                BrandDescriptionCol.Clear();                                
-                                IRDateCol.Clear();
-                                InstallationDateCol.Clear();
-                                MerchantNameCol.Clear();
-                                TIDCol.Clear();
-                                MIDCol.Clear();
-                                RegionCol.Clear();
-                                ProvinceCol.Clear();
-                                IRStatusDescriptionCol.Clear();
-                                ServiceDateTimeCol.Clear();
-                                ServiceReqDateCol.Clear();
-                                ServiceReqTimeCol.Clear();
-                                RequestNoCol.Clear();
-                                ReferenceNoCol.Clear();
-                                CustomerNameCol.Clear();
-                                CustomerContactNoCol.Clear();
-                                ClientNameCol.Clear();
-                                FENameCol.Clear();
-                                TerminalSNCol.Clear();
-                                SIMSerialNoCol.Clear();
-                                DockSNCol.Clear();
-                                JobTypeDescriptionCol.Clear();
-                                JobTypeStatusDescriptionCol.Clear();
-                                ActionMadeCol.Clear();
-                                TimeArrivedCol.Clear();
-                                TimeStartCol.Clear();
-                                FSRDateCol.Clear();
-                                FSRTimeCol.Clear();
-                                TimeEndCol.Clear();
-                                RemarksCol.Clear();
-                                ProblemReportedCol.Clear();
-                                ActualProblemReportedCol.Clear();
-                                ActionTakenCol.Clear();
-                                AnyCommentsCol.Clear();
-                                MerchantRepresentativeCol.Clear();
-                                MerchantContactNoCol.Clear();
-                                MobileIDCol.Clear();
+                                    break;
+                                case "CheckRecordExist":
+                                case "CheckFileExist":
+                                    CheckRecordExistDetailOnline Detail18 = JsonConvert.DeserializeObject<CheckRecordExistDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsCheckRecordExist.RecordFound = false;
 
-                                switch (StatementType)
-                                {
-                                    case "View":
+                                    foreach (var element in Detail18.data)
+                                    {
+                                        clsCheckRecordExist.RecordFound = true;
+                                    }
 
-                                        switch (SearchBy)
-                                        {
-                                            case "Servicing Current Terminal":
-                                                foreach (var element in Detail33.data)
+                                    break;
+                                case "Merchant":
+                                    MerchantDetailOnline Detail19 = JsonConvert.DeserializeObject<MerchantDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsMerchant.RecordFound = false;
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                        case "View":
+                                            foreach (var element in Detail19.data)
+                                            {
+                                                clsMerchant.RecordFound = true;
+                                                MerchantIDCol.Add(element.MerchantID.ToString());
+                                                CityIDCol.Add(element.CityID.ToString());
+                                                ProvinceIDCol.Add(element.ProvinceID.ToString());
+                                                MerchantNameCol.Add(element.MerchantName.ToString());
+                                                AddressCol.Add(element.Address.ToString());
+                                                CityCol.Add(element.City.ToString());
+                                                ProvinceCol.Add(element.Province.ToString());
+                                                ContactPersonCol.Add(element.ContactPerson.ToString());
+                                                ContactNoCol.Add(element.ContactNo.ToString());
+
+                                            }
+
+                                            // Loop And Store To Array
+                                            clsArray.MerchantID = MerchantIDCol.ToArray();
+                                            clsArray.CityID = CityIDCol.ToArray();
+                                            clsArray.ProvinceID = ProvinceIDCol.ToArray();
+                                            clsArray.MerchantName = MerchantNameCol.ToArray();
+                                            clsArray.Address = AddressCol.ToArray();
+                                            clsArray.City = CityCol.ToArray();
+                                            clsArray.Province = ProvinceCol.ToArray();
+                                            clsArray.ContactPerson = ContactPersonCol.ToArray();
+                                            clsArray.ContactNo = ContactNoCol.ToArray();
+
+                                            break;
+                                    }
+                                    break;
+                                case "IR":
+                                    IRDetailOnline Detail20 = JsonConvert.DeserializeObject<IRDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsIR.RecordFound = false;
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                        case "View":
+
+                                            if (SearchBy.CompareTo("IRNo List") == 0 || SearchBy.CompareTo("IRNo List2") == 0)
+                                            {
+                                                foreach (var element in Detail20.data)
                                                 {
-                                                    clsServicingDetail.RecordFound = true;
-                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                    TerminalIDCol.Add(element.TerminalID.ToString());
-                                                    SIMIDCol.Add(element.SIMID.ToString());
-                                                    DockIDCol.Add(element.DockID.ToString());
-                                                    TerminalSNCol.Add(element.TerminalSN);
-                                                    SIMSerialNoCol.Add(element.SIMSN);
-                                                    DockSNCol.Add(element.DockSN);
-                                                    CurTerminalSNStatusCol.Add(element.CurTerminalSNStatus.ToString());
-                                                    CurSIMSNStatusCol.Add(element.CurSIMSNStatus.ToString());
-                                                    CurDockSNStatusCol.Add(element.CurDockSNStatus.ToString());
-                                                    CurTerminalSNStatusDescriptionCol.Add(element.CurTerminalSNStatusDescription);
-                                                    CurSIMSNStatusDescriptionCol.Add(element.CurSIMSNStatusDescription);
-                                                    CurDockSNStatusDescriptionCol.Add(element.CurDockSNStatusDescription);
-                                                }
-                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                                clsArray.TerminalID = TerminalIDCol.ToArray();
-                                                clsArray.SIMID = SIMIDCol.ToArray();
-                                                clsArray.DockID = DockIDCol.ToArray();
-                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                                clsArray.DockSN = DockSNCol.ToArray();
-                                                clsArray.CurTerminalSNStatus = CurTerminalSNStatusCol.ToArray();
-                                                clsArray.CurSIMSNStatus = CurSIMSNStatusCol.ToArray();
-                                                clsArray.CurDockSNStatus = CurDockSNStatusCol.ToArray();
-                                                clsArray.CurTerminalSNStatusDescription = CurTerminalSNStatusDescriptionCol.ToArray();
-                                                clsArray.CurSIMSNStatusDescription = CurSIMSNStatusDescriptionCol.ToArray();
-                                                clsArray.CurDockSNStatusDescription = CurDockSNStatusDescriptionCol.ToArray();
-                                                break;
-                                            case "Servicing Replace Terminal":
-                                                foreach (var element in Detail33.data)
-                                                {
-                                                    clsServicingDetail.RecordFound = true;
-                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                    TerminalIDCol.Add(element.TerminalID.ToString());
-                                                    SIMIDCol.Add(element.SIMID.ToString());
-                                                    DockIDCol.Add(element.DockID.ToString());
-                                                    TerminalSNCol.Add(element.TerminalSN);
-                                                    SIMSerialNoCol.Add(element.SIMSN);
-                                                    DockSNCol.Add(element.DockSN);
-                                                    RepTerminalSNStatusCol.Add(element.RepTerminalSNStatus.ToString());
-                                                    RepSIMSNStatusCol.Add(element.RepSIMSNStatus.ToString());
-                                                    RepDockSNStatusCol.Add(element.RepDockSNStatus.ToString());                                                    
-                                                }
-                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                                clsArray.TerminalID = TerminalIDCol.ToArray();
-                                                clsArray.SIMID = SIMIDCol.ToArray();
-                                                clsArray.DockID = DockIDCol.ToArray();
-                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                                clsArray.DockSN = DockSNCol.ToArray();
-                                                clsArray.RepTerminalSNStatus = RepTerminalSNStatusCol.ToArray();
-                                                clsArray.RepSIMSNStatus = RepSIMSNStatusCol.ToArray();
-                                                clsArray.RepDockSNStatus = RepDockSNStatusCol.ToArray();                                                
-                                                break;
-                                            case "Download Service":
-                                                foreach (var element in Detail33.data)
-                                                {
-                                                    clsServicingDetail.RecordFound = true;
-                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                    TAIDNoCol.Add(element.TAIDNo.ToString());
                                                     IRIDNoCol.Add(element.IRIDNo.ToString());
                                                     IRNoCol.Add(element.IRNo.ToString());
-                                                    TIDCol.Add(element.TID);
-                                                    MIDCol.Add(element.MID);
-                                                    TerminalSNCol.Add(element.TerminalSN);
-                                                    SIMSerialNoCol.Add(element.SIMSN);
-                                                    DockSNCol.Add(element.DockSN);
-                                                    ServiceCodeCol.Add(element.ServiceCode);
-                                                    ServiceDateCol.Add(element.ServiceDate);
-                                                    ServiceReqDateCol.Add(element.ServiceReqDate);
-                                                    JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription);
-                                                    RequestNoCol.Add(element.RequestNo);
+                                                    MerchantNameCol.Add(element.MerchantName.ToString());
                                                 }
-                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                                clsArray.TAIDNo = TAIDNoCol.ToArray();
+
+                                                // Loop And Store To Array
                                                 clsArray.IRIDNo = IRIDNoCol.ToArray();
                                                 clsArray.IRNo = IRNoCol.ToArray();
-                                                clsArray.TID = TIDCol.ToArray();
-                                                clsArray.MID = MIDCol.ToArray();
-                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                                clsArray.DockSN = DockSNCol.ToArray();
-                                                clsArray.ServiceCode = ServiceCodeCol.ToArray();
-                                                clsArray.FSR = ServiceCodeCol.ToArray();
-                                                clsArray.ServiceDate = ServiceDateCol.ToArray();
-                                                clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
-                                                clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
-                                                clsArray.RequestNo = RequestNoCol.ToArray();
+                                                clsArray.MerchantName = MerchantNameCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("Dispatch Servicing 2") == 0)
+                                            {
 
-                                                break;
-
-                                            case "Service TerminalSN List":
-                                                foreach (var element in Detail33.data)
+                                                foreach (var element in Detail20.data)
                                                 {
-                                                    clsServicingDetail.RecordFound = true;
-                                                    //ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                    TAIDNoCol.Add(element.TAIDNo.ToString());
-                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                    IRNoCol.Add(element.IRNo.ToString());
-                                                    TIDCol.Add(element.TID);
-                                                    MIDCol.Add(element.MID);                                                    
-                                                    TerminalIDCol.Add(element.TerminalID.ToString());
-                                                    TerminalSNCol.Add(element.TerminalSN);
-                                                    TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription);
-                                                    TypeDescriptionCol.Add(element.Type);
-                                                    ModelDescriptionCol.Add(element.Model);
-                                                    BrandDescriptionCol.Add(element.Brand);                                                    
-                                                }
-                                                //clsArray.ServiceNo = ServiceNoCol.ToArray(); // for hold
-                                                clsArray.TAIDNo = TAIDNoCol.ToArray();       // for hold   
-                                                clsArray.IRIDNo = IRIDNoCol.ToArray();       // for hold  
-
-                                                clsArray.IRNo = IRNoCol.ToArray();
-                                                clsArray.TID = TIDCol.ToArray();
-                                                clsArray.MID = MIDCol.ToArray();                                                
-                                                clsArray.TerminalID = TerminalIDCol.ToArray();
-                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
-                                                clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
-                                                clsArray.TypeDescription = TypeDescriptionCol.ToArray();
-                                                clsArray.ModelDescription = ModelDescriptionCol.ToArray();
-                                                clsArray.BrandDescription = BrandDescriptionCol.ToArray();
-
-                                                break;
-                                            case "Service IRNo List":
-                                                foreach (var element in Detail33.data)
-                                                {
-                                                    clsServicingDetail.RecordFound = true;
+                                                    clsSearch.RecordFound = true;
                                                     ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                    IRNoCol.Add(element.IRNo.ToString());
-                                                    IRDateCol.Add(element.IRDate);
-                                                    InstallationDateCol.Add(element.InstallationDate);
-                                                    MerchantNameCol.Add(element.MerchantName);                                                    
+                                                    ClientIDCol.Add(element.ClientID.ToString());
+                                                    MerchantIDCol.Add(element.MerchantID.ToString());
+                                                    FEIDCol.Add(element.FEID.ToString());
+                                                    MerchantNameCol.Add(element.MerchantName);
                                                     TIDCol.Add(element.TID);
                                                     MIDCol.Add(element.MID);
-                                                    RegionCol.Add(element.Region);
-                                                    ProvinceCol.Add(element.Province);
-                                                    IRStatusDescriptionCol.Add(element.IRStatusDescription);                                                    
+                                                    ClientNameCol.Add(element.ClientName);
+                                                    FENameCol.Add(element.FEName);
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    IRNoCol.Add(element.IRNo);
+                                                    IRDateCol.Add(element.IRDate);
+                                                    InstallationDateCol.Add(element.InstallationDate);
+                                                    RequestNoCol.Add(element.RequestNo.ToString());
+                                                    ServiceDateCol.Add(element.ServiceDate);
+                                                    ServiceReqDateCol.Add(element.ServiceReqDate);
+                                                    JobTypeDescriptionCol.Add(element.JobTypeDescription);
+                                                    ActionMadeCol.Add(element.ActionMade);
+                                                    ReferenceNoCol.Add(element.ReferenceNo);
+                                                    FSRDateCol.Add(element.FSRDate);
+                                                    ServiceStatusCol.Add(element.ServiceStatus.ToString());
+                                                    ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
+                                                    JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription);
+                                                    FSRNoCol.Add(element.FSRNo.ToString());
+                                                    TerminalSNCol.Add(element.TerminalSN);
+                                                    SIMSerialNoCol.Add(element.SIMSerialNo);
+                                                    ReplaceTerminalSNCol.Add(element.ReplaceTerminalSN);
+                                                    ReplaceSIMSNCol.Add(element.ReplaceSIMSN);
+
                                                 }
-                                                
+
+                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                clsArray.ClientID = ClientIDCol.ToArray();
+                                                clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                clsArray.FEID = FEIDCol.ToArray();
+                                                clsArray.MerchantName = MerchantNameCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.ClientName = ClientNameCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
                                                 clsArray.IRIDNo = IRIDNoCol.ToArray();
                                                 clsArray.IRNo = IRNoCol.ToArray();
                                                 clsArray.IRDate = IRDateCol.ToArray();
                                                 clsArray.InstallationDate = InstallationDateCol.ToArray();
-                                                clsArray.MerchantName = MerchantNameCol.ToArray();
+                                                clsArray.RequestNo = RequestNoCol.ToArray();
+                                                clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
+                                                clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
+                                                clsArray.ActionMade = ActionMadeCol.ToArray();
+                                                clsArray.ReferenceNo = ReferenceNoCol.ToArray();
+                                                clsArray.ServiceDate = ServiceDateCol.ToArray();
+                                                clsArray.FSRDate = FSRDateCol.ToArray();
+                                                clsArray.ServiceStatus = ServiceStatusCol.ToArray();
+                                                clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
+                                                clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
+                                                clsArray.FSRNo = FSRNoCol.ToArray();
+                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                clsArray.ReplaceTerminalSN = ReplaceTerminalSNCol.ToArray();
+                                                clsArray.ReplaceSIMSN = ReplaceSIMSNCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("Multi-Merchant Info") == 0)
+                                            {
+                                                foreach (var element in Detail20.data)
+                                                {
+                                                    MerchantIDCol.Add(element.MerchantID.ToString());
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    TIDCol.Add(element.TID);
+                                                    MIDCol.Add(element.MID);
+                                                    IRNoCol.Add(element.IRNo);
+                                                    IRStatusCol.Add(element.IRStatus.ToString());
+                                                    IRStatusDescriptionCol.Add(element.IRStatusDescription);
+
+                                                }
+
+                                                // Loop And Store To Array
+                                                clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
                                                 clsArray.TID = TIDCol.ToArray();
                                                 clsArray.MID = MIDCol.ToArray();
-                                                clsArray.Region = RegionCol.ToArray();
-                                                clsArray.Province = ProvinceCol.ToArray();
-                                                clsArray.IRStatusDescription = IRStatusDescriptionCol.ToArray();                                                
-                                                break;
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.IRStatus = IRStatusCol.ToArray();
+                                                clsArray.IRStatusDescription = IRStatusDescriptionCol.ToArray();
 
-                                            case "Service ServiceNo List":
-                                                foreach (var element in Detail33.data)
+                                            }
+                                            else if (SearchBy.CompareTo("POS Rental IR List") == 0)
+                                            {
+                                                foreach (var element in Detail20.data)
                                                 {
-                                                    clsServicingDetail.RecordFound = true;
-                                                    ServiceNoCol.Add(element.ServiceNo.ToString());                                                    
-                                                    ServiceDateTimeCol.Add(element.ServiceDateTime);
-                                                    ServiceReqDateCol.Add(element.ServiceReqDate);
-                                                    ServiceReqTimeCol.Add(element.ServiceReqTime);
-                                                    RequestNoCol.Add(element.RequestNo);
-                                                    ReferenceNoCol.Add(element.ReferenceNo);
-                                                    CustomerNameCol.Add(element.CustomerName);
-                                                    CustomerContactNoCol.Add(element.CustomerContactNo);
-                                                    ClientNameCol.Add(element.ClientName);
-                                                    FENameCol.Add(element.FEName);
-                                                    TerminalSNCol.Add(element.TerminalSN);
-                                                    SIMSerialNoCol.Add(element.SIMSN);
-                                                    SIMCarrierCol.Add(element.SIMCarrier);
-                                                    DockSNCol.Add(element.DockSN);
-                                                    ReplaceTerminalSNCol.Add(element.ReplaceTerminalSN);
-                                                    ReplaceSIMSNCol.Add(element.ReplaceSIMSN);
-                                                    ReplaceDockSNCol.Add(element.ReplaceDockSN);
-                                                    JobTypeDescriptionCol.Add(element.JobTypeDescription);
-                                                    JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription);
-                                                    ActionMadeCol.Add(element.ActionMade);
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    IRNoCol.Add(element.IRNo.ToString());
+                                                    MerchantIDCol.Add(element.MerchantID.ToString());
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    TIDCol.Add(element.TID);
+                                                    MIDCol.Add(element.MID);
+                                                    DescriptionCol.Add(element.Description);
+                                                    RentalFeeCol.Add(element.RentalFee.ToString());
+
+
+                                                }
+
+                                                // Loop And Store To Array
+                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                clsArray.ParticularID = ParticularIDCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.Description = DescriptionCol.ToArray();
+                                                clsArray.RentalFee = RentalFeeCol.ToArray();
+
+                                            }
+                                            else
+                                            {
+                                                foreach (var element in Detail20.data)
+                                                {
+                                                    clsIR.RecordFound = true;
+                                                    TAIDNoCol.Add(element.TAIDNo.ToString());
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    IRIDCol.Add(element.IRID.ToString());
+                                                    IRNoCol.Add(element.IRNo.ToString());
+                                                    IRDateCol.Add(element.IRDate.ToString());
+                                                    InstallationDateCol.Add(element.InstallationDate.ToString());
+                                                    MerchantIDCol.Add(element.MerchantID.ToString());
+                                                    ParticularNameCol.Add(element.ParticularName.ToString());
+                                                    AddressCol.Add(element.Address.ToString());
+                                                    Address2Col.Add(element.Address2.ToString());
+                                                    Address3Col.Add(element.Address3.ToString());
+                                                    Address4Col.Add(element.Address4.ToString());
+                                                    ContactPersonCol.Add(element.ContactPerson.ToString());
+                                                    TelNoCol.Add(element.TelNo.ToString());
+                                                    MobileCol.Add(element.Mobile.ToString());
+                                                    EmailCol.Add(element.Email.ToString());
+                                                    CityCol.Add(element.City.ToString());
+                                                    ProvinceCol.Add(element.Province.ToString());
+                                                    TIDCol.Add(element.TID.ToString());
+                                                    MIDCol.Add(element.MID.ToString());
+                                                    IRStatusCol.Add(element.IRStatus.ToString());
+                                                    IRStatusDescriptionCol.Add(element.IRStatusDescription.ToString());
+                                                    ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription.ToString());
+                                                    IRImportDateCol.Add(element.ImportDateTime.ToString());
+                                                    RegionIDCol.Add(element.RegionID.ToString());
+                                                    TerminalIDCol.Add(element.TerminalID.ToString());
+                                                    TerminalSNCol.Add(element.TerminalSN.ToString());
+                                                    SIMIDCol.Add(element.SIMID.ToString());
+                                                    SIMSerialNoCol.Add(element.SIMSerialNo.ToString());
+                                                    DockIDCol.Add(element.DockID.ToString());
+                                                    DockSNCol.Add(element.DockSN.ToString());
+                                                    ClientIDCol.Add(element.ClientID.ToString());
+                                                    ClientNameCol.Add(element.ClientName.ToString());
+                                                    ServiceProviderIDCol.Add(element.ServiceProviderID.ToString());
+                                                    ServiceProviderNameCol.Add(element.ServiceProviderName.ToString());
+                                                    FEIDCol.Add(element.FEID.ToString());
+                                                    FENameCol.Add(element.FEName.ToString());
+                                                    ProcessedDateTimeCol.Add(element.ProcessedDateTime.ToString());
+                                                    ProcessedByCol.Add(element.ProcessedBy.ToString());
+                                                    ProcessTypeCol.Add(element.ProcessType.ToString());
+                                                    ServiceStatusCol.Add(element.ServiceStatus.ToString());
+                                                    ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription.ToString());
+                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                    RequestNoCol.Add(element.RequestNo.ToString());
+                                                    JobTypeDescriptionCol.Add(element.JobTypeDescription.ToString());
+                                                    JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription.ToString());
+                                                    ServiceDateTimeCol.Add(element.ServiceDateTime.ToString());
+                                                    ReasonIDCol.Add(element.ReasonID.ToString());
+                                                    ReasonCodeCol.Add(element.ReasonCode);
+                                                    ReasonDescriptionCol.Add(element.ReasonDescription);
+                                                    FSRNoCol.Add(element.FSRNo.ToString());
                                                     TimeArrivedCol.Add(element.TimeArrived);
                                                     TimeStartCol.Add(element.TimeStart);
                                                     FSRDateCol.Add(element.FSRDate);
                                                     FSRTimeCol.Add(element.FSRTime);
                                                     TimeEndCol.Add(element.TimeEnd);
-                                                    RemarksCol.Add(element.Remarks);
-                                                    ProblemReportedCol.Add(element.ProblemReported);
-                                                    ActualProblemReportedCol.Add(element.ActualProblemReported);
-                                                    ActionTakenCol.Add(element.ActionTaken);
-                                                    AnyCommentsCol.Add(element.AnyComments);
-                                                    MerchantRepresentativeCol.Add(element.MerchantRepresentative);
                                                     MerchantContactNoCol.Add(element.MerchantContactNo);
+                                                    MerchantRepresentativeCol.Add(element.MerchantRepresentative);
+                                                    SerialNoListCol.Add(element.SerialNoList);
+                                                    PrimaryNumCol.Add(element.PrimaryNum);
+                                                    SecondaryNumCol.Add(element.SecondaryNum);
+                                                    AppVersionCol.Add(element.AppVersion);
+                                                    AppCRCCol.Add(element.AppCRC);
+
                                                 }
 
-                                                clsArray.ServiceNo = ServiceNoCol.ToArray();                                                
-                                                clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
-                                                clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
-                                                clsArray.ServiceReqTime = ServiceReqTimeCol.ToArray();
-                                                clsArray.RequestNo = RequestNoCol.ToArray();
-                                                clsArray.ReferenceNo = ReferenceNoCol.ToArray();
-                                                clsArray.CustomerName = CustomerNameCol.ToArray();
-                                                clsArray.CustomerContactNo = CustomerContactNoCol.ToArray();
-                                                clsArray.ClientName = ClientNameCol.ToArray();
-                                                clsArray.FEName = FENameCol.ToArray();
+                                                // Loop And Store To Array
+                                                clsArray.TAIDNo = TAIDNoCol.ToArray();
+                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                clsArray.IRID = IRIDCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.IRDate = IRDateCol.ToArray();
+                                                clsArray.InstallationDate = InstallationDateCol.ToArray();
+                                                clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                clsArray.ParticularName = ParticularNameCol.ToArray();
+                                                clsArray.Address = AddressCol.ToArray();
+                                                clsArray.Address2 = Address2Col.ToArray();
+                                                clsArray.Address3 = Address3Col.ToArray();
+                                                clsArray.Address4 = Address4Col.ToArray();
+                                                clsArray.ContactPerson = ContactPersonCol.ToArray();
+                                                clsArray.TelNo = TelNoCol.ToArray();
+                                                clsArray.MobileNo = MobileCol.ToArray();
+                                                clsArray.Email = EmailCol.ToArray();
+                                                clsArray.City = CityCol.ToArray();
+                                                clsArray.Province = ProvinceCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.IRStatus = IRStatusCol.ToArray();
+                                                clsArray.IRStatusDescription = IRStatusDescriptionCol.ToArray();
+                                                clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
+                                                clsArray.IRImportDateTime = IRImportDateCol.ToArray();
+                                                clsArray.RegionID = RegionIDCol.ToArray();
+                                                clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.SIMID = SIMIDCol.ToArray();
                                                 clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                                clsArray.SIMCarrier = SIMCarrierCol.ToArray();
+                                                clsArray.DockID = DockIDCol.ToArray();
                                                 clsArray.DockSN = DockSNCol.ToArray();
-                                                clsArray.ReplaceTerminalSN = ReplaceTerminalSNCol.ToArray();
-                                                clsArray.ReplaceSIMSN = ReplaceSIMSNCol.ToArray();
-                                                clsArray.ReplaceDockSN = ReplaceDockSNCol.ToArray();
+                                                clsArray.ClientID = ClientIDCol.ToArray();
+                                                clsArray.ClientName = ClientNameCol.ToArray();
+                                                clsArray.ServiceProviderID = ServiceProviderIDCol.ToArray();
+                                                clsArray.ServiceProviderName = ServiceProviderNameCol.ToArray();
+                                                clsArray.FEID = FEIDCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
+                                                clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
+                                                clsArray.ProcessedBy = ProcessedByCol.ToArray();
+                                                clsArray.ProcessType = ProcessTypeCol.ToArray();
+                                                clsArray.ServiceStatus = ServiceStatusCol.ToArray();
+                                                clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
+                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                clsArray.RequestNo = RequestNoCol.ToArray();
                                                 clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
                                                 clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
-                                                clsArray.ActionMade = ActionMadeCol.ToArray();
+                                                clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
+                                                clsArray.ReasonID = ReasonIDCol.ToArray();
+                                                clsArray.ReasonCode = ReasonCodeCol.ToArray();
+                                                clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
+                                                clsArray.FSRNo = FSRNoCol.ToArray();
                                                 clsArray.TimeArrived = TimeArrivedCol.ToArray();
                                                 clsArray.TimeStart = TimeStartCol.ToArray();
                                                 clsArray.FSRDate = FSRDateCol.ToArray();
                                                 clsArray.FSRTime = FSRTimeCol.ToArray();
                                                 clsArray.TimeEnd = TimeEndCol.ToArray();
-                                                clsArray.Remarks = RemarksCol.ToArray();
-                                                clsArray.ProblemReported = ProblemReportedCol.ToArray();
-                                                clsArray.ActualProblemReported = ActualProblemReportedCol.ToArray();
-                                                clsArray.ActionTaken = ActionTakenCol.ToArray();
-                                                clsArray.AnyComments = AnyCommentsCol.ToArray();
-                                                clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
                                                 clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
+                                                clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
+                                                clsArray.SerialNoList = SerialNoCol.ToArray();
+                                                clsArray.PrimaryNum = PrimaryNumCol.ToArray();
+                                                clsArray.SecondaryNum = SecondaryNumCol.ToArray();
+                                                clsArray.AppVersion = AppVersionCol.ToArray();
+                                                clsArray.AppCRC = AppCRCCol.ToArray();
+                                            }
 
-                                                break;
-                                            case "Service TerminalID List":
-                                                foreach (var element in Detail33.data)
+                                            break;
+                                    }
+                                    break;
+                                case "TA":
+                                    TADetailOnline Detail21 = JsonConvert.DeserializeObject<TADetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsTA.RecordFound = false;
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail21.data)
+                                            {
+                                                clsTA.RecordFound = true;
+                                                clsTA.ClassIRNo = element.IRNo;
+                                                clsTA.ClassIRDate = element.IRDate;
+                                                clsTA.ClassMerchantName = element.MerchantName;
+                                                clsTA.ClassClientName = element.ClientName;
+                                                clsTA.ClassServiceProviderName = element.ServiceProviderName;
+                                                clsTA.ClassFEName = element.FEName;
+                                                clsTA.ClassTADateTime = element.TADateTime;
+                                                clsTA.ClassServiceTypeDescription = element.ServiceTypeDescription;
+                                            }
+                                            break;
+                                        case "View":
+
+                                            if (SearchBy.CompareTo("Advance SIM") == 0 ||
+                                                SearchBy.CompareTo("SIM") == 0)
+                                            {
+                                                foreach (var element in Detail21.data)
                                                 {
-                                                    clsServicingDetail.RecordFound = true;                                                    
-                                                    TerminalIDCol.Add(element.TerminalID.ToString());                                                    
+                                                    clsTA.RecordFound = true;
+                                                    SIMIDCol.Add(element.SIMID.ToString());
+                                                    BatchNoCol.Add(element.BatchNo.ToString());
+                                                    SerialNoCol.Add(element.SerialNo.ToString());
+                                                    TerminalSNCol.Add(element.TerminalSN.ToString());
+                                                    SIMCarrierCol.Add(element.Carrier.ToString());
+                                                    FEIDCol.Add(element.FEID.ToString());
+                                                    AssignedToCol.Add(element.AssignedTo.ToString());
+                                                    RemarksCol.Add(element.Remarks.ToString());
+                                                    DeliveryDateCol.Add(element.DeliveryDate.ToString());
+                                                    ReceiveDateCol.Add(element.ReceiveDate.ToString());
+                                                    SIMStatusCol.Add(element.SIMStatus.ToString());
+                                                    SIMStatusDescriptionCol.Add(element.SIMStatusDescription.ToString());
+                                                    IRNoCol.Add(element.IRNo.ToString());
+                                                    IRDateCol.Add(element.IRDate.ToString());
+                                                    InstallationDateCol.Add(element.InstallationDate.ToString());
+                                                    ClientNameCol.Add(element.ClientName.ToString());
+                                                    MerchantNameCol.Add(element.MerchantName.ToString());
+                                                    ServiceProviderNameCol.Add(element.ServiceProviderName.ToString());
+                                                    FENameCol.Add(element.FEName.ToString());
+                                                    TADateTimeCol.Add(element.TADateTime.ToString());
                                                 }
-                                                
-                                                clsArray.TerminalID = TerminalIDCol.ToArray();                                                
-                                                break;
-                                            case "Servicing List":
-                                                foreach (var element in Detail33.data)
+
+                                                clsArray.SIMID = SIMIDCol.ToArray();
+                                                clsArray.BatchNo = BatchNoCol.ToArray();
+                                                clsArray.SerialNo = SerialNoCol.ToArray();
+                                                clsArray.SIMCarrier = SIMCarrierCol.ToArray();
+                                                clsArray.FEID = FEIDCol.ToArray();
+                                                clsArray.AssignedTo = AssignedToCol.ToArray();
+                                                clsArray.Remarks = RemarksCol.ToArray();
+                                                clsArray.DeliveryDate = DeliveryDateCol.ToArray();
+                                                clsArray.ReceiveDate = ReceiveDateCol.ToArray();
+                                                clsArray.SIMStatus = SIMStatusCol.ToArray();
+                                                clsArray.SIMStatusDescription = SIMStatusDescriptionCol.ToArray();
+                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.IRDate = IRDateCol.ToArray();
+                                                clsArray.InstallationDate = InstallationDateCol.ToArray();
+                                                clsArray.ClientName = ClientNameCol.ToArray();
+                                                clsArray.MerchantName = MerchantNameCol.ToArray();
+                                                clsArray.ServiceProviderName = ServiceProviderNameCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
+                                                clsArray.TADateTime = TADateTimeCol.ToArray();
+
+                                            }
+                                            else if (SearchBy.CompareTo("Advance Terminal") == 0)
+                                            {
+                                                foreach (var element in Detail21.data)
                                                 {
-                                                    clsServicingDetail.RecordFound = true;
+                                                    clsTA.RecordFound = true;
+                                                    SerialNoCol.Add(element.SerialNo.ToString());
+                                                    DeliveryDateCol.Add(element.DeliveryDate.ToString());
+                                                    ReceiveDateCol.Add(element.ReceiveDate.ToString());
+                                                    TerminalStatusCol.Add(element.TerminalStatus.ToString());
+                                                    TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription.ToString());
+                                                    TAIDNoCol.Add(element.TAIDNo.ToString());
+                                                    TAIDCol.Add(element.TAID.ToString());
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    ClientIDCol.Add(element.ClientID.ToString());
+                                                    ServiceProviderIDCol.Add(element.ServiceProviderID.ToString());
+                                                    MerchantIDCol.Add(element.MerchantID.ToString());
+                                                    FEIDCol.Add(element.FEID.ToString());
+                                                    TerminalIDCol.Add(element.TerminalID.ToString());
+                                                    TerminalTypeIDCol.Add(element.TerminalTypeID.ToString());
+                                                    TerminalModelIDCol.Add(element.TerminalModelID.ToString());
+                                                    TerminalBrandIDCol.Add(element.TerminalBrandID.ToString());
+                                                    ServiceTypeIDCol.Add(element.ServiceTypeID.ToString());
+                                                    OtherServiceTypeIDCol.Add(element.OtherServiceTypeID.ToString());
+                                                    IRNoCol.Add(element.IRNo.ToString());
+                                                    TerminalSNCol.Add(element.TerminalSN.ToString());
+                                                    MerchantNameCol.Add(element.MerchantName.ToString());
+                                                    TIDCol.Add(element.TID.ToString());
+                                                    MIDCol.Add(element.MID.ToString());
+                                                    ClientNameCol.Add(element.ClientName.ToString());
+                                                    ServiceProviderNameCol.Add(element.ServiceProviderName.ToString());
+                                                    FENameCol.Add(element.FEName.ToString());
+                                                    TypeDescriptionCol.Add(element.TypeDescription.ToString());
+                                                    ModelDescriptionCol.Add(element.ModelDescription.ToString());
+                                                    BrandDescriptionCol.Add(element.BrandDescription.ToString());
+                                                    IRDateCol.Add(element.IRDate.ToString());
+                                                    InstallationDateCol.Add(element.InstallationDate.ToString());
+                                                    FSRDateCol.Add(element.FSRDate.ToString());
+                                                    TADateTimeCol.Add(element.TADateTime.ToString());
+                                                    TAProcessedByCol.Add(element.TAProcessedBy.ToString());
+                                                    TAModifiedByCol.Add(element.TAModifiedBy.ToString());
+                                                    TAProcessedDateTimeCol.Add(element.TAProcessedDateTime.ToString());
+                                                    TAModifiedDateTimeCol.Add(element.TAModifiedDateTime.ToString());
+                                                    TARemarksCol.Add(element.TARemarks.ToString());
+                                                    TACommentsCol.Add(element.TAComments.ToString());
+                                                    ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription.ToString());
+                                                    OtherServiceTypeDescriptionCol.Add(element.OtherServiceTypeDescription.ToString());
+                                                    SIMIDCol.Add(element.SIMID.ToString());
+                                                    SIMSerialNoCol.Add(element.SIMSerialNo.ToString());
+                                                    SIMCarrierCol.Add(element.SIMCarrier.ToString());
+                                                    IRImportDateTimeCol.Add(element.IRImportDateTime.ToString());
+                                                    RegionIDCol.Add(element.RegionID.ToString());
+                                                    RegionCol.Add(element.Region.ToString());
+                                                    ServiceTypeStatusCol.Add(element.ServiceTypeStatus.ToString());
+                                                    ServiceTypeStatusDescriptionCol.Add(element.ServiceTypeStatusDescription.ToString());
+                                                    DockIDCol.Add(element.DockID.ToString());
+                                                    DockSNCol.Add(element.DockSN.ToString());
+                                                }
+
+                                                // Loop And Store To Array
+                                                clsArray.SerialNo = SerialNoCol.ToArray();
+                                                clsArray.DeliveryDate = DeliveryDateCol.ToArray();
+                                                clsArray.ReceiveDate = ReceiveDateCol.ToArray();
+                                                clsArray.TerminalStatus = TerminalStatusCol.ToArray();
+                                                clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
+                                                clsArray.TAIDNo = TAIDNoCol.ToArray();
+                                                clsArray.TAID = TAIDCol.ToArray();
+                                                clsArray.IRID = IRIDCol.ToArray();
+                                                clsArray.ClientID = ClientIDCol.ToArray();
+                                                clsArray.ServiceProviderID = ServiceProviderIDCol.ToArray();
+                                                clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                clsArray.FEID = FEIDCol.ToArray();
+                                                clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                clsArray.TerminalTypeID = TerminalTypeIDCol.ToArray();
+                                                clsArray.TerminalModelID = TerminalModelIDCol.ToArray();
+                                                clsArray.TerminalBrandID = TerminalBrandIDCol.ToArray();
+                                                clsArray.ServiceTypeID = ServiceTypeIDCol.ToArray();
+                                                clsArray.OtherServiceTypeID = OtherServiceTypeIDCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.MerchantName = MerchantNameCol.ToArray();
+                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.ClientName = ClientNameCol.ToArray();
+                                                clsArray.ServiceProviderName = ServiceProviderNameCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
+                                                clsArray.TypeDescription = TypeDescriptionCol.ToArray();
+                                                clsArray.ModelDescription = ModelDescriptionCol.ToArray();
+                                                clsArray.BrandDescription = BrandDescriptionCol.ToArray();
+                                                clsArray.IRDate = IRDateCol.ToArray();
+                                                clsArray.InstallationDate = InstallationDateCol.ToArray();
+                                                clsArray.FSRDate = FSRDateCol.ToArray();
+                                                clsArray.TADateTime = TADateTimeCol.ToArray();
+                                                clsArray.TAProcessedBy = TAProcessedByCol.ToArray();
+                                                clsArray.TAModifiedBy = TAModifiedByCol.ToArray();
+                                                clsArray.TAProcessedDateTime = TAProcessedDateTimeCol.ToArray();
+                                                clsArray.TAModifiedDateTime = TAModifiedDateTimeCol.ToArray();
+                                                clsArray.TARemarks = TARemarksCol.ToArray();
+                                                clsArray.TAComments = TACommentsCol.ToArray();
+                                                clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
+                                                clsArray.OtherServiceTypeDescription = OtherServiceTypeDescriptionCol.ToArray();
+                                                clsArray.SIMID = SIMIDCol.ToArray();
+                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                clsArray.SIMCarrier = SIMCarrierCol.ToArray();
+                                                clsArray.IRImportDateTime = IRImportDateTimeCol.ToArray();
+                                                clsArray.RegionID = RegionIDCol.ToArray();
+                                                clsArray.Region = RegionCol.ToArray();
+                                                clsArray.ServiceTypeStatus = ServiceTypeStatusCol.ToArray();
+                                                clsArray.ServiceTypeStatusDescription = ServiceTypeStatusDescriptionCol.ToArray();
+                                                clsArray.DockID = DockIDCol.ToArray();
+                                                clsArray.DockSN = DockSNCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("Advance Servicing") == 0 ||
+                                                     SearchBy.CompareTo("TA Detail") == 0)
+                                            {
+                                                foreach (var element in Detail21.data)
+                                                {
+                                                    clsTA.RecordFound = true;
+                                                    SerialNoCol.Add(element.SerialNo.ToString());
+                                                    DeliveryDateCol.Add(element.DeliveryDate.ToString());
+                                                    ReceiveDateCol.Add(element.ReceiveDate.ToString());
+                                                    TerminalStatusCol.Add(element.TerminalStatus.ToString());
+                                                    TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription.ToString());
+                                                    TAIDNoCol.Add(element.TAIDNo.ToString());
+                                                    TAIDCol.Add(element.TAID.ToString());
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    ClientIDCol.Add(element.ClientID.ToString());
+                                                    ServiceProviderIDCol.Add(element.ServiceProviderID.ToString());
+                                                    MerchantIDCol.Add(element.MerchantID.ToString());
+                                                    FEIDCol.Add(element.FEID.ToString());
+                                                    TerminalIDCol.Add(element.TerminalID.ToString());
+                                                    TerminalTypeIDCol.Add(element.TerminalTypeID.ToString());
+                                                    TerminalModelIDCol.Add(element.TerminalModelID.ToString());
+                                                    TerminalBrandIDCol.Add(element.TerminalBrandID.ToString());
+                                                    ServiceTypeIDCol.Add(element.ServiceTypeID.ToString());
+                                                    OtherServiceTypeIDCol.Add(element.OtherServiceTypeID.ToString());
+                                                    IRNoCol.Add(element.IRNo.ToString());
+                                                    TerminalSNCol.Add(element.TerminalSN.ToString());
+                                                    MerchantNameCol.Add(element.MerchantName.ToString());
+                                                    TIDCol.Add(element.TID.ToString());
+                                                    MIDCol.Add(element.MID.ToString());
+                                                    ClientNameCol.Add(element.ClientName.ToString());
+                                                    ServiceProviderNameCol.Add(element.ServiceProviderName.ToString());
+                                                    FENameCol.Add(element.FEName.ToString());
+                                                    TypeDescriptionCol.Add(element.TypeDescription.ToString());
+                                                    ModelDescriptionCol.Add(element.ModelDescription.ToString());
+                                                    BrandDescriptionCol.Add(element.BrandDescription.ToString());
+                                                    IRDateCol.Add(element.IRDate.ToString());
+                                                    InstallationDateCol.Add(element.InstallationDate.ToString());
+                                                    FSRDateCol.Add(element.FSRDate.ToString());
+                                                    TADateTimeCol.Add(element.TADateTime.ToString());
+                                                    TAProcessedByCol.Add(element.TAProcessedBy.ToString());
+                                                    TAModifiedByCol.Add(element.TAModifiedBy.ToString());
+                                                    TAProcessedDateTimeCol.Add(element.TAProcessedDateTime.ToString());
+                                                    TAModifiedDateTimeCol.Add(element.TAModifiedDateTime.ToString());
+                                                    TARemarksCol.Add(element.TARemarks.ToString());
+                                                    TACommentsCol.Add(element.TAComments.ToString());
+                                                    ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription.ToString());
+                                                    OtherServiceTypeDescriptionCol.Add(element.OtherServiceTypeDescription.ToString());
+                                                    SIMIDCol.Add(element.SIMID.ToString());
+                                                    SIMSerialNoCol.Add(element.SIMSerialNo.ToString());
+                                                    SIMCarrierCol.Add(element.SIMCarrier.ToString());
+                                                    IRImportDateTimeCol.Add(element.IRImportDateTime.ToString());
+                                                    RegionIDCol.Add(element.RegionID.ToString());
+                                                    RegionCol.Add(element.Region.ToString());
+                                                    ServiceTypeStatusCol.Add(element.ServiceTypeStatus.ToString());
+                                                    ServiceTypeStatusDescriptionCol.Add(element.ServiceTypeStatusDescription.ToString());
+                                                    DockIDCol.Add(element.DockID.ToString());
+                                                    DockSNCol.Add(element.DockSN.ToString());
+                                                    JobTypeCol.Add(element.JobType.ToString());
+                                                    JobTypeDescriptionCol.Add(element.JobTypeDescription.ToString());
+                                                    JobTypeSubDescriptionCol.Add(element.JobTypeSubDescription.ToString());
+                                                    JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription.ToString());
+                                                    ServiceDateTimeCol.Add(element.ServiceDateTime.ToString());
+                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
+
+                                                }
+
+                                                // Loop And Store To Array
+                                                clsArray.SerialNo = SerialNoCol.ToArray();
+                                                clsArray.DeliveryDate = DeliveryDateCol.ToArray();
+                                                clsArray.ReceiveDate = ReceiveDateCol.ToArray();
+                                                clsArray.TerminalStatus = TerminalStatusCol.ToArray();
+                                                clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
+                                                clsArray.TAIDNo = TAIDNoCol.ToArray();
+                                                clsArray.TAID = TAIDCol.ToArray();
+                                                clsArray.IRID = IRIDCol.ToArray();
+                                                clsArray.ClientID = ClientIDCol.ToArray();
+                                                clsArray.ServiceProviderID = ServiceProviderIDCol.ToArray();
+                                                clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                clsArray.FEID = FEIDCol.ToArray();
+                                                clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                clsArray.TerminalTypeID = TerminalTypeIDCol.ToArray();
+                                                clsArray.TerminalModelID = TerminalModelIDCol.ToArray();
+                                                clsArray.TerminalBrandID = TerminalBrandIDCol.ToArray();
+                                                clsArray.ServiceTypeID = ServiceTypeIDCol.ToArray();
+                                                clsArray.OtherServiceTypeID = OtherServiceTypeIDCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.MerchantName = MerchantNameCol.ToArray();
+                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.ClientName = ClientNameCol.ToArray();
+                                                clsArray.ServiceProviderName = ServiceProviderNameCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
+                                                clsArray.TypeDescription = TypeDescriptionCol.ToArray();
+                                                clsArray.ModelDescription = ModelDescriptionCol.ToArray();
+                                                clsArray.BrandDescription = BrandDescriptionCol.ToArray();
+                                                clsArray.IRDate = IRDateCol.ToArray();
+                                                clsArray.InstallationDate = InstallationDateCol.ToArray();
+                                                clsArray.FSRDate = FSRDateCol.ToArray();
+                                                clsArray.TADateTime = TADateTimeCol.ToArray();
+                                                clsArray.TAProcessedBy = TAProcessedByCol.ToArray();
+                                                clsArray.TAModifiedBy = TAModifiedByCol.ToArray();
+                                                clsArray.TAProcessedDateTime = TAProcessedDateTimeCol.ToArray();
+                                                clsArray.TAModifiedDateTime = TAModifiedDateTimeCol.ToArray();
+                                                clsArray.TARemarks = TARemarksCol.ToArray();
+                                                clsArray.TAComments = TACommentsCol.ToArray();
+                                                clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
+                                                clsArray.OtherServiceTypeDescription = OtherServiceTypeDescriptionCol.ToArray();
+                                                clsArray.SIMID = SIMIDCol.ToArray();
+                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                clsArray.SIMCarrier = SIMCarrierCol.ToArray();
+                                                clsArray.IRImportDateTime = IRImportDateTimeCol.ToArray();
+                                                clsArray.RegionID = RegionIDCol.ToArray();
+                                                clsArray.Region = RegionCol.ToArray();
+                                                clsArray.ServiceTypeStatus = ServiceTypeStatusCol.ToArray();
+                                                clsArray.ServiceTypeStatusDescription = ServiceTypeStatusDescriptionCol.ToArray();
+                                                clsArray.DockID = DockIDCol.ToArray();
+                                                clsArray.DockSN = DockSNCol.ToArray();
+                                                clsArray.JobType = JobTypeCol.ToArray();
+                                                clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
+                                                clsArray.JobTypeSubDescription = JobTypeSubDescriptionCol.ToArray();
+                                                clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
+                                                clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
+                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("TA List") == 0)
+                                            {
+                                                foreach (var element in Detail21.data)
+                                                {
+                                                    clsTA.RecordFound = true;
                                                     ServiceNoCol.Add(element.ServiceNo.ToString());
                                                     IRIDNoCol.Add(element.IRIDNo.ToString());
                                                     TAIDNoCol.Add(element.TAIDNo.ToString());
                                                     ClientIDCol.Add(element.ClientID.ToString());
                                                     FEIDCol.Add(element.FEID.ToString());
+                                                    ServiceProviderIDCol.Add(element.ServiceProviderID.ToString());
                                                     MerchantIDCol.Add(element.MerchantID.ToString());
                                                     RegionIDCol.Add(element.RegionID.ToString());
                                                     RegionTypeCol.Add(element.RegionType.ToString());
@@ -4399,7 +3438,6 @@ namespace MIS
                                                     ServiceReqDateCol.Add(element.ServiceReqDate);
                                                     ServiceReqTimeCol.Add(element.ServiceReqTime);
                                                     JobTypeDescriptionCol.Add(element.JobTypeDescription);
-                                                    ServiceJobTypeDescriptionCol.Add(element.ServiceJobTypeDescription);
                                                     JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription);
                                                     ServiceStatusCol.Add(element.ServiceStatus.ToString());
                                                     ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
@@ -4407,25 +3445,14 @@ namespace MIS
                                                     MerchantNameCol.Add(element.MerchantName);
                                                     TIDCol.Add(element.TID);
                                                     MIDCol.Add(element.MID);
+                                                    TerminalIDCol.Add(element.TerminalID.ToString());
                                                     TerminalSNCol.Add(element.TerminalSN);
-                                                    SIMSerialNoCol.Add(element.SIMSN);
-                                                    ReplaceTerminalSNCol.Add(element.ReplaceTerminalSN);
-                                                    ReplaceSIMSNCol.Add(element.ReplaceSIMSN);
-                                                    FSRNoCol.Add(element.FSRNo.ToString());
-                                                    ActionMadeCol.Add(element.ActionMade);
+                                                    SIMIDCol.Add(element.SIMID.ToString());
+                                                    SIMSerialNoCol.Add(element.SIMSerialNo);
+                                                    DockIDCol.Add(element.DockID.ToString());
+                                                    DockSNCol.Add(element.DockSN);
                                                     PrimaryNumCol.Add(element.PrimaryNum.ToString());
                                                     SecondaryNumCol.Add(element.SecondaryNum.ToString());
-                                                    ProcessedByCol.Add(element.ProcessedBy);
-                                                    ProcessedDateTimeCol.Add(element.ProcessedDateTime);
-                                                    ModifiedByCol.Add(element.ModifiedBy);
-                                                    ModifiedDateTimeCol.Add(element.ModifiedDateTime);
-                                                    MobileIDCol.Add(element.MobileID.ToString());
-
-                                                    ReasonDescriptionCol.Add(element.Reason.ToString());
-                                                    DependencyCol.Add(element.Dependency.ToString());
-                                                    StatusReasonCol.Add(element.StatusReason.ToString());
-                                                    ZoneIDCol.Add(element.ZoneID.ToString());
-
                                                 }
 
                                                 clsArray.ServiceNo = ServiceNoCol.ToArray();
@@ -4434,6 +3461,7 @@ namespace MIS
                                                 clsArray.ClientID = ClientIDCol.ToArray();
                                                 clsArray.MerchantID = MerchantIDCol.ToArray();
                                                 clsArray.FEID = FEIDCol.ToArray();
+                                                clsArray.ServiceProviderID = ServiceProviderIDCol.ToArray();
                                                 clsArray.RegionID = RegionIDCol.ToArray();
                                                 clsArray.RegionType = RegionTypeCol.ToArray();
                                                 clsArray.RequestNo = RequestNoCol.ToArray();
@@ -4444,7 +3472,6 @@ namespace MIS
                                                 clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
                                                 clsArray.ServiceReqTime = ServiceReqTimeCol.ToArray();
                                                 clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
-                                                clsArray.ServiceJobTypeDescription = ServiceJobTypeDescriptionCol.ToArray();
                                                 clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
                                                 clsArray.ServiceStatus = ServiceStatusCol.ToArray();
                                                 clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
@@ -4452,88 +3479,1059 @@ namespace MIS
                                                 clsArray.MerchantName = MerchantNameCol.ToArray();
                                                 clsArray.TID = TIDCol.ToArray();
                                                 clsArray.MID = MIDCol.ToArray();
+                                                clsArray.TerminalID = TerminalIDCol.ToArray();
                                                 clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.SIMID = SIMIDCol.ToArray();
                                                 clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
-                                                clsArray.ReplaceTerminalSN = ReplaceTerminalSNCol.ToArray();
-                                                clsArray.ReplaceSIMSN = ReplaceSIMSNCol.ToArray();
-                                                clsArray.FSRNo = FSRNoCol.ToArray();
-                                                clsArray.ActionMade = ActionMadeCol.ToArray();
+                                                clsArray.DockID = DockIDCol.ToArray();
+                                                clsArray.DockSN = DockSNCol.ToArray();
                                                 clsArray.PrimaryNum = PrimaryNumCol.ToArray();
                                                 clsArray.SecondaryNum = SecondaryNumCol.ToArray();
+
+                                            }
+                                            else
+                                            {
+                                                foreach (var element in Detail21.data)
+                                                {
+                                                    clsTA.RecordFound = true;
+                                                    SerialNoCol.Add(element.SerialNo.ToString());
+                                                    DeliveryDateCol.Add(element.DeliveryDate.ToString());
+                                                    ReceiveDateCol.Add(element.ReceiveDate.ToString());
+                                                    TerminalStatusCol.Add(element.TerminalStatus.ToString());
+                                                    TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription.ToString());
+                                                    TAIDNoCol.Add(element.TAIDNo.ToString());
+                                                    TAIDCol.Add(element.TAID.ToString());
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    ClientIDCol.Add(element.ClientID.ToString());
+                                                    ServiceProviderIDCol.Add(element.ServiceProviderID.ToString());
+                                                    MerchantIDCol.Add(element.MerchantID.ToString());
+                                                    FEIDCol.Add(element.FEID.ToString());
+                                                    TerminalIDCol.Add(element.TerminalID.ToString());
+                                                    TerminalTypeIDCol.Add(element.TerminalTypeID.ToString());
+                                                    TerminalModelIDCol.Add(element.TerminalModelID.ToString());
+                                                    TerminalBrandIDCol.Add(element.TerminalBrandID.ToString());
+                                                    ServiceTypeIDCol.Add(element.ServiceTypeID.ToString());
+                                                    OtherServiceTypeIDCol.Add(element.OtherServiceTypeID.ToString());
+                                                    IRNoCol.Add(element.IRNo.ToString());
+                                                    TerminalSNCol.Add(element.TerminalSN.ToString());
+                                                    MerchantNameCol.Add(element.MerchantName.ToString());
+                                                    TIDCol.Add(element.TID.ToString());
+                                                    MIDCol.Add(element.MID.ToString());
+                                                    ClientNameCol.Add(element.ClientName.ToString());
+                                                    ServiceProviderNameCol.Add(element.ServiceProviderName.ToString());
+                                                    FENameCol.Add(element.FEName.ToString());
+                                                    TypeDescriptionCol.Add(element.TypeDescription.ToString());
+                                                    ModelDescriptionCol.Add(element.ModelDescription.ToString());
+                                                    BrandDescriptionCol.Add(element.BrandDescription.ToString());
+                                                    IRDateCol.Add(element.IRDate.ToString());
+                                                    InstallationDateCol.Add(element.InstallationDate.ToString());
+                                                    FSRDateCol.Add(element.FSRDate.ToString());
+                                                    TADateTimeCol.Add(element.TADateTime.ToString());
+                                                    TAProcessedByCol.Add(element.TAProcessedBy.ToString());
+                                                    TAModifiedByCol.Add(element.TAModifiedBy.ToString());
+                                                    TAProcessedDateTimeCol.Add(element.TAProcessedDateTime.ToString());
+                                                    TAModifiedDateTimeCol.Add(element.TAModifiedDateTime.ToString());
+                                                    TARemarksCol.Add(element.TARemarks.ToString());
+                                                    TACommentsCol.Add(element.TAComments.ToString());
+                                                    ServiceTypeDescriptionCol.Add(element.ServiceTypeDescription.ToString());
+                                                    OtherServiceTypeDescriptionCol.Add(element.OtherServiceTypeDescription.ToString());
+                                                    SIMIDCol.Add(element.SIMID.ToString());
+                                                    SIMSerialNoCol.Add(element.SIMSerialNo.ToString());
+                                                    SIMCarrierCol.Add(element.SIMCarrier.ToString());
+                                                    IRImportDateTimeCol.Add(element.IRImportDateTime.ToString());
+                                                    RegionIDCol.Add(element.RegionID.ToString());
+                                                    RegionTypeCol.Add(element.RegionType.ToString());
+                                                    RegionCol.Add(element.Region.ToString());
+                                                    ServiceTypeStatusCol.Add(element.ServiceTypeStatus.ToString());
+                                                    ServiceTypeStatusDescriptionCol.Add(element.ServiceTypeStatusDescription.ToString());
+                                                    DockIDCol.Add(element.DockID.ToString());
+                                                    DockSNCol.Add(element.DockSN.ToString());
+                                                    JobTypeCol.Add(element.JobType.ToString());
+                                                    JobTypeDescriptionCol.Add(element.JobTypeDescription.ToString());
+                                                    JobTypeSubDescriptionCol.Add(element.JobTypeSubDescription.ToString());
+                                                    JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription.ToString());
+                                                    ServiceDateTimeCol.Add(element.ServiceDateTime.ToString());
+                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                    RequestNoCol.Add(element.RequestNo.ToString());
+                                                    PrimaryNumCol.Add(element.PrimaryNum);
+                                                    SecondaryNumCol.Add(element.SecondaryNum);
+                                                    AppVersionCol.Add(element.AppVersion.ToString());
+                                                    AppCRCCol.Add(element.AppCRC.ToString());
+                                                }
+
+                                                // Loop And Store To Array
+                                                clsArray.SerialNo = SerialNoCol.ToArray();
+                                                clsArray.DeliveryDate = DeliveryDateCol.ToArray();
+                                                clsArray.ReceiveDate = ReceiveDateCol.ToArray();
+                                                clsArray.TerminalStatus = TerminalStatusCol.ToArray();
+                                                clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
+                                                clsArray.TAIDNo = TAIDNoCol.ToArray();
+                                                clsArray.TAID = TAIDCol.ToArray();
+                                                clsArray.IRID = IRIDCol.ToArray();
+                                                clsArray.ClientID = ClientIDCol.ToArray();
+                                                clsArray.ServiceProviderID = ServiceProviderIDCol.ToArray();
+                                                clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                clsArray.FEID = FEIDCol.ToArray();
+                                                clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                clsArray.TerminalTypeID = TerminalTypeIDCol.ToArray();
+                                                clsArray.TerminalModelID = TerminalModelIDCol.ToArray();
+                                                clsArray.TerminalBrandID = TerminalBrandIDCol.ToArray();
+                                                clsArray.ServiceTypeID = ServiceTypeIDCol.ToArray();
+                                                clsArray.OtherServiceTypeID = OtherServiceTypeIDCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                clsArray.MerchantName = MerchantNameCol.ToArray();
+                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                                clsArray.ClientName = ClientNameCol.ToArray();
+                                                clsArray.ServiceProviderName = ServiceProviderNameCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
+                                                clsArray.TypeDescription = TypeDescriptionCol.ToArray();
+                                                clsArray.ModelDescription = ModelDescriptionCol.ToArray();
+                                                clsArray.BrandDescription = BrandDescriptionCol.ToArray();
+                                                clsArray.IRDate = IRDateCol.ToArray();
+                                                clsArray.InstallationDate = InstallationDateCol.ToArray();
+                                                clsArray.FSRDate = FSRDateCol.ToArray();
+                                                clsArray.TADateTime = TADateTimeCol.ToArray();
+                                                clsArray.TAProcessedBy = TAProcessedByCol.ToArray();
+                                                clsArray.TAModifiedBy = TAModifiedByCol.ToArray();
+                                                clsArray.TAProcessedDateTime = TAProcessedDateTimeCol.ToArray();
+                                                clsArray.TAModifiedDateTime = TAModifiedDateTimeCol.ToArray();
+                                                clsArray.TARemarks = TARemarksCol.ToArray();
+                                                clsArray.TAComments = TACommentsCol.ToArray();
+                                                clsArray.ServiceTypeDescription = ServiceTypeDescriptionCol.ToArray();
+                                                clsArray.OtherServiceTypeDescription = OtherServiceTypeDescriptionCol.ToArray();
+                                                clsArray.SIMID = SIMIDCol.ToArray();
+                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                clsArray.SIMCarrier = SIMCarrierCol.ToArray();
+                                                clsArray.IRImportDateTime = IRImportDateTimeCol.ToArray();
+                                                clsArray.RegionID = RegionIDCol.ToArray();
+                                                clsArray.RegionType = RegionTypeCol.ToArray();
+                                                clsArray.Region = RegionCol.ToArray();
+                                                clsArray.ServiceTypeStatus = ServiceTypeStatusCol.ToArray();
+                                                clsArray.ServiceTypeStatusDescription = ServiceTypeStatusDescriptionCol.ToArray();
+                                                clsArray.DockID = DockIDCol.ToArray();
+                                                clsArray.DockSN = DockSNCol.ToArray();
+                                                clsArray.JobType = JobTypeCol.ToArray();
+                                                clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
+                                                clsArray.JobTypeSubDescription = JobTypeSubDescriptionCol.ToArray();
+                                                clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
+                                                clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
+                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                clsArray.RequestNo = RequestNoCol.ToArray();
+                                                clsArray.PrimaryNum = PrimaryNumCol.ToArray();
+                                                clsArray.SecondaryNum = SecondaryNumCol.ToArray();
+                                                clsArray.AppVersion = AppVersionCol.ToArray();
+                                                clsArray.AppCRC = AppCRCCol.ToArray();
+                                            }
+
+                                            break;
+                                    }
+                                    break;
+                                case "Report":
+                                    ReportDetailOnline Detail22 = JsonConvert.DeserializeObject<ReportDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsReport.ClassRecordFound = false;
+                                    switch (StatementType)
+                                    {
+                                        case "View":
+                                            foreach (var element in Detail22.data)
+                                            {
+                                                clsReport.ClassRecordFound = true;
+
+
+                                                List<string> ReportID = new List<String>();
+                                                List<string> ReportDesc = new List<String>();
+                                                List<string> ReportType = new List<String>();
+                                                List<string> ReportOrderDisplay = new List<String>();
+
+
+                                                ReportIDCol.Add(element.ReportID.ToString());
+                                                ReportDescCol.Add(element.ReportDesc.ToString());
+                                                ReportTypeCol.Add(element.ReportType.ToString());
+                                                ReportOrderDisplayCol.Add(element.ReportOrderDisplay.ToString());
+                                            }
+
+                                            // Loop And Store To Array
+                                            clsArray.ReportID = ReportIDCol.ToArray();
+                                            clsArray.ReportDesc = ReportDescCol.ToArray();
+                                            clsArray.ReportType = ReportTypeCol.ToArray();
+                                            clsArray.ReportOrderDisplay = ReportOrderDisplayCol.ToArray();
+
+                                            break;
+                                    }
+                                    break;
+                                case "Header":
+                                    HeaderDetailOnline Detail23 = JsonConvert.DeserializeObject<HeaderDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsHeader.ClassRecordFound = false;
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail23.data)
+                                            {
+                                                clsHeader.ClassRecordFound = true;
+                                                clsHeader.ClassHeaderID = element.HeaderID;
+                                                clsHeader.ClassName = element.Name;
+                                                clsHeader.ClassHeader1 = element.Header1;
+                                                clsHeader.ClassHeader2 = element.Header2;
+                                                clsHeader.ClassHeader3 = element.Header3;
+                                                clsHeader.ClassHeader4 = element.Header4;
+                                                clsHeader.ClassHeader5 = element.Header5;
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail23.data)
+                                            {
+                                                clsHeader.ClassRecordFound = true;
+                                                HeaderIDCol.Add(element.HeaderID.ToString());
+                                                NameCol.Add(element.Name);
+                                                Header1Col.Add(element.Header1);
+                                                Header2Col.Add(element.Header2);
+                                                Header3Col.Add(element.Header3);
+                                                Header4Col.Add(element.Header4);
+                                                Header5Col.Add(element.Header5);
+                                            }
+
+                                            clsArray.HeaderID = HeaderIDCol.ToArray();
+                                            clsArray.Name = NameCol.ToArray();
+                                            clsArray.Header1 = Header1Col.ToArray();
+                                            clsArray.Header2 = Header2Col.ToArray();
+                                            clsArray.Header3 = Header3Col.ToArray();
+                                            clsArray.Header4 = Header4Col.ToArray();
+                                            clsArray.Header5 = Header5Col.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "Region":
+                                    RegionDetailOnline Detail24 = JsonConvert.DeserializeObject<RegionDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsRegion.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail24.data)
+                                            {
+                                                clsRegion.RecordFound = true;
+                                                clsRegion.ClassRegionID = element.RegionID;
+                                                clsRegion.ClassRegion = element.Region;
+                                            }
+                                            break;
+                                        case "View":
+
+                                            if (SearchBy.Equals("RegionDetail"))
+                                            {
+                                                foreach (var element in Detail24.data)
+                                                {
+                                                    clsRegion.RecordFound = true;
+                                                    IDCol.Add(element.RegionID.ToString());
+                                                    ProvinceCol.Add(element.Province);
+                                                }
+
+                                                clsArray.RegionID = IDCol.ToArray();
+                                                clsArray.Province = ProvinceCol.ToArray();
+                                            }
+                                            else
+                                            {
+                                                foreach (var element in Detail24.data)
+                                                {
+                                                    clsRegion.RecordFound = true;
+                                                    IDCol.Add(element.RegionID.ToString());
+                                                    RegionCol.Add(element.Region);
+                                                }
+
+                                                clsArray.RegionID = IDCol.ToArray();
+                                                clsArray.Region = RegionCol.ToArray();
+                                            }
+
+
+                                            break;
+                                    }
+                                    break;
+                                case "System":
+                                    SystemSettingDetailOnline Detail25 = JsonConvert.DeserializeObject<SystemSettingDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsSystemSetting.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail25.data)
+                                            {
+                                                clsSystemSetting.RecordFound = true;
+                                                clsSystemSetting.ClassSystemID = element.SysID;
+                                                clsSystemSetting.ClassSystemPublishDate = element.PublishDate;
+                                                clsSystemSetting.ClassSystemPublishVersion = element.PublishVersion;
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail25.data)
+                                            {
+                                                clsSystemSetting.RecordFound = true;
+                                                SysIDCol.Add(element.SysID.ToString());
+                                                PublishDateCol.Add(element.PublishDate);
+                                                PublishVersionCol.Add(element.PublishVersion);
+                                            }
+
+                                            clsArray.SysID = SysIDCol.ToArray();
+                                            clsArray.PublishDate = PublishDateCol.ToArray();
+                                            clsArray.PublishVersion = PublishVersionCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "Get Count":
+                                    TerminalDetailOnline Detail26 = JsonConvert.DeserializeObject<TerminalDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail26.data)
+                                            {
+                                                clsTerminal.ClassTerminalCount = int.Parse(element.TerminalCount);
+                                            }
+
+                                            break;
+                                    }
+                                    break;
+                                case "Reason":
+                                    ReasonDetailOnline Detail27 = JsonConvert.DeserializeObject<ReasonDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsReason.ClassRecordFound = false;
+                                    ReasonIDCol.Clear();
+                                    ReasonCodeCol.Clear();
+                                    ReasonDescriptionCol.Clear();
+                                    ReasonTypeCol.Clear();
+                                    ReasonIsInputCol.Clear();
+                                    FunctionIDCol.Clear();
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail27.data)
+                                            {
+                                                clsReason.ClassRecordFound = true;
+                                                clsReason.ClassReasonID = element.ReasonID;
+                                                clsReason.ClassReasonCode = element.Code;
+                                                clsReason.ClassReasonDescription = element.Description;
+                                                clsReason.ClassReasonType = element.Type;
+                                                clsReason.ClassReasonIsInput = element.IsInput;
+                                                clsReason.ClassFunctionID = element.FunctionID;
+
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail27.data)
+                                            {
+                                                clsReason.ClassRecordFound = true;
+                                                ReasonIDCol.Add(element.ReasonID.ToString());
+                                                ReasonCodeCol.Add(element.Code);
+                                                ReasonDescriptionCol.Add(element.Description);
+                                                ReasonTypeCol.Add(element.Type);
+                                                ReasonIsInputCol.Add(element.IsInput.ToString());
+                                                FunctionIDCol.Add(element.FunctionID.ToString());
+
+                                            }
+
+                                            clsArray.ReasonID = ReasonIDCol.ToArray();
+                                            clsArray.ReasonCode = ReasonCodeCol.ToArray();
+                                            clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
+                                            clsArray.ReasonType = ReasonTypeCol.ToArray();
+                                            clsArray.ReasonIsInput = ReasonIsInputCol.ToArray();
+                                            clsArray.FunctionID = FunctionIDCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "FSR Attempt":
+                                    FSRDetailOnline Detail28 = JsonConvert.DeserializeObject<FSRDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsFSR.RecordFound = false;
+                                    FSRNoCol.Clear();
+                                    FSRDateCol.Clear();
+                                    FSRTimeCol.Clear();
+                                    FSRServiceStatusCol.Clear();
+                                    FSRServiceStatusDescriptionCol.Clear();
+                                    FSRRemarksCol.Clear();
+
+                                    switch (StatementType)
+                                    {
+                                        case "View":
+                                            foreach (var element in Detail28.data)
+                                            {
+                                                clsFSR.RecordFound = true;
+                                                FSRNoCol.Add(element.FSRNo.ToString());
+                                                FSRDateCol.Add(element.FSRDate);
+                                                FSRTimeCol.Add(element.FSRTime);
+                                                FSRServiceStatusCol.Add(element.ServiceStatus.ToString());
+                                                FSRServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
+                                                FSRRemarksCol.Add(element.Remarks);
+                                            }
+
+                                            clsArray.FSRNo = FSRNoCol.ToArray();
+                                            clsArray.FSRDate = FSRDateCol.ToArray();
+                                            clsArray.FSRTime = FSRTimeCol.ToArray();
+                                            clsArray.FSRServiceStatus = FSRServiceStatusCol.ToArray();
+                                            clsArray.FSRServiceStatusDescription = FSRServiceStatusDescriptionCol.ToArray();
+                                            clsArray.FSRRemarks = FSRRemarksCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "CheckControlID":
+                                    CheckControlIDDetailOnline Detail29 = JsonConvert.DeserializeObject<CheckControlIDDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsCheckControlID.RecordFound = false;
+
+                                    foreach (var element in Detail29.data)
+                                    {
+                                        clsCheckControlID.ClassControlID = element.ControlID;
+                                    }
+
+                                    break;
+                                case "Region Detail":
+                                    RegionDetailDetailOnline Detail30 = JsonConvert.DeserializeObject<RegionDetailDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsRegionDetail.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail30.data)
+                                            {
+                                                clsRegionDetail.RecordFound = true;
+                                                clsRegionDetail.ClassRegionID = element.RegionID;
+                                                clsRegionDetail.ClassRegionType = element.RegionType;
+                                                clsRegionDetail.ClassProvince = element.Province;
+                                                clsRegionDetail.ClassRegion = element.Region;
+                                            }
+                                            break;
+                                        case "View":
+                                            string sRegionList = "";
+                                            string sProvinceList = "";
+                                            foreach (var element in Detail30.data)
+                                            {
+                                                clsRegionDetail.RecordFound = true;
+                                                RegionIDCol.Add(element.RegionID.ToString());
+                                                RegionTypeCol.Add(element.RegionType.ToString());
+                                                ProvinceCol.Add(element.Province);
+                                                RegionCol.Add(element.Region);
+
+                                                sProvinceList = sProvinceList + element.Province + Environment.NewLine; // Province List
+                                                sRegionList = sRegionList + element.Region + Environment.NewLine; // Region List
+                                            }
+
+                                            clsArray.RegionID = RegionIDCol.ToArray();
+                                            clsArray.RegionType = RegionTypeCol.ToArray();
+                                            clsArray.RegionProvince = ProvinceCol.ToArray();
+                                            clsArray.Region = RegionCol.ToArray();
+
+                                            clsSearch.ClassProvinceList = sProvinceList; // Province List
+                                            clsSearch.ClassRegionList = sRegionList; // Region List
+
+                                            break;
+                                    }
+                                    break;
+                                case "SIM Detail":
+                                    SIMDetailOnline Detail31 = JsonConvert.DeserializeObject<SIMDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsSIM.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail31.data)
+                                            {
+                                                clsSIM.RecordFound = true;
+                                                clsSIM.ClassSIMID = element.SIMID;
+                                                clsSIM.ClassSIMSN = element.SIMSerialNo;
+                                                clsSIM.ClassSIMCarrier = element.SIMCarrier;
+                                                clsSIM.ClassSIMStatus = element.SIMStatus;
+                                                clsSIM.ClassSIMStatusDescription = element.SIMStatusDescription;
+                                            }
+
+                                            break;
+                                        case "View":
+
+                                            if (SearchBy.Equals("Service History"))
+                                            {
+                                                foreach (var element in Detail31.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    SIMIDCol.Add(element.SIMID.ToString());
+                                                    ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
+                                                    ParticularNameCol.Add(element.ParticularName);
+                                                    RemarksCol.Add(element.Remarks);
+                                                    DateCol.Add(element.Date);
+                                                    TimeCol.Add(element.Time);
+                                                    ProcessedByCol.Add(element.ProcessedBy);
+                                                    ProcessedDateTimeCol.Add(element.ProcessedDateTime);
+                                                    IRNoCol.Add(element.IRNo);
+                                                    TIDCol.Add(element.TID);
+                                                    MIDCol.Add(element.MID);
+
+
+                                                }
+
+                                                clsArray.SIMID = SIMIDCol.ToArray();
+                                                clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
+                                                clsArray.ParticularName = ParticularNameCol.ToArray();
+                                                clsArray.Remarks = RemarksCol.ToArray();
+                                                clsArray.Date = DateCol.ToArray();
+                                                clsArray.Time = TimeCol.ToArray();
+                                                clsArray.ProcessedBy = ProcessedByCol.ToArray();
+                                                clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                            }
+                                            else if (SearchBy.Equals("Release Movement Master"))
+                                            {
+                                                foreach (var element in Detail31.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+
+                                                    TransNoCol.Add(element.TransNo.ToString());
+                                                    TransDateCol.Add(element.TransDate);
+                                                    TransTimeCol.Add(element.TransTime);
+                                                    ReleaseDateCol.Add(element.ReleaseDate);
+                                                    RequestNoCol.Add(element.RequestNo);
+                                                    ReferenceNoCol.Add(element.ReferenceNo);
+                                                    RemarksCol.Add(element.Remarks);
+                                                    ProcessedByCol.Add(element.ProcessedBy);
+                                                    ProcessedDateTimeCol.Add(element.ProcessedDateTime);
+                                                    ModifiedByCol.Add(element.ModifiedBy);
+                                                    ModifiedDateTimeCol.Add(element.ModifiedDateTime);
+                                                    UserIDCol.Add(element.UserID.ToString());
+                                                    FromLocationIDCol.Add(element.FromLocationID.ToString());
+                                                    FromLocationCol.Add(element.FromLocation);
+                                                    ToLocationIDCol.Add(element.ToLocationID.ToString());
+                                                    ToLocationCol.Add(element.ToLocation);
+
+                                                }
+
+                                                clsArray.TransNo = TransNoCol.ToArray();
+                                                clsArray.TransDate = TransDateCol.ToArray();
+                                                clsArray.TransTime = TransTimeCol.ToArray();
+                                                clsArray.ReleaseDate = ReleaseDateCol.ToArray();
+                                                clsArray.RequestNo = RequestNoCol.ToArray();
+                                                clsArray.ReferenceNo = ReferenceNoCol.ToArray();
+                                                clsArray.Remarks = RemarksCol.ToArray();
                                                 clsArray.ProcessedBy = ProcessedByCol.ToArray();
                                                 clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
                                                 clsArray.ModifiedBy = ModifiedByCol.ToArray();
                                                 clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
-                                                clsArray.MobileID = MobileIDCol.ToArray();
-
-                                                clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
-                                                clsArray.Dependency = DependencyCol.ToArray();
-                                                clsArray.StatusReason = StatusReasonCol.ToArray();
-                                                clsArray.ZoneID = ZoneIDCol.ToArray();
-
-                                                break;
-                                            case "ServiceNo":
-                                                foreach (var element in Detail33.data)
+                                                clsArray.UserID = UserIDCol.ToArray();
+                                                clsArray.FromLocationID = FromLocationIDCol.ToArray();
+                                                clsArray.FromLocation = FromLocationCol.ToArray();
+                                                clsArray.ToLocationID = ToLocationIDCol.ToArray();
+                                                clsArray.ToLocation = ToLocationCol.ToArray();
+                                            }
+                                            else
+                                            {
+                                                foreach (var element in Detail31.data)
                                                 {
-                                                    clsServicingDetail.RecordFound = true;
-                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                    TAIDNoCol.Add(element.TAIDNo.ToString());
-                                                    ClientIDCol.Add(element.ClientID.ToString());
-                                                    MerchantIDCol.Add(element.MerchantID.ToString());
-                                                    RequestNoCol.Add(element.RequestNo);
-                                                    IRNoCol.Add(element.IRNo);
-                                                    ServiceDateTimeCol.Add(element.ServiceDateTime);
-                                                    ServiceDateCol.Add(element.ServiceDate);
-                                                    ServiceTimeCol.Add(element.ServiceTime);
-                                                    ServiceReqDateCol.Add(element.ServiceReqDate);
-                                                    ServiceReqTimeCol.Add(element.ServiceReqTime);
-                                                    ReferenceNoCol.Add(element.ReferenceNo);
-                                                    CustomerNameCol.Add(element.CustomerName);
-                                                    CustomerContactNoCol.Add(element.CustomerContactNo);
-                                                    RemarksCol.Add(element.Remarks);
-                                                    AppVersionCol.Add(element.AppVersion);
-                                                    AppCRCCol.Add(element.AppCRC);
-
+                                                    clsSIM.RecordFound = true;
+                                                    SIMIDCol.Add(element.SIMID.ToString());
+                                                    SIMSerialNoCol.Add(element.SIMSerialNo);
+                                                    SIMCarrierCol.Add(element.SIMCarrier);
+                                                    SIMStatusCol.Add(element.SIMStatus.ToString());
+                                                    SIMStatusDescriptionCol.Add(element.SIMStatusDescription);
                                                 }
 
-                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                                clsArray.TAIDNo = TAIDNoCol.ToArray();
-                                                clsArray.ClientID = ClientIDCol.ToArray();
-                                                clsArray.MerchantID = MerchantIDCol.ToArray();
-                                                clsArray.RequestNo = RequestNoCol.ToArray();
-                                                clsArray.IRNo = IRNoCol.ToArray();
-                                                clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
-                                                clsArray.ServiceDate = ServiceDateCol.ToArray();
-                                                clsArray.ServiceTime = ServiceTimeCol.ToArray();
-                                                clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
-                                                clsArray.ServiceReqTime = ServiceReqTimeCol.ToArray();
-                                                clsArray.ReferenceNo = ReferenceNoCol.ToArray();
-                                                clsArray.CustomerName = CustomerNameCol.ToArray();
-                                                clsArray.CustomerContactNo = CustomerContactNoCol.ToArray();
-                                                clsArray.Remarks = RemarksCol.ToArray();
-                                                clsArray.AppVersion = AppVersionCol.ToArray();
-                                                clsArray.AppCRC = AppCRCCol.ToArray();
+                                                clsArray.SIMID = SIMIDCol.ToArray();
+                                                clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                clsArray.SIMCarrier = SIMCarrierCol.ToArray();
+                                                clsArray.SIMStatus = SIMStatusCol.ToArray();
+                                                clsArray.SIMStatusDescription = SIMStatusDescriptionCol.ToArray();
+                                            }
 
-                                                break;
-                                            case "Last Servicing Requested By":
-                                                foreach (var element in Detail33.data)
-                                                {
-                                                    clsServicingDetail.RecordFound = true;
-                                                    ServiceNoCol.Add(element.ServiceNo.ToString());                                                    
-                                                    CustomerNameCol.Add(element.CustomerName);
-                                                    CustomerContactNoCol.Add(element.CustomerContactNo);
-                                                    RemarksCol.Add(element.Remarks);
-                                                }
 
-                                                clsArray.ServiceNo = ServiceNoCol.ToArray();                                                
-                                                clsArray.CustomerName = CustomerNameCol.ToArray();
-                                                clsArray.CustomerContactNo = CustomerContactNoCol.ToArray();
-                                                clsArray.Remarks = RemarksCol.ToArray();
+                                            break;
+                                    }
 
-                                                break;
-                                            default:
+                                    break;
+                                case "Service Call":
+                                    ServiceCallDetailOnline Detail32 = JsonConvert.DeserializeObject<ServiceCallDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsServiceCall.RecordFound = false;
+                                    switch (StatementType)
+                                    {
+                                        case "View":
+                                            foreach (var element in Detail32.data)
+                                            {
+                                                clsServiceCall.RecordFound = true;
+                                                SCNoCol.Add(element.SCNo.ToString());
+                                                SCDateTimeCol.Add(element.SCDateTime);
+                                                ReferralIDCol.Add(element.ReferralID);
+                                                CustomerNameCol.Add(element.CustomerName);
+                                                CustomerContactNoCol.Add(element.CustomerContactNo);
+                                                ReportedProblemCol.Add(element.ReportedProblem);
+                                                ArrangementMadeCol.Add(element.ArrangementMade);
+                                                SCReqDateCol.Add(element.SCReqDate);
+                                                SCReqTimeCol.Add(element.SCReqTime);
+                                                SCShipDateCol.Add(element.SCShipDate);
+                                                SCShipTimeCol.Add(element.SCShipTime);
+                                                TrackingNoCol.Add(element.TrackingNo);
+                                                SCStatusCol.Add(element.SCStatus);
+                                            }
+
+                                            clsArray.SCNo = SCNoCol.ToArray();
+                                            clsArray.SCDateTime = SCDateTimeCol.ToArray();
+                                            clsArray.ReferralID = ReferralIDCol.ToArray();
+                                            clsArray.CustomerName = CustomerNameCol.ToArray();
+                                            clsArray.CustomerContactNo = CustomerContactNoCol.ToArray();
+                                            clsArray.ReportedProblem = ReportedProblemCol.ToArray();
+                                            clsArray.ArrangementMade = ArrangementMadeCol.ToArray();
+                                            clsArray.SCReqDate = SCReqDateCol.ToArray();
+                                            clsArray.SCReqTime = SCReqTimeCol.ToArray();
+                                            clsArray.SCShipDate = SCShipDateCol.ToArray();
+                                            clsArray.SCShipTime = SCShipTimeCol.ToArray();
+                                            clsArray.TrackingNo = TrackingNoCol.ToArray();
+                                            clsArray.SCStatus = SCStatusCol.ToArray();
+
+                                            break;
+                                    }
+                                    break;
+                                case "Servicing Detail":
+                                    ServicingDetailOnline Detail33 = JsonConvert.DeserializeObject<ServicingDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsServicingDetail.RecordFound = false;
+
+                                    ServiceNoCol.Clear();
+                                    TAIDNoCol.Clear();
+                                    IRIDNoCol.Clear();
+                                    IRNoCol.Clear();
+                                    TIDCol.Clear();
+                                    MIDCol.Clear();
+                                    TerminalIDCol.Clear();
+                                    TerminalSNCol.Clear();
+                                    TerminalStatusDescriptionCol.Clear();
+                                    TypeDescriptionCol.Clear();
+                                    ModelDescriptionCol.Clear();
+                                    BrandDescriptionCol.Clear();
+                                    IRDateCol.Clear();
+                                    InstallationDateCol.Clear();
+                                    MerchantNameCol.Clear();
+                                    TIDCol.Clear();
+                                    MIDCol.Clear();
+                                    RegionCol.Clear();
+                                    ProvinceCol.Clear();
+                                    IRStatusDescriptionCol.Clear();
+                                    ServiceDateTimeCol.Clear();
+                                    ServiceReqDateCol.Clear();
+                                    ServiceReqTimeCol.Clear();
+                                    RequestNoCol.Clear();
+                                    ReferenceNoCol.Clear();
+                                    CustomerNameCol.Clear();
+                                    CustomerContactNoCol.Clear();
+                                    ClientNameCol.Clear();
+                                    FENameCol.Clear();
+                                    TerminalSNCol.Clear();
+                                    SIMSerialNoCol.Clear();
+                                    DockSNCol.Clear();
+                                    JobTypeDescriptionCol.Clear();
+                                    JobTypeStatusDescriptionCol.Clear();
+                                    ActionMadeCol.Clear();
+                                    TimeArrivedCol.Clear();
+                                    TimeStartCol.Clear();
+                                    FSRDateCol.Clear();
+                                    FSRTimeCol.Clear();
+                                    TimeEndCol.Clear();
+                                    RemarksCol.Clear();
+                                    ProblemReportedCol.Clear();
+                                    ActualProblemReportedCol.Clear();
+                                    ActionTakenCol.Clear();
+                                    AnyCommentsCol.Clear();
+                                    MerchantRepresentativeCol.Clear();
+                                    MerchantContactNoCol.Clear();
+                                    MobileIDCol.Clear();
+
+                                    switch (StatementType)
+                                    {
+                                        case "View":
+
+                                            switch (SearchBy)
+                                            {
+                                                case "Servicing Current Terminal":
+                                                    foreach (var element in Detail33.data)
+                                                    {
+                                                        clsServicingDetail.RecordFound = true;
+                                                        ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                        TerminalIDCol.Add(element.TerminalID.ToString());
+                                                        SIMIDCol.Add(element.SIMID.ToString());
+                                                        DockIDCol.Add(element.DockID.ToString());
+                                                        TerminalSNCol.Add(element.TerminalSN);
+                                                        SIMSerialNoCol.Add(element.SIMSN);
+                                                        DockSNCol.Add(element.DockSN);
+                                                        CurTerminalSNStatusCol.Add(element.CurTerminalSNStatus.ToString());
+                                                        CurSIMSNStatusCol.Add(element.CurSIMSNStatus.ToString());
+                                                        CurDockSNStatusCol.Add(element.CurDockSNStatus.ToString());
+                                                        CurTerminalSNStatusDescriptionCol.Add(element.CurTerminalSNStatusDescription);
+                                                        CurSIMSNStatusDescriptionCol.Add(element.CurSIMSNStatusDescription);
+                                                        CurDockSNStatusDescriptionCol.Add(element.CurDockSNStatusDescription);
+                                                    }
+                                                    clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                    clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                    clsArray.SIMID = SIMIDCol.ToArray();
+                                                    clsArray.DockID = DockIDCol.ToArray();
+                                                    clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                    clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                    clsArray.DockSN = DockSNCol.ToArray();
+                                                    clsArray.CurTerminalSNStatus = CurTerminalSNStatusCol.ToArray();
+                                                    clsArray.CurSIMSNStatus = CurSIMSNStatusCol.ToArray();
+                                                    clsArray.CurDockSNStatus = CurDockSNStatusCol.ToArray();
+                                                    clsArray.CurTerminalSNStatusDescription = CurTerminalSNStatusDescriptionCol.ToArray();
+                                                    clsArray.CurSIMSNStatusDescription = CurSIMSNStatusDescriptionCol.ToArray();
+                                                    clsArray.CurDockSNStatusDescription = CurDockSNStatusDescriptionCol.ToArray();
+                                                    break;
+                                                case "Servicing Replace Terminal":
+                                                    foreach (var element in Detail33.data)
+                                                    {
+                                                        clsServicingDetail.RecordFound = true;
+                                                        ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                        TerminalIDCol.Add(element.TerminalID.ToString());
+                                                        SIMIDCol.Add(element.SIMID.ToString());
+                                                        DockIDCol.Add(element.DockID.ToString());
+                                                        TerminalSNCol.Add(element.TerminalSN);
+                                                        SIMSerialNoCol.Add(element.SIMSN);
+                                                        DockSNCol.Add(element.DockSN);
+                                                        RepTerminalSNStatusCol.Add(element.RepTerminalSNStatus.ToString());
+                                                        RepSIMSNStatusCol.Add(element.RepSIMSNStatus.ToString());
+                                                        RepDockSNStatusCol.Add(element.RepDockSNStatus.ToString());
+                                                    }
+                                                    clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                    clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                    clsArray.SIMID = SIMIDCol.ToArray();
+                                                    clsArray.DockID = DockIDCol.ToArray();
+                                                    clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                    clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                    clsArray.DockSN = DockSNCol.ToArray();
+                                                    clsArray.RepTerminalSNStatus = RepTerminalSNStatusCol.ToArray();
+                                                    clsArray.RepSIMSNStatus = RepSIMSNStatusCol.ToArray();
+                                                    clsArray.RepDockSNStatus = RepDockSNStatusCol.ToArray();
+                                                    break;
+                                                case "Download Service":
+                                                    foreach (var element in Detail33.data)
+                                                    {
+                                                        clsServicingDetail.RecordFound = true;
+                                                        ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                        TAIDNoCol.Add(element.TAIDNo.ToString());
+                                                        IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                        IRNoCol.Add(element.IRNo.ToString());
+                                                        TIDCol.Add(element.TID);
+                                                        MIDCol.Add(element.MID);
+                                                        TerminalSNCol.Add(element.TerminalSN);
+                                                        SIMSerialNoCol.Add(element.SIMSN);
+                                                        DockSNCol.Add(element.DockSN);
+                                                        ServiceCodeCol.Add(element.ServiceCode);
+                                                        ServiceDateCol.Add(element.ServiceDate);
+                                                        ServiceReqDateCol.Add(element.ServiceReqDate);
+                                                        JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription);
+                                                        RequestNoCol.Add(element.RequestNo);
+                                                    }
+                                                    clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                    clsArray.TAIDNo = TAIDNoCol.ToArray();
+                                                    clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                    clsArray.IRNo = IRNoCol.ToArray();
+                                                    clsArray.TID = TIDCol.ToArray();
+                                                    clsArray.MID = MIDCol.ToArray();
+                                                    clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                    clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                    clsArray.DockSN = DockSNCol.ToArray();
+                                                    clsArray.ServiceCode = ServiceCodeCol.ToArray();
+                                                    clsArray.FSR = ServiceCodeCol.ToArray();
+                                                    clsArray.ServiceDate = ServiceDateCol.ToArray();
+                                                    clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
+                                                    clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
+                                                    clsArray.RequestNo = RequestNoCol.ToArray();
+
+                                                    break;
+
+                                                case "Service TerminalSN List":
+                                                    foreach (var element in Detail33.data)
+                                                    {
+                                                        clsServicingDetail.RecordFound = true;
+                                                        //ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                        TAIDNoCol.Add(element.TAIDNo.ToString());
+                                                        IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                        IRNoCol.Add(element.IRNo.ToString());
+                                                        TIDCol.Add(element.TID);
+                                                        MIDCol.Add(element.MID);
+                                                        TerminalIDCol.Add(element.TerminalID.ToString());
+                                                        TerminalSNCol.Add(element.TerminalSN);
+                                                        TerminalStatusDescriptionCol.Add(element.TerminalStatusDescription);
+                                                        TypeDescriptionCol.Add(element.Type);
+                                                        ModelDescriptionCol.Add(element.Model);
+                                                        BrandDescriptionCol.Add(element.Brand);
+                                                    }
+                                                    //clsArray.ServiceNo = ServiceNoCol.ToArray(); // for hold
+                                                    clsArray.TAIDNo = TAIDNoCol.ToArray();       // for hold   
+                                                    clsArray.IRIDNo = IRIDNoCol.ToArray();       // for hold  
+
+                                                    clsArray.IRNo = IRNoCol.ToArray();
+                                                    clsArray.TID = TIDCol.ToArray();
+                                                    clsArray.MID = MIDCol.ToArray();
+                                                    clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                    clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                    clsArray.TerminalStatusDescription = TerminalStatusDescriptionCol.ToArray();
+                                                    clsArray.TypeDescription = TypeDescriptionCol.ToArray();
+                                                    clsArray.ModelDescription = ModelDescriptionCol.ToArray();
+                                                    clsArray.BrandDescription = BrandDescriptionCol.ToArray();
+
+                                                    break;
+                                                case "Service IRNo List":
+                                                    foreach (var element in Detail33.data)
+                                                    {
+                                                        clsServicingDetail.RecordFound = true;
+                                                        ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                        IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                        IRNoCol.Add(element.IRNo.ToString());
+                                                        IRDateCol.Add(element.IRDate);
+                                                        InstallationDateCol.Add(element.InstallationDate);
+                                                        MerchantNameCol.Add(element.MerchantName);
+                                                        TIDCol.Add(element.TID);
+                                                        MIDCol.Add(element.MID);
+                                                        RegionCol.Add(element.Region);
+                                                        ProvinceCol.Add(element.Province);
+                                                        IRStatusDescriptionCol.Add(element.IRStatusDescription);
+                                                    }
+
+                                                    clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                    clsArray.IRNo = IRNoCol.ToArray();
+                                                    clsArray.IRDate = IRDateCol.ToArray();
+                                                    clsArray.InstallationDate = InstallationDateCol.ToArray();
+                                                    clsArray.MerchantName = MerchantNameCol.ToArray();
+                                                    clsArray.TID = TIDCol.ToArray();
+                                                    clsArray.MID = MIDCol.ToArray();
+                                                    clsArray.Region = RegionCol.ToArray();
+                                                    clsArray.Province = ProvinceCol.ToArray();
+                                                    clsArray.IRStatusDescription = IRStatusDescriptionCol.ToArray();
+                                                    break;
+
+                                                case "Service ServiceNo List":
+                                                    foreach (var element in Detail33.data)
+                                                    {
+                                                        clsServicingDetail.RecordFound = true;
+                                                        ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                        ServiceDateTimeCol.Add(element.ServiceDateTime);
+                                                        ServiceReqDateCol.Add(element.ServiceReqDate);
+                                                        ServiceReqTimeCol.Add(element.ServiceReqTime);
+                                                        RequestNoCol.Add(element.RequestNo);
+                                                        ReferenceNoCol.Add(element.ReferenceNo);
+                                                        CustomerNameCol.Add(element.CustomerName);
+                                                        CustomerContactNoCol.Add(element.CustomerContactNo);
+                                                        ClientNameCol.Add(element.ClientName);
+                                                        FENameCol.Add(element.FEName);
+                                                        TerminalSNCol.Add(element.TerminalSN);
+                                                        SIMSerialNoCol.Add(element.SIMSN);
+                                                        SIMCarrierCol.Add(element.SIMCarrier);
+                                                        DockSNCol.Add(element.DockSN);
+                                                        ReplaceTerminalSNCol.Add(element.ReplaceTerminalSN);
+                                                        ReplaceSIMSNCol.Add(element.ReplaceSIMSN);
+                                                        ReplaceDockSNCol.Add(element.ReplaceDockSN);
+                                                        JobTypeDescriptionCol.Add(element.JobTypeDescription);
+                                                        JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription);
+                                                        ActionMadeCol.Add(element.ActionMade);
+                                                        TimeArrivedCol.Add(element.TimeArrived);
+                                                        TimeStartCol.Add(element.TimeStart);
+                                                        FSRDateCol.Add(element.FSRDate);
+                                                        FSRTimeCol.Add(element.FSRTime);
+                                                        TimeEndCol.Add(element.TimeEnd);
+                                                        RemarksCol.Add(element.Remarks);
+                                                        ProblemReportedCol.Add(element.ProblemReported);
+                                                        ActualProblemReportedCol.Add(element.ActualProblemReported);
+                                                        ActionTakenCol.Add(element.ActionTaken);
+                                                        AnyCommentsCol.Add(element.AnyComments);
+                                                        MerchantRepresentativeCol.Add(element.MerchantRepresentative);
+                                                        MerchantContactNoCol.Add(element.MerchantContactNo);
+                                                    }
+
+                                                    clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                    clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
+                                                    clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
+                                                    clsArray.ServiceReqTime = ServiceReqTimeCol.ToArray();
+                                                    clsArray.RequestNo = RequestNoCol.ToArray();
+                                                    clsArray.ReferenceNo = ReferenceNoCol.ToArray();
+                                                    clsArray.CustomerName = CustomerNameCol.ToArray();
+                                                    clsArray.CustomerContactNo = CustomerContactNoCol.ToArray();
+                                                    clsArray.ClientName = ClientNameCol.ToArray();
+                                                    clsArray.FEName = FENameCol.ToArray();
+                                                    clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                    clsArray.SIMCarrier = SIMCarrierCol.ToArray();
+                                                    clsArray.DockSN = DockSNCol.ToArray();
+                                                    clsArray.ReplaceTerminalSN = ReplaceTerminalSNCol.ToArray();
+                                                    clsArray.ReplaceSIMSN = ReplaceSIMSNCol.ToArray();
+                                                    clsArray.ReplaceDockSN = ReplaceDockSNCol.ToArray();
+                                                    clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
+                                                    clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
+                                                    clsArray.ActionMade = ActionMadeCol.ToArray();
+                                                    clsArray.TimeArrived = TimeArrivedCol.ToArray();
+                                                    clsArray.TimeStart = TimeStartCol.ToArray();
+                                                    clsArray.FSRDate = FSRDateCol.ToArray();
+                                                    clsArray.FSRTime = FSRTimeCol.ToArray();
+                                                    clsArray.TimeEnd = TimeEndCol.ToArray();
+                                                    clsArray.Remarks = RemarksCol.ToArray();
+                                                    clsArray.ProblemReported = ProblemReportedCol.ToArray();
+                                                    clsArray.ActualProblemReported = ActualProblemReportedCol.ToArray();
+                                                    clsArray.ActionTaken = ActionTakenCol.ToArray();
+                                                    clsArray.AnyComments = AnyCommentsCol.ToArray();
+                                                    clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
+                                                    clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
+
+                                                    break;
+                                                case "Service TerminalID List":
+                                                    foreach (var element in Detail33.data)
+                                                    {
+                                                        clsServicingDetail.RecordFound = true;
+                                                        TerminalIDCol.Add(element.TerminalID.ToString());
+                                                    }
+
+                                                    clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                    break;
+                                                case "Servicing List":
+                                                    foreach (var element in Detail33.data)
+                                                    {
+                                                        clsServicingDetail.RecordFound = true;
+                                                        ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                        IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                        TAIDNoCol.Add(element.TAIDNo.ToString());
+                                                        ClientIDCol.Add(element.ClientID.ToString());
+                                                        FEIDCol.Add(element.FEID.ToString());
+                                                        MerchantIDCol.Add(element.MerchantID.ToString());
+                                                        RegionIDCol.Add(element.RegionID.ToString());
+                                                        RegionTypeCol.Add(element.RegionType.ToString());
+                                                        RequestNoCol.Add(element.RequestNo);
+                                                        ReferenceNoCol.Add(element.ReferenceNo);
+                                                        ServiceDateTimeCol.Add(element.ServiceDateTime);
+                                                        ServiceDateCol.Add(element.ServiceDate);
+                                                        ServiceTimeCol.Add(element.ServiceTime);
+                                                        ServiceReqDateCol.Add(element.ServiceReqDate);
+                                                        ServiceReqTimeCol.Add(element.ServiceReqTime);
+                                                        JobTypeDescriptionCol.Add(element.JobTypeDescription);
+                                                        ServiceJobTypeDescriptionCol.Add(element.ServiceJobTypeDescription);
+                                                        JobTypeStatusDescriptionCol.Add(element.JobTypeStatusDescription);
+                                                        ServiceStatusCol.Add(element.ServiceStatus.ToString());
+                                                        ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
+                                                        IRNoCol.Add(element.IRNo);
+                                                        MerchantNameCol.Add(element.MerchantName);
+                                                        TIDCol.Add(element.TID);
+                                                        MIDCol.Add(element.MID);
+                                                        TerminalSNCol.Add(element.TerminalSN);
+                                                        SIMSerialNoCol.Add(element.SIMSN);
+                                                        ReplaceTerminalSNCol.Add(element.ReplaceTerminalSN);
+                                                        ReplaceSIMSNCol.Add(element.ReplaceSIMSN);
+                                                        FSRNoCol.Add(element.FSRNo.ToString());
+                                                        ActionMadeCol.Add(element.ActionMade);
+                                                        PrimaryNumCol.Add(element.PrimaryNum.ToString());
+                                                        SecondaryNumCol.Add(element.SecondaryNum.ToString());
+                                                        ProcessedByCol.Add(element.ProcessedBy);
+                                                        ProcessedDateTimeCol.Add(element.ProcessedDateTime);
+                                                        ModifiedByCol.Add(element.ModifiedBy);
+                                                        ModifiedDateTimeCol.Add(element.ModifiedDateTime);
+                                                        MobileIDCol.Add(element.MobileID.ToString());
+
+                                                        ReasonDescriptionCol.Add(element.Reason.ToString());
+                                                        DependencyCol.Add(element.Dependency.ToString());
+                                                        StatusReasonCol.Add(element.StatusReason.ToString());
+                                                        ZoneIDCol.Add(element.ZoneID.ToString());
+
+                                                    }
+
+                                                    clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                    clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                    clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                    clsArray.TAIDNo = TAIDNoCol.ToArray();
+                                                    clsArray.ClientID = ClientIDCol.ToArray();
+                                                    clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                    clsArray.FEID = FEIDCol.ToArray();
+                                                    clsArray.RegionID = RegionIDCol.ToArray();
+                                                    clsArray.RegionType = RegionTypeCol.ToArray();
+                                                    clsArray.RequestNo = RequestNoCol.ToArray();
+                                                    clsArray.ReferenceNo = ReferenceNoCol.ToArray();
+                                                    clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
+                                                    clsArray.ServiceDate = ServiceDateCol.ToArray();
+                                                    clsArray.ServiceTime = ServiceTimeCol.ToArray();
+                                                    clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
+                                                    clsArray.ServiceReqTime = ServiceReqTimeCol.ToArray();
+                                                    clsArray.JobTypeDescription = JobTypeDescriptionCol.ToArray();
+                                                    clsArray.ServiceJobTypeDescription = ServiceJobTypeDescriptionCol.ToArray();
+                                                    clsArray.JobTypeStatusDescription = JobTypeStatusDescriptionCol.ToArray();
+                                                    clsArray.ServiceStatus = ServiceStatusCol.ToArray();
+                                                    clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
+                                                    clsArray.IRNo = IRNoCol.ToArray();
+                                                    clsArray.MerchantName = MerchantNameCol.ToArray();
+                                                    clsArray.TID = TIDCol.ToArray();
+                                                    clsArray.MID = MIDCol.ToArray();
+                                                    clsArray.TerminalSN = TerminalSNCol.ToArray();
+                                                    clsArray.SIMSerialNo = SIMSerialNoCol.ToArray();
+                                                    clsArray.ReplaceTerminalSN = ReplaceTerminalSNCol.ToArray();
+                                                    clsArray.ReplaceSIMSN = ReplaceSIMSNCol.ToArray();
+                                                    clsArray.FSRNo = FSRNoCol.ToArray();
+                                                    clsArray.ActionMade = ActionMadeCol.ToArray();
+                                                    clsArray.PrimaryNum = PrimaryNumCol.ToArray();
+                                                    clsArray.SecondaryNum = SecondaryNumCol.ToArray();
+                                                    clsArray.ProcessedBy = ProcessedByCol.ToArray();
+                                                    clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
+                                                    clsArray.ModifiedBy = ModifiedByCol.ToArray();
+                                                    clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
+                                                    clsArray.MobileID = MobileIDCol.ToArray();
+
+                                                    clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
+                                                    clsArray.Dependency = DependencyCol.ToArray();
+                                                    clsArray.StatusReason = StatusReasonCol.ToArray();
+                                                    clsArray.ZoneID = ZoneIDCol.ToArray();
+
+                                                    break;
+                                                case "ServiceNo":
+                                                    foreach (var element in Detail33.data)
+                                                    {
+                                                        clsServicingDetail.RecordFound = true;
+                                                        ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                        IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                        TAIDNoCol.Add(element.TAIDNo.ToString());
+                                                        ClientIDCol.Add(element.ClientID.ToString());
+                                                        MerchantIDCol.Add(element.MerchantID.ToString());
+                                                        RequestNoCol.Add(element.RequestNo);
+                                                        IRNoCol.Add(element.IRNo);
+                                                        ServiceDateTimeCol.Add(element.ServiceDateTime);
+                                                        ServiceDateCol.Add(element.ServiceDate);
+                                                        ServiceTimeCol.Add(element.ServiceTime);
+                                                        ServiceReqDateCol.Add(element.ServiceReqDate);
+                                                        ServiceReqTimeCol.Add(element.ServiceReqTime);
+                                                        ReferenceNoCol.Add(element.ReferenceNo);
+                                                        CustomerNameCol.Add(element.CustomerName);
+                                                        CustomerContactNoCol.Add(element.CustomerContactNo);
+                                                        RemarksCol.Add(element.Remarks);
+                                                        AppVersionCol.Add(element.AppVersion);
+                                                        AppCRCCol.Add(element.AppCRC);
+
+                                                    }
+
+                                                    clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                    clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                    clsArray.TAIDNo = TAIDNoCol.ToArray();
+                                                    clsArray.ClientID = ClientIDCol.ToArray();
+                                                    clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                    clsArray.RequestNo = RequestNoCol.ToArray();
+                                                    clsArray.IRNo = IRNoCol.ToArray();
+                                                    clsArray.ServiceDateTime = ServiceDateTimeCol.ToArray();
+                                                    clsArray.ServiceDate = ServiceDateCol.ToArray();
+                                                    clsArray.ServiceTime = ServiceTimeCol.ToArray();
+                                                    clsArray.ServiceReqDate = ServiceReqDateCol.ToArray();
+                                                    clsArray.ServiceReqTime = ServiceReqTimeCol.ToArray();
+                                                    clsArray.ReferenceNo = ReferenceNoCol.ToArray();
+                                                    clsArray.CustomerName = CustomerNameCol.ToArray();
+                                                    clsArray.CustomerContactNo = CustomerContactNoCol.ToArray();
+                                                    clsArray.Remarks = RemarksCol.ToArray();
+                                                    clsArray.AppVersion = AppVersionCol.ToArray();
+                                                    clsArray.AppCRC = AppCRCCol.ToArray();
+
+                                                    break;
+                                                case "Last Servicing Requested By":
+                                                    foreach (var element in Detail33.data)
+                                                    {
+                                                        clsServicingDetail.RecordFound = true;
+                                                        ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                        CustomerNameCol.Add(element.CustomerName);
+                                                        CustomerContactNoCol.Add(element.CustomerContactNo);
+                                                        RemarksCol.Add(element.Remarks);
+                                                    }
+
+                                                    clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                    clsArray.CustomerName = CustomerNameCol.ToArray();
+                                                    clsArray.CustomerContactNo = CustomerContactNoCol.ToArray();
+                                                    clsArray.Remarks = RemarksCol.ToArray();
+
+                                                    break;
+                                                default:
                                                     foreach (var element in Detail33.data)
                                                     {
                                                         clsServicingDetail.RecordFound = true;
@@ -4598,1056 +4596,1064 @@ namespace MIS
                                                     clsArray.TExpenses = TExpensesCol.ToArray();
                                                     clsArray.ReferenceNo = ReferenceNoCol.ToArray();
 
-                                                break;
-                                        }
-                                        
-                                        break;
-                                }
-                                break;
+                                                    break;
+                                            }
 
-                            case "Terminal Detail":
-                                TerminalDetailOnline Detail34 = JsonConvert.DeserializeObject<TerminalDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsTerminal.RecordFound = false;
+                                            break;
+                                    }
+                                    break;
 
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail34.data)
-                                        {
-                                            clsTerminal.RecordFound = true;
-                                            clsTerminal.ClassTerminalID = int.Parse(element.TerminalID.ToString());
-                                            clsTerminal.ClassTerminalSN = element.SerialNo;
-                                            clsTerminal.ClassTerminalTypeID = element.TerminalTypeID;
-                                            clsTerminal.ClassTerminalModelID = element.TerminalModelID;
-                                            clsTerminal.ClassTerminalBrandID = element.TerminalBrandID;
-                                            clsTerminal.ClassTerminalType = element.TerminalType;
-                                            clsTerminal.ClassTerminalModel = element.TerminalModel;
-                                            clsTerminal.ClassTerminalBrand = element.TerminalBrand;
-                                            clsTerminal.ClassTerminalStatus = int.Parse(element.TerminalStatus.ToString());
-                                            clsTerminal.ClassTerminalStatusDescription = element.TerminalStatusDescription;
-                                        }
+                                case "Terminal Detail":
+                                    TerminalDetailOnline Detail34 = JsonConvert.DeserializeObject<TerminalDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsTerminal.RecordFound = false;
 
-                                        break;
-                                    case "View":
-
-                                        if (SearchBy.Equals("Service History"))
-                                        {
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
                                             foreach (var element in Detail34.data)
                                             {
-                                                clsSearch.RecordFound = true;
-                                                TerminalIDCol.Add(element.TerminalID.ToString());
-                                                ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
-                                                ParticularNameCol.Add(element.ParticularName);
-                                                RemarksCol.Add(element.Remarks);
-                                                DateCol.Add(element.Date);
-                                                TimeCol.Add(element.Time);
-                                                ProcessedByCol.Add(element.ProcessedBy);
-                                                ProcessedDateTimeCol.Add(element.ProcessedDateTime);
-                                                IRNoCol.Add(element.IRNo);
-                                                TIDCol.Add(element.TID);
-                                                MIDCol.Add(element.MID);
-
-
+                                                clsTerminal.RecordFound = true;
+                                                clsTerminal.ClassTerminalID = int.Parse(element.TerminalID.ToString());
+                                                clsTerminal.ClassTerminalSN = element.SerialNo;
+                                                clsTerminal.ClassTerminalTypeID = element.TerminalTypeID;
+                                                clsTerminal.ClassTerminalModelID = element.TerminalModelID;
+                                                clsTerminal.ClassTerminalBrandID = element.TerminalBrandID;
+                                                clsTerminal.ClassTerminalType = element.TerminalType;
+                                                clsTerminal.ClassTerminalModel = element.TerminalModel;
+                                                clsTerminal.ClassTerminalBrand = element.TerminalBrand;
+                                                clsTerminal.ClassTerminalStatus = int.Parse(element.TerminalStatus.ToString());
+                                                clsTerminal.ClassTerminalStatusDescription = element.TerminalStatusDescription;
                                             }
 
-                                            clsArray.TerminalID = TerminalIDCol.ToArray();
-                                            clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
-                                            clsArray.ParticularName = ParticularNameCol.ToArray();
-                                            clsArray.Remarks = RemarksCol.ToArray();
-                                            clsArray.Date = DateCol.ToArray();
-                                            clsArray.Time = TimeCol.ToArray();
-                                            clsArray.ProcessedBy = ProcessedByCol.ToArray();
-                                            clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.TID = TIDCol.ToArray();
-                                            clsArray.MID = MIDCol.ToArray();
-                                        }
-                                        else if (SearchBy.Equals("Release Movement Master"))
-                                        {
-                                            foreach (var element in Detail34.data)
+                                            break;
+                                        case "View":
+
+                                            if (SearchBy.Equals("Service History"))
                                             {
-                                                clsSearch.RecordFound = true;
-                                                TransNoCol.Add(element.TransNo.ToString());
-                                                TransDateCol.Add(element.TransDate);
-                                                TransTimeCol.Add(element.TransTime);
-                                                ReleaseDateCol.Add(element.ReleaseDate);
-                                                RequestNoCol.Add(element.RequestNo);
-                                                ReferenceNoCol.Add(element.ReferenceNo);
-                                                RemarksCol.Add(element.Remarks);
-                                                ProcessedByCol.Add(element.ProcessedBy);
-                                                ProcessedDateTimeCol.Add(element.ProcessedDateTime);
-                                                ModifiedByCol.Add(element.ModifiedBy);
-                                                ModifiedDateTimeCol.Add(element.ModifiedDateTime);
-                                                UserIDCol.Add(element.UserID.ToString());
-                                                FromLocationIDCol.Add(element.FromLocationID.ToString());
-                                                FromLocationCol.Add(element.FromLocation);
-                                                ToLocationIDCol.Add(element.ToLocationID.ToString());
-                                                ToLocationCol.Add(element.ToLocation);
-                                                
+                                                foreach (var element in Detail34.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    TerminalIDCol.Add(element.TerminalID.ToString());
+                                                    ServiceStatusDescriptionCol.Add(element.ServiceStatusDescription);
+                                                    ParticularNameCol.Add(element.ParticularName);
+                                                    RemarksCol.Add(element.Remarks);
+                                                    DateCol.Add(element.Date);
+                                                    TimeCol.Add(element.Time);
+                                                    ProcessedByCol.Add(element.ProcessedBy);
+                                                    ProcessedDateTimeCol.Add(element.ProcessedDateTime);
+                                                    IRNoCol.Add(element.IRNo);
+                                                    TIDCol.Add(element.TID);
+                                                    MIDCol.Add(element.MID);
+
+
+                                                }
+
+                                                clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                clsArray.ServiceStatusDescription = ServiceStatusDescriptionCol.ToArray();
+                                                clsArray.ParticularName = ParticularNameCol.ToArray();
+                                                clsArray.Remarks = RemarksCol.ToArray();
+                                                clsArray.Date = DateCol.ToArray();
+                                                clsArray.Time = TimeCol.ToArray();
+                                                clsArray.ProcessedBy = ProcessedByCol.ToArray();
+                                                clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.TID = TIDCol.ToArray();
+                                                clsArray.MID = MIDCol.ToArray();
+                                            }
+                                            else if (SearchBy.Equals("Release Movement Master"))
+                                            {
+                                                foreach (var element in Detail34.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    TransNoCol.Add(element.TransNo.ToString());
+                                                    TransDateCol.Add(element.TransDate);
+                                                    TransTimeCol.Add(element.TransTime);
+                                                    ReleaseDateCol.Add(element.ReleaseDate);
+                                                    RequestNoCol.Add(element.RequestNo);
+                                                    ReferenceNoCol.Add(element.ReferenceNo);
+                                                    RemarksCol.Add(element.Remarks);
+                                                    ProcessedByCol.Add(element.ProcessedBy);
+                                                    ProcessedDateTimeCol.Add(element.ProcessedDateTime);
+                                                    ModifiedByCol.Add(element.ModifiedBy);
+                                                    ModifiedDateTimeCol.Add(element.ModifiedDateTime);
+                                                    UserIDCol.Add(element.UserID.ToString());
+                                                    FromLocationIDCol.Add(element.FromLocationID.ToString());
+                                                    FromLocationCol.Add(element.FromLocation);
+                                                    ToLocationIDCol.Add(element.ToLocationID.ToString());
+                                                    ToLocationCol.Add(element.ToLocation);
+
+                                                }
+
+                                                clsArray.TransNo = TransNoCol.ToArray();
+                                                clsArray.TransDate = TransDateCol.ToArray();
+                                                clsArray.TransTime = TransTimeCol.ToArray();
+                                                clsArray.ReleaseDate = ReleaseDateCol.ToArray();
+                                                clsArray.RequestNo = RequestNoCol.ToArray();
+                                                clsArray.ReferenceNo = ReferenceNoCol.ToArray();
+                                                clsArray.Remarks = RemarksCol.ToArray();
+                                                clsArray.ProcessedBy = ProcessedByCol.ToArray();
+                                                clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
+                                                clsArray.ModifiedBy = ModifiedByCol.ToArray();
+                                                clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
+                                                clsArray.UserID = UserIDCol.ToArray();
+                                                clsArray.FromLocationID = FromLocationIDCol.ToArray();
+                                                clsArray.FromLocation = FromLocationCol.ToArray();
+                                                clsArray.ToLocationID = ToLocationIDCol.ToArray();
+                                                clsArray.ToLocation = ToLocationCol.ToArray();
                                             }
 
-                                            clsArray.TransNo = TransNoCol.ToArray();
-                                            clsArray.TransDate = TransDateCol.ToArray();
-                                            clsArray.TransTime = TransTimeCol.ToArray();
-                                            clsArray.ReleaseDate = ReleaseDateCol.ToArray();
-                                            clsArray.RequestNo = RequestNoCol.ToArray();
-                                            clsArray.ReferenceNo = ReferenceNoCol.ToArray();
-                                            clsArray.Remarks = RemarksCol.ToArray();
-                                            clsArray.ProcessedBy = ProcessedByCol.ToArray();
-                                            clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
-                                            clsArray.ModifiedBy = ModifiedByCol.ToArray();
-                                            clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
-                                            clsArray.UserID = UserIDCol.ToArray();
-                                            clsArray.FromLocationID = FromLocationIDCol.ToArray();
-                                            clsArray.FromLocation = FromLocationCol.ToArray();
-                                            clsArray.ToLocationID = ToLocationIDCol.ToArray();
-                                            clsArray.ToLocation = ToLocationCol.ToArray();
-                                        }
+                                            break;
+                                    }
 
-                                        break;
-                                }
-
-                                break;
-                            case "Particular Detail":
-                                ParticularDetailOnline Detail35 = JsonConvert.DeserializeObject<ParticularDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsParticular.RecordFound = false;
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        if (SearchBy.CompareTo("Client Dashboard Detail") == 0)
-                                        {
-                                            foreach (var element in Detail35.data)
+                                    break;
+                                case "Particular Detail":
+                                    ParticularDetailOnline Detail35 = JsonConvert.DeserializeObject<ParticularDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsParticular.RecordFound = false;
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            if (SearchBy.CompareTo("Client Dashboard Detail") == 0)
                                             {
-                                                clsParticular.RecordFound = true;
-                                                clsParticular.ClassParticularID = int.Parse(element.ParticularID.ToString());
-                                                //clsParticular.ClassParticularName = element.ParticularName;
-                                                clsParticular.ClassParticularUserName = element.ParticularUserName;
-                                                clsParticular.ClassParticularUserKey = element.ParticularUserKey;
+                                                foreach (var element in Detail35.data)
+                                                {
+                                                    clsParticular.RecordFound = true;
+                                                    clsParticular.ClassParticularID = int.Parse(element.ParticularID.ToString());
+                                                    //clsParticular.ClassParticularName = element.ParticularName;
+                                                    clsParticular.ClassParticularUserName = element.ParticularUserName;
+                                                    clsParticular.ClassParticularUserKey = element.ParticularUserKey;
+
+                                                }
+                                            }
+                                            else if (SearchBy.CompareTo("Particular Leave Assignment") == 0)
+                                            {
+                                                foreach (var element in Detail35.data)
+                                                {
+                                                    clsParticular.RecordFound = true;
+                                                    LeaveNoCol.Add(element.LeaveNo.ToString());
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    LeaveTypeIDCol.Add(element.LeaveTypeID.ToString());
+                                                    CreditLimitCol.Add(element.CreditLimit.ToString());
+                                                    LeaveCreditCol.Add(element.LeaveCredit.ToString());
+                                                    CodeCol.Add(element.Code);
+                                                    DescriptionCol.Add(element.Description);
+                                                    RemarksCol.Add(element.Remarks);
+                                                }
+
+                                                clsArray.LeaveNo = LeaveNoCol.ToArray();
+                                                clsArray.ParticularID = ParticularIDCol.ToArray();
+                                                clsArray.LeaveTypeID = LeaveTypeIDCol.ToArray();
+                                                clsArray.LeaveTypeCreditLimit = CreditLimitCol.ToArray();
+                                                clsArray.LeaveCredit = LeaveCreditCol.ToArray();
+                                                clsArray.LeaveTypeCode = CodeCol.ToArray();
+                                                clsArray.LeaveTypeDesc = DescriptionCol.ToArray();
+                                                clsArray.Remarks = RemarksCol.ToArray();
+                                            }
+                                            else if (SearchBy.CompareTo("Particular Leave Movement") == 0)
+                                            {
+                                                foreach (var element in Detail35.data)
+                                                {
+                                                    clsParticular.RecordFound = true;
+                                                    LeaveNoCol.Add(element.LeaveNo.ToString());
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    LeaveTypeIDCol.Add(element.LeaveTypeID.ToString());
+                                                    DateFromCol.Add(element.DateFrom.ToString());
+                                                    DateToCol.Add(element.DateTo.ToString());
+                                                    DurationCol.Add(element.Duration.ToString());
+                                                    ProcessedByCol.Add(element.ProcessedBy);
+                                                    ProcessedDateTimeCol.Add(element.ProcessedDateTime);
+                                                    ModifiedByCol.Add(element.ModifiedBy);
+                                                    ModifiedDateTimeCol.Add(element.ModifiedDateTime);
+                                                    DateTypeCol.Add(element.DateType);
+                                                    RemarksCol.Add(element.Remarks);
+                                                    isActiveCol.Add(element.isActive.ToString());
+                                                    LeaveCodeCol.Add(element.LeaveCode);
+                                                    LeaveDescCol.Add(element.LeaveDesc);
+                                                    ReasonIDCol.Add(element.ReasonID.ToString());
+                                                    ReasonCodeCol.Add(element.ReasonCode);
+                                                    ReasonDescriptionCol.Add(element.ReasonDesc);
+
+                                                }
+
+                                                clsArray.LeaveNo = LeaveNoCol.ToArray();
+                                                clsArray.ParticularID = ParticularIDCol.ToArray();
+                                                clsArray.LeaveTypeID = LeaveTypeIDCol.ToArray();
+                                                clsArray.DateFrom = DateFromCol.ToArray();
+                                                clsArray.DateTo = DateToCol.ToArray();
+                                                clsArray.Duration = DurationCol.ToArray();
+                                                clsArray.ProcessedBy = ProcessedByCol.ToArray();
+                                                clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
+                                                clsArray.ModifiedBy = ModifiedByCol.ToArray();
+                                                clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
+                                                clsArray.DateType = DateTypeCol.ToArray();
+                                                clsArray.Remarks = RemarksCol.ToArray();
+                                                clsArray.isActive = isActiveCol.ToArray();
+                                                clsArray.LeaveTypeCode = LeaveCodeCol.ToArray();
+                                                clsArray.LeaveTypeDesc = LeaveDescCol.ToArray();
+                                                clsArray.ReasonID = ReasonIDCol.ToArray();
+                                                clsArray.ReasonCode = ReasonCodeCol.ToArray();
+                                                clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
 
                                             }
-                                        }
-                                        else if (SearchBy.CompareTo("Particular Leave Assignment") == 0)
-                                        {
-                                            foreach (var element in Detail35.data)
+                                            else if (SearchBy.CompareTo("Particular Work Arrangement") == 0)
                                             {
-                                                clsParticular.RecordFound = true;
-                                                LeaveNoCol.Add(element.LeaveNo.ToString());
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                LeaveTypeIDCol.Add(element.LeaveTypeID.ToString());
-                                                CreditLimitCol.Add(element.CreditLimit.ToString());
-                                                LeaveCreditCol.Add(element.LeaveCredit.ToString());
+                                                foreach (var element in Detail35.data)
+                                                {
+                                                    clsParticular.RecordFound = true;
+                                                    WorkArrangementIDCol.Add(element.WorkArrangementID.ToString());
+                                                    WorkTypeIDCol.Add(element.WorkTypeID.ToString());
+                                                    CodeCol.Add(element.WorkTypeCode);
+                                                    DescriptionCol.Add(element.WorkTypeDesc);
+                                                    DateFromCol.Add(element.DateFrom);
+                                                    DateToCol.Add(element.DateTo);
+                                                    DurationCol.Add(element.Duration.ToString());
+                                                    DateTypeCol.Add(element.DateType);
+                                                    RemarksCol.Add(element.Remarks);
+                                                }
+
+                                                clsArray.WorkArrangementID = WorkArrangementIDCol.ToArray();
+                                                clsArray.WorkTypeID = WorkTypeIDCol.ToArray();
+                                                clsArray.Code = CodeCol.ToArray();
+                                                clsArray.Description = DescriptionCol.ToArray();
+                                                clsArray.DateFrom = DateFromCol.ToArray();
+                                                clsArray.DateTo = DateToCol.ToArray();
+                                                clsArray.Duration = DurationCol.ToArray();
+                                                clsArray.DateType = DateTypeCol.ToArray();
+                                                clsArray.Remarks = RemarksCol.ToArray();
+                                            }
+                                            else
+                                            {
+                                                foreach (var element in Detail35.data)
+                                                {
+                                                    clsParticular.RecordFound = true;
+                                                    clsParticular.ClassParticularID = int.Parse(element.ParticularID.ToString());
+                                                    clsParticular.ClassParticularTypeID = int.Parse(element.ParticularTypeID.ToString());
+                                                    clsParticular.ClassParticularDescription = element.ParticularDescription.ToString();
+                                                    clsParticular.ClassParticularName = element.ParticularName.ToString();
+                                                    clsParticular.ClassAddress = element.Address.ToString();
+                                                    clsParticular.ClassAddress2 = element.Address2.ToString();
+                                                    clsParticular.ClassAddress3 = element.Address3.ToString();
+                                                    clsParticular.ClassAddress4 = element.Address4.ToString();
+                                                    clsParticular.ClassContactPerson = element.ContactPerson.ToString();
+                                                    clsParticular.ClassTelNo = element.TelNo.ToString();
+                                                    clsParticular.ClassMobile = element.Mobile.ToString();
+                                                    clsParticular.ClassFax = element.Fax.ToString();
+                                                    clsParticular.ClassEmail = element.Email.ToString();
+                                                    clsParticular.ClassContractTerms = element.ContractTerms.ToString();
+                                                    clsParticular.ClassRegionID = int.Parse(element.RegionID.ToString());
+                                                    clsParticular.ClassRegionType = int.Parse(element.RegionType.ToString());
+                                                    clsParticular.ClassRegion = element.Region.ToString();
+                                                    clsParticular.ClassProvince = element.Province.ToString();
+
+                                                    clsParticular.ClassEmploymentStatus = element.EmploymentStatus.ToString();
+                                                    clsParticular.ClassDepartmentID = int.Parse(element.DepartmentID.ToString());
+                                                    clsParticular.ClassDepartment = element.Department.ToString();
+                                                    clsParticular.ClassPositionID = int.Parse(element.PositionID.ToString());
+                                                    clsParticular.ClassPosition = element.Position.ToString();
+                                                    clsParticular.ClassCode = element.Code.ToString();
+
+                                                    clsParticular.ClassComputerName = element.ComputerName;
+                                                    clsParticular.ClassisActive = (element.isActive > 0 ? true : false);
+                                                    clsParticular.ClassisWorkArrangement = (element.isWorkArrangement > 0 ? true : false);
+                                                    clsParticular.ClassisTimeSheet = (element.isTimeSheet > 0 ? true : false);
+                                                    clsParticular.ClassisAppVersion = (element.isAppVersion > 0 ? true : false);
+
+                                                    // POS Rental
+                                                    clsParticular.ClassRentalType = int.Parse(element.RentalType.ToString());
+                                                    clsParticular.ClassRentalTerms = int.Parse(element.RentalTerms.ToString());
+                                                    clsParticular.ClassAccountNo = element.AccountNo.ToString();
+                                                    clsParticular.ClassCustomerNo = element.CustomerNo.ToString();
+
+                                                    // Zoning
+                                                    clsParticular.ClassZoneID = element.ZoneID;
+
+                                                }
+                                            }
+
+                                            break;
+                                    }
+
+                                    break;
+
+                                case "Expenses":
+                                    ExpensesDetailOnline Detail36 = JsonConvert.DeserializeObject<ExpensesDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
+                                    clsExpenses.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail36.data)
+                                            {
+                                                clsExpenses.RecordFound = true;
+                                                clsExpenses.ClassExpensesID = element.ExpensesID;
+                                                clsExpenses.ClassDescription = element.Description;
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail36.data)
+                                            {
+                                                clsExpenses.RecordFound = true;
+                                                IDCol.Add(element.ExpensesID.ToString());
+                                                DescriptionCol.Add(element.Description);
+                                            }
+
+                                            clsArray.ExpensesID = IDCol.ToArray();
+                                            clsArray.ExpensesDescription = DescriptionCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+                                case "ERM":
+                                    FSRDetailOnline Detail37 = JsonConvert.DeserializeObject<FSRDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsFSR.RecordFound = false;
+
+                                    FSRNoCol.Clear();
+                                    FSRIDCol.Clear();
+                                    MerchantCol.Clear();
+                                    MIDCol.Clear();
+                                    TIDCol.Clear();
+                                    TimeArrivedCol.Clear();
+                                    TimeStartCol.Clear();
+                                    FSRCol.Clear();
+                                    FSRDateCol.Clear();
+                                    FSRTimeCol.Clear();
+                                    MerchantContactNoCol.Clear();
+                                    MerchantRepresentativeCol.Clear();
+                                    DateFromCol.Clear();
+                                    DateToCol.Clear();
+                                    NRICCol.Clear();
+                                    AdditionalInformationCol.Clear();
+
+                                    if (SearchBy.CompareTo("ERM Temp Detail Date Filter") == 0)
+                                    {
+                                        foreach (var element in Detail37.data)
+                                        {
+                                            clsFSR.RecordFound = true;
+                                            DateFromCol.Add(element.DateFrom);
+                                            DateToCol.Add(element.DateTo);
+                                        }
+
+                                        clsArray.DateFrom = DateFromCol.ToArray();
+                                        clsArray.DateTo = DateToCol.ToArray();
+                                    }
+                                    else
+                                    {
+                                        foreach (var element in Detail37.data)
+                                        {
+                                            clsFSR.RecordFound = true;
+                                            FSRNoCol.Add(element.FSRNo.ToString());
+                                            NoCol.Add(element.No.ToString());
+                                            MerchantCol.Add(element.Merchant);
+                                            MIDCol.Add(element.MID.Trim());
+                                            TIDCol.Add(element.TID);
+                                            InvoiceNoCol.Add(element.InvoiceNo);
+                                            BatchNoCol.Add(element.BatchNo);
+                                            FSRCol.Add(element.FSR);
+                                            FSRDateCol.Add(element.FSRDate);
+                                            FSRTimeCol.Add(element.FSRTime);
+                                            TxnAmtCol.Add(element.TxnAmt);
+                                            AuthCodeCol.Add(element.AuthCode);
+                                            RefNoCol.Add(element.RefNo);
+                                            MerchantContactNoCol.Add(element.MerchantContactNo);
+                                            MerchantRepresentativeCol.Add(element.MerchantRepresentative);
+                                            NRICCol.Add(element.NRIC);
+                                            AdditionalInformationCol.Add(element.AdditionalInformation);
+
+                                        }
+                                        clsArray.FSRNo = FSRNoCol.ToArray();
+                                        clsArray.No = NoCol.ToArray();
+                                        clsArray.MerchantName = MerchantCol.ToArray();
+                                        clsArray.MID = MIDCol.ToArray();
+                                        clsArray.TID = TIDCol.ToArray();
+                                        clsArray.InvoiceNo = InvoiceNoCol.ToArray();
+                                        clsArray.BatchNo = BatchNoCol.ToArray();
+                                        clsArray.FSR = FSRCol.ToArray();
+                                        clsArray.FSRDate = FSRDateCol.ToArray();
+                                        clsArray.FSRTime = FSRTimeCol.ToArray();
+                                        clsArray.TxnAmt = TxnAmtCol.ToArray();
+                                        clsArray.AuthCode = AuthCodeCol.ToArray();
+                                        clsArray.RefNo = RefNoCol.ToArray();
+                                        clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
+                                        clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
+                                        clsArray.NRIC = NRICCol.ToArray();
+                                        clsArray.AdditionalInformation = AdditionalInformationCol.ToArray();
+
+                                    }
+
+                                    break;
+
+                                case "Type":
+                                    TypeDetailOnline Detail38 = JsonConvert.DeserializeObject<TypeDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+                                    clsType.RecordFound = false;
+
+                                    IDCol.Clear();
+                                    CodeCol.Clear();
+                                    DescriptionCol.Clear();
+                                    RemarksCol.Clear();
+                                    QueryStringCol.Clear();
+                                    TypeValueCol.Clear();
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail38.data)
+                                            {
+                                                clsType.RecordFound = true;
+                                                clsType.ClassTypeID = element.TypeID;
+                                                clsType.Description = element.Description;
+                                            }
+                                            break;
+                                        case "View":
+                                            if (SearchBy.Equals("WorkType"))
+                                            {
+                                                foreach (var element in Detail38.data)
+                                                {
+                                                    clsType.RecordFound = true;
+                                                    IDCol.Add(element.WorkTypeID.ToString());
+                                                    CodeCol.Add(element.Code);
+                                                    DescriptionCol.Add(element.Description);
+                                                    RemarksCol.Add(element.Remarks);
+                                                    QueryStringCol.Add(element.QueryString);
+                                                    TypeValueCol.Add(element.TypeValue.ToString());
+
+                                                }
+
+                                                clsArray.WorkTypeID = IDCol.ToArray();
+                                                clsArray.Code = CodeCol.ToArray();
+                                                clsArray.Description = DescriptionCol.ToArray();
+                                                clsArray.TypeRemarks = RemarksCol.ToArray();
+                                                clsArray.TypeQueryString = QueryStringCol.ToArray();
+                                                clsArray.TypeValue = TypeValueCol.ToArray();
+
+                                            }
+                                            else if ((SearchBy.Equals("Type")) ||
+                                                    (SearchBy.Equals("Type List")) ||
+                                                    (SearchBy.Equals("Rental Fee List")) ||
+                                                    (SearchBy.Equals("Issue Category")) ||
+                                                    (SearchBy.Equals("All Type")))
+                                            {
+                                                foreach (var element in Detail38.data)
+                                                {
+                                                    clsType.RecordFound = true;
+                                                    IDCol.Add(element.TypeID.ToString());
+                                                    CodeCol.Add(element.Code);
+                                                    DescriptionCol.Add(element.Description);
+                                                    RemarksCol.Add(element.Remarks);
+                                                    QueryStringCol.Add(element.QueryString);
+                                                    TypeValueCol.Add(element.TypeValue.ToString());
+
+                                                    clsSearch.ClassCarrierList += element.Description; // carrier list
+                                                }
+
+                                                clsArray.TypeID = IDCol.ToArray();
+                                                clsArray.Code = CodeCol.ToArray();
+                                                clsArray.TypeDescription = DescriptionCol.ToArray();
+                                                clsArray.TypeRemarks = RemarksCol.ToArray();
+                                                clsArray.TypeQueryString = QueryStringCol.ToArray();
+                                                clsArray.TypeValue = TypeValueCol.ToArray();
+
+                                            }
+                                            else
+                                            {
+                                                foreach (var element in Detail38.data)
+                                                {
+                                                    clsType.RecordFound = true;
+                                                    IDCol.Add(element.TypeID.ToString());
+                                                    CodeCol.Add(element.Code);
+                                                    DescriptionCol.Add(element.Description);
+                                                    RemarksCol.Add(element.Remarks);
+                                                    QueryStringCol.Add(element.QueryString);
+
+                                                    clsSearch.ClassCarrierList += element.Description; // carrier list
+                                                }
+
+                                                clsArray.TypeID = IDCol.ToArray();
+                                                clsArray.Code = CodeCol.ToArray();
+                                                clsArray.TypeDescription = DescriptionCol.ToArray();
+                                                clsArray.TypeRemarks = RemarksCol.ToArray();
+                                                clsArray.TypeQueryString = QueryStringCol.ToArray();
+                                            }
+
+                                            break;
+                                    }
+                                    break;
+
+                                case "Get Total":
+                                    TerminalDetailOnline Detail39 = JsonConvert.DeserializeObject<TerminalDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
+
+                                    Debug.WriteLine("MaintenanceType=" + MaintenanceType);
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail39.data)
+                                            {
+                                                Debug.WriteLine("clsTerminal.element=" + element.TerminalCount);
+
+                                                if (MaintenanceType.Equals("Get Count"))
+                                                    clsTerminal.ClassTerminalCount = int.Parse(element.TerminalCount);
+
+                                                if (MaintenanceType.Equals("Get Total"))
+                                                    clsTerminal.ClassTerminalTotal = double.Parse(element.TerminalCount);
+                                            }
+
+                                            break;
+                                    }
+
+                                    Debug.WriteLine("clsTerminal.ClassTerminalCount=" + clsTerminal.ClassTerminalCount);
+                                    Debug.WriteLine("clsTerminal.ClassTerminalTotal=" + clsTerminal.ClassTerminalTotal);
+                                    break;
+
+                                case "Holiday":
+                                    CollectionDataDetailOnline Detail40 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
+                                    clsHoliday.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail40.data)
+                                            {
+                                                clsHoliday.RecordFound = true;
+                                                clsHoliday.ClassHolidayID = element.HolidayID;
+                                                clsHoliday.ClassHolidayDate = element.HolidayDate;
+                                                clsHoliday.ClassDescription = element.Description;
+                                                clsHoliday.ClassisActive = element.isActive;
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail40.data)
+                                            {
+                                                clsHoliday.RecordFound = true;
+                                                IDCol.Add(element.HolidayID.ToString());
+                                                HolidayDateCol.Add(element.HolidayDate);
+                                                DescriptionCol.Add(element.Description);
+                                                isActiveCol.Add(element.isActive.ToString());
+                                            }
+
+                                            clsArray.HolidayID = IDCol.ToArray();
+                                            clsArray.HolidayDate = HolidayDateCol.ToArray();
+                                            clsArray.HolidayDesc = DescriptionCol.ToArray();
+                                            clsArray.HolidayisActive = isActiveCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+
+                                case "LeaveType":
+                                    CollectionDataDetailOnline Detail41 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
+                                    clsLeaveType.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail41.data)
+                                            {
+                                                clsLeaveType.RecordFound = true;
+                                                clsLeaveType.ClassLeaveTypeID = element.LeaveTypeID;
+                                                clsLeaveType.ClassCode = element.Code;
+                                                clsLeaveType.ClassDescription = element.Description;
+                                                clsLeaveType.ClassCreditLimit = element.CreditLimit;
+                                                clsLeaveType.ClassisActive = element.isActive;
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail41.data)
+                                            {
+                                                clsLeaveType.RecordFound = true;
+                                                IDCol.Add(element.LeaveTypeID.ToString());
                                                 CodeCol.Add(element.Code);
                                                 DescriptionCol.Add(element.Description);
-                                                RemarksCol.Add(element.Remarks);
+                                                CreditLimitCol.Add(element.CreditLimit.ToString());
+                                                isActiveCol.Add(element.isActive.ToString());
                                             }
 
-                                            clsArray.LeaveNo = LeaveNoCol.ToArray();
-                                            clsArray.ParticularID = ParticularIDCol.ToArray();
-                                            clsArray.LeaveTypeID = LeaveTypeIDCol.ToArray();
-                                            clsArray.LeaveTypeCreditLimit = CreditLimitCol.ToArray();
-                                            clsArray.LeaveCredit = LeaveCreditCol.ToArray();
+                                            clsArray.LeaveTypeID = IDCol.ToArray();
                                             clsArray.LeaveTypeCode = CodeCol.ToArray();
                                             clsArray.LeaveTypeDesc = DescriptionCol.ToArray();
-                                            clsArray.Remarks = RemarksCol.ToArray();
-                                        }
-                                        else if (SearchBy.CompareTo("Particular Leave Movement") == 0)
-                                        {
-                                            foreach (var element in Detail35.data)
+                                            clsArray.LeaveTypeCreditLimit = CreditLimitCol.ToArray();
+                                            clsArray.LeaveTypeisActive = isActiveCol.ToArray();
+                                            break;
+                                    }
+                                    break;
+
+                                case "Department":
+                                    CollectionDataDetailOnline Detail42 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
+                                    clsDepartment.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail42.data)
                                             {
-                                                clsParticular.RecordFound = true;
-                                                LeaveNoCol.Add(element.LeaveNo.ToString());
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                LeaveTypeIDCol.Add(element.LeaveTypeID.ToString());
-                                                DateFromCol.Add(element.DateFrom.ToString());
-                                                DateToCol.Add(element.DateTo.ToString());
-                                                DurationCol.Add(element.Duration.ToString());
-                                                ProcessedByCol.Add(element.ProcessedBy);
-                                                ProcessedDateTimeCol.Add(element.ProcessedDateTime);
-                                                ModifiedByCol.Add(element.ModifiedBy);
-                                                ModifiedDateTimeCol.Add(element.ModifiedDateTime);
-                                                DateTypeCol.Add(element.DateType);
-                                                RemarksCol.Add(element.Remarks);
+                                                clsDepartment.RecordFound = true;
+                                                clsDepartment.ClassDepartmentID = element.DepartmentID;
+                                                clsDepartment.ClassDescription = element.Description;
+                                                clsDepartment.ClassisActive = element.isActive;
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail42.data)
+                                            {
+                                                clsDepartment.RecordFound = true;
+                                                IDCol.Add(element.DepartmentID.ToString());
+                                                DescriptionCol.Add(element.Description);
                                                 isActiveCol.Add(element.isActive.ToString());
-                                                LeaveCodeCol.Add(element.LeaveCode);
-                                                LeaveDescCol.Add(element.LeaveDesc);
-                                                ReasonIDCol.Add(element.ReasonID.ToString());
-                                                ReasonCodeCol.Add(element.ReasonCode);
-                                                ReasonDescriptionCol.Add(element.ReasonDesc);
-
                                             }
 
-                                            clsArray.LeaveNo = LeaveNoCol.ToArray();
-                                            clsArray.ParticularID = ParticularIDCol.ToArray();
-                                            clsArray.LeaveTypeID = LeaveTypeIDCol.ToArray();
-                                            clsArray.DateFrom = DateFromCol.ToArray();
-                                            clsArray.DateTo = DateToCol.ToArray();
-                                            clsArray.Duration = DurationCol.ToArray();
-                                            clsArray.ProcessedBy = ProcessedByCol.ToArray();
-                                            clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
-                                            clsArray.ModifiedBy = ModifiedByCol.ToArray();
-                                            clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
-                                            clsArray.DateType = DateTypeCol.ToArray();
-                                            clsArray.Remarks = RemarksCol.ToArray();
-                                            clsArray.isActive = isActiveCol.ToArray();
-                                            clsArray.LeaveTypeCode = LeaveCodeCol.ToArray();
-                                            clsArray.LeaveTypeDesc = LeaveDescCol.ToArray();
-                                            clsArray.ReasonID = ReasonIDCol.ToArray();
-                                            clsArray.ReasonCode = ReasonCodeCol.ToArray();
-                                            clsArray.ReasonDescription = ReasonDescriptionCol.ToArray();
-
-                                        }
-                                        else if (SearchBy.CompareTo("Particular Work Arrangement") == 0)
-                                        {
-                                            foreach (var element in Detail35.data)
-                                            {
-                                                clsParticular.RecordFound = true;
-                                                WorkArrangementIDCol.Add(element.WorkArrangementID.ToString());
-                                                WorkTypeIDCol.Add(element.WorkTypeID.ToString());
-                                                CodeCol.Add(element.WorkTypeCode);
-                                                DescriptionCol.Add(element.WorkTypeDesc);
-                                                DateFromCol.Add(element.DateFrom);
-                                                DateToCol.Add(element.DateTo);
-                                                DurationCol.Add(element.Duration.ToString());
-                                                DateTypeCol.Add(element.DateType);
-                                                RemarksCol.Add(element.Remarks);
-                                            }
-
-                                            clsArray.WorkArrangementID = WorkArrangementIDCol.ToArray();
-                                            clsArray.WorkTypeID = WorkTypeIDCol.ToArray();
-                                            clsArray.Code = CodeCol.ToArray();
-                                            clsArray.Description = DescriptionCol.ToArray();
-                                            clsArray.DateFrom = DateFromCol.ToArray();
-                                            clsArray.DateTo = DateToCol.ToArray();
-                                            clsArray.Duration = DurationCol.ToArray();
-                                            clsArray.DateType = DateTypeCol.ToArray();
-                                            clsArray.Remarks = RemarksCol.ToArray();
-                                        }
-                                        else
-                                        {
-                                            foreach (var element in Detail35.data)
-                                            {
-                                                clsParticular.RecordFound = true;
-                                                clsParticular.ClassParticularID = int.Parse(element.ParticularID.ToString());
-                                                clsParticular.ClassParticularTypeID = int.Parse(element.ParticularTypeID.ToString());
-                                                clsParticular.ClassParticularDescription = element.ParticularDescription.ToString();
-                                                clsParticular.ClassParticularName = element.ParticularName.ToString();
-                                                clsParticular.ClassAddress = element.Address.ToString();
-                                                clsParticular.ClassAddress2 = element.Address2.ToString();
-                                                clsParticular.ClassAddress3 = element.Address3.ToString();
-                                                clsParticular.ClassAddress4 = element.Address4.ToString();
-                                                clsParticular.ClassContactPerson = element.ContactPerson.ToString();
-                                                clsParticular.ClassTelNo = element.TelNo.ToString();
-                                                clsParticular.ClassMobile = element.Mobile.ToString();
-                                                clsParticular.ClassFax = element.Fax.ToString();
-                                                clsParticular.ClassEmail = element.Email.ToString();
-                                                clsParticular.ClassContractTerms = element.ContractTerms.ToString();
-                                                clsParticular.ClassRegionID = int.Parse(element.RegionID.ToString());
-                                                clsParticular.ClassRegionType = int.Parse(element.RegionType.ToString());
-                                                clsParticular.ClassRegion = element.Region.ToString();
-                                                clsParticular.ClassProvince = element.Province.ToString();
-
-                                                clsParticular.ClassEmploymentStatus = element.EmploymentStatus.ToString();
-                                                clsParticular.ClassDepartmentID = int.Parse(element.DepartmentID.ToString());
-                                                clsParticular.ClassDepartment = element.Department.ToString();
-                                                clsParticular.ClassPositionID = int.Parse(element.PositionID.ToString());
-                                                clsParticular.ClassPosition = element.Position.ToString();
-                                                clsParticular.ClassCode = element.Code.ToString();
-
-                                                clsParticular.ClassComputerName = element.ComputerName;
-                                                clsParticular.ClassisActive = (element.isActive > 0 ? true : false);
-                                                clsParticular.ClassisWorkArrangement = (element.isWorkArrangement > 0 ? true : false);
-                                                clsParticular.ClassisTimeSheet = (element.isTimeSheet > 0 ? true : false);
-                                                clsParticular.ClassisAppVersion = (element.isAppVersion > 0 ? true : false);
-
-                                                // POS Rental
-                                                clsParticular.ClassRentalType = int.Parse(element.RentalType.ToString());
-                                                clsParticular.ClassRentalTerms = int.Parse(element.RentalTerms.ToString());
-                                                clsParticular.ClassAccountNo = element.AccountNo.ToString();
-                                                clsParticular.ClassCustomerNo = element.CustomerNo.ToString();
-
-                                                // Zoning
-                                                clsParticular.ClassZoneID = element.ZoneID;
-
-                                            }
-                                        }
-                                        
-                                        break;
-                                }
-
-                                break;
-
-                            case "Expenses":
-                                ExpensesDetailOnline Detail36 = JsonConvert.DeserializeObject<ExpensesDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
-                                clsExpenses.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail36.data)
-                                        {
-                                            clsExpenses.RecordFound = true;
-                                            clsExpenses.ClassExpensesID = element.ExpensesID;
-                                            clsExpenses.ClassDescription = element.Description;
-                                        }
-                                        break;
-                                    case "View":                                        
-                                        foreach (var element in Detail36.data)
-                                        {
-                                            clsExpenses.RecordFound = true;
-                                            IDCol.Add(element.ExpensesID.ToString());
-                                            DescriptionCol.Add(element.Description);                                            
-                                        }
-
-                                        clsArray.ExpensesID = IDCol.ToArray();                                        
-                                        clsArray.ExpensesDescription = DescriptionCol.ToArray();
-                                        break;
-                                }
-                                break;
-                            case "ERM":
-                                FSRDetailOnline Detail37 = JsonConvert.DeserializeObject<FSRDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsFSR.RecordFound = false;
-
-                                FSRNoCol.Clear();
-                                FSRIDCol.Clear();
-                                MerchantCol.Clear();
-                                MIDCol.Clear();
-                                TIDCol.Clear();
-                                TimeArrivedCol.Clear();
-                                TimeStartCol.Clear();
-                                FSRCol.Clear();
-                                FSRDateCol.Clear();
-                                FSRTimeCol.Clear();
-                                MerchantContactNoCol.Clear();
-                                MerchantRepresentativeCol.Clear();
-                                DateFromCol.Clear();
-                                DateToCol.Clear();
-                                NRICCol.Clear();
-                                AdditionalInformationCol.Clear();
-
-                                if (SearchBy.CompareTo("ERM Temp Detail Date Filter") == 0)
-                                {
-                                    foreach (var element in Detail37.data)
-                                    {
-                                        clsFSR.RecordFound = true;
-                                        DateFromCol.Add(element.DateFrom);
-                                        DateToCol.Add(element.DateTo);
+                                            clsArray.DepartmentID = IDCol.ToArray();
+                                            clsArray.DepartmentDesc = DescriptionCol.ToArray();
+                                            clsArray.DepartmentisActive = isActiveCol.ToArray();
+                                            break;
                                     }
+                                    break;
 
-                                    clsArray.DateFrom = DateFromCol.ToArray();
-                                    clsArray.DateTo = DateToCol.ToArray();
-                                }
-                                else
-                                {
-                                    foreach (var element in Detail37.data)
+                                case "Position":
+                                    CollectionDataDetailOnline Detail43 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
+                                    clsPosition.RecordFound = false;
+
+                                    switch (StatementType)
                                     {
-                                        clsFSR.RecordFound = true;
-                                        FSRNoCol.Add(element.FSRNo.ToString());
-                                        NoCol.Add(element.No.ToString());
-                                        MerchantCol.Add(element.Merchant);
-                                        MIDCol.Add(element.MID.Trim());
-                                        TIDCol.Add(element.TID);
-                                        InvoiceNoCol.Add(element.InvoiceNo);
-                                        BatchNoCol.Add(element.BatchNo);
-                                        FSRCol.Add(element.FSR);
-                                        FSRDateCol.Add(element.FSRDate);
-                                        FSRTimeCol.Add(element.FSRTime);
-                                        TxnAmtCol.Add(element.TxnAmt);                                        
-                                        AuthCodeCol.Add(element.AuthCode);
-                                        RefNoCol.Add(element.RefNo);
-                                        MerchantContactNoCol.Add(element.MerchantContactNo);
-                                        MerchantRepresentativeCol.Add(element.MerchantRepresentative);
-                                        NRICCol.Add(element.NRIC);
-                                        AdditionalInformationCol.Add(element.AdditionalInformation);
+                                        case "Search":
+                                            foreach (var element in Detail43.data)
+                                            {
+                                                clsPosition.RecordFound = true;
+                                                clsPosition.ClassPositionID = element.PositionID;
+                                                clsPosition.ClassDescription = element.Description;
+                                                clsPosition.ClassisActive = element.isActive;
+                                            }
+                                            break;
+                                        case "View":
+                                            foreach (var element in Detail43.data)
+                                            {
+                                                clsPosition.RecordFound = true;
+                                                IDCol.Add(element.PositionID.ToString());
+                                                DescriptionCol.Add(element.Description);
+                                                isActiveCol.Add(element.isActive.ToString());
+                                            }
 
+                                            clsArray.PositionID = IDCol.ToArray();
+                                            clsArray.PositionDesc = DescriptionCol.ToArray();
+                                            clsArray.PositionisActive = isActiveCol.ToArray();
+                                            break;
                                     }
-                                    clsArray.FSRNo = FSRNoCol.ToArray();
-                                    clsArray.No = NoCol.ToArray();
-                                    clsArray.MerchantName = MerchantCol.ToArray();
-                                    clsArray.MID = MIDCol.ToArray();
-                                    clsArray.TID = TIDCol.ToArray();
-                                    clsArray.InvoiceNo = InvoiceNoCol.ToArray();
-                                    clsArray.BatchNo = BatchNoCol.ToArray();
-                                    clsArray.FSR = FSRCol.ToArray();
-                                    clsArray.FSRDate = FSRDateCol.ToArray();
-                                    clsArray.FSRTime = FSRTimeCol.ToArray();
-                                    clsArray.TxnAmt = TxnAmtCol.ToArray();
-                                    clsArray.AuthCode = AuthCodeCol.ToArray();
-                                    clsArray.RefNo = RefNoCol.ToArray();
-                                    clsArray.MerchantContactNo = MerchantContactNoCol.ToArray();
-                                    clsArray.MerchantRepresentative = MerchantRepresentativeCol.ToArray();
-                                    clsArray.NRIC = NRICCol.ToArray();
-                                    clsArray.AdditionalInformation = AdditionalInformationCol.ToArray();
+                                    break;
 
-                                }
-                                
-                                break;
+                                case "TimeSheet":
+                                    CollectionDataDetailOnline Detail44 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
+                                    clsSearch.RecordFound = false;
 
-                            case "Type":
-                                TypeDetailOnline Detail38 = JsonConvert.DeserializeObject<TypeDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-                                clsType.RecordFound = false;
-
-                                IDCol.Clear();
-                                CodeCol.Clear();
-                                DescriptionCol.Clear();
-                                RemarksCol.Clear();
-                                QueryStringCol.Clear();
-                                TypeValueCol.Clear();
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail38.data)
-                                        {
-                                            clsType.RecordFound = true;
-                                            clsType.ClassTypeID = element.TypeID;
-                                            clsType.Description = element.Description;
-                                        }
-                                        break;
-                                    case "View":
-                                        if (SearchBy.Equals("WorkType"))
-                                        {
-                                            foreach (var element in Detail38.data)
-                                            {
-                                                clsType.RecordFound = true;
-                                                IDCol.Add(element.WorkTypeID.ToString());
-                                                CodeCol.Add(element.Code);
-                                                DescriptionCol.Add(element.Description);
-                                                RemarksCol.Add(element.Remarks);
-                                                QueryStringCol.Add(element.QueryString);
-                                                TypeValueCol.Add(element.TypeValue.ToString());
-
-                                            }
-
-                                            clsArray.WorkTypeID = IDCol.ToArray();
-                                            clsArray.Code = CodeCol.ToArray();
-                                            clsArray.Description = DescriptionCol.ToArray();
-                                            clsArray.TypeRemarks = RemarksCol.ToArray();
-                                            clsArray.TypeQueryString = QueryStringCol.ToArray();
-                                            clsArray.TypeValue = TypeValueCol.ToArray();
-
-                                        }
-                                        else if ((SearchBy.Equals("Type")) ||
-                                                (SearchBy.Equals("Type List")) ||
-                                                (SearchBy.Equals("Rental Fee List")) ||
-                                                (SearchBy.Equals("Issue Category")) ||
-                                                (SearchBy.Equals("All Type")))
-                                        {
-                                            foreach (var element in Detail38.data)
-                                            {
-                                                clsType.RecordFound = true;
-                                                IDCol.Add(element.TypeID.ToString());
-                                                CodeCol.Add(element.Code);
-                                                DescriptionCol.Add(element.Description);
-                                                RemarksCol.Add(element.Remarks);
-                                                QueryStringCol.Add(element.QueryString);
-                                                TypeValueCol.Add(element.TypeValue.ToString());
-
-                                                clsSearch.ClassCarrierList += element.Description; // carrier list
-                                            }
-
-                                            clsArray.TypeID = IDCol.ToArray();
-                                            clsArray.Code = CodeCol.ToArray();
-                                            clsArray.TypeDescription = DescriptionCol.ToArray();
-                                            clsArray.TypeRemarks = RemarksCol.ToArray();
-                                            clsArray.TypeQueryString = QueryStringCol.ToArray();
-                                            clsArray.TypeValue = TypeValueCol.ToArray();
-
-                                        }                                       
-                                        else
-                                        {
-                                            foreach (var element in Detail38.data)
-                                            {
-                                                clsType.RecordFound = true;
-                                                IDCol.Add(element.TypeID.ToString());
-                                                CodeCol.Add(element.Code);
-                                                DescriptionCol.Add(element.Description);
-                                                RemarksCol.Add(element.Remarks);
-                                                QueryStringCol.Add(element.QueryString);
-
-                                                clsSearch.ClassCarrierList += element.Description; // carrier list
-                                            }
-
-                                            clsArray.TypeID = IDCol.ToArray();
-                                            clsArray.Code = CodeCol.ToArray();
-                                            clsArray.TypeDescription = DescriptionCol.ToArray();
-                                            clsArray.TypeRemarks = RemarksCol.ToArray();
-                                            clsArray.TypeQueryString = QueryStringCol.ToArray();
-                                        }
-                                        
-                                        break;
-                                }
-                                break;
-
-                            case "Get Total":
-                                TerminalDetailOnline Detail39 = JsonConvert.DeserializeObject<TerminalDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format
-
-                                Debug.WriteLine("MaintenanceType=" + MaintenanceType);
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail39.data)
-                                        {
-                                            Debug.WriteLine("clsTerminal.element=" + element.TerminalCount);
-
-                                            if (MaintenanceType.Equals("Get Count"))
-                                                clsTerminal.ClassTerminalCount = int.Parse(element.TerminalCount);
-
-                                            if (MaintenanceType.Equals("Get Total"))
-                                                clsTerminal.ClassTerminalTotal = double.Parse(element.TerminalCount);
-                                        }
-
-                                        break;
-                                }
-
-                                Debug.WriteLine("clsTerminal.ClassTerminalCount=" + clsTerminal.ClassTerminalCount);
-                                Debug.WriteLine("clsTerminal.ClassTerminalTotal=" + clsTerminal.ClassTerminalTotal);
-                                break;
-
-                            case "Holiday":
-                                CollectionDataDetailOnline Detail40 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
-                                clsHoliday.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail40.data)
-                                        {
-                                            clsHoliday.RecordFound = true;
-                                            clsHoliday.ClassHolidayID = element.HolidayID;
-                                            clsHoliday.ClassHolidayDate = element.HolidayDate;
-                                            clsHoliday.ClassDescription = element.Description;
-                                            clsHoliday.ClassisActive = element.isActive;
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail40.data)
-                                        {
-                                            clsHoliday.RecordFound = true;
-                                            IDCol.Add(element.HolidayID.ToString());
-                                            HolidayDateCol.Add(element.HolidayDate);
-                                            DescriptionCol.Add(element.Description);                                            
-                                            isActiveCol.Add(element.isActive.ToString());
-                                        }
-
-                                        clsArray.HolidayID = IDCol.ToArray();
-                                        clsArray.HolidayDate = HolidayDateCol.ToArray();
-                                        clsArray.HolidayDesc = DescriptionCol.ToArray();
-                                        clsArray.HolidayisActive = isActiveCol.ToArray();
-                                        break;
-                                }
-                                break;
-
-                            case "LeaveType":
-                                CollectionDataDetailOnline Detail41 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
-                                clsLeaveType.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail41.data)
-                                        {
-                                            clsLeaveType.RecordFound = true;
-                                            clsLeaveType.ClassLeaveTypeID = element.LeaveTypeID;
-                                            clsLeaveType.ClassCode = element.Code;
-                                            clsLeaveType.ClassDescription = element.Description;
-                                            clsLeaveType.ClassCreditLimit = element.CreditLimit;
-                                            clsLeaveType.ClassisActive = element.isActive;
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail41.data)
-                                        {
-                                            clsLeaveType.RecordFound = true;
-                                            IDCol.Add(element.LeaveTypeID.ToString());
-                                            CodeCol.Add(element.Code);
-                                            DescriptionCol.Add(element.Description);
-                                            CreditLimitCol.Add(element.CreditLimit.ToString());
-                                            isActiveCol.Add(element.isActive.ToString());
-                                        }
-
-                                        clsArray.LeaveTypeID = IDCol.ToArray();
-                                        clsArray.LeaveTypeCode = CodeCol.ToArray();
-                                        clsArray.LeaveTypeDesc = DescriptionCol.ToArray();
-                                        clsArray.LeaveTypeCreditLimit = CreditLimitCol.ToArray();
-                                        clsArray.LeaveTypeisActive = isActiveCol.ToArray();
-                                        break;
-                                }
-                                break;
-
-                            case "Department":
-                                CollectionDataDetailOnline Detail42 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
-                                clsDepartment.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail42.data)
-                                        {
-                                            clsDepartment.RecordFound = true;
-                                            clsDepartment.ClassDepartmentID = element.DepartmentID;
-                                            clsDepartment.ClassDescription = element.Description;
-                                            clsDepartment.ClassisActive = element.isActive;
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail42.data)
-                                        {
-                                            clsDepartment.RecordFound = true;
-                                            IDCol.Add(element.DepartmentID.ToString());
-                                            DescriptionCol.Add(element.Description);
-                                            isActiveCol.Add(element.isActive.ToString());
-                                        }
-
-                                        clsArray.DepartmentID = IDCol.ToArray();
-                                        clsArray.DepartmentDesc = DescriptionCol.ToArray();
-                                        clsArray.DepartmentisActive = isActiveCol.ToArray();
-                                        break;
-                                }
-                                break;
-
-                            case "Position":
-                                CollectionDataDetailOnline Detail43 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
-                                clsPosition.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail43.data)
-                                        {
-                                            clsPosition.RecordFound = true;
-                                            clsPosition.ClassPositionID = element.PositionID;
-                                            clsPosition.ClassDescription = element.Description;
-                                            clsPosition.ClassisActive = element.isActive;
-                                        }
-                                        break;
-                                    case "View":
-                                        foreach (var element in Detail43.data)
-                                        {
-                                            clsPosition.RecordFound = true;
-                                            IDCol.Add(element.PositionID.ToString());
-                                            DescriptionCol.Add(element.Description);
-                                            isActiveCol.Add(element.isActive.ToString());
-                                        }
-
-                                        clsArray.PositionID = IDCol.ToArray();
-                                        clsArray.PositionDesc = DescriptionCol.ToArray();
-                                        clsArray.PositionisActive = isActiveCol.ToArray();
-                                        break;
-                                }
-                                break;
-
-                            case "TimeSheet":
-                                CollectionDataDetailOnline Detail44 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
-                                clsSearch.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail44.data)
-                                        {
-                                            clsSearch.RecordFound = true;
-                                        }
-                                        break;
-                                    case "View":
-
-                                        if (SearchBy.Equals("TimeSheet"))
-                                        {
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
                                             foreach (var element in Detail44.data)
                                             {
                                                 clsSearch.RecordFound = true;
-                                                TimeSheetIDCol.Add(element.TimeSheetID.ToString());
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                TimeSheetDateCol.Add(element.TSDate);
-                                                TimeInCol.Add(element.TimeIn);
-                                                TimeOutCol.Add(element.TimeOut);
-                                                THoursCol.Add(element.THours);
-                                                TTimeCol.Add(element.TTime);
-                                                TimeStatusCol.Add(element.TimeStatus);
-                                                PositionIDCol.Add(element.PositionID.ToString());
-                                                PositionCol.Add(element.Position);
-                                                DepartmentIDCol.Add(element.DepartmentID.ToString());
-                                                DepartmentCol.Add(element.Department);
-                                                WorkTypeIDCol.Add(element.WorkTypeID.ToString());
-                                                WorkTypeCol.Add(element.WorkType);
-                                                EmploymentStatusCol.Add(element.EmploymentStatus);
                                             }
+                                            break;
+                                        case "View":
 
-                                            clsArray.TimeSheetID = TimeSheetIDCol.ToArray();
-                                            clsArray.ParticularID = ParticularIDCol.ToArray();
-                                            clsArray.TimeSheetDate = TimeSheetDateCol.ToArray();
-                                            clsArray.TimeIn = TimeInCol.ToArray();
-                                            clsArray.TimeOut = TimeOutCol.ToArray();
-                                            clsArray.THours = THoursCol.ToArray();
-                                            clsArray.TTime = TTimeCol.ToArray();
-                                            clsArray.TimeStatus = TimeStatusCol.ToArray();
-                                            clsArray.PositionID = PositionIDCol.ToArray();
-                                            clsArray.PositionDesc = PositionCol.ToArray();
-                                            clsArray.DepartmentID = DepartmentIDCol.ToArray();
-                                            clsArray.DepartmentDesc = DepartmentCol.ToArray();
-                                            clsArray.WorkTypeID = WorkTypeIDCol.ToArray();
-                                            clsArray.WorkType = WorkTypeCol.ToArray();
-                                            clsArray.EmploymentStatus = EmploymentStatusCol.ToArray();
-
-                                        }
-                                        else
-                                        {
-                                            foreach (var element in Detail44.data)
+                                            if (SearchBy.Equals("TimeSheet"))
                                             {
-                                                clsSearch.RecordFound = true;
-                                                TimeSheetIDCol.Add(element.TimeSheetID.ToString());
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                TimeSheetDateCol.Add(element.TimeSheetDate);
-                                                TimeInCol.Add(element.TimeIn);
-                                                TimeOutCol.Add(element.TimeOut);
-                                                ComputerNameCol.Add(element.ComputerName);
-                                                LocalIPCol.Add(element.LocalIP);
-                                                TerminalIDCol.Add(element.TerminalID);
-                                                TerminalNameCol.Add(element.TerminalName);
-                                            }
+                                                foreach (var element in Detail44.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    TimeSheetIDCol.Add(element.TimeSheetID.ToString());
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    TimeSheetDateCol.Add(element.TSDate);
+                                                    TimeInCol.Add(element.TimeIn);
+                                                    TimeOutCol.Add(element.TimeOut);
+                                                    THoursCol.Add(element.THours);
+                                                    TTimeCol.Add(element.TTime);
+                                                    TimeStatusCol.Add(element.TimeStatus);
+                                                    PositionIDCol.Add(element.PositionID.ToString());
+                                                    PositionCol.Add(element.Position);
+                                                    DepartmentIDCol.Add(element.DepartmentID.ToString());
+                                                    DepartmentCol.Add(element.Department);
+                                                    WorkTypeIDCol.Add(element.WorkTypeID.ToString());
+                                                    WorkTypeCol.Add(element.WorkType);
+                                                    EmploymentStatusCol.Add(element.EmploymentStatus);
+                                                }
 
-                                            clsArray.TimeSheetID = TimeSheetIDCol.ToArray();
-                                            clsArray.ParticularID = ParticularIDCol.ToArray();
-                                            clsArray.TimeSheetDate = TimeSheetDateCol.ToArray();
-                                            clsArray.TimeIn = TimeInCol.ToArray();
-                                            clsArray.TimeOut = TimeOutCol.ToArray();
-                                            clsArray.ComputerName = ComputerNameCol.ToArray();
-                                            clsArray.LocalIP = LocalIPCol.ToArray();
-                                            clsArray.TerminalID = TerminalIDCol.ToArray();
-                                            clsArray.TerminalName = TerminalNameCol.ToArray();
-                                        }
-
-                                        break;
-                                }
-                                break;
-
-                            case "Privacy":
-                                CollectionDataDetailOnline Detail45 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
-                                clsSearch.RecordFound = false;
-
-                                switch (StatementType)
-                                {                                    
-                                    case "View":
-                                        foreach (var element in Detail45.data)
-                                        {
-                                            clsSearch.RecordFound = true;
-                                            PrivacyIDCol.Add(element.PrivacyID.ToString());
-                                            FormCol.Add(element.Form);
-                                            DescriptionCol.Add(element.Description);
-                                            isAddCol.Add(element.isAdd.ToString());
-                                            isDeleteCol.Add(element.isDelete.ToString());
-                                            isUpdateCol.Add(element.isUpdate.ToString());
-                                            isViewCol.Add(element.isView.ToString());
-                                            isPrintCol.Add(element.isPrint.ToString());
-                                            isCheckedCol.Add(element.isChecked.ToString());
-                                        }
-
-                                        clsArray.PrivacyID = PrivacyIDCol.ToArray();
-                                        clsArray.Form = FormCol.ToArray();
-                                        clsArray.Description = DescriptionCol.ToArray();
-                                        clsArray.isAdd = isAddCol.ToArray();
-                                        clsArray.isDelete = isDeleteCol.ToArray();
-                                        clsArray.isUpdate = isUpdateCol.ToArray();
-                                        clsArray.isView = isViewCol.ToArray();
-                                        clsArray.isPrint = isPrintCol.ToArray();
-                                        clsArray.isChecked = isCheckedCol.ToArray();
-                                        break;
-                                }
-                                break;
-
-                            case "Advance Detail":
-                                CollectionDataDetailOnline Detail46 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
-                                clsSearch.RecordFound = false;
-
-                                switch (StatementType)
-                                {
-                                    case "View":
-
-                                        // Clear
-                                        IDCol.Clear();
-                                        TerminalIDCol.Clear();
-                                        TerminalNameCol.Clear();
-                                        CountryCol.Clear();
-                                        ParticularNameCol.Clear();
-                                        DescriptionCol.Clear();
-                                        
-                                        if (SearchBy.Equals("TimeSheet Terminal"))
-                                        {  
-                                            foreach (var element in Detail46.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-                                                IDCol.Add(element.ID.ToString());
-                                                TerminalIDCol.Add(element.TerminalID);
-                                                TerminalNameCol.Add(element.TerminalName);
-                                            }
-
-                                            clsArray.ID = IDCol.ToArray();
-                                            clsArray.TerminalID = TerminalIDCol.ToArray();
-                                            clsArray.TerminalName = TerminalNameCol.ToArray();
-                                        }
-
-                                        else if (SearchBy.Equals("Country"))
-                                        {
-                                            foreach (var element in Detail46.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-                                                IDCol.Add(element.ID.ToString());
-                                                CountryCol.Add(element.Country);
-                                            }
-
-                                            clsArray.ID = IDCol.ToArray();
-                                            clsArray.Country = CountryCol.ToArray();
-                                        }
-
-                                        else if (SearchBy.Equals("Particular"))
-                                        {
-                                            foreach (var element in Detail46.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-                                                IDCol.Add(element.ID.ToString());
-                                                ParticularNameCol.Add(element.ParticularName);
-                                            }
-
-                                            clsArray.ID = IDCol.ToArray();
-                                            clsArray.ParticularName = ParticularNameCol.ToArray();
-                                        }
-
-                                        else if (SearchBy.Equals("Invoice Master") || SearchBy.Equals("Invoice Master Range"))
-                                        {
-                                            foreach (var element in Detail46.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-                                                InvoiceIDCol.Add(element.InvoiceID.ToString());
-                                                ParticularIDCol.Add(element.ParticularID.ToString());
-                                                MerchantIDCol.Add(element.MerchantID.ToString());
-                                                InvoiceNoCol.Add(element.InvoiceNo);
-                                                AccountNoCol.Add(element.AccountNo);
-                                                CustomerNoCol.Add(element.CustomerNo);
-                                                ParticularNameCol.Add(element.ParticularName);
-                                                InvoiceDateCol.Add(element.InvoiceDate);
-                                                ReferenceNoCol.Add(element.ReferenceNo);
-                                                DateCoveredFromCol.Add(element.DateCoveredFrom);
-                                                DateCoveredToCol.Add(element.DateCoveredTo);
-                                                DateDueCol.Add(element.DateDue);
-                                                TAmtDueCol.Add(element.TAmtDue.ToString());
-                                                ProcessedByCol.Add(element.ProcessedBy);
-                                                ProcessedDateTimeCol.Add(element.ProcessedDateTime);
-                                                ModifiedByCol.Add(element.ModifiedBy);
-                                                ModifiedDateTimeCol.Add(element.ModifiedDateTime);
-                                                ModeOfPaymentCol.Add(element.ModeOfPayment.ToString());
-                                                NoteToCustomerCol.Add(element.NoteToCustomer);
-                                                NoteToSelfCol.Add(element.NoteToSelf);
+                                                clsArray.TimeSheetID = TimeSheetIDCol.ToArray();
+                                                clsArray.ParticularID = ParticularIDCol.ToArray();
+                                                clsArray.TimeSheetDate = TimeSheetDateCol.ToArray();
+                                                clsArray.TimeIn = TimeInCol.ToArray();
+                                                clsArray.TimeOut = TimeOutCol.ToArray();
+                                                clsArray.THours = THoursCol.ToArray();
+                                                clsArray.TTime = TTimeCol.ToArray();
+                                                clsArray.TimeStatus = TimeStatusCol.ToArray();
+                                                clsArray.PositionID = PositionIDCol.ToArray();
+                                                clsArray.PositionDesc = PositionCol.ToArray();
+                                                clsArray.DepartmentID = DepartmentIDCol.ToArray();
+                                                clsArray.DepartmentDesc = DepartmentCol.ToArray();
+                                                clsArray.WorkTypeID = WorkTypeIDCol.ToArray();
+                                                clsArray.WorkType = WorkTypeCol.ToArray();
+                                                clsArray.EmploymentStatus = EmploymentStatusCol.ToArray();
 
                                             }
-
-                                            clsArray.InvoiceID = InvoiceIDCol.ToArray();
-                                            clsArray.ParticularID = ParticularIDCol.ToArray();
-                                            clsArray.MerchantID = MerchantIDCol.ToArray();
-                                            clsArray.InvoiceNo = InvoiceNoCol.ToArray();
-                                            clsArray.AccountNo = AccountNoCol.ToArray();
-                                            clsArray.CustomerNo = CustomerNoCol.ToArray();
-                                            clsArray.ParticularName = ParticularNameCol.ToArray();
-                                            clsArray.InvoiceDate = InvoiceDateCol.ToArray();
-                                            clsArray.ReferenceNo = ReferenceNoCol.ToArray();
-                                            clsArray.DateCoveredFrom = DateCoveredFromCol.ToArray();
-                                            clsArray.DateCoveredTo = DateCoveredToCol.ToArray();
-                                            clsArray.DateDue = DateDueCol.ToArray();
-                                            clsArray.TAmtDue = TAmtDueCol.ToArray();
-                                            clsArray.ProcessedBy = ProcessedByCol.ToArray();
-                                            clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
-                                            clsArray.ModifiedBy = ModifiedByCol.ToArray();
-                                            clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
-                                            clsArray.ModeOfPayment = ModeOfPaymentCol.ToArray();
-                                            clsArray.NoteToCustomer = NoteToCustomerCol.ToArray();
-                                            clsArray.NoteToSelf = NoteToSelfCol.ToArray();
-                                            
-                                        }
-
-                                        else if (SearchBy.Equals("Profile Mapping") || SearchBy.Equals("eFSR Changes Mapping") || SearchBy.Equals("eFSR Changes Service"))
-                                        {
-                                            foreach (var element in Detail46.data)
+                                            else
                                             {
-                                                clsSearch.RecordFound = true;
-                                                MapIDCol.Add(element.MapID.ToString());
-                                                Detail_InfoCol.Add(element.detail_info);
+                                                foreach (var element in Detail44.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    TimeSheetIDCol.Add(element.TimeSheetID.ToString());
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    TimeSheetDateCol.Add(element.TimeSheetDate);
+                                                    TimeInCol.Add(element.TimeIn);
+                                                    TimeOutCol.Add(element.TimeOut);
+                                                    ComputerNameCol.Add(element.ComputerName);
+                                                    LocalIPCol.Add(element.LocalIP);
+                                                    TerminalIDCol.Add(element.TerminalID);
+                                                    TerminalNameCol.Add(element.TerminalName);
+                                                }
+
+                                                clsArray.TimeSheetID = TimeSheetIDCol.ToArray();
+                                                clsArray.ParticularID = ParticularIDCol.ToArray();
+                                                clsArray.TimeSheetDate = TimeSheetDateCol.ToArray();
+                                                clsArray.TimeIn = TimeInCol.ToArray();
+                                                clsArray.TimeOut = TimeOutCol.ToArray();
+                                                clsArray.ComputerName = ComputerNameCol.ToArray();
+                                                clsArray.LocalIP = LocalIPCol.ToArray();
+                                                clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                clsArray.TerminalName = TerminalNameCol.ToArray();
                                             }
 
-                                            clsArray.MapID = MapIDCol.ToArray();
-                                            clsArray.detail_info = Detail_InfoCol.ToArray();
-                                        }
+                                            break;
+                                    }
+                                    break;
 
-                                        else if (SearchBy.Equals("Service TerminalSN History List") || SearchBy.Equals("Service SIMSN History List"))
-                                        {
-                                            foreach (var element in Detail46.data)
+                                case "Privacy":
+                                    CollectionDataDetailOnline Detail45 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
+                                    clsSearch.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "View":
+                                            foreach (var element in Detail45.data)
                                             {
                                                 clsSearch.RecordFound = true;
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                Detail_InfoCol.Add(element.detail_info);
-                                            }
-
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                            clsArray.detail_info = Detail_InfoCol.ToArray();
-                                        }
-
-                                        else if (SearchBy.Equals("Mobile List"))
-                                        {
-                                            foreach (var element in Detail46.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-                                                IDCol.Add(element.MobileID.ToString());
-                                                Detail_InfoCol.Add(element.detail_info);
-                                            }
-
-                                            clsArray.MobileID = IDCol.ToArray();
-                                            clsArray.detail_info = Detail_InfoCol.ToArray();
-                                        }
-
-                                        else if (SearchBy.Equals("Generate FSR List"))
-                                        {
-                                            foreach (var element in Detail46.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-                                                FSRNoCol.Add(element.FSRNo.ToString());
-                                                ServiceNoCol.Add(element.ServiceNo.ToString());
-                                                IRIDNoCol.Add(element.IRIDNo.ToString());
-                                                IRNoCol.Add(element.IRNo);
-                                                MerchantIDCol.Add(element.MerchantID.ToString());
-                                                MerchantNameCol.Add(element.MerchantName);
-                                                MerchantEmailCol.Add(element.MerchantEmail);
-                                                ServiceJobTypeDescriptionCol.Add(element.ServiceJobTypeDescription);
-                                                FENameCol.Add(element.FEName);
-                                                FEEmailCol.Add(element.FEEmail);
-                                                FSRDateCol.Add(element.FSRDate);
-                                            }
-
-                                            clsArray.FSRNo = FSRNoCol.ToArray();
-                                            clsArray.ServiceNo = ServiceNoCol.ToArray();
-                                            clsArray.IRIDNo = IRIDNoCol.ToArray();
-                                            clsArray.IRNo = IRNoCol.ToArray();
-                                            clsArray.MerchantID = MerchantIDCol.ToArray();
-                                            clsArray.MerchantName = MerchantNameCol.ToArray();
-                                            clsArray.MerchantEmail = MerchantEmailCol.ToArray();
-                                            clsArray.ServiceJobTypeDescription = ServiceJobTypeDescriptionCol.ToArray();
-                                            clsArray.FEName = FENameCol.ToArray();
-                                            clsArray.FEEmail = FEEmailCol.ToArray();
-                                            clsArray.FSRDate = FSRDateCol.ToArray();
-                                        }
-
-                                        else if (SearchBy.Equals("Application Info List") || 
-                                            SearchBy.Equals("Diagnostic Master List") || 
-                                            SearchBy.Equals("Diagnostic Detail List") || 
-                                            SearchBy.Equals("Merchant Service Status List") ||
-                                            SearchBy.Equals("Particular By Position Type List") ||
-                                            SearchBy.Equals("Whos Online") ||
-                                            SearchBy.Equals("Whos eFSR Online") ||
-                                            SearchBy.Equals("Duplicate SN Merchant List") ||                                            
-                                            SearchBy.Equals("Stock Movement Detail List") ||
-                                            SearchBy.Equals("Failed Service List") ||
-                                            SearchBy.Equals("Type List") ||
-                                            SearchBy.Equals("Reason List") ||
-                                            SearchBy.Equals("Region Service Summary") ||
-                                            SearchBy.Equals("Import Master List") ||
-                                            SearchBy.Equals("MSP Master List") ||
-                                            SearchBy.Equals("MSP Detail List") ||
-                                            SearchBy.Equals("Unclosed Ticket List") ||
-                                            SearchBy.Equals("Helpdesk-Details") ||
-                                            SearchBy.Equals("Helpdesk-Master") ||
-                                            SearchBy.Equals("Helpdesk-JobType") ||
-                                            SearchBy.Equals("Mobile Terminal List") ||
-                                            SearchBy.Equals("Whos Dashboard Online") ||
-                                            SearchBy.Equals("Helpdesk Problem List") ||
-                                            SearchBy.Equals("Report Group") ||
-                                            SearchBy.Equals("Service Reversal-JobType") ||
-                                            SearchBy.Equals("ERM Settlement Report-Per Month") ||
-                                            SearchBy.Equals("ERM Settlement Report-Per Trans Type") ||
-                                            SearchBy.Equals("ERM Settlement Report-Per Top Sales") ||                                            
-                                            SearchBy.Equals("ERM Settlement Report-Per Qtr") ||
-                                            SearchBy.Equals("ERM Settlement Report-Summary") ||
-                                            SearchBy.Equals("ERM Settlement Report-Detail") ||
-                                            SearchBy.Equals("Inventory Bulk Cross-Check List") ||
-                                            SearchBy.Equals("Service Bulk Cross-Check List") ||
-                                            SearchBy.Equals("Billing-Type") ||
-                                            SearchBy.Equals("Expenses Service Detail") ||
-                                            SearchBy.Equals("FSR Service Detail") ||
-                                            SearchBy.Equals("ERM Settlement Report-Per Zero Trans") ||
-                                            SearchBy.Equals("Zoning Lookup") ||
-                                            SearchBy.Equals("Zoning List") ||
-                                            SearchBy.Equals("Location List") ||
-                                            SearchBy.Equals("Incentives Service Detail")
-                                            )
-                                        {
-                                            foreach (var element in Detail46.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-                                                IDCol.Add(element.ID.ToString());
-                                                Detail_InfoCol.Add(element.detail_info);
-                                            }
-
-                                            clsArray.ID = IDCol.ToArray();
-                                            clsArray.detail_info = Detail_InfoCol.ToArray();
-                                        }
-
-                                        else
-                                        {
-                                            // Default
-                                            IDCol.Add(clsFunction.sZero);
-                                            DescriptionCol.Add(clsFunction.sDefaultSelect);
-
-                                            foreach (var element in Detail46.data)
-                                            {
-                                                clsSearch.RecordFound = true;
-                                                IDCol.Add(element.ID.ToString());
+                                                PrivacyIDCol.Add(element.PrivacyID.ToString());
+                                                FormCol.Add(element.Form);
                                                 DescriptionCol.Add(element.Description);
+                                                isAddCol.Add(element.isAdd.ToString());
+                                                isDeleteCol.Add(element.isDelete.ToString());
+                                                isUpdateCol.Add(element.isUpdate.ToString());
+                                                isViewCol.Add(element.isView.ToString());
+                                                isPrintCol.Add(element.isPrint.ToString());
+                                                isCheckedCol.Add(element.isChecked.ToString());
                                             }
 
-                                            clsArray.ID = IDCol.ToArray();
+                                            clsArray.PrivacyID = PrivacyIDCol.ToArray();
+                                            clsArray.Form = FormCol.ToArray();
                                             clsArray.Description = DescriptionCol.ToArray();
-                                        }
+                                            clsArray.isAdd = isAddCol.ToArray();
+                                            clsArray.isDelete = isDeleteCol.ToArray();
+                                            clsArray.isUpdate = isUpdateCol.ToArray();
+                                            clsArray.isView = isViewCol.ToArray();
+                                            clsArray.isPrint = isPrintCol.ToArray();
+                                            clsArray.isChecked = isCheckedCol.ToArray();
+                                            break;
+                                    }
+                                    break;
 
-                                        break;
-                                }
-                                break;
+                                case "Advance Detail":
+                                    CollectionDataDetailOnline Detail46 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
+                                    clsSearch.RecordFound = false;
 
-                            case "Get Info Detail":
-                                clsSearch.ClassOutParamValue = clsFunction.sNull;
-                                CollectionDataDetailOnline Detail47 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
-                                clsSearch.RecordFound = false;
+                                    switch (StatementType)
+                                    {
+                                        case "View":
 
-                                switch (StatementType)
-                                {
-                                    case "Search":
-                                        foreach (var element in Detail47.data)
-                                        {
-                                            clsSearch.RecordFound = true;
-                                            clsSearch.ClassOutParamValue = element.outParamValue;
-                                        }
-                                        break;
-                                }
-                                break;
+                                            // Clear
+                                            IDCol.Clear();
+                                            TerminalIDCol.Clear();
+                                            TerminalNameCol.Clear();
+                                            CountryCol.Clear();
+                                            ParticularNameCol.Clear();
+                                            DescriptionCol.Clear();
 
-                            case "DeleteFileInfo":
-                            case "CheckFileInfo":
-                                clsSearch.ClassOutParamValue = clsFunction.sNull;
-                                CollectionDataDetailOnline Detail48 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
-                                clsSearch.RecordFound = false;
+                                            if (SearchBy.Equals("TimeSheet Terminal"))
+                                            {
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    IDCol.Add(element.ID.ToString());
+                                                    TerminalIDCol.Add(element.TerminalID);
+                                                    TerminalNameCol.Add(element.TerminalName);
+                                                }
 
-                                foreach (var element in Detail48.data)
-                                {
-                                    clsSearch.RecordFound = true;
-                                    clsSearch.ClassOutParamValue = element.outParamValue;
-                                }
+                                                clsArray.ID = IDCol.ToArray();
+                                                clsArray.TerminalID = TerminalIDCol.ToArray();
+                                                clsArray.TerminalName = TerminalNameCol.ToArray();
+                                            }
 
-                                break;
+                                            else if (SearchBy.Equals("Country"))
+                                            {
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    IDCol.Add(element.ID.ToString());
+                                                    CountryCol.Add(element.Country);
+                                                }
 
-                            default:
-                                dbFunction.SetMessageBox("Undefine API \n\n" +
-                                                       "MaintenanceType=" + MaintenanceType + "\n" +
-                                                       "SearchBy=" + SearchBy + "\n" +
-                                                       "SearchValue=" + "\n" +
-                                                       "Action=" + Action, "Undefine API Call", clsFunction.IconType.iError);
-                                break;
+                                                clsArray.ID = IDCol.ToArray();
+                                                clsArray.Country = CountryCol.ToArray();
+                                            }
 
+                                            else if (SearchBy.Equals("Particular"))
+                                            {
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    IDCol.Add(element.ID.ToString());
+                                                    ParticularNameCol.Add(element.ParticularName);
+                                                }
+
+                                                clsArray.ID = IDCol.ToArray();
+                                                clsArray.ParticularName = ParticularNameCol.ToArray();
+                                            }
+
+                                            else if (SearchBy.Equals("Invoice Master") || SearchBy.Equals("Invoice Master Range"))
+                                            {
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    InvoiceIDCol.Add(element.InvoiceID.ToString());
+                                                    ParticularIDCol.Add(element.ParticularID.ToString());
+                                                    MerchantIDCol.Add(element.MerchantID.ToString());
+                                                    InvoiceNoCol.Add(element.InvoiceNo);
+                                                    AccountNoCol.Add(element.AccountNo);
+                                                    CustomerNoCol.Add(element.CustomerNo);
+                                                    ParticularNameCol.Add(element.ParticularName);
+                                                    InvoiceDateCol.Add(element.InvoiceDate);
+                                                    ReferenceNoCol.Add(element.ReferenceNo);
+                                                    DateCoveredFromCol.Add(element.DateCoveredFrom);
+                                                    DateCoveredToCol.Add(element.DateCoveredTo);
+                                                    DateDueCol.Add(element.DateDue);
+                                                    TAmtDueCol.Add(element.TAmtDue.ToString());
+                                                    ProcessedByCol.Add(element.ProcessedBy);
+                                                    ProcessedDateTimeCol.Add(element.ProcessedDateTime);
+                                                    ModifiedByCol.Add(element.ModifiedBy);
+                                                    ModifiedDateTimeCol.Add(element.ModifiedDateTime);
+                                                    ModeOfPaymentCol.Add(element.ModeOfPayment.ToString());
+                                                    NoteToCustomerCol.Add(element.NoteToCustomer);
+                                                    NoteToSelfCol.Add(element.NoteToSelf);
+
+                                                }
+
+                                                clsArray.InvoiceID = InvoiceIDCol.ToArray();
+                                                clsArray.ParticularID = ParticularIDCol.ToArray();
+                                                clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                clsArray.InvoiceNo = InvoiceNoCol.ToArray();
+                                                clsArray.AccountNo = AccountNoCol.ToArray();
+                                                clsArray.CustomerNo = CustomerNoCol.ToArray();
+                                                clsArray.ParticularName = ParticularNameCol.ToArray();
+                                                clsArray.InvoiceDate = InvoiceDateCol.ToArray();
+                                                clsArray.ReferenceNo = ReferenceNoCol.ToArray();
+                                                clsArray.DateCoveredFrom = DateCoveredFromCol.ToArray();
+                                                clsArray.DateCoveredTo = DateCoveredToCol.ToArray();
+                                                clsArray.DateDue = DateDueCol.ToArray();
+                                                clsArray.TAmtDue = TAmtDueCol.ToArray();
+                                                clsArray.ProcessedBy = ProcessedByCol.ToArray();
+                                                clsArray.ProcessedDateTime = ProcessedDateTimeCol.ToArray();
+                                                clsArray.ModifiedBy = ModifiedByCol.ToArray();
+                                                clsArray.ModifiedDateTime = ModifiedDateTimeCol.ToArray();
+                                                clsArray.ModeOfPayment = ModeOfPaymentCol.ToArray();
+                                                clsArray.NoteToCustomer = NoteToCustomerCol.ToArray();
+                                                clsArray.NoteToSelf = NoteToSelfCol.ToArray();
+
+                                            }
+
+                                            else if (SearchBy.Equals("Profile Mapping") || SearchBy.Equals("eFSR Changes Mapping") || SearchBy.Equals("eFSR Changes Service"))
+                                            {
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    MapIDCol.Add(element.MapID.ToString());
+                                                    Detail_InfoCol.Add(element.detail_info);
+                                                }
+
+                                                clsArray.MapID = MapIDCol.ToArray();
+                                                clsArray.detail_info = Detail_InfoCol.ToArray();
+                                            }
+
+                                            else if (SearchBy.Equals("Service TerminalSN History List") || SearchBy.Equals("Service SIMSN History List"))
+                                            {
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                    Detail_InfoCol.Add(element.detail_info);
+                                                }
+
+                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                clsArray.detail_info = Detail_InfoCol.ToArray();
+                                            }
+
+                                            else if (SearchBy.Equals("Mobile List"))
+                                            {
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    IDCol.Add(element.MobileID.ToString());
+                                                    Detail_InfoCol.Add(element.detail_info);
+                                                }
+
+                                                clsArray.MobileID = IDCol.ToArray();
+                                                clsArray.detail_info = Detail_InfoCol.ToArray();
+                                            }
+
+                                            else if (SearchBy.Equals("Generate FSR List"))
+                                            {
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    FSRNoCol.Add(element.FSRNo.ToString());
+                                                    ServiceNoCol.Add(element.ServiceNo.ToString());
+                                                    IRIDNoCol.Add(element.IRIDNo.ToString());
+                                                    IRNoCol.Add(element.IRNo);
+                                                    MerchantIDCol.Add(element.MerchantID.ToString());
+                                                    MerchantNameCol.Add(element.MerchantName);
+                                                    MerchantEmailCol.Add(element.MerchantEmail);
+                                                    ServiceJobTypeDescriptionCol.Add(element.ServiceJobTypeDescription);
+                                                    FENameCol.Add(element.FEName);
+                                                    FEEmailCol.Add(element.FEEmail);
+                                                    FSRDateCol.Add(element.FSRDate);
+                                                }
+
+                                                clsArray.FSRNo = FSRNoCol.ToArray();
+                                                clsArray.ServiceNo = ServiceNoCol.ToArray();
+                                                clsArray.IRIDNo = IRIDNoCol.ToArray();
+                                                clsArray.IRNo = IRNoCol.ToArray();
+                                                clsArray.MerchantID = MerchantIDCol.ToArray();
+                                                clsArray.MerchantName = MerchantNameCol.ToArray();
+                                                clsArray.MerchantEmail = MerchantEmailCol.ToArray();
+                                                clsArray.ServiceJobTypeDescription = ServiceJobTypeDescriptionCol.ToArray();
+                                                clsArray.FEName = FENameCol.ToArray();
+                                                clsArray.FEEmail = FEEmailCol.ToArray();
+                                                clsArray.FSRDate = FSRDateCol.ToArray();
+                                            }
+
+                                            else if (SearchBy.Equals("Application Info List") ||
+                                                SearchBy.Equals("Diagnostic Master List") ||
+                                                SearchBy.Equals("Diagnostic Detail List") ||
+                                                SearchBy.Equals("Merchant Service Status List") ||
+                                                SearchBy.Equals("Particular By Position Type List") ||
+                                                SearchBy.Equals("Whos Online") ||
+                                                SearchBy.Equals("Whos eFSR Online") ||
+                                                SearchBy.Equals("Duplicate SN Merchant List") ||
+                                                SearchBy.Equals("Stock Movement Detail List") ||
+                                                SearchBy.Equals("Failed Service List") ||
+                                                SearchBy.Equals("Type List") ||
+                                                SearchBy.Equals("Reason List") ||
+                                                SearchBy.Equals("Region Service Summary") ||
+                                                SearchBy.Equals("Import Master List") ||
+                                                SearchBy.Equals("MSP Master List") ||
+                                                SearchBy.Equals("MSP Detail List") ||
+                                                SearchBy.Equals("Unclosed Ticket List") ||
+                                                SearchBy.Equals("Helpdesk-Details") ||
+                                                SearchBy.Equals("Helpdesk-Master") ||
+                                                SearchBy.Equals("Helpdesk-JobType") ||
+                                                SearchBy.Equals("Mobile Terminal List") ||
+                                                SearchBy.Equals("Whos Dashboard Online") ||
+                                                SearchBy.Equals("Helpdesk Problem List") ||
+                                                SearchBy.Equals("Report Group") ||
+                                                SearchBy.Equals("Service Reversal-JobType") ||
+                                                SearchBy.Equals("ERM Settlement Report-Per Month") ||
+                                                SearchBy.Equals("ERM Settlement Report-Per Trans Type") ||
+                                                SearchBy.Equals("ERM Settlement Report-Per Top Sales") ||
+                                                SearchBy.Equals("ERM Settlement Report-Per Qtr") ||
+                                                SearchBy.Equals("ERM Settlement Report-Summary") ||
+                                                SearchBy.Equals("ERM Settlement Report-Detail") ||
+                                                SearchBy.Equals("Inventory Bulk Cross-Check List") ||
+                                                SearchBy.Equals("Service Bulk Cross-Check List") ||
+                                                SearchBy.Equals("Billing-Type") ||
+                                                SearchBy.Equals("Expenses Service Detail") ||
+                                                SearchBy.Equals("FSR Service Detail") ||
+                                                SearchBy.Equals("ERM Settlement Report-Per Zero Trans") ||
+                                                SearchBy.Equals("Zoning Lookup") ||
+                                                SearchBy.Equals("Zoning List") ||
+                                                SearchBy.Equals("Location List") ||
+                                                SearchBy.Equals("Incentives Service Detail")
+                                                )
+                                            {
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    IDCol.Add(element.ID.ToString());
+                                                    Detail_InfoCol.Add(element.detail_info);
+                                                }
+
+                                                clsArray.ID = IDCol.ToArray();
+                                                clsArray.detail_info = Detail_InfoCol.ToArray();
+                                            }
+
+                                            else
+                                            {
+                                                // Default
+                                                IDCol.Add(clsFunction.sZero);
+                                                DescriptionCol.Add(clsFunction.sDefaultSelect);
+
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    IDCol.Add(element.ID.ToString());
+                                                    DescriptionCol.Add(element.Description);
+                                                }
+
+                                                clsArray.ID = IDCol.ToArray();
+                                                clsArray.Description = DescriptionCol.ToArray();
+                                            }
+
+                                            break;
+                                    }
+                                    break;
+
+                                case "Get Info Detail":
+                                    clsSearch.ClassOutParamValue = clsFunction.sNull;
+                                    CollectionDataDetailOnline Detail47 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
+                                    clsSearch.RecordFound = false;
+
+                                    switch (StatementType)
+                                    {
+                                        case "Search":
+                                            foreach (var element in Detail47.data)
+                                            {
+                                                clsSearch.RecordFound = true;
+                                                clsSearch.ClassOutParamValue = element.outParamValue;
+                                            }
+                                            break;
+                                    }
+                                    break;
+
+                                case "DeleteFileInfo":
+                                case "CheckFileInfo":
+                                    clsSearch.ClassOutParamValue = clsFunction.sNull;
+                                    CollectionDataDetailOnline Detail48 = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(clsGlobalVariables.strJSONResponse); // Parse JSON Format                                
+                                    clsSearch.RecordFound = false;
+
+                                    foreach (var element in Detail48.data)
+                                    {
+                                        clsSearch.RecordFound = true;
+                                        clsSearch.ClassOutParamValue = element.outParamValue;
+                                    }
+
+                                    break;
+
+                                default:
+                                    dbFunction.SetMessageBox("Undefine API \n\n" +
+                                                           "MaintenanceType=" + MaintenanceType + "\n" +
+                                                           "SearchBy=" + SearchBy + "\n" +
+                                                           "SearchValue=" + "\n" +
+                                                           "Action=" + Action, "Undefine API Call", clsFunction.IconType.iError);
+                                    break;
+
+                            }
                         }
+
                     }
+                    catch (Exception ex)
+                    {
+                        clsGlobalVariables.sAPIResponseCode = clsGlobalVariables.API_RESPONSE_ERROR;
+                        clsGlobalVariables.strException = ex.ToString();
+                        PromptAPIMessage(true, clsGlobalVariables.API_RESPONSE_ERROR);
+                    }                
                 }
             }
             catch (Exception ex)
@@ -5658,6 +5664,7 @@ namespace MIS
 
                 clsGlobalVariables.ExceptionMessage = ex.Message;
                 clsGlobalVariables.sAPIResponseCode = clsGlobalVariables.UNDEFINED_ERROR;
+                clsGlobalVariables.strException = ex.ToString();
                 PromptAPIMessage(true, clsGlobalVariables.API_RESPONSE_ERROR);
 
                 return;
@@ -6094,7 +6101,33 @@ namespace MIS
                 sMessage = "INVALID_METHOD";
 
             else if (ResponseCode.CompareTo(clsGlobalVariables.API_RESPONSE_ERROR) == 0)
-                sMessage = "API_RESPONSE_ERROR";
+            {
+                clsAPI.ClassResponseCode = int.Parse(clsGlobalVariables.API_RESPONSE_ERROR);
+                sMessage = "API_RESPONSE_ERROR" +
+                            "\n" +                            
+                            clsFunction.sLineSeparator + "\n" +
+                            "[EXCEPTIONS]" + "\n" +
+                            clsFunction.sLineSeparator + "\n" +
+                            clsGlobalVariables.strException + "\n" +
+                            "[PARAMETERS]" + "\n" +
+                            clsFunction.sLineSeparator + "\n" +
+                            ">Method=" + dbFunction.AddBracketStartEnd(clsSearch.ClassAPIMethod) + "\n" +
+                            ">Action=" + dbFunction.AddBracketStartEnd(clsSearch.ClassAction) + "\n" +
+                            ">StatementType=" + dbFunction.AddBracketStartEnd(clsSearch.ClassStatementType) + "\n" +
+                            ">SearchBy=" + dbFunction.AddBracketStartEnd(clsSearch.ClassSearchBy) + "\n" +
+                            ">SearchValue=" + dbFunction.AddBracketStartEnd(clsSearch.ClassSearchValue) + "\n" +
+                            ">MaintenanceType=" + dbFunction.AddBracketStartEnd(clsSearch.ClassMaintenanceType) + "\n" +                            
+                            clsFunction.sLineSeparator + "\n" +
+                            "[RESPONSE]" + "\n" +
+                            clsFunction.sLineSeparator + "\n" +
+                            ">clsAPI.ClassResponseCode=" + dbFunction.AddBracketStartEnd(clsAPI.ClassResponseCode.ToString()) + "\n" +
+                            ">Code=" + dbFunction.AddBracketStartEnd(ResponseCode) + "\n" +
+                            ">Message=" + dbFunction.AddBracketStartEnd(clsGlobalVariables.strJSONResponse) + "\n" +
+                            clsFunction.sLineSeparator;
+
+                iShow = true;
+            }
+                
 
             else
             {
@@ -6109,6 +6142,9 @@ namespace MIS
                             ">Password=" + dbFunction.AddBracketStartEnd(clsSearch.ClassAPIAuthPassword) + "\n" +
                             ">Keys=" + dbFunction.AddBracketStartEnd(clsSearch.ClassAPIKeys) + "\n" +
                             clsFunction.sLineSeparator + "\n" +
+                            "[EXCEPTIONS]" + "\n" +
+                            clsFunction.sLineSeparator + "\n" +
+                            clsGlobalVariables.strException + "\n" +
                             "[PARAMETERS]" + "\n" +
                             clsFunction.sLineSeparator + "\n" +
                             ">Method=" + dbFunction.AddBracketStartEnd(clsSearch.ClassAPIMethod) + "\n" +
@@ -6133,10 +6169,8 @@ namespace MIS
                 dbDump.WriteAPILog(2, "API Error " + "\n\n" + dbFunction.AddBracketStartEnd(sMessage));
             }
             
-            //Debug.WriteLine("--PromptAPIMessage--");
             Debug.WriteLine(sMessage);
-            //Debug.WriteLine("--PromptAPIMessage--");
-
+            
             if (iShow)
                 MessageBox.Show(sMessage, "API Response", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
@@ -11254,20 +11288,61 @@ namespace MIS
 
         }
 
-        public string GetValueFromJSONString(string jsonString, string pFieldTag)
+        public string GetValueFromJSONString(string jsonString, string fieldTag)
         {
-            string sValue = clsFunction.sNull;
+            string pMessage = "";
 
             try
             {
-                sValue = JObject.Parse(jsonString)[pFieldTag].ToString();
+                if (string.IsNullOrWhiteSpace(jsonString))
+                    return clsFunction.sNull;
+
+                JObject json = JObject.Parse(jsonString);
+
+                JToken token = json[fieldTag];
+
+                if (token == null || token.Type == JTokenType.Null)
+                {
+                    pMessage = $"Action: [{clsSearch.ClassAction}]\n" +
+                        $"Statement Type: [{clsSearch.ClassStatementType}]\n" +
+                        $"Searh By: [{clsSearch.ClassSearchBy}]\n" +
+                        $"Search Value: [{clsSearch.ClassSearchValue}]\nA" +
+                        $"dvance Search Value: [{clsSearch.ClassAdvanceSearchValue}]\n" +
+                        $"===================================\n"+
+                        $"JSON Field: [{fieldTag}] was not found.\n" +
+                        $"-----------------------------------\n" +
+                        $"JSON Date: [{jsonString}]";
+                    MessageBox.Show(
+                        pMessage,
+                        "JSON Field Missing",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return clsFunction.sNull;
+                }
+
+                return token.ToString();
+            }
+            catch (JsonReaderException ex)
+            {
+                MessageBox.Show(
+                    $"Invalid JSON format.\n\n{ex.Message}\n\nJSON Data:\n{jsonString}",
+                    "JSON Parse Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return clsFunction.sNull;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error message: " + ex.Message + "\n\n" + "Tag Field: " + "["+pFieldTag+"]"+ "\n" + "Data: " + "["+jsonString+"]", "JSON parse error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                MessageBox.Show(
+                    ex.Message,
+                    "Unexpected Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
 
-            return sValue;
+                return clsFunction.sNull;
+            }
         }
 
         public string GetBeautifyJSON(string jsonString)

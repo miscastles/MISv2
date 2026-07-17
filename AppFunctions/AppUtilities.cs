@@ -1,4 +1,5 @@
 ﻿
+using MIS.Function;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OfficeOpenXml;
@@ -14,11 +15,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static WinFormAnimation.AnimationFunctions;
 
 namespace MIS.Function
 {
     class AppUtilities
     {
+        private static clsFile dbFile = new clsFile();
+
         public static class Prompt
         {
             public static void Info(string Caption, string Message)
@@ -599,6 +603,8 @@ namespace MIS.Function
         // Export DataTable to Excel
         public static void ExportDtToExcel(DataTable Dt)
         {
+            string filePath = "";
+
             try
             {
                 if (Dt.Rows.Count != 0)
@@ -615,7 +621,7 @@ namespace MIS.Function
 
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        string filePath = sfd.FileName;
+                        filePath = sfd.FileName;
 
                         // Copy DataTable
                         DataTable copyDt = Dt.Copy();
@@ -680,6 +686,19 @@ namespace MIS.Function
 
                             // Save File
                             FileInfo excelFile = new FileInfo(filePath);
+
+                            // check file open
+                            if (dbFile.IsFileOpen(excelFile.FullName))
+                            {
+                                Prompt.Error(
+                                            "Data Export",
+                                            $"Unable to export '{Path.GetFileName(filePath)}'.\n\n" +
+                                            "The Excel file is currently open.\n\n" +
+                                            "Please close the file and try exporting again.");
+
+                                return; 
+                            }
+
                             package.SaveAs(excelFile);
 
                             MessageBox.Show(
@@ -692,9 +711,26 @@ namespace MIS.Function
                     }
                 }
             }
+            catch (IOException)
+            {
+                Prompt.Error(
+                    "Data Export",
+                    $"Unable to export '{Path.GetFileName(filePath)}'.\n\n" +
+                    "The Excel file is currently open or locked by another application.\n\n" +
+                    "Please close the file and try again.");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Prompt.Error(
+                    "Data Export",
+                    $"Access denied while saving '{Path.GetFileName(filePath)}'.\n\n" +
+                    "Please ensure the file is not open and that you have permission to write to the selected folder.");
+            }
             catch (Exception ex)
             {
-                Prompt.Error("Data Export", $"An error occured: in ExportDtToExcel \nError:{ex.Message}");
+                Prompt.Error(
+                    "Data Export",
+                    $"An unexpected error occurred while exporting the data.\n\nDetails:\n{ex.Message}");
             }
         }
 

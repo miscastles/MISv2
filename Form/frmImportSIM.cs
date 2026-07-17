@@ -1711,6 +1711,19 @@ namespace MIS
                         isProceed = true;
                     }
 
+                    if (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                    {
+                        dbFunction.SetMessageBox(
+                            "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                            "\n\nThis SIM is set to " + dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) +
+                            " and cannot be set to " + cboMStatus.Text,
+                            "Update failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
                     if (dbAPI.isRecordExist("Search", "SIMSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtSIMID.Text))
                     {
                         if (iHoldStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))
@@ -1721,6 +1734,23 @@ namespace MIS
                             }
                         }
 
+                    }
+
+                    if (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                    {
+                        if (dbAPI.isRecordExist("Search", "SIMID Active Installed", txtSIMID.Text))
+                        {
+                            dbFunction.SetMessageBox(
+                                "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                                "\n\nThis SIM is still actively installed and cannot be set to " + cboMStatus.Text,
+                                "Update failed",
+                                clsFunction.IconType.iError
+                            );
+
+                            return;
+                        }
+
+                        isProceed = true;
                     }
                 }
 
@@ -3919,6 +3949,9 @@ namespace MIS
 
             foreach (DataGridViewRow row in grdList.Rows)
             {
+                if (row.IsNewRow)
+                    continue;
+
                 string serialNo = Convert.ToString(row.Cells[1].Value).Trim();
                 string carrier = Convert.ToString(row.Cells[2].Value).Trim();
                 string location = Convert.ToString(row.Cells[5].Value).Trim();

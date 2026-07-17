@@ -792,8 +792,8 @@ namespace MIS
                 txtIRRequestDate.BackColor = clsFunction.DateBackColor;
                 txtIRInstallationDate.BackColor = clsFunction.DateBackColor;
 
-                txtProcessedDate.BackColor = clsFunction.DateBackColor;
-                txtModifiedDate.BackColor = clsFunction.DateBackColor;
+                txtFsrProcessedDate.BackColor = clsFunction.DateBackColor;
+                txtFsrModifiedDate.BackColor = clsFunction.DateBackColor;
 
                 txtTAStatus.BackColor = clsFunction.MKBackColor;                
                 txtServiceScheduleDate.BackColor = clsFunction.DateBackColor;
@@ -856,8 +856,8 @@ namespace MIS
         }
         private void DKTextBoxBackColor()
         {
-            txtProcessedDate.BackColor = clsFunction.DateBackColor;
-            txtModifiedDate.BackColor = clsFunction.DateBackColor;
+            txtFsrProcessedDate.BackColor = clsFunction.DateBackColor;
+            txtFsrModifiedDate.BackColor = clsFunction.DateBackColor;
             txtIRRequestDate.BackColor = clsFunction.DateBackColor;
             txtIRInstallationDate.BackColor = clsFunction.DateBackColor;
             txtServiceScheduleDate.BackColor = clsFunction.DateBackColor;
@@ -1116,7 +1116,7 @@ namespace MIS
                 clsSearch.ClassTID = txtIRTID.Text;
                 clsSearch.ClassMID = txtIRMID.Text;
                 clsSearch.ClassFEName = txtFEName.Text;
-                clsSearch.ClassDispatcherName = txtDispatchBy.Text;
+                clsSearch.ClassDispatcherName = txtSvcDispatchBy.Text;
                 clsSearch.ClassRequestor = txtRequestor.Text;
                 clsSearch.ClassIsDispatch = true;
                 clsSearch.ClassTerminalSN = txtCurTerminalSN.Text;
@@ -2636,6 +2636,9 @@ namespace MIS
                         return;
                     }
 
+                    // service audit info
+                    getServiceAuditInfo();
+
                     Cursor.Current = Cursors.Default;
                 }
                 catch (Exception ex)
@@ -2840,6 +2843,9 @@ namespace MIS
                         btnSave.Enabled = false;
                         return;
                     }
+
+                    // service audit info
+                    getServiceAuditInfo();
 
                     btnClear.Focus();
 
@@ -3966,12 +3972,12 @@ namespace MIS
             txtServiceCode.Text =
             txtServiceRequestDate.Text =
             txtServiceScheduleDate.Text =
-            txtProcessedBy.Text =
-            txtProcessedDate.Text =
-            txtModifiedBy.Text =
-            txtModifiedDate.Text =
-            txtDispatchBy.Text =
-            txtDispatchDate.Text =
+            txtFsrProcessedBy.Text =
+            txtFsrProcessedDate.Text =
+            txtFsrModifiedBy.Text =
+            txtFsrModifiedDate.Text =
+            txtSvcDispatchBy.Text =
+            txtSvcDispatchDate.Text =
             txtJobType.Text =
             txtJobTypeDescription.Text =
             txtServiceJobTypeStatusDesc.Text =
@@ -3983,8 +3989,8 @@ namespace MIS
             txtServiceStatusDescription.Text =
             txtServiceStatus.Text =
             txtTicketStatus.Text =
-            txtTicketBy.Text =
-            txtTicketDate.Text =
+            txtSvcTicketBy.Text =
+            txtSvcTicketDate.Text =
             txtSource.Text =
             txtCategory.Text =
             txtSubCategory.Text =
@@ -4005,13 +4011,13 @@ namespace MIS
                     txtServiceReferenceNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 3);
                     //txtSearchServiceDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 4);
                     //txtServiceRequestDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 5);
-                    txtProcessedBy.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 6);
-                    txtProcessedDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 7);
+                    txtFsrProcessedBy.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 6);
+                    txtFsrProcessedDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 7);
                     lblCreatedDate.Text = "CREATED DATE: " + dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 7);
-                    txtModifiedBy.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 8);
-                    txtModifiedDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 9);
-                    txtDispatchBy.Text = txtDispatcher.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 10);
-                    txtDispatchDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 11);
+                    txtFsrModifiedBy.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 8);
+                    txtFsrModifiedDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 9);
+                    txtSvcDispatchBy.Text = txtDispatcher.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 10);
+                    txtSvcDispatchDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 11);
                     txtJobType.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 12);
                     txtJobTypeDescription.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 13);
                     txtServiceJobTypeStatusDesc.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 14);
@@ -4033,8 +4039,8 @@ namespace MIS
 
                     // Ticket
                     setTicketStatus(int.Parse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36)));
-                    txtTicketBy.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 37);
-                    txtTicketDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 38);
+                    txtSvcTicketBy.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 37);
+                    txtSvcTicketDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 38);
 
                     txtDispatchID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 41);
 
@@ -6759,6 +6765,37 @@ namespace MIS
                     txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
                     txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
                     txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
+                }
+            }
+        }
+
+        private void getServiceAuditInfo()
+        {
+            if (dbFunction.isValidID(txtSearchServiceNo.Text))
+            {
+                string pJSONString = dbAPI.getInfoDetailJSON("Search", "Service Audit Info", $"{txtSearchServiceNo.Text}");
+
+                if (dbFunction.isValidDescription(pJSONString))
+                {
+                    // JO
+                    txtSvcProcessedBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcProcessedBy);
+                    txtSvcModifiedBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcModifiedBy);
+                    txtSvcDispatchBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcDispatchBy);
+                    txtSvcTicketBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcClosedTicketBy);
+
+                    txtSvcProcessedDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcProcessedDate);
+                    txtSvcModifiedDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcModifiedDate);
+                    txtSvcDispatchDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcDispatchDate);                    
+                    txtSvcTicketDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcClosedTicketDate);
+
+                    // FSR
+                    txtFsrProcessedBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_fsrProcessedBy);
+                    txtFsrModifiedBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_fsrModifiedBy);
+                    txtFsrServicedBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_fsrServicedBy);
+
+                    txtFsrProcessedDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_fsrProcessedDate);
+                    txtFsrModifiedDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_fsrModifiedDate);
+                    txtFsrServicedDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_fsrServicedDate);
                 }
             }
         }

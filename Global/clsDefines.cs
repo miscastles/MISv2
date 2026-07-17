@@ -752,6 +752,16 @@ namespace MIS
         public const string TAG_MinScheduleDate = "MinScheduleDate";
         public const string TAG_MaxScheduleDate = "MaxScheduleDate";
 
+        public const string TAG_svcProcessedBy = "svcProcessedBy";
+        public const string TAG_svcModifiedBy = "svcModifiedBy";
+        public const string TAG_svcDispatchBy = "svcDispatchBy";
+        public const string TAG_svcDispatchDate = "svcDispatchDate";
+        public const string TAG_fsrProcessedBy = "fsrProcessedBy";
+        public const string TAG_fsrModifiedBy = "fsrModifiedBy";
+        public const string TAG_fsrServicedBy = "fsrServicedBy";
+        public const string TAG_fsrServicedDate = "fsrServicedDate";
+        public const string TAG_svcClosedTicketBy = "svcClosedTicketBy";
+        public const string TAG_svcClosedTicketDate = "svcClosedTicketDate";
 
     }
 }

@@ -205,6 +205,8 @@ namespace MIS
             gAttemptDate = "";
             fRescheduleTicket = false;
 
+            getServiceAuditInfo();
+
             Cursor.Current = Cursors.Default;
 
         }
@@ -4244,6 +4246,8 @@ namespace MIS
                         return;
                     }
 
+                    getServiceAuditInfo();
+
                     btnClear.Focus();
 
                     Cursor.Current = Cursors.Default;
@@ -4653,6 +4657,8 @@ namespace MIS
                         btnDispatchJO.Enabled = false;
                         return;
                     }
+
+                    getServiceAuditInfo();
 
                     btnClear.Focus();
 
@@ -7112,6 +7118,30 @@ namespace MIS
             }
 
             return isValid;
+        }
+
+        private void getServiceAuditInfo()
+        {
+            if (dbFunction.isValidID(txtSearchServiceNo.Text))
+            {
+                string pJSONString = dbAPI.getInfoDetailJSON("Search", "Service Audit Info", $"{txtSearchServiceNo.Text}");
+
+                if (dbFunction.isValidDescription(pJSONString))
+                {
+                    // JO
+                    txtProcessedBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcProcessedBy);
+                    txtDispatchBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcDispatchBy);
+                    txtSvcTicketBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcClosedTicketBy);
+
+                    txtProcessedDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcProcessedDate);
+                    txtDispatchDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcDispatchDate);
+                    txtSvcTicketDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_svcClosedTicketDate);
+
+                    // FSR                    
+                    txtFsrServicedBy.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_fsrServicedBy);
+                    txtFsrServicedDate.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_fsrServicedDate);
+                }
+            }
         }
     }
 }

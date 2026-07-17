@@ -3,7 +3,9 @@ using MIS.Function;
 using MIS.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Spire.Xls;
+using Spire.Xls.AI.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -770,6 +772,8 @@ namespace MIS
             {
                 Cursor.Current = Cursors.WaitCursor;
 
+                if (!validateImportData()) return;
+
                 ucStatusDisplay.SetStatus($"Processing region...", Enums.StatusType.Processing);
                 InsertRegion();
 
@@ -812,6 +816,10 @@ namespace MIS
 
                 ucStatusDisplay.SetStatus($"Processing json data...", Enums.StatusType.Processing);
                 processDataGridView(grdList);
+
+                // update merchant ZoneID
+                //ucStatusDisplay.SetStatus($"Updating merchant Zone...", Enums.StatusType.Processing);
+                //updateMerchantZone();
 
                 // ------------------------------------------------------------------------------------------
                 // Upload physical attach file
@@ -4189,6 +4197,241 @@ namespace MIS
         {
             cboSearchClient.Enabled = true;
             cboSearchClient.SelectedIndex = 1;
+        }
+
+        private bool validateImportData()
+        {
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                string requestid = Convert.ToString(row.Cells[0].Value).Trim();
+                string vendor = Convert.ToString(row.Cells[1].Value).Trim();
+                string requestdate = Convert.ToString(row.Cells[2].Value).Trim();
+                string requestor = Convert.ToString(row.Cells[3].Value).Trim();
+                string requesttype = Convert.ToString(row.Cells[4].Value).Trim();
+                string requestprio = Convert.ToString(row.Cells[5].Value).Trim();
+                string possetup = Convert.ToString(row.Cells[6].Value).Trim();
+                string postype = Convert.ToString(row.Cells[7].Value).Trim();
+                string posconnectiontype = Convert.ToString(row.Cells[8].Value).Trim();
+                string targetinstdate = Convert.ToString(row.Cells[9].Value).Trim();
+                string mid = Convert.ToString(row.Cells[12].Value).Trim();
+                string tid = Convert.ToString(row.Cells[13].Value).Trim();
+                string merchantname = Convert.ToString(row.Cells[14].Value).Trim();
+                string address = Convert.ToString(row.Cells[15].Value).Trim();
+                string city = Convert.ToString(row.Cells[16].Value).Trim();
+                string area1 = Convert.ToString(row.Cells[17].Value).Trim();
+                string area2 = Convert.ToString(row.Cells[18].Value).Trim();
+                string contactperson = Convert.ToString(row.Cells[20].Value).Trim();
+                string contactnumber = Convert.ToString(row.Cells[21].Value).Trim();
+
+                Debug.WriteLine($"requestid=[{requestid}]"); 
+                Debug.WriteLine($"vendor=[{vendor}]"); 
+                Debug.WriteLine($"requestdate=[{requestdate}]"); 
+                Debug.WriteLine($"requestor=[{requestor}]"); 
+                Debug.WriteLine($"requesttype=[{requesttype}]"); 
+                Debug.WriteLine($"requestprio=[{requestprio}]"); 
+                Debug.WriteLine($"possetup=[{possetup}]"); 
+                Debug.WriteLine($"postype=[{postype}]"); 
+                Debug.WriteLine($"posconnectiontype=[{posconnectiontype}]"); 
+                Debug.WriteLine($"targetinstdate=[{targetinstdate}]"); 
+                Debug.WriteLine($"mid=[{mid}]"); 
+                Debug.WriteLine($"tid=[{tid}]"); 
+                Debug.WriteLine($"merchantname=[{merchantname}]"); 
+                Debug.WriteLine($"address=[{address}]"); 
+                Debug.WriteLine($"city=[{city}]"); 
+                Debug.WriteLine($"area1=[{area1}]"); 
+                Debug.WriteLine($"area2=[{area2}]"); 
+                Debug.WriteLine($"contactperson=[{contactperson}]"); 
+                Debug.WriteLine($"contactnumber=[{contactnumber}]");
+
+                // Required Fields
+                if (string.IsNullOrWhiteSpace(requestid))
+                {
+                    dbFunction.SetMessageBox("Request ID must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(vendor))
+                {
+                    dbFunction.SetMessageBox("Vendor must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(requestdate))
+                {
+                    dbFunction.SetMessageBox("Request Date must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(requestor))
+                {
+                    dbFunction.SetMessageBox("Requestor must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(requesttype))
+                {
+                    dbFunction.SetMessageBox("Request Type must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(requestprio))
+                {
+                    dbFunction.SetMessageBox("Request Priority must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(possetup))
+                {
+                    dbFunction.SetMessageBox("POS Setup must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(postype))
+                {
+                    dbFunction.SetMessageBox("POS Type must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(posconnectiontype))
+                {
+                    dbFunction.SetMessageBox("POS Connection Type must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(targetinstdate))
+                {
+                    dbFunction.SetMessageBox("Target Installation Date must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(mid))
+                {
+                    dbFunction.SetMessageBox("MID must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(tid))
+                {
+                    dbFunction.SetMessageBox("TID must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(merchantname))
+                {
+                    dbFunction.SetMessageBox("Merchant Name must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(address))
+                {
+                    dbFunction.SetMessageBox("Address must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(city))
+                {
+                    dbFunction.SetMessageBox("City must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(area1))
+                {
+                    dbFunction.SetMessageBox("Area 1 must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(area2))
+                {
+                    dbFunction.SetMessageBox("Area 2 must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(contactperson))
+                {
+                    dbFunction.SetMessageBox("Contact Person must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(contactnumber))
+                {
+                    dbFunction.SetMessageBox("Contact Number must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                // Duplicate Request ID
+                if (dbAPI.isRecordExist("Search", "IRNo Check/IR Detail", requestid))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Request ID [{requestid}] already exists.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                // Reference Validation
+                if (!dbAPI.isRecordExist("Search", "Request Type", requesttype))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Request Type [{requesttype}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "Zoning Area", area1))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Area 1 [{area1}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "Zoning CityMunicipal", city))
+                {
+                    dbFunction.SetMessageBox(
+                        $"City [{city}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (!dbAPI.isRecordExist("Search", "Zoning Area-CityMunicipal", $"{area1}{clsDefines.gPipe}{city}"))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Area [{area1}] and City [{city}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+            }
+
+            return true;
+        }
+
+        private void updateMerchantZone()
+        {
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                string merchantname = Convert.ToString(row.Cells[14].Value).Trim();                
+                string city = Convert.ToString(row.Cells[16].Value).Trim();
+                string area1 = Convert.ToString(row.Cells[17].Value).Trim();
+                
+                Debug.WriteLine($"merchantname=[{merchantname}]");                
+                Debug.WriteLine($"city=[{city}]");
+                Debug.WriteLine($"area1=[{area1}]");
+
+                if ((!string.IsNullOrWhiteSpace(merchantname)) &&
+                        (!string.IsNullOrWhiteSpace(city)) &&
+                        (!string.IsNullOrWhiteSpace(area1)))
+                {
+
+                }                
+            }
         }
     }
 }
