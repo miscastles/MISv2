@@ -305,6 +305,14 @@
             this.label28 = new System.Windows.Forms.Label();
             this.panel145 = new System.Windows.Forms.Panel();
             this.panel138 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.cboChange = new System.Windows.Forms.ComboBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.lblResult = new System.Windows.Forms.TextBox();
+            this.label53 = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label54 = new System.Windows.Forms.Label();
+            this.panel14 = new System.Windows.Forms.Panel();
             this.tabPage17.SuspendLayout();
             this.tabPage16.SuspendLayout();
             this.tabPage18.SuspendLayout();
@@ -381,6 +389,8 @@
             this.panel104.SuspendLayout();
             this.panel144.SuspendLayout();
             this.panel138.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblMainStatus
@@ -1520,7 +1530,7 @@
             this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(3, 4);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(155, 16);
+            this.label11.Size = new System.Drawing.Size(154, 16);
             this.label11.TabIndex = 310;
             this.label11.Text = "SELECT SERVICE STATUS";
             // 
@@ -1745,7 +1755,7 @@
             this.label57.ForeColor = System.Drawing.Color.Black;
             this.label57.Location = new System.Drawing.Point(3, 4);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(127, 16);
+            this.label57.Size = new System.Drawing.Size(126, 16);
             this.label57.TabIndex = 310;
             this.label57.Text = "SELECT MERCHANT";
             // 
@@ -1882,7 +1892,7 @@
             this.label20.ForeColor = System.Drawing.Color.Black;
             this.label20.Location = new System.Drawing.Point(3, 4);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(139, 16);
+            this.label20.Size = new System.Drawing.Size(138, 16);
             this.label20.TabIndex = 310;
             this.label20.Text = "SELECT SERVICE TYPE";
             // 
@@ -2042,9 +2052,9 @@
             this.panel6.Controls.Add(this.label34);
             this.panel6.Controls.Add(this.btnProblemReported);
             this.panel6.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel6.Location = new System.Drawing.Point(982, 422);
+            this.panel6.Location = new System.Drawing.Point(982, 495);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(411, 487);
+            this.panel6.Size = new System.Drawing.Size(411, 414);
             this.panel6.TabIndex = 463;
             // 
             // txtRMInstruction
@@ -2059,7 +2069,7 @@
             this.txtRMInstruction.Name = "txtRMInstruction";
             this.txtRMInstruction.ReadOnly = true;
             this.txtRMInstruction.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRMInstruction.Size = new System.Drawing.Size(185, 121);
+            this.txtRMInstruction.Size = new System.Drawing.Size(186, 85);
             this.txtRMInstruction.TabIndex = 442;
             // 
             // label33
@@ -2079,12 +2089,12 @@
             this.txtRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtRemarks.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRemarks.Location = new System.Drawing.Point(215, 359);
+            this.txtRemarks.Location = new System.Drawing.Point(215, 293);
             this.txtRemarks.MaxLength = 1000;
             this.txtRemarks.Multiline = true;
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.ReadOnly = true;
-            this.txtRemarks.Size = new System.Drawing.Size(185, 108);
+            this.txtRemarks.Size = new System.Drawing.Size(186, 85);
             this.txtRemarks.TabIndex = 434;
             // 
             // panel8
@@ -2130,7 +2140,7 @@
             this.txtProbReported.Multiline = true;
             this.txtProbReported.Name = "txtProbReported";
             this.txtProbReported.ReadOnly = true;
-            this.txtProbReported.Size = new System.Drawing.Size(186, 120);
+            this.txtProbReported.Size = new System.Drawing.Size(186, 85);
             this.txtProbReported.TabIndex = 430;
             // 
             // label5
@@ -2138,7 +2148,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(212, 338);
+            this.label5.Location = new System.Drawing.Point(212, 272);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(130, 15);
             this.label5.TabIndex = 435;
@@ -2161,12 +2171,12 @@
             this.txtActionTaken.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtActionTaken.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtActionTaken.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtActionTaken.Location = new System.Drawing.Point(9, 359);
+            this.txtActionTaken.Location = new System.Drawing.Point(9, 293);
             this.txtActionTaken.MaxLength = 1000;
             this.txtActionTaken.Multiline = true;
             this.txtActionTaken.Name = "txtActionTaken";
             this.txtActionTaken.ReadOnly = true;
-            this.txtActionTaken.Size = new System.Drawing.Size(185, 107);
+            this.txtActionTaken.Size = new System.Drawing.Size(186, 85);
             this.txtActionTaken.TabIndex = 432;
             // 
             // label45
@@ -2174,7 +2184,7 @@
             this.label45.AutoSize = true;
             this.label45.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label45.ForeColor = System.Drawing.Color.Black;
-            this.label45.Location = new System.Drawing.Point(213, 197);
+            this.label45.Location = new System.Drawing.Point(213, 159);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(97, 15);
             this.label45.TabIndex = 440;
@@ -2185,7 +2195,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(7, 338);
+            this.label4.Location = new System.Drawing.Point(7, 272);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(123, 15);
             this.label4.TabIndex = 433;
@@ -2197,12 +2207,12 @@
             this.txtActualProblem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtActualProblem.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtActualProblem.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtActualProblem.Location = new System.Drawing.Point(10, 217);
+            this.txtActualProblem.Location = new System.Drawing.Point(10, 179);
             this.txtActualProblem.MaxLength = 1000;
             this.txtActualProblem.Multiline = true;
             this.txtActualProblem.Name = "txtActualProblem";
             this.txtActualProblem.ReadOnly = true;
-            this.txtActualProblem.Size = new System.Drawing.Size(185, 108);
+            this.txtActualProblem.Size = new System.Drawing.Size(186, 85);
             this.txtActualProblem.TabIndex = 436;
             // 
             // txtAnyComments
@@ -2211,12 +2221,12 @@
             this.txtAnyComments.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAnyComments.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtAnyComments.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAnyComments.Location = new System.Drawing.Point(216, 217);
+            this.txtAnyComments.Location = new System.Drawing.Point(216, 179);
             this.txtAnyComments.MaxLength = 1000;
             this.txtAnyComments.Multiline = true;
             this.txtAnyComments.Name = "txtAnyComments";
             this.txtAnyComments.ReadOnly = true;
-            this.txtAnyComments.Size = new System.Drawing.Size(185, 108);
+            this.txtAnyComments.Size = new System.Drawing.Size(186, 85);
             this.txtAnyComments.TabIndex = 439;
             // 
             // label34
@@ -2224,7 +2234,7 @@
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label34.ForeColor = System.Drawing.Color.Black;
-            this.label34.Location = new System.Drawing.Point(7, 196);
+            this.label34.Location = new System.Drawing.Point(7, 158);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(144, 15);
             this.label34.TabIndex = 437;
@@ -3637,7 +3647,7 @@
             this.label28.ForeColor = System.Drawing.Color.Black;
             this.label28.Location = new System.Drawing.Point(3, 4);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(166, 16);
+            this.label28.Size = new System.Drawing.Size(165, 16);
             this.label28.TabIndex = 310;
             this.label28.Text = "SELECT ADDITIONAL TYPE";
             // 
@@ -3667,12 +3677,109 @@
             this.panel138.Size = new System.Drawing.Size(410, 111);
             this.panel138.TabIndex = 509;
             // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.cboChange);
+            this.panel4.Controls.Add(this.label36);
+            this.panel4.Controls.Add(this.lblResult);
+            this.panel4.Controls.Add(this.label53);
+            this.panel4.Controls.Add(this.panel7);
+            this.panel4.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel4.Location = new System.Drawing.Point(983, 424);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(410, 70);
+            this.panel4.TabIndex = 519;
+            // 
+            // cboChange
+            // 
+            this.cboChange.BackColor = System.Drawing.Color.White;
+            this.cboChange.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboChange.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboChange.FormattingEnabled = true;
+            this.cboChange.Location = new System.Drawing.Point(226, 36);
+            this.cboChange.Name = "cboChange";
+            this.cboChange.Size = new System.Drawing.Size(179, 24);
+            this.cboChange.TabIndex = 410;
+            this.cboChange.SelectedIndexChanged += new System.EventHandler(this.cboChange_SelectedIndexChanged);
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Location = new System.Drawing.Point(171, 41);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(49, 14);
+            this.label36.TabIndex = 409;
+            this.label36.Text = "CHANGE";
+            // 
+            // lblResult
+            // 
+            this.lblResult.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.lblResult.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lblResult.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.lblResult.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold);
+            this.lblResult.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(204)))), ((int)(((byte)(0)))));
+            this.lblResult.Location = new System.Drawing.Point(63, 40);
+            this.lblResult.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.lblResult.Name = "lblResult";
+            this.lblResult.ReadOnly = true;
+            this.lblResult.Size = new System.Drawing.Size(95, 15);
+            this.lblResult.TabIndex = 408;
+            this.lblResult.Text = "-";
+            this.lblResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.Location = new System.Drawing.Point(1, 40);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(56, 14);
+            this.label53.TabIndex = 377;
+            this.label53.Text = "RESULT:";
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.label54);
+            this.panel7.Controls.Add(this.panel14);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel7.Location = new System.Drawing.Point(0, 0);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(408, 24);
+            this.panel7.TabIndex = 311;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.BackColor = System.Drawing.Color.Transparent;
+            this.label54.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.ForeColor = System.Drawing.Color.Black;
+            this.label54.Location = new System.Drawing.Point(4, 3);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(161, 14);
+            this.label54.TabIndex = 311;
+            this.label54.Text = "CURRENT SERVICE RESULT";
+            // 
+            // panel14
+            // 
+            this.panel14.BackColor = System.Drawing.Color.Silver;
+            this.panel14.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel14.Location = new System.Drawing.Point(0, 20);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(406, 2);
+            this.panel14.TabIndex = 0;
+            // 
             // frmServiceOveride
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1400, 958);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel103);
             this.Controls.Add(this.panel138);
@@ -3811,6 +3918,10 @@
             this.panel144.PerformLayout();
             this.panel138.ResumeLayout(false);
             this.panel138.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4093,5 +4204,13 @@
         private System.Windows.Forms.TextBox txtRMInstruction;
         private System.Windows.Forms.TextBox txtSearchFSRDate;
         private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.ComboBox cboChange;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox lblResult;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.Panel panel14;
     }
 }
