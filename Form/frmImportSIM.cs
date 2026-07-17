@@ -1645,53 +1645,17 @@ namespace MIS
 
             int iStatus = int.Parse(dbFunction.CheckAndSetNumericValue(txtSIMStatus.Text));
             int iHoldStatus = int.Parse(dbFunction.CheckAndSetNumericValue(txtHoldStatus.Text));
-            
+
             if (fEdit)
             {
                 if (dbFunction.isValidID(txtSIMID.Text))
                 {
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLEDOUT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)) ||
-                            !dbFunction.isValidID(txtTService.Text))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (dbFunction.isValidID(txtSIMStatus.Text) &&
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_DAMAGE)) ||
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_LOSS)) ||
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_BORROWED)))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (dbFunction.isValidID(txtSIMStatus.Text) &&
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED)) &&
-                        (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation)))
-                    {
-                        isProceed = true;
-                    }
-
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)))
-                    {
-                        isProceed = true;
-                    }
-
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLED_OUT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (!dbAPI.isRecordExist("Search", "SIMSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtSIMID.Text))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                    if (iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && int.Parse(dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text)) != clsSystemSetting.ClassSystemSNLocationID)
                     {
                         dbFunction.SetMessageBox(
                             "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
-                            "\n\nThis SIM is set to " + dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) +
-                            " and cannot be set to " + cboMStatus.Text,
+                            "\n\nAn INSTALLED terminal must be located in " +
+                            dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) + ".",
                             "Update failed",
                             clsFunction.IconType.iError
                         );
@@ -1699,21 +1663,26 @@ namespace MIS
                         return;
                     }
 
-                    if (dbAPI.isRecordExist("Search", "SIMSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtSIMID.Text))
+                    if (!iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
                     {
-                        if (iHoldStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))
+                        if (!dbAPI.isRecordExist("Search", "Check SIMID Installed", txtSIMID.Text))
                         {
-                            if (dbAPI.isRecordExist("Search", "SIMID Installed", txtSIMID.Text))
-                            {
-                                isProceed = true;
-                            }
+                            dbFunction.SetMessageBox(
+                                "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                                "\n\nThis SIM cannot be set to INSTALLED because it has no active successful installation lifecycle record.",
+                                "Update failed",
+                                clsFunction.IconType.iError
+                            );
+
+                            return;
                         }
 
+                        isProceed = true;
                     }
 
                     if (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
                     {
-                        if (dbAPI.isRecordExist("Search", "SIMID Active Installed", txtSIMID.Text))
+                        if (dbAPI.isRecordExist("Search", "Check SIMID Active Installed", txtSIMID.Text))
                         {
                             dbFunction.SetMessageBox(
                                 "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
@@ -1728,139 +1697,138 @@ namespace MIS
                         isProceed = true;
                     }
                 }
-
-            }
-            else
-            {
-                // check SN already exist
-                if (dbAPI.isRecordExist("Search", "SIM Detail Check", dbFunction.CheckAndSetStringValue(txtSIMSN.Text)))
+                else
                 {
-                    dbFunction.SetMessageBox($"Serial Number [{txtSIMSN.Text}] already exists.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                    return;
-                }
-
-                isProceed = true;
-            }
-
-            if (!isProceed)
-            {
-                dbFunction.SetMessageBox("SIM SN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) + "\n\n" + "Unable to update.", "Update failed", clsFunction.IconType.iError);
-                return;
-            }
-
-            if (fEdit)
-            {
-                if (iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
-                {
-                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iClientID, txtClientID.Text)) return;
-                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iLocation, txtLocationIDFrom.Text)) return;
-
-                    if (!cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation))
+                    // check SN already exist
+                    if (dbAPI.isRecordExist("Search", "SIM Detail Check", dbFunction.CheckAndSetStringValue(txtSIMSN.Text)))
                     {
-                        dbFunction.SetMessageBox("Location of this SIM SN must be located in\n" + dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation), clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        dbFunction.SetMessageBox($"Serial Number [{txtSIMSN.Text}] already exists.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                         return;
                     }
 
+                    isProceed = true;
                 }
-            }
 
-            if (!dbFunction.fSavingConfirm(false)) return;
-
-            // Waiting / Hour Glass
-            Cursor.Current = Cursors.WaitCursor;
-
-            // get client id
-            dbFunction.GetIDFromFile("Client List", cboMClient.Text);
-            txtClientID.Text = clsSearch.ClassOutFileID.ToString();
-
-            dbFunction.GetIDFromFile("Carrier", cboMCarrier.Text);
-            clsSearch.ClassCarrierID = clsSearch.ClassOutFileID;
-
-            GetMTextBoxID();
-
-            if (fEdit)
-            {
-                if (lvwManual.Items.Count > 0)
+                if (!isProceed)
                 {
-                    // updating
-                    BulkUpdateSIMSNDetail(lvwManual, false);
+                    dbFunction.SetMessageBox("SIM SN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) + "\n\n" + "Unable to update.", "Update failed", clsFunction.IconType.iError);
+                    return;
+                }
 
-                    // Back to normal 
-                    Cursor.Current = Cursors.Default;
+                if (fEdit)
+                {
+                    if (iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                    {
+                        if (!dbFunction.isValidEntry(clsFunction.CheckType.iClientID, txtClientID.Text)) return;
+                        if (!dbFunction.isValidEntry(clsFunction.CheckType.iLocation, txtLocationIDFrom.Text)) return;
 
-                    MessageBox.Show("Manual Multiple SIM SN has been successfully updated.", "Updated",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation,
-                    MessageBoxDefaultButton.Button1);
+                        if (!cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation))
+                        {
+                            dbFunction.SetMessageBox("Location of this SIM SN must be located in\n" + dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation), clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                            return;
+                        }
+
+                    }
+                }
+
+                if (!dbFunction.fSavingConfirm(false)) return;
+
+                // Waiting / Hour Glass
+                Cursor.Current = Cursors.WaitCursor;
+
+                // get client id
+                dbFunction.GetIDFromFile("Client List", cboMClient.Text);
+                txtClientID.Text = clsSearch.ClassOutFileID.ToString();
+
+                dbFunction.GetIDFromFile("Carrier", cboMCarrier.Text);
+                clsSearch.ClassCarrierID = clsSearch.ClassOutFileID;
+
+                GetMTextBoxID();
+
+                if (fEdit)
+                {
+                    if (lvwManual.Items.Count > 0)
+                    {
+                        // updating
+                        BulkUpdateSIMSNDetail(lvwManual, false);
+
+                        // Back to normal 
+                        Cursor.Current = Cursors.Default;
+
+                        MessageBox.Show("Manual Multiple SIM SN has been successfully updated.", "Updated",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1);
+
+                    }
+                    else
+                    {
+                        if (!ValidateFields()) return;
+
+                        clsSearch.ClassAdvanceSearchValue =
+                                                    txtSIMID.Text + clsFunction.sPipe +
+                                                    txtFEID.Text + clsFunction.sPipe +
+                                                    txtMBatchNo.Text + clsFunction.sPipe +
+                                                    StrClean(dbFunction.CheckAndSetStringValue(txtSIMSN.Text)) + clsFunction.sPipe +
+                                                    cboMCarrier.Text + clsFunction.sPipe +
+                                                    cboMAllocation.Text + clsFunction.sPipe +
+                                                    txtMRemarks.Text + clsFunction.sPipe +
+                                                    pDeliveryDate + clsFunction.sPipe +
+                                                    pReceiveDate + clsFunction.sPipe +
+                                                    txtSIMStatus.Text + clsFunction.sPipe +
+                                                    cboMStatus.Text + clsFunction.sPipe +
+                                                    cboMLocation.Text + clsFunction.sPipe +
+                                                    cboMAllocation.Text + clsFunction.sPipe +
+                                                    dbFunction.CheckAndSetNumericValue(txtParticularID.Text) + clsFunction.sPipe +
+                                                    dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text) + clsFunction.sPipe +
+                                                    dbFunction.CheckAndSetBooleanValue(chkActive.Checked) + clsFunction.sPipe +
+                                                    clsSearch.ClassCarrierID + clsFunction.sPipe +
+                                                    pReleseDate + clsFunction.sPipe +
+                                                    (dbFunction.isValidDescription(cboMClient.Text) ? cboMClient.Text : clsFunction.sZero) + clsFunction.sPipe +
+                                                    (dbFunction.CheckAndSetNumericValue(txtClientID.Text)) + clsFunction.sPipe +
+                                                    clsSearch.ClassCurrentParticularID + clsFunction.sPipe +
+                                                    dbFunction.getCurrentDateTime();
+
+                        Debug.WriteLine("SaveSIMDetail::" + "clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
+
+                        dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
+
+                        dbAPI.ExecuteAPI("PUT", "Update", "SIM Detail", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+
+                        // Back to normal 
+                        Cursor.Current = Cursors.Default;
+
+                        MessageBox.Show("Manual SIM has been successfully updated.", "Updated",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1);
+                    }
 
                 }
                 else
                 {
-                    if (!ValidateFields()) return;
+                    SaveSIMMaster();
 
-                    clsSearch.ClassAdvanceSearchValue =
-                                                txtSIMID.Text + clsFunction.sPipe +
-                                                txtFEID.Text + clsFunction.sPipe +
-                                                txtMBatchNo.Text + clsFunction.sPipe +
-                                                StrClean(dbFunction.CheckAndSetStringValue(txtSIMSN.Text)) + clsFunction.sPipe +
-                                                cboMCarrier.Text + clsFunction.sPipe +
-                                                cboMAllocation.Text + clsFunction.sPipe +
-                                                txtMRemarks.Text + clsFunction.sPipe +
-                                                pDeliveryDate + clsFunction.sPipe +
-                                                pReceiveDate + clsFunction.sPipe +
-                                                txtSIMStatus.Text + clsFunction.sPipe +
-                                                cboMStatus.Text + clsFunction.sPipe +
-                                                cboMLocation.Text + clsFunction.sPipe +
-                                                cboMAllocation.Text + clsFunction.sPipe +
-                                                dbFunction.CheckAndSetNumericValue(txtParticularID.Text) + clsFunction.sPipe +
-                                                dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text) + clsFunction.sPipe +
-                                                dbFunction.CheckAndSetBooleanValue(chkActive.Checked) + clsFunction.sPipe +
-                                                clsSearch.ClassCarrierID + clsFunction.sPipe +
-                                                pReleseDate + clsFunction.sPipe +
-                                                (dbFunction.isValidDescription(cboMClient.Text) ? cboMClient.Text : clsFunction.sZero) + clsFunction.sPipe +
-                                                (dbFunction.CheckAndSetNumericValue(txtClientID.Text)) + clsFunction.sPipe +
-                                                clsSearch.ClassCurrentParticularID + clsFunction.sPipe +
-                                                dbFunction.getCurrentDateTime();
-
-                    Debug.WriteLine("SaveSIMDetail::" + "clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
-
-                    dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
-
-                    dbAPI.ExecuteAPI("PUT", "Update", "SIM Detail", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                    SaveMSNDetail();
 
                     // Back to normal 
                     Cursor.Current = Cursors.Default;
 
-                    MessageBox.Show("Manual SIM has been successfully updated.", "Updated",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information,
-                    MessageBoxDefaultButton.Button1);
+                    dbFunction.SetMessageBox("Manual SIM successfully saved.", "Saved", clsFunction.IconType.iInformation);
                 }
-                
+
+                // Save Activity
+                SaveActivity();
+
+                //dbFunction.ClearComboBox(this);
+                dbFunction.ClearTextBox(this);
+                dbFunction.ClearDataGrid(grdList);
+                dbFunction.ClearDataGrid(grdDummy);
+                //dbFunction.ClearListView(lvwGenerateList);
+                //dbFunction.ClearListView(lvwHistoryList);
+
+                btnClear_Click(this, e);
             }
-            else
-            {
-                SaveSIMMaster();
-
-                SaveMSNDetail();
-
-                // Back to normal 
-                Cursor.Current = Cursors.Default;
-                
-                dbFunction.SetMessageBox("Manual SIM successfully saved.", "Saved", clsFunction.IconType.iInformation);
-            }
-
-            // Save Activity
-            SaveActivity();
-
-            //dbFunction.ClearComboBox(this);
-            dbFunction.ClearTextBox(this);
-            dbFunction.ClearDataGrid(grdList);
-            dbFunction.ClearDataGrid(grdDummy);
-            //dbFunction.ClearListView(lvwGenerateList);
-            //dbFunction.ClearListView(lvwHistoryList);
-
-            btnClear_Click(this, e);
         }
 
         private void lvwGenerateList_ColumnClick(object sender, ColumnClickEventArgs e)

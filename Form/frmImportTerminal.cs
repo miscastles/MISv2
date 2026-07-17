@@ -2375,53 +2375,17 @@ namespace MIS
 
             int iStatus = int.Parse(dbFunction.CheckAndSetNumericValue(txtTerminalStatus.Text));
             int iHoldStatus = int.Parse(dbFunction.CheckAndSetNumericValue(txtHoldStatus.Text));
-            
+
             if (fEdit)
             {
                 if (dbFunction.isValidID(txtTerminalID.Text))
                 {
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLEDOUT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)) ||
-                        !dbFunction.isValidID(txtTService.Text))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (dbFunction.isValidID(txtTerminalStatus.Text) &&
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_DAMAGE)) ||
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_LOSS)) ||
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_BORROWED)))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (dbFunction.isValidID(txtTerminalStatus.Text) &&
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED)) &&
-                        (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation)))
-                    {
-                        isProceed = true;
-                    }
-
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)))                  
-                    {
-                        isProceed = true;
-                    }
-
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLED_OUT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (!dbAPI.isRecordExist("Search", "TerminalSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtTerminalID.Text))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                    if (iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && int.Parse(dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text)) != clsSystemSetting.ClassSystemSNLocationID)
                     {
                         dbFunction.SetMessageBox(
                             "TerminalSN " + dbFunction.AddBracketStartEnd(txtTerminalSN.Text) +
-                            "\n\nThis Terminal is set to " + dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) +
-                            " and cannot be set to " + cboMStatus.Text,
+                            "\n\nAn INSTALLED terminal must be located in " +
+                            dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) + ".",
                             "Update failed",
                             clsFunction.IconType.iError
                         );
@@ -2429,21 +2393,26 @@ namespace MIS
                         return;
                     }
 
-                    if (dbAPI.isRecordExist("Search", "TerminalSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtTerminalID.Text))
+                    if (!iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
                     {
-                        if (iHoldStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))
+                        if (!dbAPI.isRecordExist("Search", "Check TerminalID Installed", txtTerminalID.Text))
                         {
-                            if (dbAPI.isRecordExist("Search", "TerminalID Installed", txtTerminalID.Text))
-                            {
-                                isProceed = true;
-                            }
+                            dbFunction.SetMessageBox(
+                                "TerminalSN " + dbFunction.AddBracketStartEnd(txtTerminalSN.Text) +
+                                "\n\nThis terminal cannot be set to INSTALLED because it has no active successful installation lifecycle record.",
+                                "Update failed",
+                                clsFunction.IconType.iError
+                            );
+
+                            return;
                         }
 
+                        isProceed = true;
                     }
 
                     if (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
                     {
-                        if (dbAPI.isRecordExist("Search", "TerminalID Active Installed", txtTerminalID.Text))
+                        if (dbAPI.isRecordExist("Search", "Check TerminalID Active Installed", txtTerminalID.Text))
                         {
                             dbFunction.SetMessageBox(
                                 "TerminalSN " + dbFunction.AddBracketStartEnd(txtTerminalSN.Text) +
@@ -2459,7 +2428,6 @@ namespace MIS
                     }
 
                 }
-
             }
             else
             {
