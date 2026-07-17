@@ -54,7 +54,7 @@ namespace MIS
         private int RegionID { get; set; }
         private int RegionType { get; set; }
         private int JobTypeID { get; set; }
-
+        private string ServiceResult { get; set; }
         public frmServiceOveride()
         {
             InitializeComponent();
@@ -87,6 +87,7 @@ namespace MIS
             txtServiceType1.Text = string.Empty;
             lblSubHeader.Text = string.Empty;
             lblMainStatus.Text = "-";
+            lblResult.Text = "-";
             dteCreatedDate.Value = DateTime.Now;
             dteReqInstallationDate.Value = DateTime.Now;
             btnSearchMerchant.Enabled = true;
@@ -423,6 +424,21 @@ namespace MIS
             cboSearchServiceStatus.Items.AddRange(actions);
 
             if (cboSearchServiceStatus.Items.Count > 0) cboSearchServiceStatus.SelectedIndex = 0;
+        }
+
+        // NOTE: using literal strings since SERVICE_RESULT_SUCCESS / SERVICE_RESULT_NEGATIVE
+        // don't exist in clsDefines. Replace with real constants later if you add them.
+        private void FillServiceResult()
+        {
+            string[] results = { clsFunction.sDefaultSelect,
+                                 "SUCCESS",
+                                 "NEGATIVE"
+            };
+
+            cboChange.Items.Clear();
+            cboChange.Items.AddRange(results);
+
+            if (cboChange.Items.Count > 0) cboChange.SelectedIndex = 0;
         }
 
         private void getCurrentDevice(int iridNo, bool isTerminal)
@@ -821,6 +837,10 @@ namespace MIS
             FillServiceStatus();
             LoadCategories();
 
+            ServiceResult = JFunc.getValue(json, "ActionMade");
+            lblResult.Text = string.IsNullOrEmpty(ServiceResult) ? "-" : ServiceResult;
+            FillServiceResult();
+
             // Select Categories
 
             cboSearchServiceStatus.SelectedItem = JFunc.getValue(json, "JobTypeStatusDescription");
@@ -1091,6 +1111,64 @@ namespace MIS
             }
 
             return true;
+        }
+
+        private void cboChange_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboChange.SelectedIndex <= 0) return; // ignore "[NOT SPECIFIED]"
+
+            string newResult = cboChange.Text;
+
+            if (newResult.Equals(ServiceResult))
+            {
+                cboChange.SelectedIndex = 0;
+                return;
+            }
+
+            if (!Prompt.YesNo("Service Result",
+                    $"Change RESULT from '{(string.IsNullOrEmpty(ServiceResult) ? "-" : ServiceResult)}' to '{newResult}'?")
+                    .Equals(DialogResult.Yes))
+            {
+                cboChange.SelectedIndex = 0;
+                return;
+            }
+
+            UpdateServiceResult(ServiceNo, newResult);
+        }
+
+        private void UpdateServiceResult(int pServiceNo, string pNewResult)
+        {
+            try
+            {
+                dbAPI = new clsAPI();
+
+                var Data = new
+                {
+                    NewResult = pNewResult
+                };
+
+                // Backend: calls spServiceResultOverride(p_ServiceNo, p_Json)
+                // TODO: confirm the exact endpoint string your API layer maps to this SP
+                dbAPI.ExecuteAPI("PUT", "Update", "Service-Result-Overide",
+                                  $"{pServiceNo}|{JFunc.Serialized(Data)}", "", "", "UpdateCollectionDetail");
+
+                if (dbAPI.isNoRecordFound())
+                {
+                    cboChange.SelectedIndex = 0;
+                    return;
+                }
+
+                ServiceResult = pNewResult;
+                lblResult.Text = pNewResult;
+                cboChange.SelectedIndex = 0;
+
+                Prompt.Info("Update Successful", $"Service Result updated to: {pNewResult}");
+            }
+            catch (Exception ex)
+            {
+                Prompt.Error("Updating Service Result", $"Process Error: {ex.Message}");
+                cboChange.SelectedIndex = 0;
+            }
         }
     }
 }
