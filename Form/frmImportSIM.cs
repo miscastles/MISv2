@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Spire.Xls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
 using System.Data.OleDb;
 using System.Diagnostics;
-using Spire.Xls;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using static MIS.Function.AppUtilities;
 
 namespace MIS
@@ -158,8 +159,13 @@ namespace MIS
                     
                     TotalCount();
 
-                    btnImportSave.Enabled = true;
+                    btnImportSave.Enabled = false;
                     btnValidate.Enabled = true;
+
+                    btnValidate_Click(this, e);
+
+                    if (!btnImportSave.Enabled)
+                        return;
 
                     cboIClient.Enabled = true;
 
@@ -635,7 +641,9 @@ namespace MIS
             string sRowCSV = "";
             //string sCSV = "";
             int iRowCount = grdList.RowCount;
-            int iColCount = grdList.ColumnCount; // exclude Result column
+            int iColCount = grdList.Columns.Contains("RESULT")
+            ? grdList.ColumnCount - 1
+            : grdList.ColumnCount; // exclude Result column
             int iRowIndex = 0;
             int ii = 0;
 
@@ -1650,33 +1658,35 @@ namespace MIS
             {
                 if (dbFunction.isValidID(txtSIMID.Text))
                 {
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLEDOUT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)) ||
-                            !dbFunction.isValidID(txtTService.Text))
+                    if (iHoldStatus == clsGlobalVariables.STATUS_DISPATCH && (iStatus == clsGlobalVariables.STATUS_AVAILABLE || iStatus == clsGlobalVariables.STATUS_ALLOCATED))
+                    {
+                        dbFunction.SetMessageBox(
+                            "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                            "\n\nA DISPATCH SIMSN cannot be manually changed to " +
+                            cboMStatus.Text + ".",
+                            "Update failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
+                    if ((((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLEDOUT_DESC)) || (txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLED_OUT_DESC))) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)) || !dbFunction.isValidID(txtTService.Text))
                     {
                         isProceed = true;
                     }
 
-                    if (dbFunction.isValidID(txtSIMStatus.Text) &&
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_DAMAGE)) ||
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_LOSS)) ||
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_BORROWED)))
+                    if (dbFunction.isValidID(txtSIMStatus.Text) && (iHoldStatus == clsGlobalVariables.STATUS_DAMAGE || iHoldStatus == clsGlobalVariables.STATUS_LOSS || iHoldStatus == clsGlobalVariables.STATUS_BORROWED))
                     {
                         isProceed = true;
                     }
 
-                    if (dbFunction.isValidID(txtSIMStatus.Text) &&
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED)) &&
-                        (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation)))
+                    if (dbFunction.isValidID(txtSIMStatus.Text) && iHoldStatus == clsGlobalVariables.STATUS_INSTALLED && iStatus == clsGlobalVariables.STATUS_INSTALLED && cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation))
                     {
                         isProceed = true;
                     }
 
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)))
-                    {
-                        isProceed = true;
-                    }
-
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLED_OUT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)))
+                    if (txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS))
                     {
                         isProceed = true;
                     }
@@ -1686,12 +1696,12 @@ namespace MIS
                         isProceed = true;
                     }
 
-                    if (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                    if (iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && int.Parse(dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text)) != clsSystemSetting.ClassSystemSNLocationID)
                     {
                         dbFunction.SetMessageBox(
                             "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
-                            "\n\nThis SIM is set to " + dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) +
-                            " and cannot be set to " + cboMStatus.Text,
+                            "\n\nAn INSTALLED terminal must be located in " +
+                            dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) + ".",
                             "Update failed",
                             clsFunction.IconType.iError
                         );
@@ -1699,16 +1709,21 @@ namespace MIS
                         return;
                     }
 
-                    if (dbAPI.isRecordExist("Search", "SIMSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtSIMID.Text))
+                    if (!iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
                     {
-                        if (iHoldStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))
+                        if (!dbAPI.isRecordExist("Search", "SIMID Installed", txtSIMID.Text))
                         {
-                            if (dbAPI.isRecordExist("Search", "SIMID Installed", txtSIMID.Text))
-                            {
-                                isProceed = true;
-                            }
+                            dbFunction.SetMessageBox(
+                                "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                                "\n\nThis SIM cannot be set to INSTALLED because it has no active successful installation lifecycle record.",
+                                "Update failed",
+                                clsFunction.IconType.iError
+                            );
+
+                            return;
                         }
 
+                        isProceed = true;
                     }
 
                     if (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
@@ -3891,6 +3906,144 @@ namespace MIS
 
         private void btnValidate_Click(object sender, EventArgs e)
         {
+            StringBuilder sb = new StringBuilder();
+            string mode = "Import";
+            string inventory_type = "SIM";
+
+            if (!dbFunction.fPromptConfirmation($"Are you sure to validate the records on list?")) return;
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            ucStatusDisplay.SetStatus($"Validating list...", Enums.StatusType.Processing);
+
+            btnImportSave.Enabled = false;
+
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                var value = row.Cells[1].Value?.ToString();
+                if (string.IsNullOrWhiteSpace(value)) continue;
+
+                value = Regex.Replace(value, @"[\r\n,\s]", "");
+                sb.Append(value + ",");
+            }
+
+            string result = sb.ToString().TrimEnd(',');
+
+            Debug.WriteLine($"result=[{result}]");
+
+            dbAPI.ExecuteAPI("GET", "View", "Inventory Bulk Cross-Check List", $"{mode}{clsFunction.sPipe}{inventory_type}{clsFunction.sPipe}{result}", "Advance Detail", "", "ViewAdvanceDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK)
+            {
+                Cursor.Current = Cursors.Default;
+                btnImportSave.Enabled = false;
+
+                ucStatusDisplay.SetStatus("Unable to validate SIM list.", Enums.StatusType.Error);
+
+                return;
+            }
+
+            if (!grdList.Columns.Contains("RESULT"))
+            {
+                grdList.Columns.Add("RESULT", "RESULT");
+            }
+
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                DataGridViewCell cell = row.Cells["RESULT"];
+
+                cell.Value = "NEW";
+                cell.Style.BackColor = Color.LightGreen;
+                cell.Style.ForeColor = Color.Black;
+            }
+
+            if (dbAPI.isNoRecordFound())
+            {
+                ComputeSummary(grdList);
+
+                Cursor.Current = Cursors.Default;
+                btnImportSave.Enabled = true;
+
+                ucStatusDisplay.SetStatus("No duplicate SIM serial numbers found.", Enums.StatusType.Success);
+                dbFunction.SetMessageBox(" No duplicate SIM serial numbers found.", lblHeader.Text, clsFunction.IconType.iInformation);
+
+                return;
+            }
+
+            if (!dbAPI.isNoRecordFound())
+            {
+                Cursor.Current = Cursors.Default;
+                btnImportSave.Enabled = true;
+
+                ucStatusDisplay.SetStatus("Duplicate or Restricted SIM Serial numbers found.", Enums.StatusType.Error);
+                dbFunction.SetMessageBox("Duplicate or Restricted SIM serial numbers found.", lblHeader.Text, clsFunction.IconType.iExclamation);
+            }
+
+            Dictionary<string, string> resultMap = new Dictionary<string, string>();
+
+            for (int i = 0; i < clsArray.ID.Length; i++)
+            {
+                string json = clsArray.detail_info[i];
+
+                string sn = dbAPI.GetValueFromJSONString(json, clsDefines.TAG_SerialNo);
+                string status = dbAPI.GetValueFromJSONString(json, clsDefines.TAG_Result);
+
+                if (!string.IsNullOrEmpty(sn))
+                {
+                    resultMap[sn] = status;
+                }
+            }
+
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                string sn = row.Cells[1].Value?.ToString();
+                if (string.IsNullOrWhiteSpace(sn)) continue;
+
+                sn = Regex.Replace(sn, @"[\r\n,\s]", "");
+
+                if (resultMap.ContainsKey(sn))
+                {
+                    string status = resultMap[sn];
+
+                    var cell = row.Cells["RESULT"];
+                    cell.Value = status;
+
+                    switch (status?.ToUpperInvariant())
+                    {
+                        case "DUPLICATE":
+                        case "RESTRICTED":
+                            cell.Style.BackColor = Color.Red;
+                            cell.Style.ForeColor = Color.White;
+                            break;
+
+                        default:
+                            cell.Style.BackColor = Color.White;
+                            cell.Style.ForeColor = Color.Black;
+                            break;
+                    }
+                }
+            }
+
+            ComputeSummary(grdList);
+
+            bool hasBlockedRecords = resultMap.Values.Any(value =>
+                string.Equals(value, "DUPLICATE", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(value, "RESTRICTED", StringComparison.OrdinalIgnoreCase));
+
+            btnImportSave.Enabled = !hasBlockedRecords;
+
+            Cursor.Current = Cursors.Default;
+
+            ucStatusDisplay.SetStatus($"Validating list..completed.", Enums.StatusType.Success);
+
+            dbFunction.SetMessageBox("Validate list complete. Check summary count.", lblHeader.Text, clsFunction.IconType.iInformation);
 
         }
 
@@ -4022,6 +4175,50 @@ namespace MIS
 
             return isValid;
 
+        }
+
+        public void ComputeSummary(DataGridView grid)
+        {
+            int totalInput = 0;
+            int ready = 0;
+            int notFound = 0;
+            int restricted = 0;
+
+            HashSet<string> uniqueSN = new HashSet<string>();
+
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                totalInput++;
+
+                string sn = row.Cells[1].Value?.ToString();
+                if (!string.IsNullOrWhiteSpace(sn))
+                {
+                    sn = Regex.Replace(sn, @"[\r\n,\s]", "");
+                    uniqueSN.Add(sn);
+                }
+
+                string result = row.Cells["RESULT"].Value?.ToString().Trim().ToUpperInvariant();
+                switch (result)
+                {
+                    case "DUPLICATE":
+                    case "RESTRICTED":
+                        restricted++;
+                        break;
+
+                    case null:
+                    case "NEW":
+                        ready++;
+                        break;
+                }
+            }
+
+            txtTotalInput.Text = totalInput.ToString();
+            txtTotalUnique.Text = uniqueSN.Count.ToString();
+            txtReady.Text = ready.ToString();
+            txtNotFound.Text = notFound.ToString();
+            txtRestricted.Text = restricted.ToString();
         }
     }
 }

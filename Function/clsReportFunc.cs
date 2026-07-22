@@ -243,7 +243,7 @@ namespace MIS
                                                 clsSearch.ClassServiceNo + clsFunction.sPipe +
                                                 clsSearch.ClassFSRNo + clsFunction.sPipe +
                                                 clsSearch.ClassIRIDNo;
-
+           
             try
             {
                 clsSearch.ClassReportID = ReportID;

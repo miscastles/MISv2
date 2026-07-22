@@ -345,6 +345,7 @@ namespace MIS
                 {
                     string sCellValue = StrClean(grdDummy.Rows[i].Cells[x].Value?.ToString().Trim() ?? "");
                     
+                    /*
                     // Apply transformations only if necessary
                     if (x == iPRIME_TID_01 && !string.IsNullOrEmpty(sCellValue))
                         sCellValue = dbFunction.padLeftChar(sTID, clsFunction.sPadZero, 8);
@@ -365,6 +366,7 @@ namespace MIS
                         if (!dbFunction.isValidDescription(sCellValue))
                             sCellValue = clsDefines.DEV_DATE;
                     }
+                    */
 
                     if (x == iDBAName)
                         sCellValue = sMerchantName.Replace("(", "").Replace(")", "");
@@ -767,9 +769,6 @@ namespace MIS
 
             if (!validateImportData()) return;
 
-            if (!dbFunction.fPromptConfirmation("Cross-check complete.\nProceed with saving the imported records?"))
-                return;
-            
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -4376,6 +4375,16 @@ namespace MIS
                 {
                     dbFunction.SetMessageBox(
                         $"Request Type [{requesttype}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return false;
+                }
+
+                // Zoning CityMunicipal
+                if (!dbAPI.isRecordExist("Search", "Zoning CityMunicipal", city))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Zoning City [{city}] must be enrolled.",
                         clsDefines.FIELD_CHECK_MSG,
                         clsFunction.IconType.iError);
                     return false;

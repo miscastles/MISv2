@@ -164,7 +164,15 @@ namespace MIS
 
             dbAPI.ExecuteAPI("GET", "View", "Inventory Bulk Cross-Check List", $"{mode}{clsFunction.sPipe}{cboInventoryType.Text}{clsFunction.sPipe}{rtbSNList.Text}","Advance Detail", "", "ViewAdvanceDetail");
 
-            if (!clsGlobalVariables.isAPIResponseOK) return;
+            if (!clsGlobalVariables.isAPIResponseOK)
+            {
+                Cursor.Current = Cursors.Default;
+            
+                dbFunction.SetMessageBox("Unable to validate list", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+
+                return;
+            }
+
 
             if (!dbAPI.isNoRecordFound())
             {

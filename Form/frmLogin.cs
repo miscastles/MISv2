@@ -222,6 +222,7 @@ namespace MIS
                     clsSearch.ClassCurrentParticularID = clsUser.ClassParticularID;
                     clsSearch.ClassCurrentParticularName = clsUser.ClassUserFullName;
                     clsSearch.ClassisAppVersion = clsUser.ClassisAppVersion;
+                    clsGlobalVariables.isReportWarmUp = false;
 
                     // set Apps Session
                     AppSession.BankCode = clsSearch.ClassBankCode;
@@ -259,8 +260,7 @@ namespace MIS
                     Cursor.Current = Cursors.Default;
 
                     clsSearch.ClassStatus = clsGlobalVariables.LOGIN_STATUS;
-                    clsSearch.ClassStatusDescription = clsGlobalVariables.LOGIN_STATUS_DESC;
-                    clsGlobalVariables.isReportWarmUp = false;
+                    clsSearch.ClassStatusDescription = clsGlobalVariables.LOGIN_STATUS_DESC;                    
 
                     if (IsSwitchBankMode)
                     {

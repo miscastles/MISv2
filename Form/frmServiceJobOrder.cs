@@ -64,18 +64,6 @@ namespace MIS
             public object outParamValue { get; set; }
         }
 
-        // Override CreateParams to enable double-buffering for child controls
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
-
         public frmServiceJobOrder()
         {
             InitializeComponent();
@@ -3170,6 +3158,8 @@ namespace MIS
                 dbFunction.downloadSignature(clsDefines.VENDOR_SIGNATURE_INDEX, int.Parse(txtSearchServiceNo.Text));
 
                 // Preview report
+                clsSearch.ClassComponents = dbAPI.getStockkMovementDetail("Stock Movement Detail List", txtSearchServiceNo.Text + clsDefines.gPipe + txtIRIDNo.Text);
+
                 clsSearch.ClassIsExportToPDF = false;                
                 dbReportFunc.ViewFSR(5);
             }

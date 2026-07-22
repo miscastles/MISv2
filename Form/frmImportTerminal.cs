@@ -164,8 +164,13 @@ namespace MIS
 
                     TotalCount();
 
-                    btnImportSave.Enabled = true;
+                    btnImportSave.Enabled = false;
                     btnValidate.Enabled = true;
+
+                    btnValidate_Click(this, e);
+
+                    if (!btnImportSave.Enabled)
+                        return;
 
                     cboIClient.Enabled = true;
                     
@@ -642,7 +647,9 @@ namespace MIS
             string sRowCSV = "";
             //string sCSV = "";
             int iRowCount = grdList.RowCount;
-            int iColCount = grdList.ColumnCount;  // exclude Result column           
+            int iColCount = grdList.Columns.Contains("RESULT")
+            ? grdList.ColumnCount - 1
+            : grdList.ColumnCount;  // exclude Result column         
             int ii = 0;
 
             int i = 0;
@@ -2380,33 +2387,36 @@ namespace MIS
             {
                 if (dbFunction.isValidID(txtTerminalID.Text))
                 {
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLEDOUT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)) ||
-                        !dbFunction.isValidID(txtTService.Text))
+                    // dispatch -> AVAILABLE / ALLOCATED
+                    if (iHoldStatus == clsGlobalVariables.STATUS_DISPATCH && (iStatus == clsGlobalVariables.STATUS_AVAILABLE || iStatus == clsGlobalVariables.STATUS_ALLOCATED))
+                    {
+                        dbFunction.SetMessageBox(
+                            "TerminalSN " + dbFunction.AddBracketStartEnd(txtTerminalSN.Text) +
+                            "\n\nA DISPATCH terminal cannot be manually changed to " +
+                            cboMStatus.Text + ".",
+                            "Update failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
+                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLEDOUT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)) || !dbFunction.isValidID(txtTService.Text))
                     {
                         isProceed = true;
                     }
 
-                    if (dbFunction.isValidID(txtTerminalStatus.Text) &&
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_DAMAGE)) ||
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_LOSS)) ||
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_BORROWED)))
+                    if (dbFunction.isValidID(txtTerminalStatus.Text) && (iHoldStatus == clsGlobalVariables.STATUS_DAMAGE || iHoldStatus == clsGlobalVariables.STATUS_LOSS || iHoldStatus == clsGlobalVariables.STATUS_BORROWED))
                     {
                         isProceed = true;
                     }
 
-                    if (dbFunction.isValidID(txtTerminalStatus.Text) &&
-                        (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED)) &&
-                        (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation)))
+                    if (dbFunction.isValidID(txtTerminalStatus.Text) && iHoldStatus == clsGlobalVariables.STATUS_INSTALLED && cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation))
                     {
                         isProceed = true;
                     }
 
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)))                  
-                    {
-                        isProceed = true;
-                    }
-
-                    if ((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLED_OUT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)))
+                    if (txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS))
                     {
                         isProceed = true;
                     }
@@ -2416,12 +2426,12 @@ namespace MIS
                         isProceed = true;
                     }
 
-                    if (cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                    if (iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && int.Parse(dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text)) != clsSystemSetting.ClassSystemSNLocationID)
                     {
                         dbFunction.SetMessageBox(
                             "TerminalSN " + dbFunction.AddBracketStartEnd(txtTerminalSN.Text) +
-                            "\n\nThis Terminal is set to " + dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) +
-                            " and cannot be set to " + cboMStatus.Text,
+                            "\n\nAn INSTALLED terminal must be located in " +
+                            dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) + ".",
                             "Update failed",
                             clsFunction.IconType.iError
                         );
@@ -2429,18 +2439,25 @@ namespace MIS
                         return;
                     }
 
-                    if (dbAPI.isRecordExist("Search", "TerminalSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtTerminalID.Text))
+                    // any non-installed status -> installed
+                    if (!iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
                     {
-                        if (iHoldStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))
+                        if (!dbAPI.isRecordExist("Search", "TerminalID Installed", txtTerminalID.Text))
                         {
-                            if (dbAPI.isRecordExist("Search", "TerminalID Installed", txtTerminalID.Text))
-                            {
-                                isProceed = true;
-                            }
+                            dbFunction.SetMessageBox(
+                                "TerminalSN " + dbFunction.AddBracketStartEnd(txtTerminalSN.Text) +
+                                "\n\nThis terminal cannot be set to INSTALLED because it has no active successful installation lifecycle record.",
+                                "Update failed",
+                                clsFunction.IconType.iError
+                            );
+
+                            return;
                         }
 
+                        isProceed = true;
                     }
 
+                    // installed -> any non-installed status
                     if (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
                     {
                         if (dbAPI.isRecordExist("Search", "TerminalID Active Installed", txtTerminalID.Text))
@@ -4612,17 +4629,56 @@ namespace MIS
             Debug.WriteLine($"result=[{result}]");
 
             // ✅ call API
-            dbAPI.ExecuteAPI("GET", "View", "Inventory Bulk Cross-Check List",
-                $"{mode}{clsFunction.sPipe}{inventory_type}{clsFunction.sPipe}{result}",
-                "Advance Detail", "", "ViewAdvanceDetail");
+            dbAPI.ExecuteAPI("GET", "View", "Inventory Bulk Cross-Check List", $"{mode}{clsFunction.sPipe}{inventory_type}{clsFunction.sPipe}{result}", "Advance Detail", "", "ViewAdvanceDetail");
 
-            if (!clsGlobalVariables.isAPIResponseOK) return;
-            if (dbAPI.isNoRecordFound()) return;
+            if (!clsGlobalVariables.isAPIResponseOK)
+            {
+                Cursor.Current = Cursors.Default;
+                btnImportSave.Enabled = false;
+
+                ucStatusDisplay.SetStatus("Unable to validate list.", Enums.StatusType.Error);
+
+                dbFunction.SetMessageBox("Unable to validate list", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+
+                return;
+            }
 
             // ✅ 1. Add RESULT column if not exists
             if (!grdList.Columns.Contains("RESULT"))
             {
                 grdList.Columns.Add("RESULT", "RESULT");
+            }
+
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                DataGridViewCell cell = row.Cells["RESULT"];
+
+                cell.Value = "NEW";
+                cell.Style.BackColor = Color.LightGreen;
+                cell.Style.ForeColor = Color.Black;
+            }
+
+            if (dbAPI.isNoRecordFound())
+            {
+                Cursor.Current = Cursors.Default;
+                btnImportSave.Enabled = true;
+
+                ucStatusDisplay.SetStatus("No duplicate Terminal serial numbers found.", Enums.StatusType.Success);
+                dbFunction.SetMessageBox(" No duplicate Terminal serial numbers found.", lblHeader.Text, clsFunction.IconType.iInformation);
+
+                return;
+            }
+
+            if (!dbAPI.isNoRecordFound())
+            {
+                Cursor.Current = Cursors.Default;
+                btnImportSave.Enabled = true;
+
+                ucStatusDisplay.SetStatus("Duplicate or Restricted SIM Serial numbers found.", Enums.StatusType.Error);
+                dbFunction.SetMessageBox("Duplicate or Restricted SIM serial numbers found.", lblHeader.Text, clsFunction.IconType.iExclamation);
             }
 
             // ✅ 2. Build dictionary from API response (SN → Result)
@@ -4691,7 +4747,11 @@ namespace MIS
             // update count
             ComputeSummary(grdList);
 
-            btnImportSave.Enabled = true;
+            bool hasBlockedRecords = resultMap.Values.Any(value =>
+                string.Equals(value, "DUPLICATE", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(value, "RESTRICTED", StringComparison.OrdinalIgnoreCase));
+
+            btnImportSave.Enabled = !hasBlockedRecords;
 
             Cursor.Current = Cursors.Default;
             
@@ -4939,5 +4999,6 @@ namespace MIS
 
             return true;
         }
+
     }
 }
