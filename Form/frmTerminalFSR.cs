@@ -2154,11 +2154,11 @@ namespace MIS
                         else if (cboSearchActionMade.Text.CompareTo(dbAPI.GetActionMade()[2]) == 0) // NEGATIVE                   
                             pSearchValue = clsDefines.Mode_Type_Return;
 
-                        if (string.IsNullOrEmpty(cboCurTerminalLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, pSearchValue);
-                        if (string.IsNullOrEmpty(cboCurSIMLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, pSearchValue);
+                        dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, pSearchValue);
+                        dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, pSearchValue);
 
                         // components
-                        if (string.IsNullOrEmpty(cboItemLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, pSearchValue);
+                        dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, pSearchValue);
 
                     }
 
@@ -2169,11 +2169,11 @@ namespace MIS
                         else if (cboSearchActionMade.Text.CompareTo(dbAPI.GetActionMade()[2]) == 0) // NEGATIVE                   
                             pSearchValue = clsDefines.Mode_Type_Deploy;
 
-                        if (string.IsNullOrEmpty(cboCurTerminalLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, pSearchValue);
-                        if (string.IsNullOrEmpty(cboCurSIMLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, pSearchValue);
+                        dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, pSearchValue);
+                        dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, pSearchValue);
 
                         // components
-                        if (string.IsNullOrEmpty(cboItemLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, pSearchValue);
+                        dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, pSearchValue);
                     }
 
                     else if (txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
@@ -2185,33 +2185,33 @@ namespace MIS
                             // Terminal
                             if (dbFunction.isValidID(txtRepTerminalID.Text))
                             {
-                                if (string.IsNullOrEmpty(cboCurTerminalLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, clsDefines.Mode_Type_Return);
-                                if (string.IsNullOrEmpty(cboRepTerminalLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboRepTerminalLocation, pSearchValue);
+                                dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, clsDefines.Mode_Type_Return);
+                                dbAPI.FillComboBoxServiceResultLocation(cboRepTerminalLocation, pSearchValue);
                             }
                             else
                             {
-                                if (string.IsNullOrEmpty(cboCurTerminalLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, clsDefines.Mode_Type_Deploy);
+                                dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, clsDefines.Mode_Type_Deploy);
                             }
 
                             // SIM
                             if (dbFunction.isValidID(txtRepSIMID.Text))
                             {
-                                if (string.IsNullOrEmpty(cboCurSIMLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, clsDefines.Mode_Type_Return);
-                                if (string.IsNullOrEmpty(cboRepSIMLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboRepSIMLocation, pSearchValue);
+                                dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, clsDefines.Mode_Type_Return);
+                                dbAPI.FillComboBoxServiceResultLocation(cboRepSIMLocation, pSearchValue);
                             }
                             else
                             {
-                                if (string.IsNullOrEmpty(cboCurSIMLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, pSearchValue);
+                                dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, pSearchValue);
                             }
 
                             // components
                             if (dbFunction.isValidCount(lvwRepStockDetail.Items.Count))
                             {
-                                if (string.IsNullOrEmpty(cboItemLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, clsDefines.Mode_Type_Return);
+                                dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, clsDefines.Mode_Type_Return);
                             }
                             else
                             {
-                                if (string.IsNullOrEmpty(cboItemLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, pSearchValue);
+                                dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, pSearchValue);
                             }
 
                         }
@@ -2223,33 +2223,33 @@ namespace MIS
                             // Terminal
                             if (dbFunction.isValidID(txtRepTerminalID.Text))
                             {
-                                if (string.IsNullOrEmpty(cboCurTerminalLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, clsDefines.Mode_Type_Deploy);
-                                if (string.IsNullOrEmpty(cboRepTerminalLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboRepTerminalLocation, pSearchValue);
+                                dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, clsDefines.Mode_Type_Deploy);
+                                dbAPI.FillComboBoxServiceResultLocation(cboRepTerminalLocation, pSearchValue);
                             }
                             else
                             {
-                                if (string.IsNullOrEmpty(cboCurTerminalLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, clsDefines.Mode_Type_Deploy);
+                                dbAPI.FillComboBoxServiceResultLocation(cboCurTerminalLocation, clsDefines.Mode_Type_Deploy);
                             }
 
                             // SIM
                             if (dbFunction.isValidID(txtRepSIMID.Text))
                             {
-                                if (string.IsNullOrEmpty(cboCurSIMLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, clsDefines.Mode_Type_Deploy);
-                                if (string.IsNullOrEmpty(cboRepSIMLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboRepSIMLocation, pSearchValue);
+                                dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, clsDefines.Mode_Type_Deploy);
+                                dbAPI.FillComboBoxServiceResultLocation(cboRepSIMLocation, pSearchValue);
                             }
                             else
                             {
-                                if (string.IsNullOrEmpty(cboCurSIMLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, clsDefines.Mode_Type_Deploy);
+                                dbAPI.FillComboBoxServiceResultLocation(cboCurSIMLocation, clsDefines.Mode_Type_Deploy);
                             }
 
                             // components
                             if (dbFunction.isValidCount(lvwRepStockDetail.Items.Count))
                             {
-                                if (string.IsNullOrEmpty(cboItemLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, clsDefines.Mode_Type_Deploy);
+                                dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, clsDefines.Mode_Type_Deploy);
                             }
                             else
                             {
-                                if (string.IsNullOrEmpty(cboItemLocation.Text)) dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, pSearchValue);
+                                dbAPI.FillComboBoxServiceResultLocation(cboItemLocation, pSearchValue);
                             }
                             
                         }

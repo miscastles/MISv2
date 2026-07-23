@@ -4073,7 +4073,7 @@ namespace MIS
 
         private bool validateImportData()
         {
-            bool isValid = false;
+            bool isValid = true;
 
             foreach (DataGridViewRow row in grdList.Rows)
             {

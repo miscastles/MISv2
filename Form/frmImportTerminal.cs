@@ -4846,6 +4846,8 @@ namespace MIS
 
         private bool validateImportData()
         {
+            bool isValid = true;
+
             foreach (DataGridViewRow row in grdList.Rows)
             {
                 if (row.IsNewRow)
@@ -4997,7 +4999,7 @@ namespace MIS
                 }
             }
 
-            return true;
+            return isValid;
         }
 
     }
