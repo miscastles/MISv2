@@ -109,4 +109,21 @@ namespace MIS.Enums
     {
         Reschedule_By_Merchant_FuncId = 1
     }
+
+    public enum ActivityType
+    {
+        Request = 1,
+        JobOrders = 2,
+        Inventory = 3,
+        TerminalPrep = 4,
+        Dispatcher = 5,
+        FieldEngineer = 6,
+        Closer = 7,
+        Completed = 8,
+        Negative = 9,
+        Within = 10,
+        Beyond = 11,
+        Profiling = 12
+    }
+
 }

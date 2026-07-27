@@ -986,6 +986,7 @@
     <Compile Include="Model\modelParticular.cs" />
     <Compile Include="Model\modelPrivacyDetail.cs" />
     <Compile Include="Model\modelPrivacyMaster.cs" />
+    <Compile Include="Model\modelServicingActivityDetail.cs" />
     <Compile Include="Model\modelStock.cs" />
     <Compile Include="Model\modelZoning.cs" />
     <Compile Include="Model\ReportInfo.cs" />
