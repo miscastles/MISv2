@@ -221,6 +221,7 @@ namespace MIS
         public const string TAG_NetworkDays = "NetworkDays";
         public const string TAG_DaysOverDue = "DaysOverDue";
         public const string TAG_TATStatus = "TATStatus";
+        public const string TAG_DaysHoliday = "DaysHoliday";
 
         public const string HEADER_Current_Terminal = "Current terminal";
         public const string HEADER_Current_SIM = "Current SIM";

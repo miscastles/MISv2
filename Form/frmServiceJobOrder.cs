@@ -4605,6 +4605,20 @@ namespace MIS
 
                     loadTATDetail();
 
+                    if (txtTATStatus.Text.Equals(clsDefines.BEYOND_TAT) && !dbFunction.isValidID(txtSearchFSRNo.Text))
+                    {
+                        tabMain.SelectedIndex = 3;
+
+                        dbFunction.SetMessageBox(
+                        $"This service request has exceeded the allowable Turnaround Time (TAT).\n\n" +
+                        $"Days Overdue : {txtDaysOverDue.Text}\n" +
+                        $"Required SLA : {txtSLA.Text} day(s)\n" +
+                        $"Network Days : {txtNetworkDays.Text}\n\n" +
+                        $"Please prioritize completion of this service request.",
+                        "Beyond TAT",
+                        clsFunction.IconType.iWarning);
+                    }
+
                     loadStockMovementDetail(lvwStockDetail, true);
                     loadStockMovementDetail(lvwRepStockDetail, false);
 
@@ -6025,6 +6039,7 @@ namespace MIS
             txtNetworkDays.Text = clsSearch.ClassNetworkDays;
             txtDaysOverDue.Text = clsSearch.ClassDaysOverDue;
             txtTATStatus.Text = clsSearch.ClassTATStatus;
+            txtDaysHoliday.Text = clsSearch.ClassDaysHoliday;
 
             if (txtTATStatus.Text.Equals(clsDefines.WITHIN_TAT))
                 txtTATStatus.ForeColor = Color.Blue;
@@ -7104,8 +7119,8 @@ namespace MIS
                 if (dbFunction.isValidDescription(pJSONString))
                 {
                     txtZZone.Text = txtSLAZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);                    
-                    txtZRegion.Text = txtSLARegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
-                    txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
+                    txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
+                    txtZArea.Text = txtSLAArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
                     txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
                 }
             }

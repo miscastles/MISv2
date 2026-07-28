@@ -257,6 +257,12 @@
             this.label120 = new System.Windows.Forms.Label();
             this.txtGeoLatitude = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label184 = new System.Windows.Forms.Label();
+            this.txtDaysHoliday = new System.Windows.Forms.TextBox();
+            this.txtSLAArea = new System.Windows.Forms.TextBox();
+            this.label182 = new System.Windows.Forms.Label();
+            this.txtSLAZone = new System.Windows.Forms.TextBox();
+            this.label183 = new System.Windows.Forms.Label();
             this.label171 = new System.Windows.Forms.Label();
             this.txtDueDate = new System.Windows.Forms.TextBox();
             this.label143 = new System.Windows.Forms.Label();
@@ -730,6 +736,10 @@
             this.tabPage23 = new System.Windows.Forms.TabPage();
             this.lvwRaw = new System.Windows.Forms.ListView();
             this.tabPage24 = new System.Windows.Forms.TabPage();
+            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
+            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
+            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
+            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.tabPage25 = new System.Windows.Forms.TabPage();
             this.lblCountDown = new System.Windows.Forms.Label();
             this.lblCreatedDate = new System.Windows.Forms.Label();
@@ -800,14 +810,6 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
-            this.txtSLARegion = new System.Windows.Forms.TextBox();
-            this.label182 = new System.Windows.Forms.Label();
-            this.txtSLAZone = new System.Windows.Forms.TextBox();
-            this.label183 = new System.Windows.Forms.Label();
-            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
-            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
-            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
-            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -3569,7 +3571,7 @@
             this.tabMain.Location = new System.Drawing.Point(1, 4);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(412, 127);
+            this.tabMain.Size = new System.Drawing.Size(412, 130);
             this.tabMain.TabIndex = 491;
             // 
             // tabPage5
@@ -3579,7 +3581,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 27);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(404, 96);
+            this.tabPage5.Size = new System.Drawing.Size(404, 99);
             this.tabPage5.TabIndex = 3;
             this.tabPage5.Text = "FUNCTION";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -3600,7 +3602,7 @@
             this.panel134.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel134.Location = new System.Drawing.Point(3, 3);
             this.panel134.Name = "panel134";
-            this.panel134.Size = new System.Drawing.Size(398, 90);
+            this.panel134.Size = new System.Drawing.Size(398, 93);
             this.panel134.TabIndex = 474;
             // 
             // btnSendFSREmail
@@ -3750,7 +3752,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 27);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(404, 96);
+            this.tabPage4.Size = new System.Drawing.Size(404, 99);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "HISTORY";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -3764,7 +3766,7 @@
             this.panel142.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel142.Location = new System.Drawing.Point(3, 3);
             this.panel142.Name = "panel142";
-            this.panel142.Size = new System.Drawing.Size(398, 90);
+            this.panel142.Size = new System.Drawing.Size(398, 93);
             this.panel142.TabIndex = 474;
             // 
             // lvwList
@@ -3778,7 +3780,7 @@
             this.lvwList.HideSelection = false;
             this.lvwList.Location = new System.Drawing.Point(0, 0);
             this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(396, 88);
+            this.lvwList.Size = new System.Drawing.Size(396, 91);
             this.lvwList.TabIndex = 117;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
@@ -3803,7 +3805,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(404, 96);
+            this.tabPage3.Size = new System.Drawing.Size(404, 99);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "GEOMETRIC";
             // 
@@ -3954,7 +3956,9 @@
             // 
             // tabPage6
             // 
-            this.tabPage6.Controls.Add(this.txtSLARegion);
+            this.tabPage6.Controls.Add(this.label184);
+            this.tabPage6.Controls.Add(this.txtDaysHoliday);
+            this.tabPage6.Controls.Add(this.txtSLAArea);
             this.tabPage6.Controls.Add(this.label182);
             this.tabPage6.Controls.Add(this.txtSLAZone);
             this.tabPage6.Controls.Add(this.label183);
@@ -3971,10 +3975,79 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 27);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(404, 96);
+            this.tabPage6.Size = new System.Drawing.Size(404, 99);
             this.tabPage6.TabIndex = 4;
             this.tabPage6.Text = "SLA/TAT";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // label184
+            // 
+            this.label184.AutoSize = true;
+            this.label184.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label184.Location = new System.Drawing.Point(5, 79);
+            this.label184.Name = "label184";
+            this.label184.Size = new System.Drawing.Size(56, 14);
+            this.label184.TabIndex = 462;
+            this.label184.Text = "HOLIDAY";
+            // 
+            // txtDaysHoliday
+            // 
+            this.txtDaysHoliday.BackColor = System.Drawing.Color.White;
+            this.txtDaysHoliday.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDaysHoliday.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDaysHoliday.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDaysHoliday.Location = new System.Drawing.Point(100, 74);
+            this.txtDaysHoliday.Name = "txtDaysHoliday";
+            this.txtDaysHoliday.ReadOnly = true;
+            this.txtDaysHoliday.Size = new System.Drawing.Size(53, 22);
+            this.txtDaysHoliday.TabIndex = 461;
+            this.txtDaysHoliday.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtSLAArea
+            // 
+            this.txtSLAArea.BackColor = System.Drawing.Color.White;
+            this.txtSLAArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSLAArea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSLAArea.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtSLAArea.Location = new System.Drawing.Point(215, 51);
+            this.txtSLAArea.Name = "txtSLAArea";
+            this.txtSLAArea.ReadOnly = true;
+            this.txtSLAArea.Size = new System.Drawing.Size(186, 20);
+            this.txtSLAArea.TabIndex = 459;
+            this.txtSLAArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label182
+            // 
+            this.label182.AutoSize = true;
+            this.label182.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label182.Location = new System.Drawing.Point(159, 55);
+            this.label182.Name = "label182";
+            this.label182.Size = new System.Drawing.Size(35, 14);
+            this.label182.TabIndex = 460;
+            this.label182.Text = "AREA";
+            // 
+            // txtSLAZone
+            // 
+            this.txtSLAZone.BackColor = System.Drawing.Color.White;
+            this.txtSLAZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSLAZone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSLAZone.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtSLAZone.Location = new System.Drawing.Point(215, 29);
+            this.txtSLAZone.Name = "txtSLAZone";
+            this.txtSLAZone.ReadOnly = true;
+            this.txtSLAZone.Size = new System.Drawing.Size(186, 20);
+            this.txtSLAZone.TabIndex = 457;
+            this.txtSLAZone.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label183
+            // 
+            this.label183.AutoSize = true;
+            this.label183.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label183.Location = new System.Drawing.Point(159, 32);
+            this.label183.Name = "label183";
+            this.label183.Size = new System.Drawing.Size(35, 14);
+            this.label183.TabIndex = 458;
+            this.label183.Text = "ZONE";
             // 
             // label171
             // 
@@ -4003,7 +4076,7 @@
             // 
             this.label143.AutoSize = true;
             this.label143.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label143.Location = new System.Drawing.Point(3, 77);
+            this.label143.Location = new System.Drawing.Point(159, 77);
             this.label143.Name = "label143";
             this.label143.Size = new System.Drawing.Size(49, 14);
             this.label143.TabIndex = 444;
@@ -4015,10 +4088,10 @@
             this.txtTATStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTATStatus.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTATStatus.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTATStatus.Location = new System.Drawing.Point(100, 74);
+            this.txtTATStatus.Location = new System.Drawing.Point(216, 73);
             this.txtTATStatus.Name = "txtTATStatus";
             this.txtTATStatus.ReadOnly = true;
-            this.txtTATStatus.Size = new System.Drawing.Size(301, 22);
+            this.txtTATStatus.Size = new System.Drawing.Size(185, 22);
             this.txtTATStatus.TabIndex = 443;
             this.txtTATStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -4100,7 +4173,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(404, 96);
+            this.tabPage2.Size = new System.Drawing.Size(404, 99);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "SWITCH SN";
             // 
@@ -4301,7 +4374,7 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 27);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(404, 96);
+            this.tabPage7.Size = new System.Drawing.Size(404, 99);
             this.tabPage7.TabIndex = 5;
             this.tabPage7.Text = "MOBILE";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -9448,6 +9521,50 @@
             this.tabPage24.Text = "Helpdesk Information";
             this.tabPage24.UseVisualStyleBackColor = true;
             // 
+            // ucVendorHelpDeskTeamLeadInfo
+            // 
+            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(588, 446);
+            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
+            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(678, 107);
+            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 7;
+            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
+            // 
+            // ucVendorHelpDeskRepInfo
+            // 
+            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 446);
+            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
+            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(678, 107);
+            this.ucVendorHelpDeskRepInfo.TabIndex = 6;
+            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
+            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskRepInfo.VendorName = "";
+            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
+            // 
+            // ucHelpDeskEntryInfo
+            // 
+            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 237);
+            this.ucHelpDeskEntryInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
+            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1333, 252);
+            this.ucHelpDeskEntryInfo.TabIndex = 5;
+            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
+            // 
+            // ucHelpDeskServiceInfo
+            // 
+            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 4);
+            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
+            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1265, 283);
+            this.ucHelpDeskServiceInfo.TabIndex = 1;
+            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
+            // 
             // tabPage25
             // 
             this.tabPage25.Location = new System.Drawing.Point(4, 28);
@@ -10284,96 +10401,6 @@
             this.txtAssistNo.ReadOnly = true;
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
-            // 
-            // txtSLARegion
-            // 
-            this.txtSLARegion.BackColor = System.Drawing.Color.White;
-            this.txtSLARegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSLARegion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSLARegion.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtSLARegion.Location = new System.Drawing.Point(264, 51);
-            this.txtSLARegion.Name = "txtSLARegion";
-            this.txtSLARegion.ReadOnly = true;
-            this.txtSLARegion.Size = new System.Drawing.Size(136, 20);
-            this.txtSLARegion.TabIndex = 459;
-            this.txtSLARegion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label182
-            // 
-            this.label182.AutoSize = true;
-            this.label182.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label182.Location = new System.Drawing.Point(159, 55);
-            this.label182.Name = "label182";
-            this.label182.Size = new System.Drawing.Size(49, 14);
-            this.label182.TabIndex = 460;
-            this.label182.Text = "REGION";
-            // 
-            // txtSLAZone
-            // 
-            this.txtSLAZone.BackColor = System.Drawing.Color.White;
-            this.txtSLAZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSLAZone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSLAZone.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtSLAZone.Location = new System.Drawing.Point(264, 29);
-            this.txtSLAZone.Name = "txtSLAZone";
-            this.txtSLAZone.ReadOnly = true;
-            this.txtSLAZone.Size = new System.Drawing.Size(137, 20);
-            this.txtSLAZone.TabIndex = 457;
-            this.txtSLAZone.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label183
-            // 
-            this.label183.AutoSize = true;
-            this.label183.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label183.Location = new System.Drawing.Point(159, 32);
-            this.label183.Name = "label183";
-            this.label183.Size = new System.Drawing.Size(35, 14);
-            this.label183.TabIndex = 458;
-            this.label183.Text = "ZONE";
-            // 
-            // ucVendorHelpDeskTeamLeadInfo
-            // 
-            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(588, 446);
-            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
-            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(678, 107);
-            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 7;
-            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
-            // 
-            // ucVendorHelpDeskRepInfo
-            // 
-            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 446);
-            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
-            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(678, 107);
-            this.ucVendorHelpDeskRepInfo.TabIndex = 6;
-            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
-            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskRepInfo.VendorName = "";
-            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
-            // 
-            // ucHelpDeskEntryInfo
-            // 
-            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 237);
-            this.ucHelpDeskEntryInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
-            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1333, 252);
-            this.ucHelpDeskEntryInfo.TabIndex = 5;
-            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
-            // 
-            // ucHelpDeskServiceInfo
-            // 
-            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 4);
-            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
-            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1265, 283);
-            this.ucHelpDeskServiceInfo.TabIndex = 1;
-            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
             // 
             // frmTerminalFSR
             // 
@@ -11530,9 +11557,11 @@
         private System.Windows.Forms.Label label180;
         private System.Windows.Forms.TextBox txtFsrServicedBy;
         private System.Windows.Forms.Label label181;
-        private System.Windows.Forms.TextBox txtSLARegion;
+        private System.Windows.Forms.TextBox txtSLAArea;
         private System.Windows.Forms.Label label182;
         private System.Windows.Forms.TextBox txtSLAZone;
         private System.Windows.Forms.Label label183;
+        private System.Windows.Forms.Label label184;
+        private System.Windows.Forms.TextBox txtDaysHoliday;
     }
 }

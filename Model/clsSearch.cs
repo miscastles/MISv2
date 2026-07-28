@@ -2678,5 +2678,13 @@ namespace MIS
             get { return _IssueCategory; }
             set { _IssueCategory = value; }
         }
+
+        public static string _DaysHoliday;
+        public static string ClassDaysHoliday
+        {
+            get { return _DaysHoliday; }
+            set { _DaysHoliday = value; }
+
+        }
     }
 }

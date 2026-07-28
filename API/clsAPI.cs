@@ -11635,7 +11635,8 @@ namespace MIS
                 clsSearch.ClassNetworkDays = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_NetworkDays);
                 clsSearch.ClassDaysOverDue = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_DaysOverDue);
                 clsSearch.ClassTATStatus = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TATStatus);
-                
+                clsSearch.ClassDaysHoliday = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_DaysHoliday);
+
             }
             
         }
