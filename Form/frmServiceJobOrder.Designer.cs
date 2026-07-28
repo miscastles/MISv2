@@ -230,7 +230,9 @@
             this.label122 = new System.Windows.Forms.Label();
             this.txtGeoLatitude = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.txtSLARegion = new System.Windows.Forms.TextBox();
+            this.label184 = new System.Windows.Forms.Label();
+            this.txtDaysHoliday = new System.Windows.Forms.TextBox();
+            this.txtSLAArea = new System.Windows.Forms.TextBox();
             this.label182 = new System.Windows.Forms.Label();
             this.txtSLAZone = new System.Windows.Forms.TextBox();
             this.label183 = new System.Windows.Forms.Label();
@@ -3668,7 +3670,9 @@
             // 
             // tabPage6
             // 
-            this.tabPage6.Controls.Add(this.txtSLARegion);
+            this.tabPage6.Controls.Add(this.label184);
+            this.tabPage6.Controls.Add(this.txtDaysHoliday);
+            this.tabPage6.Controls.Add(this.txtSLAArea);
             this.tabPage6.Controls.Add(this.label182);
             this.tabPage6.Controls.Add(this.txtSLAZone);
             this.tabPage6.Controls.Add(this.label183);
@@ -3690,18 +3694,41 @@
             this.tabPage6.Text = "SLA/TAT";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // txtSLARegion
+            // label184
             // 
-            this.txtSLARegion.BackColor = System.Drawing.Color.White;
-            this.txtSLARegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSLARegion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSLARegion.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtSLARegion.Location = new System.Drawing.Point(271, 50);
-            this.txtSLARegion.Name = "txtSLARegion";
-            this.txtSLARegion.ReadOnly = true;
-            this.txtSLARegion.Size = new System.Drawing.Size(130, 20);
-            this.txtSLARegion.TabIndex = 463;
-            this.txtSLARegion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.label184.AutoSize = true;
+            this.label184.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label184.Location = new System.Drawing.Point(4, 75);
+            this.label184.Name = "label184";
+            this.label184.Size = new System.Drawing.Size(56, 14);
+            this.label184.TabIndex = 466;
+            this.label184.Text = "HOLIDAY";
+            // 
+            // txtDaysHoliday
+            // 
+            this.txtDaysHoliday.BackColor = System.Drawing.Color.White;
+            this.txtDaysHoliday.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDaysHoliday.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDaysHoliday.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDaysHoliday.Location = new System.Drawing.Point(100, 72);
+            this.txtDaysHoliday.Name = "txtDaysHoliday";
+            this.txtDaysHoliday.ReadOnly = true;
+            this.txtDaysHoliday.Size = new System.Drawing.Size(60, 22);
+            this.txtDaysHoliday.TabIndex = 465;
+            this.txtDaysHoliday.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtSLAArea
+            // 
+            this.txtSLAArea.BackColor = System.Drawing.Color.White;
+            this.txtSLAArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSLAArea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSLAArea.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtSLAArea.Location = new System.Drawing.Point(221, 50);
+            this.txtSLAArea.Name = "txtSLAArea";
+            this.txtSLAArea.ReadOnly = true;
+            this.txtSLAArea.Size = new System.Drawing.Size(180, 20);
+            this.txtSLAArea.TabIndex = 463;
+            this.txtSLAArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label182
             // 
@@ -3709,9 +3736,9 @@
             this.label182.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label182.Location = new System.Drawing.Point(165, 53);
             this.label182.Name = "label182";
-            this.label182.Size = new System.Drawing.Size(49, 14);
+            this.label182.Size = new System.Drawing.Size(35, 14);
             this.label182.TabIndex = 464;
-            this.label182.Text = "REGION";
+            this.label182.Text = "AREA";
             // 
             // txtSLAZone
             // 
@@ -3719,10 +3746,10 @@
             this.txtSLAZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSLAZone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtSLAZone.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtSLAZone.Location = new System.Drawing.Point(271, 28);
+            this.txtSLAZone.Location = new System.Drawing.Point(221, 28);
             this.txtSLAZone.Name = "txtSLAZone";
             this.txtSLAZone.ReadOnly = true;
-            this.txtSLAZone.Size = new System.Drawing.Size(130, 20);
+            this.txtSLAZone.Size = new System.Drawing.Size(180, 20);
             this.txtSLAZone.TabIndex = 461;
             this.txtSLAZone.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -3763,7 +3790,7 @@
             // 
             this.label143.AutoSize = true;
             this.label143.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label143.Location = new System.Drawing.Point(3, 79);
+            this.label143.Location = new System.Drawing.Point(166, 75);
             this.label143.Name = "label143";
             this.label143.Size = new System.Drawing.Size(49, 14);
             this.label143.TabIndex = 452;
@@ -3775,10 +3802,10 @@
             this.txtTATStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTATStatus.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTATStatus.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTATStatus.Location = new System.Drawing.Point(100, 72);
+            this.txtTATStatus.Location = new System.Drawing.Point(221, 72);
             this.txtTATStatus.Name = "txtTATStatus";
             this.txtTATStatus.ReadOnly = true;
-            this.txtTATStatus.Size = new System.Drawing.Size(301, 22);
+            this.txtTATStatus.Size = new System.Drawing.Size(180, 22);
             this.txtTATStatus.TabIndex = 451;
             this.txtTATStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -9469,7 +9496,7 @@
             this.tabPage14.Location = new System.Drawing.Point(4, 28);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(1377, 890);
+            this.tabPage14.Size = new System.Drawing.Size(1377, 887);
             this.tabPage14.TabIndex = 1;
             this.tabPage14.Text = "Additional Information";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -9630,7 +9657,7 @@
             this.tabPage19.Location = new System.Drawing.Point(4, 28);
             this.tabPage19.Name = "tabPage19";
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(1377, 890);
+            this.tabPage19.Size = new System.Drawing.Size(1377, 887);
             this.tabPage19.TabIndex = 2;
             this.tabPage19.Text = "Helpdesk Information";
             this.tabPage19.UseVisualStyleBackColor = true;
@@ -11604,9 +11631,11 @@
         private System.Windows.Forms.Label label74;
         private System.Windows.Forms.TextBox txtSvcTicketBy;
         private System.Windows.Forms.Label label179;
-        private System.Windows.Forms.TextBox txtSLARegion;
+        private System.Windows.Forms.TextBox txtSLAArea;
         private System.Windows.Forms.Label label182;
         private System.Windows.Forms.TextBox txtSLAZone;
         private System.Windows.Forms.Label label183;
+        private System.Windows.Forms.Label label184;
+        private System.Windows.Forms.TextBox txtDaysHoliday;
     }
 }

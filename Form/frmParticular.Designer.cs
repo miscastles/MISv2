@@ -126,8 +126,6 @@ namespace MIS
             this.btnAddProvince = new Bunifu.Framework.UI.BunifuImageButton();
             this.label9 = new System.Windows.Forms.Label();
             this.txtEmail = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtFax = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtMobile = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -135,6 +133,8 @@ namespace MIS
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtFax = new System.Windows.Forms.TextBox();
             this.chkWorkArrangement = new System.Windows.Forms.CheckBox();
             this.chkTimeSheet = new System.Windows.Forms.CheckBox();
             this.chkVersionApp = new System.Windows.Forms.CheckBox();
@@ -214,6 +214,8 @@ namespace MIS
             this.txtRentalType = new System.Windows.Forms.TextBox();
             this.txtRentalTerms = new System.Windows.Forms.TextBox();
             this.txtFileName = new System.Windows.Forms.TextBox();
+            this.txtZSLA = new System.Windows.Forms.TextBox();
+            this.label45 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -873,6 +875,8 @@ namespace MIS
             // 
             this.panel25.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel25.Controls.Add(this.txtZSLA);
+            this.panel25.Controls.Add(this.label45);
             this.panel25.Controls.Add(this.txtZArea);
             this.panel25.Controls.Add(this.txtZCluster);
             this.panel25.Controls.Add(this.txtZCityMunicipal);
@@ -923,7 +927,7 @@ namespace MIS
             this.txtZCityMunicipal.Location = new System.Drawing.Point(108, 60);
             this.txtZCityMunicipal.MaxLength = 255;
             this.txtZCityMunicipal.Name = "txtZCityMunicipal";
-            this.txtZCityMunicipal.Size = new System.Drawing.Size(587, 20);
+            this.txtZCityMunicipal.Size = new System.Drawing.Size(228, 20);
             this.txtZCityMunicipal.TabIndex = 507;
             // 
             // txtZRegion
@@ -1327,29 +1331,6 @@ namespace MIS
             this.txtEmail.TabIndex = 120;
             this.txtEmail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEmail_KeyPress);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(874, 316);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(48, 15);
-            this.label8.TabIndex = 119;
-            this.label8.Text = "FAX NO. ";
-            // 
-            // txtFax
-            // 
-            this.txtFax.BackColor = System.Drawing.Color.White;
-            this.txtFax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFax.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtFax.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtFax.Location = new System.Drawing.Point(873, 334);
-            this.txtFax.MaxLength = 255;
-            this.txtFax.Name = "txtFax";
-            this.txtFax.Size = new System.Drawing.Size(100, 20);
-            this.txtFax.TabIndex = 118;
-            this.txtFax.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFax_KeyPress);
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -1425,6 +1406,29 @@ namespace MIS
             this.label2.Size = new System.Drawing.Size(41, 15);
             this.label2.TabIndex = 101;
             this.label2.Text = "NAME *";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(874, 316);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(48, 15);
+            this.label8.TabIndex = 119;
+            this.label8.Text = "FAX NO. ";
+            // 
+            // txtFax
+            // 
+            this.txtFax.BackColor = System.Drawing.Color.White;
+            this.txtFax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFax.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFax.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtFax.Location = new System.Drawing.Point(873, 334);
+            this.txtFax.MaxLength = 255;
+            this.txtFax.Name = "txtFax";
+            this.txtFax.Size = new System.Drawing.Size(100, 20);
+            this.txtFax.TabIndex = 118;
+            this.txtFax.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFax_KeyPress);
             // 
             // chkWorkArrangement
             // 
@@ -2437,6 +2441,28 @@ namespace MIS
             this.txtFileName.TabIndex = 438;
             this.txtFileName.Visible = false;
             // 
+            // txtZSLA
+            // 
+            this.txtZSLA.BackColor = System.Drawing.Color.White;
+            this.txtZSLA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZSLA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZSLA.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZSLA.Location = new System.Drawing.Point(412, 60);
+            this.txtZSLA.MaxLength = 255;
+            this.txtZSLA.Name = "txtZSLA";
+            this.txtZSLA.Size = new System.Drawing.Size(283, 20);
+            this.txtZSLA.TabIndex = 511;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label45.Location = new System.Drawing.Point(351, 63);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(28, 14);
+            this.label45.TabIndex = 510;
+            this.label45.Text = "SLA";
+            // 
             // frmParticular
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2715,5 +2741,7 @@ namespace MIS
         private System.Windows.Forms.TextBox txtZRegion;
         private System.Windows.Forms.TextBox txtZZone;
         private BunifuImageButton btnAddZoning;
+        private System.Windows.Forms.TextBox txtZSLA;
+        private System.Windows.Forms.Label label45;
     }
 }

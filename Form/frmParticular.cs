@@ -1578,6 +1578,7 @@ namespace MIS
                     txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
                     txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
                     txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
+                    txtZSLA.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_SLA);
                 }
             }
         }
