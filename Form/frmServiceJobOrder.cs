@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,18 +64,6 @@ namespace MIS
             public object outParamValue { get; set; }
         }
 
-        // Override CreateParams to enable double-buffering for child controls
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
-
         public frmServiceJobOrder()
         {
             InitializeComponent();
@@ -104,7 +91,7 @@ namespace MIS
             dbFile = new clsFile();
             dbFunction = new clsFunction();
             dbReportFunc = new clsReportFunc();
-
+            
             dbSetting.InitDatabaseSetting();
 
             dbFunction.ClearTextBox(this);
@@ -125,13 +112,13 @@ namespace MIS
             InitChangesListView();
 
             fEdit = false;
-            InitButton();
+            InitButton();          
             InitDate();
 
             lblHeader.Text = lblHeader.Text + " " + "[ " + sHeader + " ]";
-
+            
             InitStatusTitle(true);
-
+            
             UpdateButton(true);
 
             btnSearchMerchant.Enabled = false;
@@ -148,12 +135,12 @@ namespace MIS
             if (clsSearch.ClassIsBillType > 0)
             {
                 cboBillingType.Enabled = true;
-                dbAPI.FillComboBoxTypeByGroup(cboBillingType, (int)GroupType.BillingTypeID);
+                dbAPI.FillComboBoxTypeByGroup(cboBillingType, (int)GroupType.BillingTypeID);                
             }
             else
             {
                 cboBillingType.Enabled = false;
-                cboBillingType.Text = clsFunction.sDefaultSelect;
+                cboBillingType.Text = clsFunction.sDefaultSelect;                
             }
 
             dbAPI.FillComboBoxTypeByGroup(cboSource, (int)GroupType.SourceType);
@@ -165,7 +152,7 @@ namespace MIS
             getZoningInfo();
 
             ComboBoxDefaultSelect();
-            AdditionalComBoBoxUnlock(false);
+            AdditionalComBoBoxUnlock(false);            
 
             // chkDispatch.Enabled = true;
             // chkDispatch.Checked = true;
@@ -216,7 +203,7 @@ namespace MIS
         {
             this.Close();
         }
-
+        
         private void FillMerchantTextBox()
         {
             string profile_info = "";
@@ -224,8 +211,8 @@ namespace MIS
             string profile_config_info = "";
 
             Debug.WriteLine("--FillMerchantTextBox--");
-            Debug.WriteLine("fEdit=" + fEdit);
-            Debug.WriteLine("txtMerchantID.Text=" + txtMerchantID.Text);
+            Debug.WriteLine("fEdit="+ fEdit);
+            Debug.WriteLine("txtMerchantID.Text="+ txtMerchantID.Text);
             Debug.WriteLine("txtIRIDNo.Text=" + txtIRIDNo.Text);
             Debug.WriteLine("txtSearchServiceNo.Text=" + txtSearchServiceNo.Text);
 
@@ -254,7 +241,7 @@ namespace MIS
             txtFUAppVersion.Text =
             txtFUAppCRC.Text =
             txtCustomerContactNo.Text =
-            txtCustomerEmail.Text =
+            txtCustomerEmail.Text = 
             txtIRStatusDescription.Text =
             txtRequestor.Text =
             clsFunction.sNull;
@@ -293,8 +280,8 @@ namespace MIS
                     txtIRInstallationDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 19);
 
                     //txtRMInstruction.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 21);
-
-                    txtCustomerName.Text = txtMerchantContactPerson.Text;
+                    
+                    txtCustomerName.Text = txtMerchantContactPerson.Text;                  
                     txtCustomerContactNo.Text = txtMerchantMobileNo.Text;
                     txtCustomerEmail.Text = txtMerchantEmail.Text;
 
@@ -311,7 +298,7 @@ namespace MIS
                         rawdata_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 27);
                         profile_config_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 28);
                     }
-
+                    
                     if (!fEdit)
                     {
                         if (cboSearchServiceType.SelectedItem.ToString().Equals(clsGlobalVariables.STATUS_INSTALLATION_DESC))
@@ -323,12 +310,12 @@ namespace MIS
                     {
                         txtRMInstruction.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 21);
                     }
-
+                    
                     if (!fEdit)
                     {
                         txtRemarks.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 28);
                         txtIRStatusDescription.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 32);
-
+                        
                         txtRequestor.Text = dbFunction.getJSONTagValue(rawdata_info, clsDefines.IR_REQUESTOR, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
                         txtVendor.Text = dbFunction.getJSONTagValue(rawdata_info, clsDefines.IR_VENDOR, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
 
@@ -338,15 +325,15 @@ namespace MIS
                         txtIRStatusDescription.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 23);
                         txtVendor.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 24);
                         txtRequestor.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 25);
-
+                        
                     }
 
                     // Zoning
-                    if (!fEdit)
-                        txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);
-                    else
+                    if (!fEdit)                    
+                        txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);                    
+                    else                    
                         txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 29);
-
+                    
                     // rawdata_info
                     if (dbFunction.isValidDescription(rawdata_info))
                         dbFunction.populateListViewFromJsonString(lvwRaw, rawdata_info, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
@@ -383,7 +370,7 @@ namespace MIS
 
                 }
             }
-
+          
         }
         private void FillClientTextBox()
         {
@@ -392,7 +379,7 @@ namespace MIS
             Debug.WriteLine("txtClientID.Text=" + txtClientID.Text);
 
             txtClientName.Text =
-            txtClientAddress.Text =
+            txtClientAddress.Text =         
             txtClientContactPerson.Text =
             txtClientTelNo.Text =
             txtClientMobileNo.Text =
@@ -420,9 +407,9 @@ namespace MIS
         private void FillFETextBox()
         {
             Debug.WriteLine("--FillFETextBox--");
-            Debug.WriteLine("txtMerchantID.Text=" + txtMerchantID.Text);
+            Debug.WriteLine("txtMerchantID.Text="+ txtMerchantID.Text);
             Debug.WriteLine("txtFEID.Text=" + txtFEID.Text);
-
+            
             txtFEName.Text =
             txtFEAddress.Text =
             txtFEContactPerson.Text =
@@ -433,7 +420,7 @@ namespace MIS
             if (dbFunction.isValidID(txtMerchantID.Text) && dbFunction.isValidID(txtFEID.Text))
             {
                 //if (!fEdit)
-                dbAPI.ExecuteAPI("GET", "Search", "FE Info", txtFEID.Text, "Get Info Detail", "", "GetInfoDetail");
+                    dbAPI.ExecuteAPI("GET", "Search", "FE Info", txtFEID.Text, "Get Info Detail", "", "GetInfoDetail");
                 //else
                 //    dbAPI.ExecuteAPI("GET", "Search", "Service FE Info", txtSearchServiceNo.Text, "Get Info Detail", "", "GetInfoDetail");
 
@@ -455,10 +442,10 @@ namespace MIS
         private void PopulateTerminalTextBox(string sTerminalID, string sTerminalSN, bool isCurrent)
         {
             Debug.WriteLine("--PopulateTerminalTextBox--");
-            Debug.WriteLine("sTerminalID=" + sTerminalID + ",sTerminalSN=" + sTerminalSN + ",isCurrent=" + isCurrent);
+            Debug.WriteLine("sTerminalID="+ sTerminalID+ ",sTerminalSN="+ sTerminalSN+ ",isCurrent="+ isCurrent);
 
             if (isCurrent)
-            {
+            {                           
                 txtCurTerminalStatus.Text =
                 txtCurTerminalSN.Text =
                 txtCurTerminalCode.Text =
@@ -534,7 +521,7 @@ namespace MIS
                     }
                 }
             }
-
+            
         }
         private void PopulateSIMTextBox(string sSIMID, string sSIMSN, bool isCurrent)
         {
@@ -560,7 +547,7 @@ namespace MIS
                         txtCurSIMID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 0);
                         txtCurSIMStatus.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 1);
                         txtCurSIMSN.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 3);
-                        txtCurSIMCarrier.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 4);
+                        txtCurSIMCarrier.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 4);                      
                         txtCurSIMLocation.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 7);
                         txtCurSIMLocationID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 19);
                         txtCurSIMStatusDesc.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 18);
@@ -699,9 +686,9 @@ namespace MIS
             }
         }
         */
-
+        
         private void PKTextBoxReadOnly(bool fReadOnly)
-        {
+        {          
             txtCustomerName.ReadOnly = fReadOnly;
             txtCustomerPosition.ReadOnly = fReadOnly;
             txtCustomerContactNo.ReadOnly = fReadOnly;
@@ -712,9 +699,9 @@ namespace MIS
 
             txtRemarks.ReadOnly = !fReadOnly;
             //txtEntryRequestID.ReadOnly = txtEntryReferenceNo.ReadOnly = fReadOnly;
-
+            
             if (!fReadOnly)
-            {
+            {              
                 txtCustomerName.BackColor = clsFunction.EntryBackColor;
                 txtCustomerPosition.BackColor = clsFunction.EntryBackColor;
                 txtCustomerContactNo.BackColor = clsFunction.EntryBackColor;
@@ -723,7 +710,7 @@ namespace MIS
                 txtFUAppVersion.BackColor = clsFunction.EntryBackColor;
                 txtFUAppCRC.BackColor = clsFunction.EntryBackColor;
 
-                txtRemarks.BackColor = clsFunction.EntryBackColor;
+                txtRemarks.BackColor = clsFunction.EntryBackColor;              
                 //txtEntryRequestID.BackColor = txtEntryReferenceNo.BackColor = clsFunction.EntryBackColor;             
             }
         }
@@ -755,7 +742,7 @@ namespace MIS
 
             txtFUAppVersion.Text = "";
             txtFUAppCRC.Text = "";
-
+            
             if (iSearchJobType == clsAPI.JobType.iReplacement)
             {
                 //dbFunction.ClearComboBox(this);
@@ -812,12 +799,12 @@ namespace MIS
             fEdit = false;
             fModify = false;
             fSelected = false;
-            InitButton();
+            InitButton();        
             //gbReplacement.Enabled = false;
-
+            
             btnDispatchJO.Enabled = false;
             btnDeleteJO.Enabled = false;
-            btnServiceSearch.Enabled = false;
+            btnServiceSearch.Enabled = false;            
             btnTASearch.Enabled = false;
             btnRefreshService.Enabled = false;
             btnUpdateServiceDate.Enabled = false;
@@ -828,7 +815,7 @@ namespace MIS
 
             InitStatusTitle(true);
             UpdateButton(true);
-
+        
             lblHeader.Text = "JOB ORDER";
             lblSubHeader.Text = clsFunction.sDash;
 
@@ -836,7 +823,7 @@ namespace MIS
             //InitSearchButton(true);
 
             cboSearchServiceType.Text = clsFunction.sDefaultSelect;
-
+            
             InitDate();
             InitCreatedDateTime();
             InitCount();
@@ -844,7 +831,7 @@ namespace MIS
             initDispatch(false);
 
             btnSendEmail.Enabled = false;
-
+            
             btnPreviewFSR.Enabled = btnViewDiagnostic.Enabled = false;
 
             // SN header
@@ -872,7 +859,7 @@ namespace MIS
             btnPreviewSvcHistory.Enabled = btnCancelJO.Enabled = btnRefreshSN.Enabled = false;
 
             ComboBoxDefaultSelect();
-            AdditionalComBoBoxUnlock(false);
+            AdditionalComBoBoxUnlock(false);            
 
             tabFillUp.TabIndex = 0;
 
@@ -893,24 +880,29 @@ namespace MIS
 
             // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isAdd, clsUser.ClassUserID, 25)) return;
-
+            
             dbAPI.GenerateID(true, txtRequestNo, txtSearchServiceNo, "Servicing Detail", clsDefines.CONTROLID_PREFIX_SERVICE);
             lblSubHeader.Text = txtRequestNo.Text;
 
-            saveServicingActivityStart(ActivityType.JobOrders, clsUser.ClassUserID, clsUser.ClassUserFullName);
+            dbAPI.saveServicingActivityStart(ActivityType.JobOrders,
+                        clsUser.ClassUserID,
+                        clsUser.ClassUserFullName,
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
 
             fAutoLoadData = false;
             fEdit = false;
             fModify = false;
             btnAdd.Enabled = false;
             btnSave.Enabled = true;
-            btnServiceSearch.Enabled = false;
+            btnServiceSearch.Enabled = false;            
             cboSearchServiceType.Enabled = true;
-            lblHeader.Text = "CREATE JOB ORDER";
-
+            lblHeader.Text = "CREATE JOB ORDER";    
+            
             SetMKTextBoxBackColor();
             SetPKTextBoxBackColor();
-
+            
             //txtSearchServiceNo.Text = clsFunction.sZero;
             InitStatusTitle(false);
 
@@ -931,7 +923,7 @@ namespace MIS
             ComboBoxDefaultSelect();
 
         }
-
+        
         private bool fConfirmDetails(bool fDispatch)
         {
             bool fConfirm = true;
@@ -995,7 +987,7 @@ namespace MIS
                            "    >Job Order Created Date/Time: " + txtCreatedDate.Text + " " + txtCreatedTime.Text + "\n" +
                            "    >Service Request ID: " + txtSearchIRNo.Text + "\n" +
                            "    >Request No: " + txtRequestNo.Text + "\n" +
-                           "    >Schedule Date: " + dteReqInstallationDate.Value.ToString("MM-dd-yyyy") + "\n" +
+                           "    >Schedule Date: " + dteReqInstallationDate.Value.ToString("MM-dd-yyyy") + "\n" +                        
                            clsFunction.sLineSeparator + "\n" +
                            "Apps Version : " + txtFUAppVersion.Text + "\n" +
                            "Apps CRC. : " + txtFUAppCRC.Text + "\n" +
@@ -1020,7 +1012,7 @@ namespace MIS
                                    "CURRENT TERMINAL: " + dbFunction.CheckAndSetStringValue(txtCurTerminalSN.Text) + "\n" +
                                    "    >Type: " + dbFunction.CheckAndSetStringValue(txtCurTerminalType.Text) + "\n" +
                                    "    >Model: " + dbFunction.CheckAndSetStringValue(txtCurTerminalModel.Text) + "\n" +
-                                   "    >Brand: " + dbFunction.CheckAndSetStringValue(txtCurTerminalBrand.Text) + "\n" +
+                                   "    >Brand: " + dbFunction.CheckAndSetStringValue(txtCurTerminalBrand.Text) + "\n" +                                  
                                    clsFunction.sLineSeparator + "\n") +
                        (isSIMChanged ?
                                    "SIM SN SWITCH: " + "\n" +
@@ -1028,7 +1020,7 @@ namespace MIS
                                    "    >New SIM SN: " + txtCurSIMSN.Text + "\n" +
                                                 clsFunction.sLineSeparator + "\n" :
                                    "CURRENT SIM: " + dbFunction.CheckAndSetStringValue(txtCurSIMSN.Text) + "\n" +
-                                   "    >Carrier: " + dbFunction.CheckAndSetStringValue(txtCurSIMCarrier.Text) + "\n" +
+                                   "    >Carrier: " + dbFunction.CheckAndSetStringValue(txtCurSIMCarrier.Text) + "\n" +                                
                                    clsFunction.sLineSeparator + "\n");
 
             if (!dbFunction.isValidID(txtCurTerminalID.Text)) sCurrent = clsFunction.sNull;
@@ -1042,8 +1034,8 @@ namespace MIS
                                    "REPLACE TERMINAL: " + dbFunction.CheckAndSetStringValue(txtRepTerminalSN.Text) + "\n" +
                                    "    >Type: " + dbFunction.CheckAndSetStringValue(txtRepTerminalType.Text) + "\n" +
                                    "    >Model: " + dbFunction.CheckAndSetStringValue(txtRepTerminalModel.Text) + "\n" +
-                                   "    >Brand: " + dbFunction.CheckAndSetStringValue(txtRepTerminalBrand.Text) + "\n" +
-                                   "    >Brand: " + dbFunction.CheckAndSetStringValue(txtRepTerminalBrand.Text) + "\n" +
+                                   "    >Brand: " + dbFunction.CheckAndSetStringValue(txtRepTerminalBrand.Text) + "\n" +  
+                                   "    >Brand: " + dbFunction.CheckAndSetStringValue(txtRepTerminalBrand.Text) + "\n" +    
                                    clsFunction.sLineSeparator + "\n") +
                        (isSIMChanged ?
                                    "SIM SN SWITCH: " + "\n" +
@@ -1051,7 +1043,7 @@ namespace MIS
                                    "    >New SIM SN: " + txtRepSIMSN.Text + "\n" +
                                                 clsFunction.sLineSeparator + "\n" :
                                    "REPLACE SIM: " + dbFunction.CheckAndSetStringValue(txtRepSIMSN.Text) + "\n" +
-                                   "    >Carrier: " + dbFunction.CheckAndSetStringValue(txtRepSIMCarrier.Text) + "\n" +
+                                   "    >Carrier: " + dbFunction.CheckAndSetStringValue(txtRepSIMCarrier.Text) + "\n" +                                 
                                    clsFunction.sLineSeparator + "\n");
 
             if (!dbFunction.isValidID(txtRepTerminalID.Text)) sReplace = clsFunction.sNull;
@@ -1083,7 +1075,7 @@ namespace MIS
         private bool ValidateFields(bool fDispatch)
         {
             bool isBypassSNChecking = false;
-
+            
             string sReqTime = dbFunction.GetDateFromParse(dteReqTime.Text, "h:mm:ss tt", "HH:mm:ss");
 
             // checking SN's if dispatch
@@ -1101,10 +1093,10 @@ namespace MIS
                             clsFunction.IconType.iExclamation);
 
                         return false;
-                    }
+                    }                    
                 }
                 else
-                {
+                { 
                     // Current Terminal (mandatory)
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalID, txtCurTerminalID.Text))
                     {
@@ -1139,7 +1131,7 @@ namespace MIS
 
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iMerchantName, txtMerchantName.Text)) return false;
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iMerchantAddress, txtMerchantAddress.Text)) return false;
-
+            
 
             //if (!dbFunction.isValidEntry(clsFunction.CheckType.iServiceType, txtSearchSTID.Text)) return false;
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iClientID, txtClientID.Text)) return false;
@@ -1181,9 +1173,8 @@ namespace MIS
             // Requestor
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iRequestor, txtRequestor.Text)) return false;
 
-            if (!dbAPI.isRecordExist("Search", "Region", txtMerchantRegion.Text))
-            {
-                dbFunction.SetMessageBox("Region " + dbFunction.AddBracketStartEnd(txtMerchantRegion.Text) + " does not exist." + "\n\n" +
+            if (!dbAPI.isRecordExist("Search", "Region", txtMerchantRegion.Text)) {
+                dbFunction.SetMessageBox("Region " + dbFunction.AddBracketStartEnd(txtMerchantRegion.Text) + " does not exist." + "\n\n" + 
                     "Update merchant information to continue.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                 return false;
             }
@@ -1222,12 +1213,12 @@ namespace MIS
             int TCount = int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TCount));
             if (TCount >= clsSystemSetting.ClassSystemJobOrderLimit)
             {
-                dbFunction.SetMessageBox("Request ID " + dbFunction.AddBracketStartEnd(txtEntryRequestID.Text) +
-                                        " have reached its maximum usage limit of " + clsSystemSetting.ClassSystemJobOrderLimit +
+                dbFunction.SetMessageBox("Request ID " + dbFunction.AddBracketStartEnd(txtEntryRequestID.Text) + 
+                                        " have reached its maximum usage limit of " + clsSystemSetting.ClassSystemJobOrderLimit + 
                                          ".", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                 return false;
             }
-
+            
 
             // Check change on entry Request ID
             if (fEdit)
@@ -1252,7 +1243,7 @@ namespace MIS
                         "Do you still want to continue?")) return false;
                 }
             }
-
+            
             if (fDispatch)
             {
                 if (!dbFunction.isValidEntry(clsFunction.CheckType.iDispatchID, dbFunction.CheckAndSetNumericValue(txtDispatchID.Text))) return false;
@@ -1263,7 +1254,7 @@ namespace MIS
                 if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                 {
                     if (!dbFunction.isValidID(txtRepTerminalID.Text) && (!dbFunction.isValidID(txtRepSIMID.Text)))
-                    {
+                    {   
                         dbFunction.SetMessageBox("Replace Terminal or SIM should have a value.", "Warning", clsFunction.IconType.iExclamation);
                         return false;
                     }
@@ -1275,9 +1266,9 @@ namespace MIS
                         dbFunction.SetMessageBox("Current terminal must not be blank.", "Warning", clsFunction.IconType.iExclamation);
                         return false;
                     }
-                }
+                }           
             }
-
+            
             // check same current / replace terminal
             if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtRepTerminalID.Text))
             {
@@ -1364,7 +1355,7 @@ namespace MIS
                             }
                         }
                     }
-
+                    
                 }
                 else if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                 {
@@ -1469,7 +1460,7 @@ namespace MIS
                         dbFunction.SetMessageBox("Terminal SN " + dbFunction.AddBracketStartEnd(txtCurTerminalSN.Text) + " already used." + "\n\n" + "Service Type: " + dbFunction.AddBracketStartEnd(txtSearchSTJobTypeDescription.Text) + "\n\n" + clsDefines.CONTACT_ADMIN_MESSAGE, clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                         return false;
                     }
-
+                        
                 }
 
                 if (dbFunction.isValidID(txtCurSIMID.Text))
@@ -1481,11 +1472,11 @@ namespace MIS
                     }
 
                 }
-
+                
             }
 
             if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC) && !fEdit)
-            {
+            {   
                 if (dbFunction.isValidID(txtRepTerminalID.Text))
                 {
                     if (dbAPI.isRecordExist("Search", "Duplicate Assign TerminalSN", txtRepTerminalID.Text))
@@ -1533,7 +1524,7 @@ namespace MIS
             {
                 tabFillUp.TabIndex = 0;
                 dbFunction.SetMessageBox("Problem reported must not be blank", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
-
+                
                 return false;
             }
 
@@ -1577,7 +1568,7 @@ namespace MIS
 
                 if (!dbFunction.isValidCount(lvwProfile2.Items.Count))
                 {
-                    dbFunction.SetMessageBox("Unable to process service changes information." + "\n" + "Profile 2 must not be blank", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    dbFunction.SetMessageBox("Unable to process service changes information."+"\n"+"Profile 2 must not be blank", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                     return false;
                 }
 
@@ -1676,7 +1667,7 @@ namespace MIS
             DateTime stServiceReqTime = dteReqTime.Value;
             string pServiceReqDate = stServiceReqDate.ToString("yyyy-MM-dd");
             string pServiceReqTime = stServiceReqTime.ToString("HH:mm:ss");
-
+            
             bool isDispatch = (chkDispatch.Checked ? true : false);
 
             dbFunction.GetProcessedByAndDateTime(); // Get processedby and datetime
@@ -1695,7 +1686,7 @@ namespace MIS
             clsSearch.ClassJobTypeSubDescription = txtSearchSTDescription.Text;
 
             //sDateTime = SCDateTime.ToString("yyyy-MM-dd H:mm:ss");
-
+            
             // Create Group Details - ROCKY BANTOLO
             var data = new
             {
@@ -1766,7 +1757,7 @@ namespace MIS
             };
 
             sSQL = IFormat.Insert(data);
-
+            
             Debug.WriteLine("SaveServiceDetail" + sSQL);
 
             dbFunction.parseDelimitedString(sSQL, clsDefines.gComma, 0);
@@ -1775,9 +1766,9 @@ namespace MIS
 
             clsSearch.ClassLastInsertedID = clsLastID.ClassLastInsertedID;
             txtSearchServiceNo.Text = clsSearch.ClassLastInsertedID.ToString();
-
+            
         }
-
+        
         private void InitCreatedDateTime()
         {
             DateTime ProcessDateTime = DateTime.Now;
@@ -1820,7 +1811,7 @@ namespace MIS
 
             }
         }
-
+        
         private void btnSearchSIMSN_Click(object sender, EventArgs e)
         {
             frmSearchField.iSearchType = frmSearchField.SearchType.iSIM;
@@ -1872,7 +1863,7 @@ namespace MIS
                 txtRepDockStatus.Text = clsSearch.ClassTerminalStatus.ToString();
             }
         }
-
+        
         private void InitCurrentAndReplaceField()
         {
             txtRepTerminalSN.BackColor = clsFunction.DisableBackColor;
@@ -1945,7 +1936,7 @@ namespace MIS
                 e.Handled = true;
             }
         }
-
+        
         private void LoadServicingDetail()
         {
             int i = 0;
@@ -1984,7 +1975,7 @@ namespace MIS
                     item.SubItems.Add(clsArray.ServiceNo[i].ToString());
                     item.SubItems.Add(clsArray.IRIDNo[i].ToString());
                     item.SubItems.Add(clsArray.TAIDNo[i].ToString());
-
+                   
                     item.SubItems.Add(clsArray.ServiceJobTypeDescription[i].ToString());
                     item.SubItems.Add(clsArray.RequestNo[i].ToString());
                     item.SubItems.Add(clsArray.ReferenceNo[i].ToString());
@@ -1992,7 +1983,7 @@ namespace MIS
                     // Servicing Date Info
                     string pJSONString = dbAPI.getInfoDetailJSON("Search", "Servicing Date Info", clsArray.ServiceNo[i].ToString());
                     dbFunction.parseDelimitedString(pJSONString, clsDefines.gComma, 0);
-
+                    
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_RequestDate));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CreatedDate));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ScheduleDate));
@@ -2002,7 +1993,7 @@ namespace MIS
 
                     item.SubItems.Add(clsArray.JobTypeStatusDescription[i].ToString());
                     item.SubItems.Add(clsArray.ServiceStatus[i].ToString());
-
+                    
                     item.SubItems.Add(clsArray.ActionMade[i].ToString());
                     item.SubItems.Add(clsArray.FSRNo[i].ToString());
 
@@ -2017,7 +2008,7 @@ namespace MIS
                     item.SubItems.Add(clsArray.SIMSerialNo[i]);
                     item.SubItems.Add(clsArray.ReplaceTerminalSN[i]);
                     item.SubItems.Add(clsArray.ReplaceSIMSN[i]);
-
+                    
                     var FSRModeCol = dbFunction.isValidID(clsArray.MobileID[i].ToString())
                         ? clsDefines.DIGITAL_FSR
                         : clsDefines.MANUAL_FSR;
@@ -2062,7 +2053,7 @@ namespace MIS
 
             }
         }
-
+        
         //private void lvwList_SelectedIndexChanged(object sender, EventArgs e)
         //{
         //    return;
@@ -2113,7 +2104,7 @@ namespace MIS
 
         //            lvwList_DoubleClick(this, e);
 
-
+                 
         //            //blSubHeader.Text = "SERVICE REQUEST - " + "[ " + txtServiceJobType.Text + " ]";
 
         //            //if (clsSearch.ClassJobTypeStatusDescription.CompareTo(clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC) == 0)
@@ -2123,7 +2114,7 @@ namespace MIS
         //        }
         //    }
         //}
-
+        
         private void txtCustomerContactNo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!dbFunction.isValidateEntry(e.KeyChar.ToString()))
@@ -2142,7 +2133,7 @@ namespace MIS
             txtRepDockSN.ReadOnly = true;
         }
 
-
+        
 
         private void CheckSerialComBoBox()
         {
@@ -2185,7 +2176,7 @@ namespace MIS
             cboSearchDockStatus.Enabled = fEnable;
         }
 
-
+        
         private void txtCustomerName_KeyDown(object sender, KeyEventArgs e)
         {
             //switch (e.KeyCode)
@@ -2213,7 +2204,7 @@ namespace MIS
             bool isUpdateDispatch = false;
             bool isValid = false;
             Debug.WriteLine("--btnDispatch_Click--");
-            Debug.WriteLine("fEdit=" + fEdit);
+            Debug.WriteLine("fEdit="+fEdit);
 
             try
             {
@@ -2355,7 +2346,7 @@ namespace MIS
                             $"THE SCHEDULE DATE HAS NOT BEEN UPDATED.\n\n" +
                             $"Are you sure you want to save this Job Order?";
 
-                        if (!dbFunction.fPromptConfirmation(pMessage))
+                        if (!dbFunction.fPromptConfirmation(pMessage)) 
                             return;
                     }
                 }
@@ -2446,7 +2437,7 @@ namespace MIS
                 {
                     SaveServiceDetail();
 
-                    saveServicingActivityEnd(ActivityType.JobOrders);
+                    dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
 
                     SaveDeploymentDetail();
 
@@ -2575,18 +2566,18 @@ namespace MIS
 
                 }
 
-                 // Activity 2 — Terminal Prep completion
+                // Activity 2 — Terminal Prep completion
                 if (dbFunction.isValidID(txtCurTerminalID.Text) &&
                     dbFunction.isValidID(txtCurSIMID.Text) &&
                     dbFunction.isValidDescription(txtDispatcher.Text))
                 {
-                    saveServicingActivityEnd(ActivityType.TerminalPrep);
+                    dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
                 }
 
                 // Activity 3 — Dispatcher completion
                 if (dbFunction.isValidID(txtFEID.Text) && chkDispatch.Checked)
                 {
-                    saveServicingActivityEnd(ActivityType.Dispatcher);
+                    dbAPI.saveServicingActivityEnd(ActivityType.Dispatcher, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
                 }
 
                 Cursor.Current = Cursors.Default;
@@ -2681,7 +2672,7 @@ namespace MIS
             {
                 Debug.WriteLine($"Exceptional error message {ex.Message}");
                 dbFunction.SetMessageBox($"Exceptional error message {ex.Message}", "Save: Job Order", clsFunction.IconType.iError);
-            }
+            }            
         }
 
         private void btnAddFE_Click(object sender, EventArgs e)
@@ -2707,8 +2698,13 @@ namespace MIS
 
                 FillFEContactInfoTextBox();
 
-                if (wasFEEmpty)                                         
-                    saveServicingActivityStart(ActivityType.Dispatcher, clsUser.ClassUserID, clsUser.ClassUserFullName);
+                if (wasFEEmpty)
+                    dbAPI.saveServicingActivityStart(ActivityType.Dispatcher,
+                        clsUser.ClassUserID,
+                        clsUser.ClassUserFullName,
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
 
             }
         }
@@ -2963,7 +2959,7 @@ namespace MIS
             }
 
         }
-
+       
         private void btnCancelJO_Click(object sender, EventArgs e)
         {
             bool isConfirm = false;
@@ -3001,9 +2997,9 @@ namespace MIS
                             return;
                     }
                 }
-
-                if (MessageBox.Show("Are you sure to cancel " + cboSearchServiceType.Text + " service" + " for \n" + txtMerchantName.Text + "." +
-                    "\n\n" +
+                
+                if (MessageBox.Show("Are you sure to cancel " + cboSearchServiceType.Text + " service" + " for \n" + txtMerchantName.Text + "." + 
+                    "\n\n" +                   
                     "Warning:\nData will permanently deleted.", "Confirm?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     isConfirm = false;
                 else
@@ -3050,7 +3046,7 @@ namespace MIS
 
                     btnClear_Click(this, e);
                 }
-
+            
             }
 
             /*
@@ -3158,7 +3154,7 @@ namespace MIS
             if (isClear)
             {
                 btnAdd.Enabled = true;
-                btnDispatchJO.Enabled = false;
+                btnDispatchJO.Enabled = false;               
                 btnCancelJO.Enabled = false;
                 btnSendEmail.Enabled = false;
             }
@@ -3168,7 +3164,7 @@ namespace MIS
                 {
                     btnAdd.Enabled = false;
                     btnDispatchJO.Enabled = true;
-
+                    
                 }
                 else
                 {
@@ -3177,7 +3173,7 @@ namespace MIS
                 }
             }
         }
-
+        
         private void btnPreviewFSR_Click(object sender, EventArgs e)
         {
             if (!dbFunction.fPromptConfirmation("Are you sure to preview FSR report?")) return;
@@ -3195,7 +3191,9 @@ namespace MIS
                 dbFunction.downloadSignature(clsDefines.VENDOR_SIGNATURE_INDEX, int.Parse(txtSearchServiceNo.Text));
 
                 // Preview report
-                clsSearch.ClassIsExportToPDF = false;
+                clsSearch.ClassComponents = dbAPI.getStockkMovementDetail("Stock Movement Detail List", txtSearchServiceNo.Text + clsDefines.gPipe + txtIRIDNo.Text);
+
+                clsSearch.ClassIsExportToPDF = false;                
                 dbReportFunc.ViewFSR(5);
             }
             else
@@ -3215,7 +3213,7 @@ namespace MIS
 
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iClientName, txtClientName.Text)) return;
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iMerchantName, txtMerchantName.Text)) return;
-
+            
             dbReportFunc.ViewServiceHistoryDetail(11);
         }
 
@@ -3223,7 +3221,7 @@ namespace MIS
         {
             lvwList.Enabled = true;
             fSelected = false;
-
+          
             //lblSubHeader.Text = "SERVICE REQUEST";
             UpdateButton(true);
         }
@@ -3242,7 +3240,7 @@ namespace MIS
         {
 
         }
-
+        
         private void InitServiceHistoryListView()
         {
             string outField = "";
@@ -3267,7 +3265,7 @@ namespace MIS
 
             dbFunction.GetListViewHeaderColumnFromFile("", "TAIDNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
-
+            
             dbFunction.GetListViewHeaderColumnFromFile("", "Service Type", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
@@ -3276,7 +3274,7 @@ namespace MIS
 
             dbFunction.GetListViewHeaderColumnFromFile("", "Reference No.", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
-
+            
             dbFunction.GetListViewHeaderColumnFromFile("", "Request Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
@@ -3359,7 +3357,7 @@ namespace MIS
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
         }
-
+        
         private bool isValidServiceRequest()
         {
             bool isValid = true;
@@ -3372,14 +3370,14 @@ namespace MIS
                     if (MessageBox.Show("A pending request found on this merchant.\n\nDo you still want to continue?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     {
                         isValid = false;
-                    }
+                    }                        
                 }
             }
             else
             {
                 isValid = true;
             }
-
+            
             return isValid;
         }
 
@@ -3489,7 +3487,7 @@ namespace MIS
 
             clsSearch.ClassFSRNo = int.Parse(txtSearchFSRNo.Text);
             clsSearch.ClassAdvanceSearchValue = clsSearch.ClassFSRNo + clsFunction.sPipe;
-
+            
             txtSearchFSRNo.Text = dbFunction.CheckAndSetNumericValue(clsSearch.ClassFSRNo.ToString());
 
             if (dbFunction.isValidID(txtSearchFSRNo.Text))
@@ -3503,7 +3501,7 @@ namespace MIS
                 txtSearchFSRTimeEnd.Text = clsFSR.ClassTimeEnd;
                 txtSearchFSRServiceResult.Text = clsFSR.ClassActionMade;
                 txtSearchTAIDNo.Text = clsFSR.ClassTAIDNo.ToString();
-            }
+            }            
         }
 
         private void ClearCurretTextBox()
@@ -3531,7 +3529,7 @@ namespace MIS
         private void ClearReplaceTextBox()
         {
             // Terminal
-            txtRepTerminalID.Text = clsFunction.sZero;
+            txtRepTerminalID.Text = clsFunction.sZero;            
             txtRepTerminalSN.Text = clsFunction.sNull;
             txtRepTerminalType.Text = clsFunction.sNull;
             txtRepTerminalModel.Text = clsFunction.sNull;
@@ -3547,9 +3545,9 @@ namespace MIS
             txtRepDockSN.Text = clsFunction.sNull;
         }
 
-
+        
         private void GetClientInfoFromFile()
-        {
+        {            
             dbFunction.GetIDFromFile("Client List", txtClientID.Text);
             txtClientID.Text = clsSearch.ClassOutFileID.ToString();
             txtClientName.Text = clsSearch.ClassOutFileDescription;
@@ -3670,7 +3668,7 @@ namespace MIS
                 }
 
             }
-
+                 
             return isValid;
         }
 
@@ -3681,7 +3679,7 @@ namespace MIS
             if (dbFunction.isValidID(txtMerchantID.Text))
             {
                 clsSearch.ClassSearchValue = dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsFunction.sPipe + dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text);
-                isValid = dbAPI.isRecordExist("Search", "Merchant Delete Service Count", clsSearch.ClassSearchValue);
+                isValid = dbAPI.isRecordExist("Search", "Merchant Delete Service Count", clsSearch.ClassSearchValue);           
             }
 
             if (!isValid)
@@ -3692,7 +3690,7 @@ namespace MIS
             {
                 btnCancelJO.Enabled = false;
             }
-
+               
             return isValid;
         }
 
@@ -3723,7 +3721,7 @@ namespace MIS
                 txtSearchSTStatusDescription.Text =
                 txtSearchSTJobType.Text =
                 txtSearchSTJobTypeDescription.Text = clsFunction.sNull;
-
+                
                 //lblSubHeader.Text = clsFunction.sDash;
 
                 // Get Info
@@ -3749,7 +3747,7 @@ namespace MIS
                     txtSearchSTServiceJobTypeDescription.Text = clsServiceType.ClassServiceJobTypeDescrition;
 
                     Debug.WriteLine("Selected Service Type.....................................................................");
-                    Debug.WriteLine("txtSearchSTDescription.Text=" + txtSearchSTDescription.Text);
+                    Debug.WriteLine("txtSearchSTDescription.Text="+ txtSearchSTDescription.Text);
                     Debug.WriteLine("txtSearchSTCode.Text=" + txtSearchSTCode.Text);
                     Debug.WriteLine("txtSearchSTStatus.Text=" + txtSearchSTStatus.Text);
                     Debug.WriteLine("txtSearchSTStatusDescription.Text=" + txtSearchSTStatusDescription.Text);
@@ -3765,10 +3763,10 @@ namespace MIS
                         btnSearchRepTerminal.Enabled = btnRemoveRepTerminal.Enabled = btnSearchRepSIM.Enabled = btnRemoveRepSIM.Enabled = false;
                     }
 
-                    SetMKTextBoxBackColor();
+                    SetMKTextBoxBackColor();                
                     InitStatusTitle(false);
                 }
-
+                
             }
 
             txtSearchSTID.Text = clsServiceType.ClassServiceTypeID.ToString();
@@ -3780,42 +3778,40 @@ namespace MIS
                     if (!ValidateInstallationCount()) return;
                 }
             }
-
+               
         }
 
         private void btnSearchCurTerminal_Click(object sender, EventArgs e)
         {
             bool wasTermPrepStarted = dbFunction.isValidID(txtCurTerminalID.Text) || dbFunction.isValidID(txtCurSIMID.Text);
 
-            frmSearchField.iSearchType = frmSearchField.SearchType.iTerminal;
-            frmSearchField.iStatus = clsGlobalVariables.STATUS_AVAILABLE;
+            frmSearchField.iSearchType  = frmSearchField.SearchType.iTerminal;
+            frmSearchField.iStatus      = clsGlobalVariables.STATUS_AVAILABLE;
             frmSearchField.sTerminalType = "View Terminal";
-            frmSearchField.sHeader = "TERMINAL";
+            frmSearchField.sHeader      = "TERMINAL";
             frmSearchField.isCheckBoxes = false;
-            frmSearchField.iLocationID = clsFunction.iZero;
-            frmSearchField.sLocation = clsFunction.sDefaultSelect;
-            frmSearchField frm = new frmSearchField();
+            frmSearchField.iLocationID  = clsFunction.iZero;
+            frmSearchField.sLocation    = clsFunction.sDefaultSelect;
+            frmSearchField frm          = new frmSearchField();
             frm.ShowDialog();
 
             if (frmSearchField.fSelected)
             {
                 clsSearch.ClassIsReleased = 0;
-
-                string StartDateTime = dbFunction.getCurrentDateTime();
-
+                
                 // Check SN status must be available
                 if (clsSearch.ClassTerminalStatus != clsGlobalVariables.STATUS_AVAILABLE)
                 {
                     dbFunction.SetMessageBox("Terminal SN " + "[" + clsSearch.ClassTerminalSN + "]" + " status is not AVAILABLE.", "Unable to add", clsFunction.IconType.iError);
                     return;
                 }
-
+                
                 txtCurTerminalID.Text = clsSearch.ClassTerminalID.ToString();
                 txtCurTerminalSN.Text = txtNewTerminalSN.Text = clsSearch.ClassTerminalSN;
                 PopulateTerminalTextBox(txtCurTerminalID.Text, txtCurTerminalSN.Text, true);
 
                 // check SN value
-                if (!dbFunction.isValidDescription(txtCurTerminalSN.Text) ||
+                if (!dbFunction.isValidDescription(txtCurTerminalSN.Text) || 
                     !dbFunction.isValidDescription(txtCurTerminalType.Text) ||
                     !dbFunction.isValidDescription(txtCurTerminalModel.Text) ||
                     !dbFunction.isValidDescription(txtCurTerminalBrand.Text) ||
@@ -3832,14 +3828,14 @@ namespace MIS
                                               " >Location : " + txtCurTerminalLocation.Text + "\n" +
                                               " >Assert Type : " + txtCurTerminalAssetType.Text + "\n" +
                                               " >Status : " + txtCurTerminalStatus.Text + "\n\n" +
-                                              "Kind check the selected record.", "Field checking", clsFunction.IconType.iError);
+                                              "Kind check the selected record.", "Field checking", clsFunction.IconType.iError);                   
                     return;
                 }
-
+                
                 // Handle terminal SN has not been released
                 if (clsSearch.ClassIsReleased <= 0)
                 {
-                    dbFunction.SetMessageBox("Terminal SN " + "[" + txtCurTerminalSN.Text + "]" + " has not been released. ", "Unable to add", clsFunction.IconType.iError);
+                    dbFunction.SetMessageBox("Terminal SN " + "[" + txtCurTerminalSN.Text +"]" + " has not been released. ", "Unable to add", clsFunction.IconType.iError);
 
                     txtCurTerminalID.Text =
                     txtCurTerminalStatus.Text =
@@ -3858,16 +3854,19 @@ namespace MIS
 
                 checkAndSetDispatch();
 
-                if (!wasTermPrepStarted)                                        
-                    saveServicingActivityStart(ActivityType.TerminalPrep, clsUser.ClassUserID, clsUser.ClassUserFullName);
+                if (!wasTermPrepStarted)
+                    dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep, 
+                        clsUser.ClassUserID, 
+                        clsUser.ClassUserFullName, 
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)), 
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)), 
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
 
             }
         }
 
         private void btnSearchCurSIM_Click(object sender, EventArgs e)
         {
-            bool wasTermPrepStarted = dbFunction.isValidID(txtCurTerminalID.Text) || dbFunction.isValidID(txtCurSIMID.Text);
-
             frmSearchField.iSearchType = frmSearchField.SearchType.iSIM;
             frmSearchField.iStatus = clsGlobalVariables.STATUS_AVAILABLE;
             frmSearchField.sHeader = "SIM";
@@ -3895,7 +3894,7 @@ namespace MIS
                 // check SN value
                 if (!dbFunction.isValidDescription(txtCurSIMSN.Text) ||
                     !dbFunction.isValidDescription(txtCurSIMCarrier.Text) ||
-                    !dbFunction.isValidDescription(txtCurSIMLocation.Text) ||
+                    !dbFunction.isValidDescription(txtCurSIMLocation.Text) ||                   
                     !dbFunction.isValidDescription(txtCurSIMStatus.Text))
                 {
                     dbFunction.SetMessageBox("Invalid current SIM information selected." + "\n\n" +
@@ -3918,20 +3917,18 @@ namespace MIS
                     txtCurSIMSN.Text =
                     txtCurSIMCarrier.Text =
                     txtCurSIMLocation.Text = clsFunction.sNull;
-
+                    
                     return;
                 }
 
                 checkAndSetDispatch();
 
-                if (!wasTermPrepStarted)                                        
-                    saveServicingActivityStart(ActivityType.TerminalPrep, clsUser.ClassUserID, clsUser.ClassUserFullName);
             }
         }
 
         private void btnSearchRepTerminal_Click(object sender, EventArgs e)
         {
-
+            
             frmSearchField.iSearchType = frmSearchField.SearchType.iTerminal;
             frmSearchField.iStatus = clsGlobalVariables.STATUS_AVAILABLE;
             frmSearchField.sTerminalType = "View Terminal";
@@ -4095,14 +4092,14 @@ namespace MIS
             if (frmSearchField.fSelected)
             {
                 // ROCKY -- HANDLE NULL TID/MID: SERVICING JOB ORDER ISSUE
-                if (!dbFunction.isValidID(clsSearch.ClassTID) || !dbFunction.isValidID(clsSearch.ClassMID))
+                if(!dbFunction.isValidID(clsSearch.ClassTID) || !dbFunction.isValidID(clsSearch.ClassMID))
                 {
                     dbFunction.SetMessageBox("Invalid merchant information selected for job order " + cboSearchServiceType.Text + "." + "\n\n" +
                                               "Merchant information" + "\n" +
                                               " >Name : " + clsSearch.ClassParticularName + "\n" +
                                               " >TID : " + clsSearch.ClassTID + "\n" +
                                               " >MID : " + clsSearch.ClassMID + "\n\n" +
-                                              "Kind check the selected record.", "Field checking", clsFunction.IconType.iError);
+                                              "Kind check the selected record.", "Field checking", clsFunction.IconType.iError);                    
                     return;
                 }
 
@@ -4235,7 +4232,7 @@ namespace MIS
                     clsSearch.ClassIRIDNo = int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text));
                     dbAPI.FillListViewChangesMapping(lvwChanges, "", "");
 
-                    AdditionalComBoBoxUnlock(true);
+                    AdditionalComBoBoxUnlock(true);                    
 
                     if (!fEdit)
                         getApplicationInfo();
@@ -4292,7 +4289,7 @@ namespace MIS
                     Debug.WriteLine($"Exceptional error message {ex.Message}");
                     dbFunction.SetMessageBox($"Exceptional error message {ex.Message}", "New: Job Order", clsFunction.IconType.iError);
                 }
-
+                
             }
         }
 
@@ -4333,18 +4330,18 @@ namespace MIS
 
             // status backcolor
             txtServiceJobTypeStatusDesc.BackColor = txtSearchFSRDesc.BackColor = txtSearchFSRServiceResult.BackColor = txtTicketStatus.BackColor = txtBillable.BackColor = txtDiagnostic.BackColor = txtMerchantSign.BackColor = txtIRStatusDescription.BackColor = clsFunction.StatusBackColor;
-
+            
         }
 
         private void SetPKTextBoxBackColor()
         {
             txtSearchMerchantName.BackColor = txtSearchIRNo.BackColor = clsFunction.PKBackColor;
         }
-
+        
         private void FillServicingID()
         {
             Debug.WriteLine("--FillServicingID--");
-            Debug.WriteLine("txtLastServiceNo.Text=" + txtLastServiceNo.Text);
+            Debug.WriteLine("txtLastServiceNo.Text="+ txtLastServiceNo.Text);
 
             clsSearch.ClassClientID =
             clsSearch.ClassFEID =
@@ -4373,7 +4370,7 @@ namespace MIS
         {
             bool isEdit = false;
             Debug.WriteLine("--InitSearchRemoveButton--");
-            Debug.WriteLine("isClear=" + isClear);
+            Debug.WriteLine("isClear="+ isClear);
             Debug.WriteLine("Global fEdit=" + fEdit);
             Debug.WriteLine("txtSearchSTJobTypeDescription.Text=" + txtSearchSTJobTypeDescription.Text);
             Debug.WriteLine("txtServiceStatusDescription.Text=" + txtServiceStatusDescription.Text);
@@ -4382,25 +4379,25 @@ namespace MIS
             {
                 btnSearchMerchant.Enabled = false;
                 btnSearchService.Enabled = true;
-
-                btnSearchClient.Enabled = btnRemoveClient.Enabled = btnSearchFE.Enabled = btnRemoveFE.Enabled =
+                
+                btnSearchClient.Enabled = btnRemoveClient.Enabled = btnSearchFE.Enabled = btnRemoveFE.Enabled = 
                     btnSearchCurTerminal.Enabled = btnRemoveCurTerminal.Enabled = btnSearchCurSIM.Enabled = btnRemoveCurSIM.Enabled =
-                    btnSearchRepTerminal.Enabled = btnSearchRepSIM.Enabled = btnRemoveRepTerminal.Enabled = btnRemoveRepSIM.Enabled =
-                    btnSearchStock.Enabled = btnRemoveStock.Enabled = btnSearchDispatcher.Enabled = btnRemoveDispatcher.Enabled = false;
+                    btnSearchRepTerminal.Enabled = btnSearchRepSIM.Enabled = btnRemoveRepTerminal.Enabled = btnRemoveRepSIM.Enabled = 
+                    btnSearchStock.Enabled = btnRemoveStock.Enabled = btnSearchDispatcher.Enabled = btnRemoveDispatcher.Enabled =  false;
 
                 btnNoRequestID.Enabled = btnNoReferenceNo.Enabled = false;
             }
             else
             {
                 btnSearchClient.Enabled = btnRemoveClient.Enabled = btnSearchFE.Enabled = btnRemoveFE.Enabled = btnSearchDispatcher.Enabled = btnRemoveDispatcher.Enabled = true;
-
-                btnSearchCurTerminal.Enabled =
+                
+                btnSearchCurTerminal.Enabled = 
                 btnRemoveCurTerminal.Enabled = btnSearchCurSIM.Enabled = btnRemoveCurSIM.Enabled =
-                btnSearchRepTerminal.Enabled = btnSearchRepSIM.Enabled = btnRemoveRepTerminal.Enabled = btnRemoveRepSIM.Enabled =
+                btnSearchRepTerminal.Enabled = btnSearchRepSIM.Enabled = btnRemoveRepTerminal.Enabled = btnRemoveRepSIM.Enabled = 
                 btnSearchStock.Enabled = btnRemoveStock.Enabled = false;
 
-                if (((txtServiceStatusDescription.Text.Equals(clsGlobalVariables.STATUS_ALLOCATED_DESC)) ||
-                    (txtServiceStatusDescription.Text.Equals(clsGlobalVariables.STATUS_DISPATCH_DESC)) ||
+                if (((txtServiceStatusDescription.Text.Equals(clsGlobalVariables.STATUS_ALLOCATED_DESC)) || 
+                    (txtServiceStatusDescription.Text.Equals(clsGlobalVariables.STATUS_DISPATCH_DESC)) || 
                     (txtServiceStatusDescription.Text.Equals(clsGlobalVariables.STATUS_AVAILABLE_DESC))) && (!txtServiceStatusDescription.Text.Equals(clsGlobalVariables.STATUS_NEGATIVE_DESC)))
                     isEdit = true;
                 else
@@ -4415,11 +4412,11 @@ namespace MIS
                     if (txtServiceStatusDescription.Text.Equals(clsGlobalVariables.STATUS_INSTALLED_DESC))
                         isEdit = true;
 
-                    btnSearchRepTerminal.Enabled = btnSearchRepSIM.Enabled = btnRemoveRepTerminal.Enabled = btnRemoveRepSIM.Enabled =
-                    btnSearchStock.Enabled = btnRemoveStock.Enabled = isEdit;
+                    btnSearchRepTerminal.Enabled = btnSearchRepSIM.Enabled = btnRemoveRepTerminal.Enabled = btnRemoveRepSIM.Enabled = 
+                    btnSearchStock.Enabled = btnRemoveStock.Enabled = isEdit;                   
                 }
                 else if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC))
-                {
+                {                
                     btnSearchCurTerminal.Enabled = btnRemoveCurTerminal.Enabled = btnSearchCurSIM.Enabled = btnRemoveCurSIM.Enabled =
                     btnSearchStock.Enabled = btnRemoveStock.Enabled = isEdit;
 
@@ -4428,7 +4425,7 @@ namespace MIS
                 else
                 {
                     //btnSearchCurTerminal.Enabled = btnRemoveCurTerminal.Enabled = btnSearchCurSIM.Enabled = btnRemoveCurSIM.Enabled = (!isEdit ? false : true);
-                    btnSearchCurTerminal.Enabled = btnRemoveCurTerminal.Enabled = btnSearchCurSIM.Enabled = btnRemoveCurSIM.Enabled =
+                    btnSearchCurTerminal.Enabled = btnRemoveCurTerminal.Enabled = btnSearchCurSIM.Enabled = btnRemoveCurSIM.Enabled = 
                     btnSearchStock.Enabled = btnRemoveStock.Enabled = false;
                 }
 
@@ -4462,10 +4459,10 @@ namespace MIS
             dbFunction.SetButtonIconImage(btnRemoveRepTerminal);
             dbFunction.SetButtonIconImage(btnRemoveRepSIM);
             dbFunction.SetButtonIconImage(btnRemoveStock);
-
+            
             dbFunction.SetButtonIconImage(btnNoRequestID);
             dbFunction.SetButtonIconImage(btnNoReferenceNo);
-
+            
 
             // Find
             //dbFunction.SetButtonIconImage(btnSearchMerchant);
@@ -4531,7 +4528,7 @@ namespace MIS
                 frmSearchField frm = new frmSearchField();
                 frm.ShowDialog();
             }
-
+            
             if (frmSearchField.fSelected)
             {
                 try
@@ -4657,7 +4654,7 @@ namespace MIS
                     txtServiceJobType.Text = dbAPI.getServiceJobType(txtSearchSTJobTypeDescription.Text).ToString();
 
                     txtRequestID1.Text = dbAPI.getPrimaryIRNo(int.Parse(txtIRIDNo.Text));
-
+                   
                     // Hold value for Request ID / Reference No
                     pHoldEntryRequestID = StrClean(txtEntryRequestID.Text);
                     pHoldEntryReferenceNo = StrClean(txtEntryReferenceNo.Text);
@@ -4674,7 +4671,7 @@ namespace MIS
 
                     btnUpdateServiceType.Enabled = true;
 
-                    AdditionalComBoBoxUnlock(true);
+                    AdditionalComBoBoxUnlock(true);                    
 
                     // Init header
                     lblHeader.Text = "UPDATE JOB ORDER" + " " + dbFunction.AddBracketStartEnd(cboSearchServiceType.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
@@ -4704,8 +4701,8 @@ namespace MIS
                     Debug.WriteLine($"Exceptional error message {ex.Message}");
                     dbFunction.SetMessageBox($"Exceptional error message {ex.Message}", "Search: Job Order", clsFunction.IconType.iError);
                 }
-
-
+                
+               
             }
         }
 
@@ -4736,7 +4733,7 @@ namespace MIS
         private void FiillServicingInfo()
         {
             Debug.WriteLine("--FiillServicingInfo--");
-            Debug.WriteLine("fEdit=" + fEdit);
+            Debug.WriteLine("fEdit="+fEdit);
             Debug.WriteLine("txtMerchantID.Text=" + txtMerchantID.Text);
             Debug.WriteLine("txtIRIDNo.Text=" + txtIRIDNo.Text);
             Debug.WriteLine("txtSearchServiceNo.Text=" + txtSearchServiceNo.Text);
@@ -4762,21 +4759,21 @@ namespace MIS
             txtEntryRequestID.Text =
             txtEntryReferenceNo.Text =
             txtServiceRequestDate.Text =
-            txtServiceJobType.Text =
+            txtServiceJobType.Text = 
             txtServiceJobTypeStatusDesc.Text =
             txtRemarks.Text =
             txtFUAppVersion.Text =
             txtFUAppCRC.Text =
-            txtServiceJobTypeDesc.Text =
+            txtServiceJobTypeDesc.Text = 
             txtServiceStatus.Text =
             txtServiceStatusDescription.Text =
             txtCreatedDate.Text =
             txtCreatedTime.Text =
             txtDispatchDateTime.Text =
-            txtDispatchBy.Text =
+            txtDispatchBy.Text =           
             txtDispatchDate.Text =
             txtDispatchTime.Text =
-            lblCreatedDate.Text =
+            lblCreatedDate.Text = 
             txtTicketStatus.Text =
             clsFunction.sNull;
 
@@ -4794,7 +4791,7 @@ namespace MIS
                     txtServiceRequestNo.Text = txtRequestNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 2);
                     txtServiceReferenceNo.Text = txtEntryReferenceNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 3);
 
-                    txtProcessedBy.Text = txtDispatcher.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 6);
+                    txtProcessedBy.Text = txtDispatcher.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 6);                    
                     txtProcessedDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 7);
 
                     lblCreatedDate.Text = "CREATED DATE: " + dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 7);
@@ -4809,7 +4806,7 @@ namespace MIS
                     //txtDispatchDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 11);
 
                     txtServiceJobType.Text = txtSearchSTJobType.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 12);
-
+                    
                     txtSearchSTJobTypeDescription.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 13);
 
                     txtServiceJobTypeStatusDesc.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 14);
@@ -4822,7 +4819,7 @@ namespace MIS
 
                     txtServiceJobTypeDesc.Text = txtSearchSTServiceJobTypeDescription.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 18);
 
-
+                    
                     //txtSearchSTStatusDescription.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 18);
 
                     txtServiceStatus.Text = txtSearchSTStatus.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 19);
@@ -4897,7 +4894,7 @@ namespace MIS
                 dbAPI.ExecuteAPI("GET", "Search", "Servicing SN Info", txtSearchServiceNo.Text, "Get Info Detail", "", "GetInfoDetail");
 
                 dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
-
+                
                 if (dbAPI.isNoRecordFound() == false)
                 {
                     //txtServiceNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 0);
@@ -4945,7 +4942,7 @@ namespace MIS
                         txtCurTerminalAssetType.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 15);
                         txtCurTerminalStatus.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 29);
                         txtCurTerminalStatusDesc.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 30);
-                    }
+                    }                    
                 }
 
                 // --------------------------------------------------------------------------------------------------------------------
@@ -5025,7 +5022,7 @@ namespace MIS
                         txtRepSIMStatusDesc.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 18);
                     }
                 }
-
+                
                 // ----------------------------------------------------------------------------------------------
                 // Set old Terminal, current
                 // ----------------------------------------------------------------------------------------------
@@ -5061,10 +5058,10 @@ namespace MIS
                     txtOldSIMID.Text = txtRepSIMID.Text;
                     txtOldSIMSN.Text = txtRepSIMSN.Text;
                 }
-
+               
                 // Do not display replace SN for non installation/replacement for not update
                 if (!fEdit)
-                {
+                {                
                     if (!txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                     {
                         txtRepTerminalID.Text =
@@ -5082,7 +5079,7 @@ namespace MIS
                         txtRepSIMCarrier.Text =
                         txtRepSIMLocation.Text = clsFunction.sNull;
                     }
-                }
+                }          
 
             }
         }
@@ -5092,14 +5089,14 @@ namespace MIS
 
             txtCustomerName.Text =
             txtCustomerPosition.Text =
-            txtCustomerContactNo.Text =
+            txtCustomerContactNo.Text = 
             txtCustomerEmail.Text = clsFunction.sNull;
 
-            if (dbFunction.isValidID(txtSearchServiceNo.Text))
+            if (dbFunction.isValidID(txtSearchServiceNo.Text))          
                 dbAPI.ExecuteAPI("GET", "Search", "Servicing Merch Rep Info", txtSearchServiceNo.Text, "Get Info Detail", "", "GetInfoDetail");
             else
                 dbAPI.ExecuteAPI("GET", "Search", "Merch Rep Info", txtMerchantID.Text, "Get Info Detail", "", "GetInfoDetail");
-
+            
             if (dbAPI.isNoRecordFound() == false)
             {
                 txtCustomerName.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 1);
@@ -5111,7 +5108,7 @@ namespace MIS
         }
 
         private void FiillFSRInfo()
-        {
+        {   
             txtSearchFSRDate.Text =
             txtSearchFSRTimeArrived.Text =
             txtSearchFSRReceiptTime.Text =
@@ -5132,7 +5129,7 @@ namespace MIS
                 dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
 
                 if (dbAPI.isNoRecordFound() == false)
-                {
+                {                
                     txtSearchFSRNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 1);
                     txtSearchFSRDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 2);
                     txtSearchFSRTimeArrived.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 3);
@@ -5166,7 +5163,7 @@ namespace MIS
             string pSN = clsFunction.sZero;
 
             Debug.WriteLine("--isValidTerminalStatus--");
-            Debug.WriteLine("txtSearchSTJobTypeDescription.Text=" + txtSearchSTJobTypeDescription.Text);
+            Debug.WriteLine("txtSearchSTJobTypeDescription.Text="+ txtSearchSTJobTypeDescription.Text);
 
             if (dbFunction.isValidID(txtCurTerminalID.Text) || dbFunction.isValidID(txtRepTerminalID.Text))
             {
@@ -5237,7 +5234,7 @@ namespace MIS
             {
                 isValid = true;
             }
-
+            
             if (!isValid)
             {
                 dbFunction.SetMessageBox("Terminal SN " + pSN + " is no longer available.", "Required field.", clsFunction.IconType.iExclamation);
@@ -5326,7 +5323,7 @@ namespace MIS
             {
                 isValid = true;
             }
-
+            
             if (!isValid)
             {
                 dbFunction.SetMessageBox("SIM SN " + pSN + " is no longer available.", "Required field.", clsFunction.IconType.iExclamation);
@@ -5338,12 +5335,12 @@ namespace MIS
         private void EmailNotification(string pPrefix)
         {
             Debug.WriteLine("--EmailNotification--");
-
+            
             dbFunction.GetProcessedByAndDateTime();
 
             // Get User Mobile/Email
             clsUser.ClassProcessedContactNo = clsUser.ClassProcessedEmail = clsFunction.sDash;
-            dbAPI.ExecuteAPI("GET", "Search", "User Info", clsUser.ClassUserID.ToString(), "Get Info Detail", "", "GetInfoDetail");
+            dbAPI.ExecuteAPI("GET", "Search", "User Info", clsUser.ClassUserID.ToString(), "Get Info Detail", "", "GetInfoDetail");         
             if (dbAPI.isNoRecordFound() == false)
             {
                 clsUser.ClassProcessedContactNo = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 6);
@@ -5362,17 +5359,17 @@ namespace MIS
                                                 clsUser.ClassProcessedBy + clsFunction.sCaret + clsUser.ClassProcessedDateTime + clsFunction.sCaret + clsUser.ClassProcessedContactNo + clsFunction.sCaret + clsUser.ClassProcessedEmail + clsFunction.sCaret +
                                                 pPrefix;
 
-            Debug.WriteLine("clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
+            Debug.WriteLine("clsSearch.ClassAdvanceSearchValue="+ clsSearch.ClassAdvanceSearchValue);
             dbAPI.ExecuteAPI("POST", "Notify", "Job Order", clsSearch.ClassAdvanceSearchValue, "Email Notification", "", "EmailNotification");
         }
 
         private void SetCount()
         {
             Debug.WriteLine("--SetCount--");
-            Debug.WriteLine("fEdit=" + fEdit);
+            Debug.WriteLine("fEdit="+fEdit);
 
             int iCount = 0;
-
+            
             // Success
             iCount = clsTerminal.ClassTerminalCount = 0;
             clsSearch.ClassAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text) + clsFunction.sPipe + dbFunction.CheckAndSetNumericValue(txtSearchSTJobType.Text) + clsFunction.sPipe + clsGlobalVariables.ACTION_MADE_SUCCESS;
@@ -5402,7 +5399,7 @@ namespace MIS
 
                 txtAttemptCnt.Text = iCount.ToString();
             }
-
+           
         }
 
         private void InitCount()
@@ -5416,12 +5413,12 @@ namespace MIS
             int iResult;
 
             Debug.WriteLine("--CheckDateFromTo--");
-            Debug.WriteLine("objFrom=" + objFrom.ToString());
+            Debug.WriteLine("objFrom="+ objFrom.ToString());
             Debug.WriteLine("objTo=" + objTo.ToString());
 
             iResult = DateTime.Compare(DateTime.Parse(objFrom.ToShortDateString()), DateTime.Parse(objTo.ToShortDateString()));
 
-            Debug.WriteLine("iResult=" + iResult);
+            Debug.WriteLine("iResult="+ iResult);
 
             if (iResult > 0)
                 fValid = false;
@@ -5474,7 +5471,7 @@ namespace MIS
             {
                 dbFunction.SetMessageBox("No selected job order.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
             }
-
+            
         }
 
         private void initDispatch(bool isEnable)
@@ -5557,18 +5554,18 @@ namespace MIS
 
                     bool isValid = dbFunction.ShowMenuInputBox("Change entry for " + dbFunction.AddBracketStartEnd(pDescription) + "-" + dbFunction.AddBracketStartEnd($"Entry limit: {pMaxLimit}"), pChangeFrom, pDescription, int.Parse(pMaxLimit), pOptionType, ref pOutput);
 
-                    Debug.WriteLine("isValid=" + isValid + ",pOutput=" + pOutput);
+                    Debug.WriteLine("isValid="+ isValid + ",pOutput="+ pOutput);
 
                     if (isValid)
                     {
                         dbFunction.updateListViewByColRow(lvwChanges, 4, int.Parse(pLineNo), pOutput);
                     }
-                }
-            }
+                }             
+            }            
         }
 
         private void btnRemoveChanges_Click(object sender, EventArgs e)
-        {
+        {   
             dbAPI.FillListViewChangesMapping(lvwChanges, "", "");
         }
 
@@ -5601,18 +5598,18 @@ namespace MIS
                             sSQL = sSQL + ", " + sRowSQL;
                         else
                             sSQL = sSQL + sRowSQL;
-                    }
+                    }                    
                 }
 
                 Debug.WriteLine("sSQL=" + sSQL);
                 if (sSQL.Length > 0)
                 {
                     dbFunction.parseDelimitedString(sSQL, clsDefines.gComma, 1);
-                    dbAPI.ExecuteAPI("POST", "Insert", "",
-                        dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsFunction.sPipe + dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text),
+                    dbAPI.ExecuteAPI("POST", "Insert", "", 
+                        dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsFunction.sPipe + dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text), 
                         "Service Changes Detail", sSQL, "InsertCollectionDetail");
                 }
-
+                
             }
         }
 
@@ -5656,9 +5653,9 @@ namespace MIS
 
                     dbFunction.ListViewAlternateBackColor(lvwChanges);
                 }
-
+                
             }
-
+            
         }
 
         private bool isValidSNStatus(searchType searchType)
@@ -5711,7 +5708,7 @@ namespace MIS
 
             return isValid;
         }
-
+        
         private void btnCheck_Click(object sender, EventArgs e)
         {
             frmAppsInfo frm = new frmAppsInfo();
@@ -5729,7 +5726,7 @@ namespace MIS
 
                 if (dbFunction.isValidID(txtRepTerminalID.Text))
                     dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtRepTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
-
+                
                 Debug.WriteLine("clsSearch.ClassOutParamValue=" + clsSearch.ClassOutParamValue);
 
                 if (clsSearch.ClassOutParamValue.Length > 0)
@@ -5739,7 +5736,7 @@ namespace MIS
                     if (dbAPI.isNoRecordFound() == false)
                     {
                         txtFUAppVersion.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_AppVersion);
-                        txtFUAppCRC.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_AppCRC);
+                        txtFUAppCRC.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_AppCRC);                        
                     }
                 }
             }
@@ -5752,25 +5749,25 @@ namespace MIS
             // current terminal
             if (dbFunction.isValidID(txtCurTerminalID.Text))
             {
-                PopulateTerminalTextBox(txtCurTerminalID.Text, txtCurTerminalSN.Text, true);
+                PopulateTerminalTextBox(txtCurTerminalID.Text, txtCurTerminalSN.Text, true);               
             }
 
             // current sim
             if (dbFunction.isValidID(txtCurSIMID.Text))
             {
-                PopulateSIMTextBox(txtCurSIMID.Text, txtCurSIMSN.Text, true);
+                PopulateSIMTextBox(txtCurSIMID.Text, txtCurSIMSN.Text, true);              
             }
 
             // replace terminal
             if (dbFunction.isValidID(txtRepTerminalID.Text))
             {
-                PopulateTerminalTextBox(txtRepTerminalID.Text, txtRepTerminalSN.Text, false);
+                PopulateTerminalTextBox(txtRepTerminalID.Text, txtRepTerminalSN.Text, false);               
             }
 
             // replace sim
             if (dbFunction.isValidID(txtRepSIMID.Text))
             {
-                PopulateSIMTextBox(txtRepSIMID.Text, txtRepSIMSN.Text, false);
+                PopulateSIMTextBox(txtRepSIMID.Text, txtRepSIMSN.Text, false);           
             }
 
             btnClear.Focus();
@@ -5795,7 +5792,7 @@ namespace MIS
             dbAPI.ExecuteAPI("GET", "Search", "Merchant Current SN", txtIRIDNo.Text, "Get Info Detail", "", "GetInfoDetail");
             Debug.WriteLine("clsSearch.ClassOutParamValue=" + clsSearch.ClassOutParamValue);
             if (clsSearch.ClassOutParamValue.Length > 0)
-            {
+            {   
                 jsonObj obj = JsonConvert.DeserializeObject<jsonObj>(clsSearch.ClassOutParamValue);
 
                 if (dbAPI.isNoRecordFound() == false)
@@ -5812,9 +5809,9 @@ namespace MIS
                 }
             }
 
-            if ((pTerminalID > 0 && !pTerminalSN.Equals(txtCurTerminalSN.Text)) ||
+            if ((pTerminalID > 0 && !pTerminalSN.Equals(txtCurTerminalSN.Text)) || 
                 (pSIMID > 0 && !pSIMSN.Equals(txtCurSIMSN.Text)) ||
-                (pTerminalStatus > 0 && pTerminalStatus != clsGlobalVariables.STATUS_INSTALLED) ||
+                (pTerminalStatus > 0 && pTerminalStatus != clsGlobalVariables.STATUS_INSTALLED) || 
                 (pSIMStatus > 0 && pSIMStatus != clsGlobalVariables.STATUS_INSTALLED))
                 isValid = false;
 
@@ -5835,7 +5832,7 @@ namespace MIS
                     " > Status : " + pTerminalStatusDesc + "\n\n" +
                     " [SIM information]" + "\n" +
                     " > SN : " + pSIMSN + "\n" +
-                    " > Status : " + pSIMStatusDesc + "\n\n" +
+                    " > Status : " + pSIMStatusDesc + "\n\n" +                   
                     "Conflict on installed and current SN." + "\n" +
                     clsDefines.CONTACT_ADMIN_MESSAGE,
                     "Terminal/SIM SN not sync.", clsFunction.IconType.iError);
@@ -5862,11 +5859,11 @@ namespace MIS
                     txtEntryRequestID.Text = pIRNo;
                     return;
                 }
-
+                
             }
 
             if (!dbFunction.fPromptConfirmation("Are you sure to let the system generate REQUEST ID?")) return;
-
+            
             if (fEdit)
                 isAutoGen = false;
 
@@ -5883,15 +5880,15 @@ namespace MIS
             if (fEdit) isAutoGen = false;
 
             dbAPI.GenerateID(isAutoGen, txtEntryReferenceNo, txtSearchServiceNo, "Servicing Detail", clsDefines.CONTROLID_PREFIX_REFNO);
-
+            
         }
 
         private void setFSRMode()
         {
-            if (dbFunction.isValidID(txtSearchFSRNo.Text))
-                txtSearchFSRDesc.Text = (dbFunction.isValidID(txtMobileID.Text) ? clsDefines.DIGITAL_FSR : clsDefines.MANUAL_FSR);
+            if (dbFunction.isValidID(txtSearchFSRNo.Text))            
+                txtSearchFSRDesc.Text = (dbFunction.isValidID(txtMobileID.Text) ? clsDefines.DIGITAL_FSR : clsDefines.MANUAL_FSR);            
             else
-                txtSearchFSRDesc.Text = clsFunction.sDash;
+                 txtSearchFSRDesc.Text = clsFunction.sDash;                        
         }
 
         private void FillMerchantContactInfoTextBox()
@@ -5931,7 +5928,7 @@ namespace MIS
 
             // Preview report
             clsSearch.ClassIsExportToPDF = false;
-
+            
             dbReportFunc.ViewDiagnosticReport(42);
         }
 
@@ -6012,7 +6009,7 @@ namespace MIS
                 string pSearchValue = $"{txtSearchServiceNo.Text}{clsDefines.gPipe}{txtMerchantID.Text}{clsDefines.gPipe}{txtCustomerName.Text}{clsDefines.gPipe}{txtCustomerPosition.Text}{clsDefines.gPipe}{txtCustomerContactNo.Text}{clsDefines.gPipe}{txtCustomerEmail.Text}";
                 dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 
-                dbAPI.ExecuteAPI("PUT", "Update", "Merchant Representative Info", pSearchValue, "", "", "UpdateCollectionDetail");
+                dbAPI.ExecuteAPI("PUT", "Update", "Merchant Representative Info",pSearchValue, "", "", "UpdateCollectionDetail");
 
                 dbFunction.SetMessageBox("Merchant representative information updated.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
             }
@@ -6082,7 +6079,7 @@ namespace MIS
         private bool isConfirmTargetInstDate()
         {
             bool isValid = true;
-            DateTime stServiceReqDate = dteServiceReqDate.Value;
+            DateTime stServiceReqDate = dteServiceReqDate.Value;            
             string pServiceReqDate = stServiceReqDate.ToString("MM-dd-yyy");
 
             if (!pServiceReqDate.Equals(txtIRInstallationDate.Text))
@@ -6092,11 +6089,11 @@ namespace MIS
             {
                 isValid = dbFunction.fPromptConfirmation("Target installation date and schedule date are not equal." +
                     "\n\n" +
-                    "Target installation date: " + txtIRInstallationDate.Text + "\n" +
-                    "Schedule date: " + pServiceReqDate + "\n\n" +
+                    "Target installation date: " + txtIRInstallationDate.Text + "\n" +                  
+                    "Schedule date: " + pServiceReqDate + "\n\n" +                                    
                     "Are you sure to continue?");
 
-
+                
             }
 
             return isValid;
@@ -6108,9 +6105,9 @@ namespace MIS
 
             if (dbFunction.isValidID(txtIRIDNo.Text))
             {
-                if (dbAPI.isRecordExist("Search", "Merchant Installed", txtIRIDNo.Text))
+                if (dbAPI.isRecordExist("Search", "Merchant Installed", txtIRIDNo.Text))              
                     isValid = false;
-
+                
                 if (!isValid)
                 {
                     dbFunction.SetMessageBox("Unable to create service, merchant is installed", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
@@ -6141,7 +6138,7 @@ namespace MIS
             frmSearchField.sHeader = "COMPONENTS";
             frmSearchField.iLocationID = clsFunction.iZero;
             frmSearchField.sLocation = clsFunction.sDefaultSelect;
-            frmSearchField.isCheckBoxes = false;
+            frmSearchField.isCheckBoxes = false;            
             frmSearchField frm = new frmSearchField();
             frm.ShowDialog();
 
@@ -6158,7 +6155,7 @@ namespace MIS
                         LoadSelected(lvwRepStockDetail);
                         break;
                 }
-
+                
                 checkAndSetDispatch();
 
                 Cursor.Current = Cursors.Default;
@@ -6187,7 +6184,7 @@ namespace MIS
 
                         string pJSONString = dbAPI.getInfoDetailJSON("Search", "Stock Detail Info", clsArray.ID[i]);
                         dbFunction.parseDelimitedString(pJSONString, clsDefines.gComma, 0);
-
+                        
                         if (dbFunction.isValidID(clsArray.ID[i]))
                         {
                             item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TerminalTypeID));
@@ -6271,7 +6268,7 @@ namespace MIS
         {
             string sRowSQL = "";
             string sSQL = "";
-
+            
 
             if (dbFunction.isValidID(txtSearchServiceNo.Text) && dbFunction.isValidID(txtIRIDNo.Text))
             {
@@ -6292,7 +6289,7 @@ namespace MIS
                             pReplaceID = pID;
                             pID = 0;
                         }
-
+                        
                         // Insert                
                         sRowSQL = "";
                         sRowSQL = " (" + dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + ", " +
@@ -6316,9 +6313,9 @@ namespace MIS
                     {
                         dbAPI.ExecuteAPI("POST", "Insert", "", "", "Stock Movement Detail", sSQL, "InsertCollectionDetail");
                     }
-                }
+                }                
             }
-
+            
         }
 
         private void deleteStockMovementDetail()
@@ -6326,7 +6323,7 @@ namespace MIS
             if (dbFunction.isValidID(txtSearchServiceNo.Text) && dbFunction.isValidID(txtIRIDNo.Text))
             {
                 dbAPI.ExecuteAPI("DELETE", "Delete", "Stock Movement Detail", txtSearchServiceNo.Text + clsDefines.gPipe + txtIRIDNo.Text, "Stock Movement Detail", "", "DeleteCollectionDetail");
-            }
+            }                
         }
 
         private void loadStockMovementDetail(ListView lvw, bool isCurrent)
@@ -6353,7 +6350,7 @@ namespace MIS
                     pOutput += pModel + "-" + pSerialNo + Environment.NewLine;
                 }
             }
-
+            
             return pOutput;
         }
 
@@ -6362,7 +6359,7 @@ namespace MIS
             Debug.WriteLine("--checkAndSetDispatch--");
 
             bool isDispatch = (chkDispatch.Checked ? true : false);
-
+            
             string pStatus = clsGlobalVariables.STATUS_AVAILABLE_DESC;
             if (isDispatch)
                 pStatus = clsGlobalVariables.STATUS_DISPATCH_DESC;
@@ -6379,8 +6376,8 @@ namespace MIS
                     txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPROGRAMMING_DESC) ||
                     txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_PULLOUT_DESC))
                     pStatus = clsGlobalVariables.STATUS_INSTALLED_DESC;
-
-            }
+                
+            }    
 
             Debug.WriteLine("txtSearchSTJobTypeDescription.Text=" + txtSearchSTJobTypeDescription.Text);
             Debug.WriteLine("isDispatch=" + isDispatch);
@@ -6410,14 +6407,14 @@ namespace MIS
             switch (tabComponent.SelectedIndex)
             {
                 case 0: // Current
-                    dbFunction.updateListView(lvwStockDetail, 8, txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC) ? clsGlobalVariables.STATUS_INSTALLED_DESC : pStatus, false); // status
+                    dbFunction.updateListView(lvwStockDetail, 8, txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC) ? clsGlobalVariables.STATUS_INSTALLED_DESC :  pStatus, false); // status
                     break;
                 case 1: // Replaced                        
                     dbFunction.updateListView(lvwRepStockDetail, 8, pStatus, false); // status
                     break;
             }
         }
-
+        
         private void chkDispatch_CheckedChanged(object sender, EventArgs e)
         {
             checkAndSetDispatch();
@@ -6448,7 +6445,7 @@ namespace MIS
             frmImportSIM.fAutoLoadData = true;
 
             dbFunction.SetMessageBox("Opening SIM window with SN" + dbFunction.AddBracketStartEnd(clsSearch.ClassSIMSerialNo), "Open window", clsFunction.IconType.iInformation);
-
+            
             frmImportSIM frm = new frmImportSIM();
             dbFunction.handleForm(frm);
         }
@@ -6463,7 +6460,7 @@ namespace MIS
             frmImportTerminal.fAutoLoadData = true;
 
             dbFunction.SetMessageBox("Opening TERMINAL window with SN" + dbFunction.AddBracketStartEnd(clsSearch.ClassTerminalSN), "Open window", clsFunction.IconType.iInformation);
-
+            
             frmImportTerminal frm = new frmImportTerminal();
             dbFunction.handleForm(frm);
         }
@@ -6478,7 +6475,7 @@ namespace MIS
             frmImportSIM.fAutoLoadData = true;
 
             dbFunction.SetMessageBox("Opening SIM window with SN" + dbFunction.AddBracketStartEnd(clsSearch.ClassSIMSerialNo), "Open window", clsFunction.IconType.iInformation);
-
+            
             frmImportSIM frm = new frmImportSIM();
             dbFunction.handleForm(frm);
         }
@@ -6498,7 +6495,7 @@ namespace MIS
                 clsSearch.ClassIRIDNo = int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text));
                 clsSearch.ClassIRNo = txtSearchIRNo.Text;
                 clsSearch.ClassServiceStatusDescription = txtServiceStatusDescription.Text;
-
+                
                 btnSearchService_Click(this, e);
 
             }
@@ -6518,7 +6515,7 @@ namespace MIS
                 txtLineNo.Text = dbFunction.GetSearchValue("LINE#");
                 txtItemID.Text = dbFunction.GetSearchValue("ID");
                 txtItemSN.Text = dbFunction.GetSearchValue("SERIAL NO.");
-
+                
 
             }
         }
@@ -6557,7 +6554,7 @@ namespace MIS
         {
             switch (tabComponent.SelectedIndex)
             {
-                case 0:
+                case 0:                  
                     break;
                 case 1:
                     break;
@@ -6575,7 +6572,7 @@ namespace MIS
                 frmStockEntry frm = new frmStockEntry();
                 dbFunction.handleForm(frm);
             }
-
+            
         }
 
         private void AdditionalComBoBoxUnlock(bool isLock)
@@ -6619,7 +6616,7 @@ namespace MIS
                 // Load Information
                 txtDispatchID.Text = clsSearch.ClassParticularID.ToString();
                 txtDispatcher.Text = clsSearch.ClassParticularName;
-
+                
                 FillDispatcherContactInfoTextBox();
 
                 chkDispatch.Enabled = true;
@@ -6646,7 +6643,7 @@ namespace MIS
 
                 txtFEMobileNo.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Mobile);
                 txtFEEmail.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Email);
-
+                
 
             }
         }
@@ -6687,7 +6684,7 @@ namespace MIS
             txtRemarks.Enabled = txtRMInstruction.Enabled = txtProbReported.Enabled = txtVendor.Enabled = txtRequestor.Enabled = (isEnable ? true : false);
 
             txtRemarks.BackColor = txtRMInstruction.BackColor = txtProbReported.BackColor = txtVendor.BackColor = txtRequestor.BackColor = (isEnable ? clsFunction.EntryBackColor : clsFunction.DisableBackColor);
-
+            
         }
 
         private void btnSearchAssistNo_Click(object sender, EventArgs e)
@@ -6750,9 +6747,9 @@ namespace MIS
                     Debug.WriteLine($"Exceptional error message {ex.Message}");
                     dbFunction.SetMessageBox($"Exceptional error message {ex.Message}", "Search: HelpDesk", clsFunction.IconType.iError);
                 }
-
+                
             }
-
+            
         }
 
         private void loadMerchantLastControlNo()
@@ -6838,7 +6835,7 @@ namespace MIS
 
                 btnSearchService.Enabled = false;
                 dbFunction.SetButtonIconImage(btnSearchService);
-
+                
                 btnNoRequestID.Enabled = false;
                 dbFunction.SetButtonIconImage(btnNoRequestID);
 
@@ -6855,9 +6852,9 @@ namespace MIS
                 txtHDTeamLead.Text = ucVendorHelpDeskTeamLeadInfo.VendorName;
                 txtHDTLEmail.Text = ucVendorHelpDeskTeamLeadInfo.VendorEmail;
                 txtHDTLContactNo.Text = ucVendorHelpDeskTeamLeadInfo.VendorMobileNo;
-
+                
                 txtHelpDeskActualProblemFound.ReadOnly = txtHelpDeskActionMade.ReadOnly = txtHelpDeskRemarks.ReadOnly = true;
-            }
+            }            
         }
 
         private void btnUpdateServiceDate_Click(object sender, EventArgs e)
@@ -6912,8 +6909,8 @@ namespace MIS
             }
             else
             {
-                dbFunction.SetMessageBox("Service information must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
-            }
+                dbFunction.SetMessageBox("Service information must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);                
+              }            
         }
 
         private void btnUpdateServiceType_Click(object sender, EventArgs e)
@@ -6929,7 +6926,7 @@ namespace MIS
                 clsGlobalVariables.STATUS_SERVICING_DESC,
                 clsGlobalVariables.STATUS_REPROGRAMMED_DESC
             };
-
+            
             if (btnUpdateServiceType.Text == ServiceTypeButtonLabels["edit"])
             {
                 // Enable editing
@@ -6943,7 +6940,7 @@ namespace MIS
                 string currentType = txtServiceType1.Text;
 
                 if (string.IsNullOrEmpty(selectedType))
-                {
+                {   
                     dbFunction.SetMessageBox("Please select a service type.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                     return;
                 }
@@ -6956,7 +6953,7 @@ namespace MIS
                 }
 
                 if (selectedType == currentType)
-                {
+                {   
                     dbFunction.SetMessageBox("Service type remains unchanged.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
                     return;
                 }
@@ -6981,7 +6978,7 @@ namespace MIS
 
                 btnClear_Click(this, e);
             }
-
+            
         }
 
         private void getSignAndImageCount()
@@ -7025,9 +7022,9 @@ namespace MIS
         {
             if (lvwList.Items.Count > 0)
             {
-                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);              
                 string jsonResult = dbFunction.genJSONFormat(lvwList, lvwList.SelectedIndices[0], "", "");
-
+                
                 // Pass JSON to popup window
                 frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
                 frm.ShowDialog();
@@ -7036,7 +7033,7 @@ namespace MIS
 
         private void SaveDeploymentDetail()
         {
-
+            
         }
 
         private void displayRescheduleTicketClosure()
@@ -7093,7 +7090,7 @@ namespace MIS
                     gScheduleDate = pScheduleDate;
                     gAttemptDate = pFSRDate;
                     fRescheduleTicket = true;
-                }
+                }                
             }
         }
 
@@ -7106,8 +7103,8 @@ namespace MIS
                 string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{txtZoneID.Text}");
                 if (dbFunction.isValidDescription(pJSONString))
                 {
-                    txtZZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);
-                    txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
+                    txtZZone.Text = txtSLAZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);                    
+                    txtZRegion.Text = txtSLARegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
                     txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
                     txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
                 }
@@ -7129,7 +7126,7 @@ namespace MIS
                     {
                         dbFunction.SetMessageBox(
                         "The merchant is currently in an invalid status.\n\n" +
-                        "To continue, the system will reset the merchant status from DISPATCH to AVAILABLE.",
+                        "To continue, the system will reset the merchant status from DISPATCH to AVAILABLE.",                        
                         clsDefines.FIELD_CHECK_MSG,
                         clsFunction.IconType.iError);
 
@@ -7149,7 +7146,7 @@ namespace MIS
 
                         isValid = false;
                     }
-                }
+                }                
             }
 
             return isValid;
@@ -7178,39 +7175,6 @@ namespace MIS
                 }
             }
         }
-
-        private void saveServicingActivityStart(ActivityType pActivityType, int pParticularID, string pParticularName)
-        {
-            if (!dbFunction.isValidID(txtSearchServiceNo.Text)) return;
-
-            string sSQL = " (" + dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text) + ", " +
-                          dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + ", " +
-                          dbFunction.CheckAndSetNumericValue(txtMerchantID.Text) + ", " +
-                          (int)pActivityType + ", " +
-                          "'" + dbFunction.getCurrentDateTime() + "', " +
-                          "NULL, " +
-                          pParticularID + ", " +
-                          "'" + dbFunction.CheckAndSetStringValue(pParticularName) + "') ";
-
-            dbFunction.parseDelimitedString(sSQL, clsDefines.gComma, 1);
-
-            dbAPI.ExecuteAPI("POST", "Insert", "",
-                dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text),
-                "Servicing Activity Detail", sSQL, "InsertCollectionDetail");
-        }
-
-        private void saveServicingActivityEnd(ActivityType pActivityType)
-        {
-            if (!dbFunction.isValidID(txtSearchServiceNo.Text)) return;
-
-            clsSearch.ClassAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsFunction.sPipe +
-                                                  (int)pActivityType + clsFunction.sPipe +
-                                                  dbFunction.getCurrentDateTime();
-
-            dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 0);
-
-            dbAPI.ExecuteAPI("PUT", "Update", "Update Servicing Activity Detail", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
-        }
+        
     }
 }
-

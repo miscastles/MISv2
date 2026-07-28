@@ -57,7 +57,14 @@ namespace MIS
         {
             bool fConnected = false;
 
+            Debug.WriteLine("================================");
             Debug.WriteLine("--frmReportViewer_Load--");
+            Debug.WriteLine("sReportID = " + sReportID);
+            Debug.WriteLine("clsReport.ClassReportID      = " + clsReport.ClassReportID);
+            Debug.WriteLine("clsReport.ClassReportDesc      = " + clsReport.ClassReportDesc);
+            Debug.WriteLine("clsSearch.ClassReportID      = " + clsSearch.ClassReportID);
+            Debug.WriteLine("clsSearch.ClassReportDescription      = " + clsSearch.ClassReportDescription);            
+            Debug.WriteLine("================================");
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -4107,6 +4114,8 @@ namespace MIS
 
             if (!isValid)
             {
+                Debug.WriteLine("INVALID DATA SET");
+
                 dbFunction.SetMessageBox("No records found." + "\n\n" + "Report: " + dbFunction.AddBracketStartEnd(ReportPath) + "\n\n" +
                                          "Please check your fields filtered.", "Report", clsFunction.IconType.iInformation);
                 this.Close();

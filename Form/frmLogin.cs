@@ -222,6 +222,7 @@ namespace MIS
                     clsSearch.ClassCurrentParticularID = clsUser.ClassParticularID;
                     clsSearch.ClassCurrentParticularName = clsUser.ClassUserFullName;
                     clsSearch.ClassisAppVersion = clsUser.ClassisAppVersion;
+                    clsGlobalVariables.isReportWarmUp = false;
 
                     // set Apps Session
                     AppSession.BankCode = clsSearch.ClassBankCode;

@@ -227,8 +227,10 @@ namespace MIS
             DataSet rtnDs = new DataSet();
 
             Debug.WriteLine("--GetReportWithStoredProcedure--");
-            Debug.WriteLine($" > ReportID=[{clsReport.ClassReportID}]");
-            Debug.WriteLine($" > ReportDesc=[{clsReport.ClassReportDesc}]");
+            Debug.WriteLine($" > clsReport.ClassReportID=[{clsReport.ClassReportID}]");
+            Debug.WriteLine($" > clsReport.ClassReportDesc=[{clsReport.ClassReportDesc}]");
+            Debug.WriteLine($" > clsSearch.ClassReportID=[{clsSearch.ClassReportID}]");
+            Debug.WriteLine($" > clsSearch.ClassReportDescription=[{clsSearch.ClassReportDescription}]");
             Debug.WriteLine($" > StatementType=[{StatementType}]");
             Debug.WriteLine($" > SearchBy=[{SearchBy}]");
             Debug.WriteLine($" > SearchValue=[{SearchValue}]");

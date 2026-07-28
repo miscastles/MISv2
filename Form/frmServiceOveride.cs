@@ -55,6 +55,7 @@ namespace MIS
         private int RegionType { get; set; }
         private int JobTypeID { get; set; }
         private string ServiceResult { get; set; }
+        private string PendingServiceResult { get; set; }
         public frmServiceOveride()
         {
             InitializeComponent();
@@ -1007,11 +1008,19 @@ namespace MIS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!ValidateFields())
-                return;
+         if (!ValidateFields())
+            return;
 
-            UpdateJobOrder(ServiceNo);
+        if (!string.IsNullOrEmpty(PendingServiceResult))
+        {
+            if (!UpdateServiceResult(ServiceNo, PendingServiceResult))
+                return; // stop — result override failed, don't save the rest
+
+            PendingServiceResult = null;
         }
+
+        UpdateJobOrder(ServiceNo);
+    }
 
         private void btnSearchFE_Click(object sender, EventArgs e)
         {
@@ -1125,18 +1134,13 @@ namespace MIS
                 return;
             }
 
-            if (!Prompt.YesNo("Service Result",
-                    $"Change RESULT from '{(string.IsNullOrEmpty(ServiceResult) ? "-" : ServiceResult)}' to '{newResult}'?")
-                    .Equals(DialogResult.Yes))
-            {
-                cboChange.SelectedIndex = 0;
-                return;
-            }
-
-            UpdateServiceResult(ServiceNo, newResult);
+            // Stage only — don't hit the API here
+            PendingServiceResult = newResult;
+            lblResult.Text = newResult;
+            cboChange.SelectedIndex = 0;
         }
 
-        private void UpdateServiceResult(int pServiceNo, string pNewResult)
+        private bool UpdateServiceResult(int pServiceNo, string pNewResult)
         {
             try
             {
@@ -1155,7 +1159,7 @@ namespace MIS
                 if (dbAPI.isNoRecordFound())
                 {
                     cboChange.SelectedIndex = 0;
-                    return;
+                    return false;
                 }
 
                 ServiceResult = pNewResult;
@@ -1163,11 +1167,13 @@ namespace MIS
                 cboChange.SelectedIndex = 0;
 
                 Prompt.Info("Update Successful", $"Service Result updated to: {pNewResult}");
+                return true;
             }
             catch (Exception ex)
             {
                 Prompt.Error("Updating Service Result", $"Process Error: {ex.Message}");
                 cboChange.SelectedIndex = 0;
+                return false;
             }
         }
     }

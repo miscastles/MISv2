@@ -50,18 +50,6 @@ namespace MIS
             public object outParamValue { get; set; }
         }
 
-        // Override CreateParams to enable double-buffering for child controls
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
-
         public frmTerminalFSR()
         {
             InitializeComponent();
@@ -5003,6 +4991,7 @@ namespace MIS
 
                 // Preview report
                 clsSearch.ClassComponents = dbAPI.getStockkMovementDetail("Stock Movement Detail List", txtSearchServiceNo.Text + clsDefines.gPipe + txtIRIDNo.Text);
+
                 clsSearch.ClassIsExportToPDF = false;                
                 dbReportFunc.ViewFSR(5);
             }
@@ -6400,8 +6389,11 @@ namespace MIS
         {
             txtVendor.ReadOnly = txtRequestor.ReadOnly = (isEnable ? false : true);
             txtVendor.Enabled = txtRequestor.Enabled = (isEnable ? true : false);
-
+            
             txtVendor.BackColor = txtRequestor.BackColor = (isEnable ? clsFunction.EntryBackColor : clsFunction.DisableBackColor);
+
+            txtMProblemReported.ReadOnly = true;
+            txtMProblemReported.BackColor = clsFunction.DisableBackColor;
 
         }
 
@@ -6761,8 +6753,8 @@ namespace MIS
                 string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{txtZoneID.Text}");
                 if (dbFunction.isValidDescription(pJSONString))
                 {
-                    txtZZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);
-                    txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
+                    txtZZone.Text = txtSLAZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);
+                    txtZRegion.Text = txtSLARegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
                     txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
                     txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
                 }
