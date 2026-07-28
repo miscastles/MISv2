@@ -730,10 +730,6 @@
             this.tabPage23 = new System.Windows.Forms.TabPage();
             this.lvwRaw = new System.Windows.Forms.ListView();
             this.tabPage24 = new System.Windows.Forms.TabPage();
-            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
-            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
-            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
-            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.tabPage25 = new System.Windows.Forms.TabPage();
             this.lblCountDown = new System.Windows.Forms.Label();
             this.lblCreatedDate = new System.Windows.Forms.Label();
@@ -804,6 +800,14 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
+            this.txtSLARegion = new System.Windows.Forms.TextBox();
+            this.label182 = new System.Windows.Forms.Label();
+            this.txtSLAZone = new System.Windows.Forms.TextBox();
+            this.label183 = new System.Windows.Forms.Label();
+            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
+            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
+            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
+            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -3950,6 +3954,10 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.txtSLARegion);
+            this.tabPage6.Controls.Add(this.label182);
+            this.tabPage6.Controls.Add(this.txtSLAZone);
+            this.tabPage6.Controls.Add(this.label183);
             this.tabPage6.Controls.Add(this.label171);
             this.tabPage6.Controls.Add(this.txtDueDate);
             this.tabPage6.Controls.Add(this.label143);
@@ -4033,7 +4041,7 @@
             this.txtDaysOverDue.Location = new System.Drawing.Point(100, 51);
             this.txtDaysOverDue.Name = "txtDaysOverDue";
             this.txtDaysOverDue.ReadOnly = true;
-            this.txtDaysOverDue.Size = new System.Drawing.Size(301, 22);
+            this.txtDaysOverDue.Size = new System.Drawing.Size(53, 22);
             this.txtDaysOverDue.TabIndex = 441;
             this.txtDaysOverDue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -4056,7 +4064,7 @@
             this.txtNetworkDays.Location = new System.Drawing.Point(100, 28);
             this.txtNetworkDays.Name = "txtNetworkDays";
             this.txtNetworkDays.ReadOnly = true;
-            this.txtNetworkDays.Size = new System.Drawing.Size(301, 22);
+            this.txtNetworkDays.Size = new System.Drawing.Size(53, 22);
             this.txtNetworkDays.TabIndex = 439;
             this.txtNetworkDays.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -9440,50 +9448,6 @@
             this.tabPage24.Text = "Helpdesk Information";
             this.tabPage24.UseVisualStyleBackColor = true;
             // 
-            // ucVendorHelpDeskTeamLeadInfo
-            // 
-            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(588, 446);
-            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
-            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(678, 107);
-            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 7;
-            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
-            // 
-            // ucVendorHelpDeskRepInfo
-            // 
-            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 446);
-            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
-            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(678, 107);
-            this.ucVendorHelpDeskRepInfo.TabIndex = 6;
-            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
-            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskRepInfo.VendorName = "";
-            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
-            // 
-            // ucHelpDeskEntryInfo
-            // 
-            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 237);
-            this.ucHelpDeskEntryInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
-            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1333, 252);
-            this.ucHelpDeskEntryInfo.TabIndex = 5;
-            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
-            // 
-            // ucHelpDeskServiceInfo
-            // 
-            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 4);
-            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
-            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1265, 283);
-            this.ucHelpDeskServiceInfo.TabIndex = 1;
-            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
-            // 
             // tabPage25
             // 
             this.tabPage25.Location = new System.Drawing.Point(4, 28);
@@ -10320,6 +10284,96 @@
             this.txtAssistNo.ReadOnly = true;
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
+            // 
+            // txtSLARegion
+            // 
+            this.txtSLARegion.BackColor = System.Drawing.Color.White;
+            this.txtSLARegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSLARegion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSLARegion.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtSLARegion.Location = new System.Drawing.Point(264, 51);
+            this.txtSLARegion.Name = "txtSLARegion";
+            this.txtSLARegion.ReadOnly = true;
+            this.txtSLARegion.Size = new System.Drawing.Size(136, 20);
+            this.txtSLARegion.TabIndex = 459;
+            this.txtSLARegion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label182
+            // 
+            this.label182.AutoSize = true;
+            this.label182.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label182.Location = new System.Drawing.Point(159, 55);
+            this.label182.Name = "label182";
+            this.label182.Size = new System.Drawing.Size(49, 14);
+            this.label182.TabIndex = 460;
+            this.label182.Text = "REGION";
+            // 
+            // txtSLAZone
+            // 
+            this.txtSLAZone.BackColor = System.Drawing.Color.White;
+            this.txtSLAZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSLAZone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSLAZone.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtSLAZone.Location = new System.Drawing.Point(264, 29);
+            this.txtSLAZone.Name = "txtSLAZone";
+            this.txtSLAZone.ReadOnly = true;
+            this.txtSLAZone.Size = new System.Drawing.Size(137, 20);
+            this.txtSLAZone.TabIndex = 457;
+            this.txtSLAZone.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label183
+            // 
+            this.label183.AutoSize = true;
+            this.label183.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label183.Location = new System.Drawing.Point(159, 32);
+            this.label183.Name = "label183";
+            this.label183.Size = new System.Drawing.Size(35, 14);
+            this.label183.TabIndex = 458;
+            this.label183.Text = "ZONE";
+            // 
+            // ucVendorHelpDeskTeamLeadInfo
+            // 
+            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(588, 446);
+            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
+            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(678, 107);
+            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 7;
+            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
+            // 
+            // ucVendorHelpDeskRepInfo
+            // 
+            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 446);
+            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
+            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(678, 107);
+            this.ucVendorHelpDeskRepInfo.TabIndex = 6;
+            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
+            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskRepInfo.VendorName = "";
+            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
+            // 
+            // ucHelpDeskEntryInfo
+            // 
+            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 237);
+            this.ucHelpDeskEntryInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
+            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1333, 252);
+            this.ucHelpDeskEntryInfo.TabIndex = 5;
+            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
+            // 
+            // ucHelpDeskServiceInfo
+            // 
+            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 4);
+            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
+            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1265, 283);
+            this.ucHelpDeskServiceInfo.TabIndex = 1;
+            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
             // 
             // frmTerminalFSR
             // 
@@ -11476,5 +11530,9 @@
         private System.Windows.Forms.Label label180;
         private System.Windows.Forms.TextBox txtFsrServicedBy;
         private System.Windows.Forms.Label label181;
+        private System.Windows.Forms.TextBox txtSLARegion;
+        private System.Windows.Forms.Label label182;
+        private System.Windows.Forms.TextBox txtSLAZone;
+        private System.Windows.Forms.Label label183;
     }
 }

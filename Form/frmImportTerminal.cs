@@ -2388,11 +2388,11 @@ namespace MIS
                 if (dbFunction.isValidID(txtTerminalID.Text))
                 {
                     // dispatch -> AVAILABLE / ALLOCATED
-                    if (iHoldStatus == clsGlobalVariables.STATUS_DISPATCH && (iStatus == clsGlobalVariables.STATUS_AVAILABLE || iStatus == clsGlobalVariables.STATUS_ALLOCATED))
+                    if (iHoldStatus.Equals(clsGlobalVariables.STATUS_DISPATCH) && !iStatus.Equals(clsGlobalVariables.STATUS_DISPATCH))
                     {
                         dbFunction.SetMessageBox(
                             "TerminalSN " + dbFunction.AddBracketStartEnd(txtTerminalSN.Text) +
-                            "\n\nA DISPATCH terminal cannot be manually changed to " +
+                            "\n\nA DISPATCH Terminal cannot be manually changed to " +
                             cboMStatus.Text + ".",
                             "Update failed",
                             clsFunction.IconType.iError

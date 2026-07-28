@@ -884,6 +884,13 @@ namespace MIS
             dbAPI.GenerateID(true, txtRequestNo, txtSearchServiceNo, "Servicing Detail", clsDefines.CONTROLID_PREFIX_SERVICE);
             lblSubHeader.Text = txtRequestNo.Text;
 
+            dbAPI.saveServicingActivityStart(ActivityType.JobOrders,
+                        clsUser.ClassUserID,
+                        clsUser.ClassUserFullName,
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
+
             fAutoLoadData = false;
             fEdit = false;
             fModify = false;
@@ -2430,6 +2437,8 @@ namespace MIS
                 {
                     SaveServiceDetail();
 
+                    dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
+
                     SaveDeploymentDetail();
 
                     // ---------------------------------------------------------------------------------------------
@@ -2557,6 +2566,20 @@ namespace MIS
 
                 }
 
+                // Activity 2 — Terminal Prep completion
+                if (dbFunction.isValidID(txtCurTerminalID.Text) &&
+                    dbFunction.isValidID(txtCurSIMID.Text) &&
+                    dbFunction.isValidDescription(txtDispatcher.Text))
+                {
+                    dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
+                }
+
+                // Activity 3 — Dispatcher completion
+                if (dbFunction.isValidID(txtFEID.Text) && chkDispatch.Checked)
+                {
+                    dbAPI.saveServicingActivityEnd(ActivityType.Dispatcher, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
+                }
+
                 Cursor.Current = Cursors.Default;
 
                 if (chkEmail.Checked && chkDispatch.Checked)
@@ -2657,6 +2680,8 @@ namespace MIS
             if (!dbFunction.isValidEntry(clsFunction.CheckType.iMerchantID, txtMerchantID.Text)) return;
             //if (!dbFunction.isValidEntry(clsFunction.CheckType.iClientID, txtClientID.Text)) return;
 
+            bool wasFEEmpty = !dbFunction.isValidID(txtFEID.Text);
+
             frmSearchField.iSearchType = frmSearchField.SearchType.iFE;
             frmSearchField.sHeader = "VENDOR FIELD ENGINEER";
             frmSearchField.isCheckBoxes = false;
@@ -2672,7 +2697,15 @@ namespace MIS
                 FillFETextBox();
 
                 FillFEContactInfoTextBox();
-                
+
+                if (wasFEEmpty)
+                    dbAPI.saveServicingActivityStart(ActivityType.Dispatcher,
+                        clsUser.ClassUserID,
+                        clsUser.ClassUserFullName,
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
+
             }
         }
 
@@ -3750,7 +3783,8 @@ namespace MIS
 
         private void btnSearchCurTerminal_Click(object sender, EventArgs e)
         {
-            
+            bool wasTermPrepStarted = dbFunction.isValidID(txtCurTerminalID.Text) || dbFunction.isValidID(txtCurSIMID.Text);
+
             frmSearchField.iSearchType  = frmSearchField.SearchType.iTerminal;
             frmSearchField.iStatus      = clsGlobalVariables.STATUS_AVAILABLE;
             frmSearchField.sTerminalType = "View Terminal";
@@ -3819,6 +3853,14 @@ namespace MIS
                 getApplicationInfo(); // get version/crc from master data (tblterminalmodel)
 
                 checkAndSetDispatch();
+
+                if (!wasTermPrepStarted)
+                    dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep, 
+                        clsUser.ClassUserID, 
+                        clsUser.ClassUserFullName, 
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)), 
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)), 
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
 
             }
         }
@@ -7061,8 +7103,8 @@ namespace MIS
                 string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{txtZoneID.Text}");
                 if (dbFunction.isValidDescription(pJSONString))
                 {
-                    txtZZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);                    
-                    txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
+                    txtZZone.Text = txtSLAZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);                    
+                    txtZRegion.Text = txtSLARegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
                     txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
                     txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
                 }
@@ -7133,5 +7175,6 @@ namespace MIS
                 }
             }
         }
+        
     }
 }

@@ -12768,6 +12768,37 @@ namespace MIS
             return true;
         }
 
+        public void saveServicingActivityStart(ActivityType pActivityType, int pParticularID, string pParticularName, int pServiceNo, int pIRIDNo, int pMerchantID)
+        {
+            if (!dbFunction.isValidID($"{pServiceNo}")) return;
+
+            string sSQL = " (" + dbFunction.CheckAndSetNumericValue($"{pIRIDNo}") + ", " +
+                          dbFunction.CheckAndSetNumericValue($"{pServiceNo}") + ", " +
+                          dbFunction.CheckAndSetNumericValue($"{pMerchantID}") + ", " +
+                          (int)pActivityType + ", " +
+                          "'" + dbFunction.getCurrentDateTime() + "', " +
+                          "NULL, " +
+                          pParticularID + ", " +
+                          "'" + dbFunction.CheckAndSetStringValue(pParticularName) + "') ";
+
+            dbFunction.parseDelimitedString(sSQL, clsDefines.gComma, 1);
+
+            dbAPI.ExecuteAPI("POST", "Insert", "", dbFunction.CheckAndSetNumericValue($"{pServiceNo}"), "Servicing Activity Detail", sSQL, "InsertCollectionDetail");
+        }
+
+        public void saveServicingActivityEnd(ActivityType pActivityType, int pServiceNo)
+        {
+            if (!dbFunction.isValidID($"{pServiceNo}")) return;
+
+            string pSearchValue = dbFunction.CheckAndSetNumericValue($"{pServiceNo}") + clsFunction.sPipe +
+                                                  (int)pActivityType + clsFunction.sPipe +
+                                                  dbFunction.getCurrentDateTime();
+
+            dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
+            dbAPI.ExecuteAPI("PUT", "Update", "Servicing Activity Detail", pSearchValue, "", "", "UpdateCollectionDetail");
+        }
+
     }
 
 }

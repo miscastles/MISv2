@@ -260,7 +260,8 @@ namespace MIS
                     Cursor.Current = Cursors.Default;
 
                     clsSearch.ClassStatus = clsGlobalVariables.LOGIN_STATUS;
-                    clsSearch.ClassStatusDescription = clsGlobalVariables.LOGIN_STATUS_DESC;                    
+                    clsSearch.ClassStatusDescription = clsGlobalVariables.LOGIN_STATUS_DESC;
+                    clsGlobalVariables.isReportWarmUp = false;
 
                     if (IsSwitchBankMode)
                     {

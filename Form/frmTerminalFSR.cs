@@ -6389,8 +6389,11 @@ namespace MIS
         {
             txtVendor.ReadOnly = txtRequestor.ReadOnly = (isEnable ? false : true);
             txtVendor.Enabled = txtRequestor.Enabled = (isEnable ? true : false);
-
+            
             txtVendor.BackColor = txtRequestor.BackColor = (isEnable ? clsFunction.EntryBackColor : clsFunction.DisableBackColor);
+
+            txtMProblemReported.ReadOnly = true;
+            txtMProblemReported.BackColor = clsFunction.DisableBackColor;
 
         }
 
@@ -6750,8 +6753,8 @@ namespace MIS
                 string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{txtZoneID.Text}");
                 if (dbFunction.isValidDescription(pJSONString))
                 {
-                    txtZZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);
-                    txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
+                    txtZZone.Text = txtSLAZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);
+                    txtZRegion.Text = txtSLARegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
                     txtZArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
                     txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);
                 }

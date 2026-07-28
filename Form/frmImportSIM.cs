@@ -1658,11 +1658,11 @@ namespace MIS
             {
                 if (dbFunction.isValidID(txtSIMID.Text))
                 {
-                    if (iHoldStatus == clsGlobalVariables.STATUS_DISPATCH && (iStatus == clsGlobalVariables.STATUS_AVAILABLE || iStatus == clsGlobalVariables.STATUS_ALLOCATED))
+                    if (iHoldStatus.Equals(clsGlobalVariables.STATUS_DISPATCH) && !iStatus.Equals(clsGlobalVariables.STATUS_DISPATCH))
                     {
                         dbFunction.SetMessageBox(
                             "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
-                            "\n\nA DISPATCH SIMSN cannot be manually changed to " +
+                            "\n\nA DISPATCH SIM cannot be manually changed to " +
                             cboMStatus.Text + ".",
                             "Update failed",
                             clsFunction.IconType.iError
