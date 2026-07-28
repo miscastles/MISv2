@@ -2437,7 +2437,8 @@ namespace MIS
                 {
                     SaveServiceDetail();
 
-                    dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
+                    if (dbFunction.isValidDescription(txtDispatcher.Text))
+                        dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
 
                     SaveDeploymentDetail();
 
@@ -2567,13 +2568,9 @@ namespace MIS
                 }
 
                 // Activity 2 — Terminal Prep completion
-                if (dbFunction.isValidID(txtCurTerminalID.Text) &&
-                    dbFunction.isValidID(txtCurSIMID.Text) &&
-                    dbFunction.isValidDescription(txtDispatcher.Text))
-                {
+                if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtCurSIMID.Text) )                
                     dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
-                }
-
+                
                 // Activity 3 — Dispatcher completion
                 if (dbFunction.isValidID(txtFEID.Text) && chkDispatch.Checked)
                 {
@@ -3867,6 +3864,8 @@ namespace MIS
 
         private void btnSearchCurSIM_Click(object sender, EventArgs e)
         {
+            bool wasTermPrepStarted = dbFunction.isValidID(txtCurTerminalID.Text) || dbFunction.isValidID(txtCurSIMID.Text);
+
             frmSearchField.iSearchType = frmSearchField.SearchType.iSIM;
             frmSearchField.iStatus = clsGlobalVariables.STATUS_AVAILABLE;
             frmSearchField.sHeader = "SIM";
@@ -3922,6 +3921,15 @@ namespace MIS
                 }
 
                 checkAndSetDispatch();
+
+                if (!wasTermPrepStarted)
+                    dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep,
+                        clsUser.ClassUserID,
+                        clsUser.ClassUserFullName,
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
+
 
             }
         }
@@ -5503,7 +5511,7 @@ namespace MIS
 
         private void dtpReqDateVendor_ValueChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void frmServiceJobOrder_Activated(object sender, EventArgs e)

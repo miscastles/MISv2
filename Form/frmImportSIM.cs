@@ -1656,13 +1656,107 @@ namespace MIS
             
             if (fEdit)
             {
-                if (dbFunction.isValidID(txtSIMID.Text))
+                if (!dbAPI.isRecordExist("Search", "SIMSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtSIMID.Text))
                 {
-                    if (iHoldStatus.Equals(clsGlobalVariables.STATUS_DISPATCH) && !iStatus.Equals(clsGlobalVariables.STATUS_DISPATCH))
+                    isProceed = true;
+                }
+
+                if (!dbFunction.isValidID(txtSIMStatus.Text))
+                {
+                    dbFunction.SetMessageBox(
+                        "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                        "\n\nInvalid SIM Status" +
+                        dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) + ".",
+                        "Update failed",
+                        clsFunction.IconType.iError
+                    );
+
+                    return;
+                }
+
+                if (iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && int.Parse(dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text)) != clsSystemSetting.ClassSystemSNLocationID)
+                {
+                    dbFunction.SetMessageBox(
+                        "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                        "\n\nAn INSTALLED SIM must be located in " +
+                        dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) + ".",
+                        "Update failed",
+                        clsFunction.IconType.iError
+                    );
+
+                    return;
+                }
+
+                if (iHoldStatus.Equals(clsGlobalVariables.STATUS_DISPATCH) && !iStatus.Equals(clsGlobalVariables.STATUS_DISPATCH) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && !iStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))
+                {
+                    dbFunction.SetMessageBox(
+                        "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                        "\n\nA DISPATCH SIM can only be set to INSTALLED or AVAILABLE.",
+                        "Update failed",
+                        clsFunction.IconType.iError
+                    );
+
+                    return;
+                }
+
+                if (iHoldStatus.Equals(clsGlobalVariables.STATUS_DISPATCH) && iStatus.Equals(clsGlobalVariables.STATUS_AVAILABLE))
+                {
+                    if (dbAPI.isRecordExist("Search", "SIMID Dispatch Available", txtSIMID.Text))
                     {
                         dbFunction.SetMessageBox(
                             "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
-                            "\n\nA DISPATCH SIM cannot be manually changed to " +
+                            "\n\nThis SIM cannot be set to AVAILABLE because it has an active service dispatch.",
+                            "Update failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
+                    isProceed = true;
+                }
+
+                if (!iHoldStatus.Equals(clsGlobalVariables.STATUS_DISPATCH) && iStatus.Equals(clsGlobalVariables.STATUS_DISPATCH))
+                {
+                    if (!dbAPI.isRecordExist("Search", "SIMID Dispatch Available", txtSIMID.Text))
+                    {
+                        dbFunction.SetMessageBox(
+                            "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                            "\n\nThis SIM cannot be set to DISPATCH because it has no active service dispatch.",
+                            "Update failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
+                    isProceed = true;
+                }
+
+                if (!iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                {
+                    if (!dbAPI.isRecordExist("Search", "SIMID Active Installed", txtSIMID.Text))
+                    {
+                        dbFunction.SetMessageBox(
+                            "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                            "\n\nThis SIM cannot be set to INSTALLED because it has no active successful installation lifecycle record.",
+                            "Update failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
+                    isProceed = true;
+                }
+
+                if (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
+                {
+                    if (dbAPI.isRecordExist("Search", "SIMID Active Installed", txtSIMID.Text))
+                    {
+                        dbFunction.SetMessageBox(
+                            "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
+                            "\n\nThis SIM is still actively installed and cannot be set to " +
                             cboMStatus.Text + ".",
                             "Update failed",
                             clsFunction.IconType.iError
@@ -1671,79 +1765,13 @@ namespace MIS
                         return;
                     }
 
-                    if ((((txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLEDOUT_DESC)) || (txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_PULLED_OUT_DESC))) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS)) || !dbFunction.isValidID(txtTService.Text))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (dbFunction.isValidID(txtSIMStatus.Text) && (iHoldStatus == clsGlobalVariables.STATUS_DAMAGE || iHoldStatus == clsGlobalVariables.STATUS_LOSS || iHoldStatus == clsGlobalVariables.STATUS_BORROWED))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (dbFunction.isValidID(txtSIMStatus.Text) && iHoldStatus == clsGlobalVariables.STATUS_INSTALLED && iStatus == clsGlobalVariables.STATUS_INSTALLED && cboMLocation.Text.Equals(clsSystemSetting.ClassSystemSNLocation))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (txtLastServiceMade.Text.Equals(clsGlobalVariables.STATUS_REPLACEMENT_DESC) && txtLastServiceActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (!dbAPI.isRecordExist("Search", "SIMSN From IRDetail", txtIRIDNo.Text + clsFunction.sPipe + txtSIMID.Text))
-                    {
-                        isProceed = true;
-                    }
-
-                    if (iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && int.Parse(dbFunction.CheckAndSetNumericValue(txtLocationIDFrom.Text)) != clsSystemSetting.ClassSystemSNLocationID)
-                    {
-                        dbFunction.SetMessageBox(
-                            "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
-                            "\n\nAn INSTALLED terminal must be located in " +
-                            dbFunction.AddBracketStartEnd(clsSystemSetting.ClassSystemSNLocation) + ".",
-                            "Update failed",
-                            clsFunction.IconType.iError
-                        );
-
-                        return;
-                    }
-
-                    if (!iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
-                    {
-                        if (!dbAPI.isRecordExist("Search", "SIMID Installed", txtSIMID.Text))
-                        {
-                            dbFunction.SetMessageBox(
-                                "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
-                                "\n\nThis SIM cannot be set to INSTALLED because it has no active successful installation lifecycle record.",
-                                "Update failed",
-                                clsFunction.IconType.iError
-                            );
-
-                            return;
-                        }
-
-                        isProceed = true;
-                    }
-
-                    if (iHoldStatus.Equals(clsGlobalVariables.STATUS_INSTALLED) && !iStatus.Equals(clsGlobalVariables.STATUS_INSTALLED))
-                    {
-                        if (dbAPI.isRecordExist("Search", "SIMID Active Installed", txtSIMID.Text))
-                        {
-                            dbFunction.SetMessageBox(
-                                "SIMSN " + dbFunction.AddBracketStartEnd(txtSIMSN.Text) +
-                                "\n\nThis SIM is still actively installed and cannot be set to " + cboMStatus.Text,
-                                "Update failed",
-                                clsFunction.IconType.iError
-                            );
-
-                            return;
-                        }
-
-                        isProceed = true;
-                    }
+                    isProceed = true;
                 }
 
+                if (iHoldStatus.Equals(iStatus))
+                {
+                    isProceed = true;
+                }
             }
             else
             {
