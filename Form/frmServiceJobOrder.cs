@@ -2434,12 +2434,15 @@ namespace MIS
                 Debug.WriteLine("clsSearch.ClassJobTypeStatusDescription=" + clsSearch.ClassJobTypeStatusDescription);
 
                 if (!fEdit)
-                {
-                    SaveServiceDetail();
+                    {
+                        SaveServiceDetail();
 
-                    dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
+                        if (dbFunction.isValidDescription(txtDispatcher.Text))
+                        {
+                            dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
+                        }
 
-                    SaveDeploymentDetail();
+                        SaveDeploymentDetail();
 
                     // ---------------------------------------------------------------------------------------------
                     // Batch Update
@@ -2568,8 +2571,7 @@ namespace MIS
 
                 // Activity 2 — Terminal Prep completion
                 if (dbFunction.isValidID(txtCurTerminalID.Text) &&
-                    dbFunction.isValidID(txtCurSIMID.Text) &&
-                    dbFunction.isValidDescription(txtDispatcher.Text))
+                    dbFunction.isValidID(txtCurSIMID.Text))
                 {
                     dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
                 }
@@ -3867,6 +3869,8 @@ namespace MIS
 
         private void btnSearchCurSIM_Click(object sender, EventArgs e)
         {
+            bool wasTermPrepStarted = dbFunction.isValidID(txtCurTerminalID.Text) || dbFunction.isValidID(txtCurSIMID.Text);
+
             frmSearchField.iSearchType = frmSearchField.SearchType.iSIM;
             frmSearchField.iStatus = clsGlobalVariables.STATUS_AVAILABLE;
             frmSearchField.sHeader = "SIM";
@@ -3894,7 +3898,7 @@ namespace MIS
                 // check SN value
                 if (!dbFunction.isValidDescription(txtCurSIMSN.Text) ||
                     !dbFunction.isValidDescription(txtCurSIMCarrier.Text) ||
-                    !dbFunction.isValidDescription(txtCurSIMLocation.Text) ||                   
+                    !dbFunction.isValidDescription(txtCurSIMLocation.Text) ||
                     !dbFunction.isValidDescription(txtCurSIMStatus.Text))
                 {
                     dbFunction.SetMessageBox("Invalid current SIM information selected." + "\n\n" +
@@ -3917,11 +3921,19 @@ namespace MIS
                     txtCurSIMSN.Text =
                     txtCurSIMCarrier.Text =
                     txtCurSIMLocation.Text = clsFunction.sNull;
-                    
+
                     return;
                 }
 
                 checkAndSetDispatch();
+
+                if (!wasTermPrepStarted)
+                    dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep,
+                        clsUser.ClassUserID,
+                        clsUser.ClassUserFullName,
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
+                        int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
 
             }
         }
