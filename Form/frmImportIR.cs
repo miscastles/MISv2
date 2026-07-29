@@ -765,6 +765,8 @@ namespace MIS
 
             Cursor.Current = Cursors.Default;
 
+            Cursor.Current = Cursors.WaitCursor;
+
             if (!ValidateFields(2)) return;
 
             if (!validateImportData()) return;
@@ -855,6 +857,8 @@ namespace MIS
                 dbFunction.SetMessageBox("Message " + ex.Message, "IR import failed", clsFunction.IconType.iError);
             }
             
+            Cursor.Current = Cursors.Default;
+
         }
 
         void FillClientTextBox()
