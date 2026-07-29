@@ -2434,15 +2434,13 @@ namespace MIS
                 Debug.WriteLine("clsSearch.ClassJobTypeStatusDescription=" + clsSearch.ClassJobTypeStatusDescription);
 
                 if (!fEdit)
-                    {
-                        SaveServiceDetail();
+                {
+                    SaveServiceDetail();
 
-                        if (dbFunction.isValidDescription(txtDispatcher.Text))
-                        {
-                            dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
-                        }
+                    if (dbFunction.isValidDescription(txtDispatcher.Text))
+                        dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
 
-                        SaveDeploymentDetail();
+                    SaveDeploymentDetail();
 
                     // ---------------------------------------------------------------------------------------------
                     // Batch Update
@@ -2570,12 +2568,9 @@ namespace MIS
                 }
 
                 // Activity 2 — Terminal Prep completion
-                if (dbFunction.isValidID(txtCurTerminalID.Text) &&
-                    dbFunction.isValidID(txtCurSIMID.Text))
-                {
+                if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtCurSIMID.Text) )                
                     dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
-                }
-
+                
                 // Activity 3 — Dispatcher completion
                 if (dbFunction.isValidID(txtFEID.Text) && chkDispatch.Checked)
                 {
@@ -3898,7 +3893,7 @@ namespace MIS
                 // check SN value
                 if (!dbFunction.isValidDescription(txtCurSIMSN.Text) ||
                     !dbFunction.isValidDescription(txtCurSIMCarrier.Text) ||
-                    !dbFunction.isValidDescription(txtCurSIMLocation.Text) ||
+                    !dbFunction.isValidDescription(txtCurSIMLocation.Text) ||                   
                     !dbFunction.isValidDescription(txtCurSIMStatus.Text))
                 {
                     dbFunction.SetMessageBox("Invalid current SIM information selected." + "\n\n" +
@@ -3921,7 +3916,7 @@ namespace MIS
                     txtCurSIMSN.Text =
                     txtCurSIMCarrier.Text =
                     txtCurSIMLocation.Text = clsFunction.sNull;
-
+                    
                     return;
                 }
 
@@ -3934,6 +3929,7 @@ namespace MIS
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
+
 
             }
         }
@@ -5515,7 +5511,7 @@ namespace MIS
 
         private void dtpReqDateVendor_ValueChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void frmServiceJobOrder_Activated(object sender, EventArgs e)

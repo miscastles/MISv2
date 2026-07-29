@@ -87,7 +87,7 @@ namespace MIS
             rbAll.Checked = rbToday.Checked = rbRange.Checked = false;
             rbDetailAll.Checked = rbDetailToday.Checked = rbDetailRange.Checked = false;
 
-            initDateFilter(false);
+            initDetailDateFilter(false);
 
             dteDateFrom.Enabled = dteDateTo.Enabled = false;
             dteDetailDateFrom.Enabled = dteDetailDateTo.Enabled = false;
@@ -795,7 +795,7 @@ namespace MIS
             rbAll.Checked = true;
             rbToday.Checked = false;
             rbRange.Checked = false;
-            initDateFilter(false);
+            initDetailDateFilter(false);
 
             Cursor.Current = Cursors.Default;
         }
@@ -2309,20 +2309,20 @@ namespace MIS
             {
                 rbAll.Enabled = false;
             }
-           
-            initDateFilter(false);
+
+            initDetailDateFilter(false);
             
         }
 
         private void rbToday_CheckedChanged(object sender, EventArgs e)
         {
-            initDateFilter(false);
+            initDailyDateFilter();
             InitDateRange();
         }
 
         private void rbRange_CheckedChanged(object sender, EventArgs e)
         {
-            initDateFilter(false);
+            initDailyDateFilter();
         }
 
         private string getDateFilter()
@@ -2341,7 +2341,7 @@ namespace MIS
             return pOutput;
         }
 
-        private void initDateFilter(bool isDetail)
+        private void initDetailDateFilter(bool isDetail)
         {
             if (isDetail)
             {
@@ -2384,7 +2384,7 @@ namespace MIS
 
         private void rbAll_CheckedChanged(object sender, EventArgs e)
         {
-            initDateFilter(false);
+            initDailyDateFilter();
         }
 
         private void cboSearchTerminalStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -2462,18 +2462,18 @@ namespace MIS
 
         private void rbDetailAll_CheckedChanged(object sender, EventArgs e)
         {
-            initDateFilter(true);
+            initDetailDateFilter(true);
         }
 
         private void rbDetailToday_CheckedChanged(object sender, EventArgs e)
         {
-            initDateFilter(true);
+            initDetailDateFilter(true);
             InitDateRange();
         }
 
         private void rbDetailRange_CheckedChanged(object sender, EventArgs e)
         {
-            initDateFilter(true);
+            initDetailDateFilter(true);
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)
@@ -2487,6 +2487,21 @@ namespace MIS
 
             if (chkSummaryTab.Checked)
                 gbDetailDateFilter.Enabled = false;
+        }
+
+        private void initDailyDateFilter()
+        {
+            if (gbDateFilter.Enabled)
+            {
+                if (rbAll.Checked || rbToday.Checked)
+                {
+                    dteDateFrom.Enabled = dteDateTo.Enabled = false;
+                }
+                else
+                {
+                    dteDateFrom.Enabled = dteDateTo.Enabled = true;
+                }
+            }
         }
     }
 }
