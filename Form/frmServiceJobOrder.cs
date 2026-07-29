@@ -49,10 +49,12 @@ namespace MIS
         private string pHoldEntryRequestID = clsFunction.sNull;
         private string pHoldEntryReferenceNo = clsFunction.sNull;
 
-        // variable for reschedule ticket closure
+        // variable for reschedule ticket closure        
         private bool fRescheduleTicket = false;
         private string gScheduleDate = "";
         private string gAttemptDate = "";
+        private string gLastAttemptTATStatus = "";
+        private string gNewScheduleTATStatus = "";
 
         private enum searchType
         {
@@ -1636,6 +1638,8 @@ namespace MIS
             // Zoning
             if (!dbFunction.isValidDescriptionEntry(txtZoneID.Text, "Zone ID" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
             if (!dbFunction.isValidDescriptionEntry(txtZZone.Text, "Zone" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+
+            if (!isValidRescheduledJOTAT()) return false;
 
             return true;
 
@@ -7198,6 +7202,154 @@ namespace MIS
                 }
             }
         }
-        
+
+        private bool isValidRescheduledJOTAT()
+        {
+            int pFunctionID;
+
+            if (fEdit) return true;
+
+            if (!fRescheduleTicket) return true;
+
+            string pSearchValue =
+                $"{dbFunction.CheckAndSetNumericValue(txtServiceJobType.Text)}{clsDefines.gPipe}" +
+                $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
+                $"{txtEntryRequestID.Text}{clsDefines.gPipe}" +
+                $"{dteServiceReqDate.Value:yyyy-MM-dd}";
+
+            string pJSONString = dbAPI.getInfoDetailJSON("Search", "Check JO TAT", pSearchValue);
+
+            if (!dbFunction.isValidDescription(pJSONString))
+            {
+                dbFunction.SetMessageBox(
+                    "Unable to verify the Job Order TAT status.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            string pFound = dbAPI.GetValueFromJSONString(pJSONString, "found");
+
+            if (!pFound.Equals(clsFunction.sOne))
+            {
+                dbFunction.SetMessageBox(
+                    "The previous rescheduled Job Order could not be found.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            string pActionMade = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ActionMade);
+
+            if (!int.TryParse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FunctionID), out pFunctionID))
+            {
+                dbFunction.SetMessageBox(
+                    "Unable to verify the reason for the previous service attempt.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            if (!pActionMade.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE, StringComparison.OrdinalIgnoreCase) || pFunctionID != (int)ReasonFuncType.Reschedule_By_Merchant_FuncId)
+            {
+                dbFunction.SetMessageBox(
+                    "The previous Job Order is not a valid merchant-rescheduled attempt.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            gLastAttemptTATStatus = dbAPI.GetValueFromJSONString(pJSONString, "LastAttemptTATStatus");
+
+            if (gLastAttemptTATStatus.Equals(clsDefines.BEYOND_TAT, StringComparison.OrdinalIgnoreCase))
+            {
+                string pFSRDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate);
+
+                string pLastScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, "LastScheduleDate");
+
+                DateTime lastAttemptDate;
+                DateTime lastScheduleDate;
+
+                if (!DateTime.TryParse(pFSRDate, out lastAttemptDate) ||
+                    !DateTime.TryParse(pLastScheduleDate, out lastScheduleDate))
+                {
+                    dbFunction.SetMessageBox(
+                        "Unable to validate the previous service attempt dates.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                DateTime newScheduleDate = dteServiceReqDate.Value.Date;
+
+                bool scheduleWasNotChanged = newScheduleDate == lastScheduleDate.Date;
+
+                bool scheduleIsNotAfterAttempt = newScheduleDate <= lastAttemptDate.Date;
+
+                if (scheduleWasNotChanged || scheduleIsNotAfterAttempt)
+                {
+                    dbFunction.SetMessageBox(
+                        "The previous service attempt is already BEYOND TAT.\n\n" +
+                        $"Last Attempt Date: {lastAttemptDate:MM-dd-yyyy}\n" +
+                        $"Previous Schedule Date: {lastScheduleDate:MM-dd-yyyy}\n\n" +
+                        "Please select a new schedule date after the last attempt date.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+            }
+            else if (!gLastAttemptTATStatus.Equals(
+                         clsDefines.WITHIN_TAT,
+                         StringComparison.OrdinalIgnoreCase))
+            {
+                dbFunction.SetMessageBox(
+                    "Unable to determine the previous service attempt's TAT status.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            gNewScheduleTATStatus = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TATStatus);
+
+            if (gNewScheduleTATStatus.Equals(clsDefines.WITHIN_TAT, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            if (gNewScheduleTATStatus.Equals(clsDefines.BEYOND_TAT, StringComparison.OrdinalIgnoreCase))
+            {
+                string pRequestDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_RequestDate);
+                string pTATDueDate = dbAPI.GetValueFromJSONString(pJSONString, "TATDueDate");
+                string pNewScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, "NewScheduleDate");
+
+                string pSLA = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_SLA);
+
+                string pMessage =
+                    "Schedule Date Information:\n\n" +
+                    $"Request Date: {pRequestDate}\n\n" +
+                    $"SLA: {pSLA} working day(s)\n\n" +
+                    $"TAT Due Date: {pTATDueDate}\n\n" +
+                    $"Current Schedule Date: {pNewScheduleDate}\n\n" +
+                    "THE SCHEDULE DATE IS BEYOND TAT.\n\n" +
+                    "Are you sure you want to save this Job Order?";
+
+                return dbFunction.fPromptConfirmation(pMessage);
+            }
+
+            dbFunction.SetMessageBox(
+                "Unable to determine whether the Job Order is within or beyond TAT.",
+                clsDefines.FIELD_CHECK_MSG,
+                clsFunction.IconType.iError);
+
+            return false;
+        }
+
     }
 }
