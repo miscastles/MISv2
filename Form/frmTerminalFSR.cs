@@ -2644,9 +2644,6 @@ namespace MIS
                         clsFunction.IconType.iWarning);
                     }
 
-                    // check jo successors
-                    checkFSRSuccessorJO();
-
                     btnClear.Focus();
 
                     Cursor.Current = Cursors.Default;
@@ -2856,6 +2853,9 @@ namespace MIS
 
                     // service audit info
                     getServiceAuditInfo();
+
+                    // check jo successors
+                    checkFSRSuccessorJO();
 
                     btnClear.Focus();
 

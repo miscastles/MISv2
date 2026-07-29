@@ -3986,9 +3986,9 @@
             this.label184.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label184.Location = new System.Drawing.Point(5, 79);
             this.label184.Name = "label184";
-            this.label184.Size = new System.Drawing.Size(56, 14);
+            this.label184.Size = new System.Drawing.Size(84, 14);
             this.label184.TabIndex = 462;
-            this.label184.Text = "HOLIDAY";
+            this.label184.Text = "HOLIDAY (-)";
             // 
             // txtDaysHoliday
             // 
