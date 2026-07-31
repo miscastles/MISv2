@@ -748,6 +748,11 @@ namespace MIS
         public const string TAG_CityMunicipal = "CityMunicipal";
         public const string TAG_Cluster = "Cluster";
 
+        public const string TAG_ZAliasID = "AliasID";
+        public const string TAG_ZAliasName = "AliasName";
+        public const string TAG_ZOfficialName = "OfficialName";
+        public const string TAG_ZPriority = "Priority";
+
         public const string TAG_FunctionID = "FunctionID";
 
         public const string TAG_MinScheduleDate = "MinScheduleDate";

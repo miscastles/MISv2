@@ -2186,18 +2186,38 @@ namespace MIS
         {
             if (!isValidReport()) return;
 
-            if (txtReportID.TextLength > 0)
+            if (dbFunction.isValidID(txtReportID.Text))
             {
                 if (gbMerchant.Enabled)
                 {
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iClientID, txtClientID.Text)) return;
                 }
                 
-                // Check Date               
+                // Check Date Range               
                 if (!dbFunction.checkDateFromTo(DateTime.Parse(dteDateFrom.Value.ToShortDateString()), DateTime.Parse(dteDateTo.Value.ToShortDateString())))
                 {
                     dbFunction.SetMessageBox("[Date From] must not greater than [Date To]", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                     return;
+                }
+
+                // Check Date Year
+                if (gbDetailDateFilter.Enabled)
+                {
+                    if (!chkSummaryTab.Checked)
+                    {
+                        switch (int.Parse(txtReportID.Text))
+                        {
+                            case 53: // SERVICE INSTALLATION REPORT
+                            case 54: // SERVICE MAINTENANCE REPORT
+                            case 55: // SERVICE PULLOUT REPORT
+                                if (!dbFunction.checkDateYear(DateTime.Parse(dteDateFrom.Value.ToShortDateString()), DateTime.Parse(dteDateTo.Value.ToShortDateString())))
+                                {
+                                    dbFunction.SetMessageBox("[Date From] and [Date To] must be within the same year.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                                    return;
+                                }
+                                break;
+                        }
+                    }
                 }
 
                 if (gbParticular.Enabled)
