@@ -2664,6 +2664,11 @@ namespace MIS
                     "Region >" + txtMerchantRegion.Text + "\n" +
                     "City >" + txtMerchantCity.Text +
                     "\n\n" +
+                    "Zone >" + txtZZone.Text + "\n" +
+                    "Area >" + txtZArea.Text + "\n" +
+                    "Region >" + txtZArea.Text + "\n" +
+                    "City/Municipal >" + txtZCityMunicipal.Text +
+                    "\n\n" +
                    (chkEmail.Checked && chkDispatch.Checked ? "Service request emailed to vendor representative." : "")
                   , (fEdit ? "Job order updated" : "Job order saved") + (chkDispatch.Checked ? " & Dispatched" : ""), clsFunction.IconType.iInformation);
 

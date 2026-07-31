@@ -1383,6 +1383,11 @@ namespace MIS
                     "Region >" + txtMerchantRegion.Text + "\n" +
                     "City >" + txtMerchantCity.Text +
                     "\n\n" +
+                    "Zone >" + txtZZone.Text + "\n" +
+                    "Area >" + txtZArea.Text + "\n" +
+                    "Region >" + txtZArea.Text + "\n" +
+                    "City/Municipal >" + txtZCityMunicipal.Text +
+                    "\n\n" +
                    (chkEmail.Checked ? "Service request emailed to vendor representative." : "")
                    , (fEdit ? "FSR updated" : "FSR saved") + (chkBillable.Checked ? " & billable" : ""), clsFunction.IconType.iInformation);
 

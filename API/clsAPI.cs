@@ -5570,7 +5570,8 @@ namespace MIS
                                                 SearchBy.Equals("Zoning Lookup") ||
                                                 SearchBy.Equals("Zoning List") ||
                                                 SearchBy.Equals("Location List") ||
-                                                SearchBy.Equals("Incentives Service Detail")
+                                                SearchBy.Equals("Incentives Service Detail") || 
+                                                SearchBy.Equals("Zoning Alias List")
                                                 )
                                             {
                                                 foreach (var element in Detail46.data)

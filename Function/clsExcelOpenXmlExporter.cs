@@ -225,7 +225,11 @@ namespace MIS.Function
                         // ✅ Auto size every sheet at once
                         AutoSizeAllWorksheets(workbookPart, true);
 
+                        Cursor.Current = Cursors.WaitCursor;
+
                         workbookPart.Workbook.Save();
+
+                        Cursor.Current = Cursors.Default;
                     }
 
                     // Update API + show summary (kept same as original)
