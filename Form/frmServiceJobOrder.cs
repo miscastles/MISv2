@@ -2666,7 +2666,7 @@ namespace MIS
                     "\n\n" +
                     "Zone >" + txtZZone.Text + "\n" +
                     "Area >" + txtZArea.Text + "\n" +
-                    "Region >" + txtZArea.Text + "\n" +
+                    "Region >" + txtZRegion.Text + "\n" +
                     "City/Municipal >" + txtZCityMunicipal.Text +
                     "\n\n" +
                    (chkEmail.Checked && chkDispatch.Checked ? "Service request emailed to vendor representative." : "")
@@ -6057,6 +6057,7 @@ namespace MIS
             txtDaysOverDue.Text = clsSearch.ClassDaysOverDue;
             txtTATStatus.Text = clsSearch.ClassTATStatus;
             txtDaysHoliday.Text = clsSearch.ClassDaysHoliday;
+            txtDaysWeekends.Text = clsSearch.ClassDaysWeekends;
 
             if (txtTATStatus.Text.Equals(clsDefines.WITHIN_TAT))
                 txtTATStatus.ForeColor = Color.Blue;
@@ -7356,5 +7357,98 @@ namespace MIS
             return false;
         }
 
+        private void btnAddZoning_Click(object sender, EventArgs e)
+        {
+            frmMZoning frm = new frmMZoning();
+            frm.Text = "ENROLLMENT-ZONING";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnSearchZoning_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidID(txtMerchantID.Text) ||
+                !dbFunction.isValidDescription(txtMerchantAddress.Text) ||
+                !dbFunction.isValidDescription(txtMerchantCity.Text) ||
+                !dbFunction.isValidDescription(txtMerchantRegion.Text))
+            {
+                dbFunction.SetMessageBox(
+                    "Please complete the Merchant ID, Address, City, and Region before searching for the zoning information.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+                return;
+            }
+
+            if (!dbFunction.fPromptConfirmation(
+                "The system will search for matching zoning information for this merchant.\n\n" +
+                "Do you want to continue?"))
+                return;
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                string pJSONString = dbAPI.getInfoDetailJSON(
+                    "Search",
+                    "Search Zoning Info",
+                    $"{txtMerchantAddress.Text}{clsDefines.gPipe}{txtMerchantCity.Text}");
+
+                if (!dbFunction.isValidDescription(pJSONString))
+                {
+                    dbFunction.SetMessageBox(
+                        "No matching zoning information was found.\n\n" +
+                        "Please verify the merchant address or manually assign the zoning information.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return;
+                }
+
+                string sZoneID = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ZoneID);
+
+                // No update needed
+                if (txtZoneID.Text.Trim() == sZoneID.Trim())
+                {
+                    dbFunction.SetMessageBox(
+                        "The merchant is already assigned to the matching zoning information.\n\n" +
+                        "No update is required.",
+                        clsDefines.SUCCESS_MSG,
+                        clsFunction.IconType.iInformation);
+                    return;
+                }
+
+                if (!dbFunction.fPromptConfirmation(
+                    "A matching zoning record was found.\n\n" +
+                    "ID              : " + sZoneID + "\n" +
+                    "Zone            : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone) + "\n" +
+                    "Cluster         : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Cluster) + "\n" +
+                    "Region          : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region) + "\n" +
+                    "Area            : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area) + "\n" +
+                    "City/Municipal  : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal) + "\n\n" +
+                    "Do you want to apply this zoning information to the current merchant?"))
+                    return;
+
+                // Fill new zoning info
+                txtZoneID.Text = sZoneID;
+                getZoningInfo();
+
+                if (!dbFunction.fPromptConfirmation(
+                    "This action will update the merchant's zoning information.\n\n" +
+                    "Do you want to continue?"))
+                    return;
+
+                // Call API to update particular ZoneID
+                dbAPI.ExecuteAPI("PUT", "Update", "Particular-ZoneID", $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
+                    $"{dbFunction.CheckAndSetNumericValue(txtZoneID.Text)}", "", "", "UpdateCollectionDetail");
+
+                dbFunction.SetMessageBox(
+                    "The merchant zoning information has been updated successfully.",
+                    clsDefines.SUCCESS_MSG,
+                    clsFunction.IconType.iInformation);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
     }
 }

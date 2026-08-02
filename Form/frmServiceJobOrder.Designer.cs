@@ -230,6 +230,8 @@
             this.label122 = new System.Windows.Forms.Label();
             this.txtGeoLatitude = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label185 = new System.Windows.Forms.Label();
+            this.txtDaysWeekends = new System.Windows.Forms.TextBox();
             this.label184 = new System.Windows.Forms.Label();
             this.txtDaysHoliday = new System.Windows.Forms.TextBox();
             this.txtSLAArea = new System.Windows.Forms.TextBox();
@@ -754,10 +756,6 @@
             this.tabPage23 = new System.Windows.Forms.TabPage();
             this.lvwRaw = new System.Windows.Forms.ListView();
             this.tabPage19 = new System.Windows.Forms.TabPage();
-            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
-            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
-            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
-            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.panel168 = new System.Windows.Forms.Panel();
             this.panel196 = new System.Windows.Forms.Panel();
             this.panel208 = new System.Windows.Forms.Panel();
@@ -826,6 +824,12 @@
             this.txtSearchSTServiceJobTypeDescription = new System.Windows.Forms.TextBox();
             this.panel53 = new System.Windows.Forms.Panel();
             this.btnTASearch = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnSearchZoning = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnAddZoning = new Bunifu.Framework.UI.BunifuImageButton();
+            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
+            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
+            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
+            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -1042,6 +1046,8 @@
             this.panel6.SuspendLayout();
             this.panel53.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -3670,6 +3676,8 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.label185);
+            this.tabPage6.Controls.Add(this.txtDaysWeekends);
             this.tabPage6.Controls.Add(this.label184);
             this.tabPage6.Controls.Add(this.txtDaysHoliday);
             this.tabPage6.Controls.Add(this.txtSLAArea);
@@ -3694,15 +3702,38 @@
             this.tabPage6.Text = "SLA/TAT";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // label185
+            // 
+            this.label185.AutoSize = true;
+            this.label185.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label185.Location = new System.Drawing.Point(124, 77);
+            this.label185.Name = "label185";
+            this.label185.Size = new System.Drawing.Size(63, 14);
+            this.label185.TabIndex = 468;
+            this.label185.Text = "WEND (-)";
+            // 
+            // txtDaysWeekends
+            // 
+            this.txtDaysWeekends.BackColor = System.Drawing.Color.White;
+            this.txtDaysWeekends.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDaysWeekends.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDaysWeekends.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDaysWeekends.Location = new System.Drawing.Point(188, 72);
+            this.txtDaysWeekends.Name = "txtDaysWeekends";
+            this.txtDaysWeekends.ReadOnly = true;
+            this.txtDaysWeekends.Size = new System.Drawing.Size(50, 22);
+            this.txtDaysWeekends.TabIndex = 467;
+            this.txtDaysWeekends.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // label184
             // 
             this.label184.AutoSize = true;
             this.label184.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label184.Location = new System.Drawing.Point(4, 75);
             this.label184.Name = "label184";
-            this.label184.Size = new System.Drawing.Size(84, 14);
+            this.label184.Size = new System.Drawing.Size(63, 14);
             this.label184.TabIndex = 466;
-            this.label184.Text = "HOLIDAY (-)";
+            this.label184.Text = "HDAY (-)";
             // 
             // txtDaysHoliday
             // 
@@ -3710,10 +3741,10 @@
             this.txtDaysHoliday.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDaysHoliday.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDaysHoliday.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDaysHoliday.Location = new System.Drawing.Point(100, 72);
+            this.txtDaysHoliday.Location = new System.Drawing.Point(73, 72);
             this.txtDaysHoliday.Name = "txtDaysHoliday";
             this.txtDaysHoliday.ReadOnly = true;
-            this.txtDaysHoliday.Size = new System.Drawing.Size(60, 22);
+            this.txtDaysHoliday.Size = new System.Drawing.Size(46, 22);
             this.txtDaysHoliday.TabIndex = 465;
             this.txtDaysHoliday.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -3790,7 +3821,7 @@
             // 
             this.label143.AutoSize = true;
             this.label143.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label143.Location = new System.Drawing.Point(166, 75);
+            this.label143.Location = new System.Drawing.Point(238, 75);
             this.label143.Name = "label143";
             this.label143.Size = new System.Drawing.Size(49, 14);
             this.label143.TabIndex = 452;
@@ -3802,10 +3833,10 @@
             this.txtTATStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTATStatus.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTATStatus.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTATStatus.Location = new System.Drawing.Point(221, 72);
+            this.txtTATStatus.Location = new System.Drawing.Point(288, 72);
             this.txtTATStatus.Name = "txtTATStatus";
             this.txtTATStatus.ReadOnly = true;
-            this.txtTATStatus.Size = new System.Drawing.Size(180, 22);
+            this.txtTATStatus.Size = new System.Drawing.Size(113, 22);
             this.txtTATStatus.TabIndex = 451;
             this.txtTATStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -5771,6 +5802,8 @@
             // 
             // panel54
             // 
+            this.panel54.Controls.Add(this.btnAddZoning);
+            this.panel54.Controls.Add(this.btnSearchZoning);
             this.panel54.Controls.Add(this.txtZCityMunicipal);
             this.panel54.Controls.Add(this.txtZArea);
             this.panel54.Controls.Add(this.txtZRegion);
@@ -5835,7 +5868,7 @@
             this.txtZZone.MaxLength = 8;
             this.txtZZone.Name = "txtZZone";
             this.txtZZone.ReadOnly = true;
-            this.txtZZone.Size = new System.Drawing.Size(159, 20);
+            this.txtZZone.Size = new System.Drawing.Size(123, 20);
             this.txtZZone.TabIndex = 373;
             // 
             // txtZoneID
@@ -5844,10 +5877,10 @@
             this.txtZoneID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtZoneID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtZoneID.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtZoneID.Location = new System.Drawing.Point(216, 29);
+            this.txtZoneID.Location = new System.Drawing.Point(180, 29);
             this.txtZoneID.Name = "txtZoneID";
             this.txtZoneID.ReadOnly = true;
-            this.txtZoneID.Size = new System.Drawing.Size(61, 20);
+            this.txtZoneID.Size = new System.Drawing.Size(48, 20);
             this.txtZoneID.TabIndex = 372;
             this.txtZoneID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtZoneID.WordWrap = false;
@@ -9662,49 +9695,6 @@
             this.tabPage19.Text = "Helpdesk Information";
             this.tabPage19.UseVisualStyleBackColor = true;
             // 
-            // ucHelpDeskEntryInfo
-            // 
-            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
-            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
-            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
-            this.ucHelpDeskEntryInfo.TabIndex = 4;
-            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
-            // 
-            // ucVendorHelpDeskTeamLeadInfo
-            // 
-            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
-            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
-            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
-            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
-            // 
-            // ucVendorHelpDeskRepInfo
-            // 
-            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
-            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
-            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
-            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
-            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskRepInfo.VendorName = "";
-            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
-            // 
-            // ucHelpDeskServiceInfo
-            // 
-            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
-            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
-            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
-            this.ucHelpDeskServiceInfo.TabIndex = 0;
-            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
-            // 
             // panel168
             // 
             this.panel168.BackColor = System.Drawing.SystemColors.Control;
@@ -10477,6 +10467,77 @@
             this.btnTASearch.TabStop = false;
             this.btnTASearch.Zoom = 10;
             // 
+            // btnSearchZoning
+            // 
+            this.btnSearchZoning.BackColor = System.Drawing.SystemColors.Control;
+            this.btnSearchZoning.Image = global::MIS.Properties.Resources.ic_success;
+            this.btnSearchZoning.ImageActive = null;
+            this.btnSearchZoning.Location = new System.Drawing.Point(230, 29);
+            this.btnSearchZoning.Name = "btnSearchZoning";
+            this.btnSearchZoning.Size = new System.Drawing.Size(23, 23);
+            this.btnSearchZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchZoning.TabIndex = 377;
+            this.btnSearchZoning.TabStop = false;
+            this.btnSearchZoning.Zoom = 10;
+            this.btnSearchZoning.Click += new System.EventHandler(this.btnSearchZoning_Click);
+            // 
+            // btnAddZoning
+            // 
+            this.btnAddZoning.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAddZoning.Image = global::MIS.Properties.Resources.add_on;
+            this.btnAddZoning.ImageActive = null;
+            this.btnAddZoning.Location = new System.Drawing.Point(254, 29);
+            this.btnAddZoning.Name = "btnAddZoning";
+            this.btnAddZoning.Size = new System.Drawing.Size(22, 23);
+            this.btnAddZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnAddZoning.TabIndex = 378;
+            this.btnAddZoning.TabStop = false;
+            this.btnAddZoning.Zoom = 10;
+            this.btnAddZoning.Click += new System.EventHandler(this.btnAddZoning_Click);
+            // 
+            // ucHelpDeskEntryInfo
+            // 
+            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
+            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
+            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
+            this.ucHelpDeskEntryInfo.TabIndex = 4;
+            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
+            // 
+            // ucVendorHelpDeskTeamLeadInfo
+            // 
+            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
+            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
+            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
+            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
+            // 
+            // ucVendorHelpDeskRepInfo
+            // 
+            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
+            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
+            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
+            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
+            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskRepInfo.VendorName = "";
+            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
+            // 
+            // ucHelpDeskServiceInfo
+            // 
+            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
+            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
+            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
+            this.ucHelpDeskServiceInfo.TabIndex = 0;
+            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
+            // 
             // frmServiceJobOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10834,6 +10895,8 @@
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11637,5 +11700,9 @@
         private System.Windows.Forms.Label label183;
         private System.Windows.Forms.Label label184;
         private System.Windows.Forms.TextBox txtDaysHoliday;
+        private System.Windows.Forms.Label label185;
+        private System.Windows.Forms.TextBox txtDaysWeekends;
+        private Bunifu.Framework.UI.BunifuImageButton btnAddZoning;
+        private Bunifu.Framework.UI.BunifuImageButton btnSearchZoning;
     }
 }

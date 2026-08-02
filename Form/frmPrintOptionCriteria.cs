@@ -157,7 +157,7 @@ namespace MIS
             dteDateTo.Value = DateTime.Now.Date;
             dbFunction.SetDateFormat(dteDateTo, clsFunction.sDateDefaultFormat);
 
-            if (!chkDetailTab.Checked)
+            if (!chkSummaryTab.Checked ||!chkDetailTab.Checked)
             {
                 dteDetailDateFrom.Value = DateTime.Now.Date;
                 dbFunction.SetDateFormat(dteDetailDateFrom, clsFunction.sDateDefaultFormat);
@@ -2037,7 +2037,7 @@ namespace MIS
                     gbMerchant.Enabled = true;
                     gbReportStatus.Enabled = true;
                     
-                    chkFSRDate.Enabled = true;
+                    chkFSRDate.Enabled = false;
                     chkFSRDate.Checked = true;
 
                     chkPullout.Enabled = chkPullout.Checked = false;
@@ -2474,10 +2474,13 @@ namespace MIS
 
         private void chkDetailTab_CheckedChanged(object sender, EventArgs e)
         {
+            /*
             gbDetailDateFilter.Enabled = true;
 
             if (chkDetailTab.Checked)
                 gbDetailDateFilter.Enabled = false;
+            */
+            initSummaryDetailDateFilter();
         }
 
         private void rbDetailAll_CheckedChanged(object sender, EventArgs e)
@@ -2503,10 +2506,13 @@ namespace MIS
 
         private void chkSummaryTab_CheckedChanged(object sender, EventArgs e)
         {
+            /*
             gbDetailDateFilter.Enabled = true;
 
             if (chkSummaryTab.Checked)
                 gbDetailDateFilter.Enabled = false;
+            */
+            initSummaryDetailDateFilter();
         }
 
         private void initDailyDateFilter()
@@ -2522,6 +2528,19 @@ namespace MIS
                     dteDateFrom.Enabled = dteDateTo.Enabled = true;
                 }
             }
+        }
+
+        private void initSummaryDetailDateFilter()
+        {
+            if (chkSummaryTab.Checked && chkDetailTab.Checked)
+            {
+                gbDetailDateFilter.Enabled = false;
+            }
+            else
+            {
+                gbDetailDateFilter.Enabled = true;
+            }
+
         }
     }
 }

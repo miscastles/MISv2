@@ -1385,7 +1385,7 @@ namespace MIS
                     "\n\n" +
                     "Zone >" + txtZZone.Text + "\n" +
                     "Area >" + txtZArea.Text + "\n" +
-                    "Region >" + txtZArea.Text + "\n" +
+                    "Region >" + txtZRegion.Text + "\n" +
                     "City/Municipal >" + txtZCityMunicipal.Text +
                     "\n\n" +
                    (chkEmail.Checked ? "Service request emailed to vendor representative." : "")
@@ -2649,9 +2649,6 @@ namespace MIS
                         clsFunction.IconType.iWarning);
                     }
 
-                    // check jo successors
-                    checkFSRSuccessorJO();
-
                     btnClear.Focus();
 
                     Cursor.Current = Cursors.Default;
@@ -2861,6 +2858,9 @@ namespace MIS
 
                     // service audit info
                     getServiceAuditInfo();
+
+                    // check jo successors
+                    checkFSRSuccessorJO();
 
                     btnClear.Focus();
 
@@ -6092,6 +6092,7 @@ namespace MIS
             txtDaysOverDue.Text = clsSearch.ClassDaysOverDue;
             txtTATStatus.Text = clsSearch.ClassTATStatus;
             txtDaysHoliday.Text = clsSearch.ClassDaysHoliday;
+            txtDaysWeekends.Text = clsSearch.ClassDaysWeekends;
 
             if (txtTATStatus.Text.Equals(clsDefines.WITHIN_TAT))
                 txtTATStatus.ForeColor = Color.Blue;

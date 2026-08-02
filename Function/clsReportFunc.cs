@@ -1060,5 +1060,45 @@ namespace MIS
 
             Cursor.Current = Cursors.Default;  // Back to normal 
         }
+
+        public void ViewZoningListReport()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                clsSearch.ClassStatementType = "View";
+                clsSearch.ClassSearchBy = "Zoning-List-Report";
+                clsSearch.ClassSearchValue = clsSearch.ClassAdvanceSearchValue;
+                clsSearch.ClassStoredProcedureName = "spViewReport";
+                dbFunction.ProcessReport(clsSearch.ClassReportID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        public void ViewZoningAliasListReport()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                clsSearch.ClassStatementType = "View";
+                clsSearch.ClassSearchBy = "Zoning-Alias-List-Report";
+                clsSearch.ClassSearchValue = clsSearch.ClassAdvanceSearchValue;
+                clsSearch.ClassStoredProcedureName = "spViewReport";
+                dbFunction.ProcessReport(clsSearch.ClassReportID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            Cursor.Current = Cursors.Default;
+        }
     }
 }

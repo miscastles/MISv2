@@ -94,70 +94,17 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtAliasID = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.tabMain = new System.Windows.Forms.TabControl();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.panel134 = new System.Windows.Forms.Panel();
-            this.btnSendFSREmail = new System.Windows.Forms.Button();
-            this.btnPreviewFSR = new System.Windows.Forms.Button();
-            this.btnCreateDiagnostic = new System.Windows.Forms.Button();
-            this.btnViewDiagnostic = new System.Windows.Forms.Button();
-            this.btnResetEmail = new System.Windows.Forms.Button();
-            this.btnSendFSRAndDiagEmail = new System.Windows.Forms.Button();
-            this.btnViewImages = new System.Windows.Forms.Button();
-            this.btnPreviewSvcHistory = new System.Windows.Forms.Button();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.panel142 = new System.Windows.Forms.Panel();
-            this.lvwList = new System.Windows.Forms.ListView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.btnUpdateMerchLoc = new System.Windows.Forms.Button();
-            this.btnUseMerchLoc = new System.Windows.Forms.Button();
-            this.label134 = new System.Windows.Forms.Label();
-            this.txtGeoAddress = new System.Windows.Forms.TextBox();
-            this.label133 = new System.Windows.Forms.Label();
-            this.txtGeoLocality = new System.Windows.Forms.TextBox();
-            this.label132 = new System.Windows.Forms.Label();
-            this.txtGeoCountry = new System.Windows.Forms.TextBox();
-            this.label127 = new System.Windows.Forms.Label();
-            this.txtGeoLongitude = new System.Windows.Forms.TextBox();
-            this.label120 = new System.Windows.Forms.Label();
-            this.txtGeoLatitude = new System.Windows.Forms.TextBox();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.label171 = new System.Windows.Forms.Label();
-            this.txtDueDate = new System.Windows.Forms.TextBox();
-            this.label143 = new System.Windows.Forms.Label();
-            this.txtTATStatus = new System.Windows.Forms.TextBox();
-            this.label142 = new System.Windows.Forms.Label();
-            this.txtDaysOverDue = new System.Windows.Forms.TextBox();
-            this.label136 = new System.Windows.Forms.Label();
-            this.txtNetworkDays = new System.Windows.Forms.TextBox();
-            this.label130 = new System.Windows.Forms.Label();
             this.txtSLA = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.panel29 = new System.Windows.Forms.Panel();
-            this.panel38 = new System.Windows.Forms.Panel();
-            this.txtNewTerminalSN = new System.Windows.Forms.TextBox();
-            this.label116 = new System.Windows.Forms.Label();
-            this.panel113 = new System.Windows.Forms.Panel();
-            this.label102 = new System.Windows.Forms.Label();
-            this.txtOldTerminalSN = new System.Windows.Forms.TextBox();
-            this.panel159 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.panel160 = new System.Windows.Forms.Panel();
-            this.panel158 = new System.Windows.Forms.Panel();
-            this.panel171 = new System.Windows.Forms.Panel();
-            this.label114 = new System.Windows.Forms.Label();
-            this.txtNewSIMSN = new System.Windows.Forms.TextBox();
-            this.panel172 = new System.Windows.Forms.Panel();
-            this.label117 = new System.Windows.Forms.Label();
-            this.txtOldSIMSN = new System.Windows.Forms.TextBox();
-            this.panel173 = new System.Windows.Forms.Panel();
-            this.label118 = new System.Windows.Forms.Label();
-            this.panel174 = new System.Windows.Forms.Panel();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.label147 = new System.Windows.Forms.Label();
-            this.txtMobileVersion = new System.Windows.Forms.TextBox();
-            this.label146 = new System.Windows.Forms.Label();
-            this.txtMobileTerminalID = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnPreviewSvcHistory = new System.Windows.Forms.Button();
+            this.btnViewImages = new System.Windows.Forms.Button();
+            this.btnSendFSRAndDiagEmail = new System.Windows.Forms.Button();
+            this.btnResetEmail = new System.Windows.Forms.Button();
+            this.btnViewDiagnostic = new System.Windows.Forms.Button();
+            this.btnCreateDiagnostic = new System.Windows.Forms.Button();
+            this.btnPreviewFSR = new System.Windows.Forms.Button();
+            this.btnSendFSREmail = new System.Windows.Forms.Button();
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -168,23 +115,6 @@
             this.Alias.SuspendLayout();
             this.bunifuCards4.SuspendLayout();
             this.bunifuCards3.SuspendLayout();
-            this.tabMain.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.panel134.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.panel142.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage6.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.panel29.SuspendLayout();
-            this.panel38.SuspendLayout();
-            this.panel113.SuspendLayout();
-            this.panel159.SuspendLayout();
-            this.panel158.SuspendLayout();
-            this.panel171.SuspendLayout();
-            this.panel172.SuspendLayout();
-            this.panel173.SuspendLayout();
-            this.tabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -258,7 +188,7 @@
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnAdd.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnAdd.Location = new System.Drawing.Point(7, 607);
+            this.btnAdd.Location = new System.Drawing.Point(7, 677);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(81, 26);
             this.btnAdd.TabIndex = 304;
@@ -275,7 +205,7 @@
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnClear.Location = new System.Drawing.Point(171, 607);
+            this.btnClear.Location = new System.Drawing.Point(171, 677);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(81, 26);
             this.btnClear.TabIndex = 303;
@@ -292,7 +222,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSave.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSave.Location = new System.Drawing.Point(89, 607);
+            this.btnSave.Location = new System.Drawing.Point(89, 677);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(81, 26);
             this.btnSave.TabIndex = 302;
@@ -309,7 +239,7 @@
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnRefresh.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnRefresh.Location = new System.Drawing.Point(735, 607);
+            this.btnRefresh.Location = new System.Drawing.Point(735, 677);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(81, 26);
             this.btnRefresh.TabIndex = 305;
@@ -326,7 +256,7 @@
             this.ZoningTabControl.Location = new System.Drawing.Point(3, 33);
             this.ZoningTabControl.Name = "ZoningTabControl";
             this.ZoningTabControl.SelectedIndex = 0;
-            this.ZoningTabControl.Size = new System.Drawing.Size(813, 568);
+            this.ZoningTabControl.Size = new System.Drawing.Size(813, 642);
             this.ZoningTabControl.TabIndex = 498;
             this.ZoningTabControl.SelectedIndexChanged += new System.EventHandler(this.ZoningTabControl_SelectionChanged);
             // 
@@ -338,7 +268,7 @@
             this.Zone.Location = new System.Drawing.Point(4, 27);
             this.Zone.Name = "Zone";
             this.Zone.Padding = new System.Windows.Forms.Padding(3);
-            this.Zone.Size = new System.Drawing.Size(805, 537);
+            this.Zone.Size = new System.Drawing.Size(805, 611);
             this.Zone.TabIndex = 0;
             this.Zone.Text = "ZONE";
             this.Zone.UseVisualStyleBackColor = true;
@@ -372,11 +302,11 @@
             this.bunifuCards1.Controls.Add(this.label38);
             this.bunifuCards1.Controls.Add(this.lvwZoning);
             this.bunifuCards1.LeftSahddow = false;
-            this.bunifuCards1.Location = new System.Drawing.Point(3, 177);
+            this.bunifuCards1.Location = new System.Drawing.Point(3, 196);
             this.bunifuCards1.Name = "bunifuCards1";
             this.bunifuCards1.RightSahddow = false;
             this.bunifuCards1.ShadowDepth = 20;
-            this.bunifuCards1.Size = new System.Drawing.Size(799, 362);
+            this.bunifuCards1.Size = new System.Drawing.Size(799, 409);
             this.bunifuCards1.TabIndex = 307;
             // 
             // btnSearch
@@ -440,14 +370,15 @@
             this.columnHeader4,
             this.columnHeader7,
             this.columnHeader5,
-            this.columnHeader6});
+            this.columnHeader6,
+            this.columnHeader8});
             this.lvwZoning.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvwZoning.ForeColor = System.Drawing.Color.Black;
             this.lvwZoning.FullRowSelect = true;
             this.lvwZoning.HideSelection = false;
             this.lvwZoning.Location = new System.Drawing.Point(-1, 38);
             this.lvwZoning.Name = "lvwZoning";
-            this.lvwZoning.Size = new System.Drawing.Size(799, 333);
+            this.lvwZoning.Size = new System.Drawing.Size(799, 373);
             this.lvwZoning.TabIndex = 103;
             this.lvwZoning.UseCompatibleStateImageBehavior = false;
             this.lvwZoning.View = System.Windows.Forms.View.Details;
@@ -486,7 +417,7 @@
             // columnHeader6
             // 
             this.columnHeader6.Text = "CITY/MUNICIPAL";
-            this.columnHeader6.Width = 240;
+            this.columnHeader6.Width = 200;
             // 
             // bunifuCards2
             // 
@@ -495,6 +426,8 @@
             this.bunifuCards2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.bunifuCards2.BottomSahddow = false;
             this.bunifuCards2.color = System.Drawing.Color.Gray;
+            this.bunifuCards2.Controls.Add(this.txtSLA);
+            this.bunifuCards2.Controls.Add(this.label3);
             this.bunifuCards2.Controls.Add(this.cboCityMunicipal);
             this.bunifuCards2.Controls.Add(this.cboArea);
             this.bunifuCards2.Controls.Add(this.cboRegion);
@@ -512,7 +445,7 @@
             this.bunifuCards2.Name = "bunifuCards2";
             this.bunifuCards2.RightSahddow = false;
             this.bunifuCards2.ShadowDepth = 20;
-            this.bunifuCards2.Size = new System.Drawing.Size(799, 169);
+            this.bunifuCards2.Size = new System.Drawing.Size(799, 188);
             this.bunifuCards2.TabIndex = 306;
             // 
             // cboCityMunicipal
@@ -560,7 +493,7 @@
             this.cboCluster.BackColor = System.Drawing.Color.White;
             this.cboCluster.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCluster.FormattingEnabled = true;
-            this.cboCluster.Location = new System.Drawing.Point(111, 32);
+            this.cboCluster.Location = new System.Drawing.Point(110, 33);
             this.cboCluster.Name = "cboCluster";
             this.cboCluster.Size = new System.Drawing.Size(685, 22);
             this.cboCluster.TabIndex = 363;
@@ -642,7 +575,7 @@
             this.Alias.Location = new System.Drawing.Point(4, 27);
             this.Alias.Name = "Alias";
             this.Alias.Padding = new System.Windows.Forms.Padding(3);
-            this.Alias.Size = new System.Drawing.Size(805, 537);
+            this.Alias.Size = new System.Drawing.Size(805, 611);
             this.Alias.TabIndex = 1;
             this.Alias.Text = "ZONING ALIAS";
             this.Alias.UseVisualStyleBackColor = true;
@@ -664,7 +597,7 @@
             this.bunifuCards4.Name = "bunifuCards4";
             this.bunifuCards4.RightSahddow = false;
             this.bunifuCards4.ShadowDepth = 20;
-            this.bunifuCards4.Size = new System.Drawing.Size(799, 388);
+            this.bunifuCards4.Size = new System.Drawing.Size(799, 454);
             this.bunifuCards4.TabIndex = 308;
             // 
             // btnSearchAlias
@@ -737,7 +670,7 @@
             this.lvwZoningAlias.Location = new System.Drawing.Point(2, 49);
             this.lvwZoningAlias.Name = "lvwZoningAlias";
             this.lvwZoningAlias.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lvwZoningAlias.Size = new System.Drawing.Size(797, 346);
+            this.lvwZoningAlias.Size = new System.Drawing.Size(797, 402);
             this.lvwZoningAlias.TabIndex = 103;
             this.lvwZoningAlias.UseCompatibleStateImageBehavior = false;
             this.lvwZoningAlias.View = System.Windows.Forms.View.Details;
@@ -911,151 +844,43 @@
             this.label6.TabIndex = 101;
             this.label6.Text = "ALIAS NAME *";
             // 
-            // tabMain
+            // txtSLA
             // 
-            this.tabMain.Appearance = System.Windows.Forms.TabAppearance.Buttons;
-            this.tabMain.Controls.Add(this.tabPage5);
-            this.tabMain.Controls.Add(this.tabPage4);
-            this.tabMain.Controls.Add(this.tabPage3);
-            this.tabMain.Controls.Add(this.tabPage6);
-            this.tabMain.Controls.Add(this.tabPage2);
-            this.tabMain.Controls.Add(this.tabPage7);
-            this.tabMain.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabMain.Location = new System.Drawing.Point(31, 66);
-            this.tabMain.Name = "tabMain";
-            this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(397, 290);
-            this.tabMain.TabIndex = 497;
+            this.txtSLA.BackColor = System.Drawing.Color.White;
+            this.txtSLA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSLA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSLA.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSLA.Location = new System.Drawing.Point(110, 162);
+            this.txtSLA.Name = "txtSLA";
+            this.txtSLA.Size = new System.Drawing.Size(684, 20);
+            this.txtSLA.TabIndex = 439;
+            this.txtSLA.Text = "100";
             // 
-            // tabPage5
+            // label3
             // 
-            this.tabPage5.Controls.Add(this.panel134);
-            this.tabPage5.ForeColor = System.Drawing.Color.Black;
-            this.tabPage5.Location = new System.Drawing.Point(4, 27);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(389, 259);
-            this.tabPage5.TabIndex = 3;
-            this.tabPage5.Text = "FUNCTION";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 163);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 15);
+            this.label3.TabIndex = 438;
+            this.label3.Text = "SLA * ";
             // 
-            // panel134
+            // btnPreviewSvcHistory
             // 
-            this.panel134.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel134.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel134.Controls.Add(this.btnSendFSREmail);
-            this.panel134.Controls.Add(this.btnPreviewFSR);
-            this.panel134.Controls.Add(this.btnCreateDiagnostic);
-            this.panel134.Controls.Add(this.btnViewDiagnostic);
-            this.panel134.Controls.Add(this.btnResetEmail);
-            this.panel134.Controls.Add(this.btnSendFSRAndDiagEmail);
-            this.panel134.Controls.Add(this.btnViewImages);
-            this.panel134.Controls.Add(this.btnPreviewSvcHistory);
-            this.panel134.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel134.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel134.Location = new System.Drawing.Point(3, 3);
-            this.panel134.Name = "panel134";
-            this.panel134.Size = new System.Drawing.Size(383, 253);
-            this.panel134.TabIndex = 474;
-            // 
-            // btnSendFSREmail
-            // 
-            this.btnSendFSREmail.AutoSize = true;
-            this.btnSendFSREmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(115)))), ((int)(((byte)(230)))));
-            this.btnSendFSREmail.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnSendFSREmail.FlatAppearance.BorderSize = 0;
-            this.btnSendFSREmail.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnSendFSREmail.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSendFSREmail.ForeColor = System.Drawing.Color.White;
-            this.btnSendFSREmail.Location = new System.Drawing.Point(194, 26);
-            this.btnSendFSREmail.Name = "btnSendFSREmail";
-            this.btnSendFSREmail.Size = new System.Drawing.Size(201, 26);
-            this.btnSendFSREmail.TabIndex = 493;
-            this.btnSendFSREmail.Text = "EMAIL FSR REPORT";
-            this.btnSendFSREmail.UseVisualStyleBackColor = false;
-            // 
-            // btnPreviewFSR
-            // 
-            this.btnPreviewFSR.AutoSize = true;
-            this.btnPreviewFSR.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(230)))));
-            this.btnPreviewFSR.Enabled = false;
-            this.btnPreviewFSR.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnPreviewFSR.FlatAppearance.BorderSize = 0;
-            this.btnPreviewFSR.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnPreviewFSR.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreviewFSR.ForeColor = System.Drawing.Color.White;
-            this.btnPreviewFSR.Location = new System.Drawing.Point(2, 77);
-            this.btnPreviewFSR.Name = "btnPreviewFSR";
-            this.btnPreviewFSR.Size = new System.Drawing.Size(193, 26);
-            this.btnPreviewFSR.TabIndex = 473;
-            this.btnPreviewFSR.Text = "FSR REPORT";
-            this.btnPreviewFSR.UseVisualStyleBackColor = false;
-            // 
-            // btnCreateDiagnostic
-            // 
-            this.btnCreateDiagnostic.AutoSize = true;
-            this.btnCreateDiagnostic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(115)))), ((int)(((byte)(230)))));
-            this.btnCreateDiagnostic.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnCreateDiagnostic.FlatAppearance.BorderSize = 0;
-            this.btnCreateDiagnostic.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnCreateDiagnostic.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreateDiagnostic.ForeColor = System.Drawing.Color.White;
-            this.btnCreateDiagnostic.Location = new System.Drawing.Point(2, 1);
-            this.btnCreateDiagnostic.Name = "btnCreateDiagnostic";
-            this.btnCreateDiagnostic.Size = new System.Drawing.Size(193, 26);
-            this.btnCreateDiagnostic.TabIndex = 492;
-            this.btnCreateDiagnostic.Text = "CREATE DIAGNOSTIC";
-            this.btnCreateDiagnostic.UseVisualStyleBackColor = false;
-            // 
-            // btnViewDiagnostic
-            // 
-            this.btnViewDiagnostic.AutoSize = true;
-            this.btnViewDiagnostic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(230)))));
-            this.btnViewDiagnostic.Enabled = false;
-            this.btnViewDiagnostic.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnViewDiagnostic.FlatAppearance.BorderSize = 0;
-            this.btnViewDiagnostic.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnViewDiagnostic.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnViewDiagnostic.ForeColor = System.Drawing.Color.White;
-            this.btnViewDiagnostic.Location = new System.Drawing.Point(2, 103);
-            this.btnViewDiagnostic.Name = "btnViewDiagnostic";
-            this.btnViewDiagnostic.Size = new System.Drawing.Size(193, 26);
-            this.btnViewDiagnostic.TabIndex = 487;
-            this.btnViewDiagnostic.Text = "DIAGNOSTIC REPORT";
-            this.btnViewDiagnostic.UseVisualStyleBackColor = false;
-            // 
-            // btnResetEmail
-            // 
-            this.btnResetEmail.AutoSize = true;
-            this.btnResetEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(115)))), ((int)(((byte)(230)))));
-            this.btnResetEmail.Enabled = false;
-            this.btnResetEmail.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnResetEmail.FlatAppearance.BorderSize = 0;
-            this.btnResetEmail.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnResetEmail.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnResetEmail.ForeColor = System.Drawing.Color.White;
-            this.btnResetEmail.Location = new System.Drawing.Point(2, 52);
-            this.btnResetEmail.Name = "btnResetEmail";
-            this.btnResetEmail.Size = new System.Drawing.Size(193, 26);
-            this.btnResetEmail.TabIndex = 484;
-            this.btnResetEmail.Text = "RESET FSR GENERATOR EMAIL";
-            this.btnResetEmail.UseVisualStyleBackColor = false;
-            // 
-            // btnSendFSRAndDiagEmail
-            // 
-            this.btnSendFSRAndDiagEmail.AutoSize = true;
-            this.btnSendFSRAndDiagEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(115)))), ((int)(((byte)(230)))));
-            this.btnSendFSRAndDiagEmail.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnSendFSRAndDiagEmail.FlatAppearance.BorderSize = 0;
-            this.btnSendFSRAndDiagEmail.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnSendFSRAndDiagEmail.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSendFSRAndDiagEmail.ForeColor = System.Drawing.Color.White;
-            this.btnSendFSRAndDiagEmail.Location = new System.Drawing.Point(194, 54);
-            this.btnSendFSRAndDiagEmail.Name = "btnSendFSRAndDiagEmail";
-            this.btnSendFSRAndDiagEmail.Size = new System.Drawing.Size(200, 26);
-            this.btnSendFSRAndDiagEmail.TabIndex = 490;
-            this.btnSendFSRAndDiagEmail.Text = "EMAIL FSR AND DIAGNOSTIC REPORT";
-            this.btnSendFSRAndDiagEmail.UseVisualStyleBackColor = false;
+            this.btnPreviewSvcHistory.AutoSize = true;
+            this.btnPreviewSvcHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(230)))));
+            this.btnPreviewSvcHistory.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnPreviewSvcHistory.FlatAppearance.BorderSize = 0;
+            this.btnPreviewSvcHistory.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnPreviewSvcHistory.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPreviewSvcHistory.ForeColor = System.Drawing.Color.White;
+            this.btnPreviewSvcHistory.Location = new System.Drawing.Point(194, 1);
+            this.btnPreviewSvcHistory.Name = "btnPreviewSvcHistory";
+            this.btnPreviewSvcHistory.Size = new System.Drawing.Size(201, 26);
+            this.btnPreviewSvcHistory.TabIndex = 474;
+            this.btnPreviewSvcHistory.Text = "SERVICE HISTORY REPORT";
+            this.btnPreviewSvcHistory.UseVisualStyleBackColor = false;
             // 
             // btnViewImages
             // 
@@ -1074,663 +899,117 @@
             this.btnViewImages.Text = "VIEW IMAGE TAKEN";
             this.btnViewImages.UseVisualStyleBackColor = false;
             // 
-            // btnPreviewSvcHistory
-            // 
-            this.btnPreviewSvcHistory.AutoSize = true;
-            this.btnPreviewSvcHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(230)))));
-            this.btnPreviewSvcHistory.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnPreviewSvcHistory.FlatAppearance.BorderSize = 0;
-            this.btnPreviewSvcHistory.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnPreviewSvcHistory.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreviewSvcHistory.ForeColor = System.Drawing.Color.White;
-            this.btnPreviewSvcHistory.Location = new System.Drawing.Point(194, 1);
-            this.btnPreviewSvcHistory.Name = "btnPreviewSvcHistory";
-            this.btnPreviewSvcHistory.Size = new System.Drawing.Size(201, 26);
-            this.btnPreviewSvcHistory.TabIndex = 474;
-            this.btnPreviewSvcHistory.Text = "SERVICE HISTORY REPORT";
-            this.btnPreviewSvcHistory.UseVisualStyleBackColor = false;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.panel142);
-            this.tabPage4.ForeColor = System.Drawing.Color.Black;
-            this.tabPage4.Location = new System.Drawing.Point(4, 27);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(389, 259);
-            this.tabPage4.TabIndex = 2;
-            this.tabPage4.Text = "HISTORY";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // panel142
-            // 
-            this.panel142.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel142.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel142.Controls.Add(this.lvwList);
-            this.panel142.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel142.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel142.Location = new System.Drawing.Point(3, 3);
-            this.panel142.Name = "panel142";
-            this.panel142.Size = new System.Drawing.Size(383, 253);
-            this.panel142.TabIndex = 474;
-            // 
-            // lvwList
-            // 
-            this.lvwList.BackColor = System.Drawing.Color.GhostWhite;
-            this.lvwList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvwList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvwList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lvwList.ForeColor = System.Drawing.Color.Black;
-            this.lvwList.FullRowSelect = true;
-            this.lvwList.HideSelection = false;
-            this.lvwList.Location = new System.Drawing.Point(0, 0);
-            this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(381, 251);
-            this.lvwList.TabIndex = 117;
-            this.lvwList.UseCompatibleStateImageBehavior = false;
-            this.lvwList.View = System.Windows.Forms.View.Details;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage3.Controls.Add(this.btnUpdateMerchLoc);
-            this.tabPage3.Controls.Add(this.btnUseMerchLoc);
-            this.tabPage3.Controls.Add(this.label134);
-            this.tabPage3.Controls.Add(this.txtGeoAddress);
-            this.tabPage3.Controls.Add(this.label133);
-            this.tabPage3.Controls.Add(this.txtGeoLocality);
-            this.tabPage3.Controls.Add(this.label132);
-            this.tabPage3.Controls.Add(this.txtGeoCountry);
-            this.tabPage3.Controls.Add(this.label127);
-            this.tabPage3.Controls.Add(this.txtGeoLongitude);
-            this.tabPage3.Controls.Add(this.label120);
-            this.tabPage3.Controls.Add(this.txtGeoLatitude);
-            this.tabPage3.ForeColor = System.Drawing.Color.Black;
-            this.tabPage3.Location = new System.Drawing.Point(4, 27);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(389, 259);
-            this.tabPage3.TabIndex = 1;
-            this.tabPage3.Text = "GEOMETRIC";
-            // 
-            // btnUpdateMerchLoc
-            // 
-            this.btnUpdateMerchLoc.AutoSize = true;
-            this.btnUpdateMerchLoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(230)))));
-            this.btnUpdateMerchLoc.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnUpdateMerchLoc.FlatAppearance.BorderSize = 0;
-            this.btnUpdateMerchLoc.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnUpdateMerchLoc.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateMerchLoc.ForeColor = System.Drawing.Color.White;
-            this.btnUpdateMerchLoc.Location = new System.Drawing.Point(247, 110);
-            this.btnUpdateMerchLoc.Name = "btnUpdateMerchLoc";
-            this.btnUpdateMerchLoc.Size = new System.Drawing.Size(153, 26);
-            this.btnUpdateMerchLoc.TabIndex = 475;
-            this.btnUpdateMerchLoc.Text = "UPDATE LOCATION";
-            this.btnUpdateMerchLoc.UseVisualStyleBackColor = false;
-            // 
-            // btnUseMerchLoc
-            // 
-            this.btnUseMerchLoc.AutoSize = true;
-            this.btnUseMerchLoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(230)))));
-            this.btnUseMerchLoc.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnUseMerchLoc.FlatAppearance.BorderSize = 0;
-            this.btnUseMerchLoc.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnUseMerchLoc.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUseMerchLoc.ForeColor = System.Drawing.Color.White;
-            this.btnUseMerchLoc.Location = new System.Drawing.Point(71, 110);
-            this.btnUseMerchLoc.Name = "btnUseMerchLoc";
-            this.btnUseMerchLoc.Size = new System.Drawing.Size(177, 26);
-            this.btnUseMerchLoc.TabIndex = 474;
-            this.btnUseMerchLoc.Text = "USE MERCH LOCATION";
-            this.btnUseMerchLoc.UseVisualStyleBackColor = false;
-            // 
-            // label134
-            // 
-            this.label134.AutoSize = true;
-            this.label134.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label134.Location = new System.Drawing.Point(1, 48);
-            this.label134.Name = "label134";
-            this.label134.Size = new System.Drawing.Size(56, 14);
-            this.label134.TabIndex = 444;
-            this.label134.Text = "ADDRESS";
-            // 
-            // txtGeoAddress
-            // 
-            this.txtGeoAddress.BackColor = System.Drawing.Color.White;
-            this.txtGeoAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGeoAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGeoAddress.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtGeoAddress.Location = new System.Drawing.Point(71, 46);
-            this.txtGeoAddress.Multiline = true;
-            this.txtGeoAddress.Name = "txtGeoAddress";
-            this.txtGeoAddress.ReadOnly = true;
-            this.txtGeoAddress.Size = new System.Drawing.Size(330, 56);
-            this.txtGeoAddress.TabIndex = 443;
-            // 
-            // label133
-            // 
-            this.label133.AutoSize = true;
-            this.label133.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label133.Location = new System.Drawing.Point(206, 29);
-            this.label133.Name = "label133";
-            this.label133.Size = new System.Drawing.Size(63, 14);
-            this.label133.TabIndex = 442;
-            this.label133.Text = "LOCALITY";
-            // 
-            // txtGeoLocality
-            // 
-            this.txtGeoLocality.BackColor = System.Drawing.Color.White;
-            this.txtGeoLocality.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGeoLocality.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGeoLocality.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtGeoLocality.Location = new System.Drawing.Point(276, 25);
-            this.txtGeoLocality.Name = "txtGeoLocality";
-            this.txtGeoLocality.ReadOnly = true;
-            this.txtGeoLocality.Size = new System.Drawing.Size(125, 20);
-            this.txtGeoLocality.TabIndex = 441;
-            // 
-            // label132
-            // 
-            this.label132.AutoSize = true;
-            this.label132.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label132.Location = new System.Drawing.Point(2, 27);
-            this.label132.Name = "label132";
-            this.label132.Size = new System.Drawing.Size(56, 14);
-            this.label132.TabIndex = 440;
-            this.label132.Text = "COUNTRY";
-            // 
-            // txtGeoCountry
-            // 
-            this.txtGeoCountry.BackColor = System.Drawing.Color.White;
-            this.txtGeoCountry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGeoCountry.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGeoCountry.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtGeoCountry.Location = new System.Drawing.Point(71, 25);
-            this.txtGeoCountry.Name = "txtGeoCountry";
-            this.txtGeoCountry.ReadOnly = true;
-            this.txtGeoCountry.Size = new System.Drawing.Size(130, 20);
-            this.txtGeoCountry.TabIndex = 439;
-            // 
-            // label127
-            // 
-            this.label127.AutoSize = true;
-            this.label127.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label127.Location = new System.Drawing.Point(206, 6);
-            this.label127.Name = "label127";
-            this.label127.Size = new System.Drawing.Size(70, 14);
-            this.label127.TabIndex = 438;
-            this.label127.Text = "LONGITUDE";
-            // 
-            // txtGeoLongitude
-            // 
-            this.txtGeoLongitude.BackColor = System.Drawing.Color.White;
-            this.txtGeoLongitude.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGeoLongitude.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGeoLongitude.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtGeoLongitude.Location = new System.Drawing.Point(276, 3);
-            this.txtGeoLongitude.Name = "txtGeoLongitude";
-            this.txtGeoLongitude.ReadOnly = true;
-            this.txtGeoLongitude.Size = new System.Drawing.Size(125, 20);
-            this.txtGeoLongitude.TabIndex = 437;
-            // 
-            // label120
-            // 
-            this.label120.AutoSize = true;
-            this.label120.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label120.Location = new System.Drawing.Point(2, 5);
-            this.label120.Name = "label120";
-            this.label120.Size = new System.Drawing.Size(63, 14);
-            this.label120.TabIndex = 436;
-            this.label120.Text = "LATITUDE";
-            // 
-            // txtGeoLatitude
-            // 
-            this.txtGeoLatitude.BackColor = System.Drawing.Color.White;
-            this.txtGeoLatitude.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtGeoLatitude.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtGeoLatitude.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtGeoLatitude.Location = new System.Drawing.Point(71, 3);
-            this.txtGeoLatitude.Name = "txtGeoLatitude";
-            this.txtGeoLatitude.ReadOnly = true;
-            this.txtGeoLatitude.Size = new System.Drawing.Size(130, 20);
-            this.txtGeoLatitude.TabIndex = 435;
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Controls.Add(this.label171);
-            this.tabPage6.Controls.Add(this.txtDueDate);
-            this.tabPage6.Controls.Add(this.label143);
-            this.tabPage6.Controls.Add(this.txtTATStatus);
-            this.tabPage6.Controls.Add(this.label142);
-            this.tabPage6.Controls.Add(this.txtDaysOverDue);
-            this.tabPage6.Controls.Add(this.label136);
-            this.tabPage6.Controls.Add(this.txtNetworkDays);
-            this.tabPage6.Controls.Add(this.label130);
-            this.tabPage6.Controls.Add(this.txtSLA);
-            this.tabPage6.Location = new System.Drawing.Point(4, 27);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(389, 259);
-            this.tabPage6.TabIndex = 4;
-            this.tabPage6.Text = "SLA/TAT";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // label171
-            // 
-            this.label171.AutoSize = true;
-            this.label171.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label171.Location = new System.Drawing.Point(159, 7);
-            this.label171.Name = "label171";
-            this.label171.Size = new System.Drawing.Size(105, 14);
-            this.label171.TabIndex = 456;
-            this.label171.Text = "DUE DATE(+SLA)";
-            // 
-            // txtDueDate
-            // 
-            this.txtDueDate.BackColor = System.Drawing.Color.White;
-            this.txtDueDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDueDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDueDate.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDueDate.Location = new System.Drawing.Point(264, 5);
-            this.txtDueDate.Name = "txtDueDate";
-            this.txtDueDate.ReadOnly = true;
-            this.txtDueDate.Size = new System.Drawing.Size(137, 22);
-            this.txtDueDate.TabIndex = 455;
-            this.txtDueDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label143
-            // 
-            this.label143.AutoSize = true;
-            this.label143.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label143.Location = new System.Drawing.Point(3, 77);
-            this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(49, 14);
-            this.label143.TabIndex = 444;
-            this.label143.Text = "STATUS";
-            // 
-            // txtTATStatus
-            // 
-            this.txtTATStatus.BackColor = System.Drawing.Color.White;
-            this.txtTATStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTATStatus.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTATStatus.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTATStatus.Location = new System.Drawing.Point(100, 74);
-            this.txtTATStatus.Name = "txtTATStatus";
-            this.txtTATStatus.ReadOnly = true;
-            this.txtTATStatus.Size = new System.Drawing.Size(301, 22);
-            this.txtTATStatus.TabIndex = 443;
-            this.txtTATStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label142
-            // 
-            this.label142.AutoSize = true;
-            this.label142.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label142.Location = new System.Drawing.Point(3, 54);
-            this.label142.Name = "label142";
-            this.label142.Size = new System.Drawing.Size(91, 14);
-            this.label142.TabIndex = 442;
-            this.label142.Text = "DAYS OVERDUE";
-            // 
-            // txtDaysOverDue
-            // 
-            this.txtDaysOverDue.BackColor = System.Drawing.Color.White;
-            this.txtDaysOverDue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDaysOverDue.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDaysOverDue.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDaysOverDue.Location = new System.Drawing.Point(100, 51);
-            this.txtDaysOverDue.Name = "txtDaysOverDue";
-            this.txtDaysOverDue.ReadOnly = true;
-            this.txtDaysOverDue.Size = new System.Drawing.Size(301, 22);
-            this.txtDaysOverDue.TabIndex = 441;
-            this.txtDaysOverDue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label136
-            // 
-            this.label136.AutoSize = true;
-            this.label136.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label136.Location = new System.Drawing.Point(3, 31);
-            this.label136.Name = "label136";
-            this.label136.Size = new System.Drawing.Size(91, 14);
-            this.label136.TabIndex = 440;
-            this.label136.Text = "NETWORK DAYS";
-            // 
-            // txtNetworkDays
-            // 
-            this.txtNetworkDays.BackColor = System.Drawing.Color.White;
-            this.txtNetworkDays.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNetworkDays.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNetworkDays.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNetworkDays.Location = new System.Drawing.Point(100, 28);
-            this.txtNetworkDays.Name = "txtNetworkDays";
-            this.txtNetworkDays.ReadOnly = true;
-            this.txtNetworkDays.Size = new System.Drawing.Size(301, 22);
-            this.txtNetworkDays.TabIndex = 439;
-            this.txtNetworkDays.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label130
-            // 
-            this.label130.AutoSize = true;
-            this.label130.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label130.Location = new System.Drawing.Point(2, 8);
-            this.label130.Name = "label130";
-            this.label130.Size = new System.Drawing.Size(28, 14);
-            this.label130.TabIndex = 438;
-            this.label130.Text = "SLA";
-            // 
-            // txtSLA
-            // 
-            this.txtSLA.BackColor = System.Drawing.Color.White;
-            this.txtSLA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSLA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSLA.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSLA.Location = new System.Drawing.Point(100, 5);
-            this.txtSLA.Name = "txtSLA";
-            this.txtSLA.ReadOnly = true;
-            this.txtSLA.Size = new System.Drawing.Size(53, 22);
-            this.txtSLA.TabIndex = 437;
-            this.txtSLA.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage2.Controls.Add(this.panel29);
-            this.tabPage2.Controls.Add(this.panel158);
-            this.tabPage2.ForeColor = System.Drawing.Color.Black;
-            this.tabPage2.Location = new System.Drawing.Point(4, 27);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(389, 259);
-            this.tabPage2.TabIndex = 0;
-            this.tabPage2.Text = "SWITCH SN";
-            // 
-            // panel29
-            // 
-            this.panel29.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel29.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel29.Controls.Add(this.panel38);
-            this.panel29.Controls.Add(this.panel113);
-            this.panel29.Controls.Add(this.panel159);
-            this.panel29.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel29.Location = new System.Drawing.Point(3, 3);
-            this.panel29.Name = "panel29";
-            this.panel29.Size = new System.Drawing.Size(401, 54);
-            this.panel29.TabIndex = 471;
-            // 
-            // panel38
-            // 
-            this.panel38.Controls.Add(this.txtNewTerminalSN);
-            this.panel38.Controls.Add(this.label116);
-            this.panel38.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel38.Location = new System.Drawing.Point(225, 24);
-            this.panel38.Name = "panel38";
-            this.panel38.Size = new System.Drawing.Size(181, 28);
-            this.panel38.TabIndex = 315;
-            // 
-            // txtNewTerminalSN
-            // 
-            this.txtNewTerminalSN.BackColor = System.Drawing.Color.White;
-            this.txtNewTerminalSN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNewTerminalSN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNewTerminalSN.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNewTerminalSN.ForeColor = System.Drawing.Color.Navy;
-            this.txtNewTerminalSN.Location = new System.Drawing.Point(33, 4);
-            this.txtNewTerminalSN.Name = "txtNewTerminalSN";
-            this.txtNewTerminalSN.ReadOnly = true;
-            this.txtNewTerminalSN.Size = new System.Drawing.Size(140, 21);
-            this.txtNewTerminalSN.TabIndex = 469;
-            // 
-            // label116
-            // 
-            this.label116.AutoSize = true;
-            this.label116.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label116.Location = new System.Drawing.Point(3, 7);
-            this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(28, 14);
-            this.label116.TabIndex = 436;
-            this.label116.Text = "NEW";
-            // 
-            // panel113
-            // 
-            this.panel113.Controls.Add(this.label102);
-            this.panel113.Controls.Add(this.txtOldTerminalSN);
-            this.panel113.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel113.Location = new System.Drawing.Point(0, 24);
-            this.panel113.Name = "panel113";
-            this.panel113.Size = new System.Drawing.Size(225, 28);
-            this.panel113.TabIndex = 314;
-            // 
-            // label102
-            // 
-            this.label102.AutoSize = true;
-            this.label102.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label102.Location = new System.Drawing.Point(3, 7);
-            this.label102.Name = "label102";
-            this.label102.Size = new System.Drawing.Size(35, 14);
-            this.label102.TabIndex = 435;
-            this.label102.Text = "PREV";
-            // 
-            // txtOldTerminalSN
-            // 
-            this.txtOldTerminalSN.BackColor = System.Drawing.Color.White;
-            this.txtOldTerminalSN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtOldTerminalSN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtOldTerminalSN.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOldTerminalSN.ForeColor = System.Drawing.Color.Green;
-            this.txtOldTerminalSN.Location = new System.Drawing.Point(44, 4);
-            this.txtOldTerminalSN.Name = "txtOldTerminalSN";
-            this.txtOldTerminalSN.ReadOnly = true;
-            this.txtOldTerminalSN.Size = new System.Drawing.Size(178, 21);
-            this.txtOldTerminalSN.TabIndex = 466;
-            // 
-            // panel159
-            // 
-            this.panel159.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.panel159.Controls.Add(this.label9);
-            this.panel159.Controls.Add(this.panel160);
-            this.panel159.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel159.Location = new System.Drawing.Point(0, 0);
-            this.panel159.Name = "panel159";
-            this.panel159.Size = new System.Drawing.Size(399, 24);
-            this.panel159.TabIndex = 311;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(3, 4);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(138, 15);
-            this.label9.TabIndex = 310;
-            this.label9.Text = "TERMINAL INFORMATION";
-            // 
-            // panel160
-            // 
-            this.panel160.BackColor = System.Drawing.Color.Silver;
-            this.panel160.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel160.Location = new System.Drawing.Point(0, 22);
-            this.panel160.Name = "panel160";
-            this.panel160.Size = new System.Drawing.Size(399, 2);
-            this.panel160.TabIndex = 0;
-            // 
-            // panel158
-            // 
-            this.panel158.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel158.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel158.Controls.Add(this.panel171);
-            this.panel158.Controls.Add(this.panel172);
-            this.panel158.Controls.Add(this.panel173);
-            this.panel158.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel158.Location = new System.Drawing.Point(3, 55);
-            this.panel158.Name = "panel158";
-            this.panel158.Size = new System.Drawing.Size(401, 54);
-            this.panel158.TabIndex = 472;
-            // 
-            // panel171
-            // 
-            this.panel171.Controls.Add(this.label114);
-            this.panel171.Controls.Add(this.txtNewSIMSN);
-            this.panel171.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel171.Location = new System.Drawing.Point(225, 24);
-            this.panel171.Name = "panel171";
-            this.panel171.Size = new System.Drawing.Size(181, 28);
-            this.panel171.TabIndex = 315;
-            // 
-            // label114
-            // 
-            this.label114.AutoSize = true;
-            this.label114.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label114.Location = new System.Drawing.Point(3, 7);
-            this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(28, 14);
-            this.label114.TabIndex = 436;
-            this.label114.Text = "NEW";
-            // 
-            // txtNewSIMSN
-            // 
-            this.txtNewSIMSN.BackColor = System.Drawing.Color.White;
-            this.txtNewSIMSN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNewSIMSN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNewSIMSN.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNewSIMSN.ForeColor = System.Drawing.Color.Navy;
-            this.txtNewSIMSN.Location = new System.Drawing.Point(33, 4);
-            this.txtNewSIMSN.Name = "txtNewSIMSN";
-            this.txtNewSIMSN.ReadOnly = true;
-            this.txtNewSIMSN.Size = new System.Drawing.Size(140, 21);
-            this.txtNewSIMSN.TabIndex = 468;
-            // 
-            // panel172
-            // 
-            this.panel172.Controls.Add(this.label117);
-            this.panel172.Controls.Add(this.txtOldSIMSN);
-            this.panel172.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel172.Location = new System.Drawing.Point(0, 24);
-            this.panel172.Name = "panel172";
-            this.panel172.Size = new System.Drawing.Size(225, 28);
-            this.panel172.TabIndex = 314;
-            // 
-            // label117
-            // 
-            this.label117.AutoSize = true;
-            this.label117.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label117.Location = new System.Drawing.Point(3, 7);
-            this.label117.Name = "label117";
-            this.label117.Size = new System.Drawing.Size(35, 14);
-            this.label117.TabIndex = 435;
-            this.label117.Text = "PREV";
-            // 
-            // txtOldSIMSN
-            // 
-            this.txtOldSIMSN.BackColor = System.Drawing.Color.White;
-            this.txtOldSIMSN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtOldSIMSN.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtOldSIMSN.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOldSIMSN.ForeColor = System.Drawing.Color.Green;
-            this.txtOldSIMSN.Location = new System.Drawing.Point(44, 3);
-            this.txtOldSIMSN.Name = "txtOldSIMSN";
-            this.txtOldSIMSN.ReadOnly = true;
-            this.txtOldSIMSN.Size = new System.Drawing.Size(178, 21);
-            this.txtOldSIMSN.TabIndex = 468;
-            // 
-            // panel173
-            // 
-            this.panel173.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(153)))), ((int)(((byte)(255)))));
-            this.panel173.Controls.Add(this.label118);
-            this.panel173.Controls.Add(this.panel174);
-            this.panel173.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel173.Location = new System.Drawing.Point(0, 0);
-            this.panel173.Name = "panel173";
-            this.panel173.Size = new System.Drawing.Size(399, 24);
-            this.panel173.TabIndex = 311;
-            // 
-            // label118
-            // 
-            this.label118.AutoSize = true;
-            this.label118.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label118.ForeColor = System.Drawing.Color.Black;
-            this.label118.Location = new System.Drawing.Point(3, 4);
-            this.label118.Name = "label118";
-            this.label118.Size = new System.Drawing.Size(104, 15);
-            this.label118.TabIndex = 310;
-            this.label118.Text = "SIM INFORMATION";
-            // 
-            // panel174
-            // 
-            this.panel174.BackColor = System.Drawing.Color.Silver;
-            this.panel174.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel174.Location = new System.Drawing.Point(0, 22);
-            this.panel174.Name = "panel174";
-            this.panel174.Size = new System.Drawing.Size(399, 2);
-            this.panel174.TabIndex = 0;
-            // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.label147);
-            this.tabPage7.Controls.Add(this.txtMobileVersion);
-            this.tabPage7.Controls.Add(this.label146);
-            this.tabPage7.Controls.Add(this.txtMobileTerminalID);
-            this.tabPage7.Location = new System.Drawing.Point(4, 27);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(389, 259);
-            this.tabPage7.TabIndex = 5;
-            this.tabPage7.Text = "MOBILE";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // label147
-            // 
-            this.label147.AutoSize = true;
-            this.label147.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label147.Location = new System.Drawing.Point(3, 28);
-            this.label147.Name = "label147";
-            this.label147.Size = new System.Drawing.Size(56, 14);
-            this.label147.TabIndex = 442;
-            this.label147.Text = "VERSION";
-            // 
-            // txtMobileVersion
-            // 
-            this.txtMobileVersion.BackColor = System.Drawing.Color.White;
-            this.txtMobileVersion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMobileVersion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtMobileVersion.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMobileVersion.Location = new System.Drawing.Point(101, 26);
-            this.txtMobileVersion.Name = "txtMobileVersion";
-            this.txtMobileVersion.ReadOnly = true;
-            this.txtMobileVersion.Size = new System.Drawing.Size(300, 20);
-            this.txtMobileVersion.TabIndex = 441;
-            this.txtMobileVersion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label146
-            // 
-            this.label146.AutoSize = true;
-            this.label146.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label146.Location = new System.Drawing.Point(3, 8);
-            this.label146.Name = "label146";
-            this.label146.Size = new System.Drawing.Size(70, 14);
-            this.label146.TabIndex = 440;
-            this.label146.Text = "MOBILE ID";
-            // 
-            // txtMobileTerminalID
-            // 
-            this.txtMobileTerminalID.BackColor = System.Drawing.Color.White;
-            this.txtMobileTerminalID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMobileTerminalID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtMobileTerminalID.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMobileTerminalID.Location = new System.Drawing.Point(101, 5);
-            this.txtMobileTerminalID.Name = "txtMobileTerminalID";
-            this.txtMobileTerminalID.ReadOnly = true;
-            this.txtMobileTerminalID.Size = new System.Drawing.Size(300, 20);
-            this.txtMobileTerminalID.TabIndex = 439;
-            this.txtMobileTerminalID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // btnSendFSRAndDiagEmail
+            // 
+            this.btnSendFSRAndDiagEmail.AutoSize = true;
+            this.btnSendFSRAndDiagEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(115)))), ((int)(((byte)(230)))));
+            this.btnSendFSRAndDiagEmail.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnSendFSRAndDiagEmail.FlatAppearance.BorderSize = 0;
+            this.btnSendFSRAndDiagEmail.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSendFSRAndDiagEmail.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSendFSRAndDiagEmail.ForeColor = System.Drawing.Color.White;
+            this.btnSendFSRAndDiagEmail.Location = new System.Drawing.Point(194, 54);
+            this.btnSendFSRAndDiagEmail.Name = "btnSendFSRAndDiagEmail";
+            this.btnSendFSRAndDiagEmail.Size = new System.Drawing.Size(200, 26);
+            this.btnSendFSRAndDiagEmail.TabIndex = 490;
+            this.btnSendFSRAndDiagEmail.Text = "EMAIL FSR AND DIAGNOSTIC REPORT";
+            this.btnSendFSRAndDiagEmail.UseVisualStyleBackColor = false;
+            // 
+            // btnResetEmail
+            // 
+            this.btnResetEmail.AutoSize = true;
+            this.btnResetEmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(115)))), ((int)(((byte)(230)))));
+            this.btnResetEmail.Enabled = false;
+            this.btnResetEmail.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnResetEmail.FlatAppearance.BorderSize = 0;
+            this.btnResetEmail.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnResetEmail.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResetEmail.ForeColor = System.Drawing.Color.White;
+            this.btnResetEmail.Location = new System.Drawing.Point(2, 52);
+            this.btnResetEmail.Name = "btnResetEmail";
+            this.btnResetEmail.Size = new System.Drawing.Size(193, 26);
+            this.btnResetEmail.TabIndex = 484;
+            this.btnResetEmail.Text = "RESET FSR GENERATOR EMAIL";
+            this.btnResetEmail.UseVisualStyleBackColor = false;
+            // 
+            // btnViewDiagnostic
+            // 
+            this.btnViewDiagnostic.AutoSize = true;
+            this.btnViewDiagnostic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(230)))));
+            this.btnViewDiagnostic.Enabled = false;
+            this.btnViewDiagnostic.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnViewDiagnostic.FlatAppearance.BorderSize = 0;
+            this.btnViewDiagnostic.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnViewDiagnostic.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnViewDiagnostic.ForeColor = System.Drawing.Color.White;
+            this.btnViewDiagnostic.Location = new System.Drawing.Point(2, 103);
+            this.btnViewDiagnostic.Name = "btnViewDiagnostic";
+            this.btnViewDiagnostic.Size = new System.Drawing.Size(193, 26);
+            this.btnViewDiagnostic.TabIndex = 487;
+            this.btnViewDiagnostic.Text = "DIAGNOSTIC REPORT";
+            this.btnViewDiagnostic.UseVisualStyleBackColor = false;
+            // 
+            // btnCreateDiagnostic
+            // 
+            this.btnCreateDiagnostic.AutoSize = true;
+            this.btnCreateDiagnostic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(115)))), ((int)(((byte)(230)))));
+            this.btnCreateDiagnostic.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnCreateDiagnostic.FlatAppearance.BorderSize = 0;
+            this.btnCreateDiagnostic.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnCreateDiagnostic.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreateDiagnostic.ForeColor = System.Drawing.Color.White;
+            this.btnCreateDiagnostic.Location = new System.Drawing.Point(2, 1);
+            this.btnCreateDiagnostic.Name = "btnCreateDiagnostic";
+            this.btnCreateDiagnostic.Size = new System.Drawing.Size(193, 26);
+            this.btnCreateDiagnostic.TabIndex = 492;
+            this.btnCreateDiagnostic.Text = "CREATE DIAGNOSTIC";
+            this.btnCreateDiagnostic.UseVisualStyleBackColor = false;
+            // 
+            // btnPreviewFSR
+            // 
+            this.btnPreviewFSR.AutoSize = true;
+            this.btnPreviewFSR.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(0)))), ((int)(((byte)(230)))));
+            this.btnPreviewFSR.Enabled = false;
+            this.btnPreviewFSR.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnPreviewFSR.FlatAppearance.BorderSize = 0;
+            this.btnPreviewFSR.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnPreviewFSR.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPreviewFSR.ForeColor = System.Drawing.Color.White;
+            this.btnPreviewFSR.Location = new System.Drawing.Point(2, 77);
+            this.btnPreviewFSR.Name = "btnPreviewFSR";
+            this.btnPreviewFSR.Size = new System.Drawing.Size(193, 26);
+            this.btnPreviewFSR.TabIndex = 473;
+            this.btnPreviewFSR.Text = "FSR REPORT";
+            this.btnPreviewFSR.UseVisualStyleBackColor = false;
+            // 
+            // btnSendFSREmail
+            // 
+            this.btnSendFSREmail.AutoSize = true;
+            this.btnSendFSREmail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(115)))), ((int)(((byte)(230)))));
+            this.btnSendFSREmail.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnSendFSREmail.FlatAppearance.BorderSize = 0;
+            this.btnSendFSREmail.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSendFSREmail.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSendFSREmail.ForeColor = System.Drawing.Color.White;
+            this.btnSendFSREmail.Location = new System.Drawing.Point(194, 26);
+            this.btnSendFSREmail.Name = "btnSendFSREmail";
+            this.btnSendFSREmail.Size = new System.Drawing.Size(201, 26);
+            this.btnSendFSREmail.TabIndex = 493;
+            this.btnSendFSREmail.Text = "EMAIL FSR REPORT";
+            this.btnSendFSREmail.UseVisualStyleBackColor = false;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "SLA";
+            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader8.Width = 90;
             // 
             // frmMZoning
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(825, 645);
+            this.ClientSize = new System.Drawing.Size(825, 712);
             this.Controls.Add(this.ZoningTabControl);
-            this.Controls.Add(this.tabMain);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnClear);
@@ -1757,33 +1036,6 @@
             this.bunifuCards4.PerformLayout();
             this.bunifuCards3.ResumeLayout(false);
             this.bunifuCards3.PerformLayout();
-            this.tabMain.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
-            this.panel134.ResumeLayout(false);
-            this.panel134.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.panel142.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.tabPage6.ResumeLayout(false);
-            this.tabPage6.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.panel29.ResumeLayout(false);
-            this.panel38.ResumeLayout(false);
-            this.panel38.PerformLayout();
-            this.panel113.ResumeLayout(false);
-            this.panel113.PerformLayout();
-            this.panel159.ResumeLayout(false);
-            this.panel159.PerformLayout();
-            this.panel158.ResumeLayout(false);
-            this.panel171.ResumeLayout(false);
-            this.panel171.PerformLayout();
-            this.panel172.ResumeLayout(false);
-            this.panel172.PerformLayout();
-            this.panel173.ResumeLayout(false);
-            this.panel173.PerformLayout();
-            this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1830,70 +1082,6 @@
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.TabPage Alias;
-        private System.Windows.Forms.TabControl tabMain;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.Panel panel134;
-        private System.Windows.Forms.Button btnSendFSREmail;
-        private System.Windows.Forms.Button btnPreviewFSR;
-        private System.Windows.Forms.Button btnCreateDiagnostic;
-        private System.Windows.Forms.Button btnViewDiagnostic;
-        private System.Windows.Forms.Button btnResetEmail;
-        private System.Windows.Forms.Button btnSendFSRAndDiagEmail;
-        private System.Windows.Forms.Button btnViewImages;
-        private System.Windows.Forms.Button btnPreviewSvcHistory;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Panel panel142;
-        private System.Windows.Forms.ListView lvwList;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Button btnUpdateMerchLoc;
-        private System.Windows.Forms.Button btnUseMerchLoc;
-        private System.Windows.Forms.Label label134;
-        private System.Windows.Forms.TextBox txtGeoAddress;
-        private System.Windows.Forms.Label label133;
-        private System.Windows.Forms.TextBox txtGeoLocality;
-        private System.Windows.Forms.Label label132;
-        private System.Windows.Forms.TextBox txtGeoCountry;
-        private System.Windows.Forms.Label label127;
-        private System.Windows.Forms.TextBox txtGeoLongitude;
-        private System.Windows.Forms.Label label120;
-        private System.Windows.Forms.TextBox txtGeoLatitude;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.Label label171;
-        private System.Windows.Forms.TextBox txtDueDate;
-        private System.Windows.Forms.Label label143;
-        private System.Windows.Forms.TextBox txtTATStatus;
-        private System.Windows.Forms.Label label142;
-        private System.Windows.Forms.TextBox txtDaysOverDue;
-        private System.Windows.Forms.Label label136;
-        private System.Windows.Forms.TextBox txtNetworkDays;
-        private System.Windows.Forms.Label label130;
-        private System.Windows.Forms.TextBox txtSLA;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Panel panel29;
-        private System.Windows.Forms.Panel panel38;
-        private System.Windows.Forms.TextBox txtNewTerminalSN;
-        private System.Windows.Forms.Label label116;
-        private System.Windows.Forms.Panel panel113;
-        private System.Windows.Forms.Label label102;
-        private System.Windows.Forms.TextBox txtOldTerminalSN;
-        private System.Windows.Forms.Panel panel159;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Panel panel160;
-        private System.Windows.Forms.Panel panel158;
-        private System.Windows.Forms.Panel panel171;
-        private System.Windows.Forms.Label label114;
-        private System.Windows.Forms.TextBox txtNewSIMSN;
-        private System.Windows.Forms.Panel panel172;
-        private System.Windows.Forms.Label label117;
-        private System.Windows.Forms.TextBox txtOldSIMSN;
-        private System.Windows.Forms.Panel panel173;
-        private System.Windows.Forms.Label label118;
-        private System.Windows.Forms.Panel panel174;
-        private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.Label label147;
-        private System.Windows.Forms.TextBox txtMobileVersion;
-        private System.Windows.Forms.Label label146;
-        private System.Windows.Forms.TextBox txtMobileTerminalID;
         private Bunifu.Framework.UI.BunifuCards bunifuCards3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
@@ -1919,5 +1107,16 @@
         private System.Windows.Forms.TextBox txtAliasName;
         private System.Windows.Forms.TextBox txtSearchAlias;
         private System.Windows.Forms.TabPage Zone;
+        private System.Windows.Forms.TextBox txtSLA;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnPreviewSvcHistory;
+        private System.Windows.Forms.Button btnViewImages;
+        private System.Windows.Forms.Button btnSendFSRAndDiagEmail;
+        private System.Windows.Forms.Button btnResetEmail;
+        private System.Windows.Forms.Button btnViewDiagnostic;
+        private System.Windows.Forms.Button btnCreateDiagnostic;
+        private System.Windows.Forms.Button btnPreviewFSR;
+        private System.Windows.Forms.Button btnSendFSREmail;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
     }
 }

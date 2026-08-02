@@ -810,6 +810,8 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
+            this.label185 = new System.Windows.Forms.Label();
+            this.txtDaysWeekends = new System.Windows.Forms.TextBox();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -3956,6 +3958,8 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.label185);
+            this.tabPage6.Controls.Add(this.txtDaysWeekends);
             this.tabPage6.Controls.Add(this.label184);
             this.tabPage6.Controls.Add(this.txtDaysHoliday);
             this.tabPage6.Controls.Add(this.txtSLAArea);
@@ -3986,9 +3990,9 @@
             this.label184.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label184.Location = new System.Drawing.Point(5, 79);
             this.label184.Name = "label184";
-            this.label184.Size = new System.Drawing.Size(84, 14);
+            this.label184.Size = new System.Drawing.Size(63, 14);
             this.label184.TabIndex = 462;
-            this.label184.Text = "HOLIDAY (-)";
+            this.label184.Text = "HDAY (-)";
             // 
             // txtDaysHoliday
             // 
@@ -3996,10 +4000,10 @@
             this.txtDaysHoliday.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDaysHoliday.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDaysHoliday.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDaysHoliday.Location = new System.Drawing.Point(100, 74);
+            this.txtDaysHoliday.Location = new System.Drawing.Point(69, 74);
             this.txtDaysHoliday.Name = "txtDaysHoliday";
             this.txtDaysHoliday.ReadOnly = true;
-            this.txtDaysHoliday.Size = new System.Drawing.Size(53, 22);
+            this.txtDaysHoliday.Size = new System.Drawing.Size(46, 22);
             this.txtDaysHoliday.TabIndex = 461;
             this.txtDaysHoliday.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -4076,7 +4080,7 @@
             // 
             this.label143.AutoSize = true;
             this.label143.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label143.Location = new System.Drawing.Point(159, 77);
+            this.label143.Location = new System.Drawing.Point(233, 77);
             this.label143.Name = "label143";
             this.label143.Size = new System.Drawing.Size(49, 14);
             this.label143.TabIndex = 444;
@@ -4088,10 +4092,10 @@
             this.txtTATStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTATStatus.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTATStatus.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTATStatus.Location = new System.Drawing.Point(216, 73);
+            this.txtTATStatus.Location = new System.Drawing.Point(288, 73);
             this.txtTATStatus.Name = "txtTATStatus";
             this.txtTATStatus.ReadOnly = true;
-            this.txtTATStatus.Size = new System.Drawing.Size(185, 22);
+            this.txtTATStatus.Size = new System.Drawing.Size(113, 22);
             this.txtTATStatus.TabIndex = 443;
             this.txtTATStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -10402,6 +10406,29 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
+            // label185
+            // 
+            this.label185.AutoSize = true;
+            this.label185.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label185.Location = new System.Drawing.Point(117, 79);
+            this.label185.Name = "label185";
+            this.label185.Size = new System.Drawing.Size(63, 14);
+            this.label185.TabIndex = 464;
+            this.label185.Text = "WEND (-)";
+            // 
+            // txtDaysWeekends
+            // 
+            this.txtDaysWeekends.BackColor = System.Drawing.Color.White;
+            this.txtDaysWeekends.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDaysWeekends.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDaysWeekends.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDaysWeekends.Location = new System.Drawing.Point(180, 74);
+            this.txtDaysWeekends.Name = "txtDaysWeekends";
+            this.txtDaysWeekends.ReadOnly = true;
+            this.txtDaysWeekends.Size = new System.Drawing.Size(50, 22);
+            this.txtDaysWeekends.TabIndex = 463;
+            this.txtDaysWeekends.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -11563,5 +11590,7 @@
         private System.Windows.Forms.Label label183;
         private System.Windows.Forms.Label label184;
         private System.Windows.Forms.TextBox txtDaysHoliday;
+        private System.Windows.Forms.Label label185;
+        private System.Windows.Forms.TextBox txtDaysWeekends;
     }
 }

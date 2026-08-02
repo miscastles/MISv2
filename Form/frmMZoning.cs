@@ -185,7 +185,8 @@ namespace MIS
                         sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(cboRegion.Text)) + "'," +
                         sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(cboArea.Text)) + "'," +
                         sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(cboCityMunicipal.Text)) + "'," +
-                        sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(cboZone.Text)) + "') ";
+                        sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(cboZone.Text)) + "'," +
+                        sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(txtSLA.Text)) + "') ";
                         sSQL = sSQL + sRowSQL;
 
                         Debug.WriteLine("Update::" + "sSQL=" + sSQL);
@@ -204,7 +205,8 @@ namespace MIS
                             $"{StrClean(dbFunction.CheckAndSetStringValue(cboRegion.Text))}{clsFunction.sPipe}" +
                             $"{StrClean(dbFunction.CheckAndSetStringValue(cboArea.Text))}{clsFunction.sPipe}" +
                             $"{StrClean(dbFunction.CheckAndSetStringValue(cboCityMunicipal.Text))}{clsFunction.sPipe}" +
-                            $"{StrClean(dbFunction.CheckAndSetStringValue(cboZone.Text))}";
+                            $"{StrClean(dbFunction.CheckAndSetStringValue(cboZone.Text))}{clsFunction.sPipe}" +
+                            $"{StrClean(dbFunction.CheckAndSetStringValue(txtSLA.Text))}";
 
                         Debug.WriteLine("Insert::" + "clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
 
@@ -338,15 +340,17 @@ namespace MIS
                                     string pRegion = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Region);
                                     string pArea = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Area);
                                     string pCityMunicipal = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_CityMunicipal);
+                                    string pSLA = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_SLA);
 
-                                    item.SubItems.Add(pZoneID);
+                                item.SubItems.Add(pZoneID);
                                     item.SubItems.Add(pCluster);
                                     item.SubItems.Add(pZone);
                                     item.SubItems.Add(pRegion);
                                     item.SubItems.Add(pArea);
                                     item.SubItems.Add(pCityMunicipal);
+                                    item.SubItems.Add(pSLA);
 
-                                    lvwZoning.Items.Add(item);
+                                lvwZoning.Items.Add(item);
 
                                     i++;
                                 }
@@ -422,6 +426,7 @@ namespace MIS
                     if (!dbFunction.isValidDescriptionEntry(cboRegion.Text, "Region" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
                     if (!dbFunction.isValidDescriptionEntry(cboArea.Text, "Area" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
                     if (!dbFunction.isValidDescriptionEntry(cboCityMunicipal.Text, "City/Municipal" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
+                    if (!dbFunction.isValidDescriptionEntry(txtSLA.Text, "SLA" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return false;
                     break;
 
                 case 1:
@@ -451,6 +456,7 @@ namespace MIS
                 string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwZoning, 0);
                 Debug.WriteLine("pSelectedRow=\n" + pSelectedRow);
 
+                dbFunction.TextBoxUnLock(true, this);
                 dbFunction.ComBoBoxUnLock(true, this);
 
                 txtID.Text = dbFunction.GetSearchValue("ZoneID");
@@ -459,10 +465,12 @@ namespace MIS
                 cboRegion.Text = dbFunction.GetSearchValue("Region");
                 cboArea.Text = dbFunction.GetSearchValue("Area");
                 cboCityMunicipal.Text = dbFunction.GetSearchValue("City/Municipal");
+                txtSLA.Text = dbFunction.GetSearchValue("SLA");
 
                 fEdit = true;                
                 btnAdd.Enabled = false;
                 btnSave.Enabled = true;
+                txtID.ReadOnly = true;
             }
         }
 
@@ -531,6 +539,7 @@ namespace MIS
                 string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwZoningAlias, 0);
                 Debug.WriteLine("pSelectedRow=\n" + pSelectedRow);
 
+                dbFunction.TextBoxUnLock(true, this);
                 dbFunction.ComBoBoxUnLock(true, this);
 
                 txtAliasID.Text = dbFunction.GetSearchValue("AliasID");
@@ -544,6 +553,7 @@ namespace MIS
                 fEdit = true;
                 btnAdd.Enabled = false;
                 btnSave.Enabled = true;
+                txtAliasID.ReadOnly = true;
             }
         }
     }
