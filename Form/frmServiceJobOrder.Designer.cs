@@ -408,6 +408,8 @@
             this.label166 = new System.Windows.Forms.Label();
             this.label165 = new System.Windows.Forms.Label();
             this.panel54 = new System.Windows.Forms.Panel();
+            this.btnAddZoning = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnSearchZoning = new Bunifu.Framework.UI.BunifuImageButton();
             this.txtZCityMunicipal = new System.Windows.Forms.TextBox();
             this.txtZArea = new System.Windows.Forms.TextBox();
             this.txtZRegion = new System.Windows.Forms.TextBox();
@@ -756,6 +758,10 @@
             this.tabPage23 = new System.Windows.Forms.TabPage();
             this.lvwRaw = new System.Windows.Forms.ListView();
             this.tabPage19 = new System.Windows.Forms.TabPage();
+            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
+            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
+            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
+            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.panel168 = new System.Windows.Forms.Panel();
             this.panel196 = new System.Windows.Forms.Panel();
             this.panel208 = new System.Windows.Forms.Panel();
@@ -824,12 +830,6 @@
             this.txtSearchSTServiceJobTypeDescription = new System.Windows.Forms.TextBox();
             this.panel53 = new System.Windows.Forms.Panel();
             this.btnTASearch = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnSearchZoning = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnAddZoning = new Bunifu.Framework.UI.BunifuImageButton();
-            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
-            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
-            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
-            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -906,6 +906,8 @@
             this.tabPage13.SuspendLayout();
             this.tabPage18.SuspendLayout();
             this.panel54.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).BeginInit();
             this.panel55.SuspendLayout();
             this.panel49.SuspendLayout();
             this.panel56.SuspendLayout();
@@ -1046,8 +1048,6 @@
             this.panel6.SuspendLayout();
             this.panel53.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -5819,6 +5819,34 @@
             this.panel54.Size = new System.Drawing.Size(282, 131);
             this.panel54.TabIndex = 6;
             // 
+            // btnAddZoning
+            // 
+            this.btnAddZoning.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAddZoning.Image = global::MIS.Properties.Resources.add_on;
+            this.btnAddZoning.ImageActive = null;
+            this.btnAddZoning.Location = new System.Drawing.Point(254, 29);
+            this.btnAddZoning.Name = "btnAddZoning";
+            this.btnAddZoning.Size = new System.Drawing.Size(22, 23);
+            this.btnAddZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnAddZoning.TabIndex = 378;
+            this.btnAddZoning.TabStop = false;
+            this.btnAddZoning.Zoom = 10;
+            this.btnAddZoning.Click += new System.EventHandler(this.btnAddZoning_Click);
+            // 
+            // btnSearchZoning
+            // 
+            this.btnSearchZoning.BackColor = System.Drawing.SystemColors.Control;
+            this.btnSearchZoning.Image = global::MIS.Properties.Resources.ic_success;
+            this.btnSearchZoning.ImageActive = null;
+            this.btnSearchZoning.Location = new System.Drawing.Point(230, 29);
+            this.btnSearchZoning.Name = "btnSearchZoning";
+            this.btnSearchZoning.Size = new System.Drawing.Size(23, 23);
+            this.btnSearchZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchZoning.TabIndex = 377;
+            this.btnSearchZoning.TabStop = false;
+            this.btnSearchZoning.Zoom = 10;
+            this.btnSearchZoning.Click += new System.EventHandler(this.btnSearchZoning_Click);
+            // 
             // txtZCityMunicipal
             // 
             this.txtZCityMunicipal.BackColor = System.Drawing.Color.White;
@@ -9695,6 +9723,49 @@
             this.tabPage19.Text = "Helpdesk Information";
             this.tabPage19.UseVisualStyleBackColor = true;
             // 
+            // ucHelpDeskEntryInfo
+            // 
+            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
+            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
+            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
+            this.ucHelpDeskEntryInfo.TabIndex = 4;
+            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
+            // 
+            // ucVendorHelpDeskTeamLeadInfo
+            // 
+            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
+            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
+            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
+            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
+            // 
+            // ucVendorHelpDeskRepInfo
+            // 
+            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
+            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
+            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
+            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
+            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskRepInfo.VendorName = "";
+            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
+            // 
+            // ucHelpDeskServiceInfo
+            // 
+            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
+            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
+            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
+            this.ucHelpDeskServiceInfo.TabIndex = 0;
+            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
+            // 
             // panel168
             // 
             this.panel168.BackColor = System.Drawing.SystemColors.Control;
@@ -10467,77 +10538,6 @@
             this.btnTASearch.TabStop = false;
             this.btnTASearch.Zoom = 10;
             // 
-            // btnSearchZoning
-            // 
-            this.btnSearchZoning.BackColor = System.Drawing.SystemColors.Control;
-            this.btnSearchZoning.Image = global::MIS.Properties.Resources.ic_success;
-            this.btnSearchZoning.ImageActive = null;
-            this.btnSearchZoning.Location = new System.Drawing.Point(230, 29);
-            this.btnSearchZoning.Name = "btnSearchZoning";
-            this.btnSearchZoning.Size = new System.Drawing.Size(23, 23);
-            this.btnSearchZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnSearchZoning.TabIndex = 377;
-            this.btnSearchZoning.TabStop = false;
-            this.btnSearchZoning.Zoom = 10;
-            this.btnSearchZoning.Click += new System.EventHandler(this.btnSearchZoning_Click);
-            // 
-            // btnAddZoning
-            // 
-            this.btnAddZoning.BackColor = System.Drawing.SystemColors.Control;
-            this.btnAddZoning.Image = global::MIS.Properties.Resources.add_on;
-            this.btnAddZoning.ImageActive = null;
-            this.btnAddZoning.Location = new System.Drawing.Point(254, 29);
-            this.btnAddZoning.Name = "btnAddZoning";
-            this.btnAddZoning.Size = new System.Drawing.Size(22, 23);
-            this.btnAddZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnAddZoning.TabIndex = 378;
-            this.btnAddZoning.TabStop = false;
-            this.btnAddZoning.Zoom = 10;
-            this.btnAddZoning.Click += new System.EventHandler(this.btnAddZoning_Click);
-            // 
-            // ucHelpDeskEntryInfo
-            // 
-            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
-            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
-            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
-            this.ucHelpDeskEntryInfo.TabIndex = 4;
-            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
-            // 
-            // ucVendorHelpDeskTeamLeadInfo
-            // 
-            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
-            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
-            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
-            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
-            // 
-            // ucVendorHelpDeskRepInfo
-            // 
-            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
-            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
-            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
-            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
-            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskRepInfo.VendorName = "";
-            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
-            // 
-            // ucHelpDeskServiceInfo
-            // 
-            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
-            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
-            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
-            this.ucHelpDeskServiceInfo.TabIndex = 0;
-            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
-            // 
             // frmServiceJobOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10706,6 +10706,8 @@
             this.tabPage18.PerformLayout();
             this.panel54.ResumeLayout(false);
             this.panel54.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).EndInit();
             this.panel55.ResumeLayout(false);
             this.panel55.PerformLayout();
             this.panel49.ResumeLayout(false);
@@ -10895,8 +10897,6 @@
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

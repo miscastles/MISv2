@@ -7403,10 +7403,11 @@ namespace MIS
                     return;
                 }
 
-                string sZoneID = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ZoneID);
+                string sOldZoneID = txtZoneID.Text;
+                string sNewZoneID = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ZoneID);
 
                 // No update needed
-                if (txtZoneID.Text.Trim() == sZoneID.Trim())
+                if (sOldZoneID.Trim() == sNewZoneID.Trim())
                 {
                     dbFunction.SetMessageBox(
                         "The merchant is already assigned to the matching zoning information.\n\n" +
@@ -7418,7 +7419,7 @@ namespace MIS
 
                 if (!dbFunction.fPromptConfirmation(
                     "A matching zoning record was found.\n\n" +
-                    "ID              : " + sZoneID + "\n" +
+                    "ID              : " + sNewZoneID + "\n" +
                     "Zone            : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone) + "\n" +
                     "Cluster         : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Cluster) + "\n" +
                     "Region          : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region) + "\n" +
@@ -7427,14 +7428,19 @@ namespace MIS
                     "Do you want to apply this zoning information to the current merchant?"))
                     return;
 
-                // Fill new zoning info
-                txtZoneID.Text = sZoneID;
+                // Fill (New) zoning info
+                txtZoneID.Text = sNewZoneID;
                 getZoningInfo();
 
                 if (!dbFunction.fPromptConfirmation(
                     "This action will update the merchant's zoning information.\n\n" +
                     "Do you want to continue?"))
+                {
+                    // Fill (Old) zoning info
+                    txtZoneID.Text = sOldZoneID;
+                    getZoningInfo();
                     return;
+                }
 
                 // Call API to update particular ZoneID
                 dbAPI.ExecuteAPI("PUT", "Update", "Particular-ZoneID", $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
