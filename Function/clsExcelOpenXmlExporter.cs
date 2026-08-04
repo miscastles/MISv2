@@ -21,7 +21,12 @@ namespace MIS.Function
         {
             // Debugging...
             Debug.WriteLine("--ExportListViewToExcelWithTabSheet--");
+            Debug.WriteLine($"Report ID:{clsReport.ClassReportID}");
             Debug.WriteLine($"Report Type:{clsReport.ClassReportDesc}");
+            
+            Debug.WriteLine($"Search Report ID:{clsSearch.ClassReportID}");
+            Debug.WriteLine($"Search Report Type:{clsSearch.ClassReportDescription}");
+
             foreach (var kvp in tabJsonTabMenu)
             {
                 Debug.WriteLine($"tabJsonTabMenu -> Key: {kvp.Key}, Value: {kvp.Value}");
@@ -102,6 +107,9 @@ namespace MIS.Function
 
                                 // Hide col A for Summary
                                 Columns columns = new Columns();
+
+                                Debug.WriteLine($"Tab Name:{tabName}");
+
                                 if (tabName == "Summary")
                                     columns.Append(new Column() { Min = 1, Max = 1, Hidden = true });
                                 writer.WriteElement(columns);
@@ -143,7 +151,7 @@ namespace MIS.Function
 
                                         // ---------- Summary Sheet Styling (EPPlus logic) ----------
                                         if (tabName == "Summary")
-                                        {
+                                        {   
                                             if (colBValue == "GRAND TOTAL" ||
                                                 (colAValue == "7" && colBValue == "CURRENT SLA %") ||
                                                 (colAValue == "2" && colBValue.StartsWith("OVERALL REQUESTS") && clsSearch.ClassReportID == 53) ||
@@ -225,7 +233,11 @@ namespace MIS.Function
                         // ✅ Auto size every sheet at once
                         AutoSizeAllWorksheets(workbookPart, true);
 
+                        Cursor.Current = Cursors.WaitCursor;
+
                         workbookPart.Workbook.Save();
+
+                        Cursor.Current = Cursors.Default;
                     }
 
                     // Update API + show summary (kept same as original)

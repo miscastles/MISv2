@@ -2686,5 +2686,13 @@ namespace MIS
             set { _DaysHoliday = value; }
 
         }
+
+        public static string _DaysWeekends;
+        public static string ClassDaysWeekends
+        {
+            get { return _DaysWeekends; }
+            set { _DaysWeekends = value; }
+
+        }
     }
 }

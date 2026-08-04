@@ -6946,7 +6946,27 @@ namespace MIS
             }
 
             return sb.ToString();
-        }        
+        }
+
+        public bool checkDateYear(DateTime objFrom, DateTime objTo)
+        {
+            bool fValid = true;
+            int iResult;
+
+            Debug.WriteLine("--checkDateYear--");
+            Debug.WriteLine("objFrom=" + objFrom.ToString());
+            Debug.WriteLine("objTo=" + objTo.ToString());
+
+            DateTime dateFrom = objFrom.Date;
+            DateTime dateTo = objTo.Date;
+
+            if (dateFrom.Year != dateTo.Year)
+            {
+                fValid = false;
+            }
+            
+            return fValid;
+        }
     }
 
 }

@@ -334,6 +334,13 @@ namespace MIS
                             HelpdeskKPIReport();
                             break;
 
+                        case 59:
+                            ZoningListReport();
+                            break;
+                        case 60:
+                            ZoningAliasListReport();
+                            break;
+
                         // INVOICES
                         case 1001:
                             // Servicing Invoice
@@ -4342,14 +4349,13 @@ namespace MIS
                             pSQL = $"('7', 'CURRENT SLA %', '-',{pMonthHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                             dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Current SLA", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}", "spProcessReportDataStorage");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Current SLA", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
-                            
                             pSQL = $"('6', 'REQUEST PER TEAM LEAD', '-',{pRequestHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                             dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Per Team Lead", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}", "spProcessReportDataStorage");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Per Team Lead", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
                             if (clsSearch.ClassReportID == 53)
@@ -4357,26 +4363,26 @@ namespace MIS
                                 pSQL = $"('2', 'OVERALL REQUESTS {dbFunction.getCurrentYear()}%', '-',{pMonthHeader})";
                                 dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                                 dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                                dbConnect.getStoredProcedureDateSet("View", "Overall Request Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}", "spProcessReportDataStorage");
+                                dbConnect.getStoredProcedureDateSet("View", "Overall Request Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
                                 dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
                             }
-
+                            
                             pSQL = $"('3', 'OVERALL REQUESTS', '-',{pMonthHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                             dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Status Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}", "spProcessReportDataStorage");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Status Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
                             pSQL = $"('4', 'REQUEST WITHIN SLA', '-',{pMonthHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                             dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Within SLA Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}", "spProcessReportDataStorage");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Within SLA Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
                             pSQL = $"('1', 'NEGATIVE/UNSUCCESSFUL ACTIVITY', '-',{pMonthHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                             dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Reason Summary", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}", "spProcessReportDataStorage");
+                            dbConnect.getStoredProcedureDateSet("View", "Reason Summary", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
                             //dbConnect.getStoredProcedureDateSet("View", "Overall Request Beyond SLA Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}", "spProcessReportDataStorage");
@@ -4883,6 +4889,101 @@ namespace MIS
                     "Report could not be created", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 clsGlobalVariables.isReportWarmUp = false;
+            }
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void ZoningListReport()
+        {
+            string ReportPath = "";
+            string reportFullPath = "";
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            ReportPath = GetReportPath();
+            reportFullPath = Path.Combine(ReportPath, "rptZoningList.rpt");
+
+            Debug.WriteLine("reportFullPath=" + reportFullPath);
+
+            if (!File.Exists(reportFullPath))
+            {
+                MessageBox.Show("Report Path [" + reportFullPath + "]" + "\n\nFile not found!");
+
+                Cursor.Current = Cursors.Default;
+                return;
+            }
+
+            try
+            {
+                DataSet dsReport = dbConnect.GetReportWithStoredProcedure(clsSearch.ClassReportID, clsSearch.ClassStatementType, clsSearch.ClassSearchBy, clsSearch.ClassSearchValue, clsSearch.ClassStoredProcedureName, lvwList);
+
+                if (!isValidReportDataSet(dsReport, reportFullPath)) return;
+
+                rptZoningList rptViewer = new rptZoningList();
+
+                rptViewer.Load(reportFullPath);
+                rptViewer.SetDataSource(dsReport.Tables[0]);
+
+                SetReceiptReportHeader(rptViewer);
+                SetReceiptUser(rptViewer);
+
+                myViewer.ReportSource = rptViewer;
+                myViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n[" + reportFullPath + "]", "Report could not be created",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
+            }
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void ZoningAliasListReport()
+        {
+            string ReportPath = "";
+            string reportFullPath = "";
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            ReportPath = GetReportPath();
+            reportFullPath = Path.Combine(ReportPath, "rptZoningAlias.rpt");
+
+            Debug.WriteLine("reportFullPath=" + reportFullPath);
+
+            if (!File.Exists(reportFullPath))
+            {
+                MessageBox.Show("Report Path [" + reportFullPath + "]" + "\n\nFile not found!");
+
+                Cursor.Current = Cursors.Default;
+                return;
+            }
+
+            try
+            {
+                DataSet dsReport = dbConnect.GetReportWithStoredProcedure(clsSearch.ClassReportID, clsSearch.ClassStatementType, clsSearch.ClassSearchBy, clsSearch.ClassSearchValue, clsSearch.ClassStoredProcedureName, lvwList);
+
+                if (!isValidReportDataSet(dsReport, reportFullPath)) return;
+
+                rptZoningAlias rptViewer = new rptZoningAlias();
+
+                rptViewer.Load(reportFullPath);
+                rptViewer.SetDataSource(dsReport.Tables[0]);
+
+                SetReceiptReportHeader(rptViewer);
+                SetReceiptUser(rptViewer);
+
+                myViewer.ReportSource = rptViewer;
+                myViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message + "\n[" + reportFullPath + "]", "Report could not be created",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
             }
 
             Cursor.Current = Cursors.Default;

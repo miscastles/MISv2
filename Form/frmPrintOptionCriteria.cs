@@ -157,7 +157,7 @@ namespace MIS
             dteDateTo.Value = DateTime.Now.Date;
             dbFunction.SetDateFormat(dteDateTo, clsFunction.sDateDefaultFormat);
 
-            if (!chkDetailTab.Checked)
+            if (!chkSummaryTab.Checked ||!chkDetailTab.Checked)
             {
                 dteDetailDateFrom.Value = DateTime.Now.Date;
                 dbFunction.SetDateFormat(dteDetailDateFrom, clsFunction.sDateDefaultFormat);
@@ -2037,7 +2037,7 @@ namespace MIS
                     gbMerchant.Enabled = true;
                     gbReportStatus.Enabled = true;
                     
-                    chkFSRDate.Enabled = true;
+                    chkFSRDate.Enabled = false;
                     chkFSRDate.Checked = true;
 
                     chkPullout.Enabled = chkPullout.Checked = false;
@@ -2186,18 +2186,38 @@ namespace MIS
         {
             if (!isValidReport()) return;
 
-            if (txtReportID.TextLength > 0)
+            if (dbFunction.isValidID(txtReportID.Text))
             {
                 if (gbMerchant.Enabled)
                 {
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iClientID, txtClientID.Text)) return;
                 }
                 
-                // Check Date               
+                // Check Date Range               
                 if (!dbFunction.checkDateFromTo(DateTime.Parse(dteDateFrom.Value.ToShortDateString()), DateTime.Parse(dteDateTo.Value.ToShortDateString())))
                 {
                     dbFunction.SetMessageBox("[Date From] must not greater than [Date To]", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                     return;
+                }
+
+                // Check Date Year
+                if (gbDetailDateFilter.Enabled)
+                {
+                    if (!chkSummaryTab.Checked)
+                    {
+                        switch (int.Parse(txtReportID.Text))
+                        {
+                            case 53: // SERVICE INSTALLATION REPORT
+                            case 54: // SERVICE MAINTENANCE REPORT
+                            case 55: // SERVICE PULLOUT REPORT
+                                if (!dbFunction.checkDateYear(DateTime.Parse(dteDateFrom.Value.ToShortDateString()), DateTime.Parse(dteDateTo.Value.ToShortDateString())))
+                                {
+                                    dbFunction.SetMessageBox("[Date From] and [Date To] must be within the same year.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                                    return;
+                                }
+                                break;
+                        }
+                    }
                 }
 
                 if (gbParticular.Enabled)
@@ -2454,10 +2474,13 @@ namespace MIS
 
         private void chkDetailTab_CheckedChanged(object sender, EventArgs e)
         {
+            /*
             gbDetailDateFilter.Enabled = true;
 
             if (chkDetailTab.Checked)
                 gbDetailDateFilter.Enabled = false;
+            */
+            initSummaryDetailDateFilter();
         }
 
         private void rbDetailAll_CheckedChanged(object sender, EventArgs e)
@@ -2483,10 +2506,13 @@ namespace MIS
 
         private void chkSummaryTab_CheckedChanged(object sender, EventArgs e)
         {
+            /*
             gbDetailDateFilter.Enabled = true;
 
             if (chkSummaryTab.Checked)
                 gbDetailDateFilter.Enabled = false;
+            */
+            initSummaryDetailDateFilter();
         }
 
         private void initDailyDateFilter()
@@ -2502,6 +2528,19 @@ namespace MIS
                     dteDateFrom.Enabled = dteDateTo.Enabled = true;
                 }
             }
+        }
+
+        private void initSummaryDetailDateFilter()
+        {
+            if (chkSummaryTab.Checked && chkDetailTab.Checked)
+            {
+                gbDetailDateFilter.Enabled = false;
+            }
+            else
+            {
+                gbDetailDateFilter.Enabled = true;
+            }
+
         }
     }
 }

@@ -5570,7 +5570,8 @@ namespace MIS
                                                 SearchBy.Equals("Zoning Lookup") ||
                                                 SearchBy.Equals("Zoning List") ||
                                                 SearchBy.Equals("Location List") ||
-                                                SearchBy.Equals("Incentives Service Detail")
+                                                SearchBy.Equals("Incentives Service Detail") || 
+                                                SearchBy.Equals("Zoning Alias List")
                                                 )
                                             {
                                                 foreach (var element in Detail46.data)
@@ -11636,6 +11637,7 @@ namespace MIS
                 clsSearch.ClassDaysOverDue = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_DaysOverDue);
                 clsSearch.ClassTATStatus = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TATStatus);
                 clsSearch.ClassDaysHoliday = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_DaysHoliday);
+                clsSearch.ClassDaysWeekends = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_DaysWeekends);
 
             }
             

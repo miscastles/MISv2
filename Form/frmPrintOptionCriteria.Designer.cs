@@ -1521,7 +1521,7 @@
             this.gbDetailDateFilter.Size = new System.Drawing.Size(601, 38);
             this.gbDetailDateFilter.TabIndex = 439;
             this.gbDetailDateFilter.TabStop = false;
-            this.gbDetailDateFilter.Text = "DETAIL DATE FILTER:";
+            this.gbDetailDateFilter.Text = "SUMMARY/DETAIL DATE FILTER:";
             // 
             // rbDetailAll
             // 
