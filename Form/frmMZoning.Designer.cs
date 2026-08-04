@@ -56,7 +56,10 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
+            this.txtSLA = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.cboCityMunicipal = new System.Windows.Forms.ComboBox();
             this.cboArea = new System.Windows.Forms.ComboBox();
             this.cboRegion = new System.Windows.Forms.ComboBox();
@@ -94,8 +97,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtAliasID = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtSLA = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnPreviewSvcHistory = new System.Windows.Forms.Button();
             this.btnViewImages = new System.Windows.Forms.Button();
             this.btnSendFSRAndDiagEmail = new System.Windows.Forms.Button();
@@ -104,7 +105,6 @@
             this.btnCreateDiagnostic = new System.Windows.Forms.Button();
             this.btnPreviewFSR = new System.Windows.Forms.Button();
             this.btnSendFSREmail = new System.Windows.Forms.Button();
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -419,6 +419,12 @@
             this.columnHeader6.Text = "CITY/MUNICIPAL";
             this.columnHeader6.Width = 200;
             // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "SLA";
+            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeader8.Width = 90;
+            // 
             // bunifuCards2
             // 
             this.bunifuCards2.BackColor = System.Drawing.Color.Lavender;
@@ -447,6 +453,28 @@
             this.bunifuCards2.ShadowDepth = 20;
             this.bunifuCards2.Size = new System.Drawing.Size(799, 188);
             this.bunifuCards2.TabIndex = 306;
+            // 
+            // txtSLA
+            // 
+            this.txtSLA.BackColor = System.Drawing.Color.White;
+            this.txtSLA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSLA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSLA.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSLA.Location = new System.Drawing.Point(110, 162);
+            this.txtSLA.Name = "txtSLA";
+            this.txtSLA.Size = new System.Drawing.Size(684, 20);
+            this.txtSLA.TabIndex = 439;
+            this.txtSLA.Text = "100";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 163);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 15);
+            this.label3.TabIndex = 438;
+            this.label3.Text = "SLA * ";
             // 
             // cboCityMunicipal
             // 
@@ -772,6 +800,8 @@
             // 
             this.chkIsWholeWord.AutoSize = true;
             this.chkIsWholeWord.BackColor = System.Drawing.Color.Lavender;
+            this.chkIsWholeWord.Checked = true;
+            this.chkIsWholeWord.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkIsWholeWord.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.chkIsWholeWord.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold);
             this.chkIsWholeWord.Location = new System.Drawing.Point(612, 112);
@@ -785,6 +815,8 @@
             // 
             this.chkIsActive.AutoSize = true;
             this.chkIsActive.BackColor = System.Drawing.Color.Lavender;
+            this.chkIsActive.Checked = true;
+            this.chkIsActive.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkIsActive.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.chkIsActive.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold);
             this.chkIsActive.Location = new System.Drawing.Point(725, 112);
@@ -843,28 +875,6 @@
             this.label6.Size = new System.Drawing.Size(69, 15);
             this.label6.TabIndex = 101;
             this.label6.Text = "ALIAS NAME *";
-            // 
-            // txtSLA
-            // 
-            this.txtSLA.BackColor = System.Drawing.Color.White;
-            this.txtSLA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSLA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSLA.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSLA.Location = new System.Drawing.Point(110, 162);
-            this.txtSLA.Name = "txtSLA";
-            this.txtSLA.Size = new System.Drawing.Size(684, 20);
-            this.txtSLA.TabIndex = 439;
-            this.txtSLA.Text = "100";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 163);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 15);
-            this.label3.TabIndex = 438;
-            this.label3.Text = "SLA * ";
             // 
             // btnPreviewSvcHistory
             // 
@@ -997,12 +1007,6 @@
             this.btnSendFSREmail.TabIndex = 493;
             this.btnSendFSREmail.Text = "EMAIL FSR REPORT";
             this.btnSendFSREmail.UseVisualStyleBackColor = false;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "SLA";
-            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeader8.Width = 90;
             // 
             // frmMZoning
             // 

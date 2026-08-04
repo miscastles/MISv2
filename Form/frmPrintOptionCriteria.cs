@@ -113,6 +113,8 @@ namespace MIS
             clsSearch.ClassIncludeSummaryTab = 0;
             clsSearch.ClassIncludeDetailTab = 0;
 
+            clsSearch.ClassDateFrom = clsSearch.ClassDateTo = clsSearch.ClassDetailDateFrom = clsSearch.ClassDetailDateTo = clsFunction.sDateDefault;
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -1306,22 +1308,36 @@ namespace MIS
             {
                 clsSearch.ClassDateFrom = sDateFrom;
                 clsSearch.ClassDateTo = sDateTo;
-
-                clsSearch.ClassDetailDateFrom = sDetailDateFrom;
-                clsSearch.ClassDetailDateTo = sDetailDateTo;
             }
 
-            if (!gbDateFilter.Enabled || rbAll.Checked)
+            // Date Filter
+            if (gbDateFilter.Enabled)
             {
-                clsSearch.ClassDateFrom = clsFunction.sDateFormat; ;
-                clsSearch.ClassDateTo = clsFunction.sDateFormat;
+                if (rbAll.Checked)
+                {
+                    clsSearch.ClassDateFrom = clsFunction.sDateFormat;
+                    clsSearch.ClassDateTo = clsFunction.sDateFormat;
+                }
+                else
+                {
+                    clsSearch.ClassDateFrom = sDateFrom;
+                    clsSearch.ClassDateTo = sDateTo;
+                }                
             }
 
-            // Detail
-            if (!gbDetailDateFilter.Enabled || rbDetailAll.Checked)
+            // Detail / Summary
+            if (gbDetailDateFilter.Enabled)
             {
-                clsSearch.ClassDetailDateFrom = clsFunction.sDateFormat; ;
-                clsSearch.ClassDetailDateTo = clsFunction.sDateFormat;
+                if (rbDetailAll.Checked)
+                {
+                    clsSearch.ClassDetailDateFrom = clsFunction.sDateFormat;
+                    clsSearch.ClassDetailDateTo = clsFunction.sDateFormat;
+                }
+                else
+                {
+                    clsSearch.ClassDetailDateFrom = sDetailDateFrom;
+                    clsSearch.ClassDetailDateTo = sDetailDateTo;
+                }                
             }
 
 
@@ -1393,8 +1409,13 @@ namespace MIS
             Debug.WriteLine("clsSearch.ClassIRNo=" + clsSearch.ClassIRNo);
             Debug.WriteLine("clsSearch.ClassRegionType=" + clsSearch.ClassRegionType);
             Debug.WriteLine("clsSearch.ClassRegionID=" + clsSearch.ClassRegionID);
+
             Debug.WriteLine("clsSearch.ClassDateFrom=" + clsSearch.ClassDateFrom);
             Debug.WriteLine("clsSearch.ClassDateTo=" + clsSearch.ClassDateTo);
+
+            Debug.WriteLine("clsSearch.ClassDetailDateFrom=" + clsSearch.ClassDetailDateFrom);
+            Debug.WriteLine("clsSearch.ClassDetailDateTo=" + clsSearch.ClassDetailDateTo);
+
             Debug.WriteLine("clsSearch.ClassID=" + clsSearch.ClassID);
             Debug.WriteLine("clsSearch.ClassLocationID=" + clsSearch.ClassLocationID);
             Debug.WriteLine("clsSearch.ClassIsPullOut=" + clsSearch.ClassIsPullOut);
@@ -1637,6 +1658,12 @@ namespace MIS
                     break;
                 case 58: // HELPDESK KPI REPORT
                     dbReportFunc.ViewHelpdeskDetailReport();
+                    break;
+                case 59:
+                    dbReportFunc.ViewZoningListReport();
+                    break;
+                case 60:
+                    dbReportFunc.ViewZoningAliasListReport();
                     break;
                 default:
                     dbFunction.SetMessageBox("No report to be generated.", "Report failed", clsFunction.IconType.iExclamation);
@@ -2196,8 +2223,17 @@ namespace MIS
                 // Check Date Range               
                 if (!dbFunction.checkDateFromTo(DateTime.Parse(dteDateFrom.Value.ToShortDateString()), DateTime.Parse(dteDateTo.Value.ToShortDateString())))
                 {
-                    dbFunction.SetMessageBox("[Date From] must not greater than [Date To]", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    dbFunction.SetMessageBox("Date Filter, [Date From] must not greater than [Date To]", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                     return;
+                }
+
+                if (gbDetailDateFilter.Enabled)
+                {
+                    if (!dbFunction.checkDateFromTo(DateTime.Parse(dteDetailDateFrom.Value.ToShortDateString()), DateTime.Parse(dteDetailDateTo.Value.ToShortDateString())))
+                    {
+                        dbFunction.SetMessageBox("Summary & Detail Date Filter, [Date From] must not greater than [Date To]", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return;
+                    }
                 }
 
                 // Check Date Year
@@ -2232,9 +2268,33 @@ namespace MIS
                         if (!dbFunction.isValidEntry(clsFunction.CheckType.iiDispatcher, txtSearchDispatcher.Text)) return;
                     }
                 }
-                
 
-                if (!dbFunction.fPromptConfirmation("Are you sure to preview report?" + "\n\n" + "Report Type: " + "\n" + clsSearch.ClassReportType)) return;
+                string message = "";
+
+                if (gbDateFilter.Enabled)
+                {
+                    message = $"Date Range: [{dteDateFrom.Value:yyyy-MM-dd}] - [{dteDateTo.Value:yyyy-MM-dd}]";
+                }
+
+                if (gbDetailDateFilter.Enabled)
+                {
+                    if (!string.IsNullOrEmpty(message))
+                        message += Environment.NewLine;
+
+                    message += $"Detail Date Range: [{dteDetailDateFrom.Value:yyyy-MM-dd}] - [{dteDetailDateTo.Value:yyyy-MM-dd}]";
+                }
+
+                if (!dbFunction.fPromptConfirmation(
+                    "Are you sure to preview report?" +
+                    Environment.NewLine + Environment.NewLine +
+                    "Report Type:" +
+                    Environment.NewLine +
+                    clsSearch.ClassReportType +
+                    Environment.NewLine + Environment.NewLine +
+                    message))
+                {
+                    return;
+                }
 
                 // Waiting / Hour Glass
                 Cursor.Current = Cursors.WaitCursor;

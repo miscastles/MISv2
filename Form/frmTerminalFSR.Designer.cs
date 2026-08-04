@@ -699,6 +699,8 @@
             this.label166 = new System.Windows.Forms.Label();
             this.label165 = new System.Windows.Forms.Label();
             this.panel54 = new System.Windows.Forms.Panel();
+            this.btnAddZoning = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnSearchZoning = new Bunifu.Framework.UI.BunifuImageButton();
             this.txtZoneID = new System.Windows.Forms.TextBox();
             this.txtZCityMunicipal = new System.Windows.Forms.TextBox();
             this.label174 = new System.Windows.Forms.Label();
@@ -812,8 +814,6 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
-            this.btnAddZoning = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnSearchZoning = new Bunifu.Framework.UI.BunifuImageButton();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -1000,6 +1000,8 @@
             this.tabPage13.SuspendLayout();
             this.tabPage19.SuspendLayout();
             this.panel54.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).BeginInit();
             this.panel55.SuspendLayout();
             this.panel49.SuspendLayout();
             this.tabPage20.SuspendLayout();
@@ -1039,8 +1041,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddResolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).BeginInit();
             this.panel53.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).BeginInit();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -9122,6 +9122,34 @@
             this.panel54.Size = new System.Drawing.Size(282, 112);
             this.panel54.TabIndex = 6;
             // 
+            // btnAddZoning
+            // 
+            this.btnAddZoning.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAddZoning.Image = global::MIS.Properties.Resources.add_on;
+            this.btnAddZoning.ImageActive = null;
+            this.btnAddZoning.Location = new System.Drawing.Point(257, 27);
+            this.btnAddZoning.Name = "btnAddZoning";
+            this.btnAddZoning.Size = new System.Drawing.Size(22, 23);
+            this.btnAddZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnAddZoning.TabIndex = 380;
+            this.btnAddZoning.TabStop = false;
+            this.btnAddZoning.Zoom = 10;
+            this.btnAddZoning.Click += new System.EventHandler(this.btnAddZoning_Click);
+            // 
+            // btnSearchZoning
+            // 
+            this.btnSearchZoning.BackColor = System.Drawing.SystemColors.Control;
+            this.btnSearchZoning.Image = global::MIS.Properties.Resources.ic_success;
+            this.btnSearchZoning.ImageActive = null;
+            this.btnSearchZoning.Location = new System.Drawing.Point(233, 27);
+            this.btnSearchZoning.Name = "btnSearchZoning";
+            this.btnSearchZoning.Size = new System.Drawing.Size(23, 23);
+            this.btnSearchZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchZoning.TabIndex = 379;
+            this.btnSearchZoning.TabStop = false;
+            this.btnSearchZoning.Zoom = 10;
+            this.btnSearchZoning.Click += new System.EventHandler(this.btnSearchZoning_Click);
+            // 
             // txtZoneID
             // 
             this.txtZoneID.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -10435,34 +10463,6 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
-            // btnAddZoning
-            // 
-            this.btnAddZoning.BackColor = System.Drawing.SystemColors.Control;
-            this.btnAddZoning.Image = global::MIS.Properties.Resources.add_on;
-            this.btnAddZoning.ImageActive = null;
-            this.btnAddZoning.Location = new System.Drawing.Point(257, 27);
-            this.btnAddZoning.Name = "btnAddZoning";
-            this.btnAddZoning.Size = new System.Drawing.Size(22, 23);
-            this.btnAddZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnAddZoning.TabIndex = 380;
-            this.btnAddZoning.TabStop = false;
-            this.btnAddZoning.Zoom = 10;
-            this.btnAddZoning.Click += new System.EventHandler(this.btnAddZoning_Click);
-            // 
-            // btnSearchZoning
-            // 
-            this.btnSearchZoning.BackColor = System.Drawing.SystemColors.Control;
-            this.btnSearchZoning.Image = global::MIS.Properties.Resources.ic_success;
-            this.btnSearchZoning.ImageActive = null;
-            this.btnSearchZoning.Location = new System.Drawing.Point(233, 27);
-            this.btnSearchZoning.Name = "btnSearchZoning";
-            this.btnSearchZoning.Size = new System.Drawing.Size(23, 23);
-            this.btnSearchZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnSearchZoning.TabIndex = 379;
-            this.btnSearchZoning.TabStop = false;
-            this.btnSearchZoning.Zoom = 10;
-            this.btnSearchZoning.Click += new System.EventHandler(this.btnSearchZoning_Click);
-            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10783,6 +10783,8 @@
             this.tabPage19.PerformLayout();
             this.panel54.ResumeLayout(false);
             this.panel54.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).EndInit();
             this.panel55.ResumeLayout(false);
             this.panel55.PerformLayout();
             this.panel49.ResumeLayout(false);
@@ -10837,8 +10839,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).EndInit();
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

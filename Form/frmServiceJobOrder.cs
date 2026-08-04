@@ -2045,6 +2045,10 @@ namespace MIS
                         item.SubItems.Add(clsFunction.sDash);
                     }
 
+                    // App Version/CRC
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_AppVersion));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_AppCRC));
+
                     lvwList.Items.Add(item);
 
                     i++;
@@ -3362,6 +3366,12 @@ namespace MIS
             dbFunction.GetListViewHeaderColumnFromFile("", "CityMunicipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
+            dbFunction.GetListViewHeaderColumnFromFile("", "AppVersion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "AppCRC", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
         }
         
         private bool isValidServiceRequest()
@@ -4252,7 +4262,7 @@ namespace MIS
                     AdditionalComBoBoxUnlock(true);                    
 
                     if (!fEdit)
-                        getApplicationInfo();
+                        getApplicationInfo(); // get version/crc from master data (tblterminalmodel)
 
                     txtRequestID1.Text = dbAPI.getPrimaryIRNo(int.Parse(txtIRIDNo.Text));
 
@@ -5748,17 +5758,45 @@ namespace MIS
 
         private void getApplicationInfo()
         {
+            string pSearchValue = "";
             txtFUAppVersion.Text = txtFUAppCRC.Text = clsFunction.sNull;
 
             if (dbFunction.isValidDescription(txtCurTerminalModel.Text) || dbFunction.isValidDescription(txtRepTerminalModel.Text))
             {
                 if (dbFunction.isValidID(txtCurTerminalID.Text))
-                    dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtCurTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+                {
+                    //dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtCurTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                    pSearchValue = $"{txtSearchSTJobType.Text}{clsDefines.gPipe}" +
+                        $"{txtSearchServiceNo.Text}{clsDefines.gPipe}" +
+                        $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                        $"{txtMerchantID.Text}{clsDefines.gPipe}" +
+                        $"{txtCurTerminalType.Text}{clsDefines.gPipe}" +
+                        $"{txtCurTerminalModel.Text}";
+                    
+                }
+
 
                 if (dbFunction.isValidID(txtRepTerminalID.Text))
-                    dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtRepTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+                {
+                    //dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtRepTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                    pSearchValue = $"{txtSearchSTJobType.Text}{clsDefines.gPipe}" +
+                        $"{txtSearchServiceNo.Text}{clsDefines.gPipe}" +
+                        $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                        $"{txtMerchantID.Text}{clsDefines.gPipe}" +
+                        $"{txtRepTerminalType.Text}{clsDefines.gPipe}" +
+                        $"{txtRepTerminalModel.Text}";
+                }
+
+                // parse delimited
+                dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
+                dbAPI.ExecuteAPI("GET", "Search", "Merchant Apps Version-CRC", pSearchValue, "Get Info Detail", "", "GetInfoDetail");
                 
                 Debug.WriteLine("clsSearch.ClassOutParamValue=" + clsSearch.ClassOutParamValue);
+
+                dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gComma, 0);
 
                 if (clsSearch.ClassOutParamValue.Length > 0)
                 {
@@ -7450,6 +7488,9 @@ namespace MIS
                     "The merchant zoning information has been updated successfully.",
                     clsDefines.SUCCESS_MSG,
                     clsFunction.IconType.iInformation);
+
+                // load new TAT detail
+                loadTATDetail();
             }
             finally
             {

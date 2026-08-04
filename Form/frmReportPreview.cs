@@ -4349,13 +4349,13 @@ namespace MIS
                             pSQL = $"('7', 'CURRENT SLA %', '-',{pMonthHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                             dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Current SLA", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Current SLA", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
                             pSQL = $"('6', 'REQUEST PER TEAM LEAD', '-',{pRequestHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                             dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Per Team Lead", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Per Team Lead", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
                             if (clsSearch.ClassReportID == 53)
@@ -4363,26 +4363,26 @@ namespace MIS
                                 pSQL = $"('2', 'OVERALL REQUESTS {dbFunction.getCurrentYear()}%', '-',{pMonthHeader})";
                                 dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                                 dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                                dbConnect.getStoredProcedureDateSet("View", "Overall Request Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
+                                dbConnect.getStoredProcedureDateSet("View", "Overall Request Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
                                 dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
                             }
                             
                             pSQL = $"('3', 'OVERALL REQUESTS', '-',{pMonthHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                             dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Status Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Status Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
                             pSQL = $"('4', 'REQUEST WITHIN SLA', '-',{pMonthHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                             dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Within SLA Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Within SLA Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
                             pSQL = $"('1', 'NEGATIVE/UNSUCCESSFUL ACTIVITY', '-',{pMonthHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
                             dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Reason Summary", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDateFrom}{clsDefines.gPipe}{clsSearch.ClassDateTo}", "spProcessReportDataStorage");
+                            dbConnect.getStoredProcedureDateSet("View", "Reason Summary", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
                             //dbConnect.getStoredProcedureDateSet("View", "Overall Request Beyond SLA Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}", "spProcessReportDataStorage");
@@ -4452,6 +4452,11 @@ namespace MIS
 
                         dbFile.WriteSysytemLog($"ExportListViewToExcelWithTabSheet..."); // add log
                         //dbFile.ExportListViewToExcelWithTabSheet(lvwList, filePath, dataSets, tabJsonTabMenu);
+
+                        // for the header
+                        clsSearch.ClassDateFrom = clsSearch.ClassDetailDateFrom;
+                        clsSearch.ClassDateTo = clsSearch.ClassDetailDateTo;
+
                         dbExcelOpenXmlExporter.ExportListViewToExcelWithTabSheet(lvwList, filePath, dataSets, tabJsonTabMenu);
                         dbFile.WriteSysytemLog($"ExportListViewToExcelWithTabSheet...complete"); // add log
 
@@ -4519,6 +4524,7 @@ namespace MIS
 
                         dbFile.WriteSysytemLog($"ExportListViewToExcelWithTabSheet..."); // add log
                         //dbFile.ExportListViewToExcel(lvwList, filePath, clsGlobalVariables.globalDataSet);
+
                         dbExcelOpenXmlExporter.ExportListViewToExcelWithTabSheet(lvwList, filePath, dataSets, tabJsonTabMenu);
                         dbFile.WriteSysytemLog($"ExportListViewToExcelWithTabSheet...complete"); // add log
 
@@ -4584,7 +4590,7 @@ namespace MIS
 
                 rptViewer.Load(reportFullPath);
                 rptViewer.SetDataSource(dsReport.Tables[0]);
-
+                
                 SetReceiptReportHeader(rptViewer);
                 SetReceiptUser(rptViewer);
                 SetReceiptDateRange(rptViewer);
