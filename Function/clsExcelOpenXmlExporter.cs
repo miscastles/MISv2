@@ -20,8 +20,11 @@ namespace MIS.Function
 
         public void ExportListViewToExcelWithTabSheet(ListView listView, string filePath, Dictionary<string, DataSet> dataSets, Dictionary<string, string> tabJsonTabMenu)
         {
-            // Debugging...
-            Debug.WriteLine("--ExportListViewToExcelWithTabSheet--");
+            Debug.WriteLine("===== ExportListViewToExcelWithTabSheet =====");
+            Debug.WriteLine($"ListView Items : {listView.Items.Count}");
+            Debug.WriteLine($"DataSets       : {dataSets?.Count}");
+            Debug.WriteLine($"JsonTabMenu    : {tabJsonTabMenu}");
+
             Debug.WriteLine($"Report ID:{clsReport.ClassReportID}");
             Debug.WriteLine($"Report Type:{clsReport.ClassReportDesc}");
             
@@ -34,7 +37,6 @@ namespace MIS.Function
             }
             Debug.WriteLine($"filePath:{filePath}");
             Debug.WriteLine($"dataSets count:{dataSets.Count}");
-            // Debugging...
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -129,7 +131,7 @@ namespace MIS.Function
                                     WriteReportHeader(writer);
                                     currentRowIndex += REPORT_HEADER_ROW_COUNT;
                                 }
-                                
+
                                 foreach (DataTable table in ds.Tables)
                                 {
                                     var includedColumns = table.Columns.Cast<DataColumn>()
@@ -147,8 +149,7 @@ namespace MIS.Function
                                         writer.WriteEndElement();
                                         currentRowIndex++;
                                     }
-                                    
-                                    // Data rows
+
                                     foreach (DataRow row in table.Rows)
                                     {
                                         writer.WriteStartElement(new Row());
@@ -296,7 +297,6 @@ namespace MIS.Function
                 Cursor.Current = Cursors.Default;
             }
         }
-
 
         private static Cell CreateTextCell(string text, uint styleIndex = 0)
         {

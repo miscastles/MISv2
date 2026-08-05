@@ -1,5 +1,6 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using DocumentFormat.OpenXml.Wordprocessing;
 using MIS.AppMainActivity;
 using MIS.Function;
 using MIS.Report;
@@ -4286,7 +4287,21 @@ namespace MIS
         }
 
         private void btnExport_Click(object sender, EventArgs e)
-        {
+        {   
+            Debug.WriteLine("--btnExport_Click--");
+            Debug.WriteLine($" > clsReport.ClassReportID=[{clsReport.ClassReportID}]");
+            Debug.WriteLine($" > clsReport.ClassReportDesc=[{clsReport.ClassReportDesc}]");
+            Debug.WriteLine($" > clsSearch.ClassReportID=[{clsSearch.ClassReportID}]");
+            Debug.WriteLine($" > clsSearch.ClassReportDescription=[{clsSearch.ClassReportDescription}]");
+            Debug.WriteLine($" > clsSearch.ClassIncludeSummaryTab=[{clsSearch.ClassIncludeSummaryTab}]");
+            Debug.WriteLine($" > clsSearch.ClassReportType=[{clsSearch.ClassReportType}]");
+            Debug.WriteLine($" > clsSearch.ClassClientID=[{clsSearch.ClassClientID}]");
+            Debug.WriteLine($" > clsSearch.ClassJobTypeList=[{clsSearch.ClassJobTypeList}]");
+            Debug.WriteLine($" > clsSearch.ClassDateFrom=[{clsSearch.ClassDateFrom}]");
+            Debug.WriteLine($" > clsSearch.ClassDateTo=[{clsSearch.ClassDateTo}]");
+            Debug.WriteLine($" > clsSearch.ClassDetailDateFrom=[{clsSearch.ClassDetailDateFrom}]");
+            Debug.WriteLine($" > clsSearch.ClassDetailDateTo=[{clsSearch.ClassDetailDateTo}]");
+
             Dictionary<string, string> tabJsonTabMenu = new Dictionary<string, string>();
             Dictionary<string, DataSet> dataSets = new Dictionary<string, DataSet>();
 
@@ -4300,9 +4315,6 @@ namespace MIS
             }
 
             Cursor.Current = Cursors.WaitCursor;
-
-            //ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
-            //Task.Delay(500); // Asynchronously wait without blocking UI
 
             dbFile.WriteSysytemLog($"Export started...{clsReport.ClassReportDesc}"); // add log
 
@@ -4328,79 +4340,26 @@ namespace MIS
                             { "tab4", "Holiday List" }
                         };
 
-                        // -------------------------------------------------------------------------
-                        // Summary tab
-                        // -------------------------------------------------------------------------
-                        //ucStatusDisplay.SetStatus($"Processing summary tab sheet...", Enums.StatusType.Processing);
-                        //Task.Delay(500); // Asynchronously wait without blocking UI
-                        
                         DataSet summaryDataSet = new DataSet();
+                        DataSet detailDataSet = new DataSet();
+
                         if (clsSearch.ClassIncludeSummaryTab > 0)
                         {
                             string pMonthHeader = "'January','February','March','April','May','June','July','August','September','October','November','December', '0'";
                             string pRequestHeader = "'-7 and Below','-6','-5','-4','-3','-2','-1','0','1','2','3','4 and Above', '0'";
                             string pSQL = "";
                             string pSearchBy = "Report Data Storage Header";
+                            string pSearchValue = $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}";
 
+                            // parse delimited
+                            Debug.WriteLine("Summary/Detail Parsed...");
+                            dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
+                            // Delete Storage
                             dbFile.WriteSysytemLog($"Delete Report Data Storage..."); // add log
                             dbAPI.ExecuteAPI("DELETE", "Delete", "", "", "Report Data Storage", "", "DeleteCollectionDetail");
                             dbFile.WriteSysytemLog($"Delete Report Data Storage...complete"); // add log
-                            
-                            pSQL = $"('7', 'CURRENT SLA %', '-',{pMonthHeader})";
-                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
-                            dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Current SLA", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
-                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
 
-                            pSQL = $"('6', 'REQUEST PER TEAM LEAD', '-',{pRequestHeader})";
-                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
-                            dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Per Team Lead", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
-                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
-
-                            if (clsSearch.ClassReportID == 53)
-                            {
-                                pSQL = $"('2', 'OVERALL REQUESTS {dbFunction.getCurrentYear()}%', '-',{pMonthHeader})";
-                                dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
-                                dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                                dbConnect.getStoredProcedureDateSet("View", "Overall Request Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
-                                dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
-                            }
-                            
-                            pSQL = $"('3', 'OVERALL REQUESTS', '-',{pMonthHeader})";
-                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
-                            dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Status Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
-                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
-
-                            pSQL = $"('4', 'REQUEST WITHIN SLA', '-',{pMonthHeader})";
-                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
-                            dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Within SLA Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
-                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
-
-                            pSQL = $"('1', 'NEGATIVE/UNSUCCESSFUL ACTIVITY', '-',{pMonthHeader})";
-                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
-                            dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
-                            dbConnect.getStoredProcedureDateSet("View", "Reason Summary", $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}", "spProcessReportDataStorage");
-                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
-
-                            //dbConnect.getStoredProcedureDateSet("View", "Overall Request Beyond SLA Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}", "spProcessReportDataStorage");
-
-                            dbFile.WriteSysytemLog($"View Report Data Storage..."); // add log
-                            summaryDataSet = dbConnect.getStoredProcedureDateSet("View", "Report Data Storage", "", "spViewReport");
-                            dbFile.WriteSysytemLog($"View Report Data Storage...complete"); // add log
-                        }
-                        
-                        // -------------------------------------------------------------------------
-                        // Detail tab
-                        // -------------------------------------------------------------------------
-                        //ucStatusDisplay.SetStatus($"Processing detail tab sheet...", Enums.StatusType.Processing);
-                        //Task.Delay(500); // Asynchronously wait without blocking UI
-
-                        DataSet detailDataSet = new DataSet();
-                        if (clsSearch.ClassIncludeDetailTab > 0)
-                        {
                             dbFile.WriteSysytemLog($"View Detail Service Attempt..."); // add log
                             detailDataSet = dbConnect.getStoredProcedureDateSet("View", "Detail Service Attempt", clsSearch.ClassClientID + clsFunction.sPipe +
                                                                                                         clsSearch.ClassJobTypeList + clsFunction.sPipe +
@@ -4412,14 +4371,53 @@ namespace MIS
                                                                                                         clsSearch.ClassReasonID + clsFunction.sPipe +
                                                                                                         clsSearch.ClassReportStatus, "spViewReport");
                             dbFile.WriteSysytemLog($"View Detail Service Attempt...complete"); // add log
+
+                            pSQL = $"('7', 'CURRENT SLA %', '-',{pMonthHeader})";
+                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
+                            dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Current SLA", pSearchValue, "spProcessReportDataStorage");
+                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
+
+                            pSQL = $"('6', 'REQUEST PER TEAM LEAD', '-',{pRequestHeader})";
+                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
+                            dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Per Team Lead", pSearchValue, "spProcessReportDataStorage");                            
+                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
+
+                            if (clsSearch.ClassReportID == 53)
+                            {
+                                pSQL = $"('2', 'OVERALL REQUESTS {dbFunction.getCurrentYear()}%', '-',{pMonthHeader})";
+                                dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
+                                dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
+                                dbConnect.getStoredProcedureDateSet("View", "Overall Request Summary", pSearchValue, "spProcessReportDataStorage");
+                                dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
+                            }
+                            
+                            pSQL = $"('3', 'OVERALL REQUESTS', '-',{pMonthHeader})";
+                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
+                            dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Status Summary", pSearchValue, "spProcessReportDataStorage");
+                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
+
+                            pSQL = $"('4', 'REQUEST WITHIN SLA', '-',{pMonthHeader})";
+                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
+                            dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
+                            dbConnect.getStoredProcedureDateSet("View", "Overall Request Within SLA Summary", pSearchValue, "spProcessReportDataStorage");
+                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
+
+                            pSQL = $"('1', 'NEGATIVE/UNSUCCESSFUL ACTIVITY', '-',{pMonthHeader})";
+                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
+                            dbAPI.ExecuteAPI("POST", "Insert", "", "", pSearchBy, pSQL, "InsertCollectionMaster");
+                            dbConnect.getStoredProcedureDateSet("View", "Reason Summary", pSearchValue, "spProcessReportDataStorage");
+                            dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}...complete"); // add log
+
+                            //dbConnect.getStoredProcedureDateSet("View", "Overall Request Beyond SLA Summary", $"{clsSearch.ClassClientID}{ clsDefines.gPipe}{clsSearch.ClassJobTypeList}", "spProcessReportDataStorage");
+
+                            dbFile.WriteSysytemLog($"View Report Data Storage..."); // add log
+                            summaryDataSet = dbConnect.getStoredProcedureDateSet("View", "Report Data Storage", "", "spViewReport");
+                            dbFile.WriteSysytemLog($"View Report Data Storage...complete"); // add log
                         }
-
-                        // -------------------------------------------------------------------------
-                        // Daily Tab
-                        // -------------------------------------------------------------------------
-                        //ucStatusDisplay.SetStatus($"Processing daily tab sheet...", Enums.StatusType.Processing);
-                        //Task.Delay(500); // Asynchronously wait without blocking UI
-
+                        
                         dbFile.WriteSysytemLog($"DailyDataSet..."); // add log
                         DataSet dailyDataSet = new DataSet();
                         dailyDataSet = clsGlobalVariables.globalDataSet;
@@ -4444,20 +4442,30 @@ namespace MIS
                             { "tab4", holidayDataSet }
                         };
 
-                        // debugging dataset
-                        //dbFunction.debugDataSet(dailyDataSet, 0);
-
-                        //ucStatusDisplay.SetStatus($"Exporting report {clsSearch.ClassReportDescription}", Enums.StatusType.Export);
-                        //Task.Delay(500); // Asynchronously wait without blocking UI
-
                         dbFile.WriteSysytemLog($"ExportListViewToExcelWithTabSheet..."); // add log
-                        //dbFile.ExportListViewToExcelWithTabSheet(lvwList, filePath, dataSets, tabJsonTabMenu);
-
+                        
                         // for the header
                         clsSearch.ClassDateFrom = clsSearch.ClassDetailDateFrom;
                         clsSearch.ClassDateTo = clsSearch.ClassDetailDateTo;
 
-                        dbExcelOpenXmlExporter.ExportListViewToExcelWithTabSheet(lvwList, filePath, dataSets, tabJsonTabMenu);
+                        try
+                        {
+                            Debug.WriteLine("Before Export");
+
+                            dbExcelOpenXmlExporter.ExportListViewToExcelWithTabSheet(
+                                lvwList,
+                                filePath,
+                                dataSets,
+                                tabJsonTabMenu);
+
+                            Debug.WriteLine("After Export");
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex.ToString());
+                            MessageBox.Show(ex.ToString());
+                        }
+
                         dbFile.WriteSysytemLog($"ExportListViewToExcelWithTabSheet...complete"); // add log
 
                         break;
@@ -4476,10 +4484,18 @@ namespace MIS
 
                         tables[0] = ReplaceDuplicateData(tables[0], "NAME");
 
-                        ExportCustomDataToExcel(filePath,
+                        try
+                        {
+                            ExportCustomDataToExcel(filePath,
                             tables,
                             new[] { "Summary", "Details", "Problems" }, // Sheetnames
-                            new[] { Color.SteelBlue, Color.DarkGreen, Color.SteelBlue }); // Header Colors
+                            new[] { System.Drawing.Color.SteelBlue, System.Drawing.Color.DarkGreen, System.Drawing.Color.SteelBlue }); // Header Colors
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex.ToString());
+                            MessageBox.Show(ex.ToString());
+                        }                        
 
                         break;
 
@@ -4500,15 +4516,20 @@ namespace MIS
                         // Summary
                         Kpi[0] = ReplaceDuplicateData(Kpi[0], "NAME");
 
-
-                        Export_KPI_Report(Kpi[0], Kpi[1], Kpi[2], Kpi[3], Kpi[4]);
+                        try
+                        {
+                            Export_KPI_Report(Kpi[0], Kpi[1], Kpi[2], Kpi[3], Kpi[4]);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex.ToString());
+                            MessageBox.Show(ex.ToString());
+                        }                        
 
                         break;
 
                     default:
-                        //ucStatusDisplay.SetStatus($"Exporting report {clsSearch.ClassReportDescription}", Enums.StatusType.Export);
-                        //Task.Delay(500); // Asynchronously wait without blocking UI
-
+                        
                         tabJsonTabMenu = new Dictionary<string, string>
                         {
                             { "tab1", "Active POS" }
@@ -4525,7 +4546,16 @@ namespace MIS
                         dbFile.WriteSysytemLog($"ExportListViewToExcelWithTabSheet..."); // add log
                         //dbFile.ExportListViewToExcel(lvwList, filePath, clsGlobalVariables.globalDataSet);
 
-                        dbExcelOpenXmlExporter.ExportListViewToExcelWithTabSheet(lvwList, filePath, dataSets, tabJsonTabMenu);
+                        try
+                        {
+                            dbExcelOpenXmlExporter.ExportListViewToExcelWithTabSheet(lvwList, filePath, dataSets, tabJsonTabMenu);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(ex.ToString());
+                            MessageBox.Show(ex.ToString());
+                        }
+                        
                         dbFile.WriteSysytemLog($"ExportListViewToExcelWithTabSheet...complete"); // add log
 
                         break;
@@ -4539,9 +4569,6 @@ namespace MIS
             }
             
             Cursor.Current = Cursors.Default;
-
-            //ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
-            //Task.Delay(500); // Asynchronously wait without blocking UI
 
             initReport(false);
 
@@ -4993,7 +5020,7 @@ namespace MIS
             }
 
             Cursor.Current = Cursors.Default;
-        }
+        }        
 
     }
 }
