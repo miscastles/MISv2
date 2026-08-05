@@ -257,6 +257,8 @@
             this.label120 = new System.Windows.Forms.Label();
             this.txtGeoLatitude = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label185 = new System.Windows.Forms.Label();
+            this.txtDaysWeekends = new System.Windows.Forms.TextBox();
             this.label184 = new System.Windows.Forms.Label();
             this.txtDaysHoliday = new System.Windows.Forms.TextBox();
             this.txtSLAArea = new System.Windows.Forms.TextBox();
@@ -697,6 +699,8 @@
             this.label166 = new System.Windows.Forms.Label();
             this.label165 = new System.Windows.Forms.Label();
             this.panel54 = new System.Windows.Forms.Panel();
+            this.btnAddZoning = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnSearchZoning = new Bunifu.Framework.UI.BunifuImageButton();
             this.txtZoneID = new System.Windows.Forms.TextBox();
             this.txtZCityMunicipal = new System.Windows.Forms.TextBox();
             this.label174 = new System.Windows.Forms.Label();
@@ -996,6 +1000,8 @@
             this.tabPage13.SuspendLayout();
             this.tabPage19.SuspendLayout();
             this.panel54.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).BeginInit();
             this.panel55.SuspendLayout();
             this.panel49.SuspendLayout();
             this.tabPage20.SuspendLayout();
@@ -3956,6 +3962,8 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.label185);
+            this.tabPage6.Controls.Add(this.txtDaysWeekends);
             this.tabPage6.Controls.Add(this.label184);
             this.tabPage6.Controls.Add(this.txtDaysHoliday);
             this.tabPage6.Controls.Add(this.txtSLAArea);
@@ -3980,15 +3988,38 @@
             this.tabPage6.Text = "SLA/TAT";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // label185
+            // 
+            this.label185.AutoSize = true;
+            this.label185.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label185.Location = new System.Drawing.Point(117, 79);
+            this.label185.Name = "label185";
+            this.label185.Size = new System.Drawing.Size(63, 14);
+            this.label185.TabIndex = 464;
+            this.label185.Text = "WEND (-)";
+            // 
+            // txtDaysWeekends
+            // 
+            this.txtDaysWeekends.BackColor = System.Drawing.Color.White;
+            this.txtDaysWeekends.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDaysWeekends.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDaysWeekends.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDaysWeekends.Location = new System.Drawing.Point(180, 74);
+            this.txtDaysWeekends.Name = "txtDaysWeekends";
+            this.txtDaysWeekends.ReadOnly = true;
+            this.txtDaysWeekends.Size = new System.Drawing.Size(50, 22);
+            this.txtDaysWeekends.TabIndex = 463;
+            this.txtDaysWeekends.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // label184
             // 
             this.label184.AutoSize = true;
             this.label184.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label184.Location = new System.Drawing.Point(5, 79);
             this.label184.Name = "label184";
-            this.label184.Size = new System.Drawing.Size(84, 14);
+            this.label184.Size = new System.Drawing.Size(63, 14);
             this.label184.TabIndex = 462;
-            this.label184.Text = "HOLIDAY (-)";
+            this.label184.Text = "HDAY (-)";
             // 
             // txtDaysHoliday
             // 
@@ -3996,10 +4027,10 @@
             this.txtDaysHoliday.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDaysHoliday.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDaysHoliday.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDaysHoliday.Location = new System.Drawing.Point(100, 74);
+            this.txtDaysHoliday.Location = new System.Drawing.Point(69, 74);
             this.txtDaysHoliday.Name = "txtDaysHoliday";
             this.txtDaysHoliday.ReadOnly = true;
-            this.txtDaysHoliday.Size = new System.Drawing.Size(53, 22);
+            this.txtDaysHoliday.Size = new System.Drawing.Size(46, 22);
             this.txtDaysHoliday.TabIndex = 461;
             this.txtDaysHoliday.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -4076,7 +4107,7 @@
             // 
             this.label143.AutoSize = true;
             this.label143.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label143.Location = new System.Drawing.Point(159, 77);
+            this.label143.Location = new System.Drawing.Point(233, 77);
             this.label143.Name = "label143";
             this.label143.Size = new System.Drawing.Size(49, 14);
             this.label143.TabIndex = 444;
@@ -4088,10 +4119,10 @@
             this.txtTATStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTATStatus.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTATStatus.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTATStatus.Location = new System.Drawing.Point(216, 73);
+            this.txtTATStatus.Location = new System.Drawing.Point(288, 73);
             this.txtTATStatus.Name = "txtTATStatus";
             this.txtTATStatus.ReadOnly = true;
-            this.txtTATStatus.Size = new System.Drawing.Size(185, 22);
+            this.txtTATStatus.Size = new System.Drawing.Size(113, 22);
             this.txtTATStatus.TabIndex = 443;
             this.txtTATStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -9074,6 +9105,8 @@
             // 
             // panel54
             // 
+            this.panel54.Controls.Add(this.btnAddZoning);
+            this.panel54.Controls.Add(this.btnSearchZoning);
             this.panel54.Controls.Add(this.txtZoneID);
             this.panel54.Controls.Add(this.txtZCityMunicipal);
             this.panel54.Controls.Add(this.label174);
@@ -9089,16 +9122,44 @@
             this.panel54.Size = new System.Drawing.Size(282, 112);
             this.panel54.TabIndex = 6;
             // 
+            // btnAddZoning
+            // 
+            this.btnAddZoning.BackColor = System.Drawing.SystemColors.Control;
+            this.btnAddZoning.Image = global::MIS.Properties.Resources.add_on;
+            this.btnAddZoning.ImageActive = null;
+            this.btnAddZoning.Location = new System.Drawing.Point(257, 27);
+            this.btnAddZoning.Name = "btnAddZoning";
+            this.btnAddZoning.Size = new System.Drawing.Size(22, 23);
+            this.btnAddZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnAddZoning.TabIndex = 380;
+            this.btnAddZoning.TabStop = false;
+            this.btnAddZoning.Zoom = 10;
+            this.btnAddZoning.Click += new System.EventHandler(this.btnAddZoning_Click);
+            // 
+            // btnSearchZoning
+            // 
+            this.btnSearchZoning.BackColor = System.Drawing.SystemColors.Control;
+            this.btnSearchZoning.Image = global::MIS.Properties.Resources.ic_success;
+            this.btnSearchZoning.ImageActive = null;
+            this.btnSearchZoning.Location = new System.Drawing.Point(233, 27);
+            this.btnSearchZoning.Name = "btnSearchZoning";
+            this.btnSearchZoning.Size = new System.Drawing.Size(23, 23);
+            this.btnSearchZoning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchZoning.TabIndex = 379;
+            this.btnSearchZoning.TabStop = false;
+            this.btnSearchZoning.Zoom = 10;
+            this.btnSearchZoning.Click += new System.EventHandler(this.btnSearchZoning_Click);
+            // 
             // txtZoneID
             // 
             this.txtZoneID.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtZoneID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtZoneID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtZoneID.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtZoneID.Location = new System.Drawing.Point(219, 27);
+            this.txtZoneID.Location = new System.Drawing.Point(182, 28);
             this.txtZoneID.Name = "txtZoneID";
             this.txtZoneID.ReadOnly = true;
-            this.txtZoneID.Size = new System.Drawing.Size(61, 20);
+            this.txtZoneID.Size = new System.Drawing.Size(48, 20);
             this.txtZoneID.TabIndex = 373;
             this.txtZoneID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtZoneID.WordWrap = false;
@@ -9109,7 +9170,7 @@
             this.txtZCityMunicipal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtZCityMunicipal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtZCityMunicipal.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtZCityMunicipal.Location = new System.Drawing.Point(60, 90);
+            this.txtZCityMunicipal.Location = new System.Drawing.Point(60, 91);
             this.txtZCityMunicipal.Name = "txtZCityMunicipal";
             this.txtZCityMunicipal.ReadOnly = true;
             this.txtZCityMunicipal.Size = new System.Drawing.Size(220, 20);
@@ -9131,7 +9192,7 @@
             this.txtZArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtZArea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtZArea.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtZArea.Location = new System.Drawing.Point(60, 69);
+            this.txtZArea.Location = new System.Drawing.Point(60, 70);
             this.txtZArea.Name = "txtZArea";
             this.txtZArea.ReadOnly = true;
             this.txtZArea.Size = new System.Drawing.Size(220, 20);
@@ -9153,7 +9214,7 @@
             this.txtZRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtZRegion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtZRegion.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtZRegion.Location = new System.Drawing.Point(60, 48);
+            this.txtZRegion.Location = new System.Drawing.Point(60, 49);
             this.txtZRegion.Name = "txtZRegion";
             this.txtZRegion.ReadOnly = true;
             this.txtZRegion.Size = new System.Drawing.Size(220, 20);
@@ -9175,10 +9236,10 @@
             this.txtZZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtZZone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtZZone.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtZZone.Location = new System.Drawing.Point(60, 27);
+            this.txtZZone.Location = new System.Drawing.Point(60, 28);
             this.txtZZone.Name = "txtZZone";
             this.txtZZone.ReadOnly = true;
-            this.txtZZone.Size = new System.Drawing.Size(158, 20);
+            this.txtZZone.Size = new System.Drawing.Size(121, 20);
             this.txtZZone.TabIndex = 316;
             // 
             // label118
@@ -10722,6 +10783,8 @@
             this.tabPage19.PerformLayout();
             this.panel54.ResumeLayout(false);
             this.panel54.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAddZoning)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchZoning)).EndInit();
             this.panel55.ResumeLayout(false);
             this.panel55.PerformLayout();
             this.panel49.ResumeLayout(false);
@@ -11563,5 +11626,9 @@
         private System.Windows.Forms.Label label183;
         private System.Windows.Forms.Label label184;
         private System.Windows.Forms.TextBox txtDaysHoliday;
+        private System.Windows.Forms.Label label185;
+        private System.Windows.Forms.TextBox txtDaysWeekends;
+        private Bunifu.Framework.UI.BunifuImageButton btnAddZoning;
+        private Bunifu.Framework.UI.BunifuImageButton btnSearchZoning;
     }
 }

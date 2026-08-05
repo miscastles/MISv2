@@ -222,6 +222,7 @@ namespace MIS
         public const string TAG_DaysOverDue = "DaysOverDue";
         public const string TAG_TATStatus = "TATStatus";
         public const string TAG_DaysHoliday = "DaysHoliday";
+        public const string TAG_DaysWeekends = "DaysWeekends";
 
         public const string HEADER_Current_Terminal = "Current terminal";
         public const string HEADER_Current_SIM = "Current SIM";
@@ -413,7 +414,13 @@ namespace MIS
         public const string MANUAL_FSR = "MANUAL FSR";
         public const string DIGITAL_FSR = "DIGITAL FSR";
 
-        public const string FIELD_CHECK_MSG = "Field Check";
+        public const string SUCCESS_MSG = "Success";
+        public const string FIELD_CHECK_MSG = "Validation";
+        public const string ERROR_MSG = "Error";
+        public const string WARNING_MSG = "Warning";
+        public const string INFORMATION_MSG = "Information";
+        public const string CONFIRMATION_MSG = "Confirmation";
+
         public const string TAKE_FEW_MINUTE_MSG = "This process may take a few minute(s).";
 
         public const string OPEN_TICKET = "OPEN";

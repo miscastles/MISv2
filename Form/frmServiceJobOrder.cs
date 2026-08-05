@@ -2045,6 +2045,10 @@ namespace MIS
                         item.SubItems.Add(clsFunction.sDash);
                     }
 
+                    // App Version/CRC
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_AppVersion));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_AppCRC));
+
                     lvwList.Items.Add(item);
 
                     i++;
@@ -2666,7 +2670,7 @@ namespace MIS
                     "\n\n" +
                     "Zone >" + txtZZone.Text + "\n" +
                     "Area >" + txtZArea.Text + "\n" +
-                    "Region >" + txtZArea.Text + "\n" +
+                    "Region >" + txtZRegion.Text + "\n" +
                     "City/Municipal >" + txtZCityMunicipal.Text +
                     "\n\n" +
                    (chkEmail.Checked && chkDispatch.Checked ? "Service request emailed to vendor representative." : "")
@@ -3360,6 +3364,12 @@ namespace MIS
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
             dbFunction.GetListViewHeaderColumnFromFile("", "CityMunicipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "AppVersion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "AppCRC", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
         }
@@ -4252,7 +4262,7 @@ namespace MIS
                     AdditionalComBoBoxUnlock(true);                    
 
                     if (!fEdit)
-                        getApplicationInfo();
+                        getApplicationInfo(); // get version/crc from master data (tblterminalmodel)
 
                     txtRequestID1.Text = dbAPI.getPrimaryIRNo(int.Parse(txtIRIDNo.Text));
 
@@ -5748,17 +5758,45 @@ namespace MIS
 
         private void getApplicationInfo()
         {
+            string pSearchValue = "";
             txtFUAppVersion.Text = txtFUAppCRC.Text = clsFunction.sNull;
 
             if (dbFunction.isValidDescription(txtCurTerminalModel.Text) || dbFunction.isValidDescription(txtRepTerminalModel.Text))
             {
                 if (dbFunction.isValidID(txtCurTerminalID.Text))
-                    dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtCurTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+                {
+                    //dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtCurTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                    pSearchValue = $"{txtSearchSTJobType.Text}{clsDefines.gPipe}" +
+                        $"{txtSearchServiceNo.Text}{clsDefines.gPipe}" +
+                        $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                        $"{txtMerchantID.Text}{clsDefines.gPipe}" +
+                        $"{txtCurTerminalType.Text}{clsDefines.gPipe}" +
+                        $"{txtCurTerminalModel.Text}";
+                    
+                }
+
 
                 if (dbFunction.isValidID(txtRepTerminalID.Text))
-                    dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtRepTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+                {
+                    //dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtRepTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                    pSearchValue = $"{txtSearchSTJobType.Text}{clsDefines.gPipe}" +
+                        $"{txtSearchServiceNo.Text}{clsDefines.gPipe}" +
+                        $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                        $"{txtMerchantID.Text}{clsDefines.gPipe}" +
+                        $"{txtRepTerminalType.Text}{clsDefines.gPipe}" +
+                        $"{txtRepTerminalModel.Text}";
+                }
+
+                // parse delimited
+                dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
+                dbAPI.ExecuteAPI("GET", "Search", "Merchant Apps Version-CRC", pSearchValue, "Get Info Detail", "", "GetInfoDetail");
                 
                 Debug.WriteLine("clsSearch.ClassOutParamValue=" + clsSearch.ClassOutParamValue);
+
+                dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gComma, 0);
 
                 if (clsSearch.ClassOutParamValue.Length > 0)
                 {
@@ -6057,6 +6095,7 @@ namespace MIS
             txtDaysOverDue.Text = clsSearch.ClassDaysOverDue;
             txtTATStatus.Text = clsSearch.ClassTATStatus;
             txtDaysHoliday.Text = clsSearch.ClassDaysHoliday;
+            txtDaysWeekends.Text = clsSearch.ClassDaysWeekends;
 
             if (txtTATStatus.Text.Equals(clsDefines.WITHIN_TAT))
                 txtTATStatus.ForeColor = Color.Blue;
@@ -7356,5 +7395,107 @@ namespace MIS
             return false;
         }
 
+        private void btnAddZoning_Click(object sender, EventArgs e)
+        {
+            frmMZoning frm = new frmMZoning();
+            frm.Text = "ENROLLMENT-ZONING";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnSearchZoning_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidID(txtMerchantID.Text) ||
+                !dbFunction.isValidDescription(txtMerchantAddress.Text) ||
+                !dbFunction.isValidDescription(txtMerchantCity.Text) ||
+                !dbFunction.isValidDescription(txtMerchantRegion.Text))
+            {
+                dbFunction.SetMessageBox(
+                    "Please complete the Merchant ID, Address, City, and Region before searching for the zoning information.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+                return;
+            }
+
+            if (!dbFunction.fPromptConfirmation(
+                "The system will search for matching zoning information for this merchant.\n\n" +
+                "Do you want to continue?"))
+                return;
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                string pJSONString = dbAPI.getInfoDetailJSON(
+                    "Search",
+                    "Search Zoning Info",
+                    $"{txtMerchantAddress.Text}{clsDefines.gPipe}{txtMerchantCity.Text}");
+
+                if (!dbFunction.isValidDescription(pJSONString))
+                {
+                    dbFunction.SetMessageBox(
+                        "No matching zoning information was found.\n\n" +
+                        "Please verify the merchant address or manually assign the zoning information.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+                    return;
+                }
+
+                string sOldZoneID = txtZoneID.Text;
+                string sNewZoneID = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ZoneID);
+
+                // No update needed
+                if (sOldZoneID.Trim() == sNewZoneID.Trim())
+                {
+                    dbFunction.SetMessageBox(
+                        "The merchant is already assigned to the matching zoning information.\n\n" +
+                        "No update is required.",
+                        clsDefines.SUCCESS_MSG,
+                        clsFunction.IconType.iInformation);
+                    return;
+                }
+
+                if (!dbFunction.fPromptConfirmation(
+                    "A matching zoning record was found.\n\n" +
+                    "ID              : " + sNewZoneID + "\n" +
+                    "Zone            : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone) + "\n" +
+                    "Cluster         : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Cluster) + "\n" +
+                    "Region          : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region) + "\n" +
+                    "Area            : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area) + "\n" +
+                    "City/Municipal  : " + dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal) + "\n\n" +
+                    "Do you want to apply this zoning information to the current merchant?"))
+                    return;
+
+                // Fill (New) zoning info
+                txtZoneID.Text = sNewZoneID;
+                getZoningInfo();
+
+                if (!dbFunction.fPromptConfirmation(
+                    "This action will update the merchant's zoning information.\n\n" +
+                    "Do you want to continue?"))
+                {
+                    // Fill (Old) zoning info
+                    txtZoneID.Text = sOldZoneID;
+                    getZoningInfo();
+                    return;
+                }
+
+                // Call API to update particular ZoneID
+                dbAPI.ExecuteAPI("PUT", "Update", "Particular-ZoneID", $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
+                    $"{dbFunction.CheckAndSetNumericValue(txtZoneID.Text)}", "", "", "UpdateCollectionDetail");
+
+                dbFunction.SetMessageBox(
+                    "The merchant zoning information has been updated successfully.",
+                    clsDefines.SUCCESS_MSG,
+                    clsFunction.IconType.iInformation);
+
+                // load new TAT detail
+                loadTATDetail();
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
     }
 }

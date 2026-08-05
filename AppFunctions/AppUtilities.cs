@@ -817,7 +817,11 @@ namespace MIS.Function
                         worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
                     }
 
+                    Cursor.Current = Cursors.WaitCursor;
+
                     package.SaveAs(new FileInfo(filePath));
+
+                    Cursor.Current = Cursors.Default;
 
                     MessageBox.Show($"Export complete. File saved to: {filePath}", "Exporting Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
