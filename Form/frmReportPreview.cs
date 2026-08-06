@@ -4342,6 +4342,20 @@ namespace MIS
 
                         DataSet summaryDataSet = new DataSet();
                         DataSet detailDataSet = new DataSet();
+                        DataSet dailyDataSet = new DataSet();
+
+                        // ------------------------------------------
+                        // dataSet for daily
+                        // ------------------------------------------
+                        dailyDataSet = dbConnect.getStoredProcedureDateSet("View", "Detail Service Attempt", clsSearch.ClassClientID + clsFunction.sPipe +
+                                                                                                            clsSearch.ClassJobTypeList + clsFunction.sPipe +
+                                                                                                            clsSearch.ClassIRIDNo + clsFunction.sPipe +
+                                                                                                            clsFunction.sZero + clsFunction.sPipe +
+                                                                                                            clsSearch.ClassDateFrom + clsFunction.sPipe +
+                                                                                                            clsSearch.ClassDateTo + clsFunction.sPipe +
+                                                                                                            clsSearch.ClassIsExcludePending + clsFunction.sPipe +
+                                                                                                            clsSearch.ClassReasonID + clsFunction.sPipe +
+                                                                                                            clsSearch.ClassReportStatus, "spViewReport");
 
                         if (clsSearch.ClassIncludeSummaryTab > 0)
                         {
@@ -4418,11 +4432,6 @@ namespace MIS
                             dbFile.WriteSysytemLog($"View Report Data Storage...complete"); // add log
                         }
                         
-                        dbFile.WriteSysytemLog($"DailyDataSet..."); // add log
-                        DataSet dailyDataSet = new DataSet();
-                        dailyDataSet = clsGlobalVariables.globalDataSet;
-                        dbFile.WriteSysytemLog($"DailyDataSet...complete"); // add log
-
                         // -------------------------------------------------------------------------
                         // Holiday List Tab
                         // -------------------------------------------------------------------------

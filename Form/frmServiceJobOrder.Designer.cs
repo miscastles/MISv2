@@ -185,6 +185,7 @@
             this.lblMainStatus = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnOverrideUpdate = new System.Windows.Forms.Button();
             this.btnUpdateServiceType = new System.Windows.Forms.Button();
             this.panel155 = new System.Windows.Forms.Panel();
             this.panel160 = new System.Windows.Forms.Panel();
@@ -3069,6 +3070,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.btnOverrideUpdate);
             this.tabPage1.Controls.Add(this.btnUpdateServiceType);
             this.tabPage1.Controls.Add(this.panel155);
             this.tabPage1.Controls.Add(this.btnRefreshService);
@@ -3097,6 +3099,23 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // btnOverrideUpdate
+            // 
+            this.btnOverrideUpdate.AutoSize = true;
+            this.btnOverrideUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnOverrideUpdate.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnOverrideUpdate.FlatAppearance.BorderSize = 0;
+            this.btnOverrideUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnOverrideUpdate.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOverrideUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnOverrideUpdate.Location = new System.Drawing.Point(306, 852);
+            this.btnOverrideUpdate.Name = "btnOverrideUpdate";
+            this.btnOverrideUpdate.Size = new System.Drawing.Size(126, 26);
+            this.btnOverrideUpdate.TabIndex = 505;
+            this.btnOverrideUpdate.Text = "OVERRIDE UPDATE";
+            this.btnOverrideUpdate.UseVisualStyleBackColor = false;
+            this.btnOverrideUpdate.Click += new System.EventHandler(this.btnOverrideUpdate_Click);
             // 
             // btnUpdateServiceType
             // 
@@ -11704,5 +11723,6 @@
         private System.Windows.Forms.TextBox txtDaysWeekends;
         private Bunifu.Framework.UI.BunifuImageButton btnAddZoning;
         private Bunifu.Framework.UI.BunifuImageButton btnSearchZoning;
+        private System.Windows.Forms.Button btnOverrideUpdate;
     }
 }

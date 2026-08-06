@@ -4074,9 +4074,10 @@ namespace MIS
                 ServicingDetailController data = _mServicingDetailController.getInfo(txtSearchServiceNo.Text + clsFunction.sPipe + txtIRIDNo.Text);
                 if (data != null)
                 {
-                    txtSource.Text = data.Source;
-                    txtCategory.Text = data.Category;
-                    txtSubCategory.Text = data.SubCategory;
+                    txtABillingType.Text = data.BillingType;
+                    txtSource.Text = txtASource.Text = data.Source;
+                    txtCategory.Text = txtACategory.Text = data.Category;
+                    txtSubCategory.Text = txtASubCategory.Text = data.SubCategory;
                 }
             }
         }
