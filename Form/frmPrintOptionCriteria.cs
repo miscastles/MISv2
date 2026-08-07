@@ -797,6 +797,11 @@ namespace MIS
             rbAll.Checked = true;
             rbToday.Checked = false;
             rbRange.Checked = false;
+
+            rbDetailAll.Checked = true;
+            rbDetailToday.Checked = false;
+            rbDetailRange.Checked = false;
+
             initDetailDateFilter(false);
 
             Cursor.Current = Cursors.Default;

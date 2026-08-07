@@ -740,10 +740,6 @@
             this.tabPage23 = new System.Windows.Forms.TabPage();
             this.lvwRaw = new System.Windows.Forms.ListView();
             this.tabPage24 = new System.Windows.Forms.TabPage();
-            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
-            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
-            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
-            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.tabPage25 = new System.Windows.Forms.TabPage();
             this.lblCountDown = new System.Windows.Forms.Label();
             this.lblCreatedDate = new System.Windows.Forms.Label();
@@ -814,6 +810,19 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
+            this.tabPage29 = new System.Windows.Forms.TabPage();
+            this.label186 = new System.Windows.Forms.Label();
+            this.txtABillingType = new System.Windows.Forms.TextBox();
+            this.label187 = new System.Windows.Forms.Label();
+            this.txtASource = new System.Windows.Forms.TextBox();
+            this.label188 = new System.Windows.Forms.Label();
+            this.txtACategory = new System.Windows.Forms.TextBox();
+            this.label189 = new System.Windows.Forms.Label();
+            this.txtASubCategory = new System.Windows.Forms.TextBox();
+            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
+            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
+            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
+            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -1041,6 +1050,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddResolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).BeginInit();
             this.panel53.SuspendLayout();
+            this.tabPage29.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -2851,9 +2861,9 @@
             this.label179.ForeColor = System.Drawing.Color.Black;
             this.label179.Location = new System.Drawing.Point(3, 4);
             this.label179.Name = "label179";
-            this.label179.Size = new System.Drawing.Size(116, 15);
+            this.label179.Size = new System.Drawing.Size(188, 15);
             this.label179.TabIndex = 310;
-            this.label179.Text = "AUDIT INFORMATION";
+            this.label179.Text = "AUDIT /ADDITIONAL INFORMATION";
             // 
             // panel194
             // 
@@ -2869,6 +2879,7 @@
             this.tabControl3.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl3.Controls.Add(this.tabPage27);
             this.tabControl3.Controls.Add(this.tabPage28);
+            this.tabControl3.Controls.Add(this.tabPage29);
             this.tabControl3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl3.Location = new System.Drawing.Point(0, 24);
             this.tabControl3.Name = "tabControl3";
@@ -9582,50 +9593,6 @@
             this.tabPage24.Text = "Helpdesk Information";
             this.tabPage24.UseVisualStyleBackColor = true;
             // 
-            // ucVendorHelpDeskTeamLeadInfo
-            // 
-            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(588, 446);
-            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
-            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(678, 107);
-            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 7;
-            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
-            // 
-            // ucVendorHelpDeskRepInfo
-            // 
-            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 446);
-            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
-            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(678, 107);
-            this.ucVendorHelpDeskRepInfo.TabIndex = 6;
-            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
-            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskRepInfo.VendorName = "";
-            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
-            // 
-            // ucHelpDeskEntryInfo
-            // 
-            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 237);
-            this.ucHelpDeskEntryInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
-            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1333, 252);
-            this.ucHelpDeskEntryInfo.TabIndex = 5;
-            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
-            // 
-            // ucHelpDeskServiceInfo
-            // 
-            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 4);
-            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
-            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1265, 283);
-            this.ucHelpDeskServiceInfo.TabIndex = 1;
-            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
-            // 
             // tabPage25
             // 
             this.tabPage25.Location = new System.Drawing.Point(4, 28);
@@ -10463,6 +10430,160 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
+            // tabPage29
+            // 
+            this.tabPage29.Controls.Add(this.label189);
+            this.tabPage29.Controls.Add(this.txtASubCategory);
+            this.tabPage29.Controls.Add(this.label188);
+            this.tabPage29.Controls.Add(this.txtACategory);
+            this.tabPage29.Controls.Add(this.label187);
+            this.tabPage29.Controls.Add(this.txtASource);
+            this.tabPage29.Controls.Add(this.label186);
+            this.tabPage29.Controls.Add(this.txtABillingType);
+            this.tabPage29.Location = new System.Drawing.Point(4, 27);
+            this.tabPage29.Name = "tabPage29";
+            this.tabPage29.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage29.Size = new System.Drawing.Size(404, 96);
+            this.tabPage29.TabIndex = 4;
+            this.tabPage29.Text = "ADDITIONAL TYPE";
+            this.tabPage29.UseVisualStyleBackColor = true;
+            // 
+            // label186
+            // 
+            this.label186.AutoSize = true;
+            this.label186.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label186.Location = new System.Drawing.Point(0, 7);
+            this.label186.Name = "label186";
+            this.label186.Size = new System.Drawing.Size(63, 14);
+            this.label186.TabIndex = 436;
+            this.label186.Text = "BILLING:";
+            // 
+            // txtABillingType
+            // 
+            this.txtABillingType.BackColor = System.Drawing.Color.White;
+            this.txtABillingType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtABillingType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtABillingType.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtABillingType.ForeColor = System.Drawing.Color.Black;
+            this.txtABillingType.Location = new System.Drawing.Point(105, 3);
+            this.txtABillingType.Name = "txtABillingType";
+            this.txtABillingType.Size = new System.Drawing.Size(296, 20);
+            this.txtABillingType.TabIndex = 435;
+            this.txtABillingType.WordWrap = false;
+            // 
+            // label187
+            // 
+            this.label187.AutoSize = true;
+            this.label187.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label187.Location = new System.Drawing.Point(2, 29);
+            this.label187.Name = "label187";
+            this.label187.Size = new System.Drawing.Size(56, 14);
+            this.label187.TabIndex = 438;
+            this.label187.Text = "SOURCE:";
+            // 
+            // txtASource
+            // 
+            this.txtASource.BackColor = System.Drawing.Color.White;
+            this.txtASource.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtASource.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtASource.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtASource.ForeColor = System.Drawing.Color.Black;
+            this.txtASource.Location = new System.Drawing.Point(105, 26);
+            this.txtASource.Name = "txtASource";
+            this.txtASource.Size = new System.Drawing.Size(296, 20);
+            this.txtASource.TabIndex = 437;
+            this.txtASource.WordWrap = false;
+            // 
+            // label188
+            // 
+            this.label188.AutoSize = true;
+            this.label188.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label188.Location = new System.Drawing.Point(3, 51);
+            this.label188.Name = "label188";
+            this.label188.Size = new System.Drawing.Size(70, 14);
+            this.label188.TabIndex = 440;
+            this.label188.Text = "CATEGORY:";
+            // 
+            // txtACategory
+            // 
+            this.txtACategory.BackColor = System.Drawing.Color.White;
+            this.txtACategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtACategory.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtACategory.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtACategory.ForeColor = System.Drawing.Color.Black;
+            this.txtACategory.Location = new System.Drawing.Point(105, 48);
+            this.txtACategory.Name = "txtACategory";
+            this.txtACategory.Size = new System.Drawing.Size(296, 20);
+            this.txtACategory.TabIndex = 439;
+            this.txtACategory.WordWrap = false;
+            // 
+            // label189
+            // 
+            this.label189.AutoSize = true;
+            this.label189.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label189.Location = new System.Drawing.Point(1, 74);
+            this.label189.Name = "label189";
+            this.label189.Size = new System.Drawing.Size(98, 14);
+            this.label189.TabIndex = 442;
+            this.label189.Text = "SUB CATEGORY:";
+            // 
+            // txtASubCategory
+            // 
+            this.txtASubCategory.BackColor = System.Drawing.Color.White;
+            this.txtASubCategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtASubCategory.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtASubCategory.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtASubCategory.ForeColor = System.Drawing.Color.Black;
+            this.txtASubCategory.Location = new System.Drawing.Point(105, 71);
+            this.txtASubCategory.Name = "txtASubCategory";
+            this.txtASubCategory.Size = new System.Drawing.Size(296, 20);
+            this.txtASubCategory.TabIndex = 441;
+            this.txtASubCategory.WordWrap = false;
+            // 
+            // ucVendorHelpDeskTeamLeadInfo
+            // 
+            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(588, 446);
+            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
+            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(678, 107);
+            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 7;
+            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
+            // 
+            // ucVendorHelpDeskRepInfo
+            // 
+            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 446);
+            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
+            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(678, 107);
+            this.ucVendorHelpDeskRepInfo.TabIndex = 6;
+            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
+            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskRepInfo.VendorName = "";
+            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
+            // 
+            // ucHelpDeskEntryInfo
+            // 
+            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 237);
+            this.ucHelpDeskEntryInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
+            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1333, 252);
+            this.ucHelpDeskEntryInfo.TabIndex = 5;
+            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
+            // 
+            // ucHelpDeskServiceInfo
+            // 
+            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 4);
+            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
+            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1265, 283);
+            this.ucHelpDeskServiceInfo.TabIndex = 1;
+            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
+            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10839,6 +10960,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).EndInit();
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
+            this.tabPage29.ResumeLayout(false);
+            this.tabPage29.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11630,5 +11753,14 @@
         private System.Windows.Forms.TextBox txtDaysWeekends;
         private Bunifu.Framework.UI.BunifuImageButton btnAddZoning;
         private Bunifu.Framework.UI.BunifuImageButton btnSearchZoning;
+        private System.Windows.Forms.TabPage tabPage29;
+        private System.Windows.Forms.Label label188;
+        private System.Windows.Forms.TextBox txtACategory;
+        private System.Windows.Forms.Label label187;
+        private System.Windows.Forms.TextBox txtASource;
+        private System.Windows.Forms.Label label186;
+        private System.Windows.Forms.TextBox txtABillingType;
+        private System.Windows.Forms.Label label189;
+        private System.Windows.Forms.TextBox txtASubCategory;
     }
 }
