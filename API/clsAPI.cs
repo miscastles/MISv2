@@ -12789,13 +12789,15 @@ namespace MIS
             dbAPI.ExecuteAPI("POST", "Insert", "", dbFunction.CheckAndSetNumericValue($"{pServiceNo}"), "Servicing Activity Detail", sSQL, "InsertCollectionDetail");
         }
 
-        public void saveServicingActivityEnd(ActivityType pActivityType, int pServiceNo)
+        public void saveServicingActivityEnd(ActivityType pActivityType, int pServiceNo, int pParticularID, string pParticularName)
         {
             if (!dbFunction.isValidID($"{pServiceNo}")) return;
 
             string pSearchValue = dbFunction.CheckAndSetNumericValue($"{pServiceNo}") + clsFunction.sPipe +
                                                   (int)pActivityType + clsFunction.sPipe +
-                                                  dbFunction.getCurrentDateTime();
+                                                  dbFunction.getCurrentDateTime() + clsFunction.sPipe +
+                                                  dbFunction.CheckAndSetNumericValue($"{pParticularID}") + clsFunction.sPipe +
+                                                  dbFunction.CheckAndSetStringValue(pParticularName);
 
             dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 

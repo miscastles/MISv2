@@ -2447,7 +2447,8 @@ namespace MIS
                     SaveServiceDetail();
 
                     if (dbFunction.isValidDescription(txtDispatcher.Text))
-                        dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
+                        dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                            clsUser.ClassUserID, clsUser.ClassUserFullName);
 
                     SaveDeploymentDetail();
 
@@ -2577,13 +2578,15 @@ namespace MIS
                 }
 
                 // Activity 2 — Terminal Prep completion
-                if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtCurSIMID.Text) )                
-                    dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
-                
+                if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtCurSIMID.Text) && !dbFunction.isValidID(txtFEID.Text))                
+                    dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                        clsUser.ClassUserID, clsUser.ClassUserFullName);
+
                 // Activity 3 — Dispatcher completion
                 if (dbFunction.isValidID(txtFEID.Text) && chkDispatch.Checked)
                 {
-                    dbAPI.saveServicingActivityEnd(ActivityType.Dispatcher, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)));
+                    dbAPI.saveServicingActivityEnd(ActivityType.Dispatcher, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                        clsUser.ClassUserID, clsUser.ClassUserFullName);
                 }
 
                 Cursor.Current = Cursors.Default;
