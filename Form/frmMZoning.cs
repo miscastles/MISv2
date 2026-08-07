@@ -120,9 +120,11 @@ namespace MIS
             switch (int.Parse(tabIndex))
             {
                 case 0:
+                    txtSLA.Text = "100";
                     cboCluster.Focus();
                     break;
                 case 1:
+                    chkIsWholeWord.Checked = chkIsActive.Checked = true;
                     txtAliasName.Focus();
                     break;
             }
@@ -294,6 +296,8 @@ namespace MIS
             ComboBoxDefaultSelect();
 
             initSearchTextBox(true);
+
+            chkIsWholeWord.Checked = chkIsActive.Checked = false;
 
             txtSearch.Focus();
 

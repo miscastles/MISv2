@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHoliday));
             this.chkCloseTicket = new System.Windows.Forms.CheckBox();
-            this.txtMothDay = new System.Windows.Forms.TextBox();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.pnlHeader = new System.Windows.Forms.Panel();
@@ -41,6 +40,10 @@
             this.btnExit = new Bunifu.Framework.UI.BunifuImageButton();
             this.bunifuCustomLabel1 = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
+            this.cboMonthFilter = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cboDD = new System.Windows.Forms.ComboBox();
+            this.cboMM = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -72,24 +75,12 @@
             this.chkCloseTicket.Enabled = false;
             this.chkCloseTicket.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkCloseTicket.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.chkCloseTicket.Location = new System.Drawing.Point(449, 38);
+            this.chkCloseTicket.Location = new System.Drawing.Point(432, 12);
             this.chkCloseTicket.Name = "chkCloseTicket";
             this.chkCloseTicket.Size = new System.Drawing.Size(69, 19);
             this.chkCloseTicket.TabIndex = 429;
             this.chkCloseTicket.Text = "ACTIVE?";
             this.chkCloseTicket.UseVisualStyleBackColor = true;
-            // 
-            // txtMothDay
-            // 
-            this.txtMothDay.BackColor = System.Drawing.Color.White;
-            this.txtMothDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMothDay.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtMothDay.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMothDay.Location = new System.Drawing.Point(93, 37);
-            this.txtMothDay.MaxLength = 5;
-            this.txtMothDay.Name = "txtMothDay";
-            this.txtMothDay.Size = new System.Drawing.Size(352, 20);
-            this.txtMothDay.TabIndex = 104;
             // 
             // columnHeader4
             // 
@@ -114,7 +105,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(546, 35);
+            this.pnlHeader.Size = new System.Drawing.Size(525, 35);
             this.pnlHeader.TabIndex = 323;
             // 
             // txtLineNo
@@ -157,7 +148,7 @@
             this.btnExit.BackColor = System.Drawing.Color.Maroon;
             this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
             this.btnExit.ImageActive = null;
-            this.btnExit.Location = new System.Drawing.Point(519, 5);
+            this.btnExit.Location = new System.Drawing.Point(500, 5);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(21, 23);
             this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -184,8 +175,11 @@
             this.bunifuCards2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.bunifuCards2.BottomSahddow = true;
             this.bunifuCards2.color = System.Drawing.Color.Gray;
+            this.bunifuCards2.Controls.Add(this.cboMonthFilter);
+            this.bunifuCards2.Controls.Add(this.label3);
+            this.bunifuCards2.Controls.Add(this.cboDD);
+            this.bunifuCards2.Controls.Add(this.cboMM);
             this.bunifuCards2.Controls.Add(this.chkCloseTicket);
-            this.bunifuCards2.Controls.Add(this.txtMothDay);
             this.bunifuCards2.Controls.Add(this.label1);
             this.bunifuCards2.Controls.Add(this.txtDescription);
             this.bunifuCards2.Controls.Add(this.label2);
@@ -194,14 +188,56 @@
             this.bunifuCards2.Name = "bunifuCards2";
             this.bunifuCards2.RightSahddow = true;
             this.bunifuCards2.ShadowDepth = 20;
-            this.bunifuCards2.Size = new System.Drawing.Size(523, 69);
+            this.bunifuCards2.Size = new System.Drawing.Size(509, 69);
             this.bunifuCards2.TabIndex = 331;
+            // 
+            // cboMonthFilter
+            // 
+            this.cboMonthFilter.BackColor = System.Drawing.Color.White;
+            this.cboMonthFilter.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.cboMonthFilter.FormattingEnabled = true;
+            this.cboMonthFilter.Location = new System.Drawing.Point(381, 38);
+            this.cboMonthFilter.Name = "cboMonthFilter";
+            this.cboMonthFilter.Size = new System.Drawing.Size(120, 22);
+            this.cboMonthFilter.TabIndex = 430;
+            this.cboMonthFilter.SelectedIndexChanged += new System.EventHandler(this.cboMonthFilter_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(299, 40);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 15);
+            this.label3.TabIndex = 104;
+            this.label3.Text = "MONTH FILTER";
+            // 
+            // cboDD
+            // 
+            this.cboDD.BackColor = System.Drawing.Color.White;
+            this.cboDD.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.cboDD.FormattingEnabled = true;
+            this.cboDD.Location = new System.Drawing.Point(220, 37);
+            this.cboDD.Name = "cboDD";
+            this.cboDD.Size = new System.Drawing.Size(74, 22);
+            this.cboDD.TabIndex = 333;
+            // 
+            // cboMM
+            // 
+            this.cboMM.BackColor = System.Drawing.Color.White;
+            this.cboMM.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.cboMM.FormattingEnabled = true;
+            this.cboMM.Location = new System.Drawing.Point(85, 37);
+            this.cboMM.Name = "cboMM";
+            this.cboMM.Size = new System.Drawing.Size(129, 22);
+            this.cboMM.TabIndex = 332;
+            this.cboMM.SelectedIndexChanged += new System.EventHandler(this.cboMM_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(11, 39);
+            this.label1.Location = new System.Drawing.Point(4, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 15);
             this.label1.TabIndex = 103;
@@ -213,17 +249,17 @@
             this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDescription.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDescription.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtDescription.Location = new System.Drawing.Point(93, 11);
+            this.txtDescription.Location = new System.Drawing.Point(85, 11);
             this.txtDescription.MaxLength = 45;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(417, 20);
+            this.txtDescription.Size = new System.Drawing.Size(341, 20);
             this.txtDescription.TabIndex = 102;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(11, 14);
+            this.label2.Location = new System.Drawing.Point(3, 13);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 15);
             this.label2.TabIndex = 101;
@@ -246,7 +282,7 @@
             this.lvwList.HideSelection = false;
             this.lvwList.Location = new System.Drawing.Point(0, 0);
             this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(522, 279);
+            this.lvwList.Size = new System.Drawing.Size(508, 279);
             this.lvwList.TabIndex = 103;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
@@ -277,7 +313,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(547, 0);
+            this.panel4.Location = new System.Drawing.Point(526, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(2, 441);
             this.panel4.TabIndex = 326;
@@ -288,7 +324,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(1, 441);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(548, 2);
+            this.panel3.Size = new System.Drawing.Size(527, 2);
             this.panel3.TabIndex = 325;
             // 
             // btnClear
@@ -364,7 +400,7 @@
             this.bunifuCards1.Name = "bunifuCards1";
             this.bunifuCards1.RightSahddow = true;
             this.bunifuCards1.ShadowDepth = 20;
-            this.bunifuCards1.Size = new System.Drawing.Size(524, 281);
+            this.bunifuCards1.Size = new System.Drawing.Size(510, 281);
             this.bunifuCards1.TabIndex = 330;
             // 
             // bunifuElipse1
@@ -376,7 +412,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 443);
+            this.ClientSize = new System.Drawing.Size(528, 443);
             this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.bunifuCards2);
             this.Controls.Add(this.panel4);
@@ -406,7 +442,6 @@
         #endregion
 
         private System.Windows.Forms.CheckBox chkCloseTicket;
-        private System.Windows.Forms.TextBox txtMothDay;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
         private System.Windows.Forms.Panel pnlHeader;
@@ -432,5 +467,9 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.TextBox txtLineNo;
+        private System.Windows.Forms.ComboBox cboDD;
+        private System.Windows.Forms.ComboBox cboMM;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cboMonthFilter;
     }
 }

@@ -4074,9 +4074,10 @@ namespace MIS
                 ServicingDetailController data = _mServicingDetailController.getInfo(txtSearchServiceNo.Text + clsFunction.sPipe + txtIRIDNo.Text);
                 if (data != null)
                 {
-                    txtSource.Text = data.Source;
-                    txtCategory.Text = data.Category;
-                    txtSubCategory.Text = data.SubCategory;
+                    txtABillingType.Text = data.BillingType;
+                    txtSource.Text = txtASource.Text = data.Source;
+                    txtCategory.Text = txtACategory.Text = data.Category;
+                    txtSubCategory.Text = txtASubCategory.Text = data.SubCategory;
                 }
             }
         }
@@ -5754,6 +5755,12 @@ namespace MIS
             dbFunction.GetListViewHeaderColumnFromFile("", "CityMunicipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
+            dbFunction.GetListViewHeaderColumnFromFile("", "AppVersion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "AppCRC", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
         }
 
         private void LoadServicingDetail()
@@ -5859,6 +5866,10 @@ namespace MIS
                         item.SubItems.Add(clsFunction.sDash);
                         item.SubItems.Add(clsFunction.sDash);
                     }
+
+                    // App Version/CRC
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_AppVersion));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_AppCRC));
 
                     lvwList.Items.Add(item);
 

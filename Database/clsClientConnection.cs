@@ -308,8 +308,7 @@ namespace MIS
             Debug.WriteLine($" > StatementType=[{StatementType}]");
             Debug.WriteLine($" > SearchBy=[{SearchBy}]");
             Debug.WriteLine($" > SearchValue=[{SearchValue}]");
-            Debug.WriteLine($" > StoreProcedureName=[{StoreProcedureName}]");
-            Debug.WriteLine("--getStoredProcedureDateSet--");
+            Debug.WriteLine($" > StoreProcedureName=[{StoreProcedureName}]");            
 
             Debug.WriteLine("--Stored Procedure(Report) --");
             string spString = "CALL " + StoreProcedureName + "(" + "\"" + StatementType + "\"" + "," + "\"" + SearchBy + "\"" + "," + "\"" + SearchValue + "\"" + ")" + ";";
@@ -334,8 +333,8 @@ namespace MIS
                         adapter.SelectCommand.Parameters.Add("@p_SearchValue", MySqlDbType.VarChar).Value = SearchValue;
                         adapter.SelectCommand.CommandTimeout = int.Parse(clsGlobalVariables.strTimeOut); // Setting command timeout
 
-                        adapter.Fill(rtnDs);
-                        
+                        adapter.Fill(rtnDs);                        
+
                     }
                 }
             }

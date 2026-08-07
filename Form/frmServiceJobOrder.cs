@@ -126,6 +126,7 @@ namespace MIS
             btnSearchMerchant.Enabled = false;
             btnSearchService.Enabled = true;
             btnUpdateServiceType.Enabled = false;
+            btnOverrideUpdate.Enabled = false;
             InitSearchRemoveButton(true);
 
             InitCount();
@@ -134,10 +135,10 @@ namespace MIS
 
             dbAPI.FillComboBoxServiceType(cboSearchServiceType);
 
+            dbAPI.FillComboBoxTypeByGroup(cboBillingType, (int)GroupType.BillingTypeID);
             if (clsSearch.ClassIsBillType > 0)
             {
-                cboBillingType.Enabled = true;
-                dbAPI.FillComboBoxTypeByGroup(cboBillingType, (int)GroupType.BillingTypeID);                
+                cboBillingType.Enabled = true;                          
             }
             else
             {
@@ -858,7 +859,7 @@ namespace MIS
 
             //setMainTab();
 
-            btnPreviewSvcHistory.Enabled = btnCancelJO.Enabled = btnRefreshSN.Enabled = false;
+            btnPreviewSvcHistory.Enabled = btnCancelJO.Enabled = btnRefreshSN.Enabled = btnOverrideUpdate.Enabled = false;
 
             ComboBoxDefaultSelect();
             AdditionalComBoBoxUnlock(false);            
@@ -2044,6 +2045,10 @@ namespace MIS
                         item.SubItems.Add(clsFunction.sDash);
                         item.SubItems.Add(clsFunction.sDash);
                     }
+
+                    // App Version/CRC
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_AppVersion));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_AppCRC));
 
                     lvwList.Items.Add(item);
 
@@ -3362,6 +3367,12 @@ namespace MIS
             dbFunction.GetListViewHeaderColumnFromFile("", "CityMunicipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvwList.Columns.Add(outTitle, outWidth, outAlign);
 
+            dbFunction.GetListViewHeaderColumnFromFile("", "AppVersion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "AppCRC", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvwList.Columns.Add(outTitle, outWidth, outAlign);
+
         }
         
         private bool isValidServiceRequest()
@@ -4252,7 +4263,7 @@ namespace MIS
                     AdditionalComBoBoxUnlock(true);                    
 
                     if (!fEdit)
-                        getApplicationInfo();
+                        getApplicationInfo(); // get version/crc from master data (tblterminalmodel)
 
                     txtRequestID1.Text = dbAPI.getPrimaryIRNo(int.Parse(txtIRIDNo.Text));
 
@@ -4701,6 +4712,8 @@ namespace MIS
                     btnUpdateMerchRep.Enabled = true;
 
                     btnUpdateServiceType.Enabled = true;
+
+                    btnOverrideUpdate.Enabled = true;
 
                     AdditionalComBoBoxUnlock(true);                    
 
@@ -5748,17 +5761,45 @@ namespace MIS
 
         private void getApplicationInfo()
         {
+            string pSearchValue = "";
             txtFUAppVersion.Text = txtFUAppCRC.Text = clsFunction.sNull;
 
             if (dbFunction.isValidDescription(txtCurTerminalModel.Text) || dbFunction.isValidDescription(txtRepTerminalModel.Text))
             {
                 if (dbFunction.isValidID(txtCurTerminalID.Text))
-                    dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtCurTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+                {
+                    //dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtCurTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                    pSearchValue = $"{txtSearchSTJobType.Text}{clsDefines.gPipe}" +
+                        $"{txtSearchServiceNo.Text}{clsDefines.gPipe}" +
+                        $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                        $"{txtMerchantID.Text}{clsDefines.gPipe}" +
+                        $"{txtCurTerminalType.Text}{clsDefines.gPipe}" +
+                        $"{txtCurTerminalModel.Text}";
+                    
+                }
+
 
                 if (dbFunction.isValidID(txtRepTerminalID.Text))
-                    dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtRepTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+                {
+                    //dbAPI.ExecuteAPI("GET", "Search", "Application Version/CRC Info", txtRepTerminalModel.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                    pSearchValue = $"{txtSearchSTJobType.Text}{clsDefines.gPipe}" +
+                        $"{txtSearchServiceNo.Text}{clsDefines.gPipe}" +
+                        $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                        $"{txtMerchantID.Text}{clsDefines.gPipe}" +
+                        $"{txtRepTerminalType.Text}{clsDefines.gPipe}" +
+                        $"{txtRepTerminalModel.Text}";
+                }
+
+                // parse delimited
+                dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
+                dbAPI.ExecuteAPI("GET", "Search", "Merchant Apps Version-CRC", pSearchValue, "Get Info Detail", "", "GetInfoDetail");
                 
                 Debug.WriteLine("clsSearch.ClassOutParamValue=" + clsSearch.ClassOutParamValue);
+
+                dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gComma, 0);
 
                 if (clsSearch.ClassOutParamValue.Length > 0)
                 {
@@ -7450,10 +7491,66 @@ namespace MIS
                     "The merchant zoning information has been updated successfully.",
                     clsDefines.SUCCESS_MSG,
                     clsFunction.IconType.iInformation);
+
+                // load new TAT detail
+                loadTATDetail();
             }
             finally
             {
                 Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void btnOverrideUpdate_Click(object sender, EventArgs e)
+        {
+            string pSearchValue = "";
+
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isUpdate, clsUser.ClassUserID, 26)) return;
+
+            // Admin Login requirement
+            if (!dbAPI.isPromptAdminLogIn()) return;
+
+            if (dbFunction.isValidID(txtSearchFSRNo.Text) && dbFunction.isValidID(txtSearchServiceNo.Text) && dbFunction.isValidID(txtMerchantID.Text) && dbFunction.isValidID(txtIRIDNo.Text))
+            {
+
+                // Update
+                if (!dbFunction.fPromptConfirmation("Job Order overrided update information:" +
+                    "\n\n" +
+                    " > Job Type: " + txtServiceType1.Text + "\n" +
+                    " > FSR Mode: " + txtSearchFSRDesc.Text + "\n" +
+                    " > Service Result: " + txtSearchFSRServiceResult.Text + "\n" +
+                    " > Service Status: " + txtServiceJobTypeStatusDesc.Text + "\n" +
+                    " > Serviced Date: " + txtFsrServicedDate.Text + "\n" +
+                    " > Merchant: " + txtMerchantName.Text + "\n" +
+                    " > TID: " + txtIRTID.Text + "\n" +
+                    " > MID: " + txtIRMID.Text + "\n\n" +                    
+                    " > Billing Type: " + dbFunction.CheckAndSetStringValue(cboBillingType.Text) + "\n" +
+                    " > Source: " + dbFunction.CheckAndSetStringValue(cboSource.Text) + "\n" +
+                    " > Category: " + dbFunction.CheckAndSetStringValue(cboCategory.Text) + "\n" +
+                    " > Sub Category: " + dbFunction.CheckAndSetStringValue(cboSubCategory.Text) + "\n" +                    
+                    "\n\n" +
+                    "Are you sure to continue update?"
+                    )) return;
+
+                // api call update
+                pSearchValue = $"{txtSearchServiceNo.Text}{clsDefines.gPipe}" +
+                                $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                                $"{txtMerchantID.Text}{clsDefines.gPipe}" +
+                                $"{dbFunction.getFileID(cboBillingType, "All Type")}{clsDefines.gPipe}" +
+                                $"{dbFunction.getFileID(cboSource, "All Type")}{clsDefines.gPipe}" +
+                                $"{dbFunction.getFileID(cboCategory, "All Type")}{clsDefines.gPipe}" +
+                                $"{dbFunction.getFileID(cboSubCategory, "All Type")}";
+
+                dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 1);
+
+                dbAPI.ExecuteAPI("PUT", "Update", "Service Override", pSearchValue, "", "", "UpdateCollectionDetail");
+
+                dbFunction.SetMessageBox("Job Order override information update complete.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
+
+            }
+            else
+            {
+                dbFunction.SetMessageBox("Service information must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
             }
         }
     }

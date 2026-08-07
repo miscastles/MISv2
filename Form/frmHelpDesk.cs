@@ -1501,10 +1501,10 @@ namespace MIS
 
             //dbAPI.FillComboBoxServiceType(cboSearchServiceType);
 
+            dbAPI.FillComboBoxTypeByGroup(cboBillingType, (int)GroupType.BillingTypeID);
             if (clsSearch.ClassIsBillType > 0)
             {
-                cboBillingType.Enabled = true;
-                dbAPI.FillComboBoxTypeByGroup(cboBillingType, (int)GroupType.BillingTypeID);
+                cboBillingType.Enabled = true;                
                 
             }
             else
