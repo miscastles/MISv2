@@ -367,13 +367,17 @@ namespace MIS
 
             if (selectedMonth == null) return;
 
-            for (int day = 1; day <= selectedMonth.MaxDay; day++) cboDD.Items.Add(day.ToString("00"));
+            cboDD.Items.Add("00");
 
-            if (cboDD.Items.Count > 0) 
+            for (int day = 1; day <= selectedMonth.MaxDay; day++)
             {
-                cboDD.SelectedIndex = 0;
+                cboDD.Items.Add(day.ToString("00"));
             }
+
+            // init date
+            cboDD.SelectedItem = "01";
         }
+
 
         private void InitHolidayMonthFilter()
         {
