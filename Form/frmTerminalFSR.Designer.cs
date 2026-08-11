@@ -823,6 +823,11 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
+            this.pnlPreviewImage = new System.Windows.Forms.Panel();
+            this.picPreview = new System.Windows.Forms.PictureBox();
+            this.panel195 = new System.Windows.Forms.Panel();
+            this.panel196 = new System.Windows.Forms.Panel();
+            this.label190 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -1051,6 +1056,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddResolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).BeginInit();
             this.panel53.SuspendLayout();
+            this.pnlPreviewImage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
+            this.panel195.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -1073,7 +1081,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(1, 930);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1390, 2);
+            this.panel3.Size = new System.Drawing.Size(1392, 2);
             this.panel3.TabIndex = 306;
             this.panel3.Visible = false;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
@@ -1082,7 +1090,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1389, 0);
+            this.panel4.Location = new System.Drawing.Point(1391, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(2, 930);
             this.panel4.TabIndex = 307;
@@ -1093,7 +1101,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel8.Location = new System.Drawing.Point(1, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1388, 2);
+            this.panel8.Size = new System.Drawing.Size(1390, 2);
             this.panel8.TabIndex = 388;
             // 
             // pnlHeader
@@ -1107,7 +1115,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(1, 2);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1388, 29);
+            this.pnlHeader.Size = new System.Drawing.Size(1390, 29);
             this.pnlHeader.TabIndex = 390;
             // 
             // btnMinimize
@@ -2793,12 +2801,13 @@
             this.tabControl1.Location = new System.Drawing.Point(5, 33);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1383, 895);
+            this.tabControl1.Size = new System.Drawing.Size(1386, 895);
             this.tabControl1.TabIndex = 435;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.pnlPreviewImage);
             this.tabPage1.Controls.Add(this.panel135);
             this.tabPage1.Controls.Add(this.panel173);
             this.tabPage1.Controls.Add(this.panel151);
@@ -2827,7 +2836,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1375, 863);
+            this.tabPage1.Size = new System.Drawing.Size(1378, 863);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
             // 
@@ -4862,7 +4871,7 @@
             this.panel123.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel123.Location = new System.Drawing.Point(963, 790);
             this.panel123.Name = "panel123";
-            this.panel123.Size = new System.Drawing.Size(410, 73);
+            this.panel123.Size = new System.Drawing.Size(328, 73);
             this.panel123.TabIndex = 481;
             // 
             // panel127
@@ -4873,7 +4882,7 @@
             this.panel127.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel127.Location = new System.Drawing.Point(0, 28);
             this.panel127.Name = "panel127";
-            this.panel127.Size = new System.Drawing.Size(408, 43);
+            this.panel127.Size = new System.Drawing.Size(326, 43);
             this.panel127.TabIndex = 312;
             // 
             // panel128
@@ -4881,7 +4890,7 @@
             this.panel128.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel128.Controls.Add(this.txtNegativeCnt);
             this.panel128.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel128.Location = new System.Drawing.Point(205, 0);
+            this.panel128.Location = new System.Drawing.Point(173, 0);
             this.panel128.Name = "panel128";
             this.panel128.Size = new System.Drawing.Size(204, 41);
             this.panel128.TabIndex = 318;
@@ -4891,14 +4900,13 @@
             this.txtNegativeCnt.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtNegativeCnt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNegativeCnt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNegativeCnt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtNegativeCnt.Font = new System.Drawing.Font("Courier New", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNegativeCnt.ForeColor = System.Drawing.Color.Black;
             this.txtNegativeCnt.Location = new System.Drawing.Point(0, 0);
             this.txtNegativeCnt.MaxLength = 200;
             this.txtNegativeCnt.Name = "txtNegativeCnt";
             this.txtNegativeCnt.ReadOnly = true;
-            this.txtNegativeCnt.Size = new System.Drawing.Size(202, 47);
+            this.txtNegativeCnt.Size = new System.Drawing.Size(151, 47);
             this.txtNegativeCnt.TabIndex = 352;
             this.txtNegativeCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -4909,7 +4917,7 @@
             this.panel136.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel136.Location = new System.Drawing.Point(0, 0);
             this.panel136.Name = "panel136";
-            this.panel136.Size = new System.Drawing.Size(205, 41);
+            this.panel136.Size = new System.Drawing.Size(173, 41);
             this.panel136.TabIndex = 317;
             // 
             // txtSuccessCnt
@@ -4917,14 +4925,13 @@
             this.txtSuccessCnt.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtSuccessCnt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSuccessCnt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSuccessCnt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtSuccessCnt.Font = new System.Drawing.Font("Courier New", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSuccessCnt.ForeColor = System.Drawing.Color.Black;
             this.txtSuccessCnt.Location = new System.Drawing.Point(0, 0);
             this.txtSuccessCnt.MaxLength = 200;
             this.txtSuccessCnt.Name = "txtSuccessCnt";
             this.txtSuccessCnt.ReadOnly = true;
-            this.txtSuccessCnt.Size = new System.Drawing.Size(203, 47);
+            this.txtSuccessCnt.Size = new System.Drawing.Size(172, 47);
             this.txtSuccessCnt.TabIndex = 351;
             this.txtSuccessCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -4936,7 +4943,7 @@
             this.panel137.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel137.Location = new System.Drawing.Point(0, 0);
             this.panel137.Name = "panel137";
-            this.panel137.Size = new System.Drawing.Size(408, 28);
+            this.panel137.Size = new System.Drawing.Size(326, 28);
             this.panel137.TabIndex = 311;
             // 
             // label6
@@ -4944,9 +4951,9 @@
             this.label6.BackColor = System.Drawing.Color.Red;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Transparent;
-            this.label6.Location = new System.Drawing.Point(207, 3);
+            this.label6.Location = new System.Drawing.Point(175, 3);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(202, 26);
+            this.label6.Size = new System.Drawing.Size(151, 26);
             this.label6.TabIndex = 317;
             this.label6.Text = "NEGATIVE";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4958,7 +4965,7 @@
             this.label124.ForeColor = System.Drawing.Color.Transparent;
             this.label124.Location = new System.Drawing.Point(-2, 3);
             this.label124.Name = "label124";
-            this.label124.Size = new System.Drawing.Size(208, 25);
+            this.label124.Size = new System.Drawing.Size(176, 25);
             this.label124.TabIndex = 316;
             this.label124.Text = "SUCCESS";
             this.label124.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -9759,14 +9766,14 @@
             // 
             // lblCountDown
             // 
-            this.lblCountDown.Font = new System.Drawing.Font("Century Gothic", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCountDown.Font = new System.Drawing.Font("Century Gothic", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCountDown.ForeColor = System.Drawing.Color.Blue;
-            this.lblCountDown.Location = new System.Drawing.Point(1412, 764);
+            this.lblCountDown.Location = new System.Drawing.Point(3, 24);
             this.lblCountDown.Name = "lblCountDown";
-            this.lblCountDown.Size = new System.Drawing.Size(78, 49);
+            this.lblCountDown.Size = new System.Drawing.Size(73, 39);
             this.lblCountDown.TabIndex = 494;
             this.lblCountDown.Text = "15";
-            this.lblCountDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblCountDown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCountDown.Visible = false;
             // 
             // lblCreatedDate
@@ -10584,12 +10591,69 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
+            // pnlPreviewImage
+            // 
+            this.pnlPreviewImage.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlPreviewImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlPreviewImage.Controls.Add(this.lblCountDown);
+            this.pnlPreviewImage.Controls.Add(this.picPreview);
+            this.pnlPreviewImage.Controls.Add(this.panel195);
+            this.pnlPreviewImage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlPreviewImage.Location = new System.Drawing.Point(1292, 794);
+            this.pnlPreviewImage.Name = "pnlPreviewImage";
+            this.pnlPreviewImage.Size = new System.Drawing.Size(80, 68);
+            this.pnlPreviewImage.TabIndex = 500;
+            // 
+            // picPreview
+            // 
+            this.picPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picPreview.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picPreview.Location = new System.Drawing.Point(0, 24);
+            this.picPreview.Name = "picPreview";
+            this.picPreview.Size = new System.Drawing.Size(78, 42);
+            this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picPreview.TabIndex = 313;
+            this.picPreview.TabStop = false;
+            // 
+            // panel195
+            // 
+            this.panel195.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel195.Controls.Add(this.label190);
+            this.panel195.Controls.Add(this.panel196);
+            this.panel195.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel195.Location = new System.Drawing.Point(0, 0);
+            this.panel195.Name = "panel195";
+            this.panel195.Size = new System.Drawing.Size(78, 24);
+            this.panel195.TabIndex = 311;
+            // 
+            // panel196
+            // 
+            this.panel196.BackColor = System.Drawing.Color.Silver;
+            this.panel196.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel196.Location = new System.Drawing.Point(0, 22);
+            this.panel196.Name = "panel196";
+            this.panel196.Size = new System.Drawing.Size(78, 2);
+            this.panel196.TabIndex = 0;
+            // 
+            // label190
+            // 
+            this.label190.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label190.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label190.ForeColor = System.Drawing.Color.Transparent;
+            this.label190.Location = new System.Drawing.Point(-1, -1);
+            this.label190.Name = "label190";
+            this.label190.Size = new System.Drawing.Size(82, 26);
+            this.label190.TabIndex = 318;
+            this.label190.Text = "COUNTER";
+            this.label190.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1391, 932);
-            this.Controls.Add(this.lblCountDown);
+            this.ClientSize = new System.Drawing.Size(1393, 932);
             this.Controls.Add(this.lblCreatedDate);
             this.Controls.Add(this.panel53);
             this.Controls.Add(this.txtSearchMerchantName);
@@ -10962,6 +11026,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).EndInit();
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
+            this.pnlPreviewImage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
+            this.panel195.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11762,5 +11829,10 @@
         private System.Windows.Forms.TextBox txtABillingType;
         private System.Windows.Forms.Label label189;
         private System.Windows.Forms.TextBox txtASubCategory;
+        private System.Windows.Forms.Panel pnlPreviewImage;
+        private System.Windows.Forms.PictureBox picPreview;
+        private System.Windows.Forms.Panel panel195;
+        private System.Windows.Forms.Panel panel196;
+        private System.Windows.Forms.Label label190;
     }
 }

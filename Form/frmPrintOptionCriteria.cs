@@ -2082,6 +2082,7 @@ namespace MIS
                     chkSummaryTab.Checked = chkDetailTab.Checked = true;
 
                     rbToday.Checked = true;
+                    rbDetailAll.Checked = true;
 
                     gbReason.Enabled = true;
 
@@ -2278,7 +2279,7 @@ namespace MIS
 
                 if (gbDateFilter.Enabled)
                 {
-                    message = $"Date Range: [{dteDateFrom.Value:yyyy-MM-dd}] - [{dteDateTo.Value:yyyy-MM-dd}]";
+                    message = $"Date Range: [{dteDateFrom.Value:yyyy-MM-dd}] - [{dteDateTo.Value:yyyy-MM-dd}]\n";
                 }
 
                 if (gbDetailDateFilter.Enabled)
@@ -2286,7 +2287,7 @@ namespace MIS
                     if (!string.IsNullOrEmpty(message))
                         message += Environment.NewLine;
 
-                    message += $"Detail Date Range: [{dteDetailDateFrom.Value:yyyy-MM-dd}] - [{dteDetailDateTo.Value:yyyy-MM-dd}]";
+                    message += $"Summary & Detail Date Range: [{dteDetailDateFrom.Value:yyyy-MM-dd}] - [{dteDetailDateTo.Value:yyyy-MM-dd}]\n";
                 }
 
                 if (!dbFunction.fPromptConfirmation(
@@ -2546,6 +2547,7 @@ namespace MIS
                 gbDetailDateFilter.Enabled = false;
             */
             initSummaryDetailDateFilter();
+            initDetailDateFilter(true);
         }
 
         private void rbDetailAll_CheckedChanged(object sender, EventArgs e)
@@ -2578,6 +2580,7 @@ namespace MIS
                 gbDetailDateFilter.Enabled = false;
             */
             initSummaryDetailDateFilter();
+            initDetailDateFilter(true);            
         }
 
         private void initDailyDateFilter()
