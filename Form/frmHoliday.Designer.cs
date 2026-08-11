@@ -194,6 +194,7 @@
             // cboMonthFilter
             // 
             this.cboMonthFilter.BackColor = System.Drawing.Color.White;
+            this.cboMonthFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboMonthFilter.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.cboMonthFilter.FormattingEnabled = true;
             this.cboMonthFilter.Location = new System.Drawing.Point(381, 38);
@@ -215,6 +216,7 @@
             // cboDD
             // 
             this.cboDD.BackColor = System.Drawing.Color.White;
+            this.cboDD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDD.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.cboDD.FormattingEnabled = true;
             this.cboDD.Location = new System.Drawing.Point(220, 37);
@@ -225,6 +227,7 @@
             // cboMM
             // 
             this.cboMM.BackColor = System.Drawing.Color.White;
+            this.cboMM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboMM.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.cboMM.FormattingEnabled = true;
             this.cboMM.Location = new System.Drawing.Point(85, 37);

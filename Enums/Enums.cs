@@ -126,4 +126,10 @@ namespace MIS.Enums
         Profiling = 12
     }
 
+    public enum ReportType
+    {
+        Daily = 1,
+        Summary = 2
+    }
+
 }

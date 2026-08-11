@@ -128,105 +128,105 @@ namespace MIS.Function
                                 // ======================================================
                                 if (tabName == "Summary")
                                 {
-                                    WriteReportHeader(writer);
+                                    WriteReportHeader(writer, clsReport.ClassReportDesc, clsSearch.ClassDateFrom, clsSearch.ClassDateTo, clsSearch.ClassDetailDateFrom, clsSearch.ClassDetailDateTo, clsUser.ClassUserFullName, dbFunction.getCurrentDateTime(), 1);
                                     currentRowIndex += REPORT_HEADER_ROW_COUNT;
                                 }
-
+                                
                                 foreach (DataTable table in ds.Tables)
-                                {
-                                    var includedColumns = table.Columns.Cast<DataColumn>()
-                                                            .Where(c => !excludedColumnsSet.Contains(c.ColumnName))
-                                                            .ToList();
-
-                                    bool writeHeader = tabName != "Summary";
-
-                                    // Header
-                                    if (writeHeader)
                                     {
-                                        writer.WriteStartElement(new Row());
-                                        foreach (var col in includedColumns)
-                                            writer.WriteElement(CreateTextCell(col.ColumnName, 1)); // header style
-                                        writer.WriteEndElement();
-                                        currentRowIndex++;
-                                    }
+                                        var includedColumns = table.Columns.Cast<DataColumn>()
+                                                                .Where(c => !excludedColumnsSet.Contains(c.ColumnName))
+                                                                .ToList();
 
-                                    foreach (DataRow row in table.Rows)
-                                    {
-                                        writer.WriteStartElement(new Row());
-                                        int excelColPos = 1;
+                                        bool writeHeader = tabName != "Summary";
 
-                                        string colAValue = row[0]?.ToString() ?? "";
-                                        string colBValue = row.Table.Columns.Count > 1 ? row[1]?.ToString() ?? "" : "";
-                                        string colCValue = row.Table.Columns.Count > 2 ? row[2]?.ToString() ?? "" : "";
-
-                                        uint rowStyle = 0;
-
-                                        // ---------- Summary Sheet Styling (EPPlus logic) ----------
-                                        if (tabName == "Summary")
-                                        {   
-                                            if (colBValue == "GRAND TOTAL" ||
-                                                (colAValue == "7" && colBValue == "CURRENT SLA %") ||
-                                                (colAValue == "2" && colBValue.StartsWith("OVERALL REQUESTS") && clsSearch.ClassReportID == 53) ||
-                                                (colAValue == "3" && colBValue == "OVERALL REQUESTS") ||
-                                                (colAValue == "4" && colBValue == "REQUEST WITHIN SLA") ||
-                                                (colAValue == "6" && colBValue == "REQUEST PER TEAM LEAD") ||
-                                                (colAValue == "1" && colBValue == "NEGATIVE/UNSUCCESSFUL ACTIVITY"))
-                                            {
-                                                rowStyle = 2; // Dark Blue
-                                            }
-                                            else if (colAValue == "0" && colBValue == "-")
-                                            {
-                                                rowStyle = 4; // White row (hidden)
-                                            }
-                                            else if (((colAValue == "3" || colAValue == "4") && colCValue == "TOTAL") ||
-                                                     (colAValue == "7" && (colBValue != "CURRENT SLA %" && colBValue != "GRAND TOTAL")))
-                                            {
-                                                rowStyle = 3; // Light Green
-                                            }
-                                        }
-
-                                        foreach (DataColumn col in includedColumns)
+                                        // Header
+                                        if (writeHeader)
                                         {
-                                            //string cellRawValue = row[col]?.ToString() ?? "";
-                                            string cellRawValue = CleanXmlString(row[col]?.ToString() ?? "");
-                                            uint cellStyle = rowStyle;
-
-                                            // --- Special highlight for "REQUEST PER TEAM LEAD" row ---
-                                            if (tabName == "Summary" && colAValue == "6" && colBValue == "REQUEST PER TEAM LEAD")
-                                            {
-                                                if (excelColPos >= 4 && excelColPos <= 9) cellStyle = 5; // Green
-                                                if (excelColPos == 10 || excelColPos == 11) cellStyle = 6; // Orange
-                                                if (excelColPos >= 12 && excelColPos <= 15) cellStyle = 7; // Red
-                                            }
-
-                                            // --- Special highlight for "REQUEST PER TEAM LEAD GRAND TOTAL" ---
-                                            if (tabName == "Summary" && colAValue == "6" && colBValue == "GRAND TOTAL" &&
-                                                excelColPos >= 4 && excelColPos <= 15)
-                                            {
-                                                cellStyle = 5; // Green
-                                            }
-
-                                            // --- Deduplicate Column B (replace repeat values with "-") ---
-                                            if (tabName == "Summary" && excelColPos == 2)
-                                            {
-                                                if (cellRawValue == previousBValue && cellRawValue != "")
-                                                    cellRawValue = "-";
-                                                else
-                                                    previousBValue = cellRawValue;
-                                            }
-
-                                            // Create styled cell
-                                            var cell = CreateTextCell(cellRawValue, cellStyle);
-                                            writer.WriteElement(cell);
-
-                                            excelColPos++;
+                                            writer.WriteStartElement(new Row());
+                                            foreach (var col in includedColumns)
+                                                writer.WriteElement(CreateTextCell(col.ColumnName, 1)); // header style
+                                            writer.WriteEndElement();
+                                            currentRowIndex++;
                                         }
 
-                                        writer.WriteEndElement(); // Row
-                                        currentRowIndex++;
-                                    }
+                                        foreach (DataRow row in table.Rows)
+                                        {
+                                            writer.WriteStartElement(new Row());
+                                            int excelColPos = 1;
 
-                                }
+                                            string colAValue = row[0]?.ToString() ?? "";
+                                            string colBValue = row.Table.Columns.Count > 1 ? row[1]?.ToString() ?? "" : "";
+                                            string colCValue = row.Table.Columns.Count > 2 ? row[2]?.ToString() ?? "" : "";
+
+                                            uint rowStyle = 0;
+
+                                            // ---------- Summary Sheet Styling (EPPlus logic) ----------
+                                            if (tabName == "Summary")
+                                            {
+                                                if (colBValue == "GRAND TOTAL" ||
+                                                    (colAValue == "7" && colBValue == "CURRENT SLA %") ||
+                                                    (colAValue == "2" && colBValue.StartsWith("OVERALL REQUESTS") && clsSearch.ClassReportID == 53) ||
+                                                    (colAValue == "3" && colBValue == "OVERALL REQUESTS") ||
+                                                    (colAValue == "4" && colBValue == "REQUEST WITHIN SLA") ||
+                                                    (colAValue == "6" && colBValue == "REQUEST PER TEAM LEAD") ||
+                                                    (colAValue == "1" && colBValue == "NEGATIVE/UNSUCCESSFUL ACTIVITY"))
+                                                {
+                                                    rowStyle = 2; // Dark Blue
+                                                }
+                                                else if (colAValue == "0" && colBValue == "-")
+                                                {
+                                                    rowStyle = 4; // White row (hidden)
+                                                }
+                                                else if (((colAValue == "3" || colAValue == "4") && colCValue == "TOTAL") ||
+                                                         (colAValue == "7" && (colBValue != "CURRENT SLA %" && colBValue != "GRAND TOTAL")))
+                                                {
+                                                    rowStyle = 3; // Light Green
+                                                }
+                                            }
+
+                                            foreach (DataColumn col in includedColumns)
+                                            {
+                                                //string cellRawValue = row[col]?.ToString() ?? "";
+                                                string cellRawValue = CleanXmlString(row[col]?.ToString() ?? "");
+                                                uint cellStyle = rowStyle;
+
+                                                // --- Special highlight for "REQUEST PER TEAM LEAD" row ---
+                                                if (tabName == "Summary" && colAValue == "6" && colBValue == "REQUEST PER TEAM LEAD")
+                                                {
+                                                    if (excelColPos >= 4 && excelColPos <= 9) cellStyle = 5; // Green
+                                                    if (excelColPos == 10 || excelColPos == 11) cellStyle = 6; // Orange
+                                                    if (excelColPos >= 12 && excelColPos <= 15) cellStyle = 7; // Red
+                                                }
+
+                                                // --- Special highlight for "REQUEST PER TEAM LEAD GRAND TOTAL" ---
+                                                if (tabName == "Summary" && colAValue == "6" && colBValue == "GRAND TOTAL" &&
+                                                    excelColPos >= 4 && excelColPos <= 15)
+                                                {
+                                                    cellStyle = 5; // Green
+                                                }
+
+                                                // --- Deduplicate Column B (replace repeat values with "-") ---
+                                                if (tabName == "Summary" && excelColPos == 2)
+                                                {
+                                                    if (cellRawValue == previousBValue && cellRawValue != "")
+                                                        cellRawValue = "-";
+                                                    else
+                                                        previousBValue = cellRawValue;
+                                                }
+
+                                                // Create styled cell
+                                                var cell = CreateTextCell(cellRawValue, cellStyle);
+                                                writer.WriteElement(cell);
+
+                                                excelColPos++;
+                                            }
+
+                                            writer.WriteEndElement(); // Row
+                                            currentRowIndex++;
+                                        }
+
+                                    }
 
                                 writer.WriteEndElement(); // SheetData
                                 writer.WriteEndElement(); // Worksheet
@@ -549,22 +549,32 @@ namespace MIS.Function
             return new string(text.Where(ch => System.Xml.XmlConvert.IsXmlChar(ch)).ToArray());
         }
 
-        private void WriteReportHeader(OpenXmlWriter writer)
+        void WriteReportHeader(
+                                OpenXmlWriter writer,
+                                string pReportType,
+                                string pDateFrom,
+                                string pDateTo,
+                                string pDetailDateFrom,
+                                string pDetailDateTo,
+                                string pGeneratedBy,
+                                string pGeneratedOn,
+                                uint columnIndex)
         {
             void WriteHeaderRow(string title, string value)
             {
                 writer.WriteStartElement(new Row());
 
-                writer.WriteElement(CreateTextCell(title, 1));   // Bold Header
-                writer.WriteElement(CreateTextCell(value, 0));   // Normal Text
+                writer.WriteElement(CreateTextCell(title, columnIndex));       // Header
+                writer.WriteElement(CreateTextCell(value, columnIndex + 1));   // Value
 
                 writer.WriteEndElement();
             }
 
-            WriteHeaderRow("", $"Report Type:{clsReport.ClassReportDesc}");
-            WriteHeaderRow("",$"Date Range:{clsSearch.ClassDateFrom} - {clsSearch.ClassDateTo}");
-            WriteHeaderRow("", $"Generated By:{clsUser.ClassUserFullName}");
-            WriteHeaderRow("",$"Generated On:{dbFunction.getCurrentDateTime()}");
+            WriteHeaderRow("", $"Report Type: {pReportType}");
+            WriteHeaderRow("", $"Summary Date Range: {pDetailDateFrom} - {pDetailDateTo}");
+            WriteHeaderRow("", $"Daily Date Range: {pDateFrom} - {pDateTo}");
+            WriteHeaderRow("", $"Generated By: {pGeneratedBy}");
+            WriteHeaderRow("", $"Generated On: {pGeneratedOn}");
 
             // Blank Row
             writer.WriteStartElement(new Row());

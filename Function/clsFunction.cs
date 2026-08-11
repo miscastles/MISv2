@@ -6967,7 +6967,37 @@ namespace MIS
             
             return fValid;
         }
-        
+
+        public void checkDataSet(DataSet ds, string title = "DATASET")
+        {
+            Debug.WriteLine($"========== {title} ==========");
+
+            if (ds == null)
+            {
+                Debug.WriteLine("DataSet : NULL");
+                Debug.WriteLine("==============================");
+                return;
+            }
+
+            Debug.WriteLine($"Tables : {ds.Tables.Count}");
+
+            int totalRows = 0;
+
+            for (int i = 0; i < ds.Tables.Count; i++)
+            {
+                DataTable dt = ds.Tables[i];
+                totalRows += dt.Rows.Count;
+
+                Debug.WriteLine(
+                    $"Table[{i}] " +
+                    $"Name=[{(string.IsNullOrWhiteSpace(dt.TableName) ? "(No Name)" : dt.TableName)}] " +
+                    $"Rows={dt.Rows.Count}");
+            }
+
+            Debug.WriteLine($"Total Rows : {totalRows}");
+            Debug.WriteLine("==============================");
+        }
+
     }
 
 }
