@@ -1,4 +1,5 @@
-﻿using MIS.Enums;
+﻿using MIS.ControlObject;
+using MIS.Enums;
 using MIS.Function;
 using MIS.Model;
 using Newtonsoft.Json;
@@ -27,6 +28,8 @@ namespace MIS
 {
     public partial class frmImportIR : Form
     {
+        public static bool fAutoLoadData = false;
+
         private int iHeaderRowIndex = 1;
         private int iDataRowIndex = 0;
 
@@ -345,7 +348,6 @@ namespace MIS
                 {
                     string sCellValue = StrClean(grdDummy.Rows[i].Cells[x].Value?.ToString().Trim() ?? "");
                     
-                    /*
                     // Apply transformations only if necessary
                     if (x == iPRIME_TID_01 && !string.IsNullOrEmpty(sCellValue))
                         sCellValue = dbFunction.padLeftChar(sTID, clsFunction.sPadZero, 8);
@@ -355,18 +357,19 @@ namespace MIS
 
                     if (x == iRequestDate && !string.IsNullOrEmpty(sRequestDate))
                     {
-                        sCellValue = dbFunction.GetDateFromParse(sRequestDate.Substring(0, 10), "dd/MM/yyyy", "yyyy-MM-dd");
-                        if (!dbFunction.isValidDescription(sCellValue))
-                            sCellValue = clsDefines.DEV_DATE;                      
+                        if (DateTime.TryParse(sRequestDate, out DateTime dtRequest))
+                            sCellValue = dtRequest.ToString("yyyy-MM-dd");
+                        else
+                            sCellValue = clsDefines.DEV_DATE;
                     }
 
                     if (x == iInstDdate && !string.IsNullOrEmpty(sInstallationDate))
                     {
-                        sCellValue = dbFunction.GetDateFromParse(sInstallationDate.Substring(0, 10), "dd/MM/yyyy", "yyyy-MM-dd");
-                        if (!dbFunction.isValidDescription(sCellValue))
+                        if (DateTime.TryParse(sInstallationDate, out DateTime dtInstallation))
+                            sCellValue = dtInstallation.ToString("yyyy-MM-dd");
+                        else
                             sCellValue = clsDefines.DEV_DATE;
                     }
-                    */
 
                     if (x == iDBAName)
                         sCellValue = sMerchantName.Replace("(", "").Replace(")", "");
@@ -2274,6 +2277,7 @@ namespace MIS
             dbFunction.ClearListView(lvwSearch);
             dbFunction.ClearListView(lvwDetail);
             dbFunction.ClearListViewItems(lvwMerchant);
+            dbFunction.ClearListViewItems(lvwList);
 
             dbFunction.ClearDataGrid(grdDummy);
             dbFunction.ClearDataGrid(grdList);
@@ -2312,6 +2316,11 @@ namespace MIS
             dbFunction.SetButtonIconImage(btnClientSearch);
 
             lblSelectedRow.Text = "";
+
+            fAutoLoadData = false;
+
+            ucInfoDataGridView.ClearData();
+
         }
 
         private void btnMAdd_Click(object sender, EventArgs e)
@@ -2361,12 +2370,19 @@ namespace MIS
 
         private void btnMerchantSearch_Click(object sender, EventArgs e)
         {
-            frmSearchField.iSearchType = frmSearchField.SearchType.iMerchant;
-            frmSearchField.sHeader = "MERCHANT";
-            frmSearchField.isPreview = false;
-            frmSearchField frm = new frmSearchField();
-            frm.ShowDialog();
-
+            if (fAutoLoadData)
+            {
+                frmSearchField.fSelected = true;
+            }
+            else
+            {
+                frmSearchField.iSearchType = frmSearchField.SearchType.iMerchant;
+                frmSearchField.sHeader = "MERCHANT";
+                frmSearchField.isPreview = false;
+                frmSearchField frm = new frmSearchField();
+                frm.ShowDialog();
+            }
+            
             if (frmSearchField.fSelected)
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -2437,6 +2453,8 @@ namespace MIS
 
                 FillMerchantServiceInfo();
 
+                FillServicingSNInfo();
+
                 cboRequestType_SelectedIndexChanged(this, e);
 
                 cboPOSType_SelectedIndexChanged(this, e);
@@ -2448,6 +2466,11 @@ namespace MIS
 
                 btnAddTerminal.Enabled = true;
 
+                // Load service history
+                ucInfoDataGridView.ClearData();
+                dbAPI.initServiceHistoryListView(lvwList);
+                dbAPI.loadServicingDetail(lvwList, txtIRIDNo.Text, txtIRTID.Text, txtIRMID.Text);
+
                 txtClientName.Focus();
 
                 Cursor.Current = Cursors.Default;
@@ -2455,7 +2478,7 @@ namespace MIS
         }
 
         private void FillMerchantServiceInfo()
-        {   
+        {
             txtStatusID.Text = txtTerminalID.Text = txtSIMID.Text = txtTCount.Text = clsFunction.sZero;
             txtIRStatudDescription.Text = txtTerminalSN.Text = txtSIMSN.Text = clsFunction.sDash;
 
@@ -2469,15 +2492,15 @@ namespace MIS
                     txtIRStatudDescription.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_IRStatusDescription);
                     txtStatusID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_IRStatus);
                     txtTerminalID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalID);
-                    txtTerminalSN.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalSN);
+                    txtTerminalSN.Text = clsSearch.ClassHoldTerminalSN = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalSN);
                     txtTerminalType.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalType);
                     txtTerminalModel.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalModel);
                     txtSIMID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMID);
-                    txtSIMSN.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMSN);
+                    txtSIMSN.Text = clsSearch.ClassHoldSIMSN = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMSN);
                     txtSIMCarrier.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMCarrier);
                 }
             }
-            
+
         }
         
         private void btnAddClient_Click(object sender, EventArgs e)
@@ -4090,19 +4113,57 @@ namespace MIS
 
         private void btnUpdateSN_Click(object sender, EventArgs e)
         {
+            // check if unchanged SN
+            if (txtTerminalSN.Text.Equals(clsSearch.ClassHoldTerminalSN) && txtSIMSN.Text.Equals(clsSearch.ClassHoldSIMSN))
+            {
+                dbFunction.SetMessageBox(
+                    "No changes detected. Terminal and SIM SN remain unchanged.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iInformation
+                );
+
+                return;
+            }
+
+            // ---------------------------------
+            // Check for duplicate SN - Terminal
+            // ---------------------------------
+            if (dbFunction.isValidID(txtTerminalID.Text))
+            {
+                if (!dbAPI.isDuplicateSN(int.Parse(txtTerminalID.Text), txtTerminalSN.Text, int.Parse(txtIRIDNo.Text), clsDefines.SEARCH_TERMINAL))
+                    return;
+            }
+
+            // ---------------------------------
+            // Check for duplicate SN - SIM
+            // ---------------------------------
+            if (dbFunction.isValidID(txtSIMID.Text))
+            {
+                if (!dbAPI.isDuplicateSN(int.Parse(txtSIMID.Text), txtSIMSN.Text, int.Parse(txtIRIDNo.Text), clsDefines.SEARCH_SIM))
+                    return;
+            }
+
+            string terminalSNStatus = txtTerminalSN.Text.Equals(clsSearch.ClassHoldTerminalSN)? "UNCHANGED": "CHANGED";
+
+            string simSNStatus = txtSIMSN.Text.Equals(clsSearch.ClassHoldSIMSN)? "UNCHANGED": "CHANGED";
+
             if (!dbFunction.fPromptConfirmation($@"
-                Are you sure to update merchant assigned SN's info?
+            Are you sure you want to update the merchant-assigned serial numbers?
 
-                *Terminal
-                 Current : {clsSearch.ClassHoldTerminalSN}
-                 New     : {txtTerminalSN.Text}
+            * Terminal
+              Current : [{clsSearch.ClassHoldTerminalSN}]
+              New     : [{txtTerminalSN.Text}]
+              Status  : {terminalSNStatus}
 
-                *SIM
-                 Current : {clsSearch.ClassHoldSIMSN}
-                 New     : {txtSIMSN.Text}
-                ")) return;
+            * SIM
+              Current : [{clsSearch.ClassHoldSIMSN}]
+              New     : [{txtSIMSN.Text}]
+              Status  : {simSNStatus}
+            "))
+            {
+                return;
+            }
 
-            
             string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
                                     $"{dbFunction.CheckAndSetNumericValue(txtTerminalID.Text)}{clsDefines.gPipe}" +
                                     $"{txtTerminalSN.Text}{clsDefines.gPipe}" +
@@ -4131,12 +4192,12 @@ namespace MIS
 
             if (frmSearchField.fSelected)
             {
-                clsSearch.ClassHoldTerminalSN = clsSearch.ClassTerminalSN;
-
                 txtTerminalID.Text = $"{clsSearch.ClassTerminalID}";
                 txtTerminalSN.Text = $"{clsSearch.ClassTerminalSN}";
                 txtTerminalType.Text = $"{clsSearch.ClassTerminalType}";
                 txtTerminalModel.Text = $"{clsSearch.ClassTerminalModel}";
+
+                FillServicingSNInfo();
             }
         }
 
@@ -4162,11 +4223,11 @@ namespace MIS
 
             if (frmSearchField.fSelected)
             {
-                clsSearch.ClassHoldSIMSN = clsSearch.ClassSIMSerialNo;
-
                 txtSIMID.Text = $"{clsSearch.ClassSIMID}";
                 txtSIMSN.Text = $"{clsSearch.ClassSIMSerialNo}";
                 txtSIMCarrier.Text = $"{clsSearch.ClassSIMCarrier}";
+
+                FillServicingSNInfo();
             }
 
         }
@@ -4459,6 +4520,73 @@ namespace MIS
                     dbAPI.ExecuteAPI("PUT", "Update", "Merchant-ZoneID", pSearchValue, "", "", "UpdateCollectionDetail");
                     
                 }                
+            }
+        }
+
+        private void lvwList_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvwList.Items.Count > 0)
+            {
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);
+                string jsonResult = dbFunction.genJSONFormat(lvwList, lvwList.SelectedIndices[0], "", "");
+
+                // Pass JSON to popup window
+                frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
+                frm.ShowDialog();
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidID(txtMerchantID.Text))
+            {
+                dbFunction.SetMessageBox("Please select merchant.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
+                return;
+            }
+
+            fAutoLoadData = true;
+
+            clsSearch.ClassParticularID = int.Parse(txtMerchantID.Text);
+            clsSearch.ClassParticularName = txtMerchantName.Text;
+            clsSearch.ClassIRIDNo = int.Parse(txtIRIDNo.Text);
+            clsSearch.ClassClientID = int.Parse(txtClientID.Text);
+
+            btnMerchantSearch_Click(this, e);
+
+            fAutoLoadData = false;
+
+        }
+
+        private void FillServicingSNInfo()
+        {
+            if (dbFunction.isValidID(txtTerminalID.Text))
+            {
+                dbAPI.ExecuteAPI("GET", "Search", "Terminal SN Info", txtTerminalID.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                txtTerminalStatus.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 5);
+                txtTerminalLocation.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 13);
+            }
+
+            if (dbFunction.isValidID(txtSIMID.Text))
+            {
+                dbAPI.ExecuteAPI("GET", "Search", "SIM SN Info", txtSIMID.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                txtSIMStatus.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 2);
+                txtSIMLocation.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 7);
+            }
+        }
+
+        private void lvwList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvwList.SelectedItems.Count > 0)
+            {
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);
+
+                string jsonResult = dbFunction.genJSONFormat(lvwList,lvwList.SelectedIndices[0],"","");
+
+                ucInfoDataGridView.ClearData();
+
+                ucInfoDataGridView.SetData(jsonResult);
             }
         }
     }

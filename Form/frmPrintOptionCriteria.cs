@@ -1133,8 +1133,8 @@ namespace MIS
                                                         clsSearch.ClassJobTypeList + clsFunction.sPipe +
                                                         clsSearch.ClassIRIDNo + clsFunction.sPipe + 
                                                         clsFunction.sZero + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateFrom + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateTo + clsFunction.sPipe +
+                                                        clsSearch.ClassDateFrom + clsFunction.sPipe +
+                                                        clsSearch.ClassDateTo + clsFunction.sPipe +
                                                         clsSearch.ClassIsExcludePending + clsFunction.sPipe +
                                                         clsSearch.ClassReasonID + clsFunction.sPipe +
                                                         clsSearch.ClassReportStatus;
@@ -1145,8 +1145,8 @@ namespace MIS
                                                         $"{clsGlobalVariables.JOB_TYPE_SERVICING}{clsFunction.sComma}{clsGlobalVariables.JOB_TYPE_REPLACEMENT}" + clsFunction.sPipe +
                                                         clsSearch.ClassIRIDNo + clsFunction.sPipe +
                                                         clsFunction.sZero + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateFrom + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateTo + clsFunction.sPipe +
+                                                        clsSearch.ClassDateFrom + clsFunction.sPipe +
+                                                        clsSearch.ClassDateTo + clsFunction.sPipe +
                                                         clsSearch.ClassIsExcludePending + clsFunction.sPipe +
                                                         clsSearch.ClassReasonID + clsFunction.sPipe +
                                                         clsSearch.ClassReportStatus;
@@ -1157,8 +1157,8 @@ namespace MIS
                                                         clsSearch.ClassJobTypeList + clsFunction.sPipe +
                                                         clsSearch.ClassIRIDNo + clsFunction.sPipe +
                                                         clsFunction.sZero + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateFrom + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateTo + clsFunction.sPipe +
+                                                        clsSearch.ClassDateFrom + clsFunction.sPipe +
+                                                        clsSearch.ClassDateTo + clsFunction.sPipe +
                                                         clsSearch.ClassIsExcludePending + clsFunction.sPipe +
                                                         clsSearch.ClassReasonID + clsFunction.sPipe +
                                                         clsSearch.ClassReportStatus;

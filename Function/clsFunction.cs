@@ -6363,7 +6363,7 @@ namespace MIS
                     lvw.View = View.Details;
                     lvw.Columns.Clear();
                     lvw.Columns.Add("LINE#", 60, HorizontalAlignment.Left);
-                    lvw.Columns.Add("TAG", 210, HorizontalAlignment.Left);
+                    lvw.Columns.Add("TAG", 140, HorizontalAlignment.Left);
                     lvw.Columns.Add("VALUE", 600, HorizontalAlignment.Left);
 
                     lvw.Items.Clear();
@@ -6391,7 +6391,7 @@ namespace MIS
                     dgv.Columns[0].Name = "LINE#";
                     dgv.Columns[0].Width = 60;
                     dgv.Columns[1].Name = "TAG";
-                    dgv.Columns[1].Width = 210;
+                    dgv.Columns[1].Width = 140;
                     dgv.Columns[2].Name = "VALUE";
                     dgv.Columns[2].Width = 600;
 
@@ -6996,6 +6996,21 @@ namespace MIS
 
             Debug.WriteLine($"Total Rows : {totalRows}");
             Debug.WriteLine("==============================");
+        }
+
+        public void SetExceptionMessageBox(Exception ex)
+        {
+            string message =
+                $"An unexpected error occurred.\n\n" +
+                $"Exception Type: {ex.GetType().Name}\n" +
+                $"Message: {ex.Message}\n\n" +
+                $"Details:\n{ex}";
+
+            SetMessageBox(
+                message,
+                clsDefines.ERROR_MSG,
+                IconType.iError
+            );
         }
 
     }

@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -356,6 +356,18 @@
     </Compile>
     <Compile Include="ControlObject\ucHelpDeskServiceInfo.Designer.cs">
       <DependentUpon>ucHelpDeskServiceInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlObject\ucInfoDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlObject\ucInfoDataGridView.Designer.cs">
+      <DependentUpon>ucInfoDataGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlObject\ucInfoListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlObject\ucInfoListView.Designer.cs">
+      <DependentUpon>ucInfoListView.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlObject\ucIRInfo.cs">
       <SubType>UserControl</SubType>
@@ -1543,6 +1555,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlObject\ucHelpDeskServiceInfo.resx">
       <DependentUpon>ucHelpDeskServiceInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlObject\ucInfoDataGridView.resx">
+      <DependentUpon>ucInfoDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlObject\ucInfoListView.resx">
+      <DependentUpon>ucInfoListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlObject\ucIRInfo.resx">
       <DependentUpon>ucIRInfo.cs</DependentUpon>
