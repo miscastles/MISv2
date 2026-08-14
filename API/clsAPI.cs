@@ -12789,17 +12789,265 @@ namespace MIS
             dbAPI.ExecuteAPI("POST", "Insert", "", dbFunction.CheckAndSetNumericValue($"{pServiceNo}"), "Servicing Activity Detail", sSQL, "InsertCollectionDetail");
         }
 
-        public void saveServicingActivityEnd(ActivityType pActivityType, int pServiceNo)
+        public void saveServicingActivityEnd(ActivityType pActivityType, int pServiceNo, int pParticularID, string pParticularName)
         {
             if (!dbFunction.isValidID($"{pServiceNo}")) return;
 
             string pSearchValue = dbFunction.CheckAndSetNumericValue($"{pServiceNo}") + clsFunction.sPipe +
                                                   (int)pActivityType + clsFunction.sPipe +
-                                                  dbFunction.getCurrentDateTime();
+                                                  dbFunction.getCurrentDateTime() + clsFunction.sPipe +
+                                                  dbFunction.CheckAndSetNumericValue($"{pParticularID}") + clsFunction.sPipe +
+                                                  dbFunction.CheckAndSetStringValue(pParticularName);
 
             dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 
             dbAPI.ExecuteAPI("PUT", "Update", "Servicing Activity Detail", pSearchValue, "", "", "UpdateCollectionDetail");
+        }
+
+        public void loadServicingDetail(ListView lvw, string pIRIDNo, string pTID, string pMID)
+        {
+            int i = 0;
+            int iLineNo = 0;
+
+            Debug.WriteLine("--loadServicingDetail--");
+
+            dbFunction = new clsFunction();
+
+            lvw.Enabled = true;
+            lvw.Items.Clear();
+
+            string pSearchValue = dbFunction.CheckAndSetNumericValue(pIRIDNo) + clsFunction.sPipe +
+                                                       clsFunction.sNull + clsFunction.sPipe +
+                                                       clsFunction.sZero + clsFunction.sPipe +
+                                                       clsFunction.sZero + clsFunction.sPipe +
+                                                       clsFunction.sZero + clsFunction.sPipe +
+                                                       dbFunction.CheckAndSetStringValue(pTID) + clsFunction.sPipe +
+                                                       dbFunction.CheckAndSetStringValue(pMID);
+
+            Debug.WriteLine("clsSearch.ClassSearchValue=" + pSearchValue);
+
+            ExecuteAPI("GET", "View", "Servicing List", pSearchValue, "Servicing Detail", "", "ViewServicingDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK) return;
+
+            if (!isNoRecordFound())
+            {
+                while (clsArray.ServiceNo.Length > i)
+                {
+                    iLineNo++;
+
+                    ListViewItem item = new ListViewItem(iLineNo.ToString());
+
+                    int pStatus = int.Parse(clsArray.ServiceStatus[i]);
+                    item.ForeColor = dbFunction.GetColorByStatus(pStatus, clsArray.ActionMade[i]); // set forecolor per actionMade
+
+                    item.SubItems.Add(clsArray.ServiceNo[i].ToString());
+                    item.SubItems.Add(clsArray.IRIDNo[i].ToString());
+                    item.SubItems.Add(clsArray.TAIDNo[i].ToString());
+
+                    item.SubItems.Add(clsArray.ServiceJobTypeDescription[i].ToString());
+                    item.SubItems.Add(clsArray.RequestNo[i].ToString());
+                    item.SubItems.Add(clsArray.ReferenceNo[i].ToString());
+
+                    // Servicing Date Info
+                    string pJSONString = getInfoDetailJSON("Search", "Servicing Date Info", clsArray.ServiceNo[i].ToString());
+                    dbFunction.parseDelimitedString(pJSONString, clsDefines.gComma, 0);
+
+                    item.SubItems.Add(GetValueFromJSONString(pJSONString, clsDefines.TAG_RequestDate));
+                    item.SubItems.Add(GetValueFromJSONString(pJSONString, clsDefines.TAG_CreatedDate));
+                    item.SubItems.Add(GetValueFromJSONString(pJSONString, clsDefines.TAG_ScheduleDate));
+                    item.SubItems.Add(GetValueFromJSONString(pJSONString, clsDefines.TAG_DispatchDate));
+                    item.SubItems.Add(GetValueFromJSONString(pJSONString, clsDefines.TAG_ServiceDate));
+                    item.SubItems.Add(GetValueFromJSONString(pJSONString, clsDefines.TAG_TicketDate));
+
+                    item.SubItems.Add(clsArray.JobTypeStatusDescription[i].ToString());
+                    item.SubItems.Add(clsArray.ServiceStatus[i].ToString());
+
+                    item.SubItems.Add(clsArray.ActionMade[i].ToString());
+                    item.SubItems.Add(clsArray.FSRNo[i].ToString());
+
+                    clsSearch.ClassLastServiceNo = int.Parse(clsArray.ServiceNo[i]);
+
+                    item.SubItems.Add(clsArray.ProcessedBy[i]);
+                    item.SubItems.Add(clsArray.ProcessedDateTime[i]);
+                    item.SubItems.Add(clsArray.ModifiedBy[i]);
+                    item.SubItems.Add(clsArray.ModifiedDateTime[i]);
+
+                    item.SubItems.Add(clsArray.TerminalSN[i]);
+                    item.SubItems.Add(clsArray.SIMSerialNo[i]);
+                    item.SubItems.Add(clsArray.ReplaceTerminalSN[i]);
+                    item.SubItems.Add(clsArray.ReplaceSIMSN[i]);
+
+                    var FSRModeCol = dbFunction.isValidID(clsArray.MobileID[i].ToString())
+                        ? clsDefines.DIGITAL_FSR
+                        : clsDefines.MANUAL_FSR;
+
+                    item.SubItems.Add(FSRModeCol);
+
+                    item.SubItems.Add(clsArray.ReasonDescription[i]);
+                    item.SubItems.Add(clsArray.Dependency[i]);
+                    item.SubItems.Add(clsArray.StatusReason[i]);
+
+                    // get zoning info
+                    if (dbFunction.isValidID(clsArray.ZoneID[i]))
+                    {
+                        string pJSONStringZoning = getInfoDetailJSON("Search", "Zoning Detail", $"{clsArray.ZoneID[i]}");
+                        if (dbFunction.isValidDescription(pJSONStringZoning))
+                        {
+                            item.SubItems.Add(GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Zone));
+                            item.SubItems.Add(GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Cluster));
+                            item.SubItems.Add(GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Region));
+                            item.SubItems.Add(GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_Area));
+                            item.SubItems.Add(GetValueFromJSONString(pJSONStringZoning, clsDefines.TAG_CityMunicipal));
+                        }
+                    }
+                    else
+                    {
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                        item.SubItems.Add(clsFunction.sDash);
+                    }
+
+                    // App Version/CRC
+                    item.SubItems.Add(GetValueFromJSONString(pJSONString, clsDefines.TAG_AppVersion));
+                    item.SubItems.Add(GetValueFromJSONString(pJSONString, clsDefines.TAG_AppCRC));
+
+                    lvw.Items.Add(item);
+
+                    i++;
+
+                }
+
+                dbFunction.ListViewAlternateBackColor(lvw);
+
+            }
+        }
+
+        public void initServiceHistoryListView(ListView lvw)
+        {
+            string outField = "";
+            int outWidth = 0;
+            string outTitle = "";
+            HorizontalAlignment outAlign = 0;
+            bool outVisible = false;
+            bool outAutoWidth = false;
+            string outFormat = "";
+
+            dbFunction = new clsFunction();
+
+            lvw.Clear();
+            lvw.View = View.Details;
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Line#", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "ServiceNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "IRIDNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "TAIDNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Service Type", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Request No.", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Reference No.", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Request Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Created Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Schedule Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Dispatch Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Service Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Ticket Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Stage", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "SVC Status", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Service Result", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "FSRNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Process By", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Process Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Modify By", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Modify Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "TerminalSN", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "SIMSN", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "ReplaceTerminalSN", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "ReplaceSIMSN", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "FSRMode", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Reason", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Dependency", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "StatusReason", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Zone", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Cluster", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "ZRegion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Area", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "CityMunicipal", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "AppVersion", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "AppCRC", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
         }
 
     }

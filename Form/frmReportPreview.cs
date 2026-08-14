@@ -4287,7 +4287,11 @@ namespace MIS
         }
 
         private void btnExport_Click(object sender, EventArgs e)
-        {   
+        {
+            string pSQL = "";
+            string pSearchBy = "Report Data Storage Header";
+            string pSearchValue = "";
+
             Debug.WriteLine("--btnExport_Click--");
             Debug.WriteLine($" > clsReport.ClassReportID=[{clsReport.ClassReportID}]");
             Debug.WriteLine($" > clsReport.ClassReportDesc=[{clsReport.ClassReportDesc}]");
@@ -4347,44 +4351,63 @@ namespace MIS
                         // ------------------------------------------
                         // dataSet for daily
                         // ------------------------------------------
-                        dailyDataSet = dbConnect.getStoredProcedureDateSet("View", "Detail Service Attempt", clsSearch.ClassClientID + clsFunction.sPipe +
-                                                                                                            clsSearch.ClassJobTypeList + clsFunction.sPipe +
-                                                                                                            clsSearch.ClassIRIDNo + clsFunction.sPipe +
-                                                                                                            clsFunction.sZero + clsFunction.sPipe +
-                                                                                                            clsSearch.ClassDateFrom + clsFunction.sPipe +
-                                                                                                            clsSearch.ClassDateTo + clsFunction.sPipe +
-                                                                                                            clsSearch.ClassIsExcludePending + clsFunction.sPipe +
-                                                                                                            clsSearch.ClassReasonID + clsFunction.sPipe +
-                                                                                                            clsSearch.ClassReportStatus, "spViewReport");
+                        // set pSearchValue
+                        pSearchValue = "";
+                        pSearchValue = $"{clsSearch.ClassClientID}{clsFunction.sPipe}" +
+                                        $"{clsSearch.ClassJobTypeList}{clsFunction.sPipe}" +
+                                        $"{clsSearch.ClassIRIDNo}{clsFunction.sPipe}" +
+                                        $"{clsFunction.sZero}{clsFunction.sPipe}" +
+                                        $"{clsSearch.ClassDateFrom}{clsFunction.sPipe}" +
+                                        $"{clsSearch.ClassDateTo}{clsFunction.sPipe}" +
+                                        $"{clsSearch.ClassIsExcludePending}{clsFunction.sPipe}" +
+                                        $"{clsSearch.ClassReasonID}{clsFunction.sPipe}" +
+                                        $"{clsSearch.ClassReportStatus}{clsFunction.sPipe}" +
+                                        $"{(int)Enums.ReportType.Daily}";
+
+                        // parse delimited
+                        Debug.WriteLine("Daily Parsed...");
+                        dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
+                        dailyDataSet = dbConnect.getStoredProcedureDateSet("View", "Detail Service Attempt", pSearchValue, "spViewReport");
 
                         if (clsSearch.ClassIncludeSummaryTab > 0)
                         {
                             string pMonthHeader = "'January','February','March','April','May','June','July','August','September','October','November','December', '0'";
                             string pRequestHeader = "'-7 and Below','-6','-5','-4','-3','-2','-1','0','1','2','3','4 and Above', '0'";
-                            string pSQL = "";
-                            string pSearchBy = "Report Data Storage Header";
-                            string pSearchValue = $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}";
-
-                            // parse delimited
-                            Debug.WriteLine("Summary/Detail Parsed...");
-                            dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 
                             // Delete Storage
                             dbFile.WriteSysytemLog($"Delete Report Data Storage..."); // add log
                             dbAPI.ExecuteAPI("DELETE", "Delete", "", "", "Report Data Storage", "", "DeleteCollectionDetail");
                             dbFile.WriteSysytemLog($"Delete Report Data Storage...complete"); // add log
 
+                            // set pSearchValue (Deail Service Attempt - Report)
+                            pSearchValue = "";
+                            pSearchValue = $"{clsSearch.ClassClientID}{clsFunction.sPipe}" +
+                                            $"{clsSearch.ClassJobTypeList}{clsFunction.sPipe}" +
+                                            $"{clsSearch.ClassIRIDNo}{clsFunction.sPipe}" +
+                                            $"{clsFunction.sZero}{clsFunction.sPipe}" +
+                                            $"{clsSearch.ClassDetailDateFrom}{clsFunction.sPipe}" +
+                                            $"{clsSearch.ClassDetailDateTo}{clsFunction.sPipe}" +
+                                            $"{clsSearch.ClassIsExcludePending}{clsFunction.sPipe}" +
+                                            $"{clsSearch.ClassReasonID}{clsFunction.sPipe}" +
+                                            $"{clsSearch.ClassReportStatus}{clsFunction.sPipe}" +
+                                            $"{(int)Enums.ReportType.Summary}";
+
+                            // parse delimited
+                            Debug.WriteLine("Detail Service Attempt Parsed...");
+                            dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
                             dbFile.WriteSysytemLog($"View Detail Service Attempt..."); // add log
-                            detailDataSet = dbConnect.getStoredProcedureDateSet("View", "Detail Service Attempt", clsSearch.ClassClientID + clsFunction.sPipe +
-                                                                                                        clsSearch.ClassJobTypeList + clsFunction.sPipe +
-                                                                                                        clsSearch.ClassIRIDNo + clsFunction.sPipe +
-                                                                                                        clsFunction.sZero + clsFunction.sPipe +
-                                                                                                        clsSearch.ClassDetailDateFrom + clsFunction.sPipe +
-                                                                                                        clsSearch.ClassDetailDateTo + clsFunction.sPipe +
-                                                                                                        clsSearch.ClassIsExcludePending + clsFunction.sPipe +
-                                                                                                        clsSearch.ClassReasonID + clsFunction.sPipe +
-                                                                                                        clsSearch.ClassReportStatus, "spViewReport");
+                            detailDataSet = dbConnect.getStoredProcedureDateSet("View", "Detail Service Attempt", pSearchValue, "spViewReport");
                             dbFile.WriteSysytemLog($"View Detail Service Attempt...complete"); // add log
+
+                            // set pSearchValue (Summary/Deail - Process)
+                            pSearchValue = "";
+                            pSearchValue = $"{clsSearch.ClassClientID}{clsDefines.gPipe}{clsSearch.ClassJobTypeList}{clsDefines.gPipe}{clsSearch.ClassDetailDateFrom}{clsDefines.gPipe}{clsSearch.ClassDetailDateTo}";
+
+                            // parse delimited
+                            Debug.WriteLine("Summary/Detail Parsed...");
+                            dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 
                             pSQL = $"('7', 'CURRENT SLA %', '-',{pMonthHeader})";
                             dbFile.WriteSysytemLog($"Insert {pSearchBy}-{pSQL}..."); // add log
@@ -4442,32 +4465,33 @@ namespace MIS
 
                         clsSearch.ClassProcessEndTime = dbFunction.GetResponseTime(clsDefines.gNull);
 
+                        // debuggging
+                        Debug.WriteLine("Start checking dataset count....");
+                        dbFunction.checkDataSet(summaryDataSet, "Summary");
+                        dbFunction.checkDataSet(detailDataSet, "Detail");
+                        dbFunction.checkDataSet(dailyDataSet, "Daily-Local Dataset");
+                        dbFunction.checkDataSet(clsGlobalVariables.globalDataSet, "Daily-Global Dataset");
+                        dbFunction.checkDataSet(holidayDataSet, "Holiday");
+                        Debug.WriteLine("End checking dataset count....");
+
                         // Create the dictionary of datasets
                         dataSets = new Dictionary<string, DataSet>
                         {
                             { "tab1", summaryDataSet },
                             { "tab2", detailDataSet },
-                            { "tab3", dailyDataSet },
+                            { "tab3", clsGlobalVariables.globalDataSet },
                             { "tab4", holidayDataSet }
                         };
 
                         dbFile.WriteSysytemLog($"ExportListViewToExcelWithTabSheet..."); // add log
                         
-                        // for the header
-                        clsSearch.ClassDateFrom = clsSearch.ClassDetailDateFrom;
-                        clsSearch.ClassDateTo = clsSearch.ClassDetailDateTo;
-
                         try
                         {
-                            Debug.WriteLine("Before Export");
-
                             dbExcelOpenXmlExporter.ExportListViewToExcelWithTabSheet(
                                 lvwList,
                                 filePath,
                                 dataSets,
-                                tabJsonTabMenu);
-
-                            Debug.WriteLine("After Export");
+                                tabJsonTabMenu);                            
                         }
                         catch (Exception ex)
                         {
@@ -4543,6 +4567,11 @@ namespace MIS
                         {
                             { "tab1", "Active POS" }
                         };
+
+                        // debuggging
+                        Debug.WriteLine("Start checking dataset count....");
+                        dbFunction.checkDataSet(clsGlobalVariables.globalDataSet, "Active POS");
+                        Debug.WriteLine("End checking dataset count....");
 
                         // Create the dictionary of datasets
                         dataSets = new Dictionary<string, DataSet>

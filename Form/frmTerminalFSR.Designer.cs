@@ -166,6 +166,12 @@
             this.lblMainStatus = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pnlPreviewImage = new System.Windows.Forms.Panel();
+            this.lblCountDown = new System.Windows.Forms.Label();
+            this.picPreview = new System.Windows.Forms.PictureBox();
+            this.panel195 = new System.Windows.Forms.Panel();
+            this.label190 = new System.Windows.Forms.Label();
+            this.panel196 = new System.Windows.Forms.Panel();
             this.panel135 = new System.Windows.Forms.Panel();
             this.panel193 = new System.Windows.Forms.Panel();
             this.label179 = new System.Windows.Forms.Label();
@@ -199,6 +205,15 @@
             this.label40 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
+            this.tabPage29 = new System.Windows.Forms.TabPage();
+            this.label189 = new System.Windows.Forms.Label();
+            this.txtASubCategory = new System.Windows.Forms.TextBox();
+            this.label188 = new System.Windows.Forms.Label();
+            this.txtACategory = new System.Windows.Forms.TextBox();
+            this.label187 = new System.Windows.Forms.Label();
+            this.txtASource = new System.Windows.Forms.TextBox();
+            this.label186 = new System.Windows.Forms.Label();
+            this.txtABillingType = new System.Windows.Forms.TextBox();
             this.panel173 = new System.Windows.Forms.Panel();
             this.btnCloseTicket = new System.Windows.Forms.Button();
             this.chkCloseTicket = new System.Windows.Forms.CheckBox();
@@ -740,8 +755,11 @@
             this.tabPage23 = new System.Windows.Forms.TabPage();
             this.lvwRaw = new System.Windows.Forms.ListView();
             this.tabPage24 = new System.Windows.Forms.TabPage();
+            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
+            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
+            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
+            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.tabPage25 = new System.Windows.Forms.TabPage();
-            this.lblCountDown = new System.Windows.Forms.Label();
             this.lblCreatedDate = new System.Windows.Forms.Label();
             this.txtFEPosition = new System.Windows.Forms.TextBox();
             this.label131 = new System.Windows.Forms.Label();
@@ -810,19 +828,6 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
-            this.tabPage29 = new System.Windows.Forms.TabPage();
-            this.label186 = new System.Windows.Forms.Label();
-            this.txtABillingType = new System.Windows.Forms.TextBox();
-            this.label187 = new System.Windows.Forms.Label();
-            this.txtASource = new System.Windows.Forms.TextBox();
-            this.label188 = new System.Windows.Forms.Label();
-            this.txtACategory = new System.Windows.Forms.TextBox();
-            this.label189 = new System.Windows.Forms.Label();
-            this.txtASubCategory = new System.Windows.Forms.TextBox();
-            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
-            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
-            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
-            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -835,6 +840,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.pnlPreviewImage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
+            this.panel195.SuspendLayout();
             this.panel135.SuspendLayout();
             this.panel193.SuspendLayout();
             this.tabControl3.SuspendLayout();
@@ -842,6 +850,7 @@
             this.panel191.SuspendLayout();
             this.tabPage28.SuspendLayout();
             this.panel192.SuspendLayout();
+            this.tabPage29.SuspendLayout();
             this.panel173.SuspendLayout();
             this.panel151.SuspendLayout();
             this.panel78.SuspendLayout();
@@ -1050,7 +1059,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddResolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).BeginInit();
             this.panel53.SuspendLayout();
-            this.tabPage29.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -2793,12 +2801,13 @@
             this.tabControl1.Location = new System.Drawing.Point(5, 33);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1383, 895);
+            this.tabControl1.Size = new System.Drawing.Size(1386, 895);
             this.tabControl1.TabIndex = 435;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.pnlPreviewImage);
             this.tabPage1.Controls.Add(this.panel135);
             this.tabPage1.Controls.Add(this.panel173);
             this.tabPage1.Controls.Add(this.panel151);
@@ -2827,9 +2836,79 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1375, 863);
+            this.tabPage1.Size = new System.Drawing.Size(1378, 863);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
+            // 
+            // pnlPreviewImage
+            // 
+            this.pnlPreviewImage.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlPreviewImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlPreviewImage.Controls.Add(this.lblCountDown);
+            this.pnlPreviewImage.Controls.Add(this.picPreview);
+            this.pnlPreviewImage.Controls.Add(this.panel195);
+            this.pnlPreviewImage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlPreviewImage.Location = new System.Drawing.Point(1292, 794);
+            this.pnlPreviewImage.Name = "pnlPreviewImage";
+            this.pnlPreviewImage.Size = new System.Drawing.Size(80, 68);
+            this.pnlPreviewImage.TabIndex = 500;
+            // 
+            // lblCountDown
+            // 
+            this.lblCountDown.Font = new System.Drawing.Font("Century Gothic", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCountDown.ForeColor = System.Drawing.Color.Blue;
+            this.lblCountDown.Location = new System.Drawing.Point(3, 24);
+            this.lblCountDown.Name = "lblCountDown";
+            this.lblCountDown.Size = new System.Drawing.Size(73, 39);
+            this.lblCountDown.TabIndex = 494;
+            this.lblCountDown.Text = "15";
+            this.lblCountDown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCountDown.Visible = false;
+            // 
+            // picPreview
+            // 
+            this.picPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picPreview.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picPreview.Location = new System.Drawing.Point(0, 24);
+            this.picPreview.Name = "picPreview";
+            this.picPreview.Size = new System.Drawing.Size(78, 42);
+            this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picPreview.TabIndex = 313;
+            this.picPreview.TabStop = false;
+            // 
+            // panel195
+            // 
+            this.panel195.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel195.Controls.Add(this.label190);
+            this.panel195.Controls.Add(this.panel196);
+            this.panel195.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel195.Location = new System.Drawing.Point(0, 0);
+            this.panel195.Name = "panel195";
+            this.panel195.Size = new System.Drawing.Size(78, 24);
+            this.panel195.TabIndex = 311;
+            // 
+            // label190
+            // 
+            this.label190.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label190.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label190.ForeColor = System.Drawing.Color.Transparent;
+            this.label190.Location = new System.Drawing.Point(-1, -1);
+            this.label190.Name = "label190";
+            this.label190.Size = new System.Drawing.Size(82, 26);
+            this.label190.TabIndex = 318;
+            this.label190.Text = "COUNTER";
+            this.label190.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel196
+            // 
+            this.panel196.BackColor = System.Drawing.Color.Silver;
+            this.panel196.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel196.Location = new System.Drawing.Point(0, 22);
+            this.panel196.Name = "panel196";
+            this.panel196.Size = new System.Drawing.Size(78, 2);
+            this.panel196.TabIndex = 0;
             // 
             // panel135
             // 
@@ -3220,6 +3299,116 @@
             this.label37.Size = new System.Drawing.Size(35, 14);
             this.label37.TabIndex = 436;
             this.label37.Text = "DATE";
+            // 
+            // tabPage29
+            // 
+            this.tabPage29.Controls.Add(this.label189);
+            this.tabPage29.Controls.Add(this.txtASubCategory);
+            this.tabPage29.Controls.Add(this.label188);
+            this.tabPage29.Controls.Add(this.txtACategory);
+            this.tabPage29.Controls.Add(this.label187);
+            this.tabPage29.Controls.Add(this.txtASource);
+            this.tabPage29.Controls.Add(this.label186);
+            this.tabPage29.Controls.Add(this.txtABillingType);
+            this.tabPage29.Location = new System.Drawing.Point(4, 27);
+            this.tabPage29.Name = "tabPage29";
+            this.tabPage29.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage29.Size = new System.Drawing.Size(404, 96);
+            this.tabPage29.TabIndex = 4;
+            this.tabPage29.Text = "ADDITIONAL TYPE";
+            this.tabPage29.UseVisualStyleBackColor = true;
+            // 
+            // label189
+            // 
+            this.label189.AutoSize = true;
+            this.label189.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label189.Location = new System.Drawing.Point(1, 74);
+            this.label189.Name = "label189";
+            this.label189.Size = new System.Drawing.Size(98, 14);
+            this.label189.TabIndex = 442;
+            this.label189.Text = "SUB CATEGORY:";
+            // 
+            // txtASubCategory
+            // 
+            this.txtASubCategory.BackColor = System.Drawing.Color.White;
+            this.txtASubCategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtASubCategory.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtASubCategory.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtASubCategory.ForeColor = System.Drawing.Color.Black;
+            this.txtASubCategory.Location = new System.Drawing.Point(105, 71);
+            this.txtASubCategory.Name = "txtASubCategory";
+            this.txtASubCategory.Size = new System.Drawing.Size(296, 20);
+            this.txtASubCategory.TabIndex = 441;
+            this.txtASubCategory.WordWrap = false;
+            // 
+            // label188
+            // 
+            this.label188.AutoSize = true;
+            this.label188.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label188.Location = new System.Drawing.Point(3, 51);
+            this.label188.Name = "label188";
+            this.label188.Size = new System.Drawing.Size(70, 14);
+            this.label188.TabIndex = 440;
+            this.label188.Text = "CATEGORY:";
+            // 
+            // txtACategory
+            // 
+            this.txtACategory.BackColor = System.Drawing.Color.White;
+            this.txtACategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtACategory.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtACategory.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtACategory.ForeColor = System.Drawing.Color.Black;
+            this.txtACategory.Location = new System.Drawing.Point(105, 48);
+            this.txtACategory.Name = "txtACategory";
+            this.txtACategory.Size = new System.Drawing.Size(296, 20);
+            this.txtACategory.TabIndex = 439;
+            this.txtACategory.WordWrap = false;
+            // 
+            // label187
+            // 
+            this.label187.AutoSize = true;
+            this.label187.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label187.Location = new System.Drawing.Point(2, 29);
+            this.label187.Name = "label187";
+            this.label187.Size = new System.Drawing.Size(56, 14);
+            this.label187.TabIndex = 438;
+            this.label187.Text = "SOURCE:";
+            // 
+            // txtASource
+            // 
+            this.txtASource.BackColor = System.Drawing.Color.White;
+            this.txtASource.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtASource.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtASource.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtASource.ForeColor = System.Drawing.Color.Black;
+            this.txtASource.Location = new System.Drawing.Point(105, 26);
+            this.txtASource.Name = "txtASource";
+            this.txtASource.Size = new System.Drawing.Size(296, 20);
+            this.txtASource.TabIndex = 437;
+            this.txtASource.WordWrap = false;
+            // 
+            // label186
+            // 
+            this.label186.AutoSize = true;
+            this.label186.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label186.Location = new System.Drawing.Point(0, 7);
+            this.label186.Name = "label186";
+            this.label186.Size = new System.Drawing.Size(63, 14);
+            this.label186.TabIndex = 436;
+            this.label186.Text = "BILLING:";
+            // 
+            // txtABillingType
+            // 
+            this.txtABillingType.BackColor = System.Drawing.Color.White;
+            this.txtABillingType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtABillingType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtABillingType.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtABillingType.ForeColor = System.Drawing.Color.Black;
+            this.txtABillingType.Location = new System.Drawing.Point(105, 3);
+            this.txtABillingType.Name = "txtABillingType";
+            this.txtABillingType.Size = new System.Drawing.Size(296, 20);
+            this.txtABillingType.TabIndex = 435;
+            this.txtABillingType.WordWrap = false;
             // 
             // panel173
             // 
@@ -4752,7 +4941,7 @@
             this.panel123.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel123.Location = new System.Drawing.Point(963, 790);
             this.panel123.Name = "panel123";
-            this.panel123.Size = new System.Drawing.Size(410, 73);
+            this.panel123.Size = new System.Drawing.Size(328, 73);
             this.panel123.TabIndex = 481;
             // 
             // panel127
@@ -4763,7 +4952,7 @@
             this.panel127.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel127.Location = new System.Drawing.Point(0, 28);
             this.panel127.Name = "panel127";
-            this.panel127.Size = new System.Drawing.Size(408, 43);
+            this.panel127.Size = new System.Drawing.Size(326, 43);
             this.panel127.TabIndex = 312;
             // 
             // panel128
@@ -4771,7 +4960,7 @@
             this.panel128.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel128.Controls.Add(this.txtNegativeCnt);
             this.panel128.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel128.Location = new System.Drawing.Point(205, 0);
+            this.panel128.Location = new System.Drawing.Point(173, 0);
             this.panel128.Name = "panel128";
             this.panel128.Size = new System.Drawing.Size(204, 41);
             this.panel128.TabIndex = 318;
@@ -4781,14 +4970,13 @@
             this.txtNegativeCnt.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtNegativeCnt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNegativeCnt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNegativeCnt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtNegativeCnt.Font = new System.Drawing.Font("Courier New", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNegativeCnt.ForeColor = System.Drawing.Color.Black;
             this.txtNegativeCnt.Location = new System.Drawing.Point(0, 0);
             this.txtNegativeCnt.MaxLength = 200;
             this.txtNegativeCnt.Name = "txtNegativeCnt";
             this.txtNegativeCnt.ReadOnly = true;
-            this.txtNegativeCnt.Size = new System.Drawing.Size(202, 47);
+            this.txtNegativeCnt.Size = new System.Drawing.Size(151, 47);
             this.txtNegativeCnt.TabIndex = 352;
             this.txtNegativeCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -4799,7 +4987,7 @@
             this.panel136.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel136.Location = new System.Drawing.Point(0, 0);
             this.panel136.Name = "panel136";
-            this.panel136.Size = new System.Drawing.Size(205, 41);
+            this.panel136.Size = new System.Drawing.Size(173, 41);
             this.panel136.TabIndex = 317;
             // 
             // txtSuccessCnt
@@ -4807,14 +4995,13 @@
             this.txtSuccessCnt.BackColor = System.Drawing.Color.WhiteSmoke;
             this.txtSuccessCnt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSuccessCnt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSuccessCnt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtSuccessCnt.Font = new System.Drawing.Font("Courier New", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSuccessCnt.ForeColor = System.Drawing.Color.Black;
             this.txtSuccessCnt.Location = new System.Drawing.Point(0, 0);
             this.txtSuccessCnt.MaxLength = 200;
             this.txtSuccessCnt.Name = "txtSuccessCnt";
             this.txtSuccessCnt.ReadOnly = true;
-            this.txtSuccessCnt.Size = new System.Drawing.Size(203, 47);
+            this.txtSuccessCnt.Size = new System.Drawing.Size(172, 47);
             this.txtSuccessCnt.TabIndex = 351;
             this.txtSuccessCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -4826,7 +5013,7 @@
             this.panel137.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel137.Location = new System.Drawing.Point(0, 0);
             this.panel137.Name = "panel137";
-            this.panel137.Size = new System.Drawing.Size(408, 28);
+            this.panel137.Size = new System.Drawing.Size(326, 28);
             this.panel137.TabIndex = 311;
             // 
             // label6
@@ -4834,9 +5021,9 @@
             this.label6.BackColor = System.Drawing.Color.Red;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Transparent;
-            this.label6.Location = new System.Drawing.Point(207, 3);
+            this.label6.Location = new System.Drawing.Point(175, 3);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(202, 26);
+            this.label6.Size = new System.Drawing.Size(151, 26);
             this.label6.TabIndex = 317;
             this.label6.Text = "NEGATIVE";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4848,7 +5035,7 @@
             this.label124.ForeColor = System.Drawing.Color.Transparent;
             this.label124.Location = new System.Drawing.Point(-2, 3);
             this.label124.Name = "label124";
-            this.label124.Size = new System.Drawing.Size(208, 25);
+            this.label124.Size = new System.Drawing.Size(176, 25);
             this.label124.TabIndex = 316;
             this.label124.Text = "SUCCESS";
             this.label124.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -9429,7 +9616,7 @@
             this.tabPage20.Location = new System.Drawing.Point(4, 28);
             this.tabPage20.Name = "tabPage20";
             this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage20.Size = new System.Drawing.Size(1375, 863);
+            this.tabPage20.Size = new System.Drawing.Size(1378, 863);
             this.tabPage20.TabIndex = 1;
             this.tabPage20.Text = "Additional Information";
             this.tabPage20.UseVisualStyleBackColor = true;
@@ -9588,32 +9775,64 @@
             this.tabPage24.Location = new System.Drawing.Point(4, 28);
             this.tabPage24.Name = "tabPage24";
             this.tabPage24.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage24.Size = new System.Drawing.Size(1375, 863);
+            this.tabPage24.Size = new System.Drawing.Size(1378, 863);
             this.tabPage24.TabIndex = 2;
             this.tabPage24.Text = "Helpdesk Information";
             this.tabPage24.UseVisualStyleBackColor = true;
+            // 
+            // ucVendorHelpDeskTeamLeadInfo
+            // 
+            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(588, 446);
+            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
+            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(678, 107);
+            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 7;
+            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
+            // 
+            // ucVendorHelpDeskRepInfo
+            // 
+            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 446);
+            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
+            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(678, 107);
+            this.ucVendorHelpDeskRepInfo.TabIndex = 6;
+            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
+            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskRepInfo.VendorName = "";
+            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
+            // 
+            // ucHelpDeskEntryInfo
+            // 
+            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 237);
+            this.ucHelpDeskEntryInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
+            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1333, 252);
+            this.ucHelpDeskEntryInfo.TabIndex = 5;
+            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
+            // 
+            // ucHelpDeskServiceInfo
+            // 
+            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 4);
+            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
+            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1265, 283);
+            this.ucHelpDeskServiceInfo.TabIndex = 1;
+            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
             // 
             // tabPage25
             // 
             this.tabPage25.Location = new System.Drawing.Point(4, 28);
             this.tabPage25.Name = "tabPage25";
             this.tabPage25.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage25.Size = new System.Drawing.Size(1375, 863);
+            this.tabPage25.Size = new System.Drawing.Size(1378, 863);
             this.tabPage25.TabIndex = 3;
             this.tabPage25.Text = "Deployment Information";
             this.tabPage25.UseVisualStyleBackColor = true;
-            // 
-            // lblCountDown
-            // 
-            this.lblCountDown.Font = new System.Drawing.Font("Century Gothic", 32.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCountDown.ForeColor = System.Drawing.Color.Blue;
-            this.lblCountDown.Location = new System.Drawing.Point(1412, 764);
-            this.lblCountDown.Name = "lblCountDown";
-            this.lblCountDown.Size = new System.Drawing.Size(78, 49);
-            this.lblCountDown.TabIndex = 494;
-            this.lblCountDown.Text = "15";
-            this.lblCountDown.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblCountDown.Visible = false;
             // 
             // lblCreatedDate
             // 
@@ -10430,166 +10649,11 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
-            // tabPage29
-            // 
-            this.tabPage29.Controls.Add(this.label189);
-            this.tabPage29.Controls.Add(this.txtASubCategory);
-            this.tabPage29.Controls.Add(this.label188);
-            this.tabPage29.Controls.Add(this.txtACategory);
-            this.tabPage29.Controls.Add(this.label187);
-            this.tabPage29.Controls.Add(this.txtASource);
-            this.tabPage29.Controls.Add(this.label186);
-            this.tabPage29.Controls.Add(this.txtABillingType);
-            this.tabPage29.Location = new System.Drawing.Point(4, 27);
-            this.tabPage29.Name = "tabPage29";
-            this.tabPage29.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage29.Size = new System.Drawing.Size(404, 96);
-            this.tabPage29.TabIndex = 4;
-            this.tabPage29.Text = "ADDITIONAL TYPE";
-            this.tabPage29.UseVisualStyleBackColor = true;
-            // 
-            // label186
-            // 
-            this.label186.AutoSize = true;
-            this.label186.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label186.Location = new System.Drawing.Point(0, 7);
-            this.label186.Name = "label186";
-            this.label186.Size = new System.Drawing.Size(63, 14);
-            this.label186.TabIndex = 436;
-            this.label186.Text = "BILLING:";
-            // 
-            // txtABillingType
-            // 
-            this.txtABillingType.BackColor = System.Drawing.Color.White;
-            this.txtABillingType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtABillingType.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtABillingType.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtABillingType.ForeColor = System.Drawing.Color.Black;
-            this.txtABillingType.Location = new System.Drawing.Point(105, 3);
-            this.txtABillingType.Name = "txtABillingType";
-            this.txtABillingType.Size = new System.Drawing.Size(296, 20);
-            this.txtABillingType.TabIndex = 435;
-            this.txtABillingType.WordWrap = false;
-            // 
-            // label187
-            // 
-            this.label187.AutoSize = true;
-            this.label187.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label187.Location = new System.Drawing.Point(2, 29);
-            this.label187.Name = "label187";
-            this.label187.Size = new System.Drawing.Size(56, 14);
-            this.label187.TabIndex = 438;
-            this.label187.Text = "SOURCE:";
-            // 
-            // txtASource
-            // 
-            this.txtASource.BackColor = System.Drawing.Color.White;
-            this.txtASource.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtASource.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtASource.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtASource.ForeColor = System.Drawing.Color.Black;
-            this.txtASource.Location = new System.Drawing.Point(105, 26);
-            this.txtASource.Name = "txtASource";
-            this.txtASource.Size = new System.Drawing.Size(296, 20);
-            this.txtASource.TabIndex = 437;
-            this.txtASource.WordWrap = false;
-            // 
-            // label188
-            // 
-            this.label188.AutoSize = true;
-            this.label188.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label188.Location = new System.Drawing.Point(3, 51);
-            this.label188.Name = "label188";
-            this.label188.Size = new System.Drawing.Size(70, 14);
-            this.label188.TabIndex = 440;
-            this.label188.Text = "CATEGORY:";
-            // 
-            // txtACategory
-            // 
-            this.txtACategory.BackColor = System.Drawing.Color.White;
-            this.txtACategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtACategory.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtACategory.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtACategory.ForeColor = System.Drawing.Color.Black;
-            this.txtACategory.Location = new System.Drawing.Point(105, 48);
-            this.txtACategory.Name = "txtACategory";
-            this.txtACategory.Size = new System.Drawing.Size(296, 20);
-            this.txtACategory.TabIndex = 439;
-            this.txtACategory.WordWrap = false;
-            // 
-            // label189
-            // 
-            this.label189.AutoSize = true;
-            this.label189.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label189.Location = new System.Drawing.Point(1, 74);
-            this.label189.Name = "label189";
-            this.label189.Size = new System.Drawing.Size(98, 14);
-            this.label189.TabIndex = 442;
-            this.label189.Text = "SUB CATEGORY:";
-            // 
-            // txtASubCategory
-            // 
-            this.txtASubCategory.BackColor = System.Drawing.Color.White;
-            this.txtASubCategory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtASubCategory.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtASubCategory.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtASubCategory.ForeColor = System.Drawing.Color.Black;
-            this.txtASubCategory.Location = new System.Drawing.Point(105, 71);
-            this.txtASubCategory.Name = "txtASubCategory";
-            this.txtASubCategory.Size = new System.Drawing.Size(296, 20);
-            this.txtASubCategory.TabIndex = 441;
-            this.txtASubCategory.WordWrap = false;
-            // 
-            // ucVendorHelpDeskTeamLeadInfo
-            // 
-            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(588, 446);
-            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
-            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(678, 107);
-            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 7;
-            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
-            // 
-            // ucVendorHelpDeskRepInfo
-            // 
-            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 446);
-            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
-            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(678, 107);
-            this.ucVendorHelpDeskRepInfo.TabIndex = 6;
-            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
-            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskRepInfo.VendorName = "";
-            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
-            // 
-            // ucHelpDeskEntryInfo
-            // 
-            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 237);
-            this.ucHelpDeskEntryInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
-            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1333, 252);
-            this.ucHelpDeskEntryInfo.TabIndex = 5;
-            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
-            // 
-            // ucHelpDeskServiceInfo
-            // 
-            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 4);
-            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
-            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1265, 283);
-            this.ucHelpDeskServiceInfo.TabIndex = 1;
-            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
-            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1391, 932);
-            this.Controls.Add(this.lblCountDown);
             this.Controls.Add(this.lblCreatedDate);
             this.Controls.Add(this.panel53);
             this.Controls.Add(this.txtSearchMerchantName);
@@ -10651,6 +10715,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.pnlPreviewImage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
+            this.panel195.ResumeLayout(false);
             this.panel135.ResumeLayout(false);
             this.panel193.ResumeLayout(false);
             this.panel193.PerformLayout();
@@ -10661,6 +10728,8 @@
             this.tabPage28.ResumeLayout(false);
             this.panel192.ResumeLayout(false);
             this.panel192.PerformLayout();
+            this.tabPage29.ResumeLayout(false);
+            this.tabPage29.PerformLayout();
             this.panel173.ResumeLayout(false);
             this.panel173.PerformLayout();
             this.panel151.ResumeLayout(false);
@@ -10960,8 +11029,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).EndInit();
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
-            this.tabPage29.ResumeLayout(false);
-            this.tabPage29.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11762,5 +11829,10 @@
         private System.Windows.Forms.TextBox txtABillingType;
         private System.Windows.Forms.Label label189;
         private System.Windows.Forms.TextBox txtASubCategory;
+        private System.Windows.Forms.Panel pnlPreviewImage;
+        private System.Windows.Forms.PictureBox picPreview;
+        private System.Windows.Forms.Panel panel195;
+        private System.Windows.Forms.Panel panel196;
+        private System.Windows.Forms.Label label190;
     }
 }

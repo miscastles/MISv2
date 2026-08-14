@@ -90,6 +90,8 @@ namespace MIS
             this.tabMerchant = new System.Windows.Forms.TabControl();
             this.tabPage19 = new System.Windows.Forms.TabPage();
             this.panel25 = new System.Windows.Forms.Panel();
+            this.txtZSLA = new System.Windows.Forms.TextBox();
+            this.label45 = new System.Windows.Forms.Label();
             this.txtZArea = new System.Windows.Forms.TextBox();
             this.txtZCluster = new System.Windows.Forms.TextBox();
             this.txtZCityMunicipal = new System.Windows.Forms.TextBox();
@@ -214,8 +216,6 @@ namespace MIS
             this.txtRentalType = new System.Windows.Forms.TextBox();
             this.txtRentalTerms = new System.Windows.Forms.TextBox();
             this.txtFileName = new System.Windows.Forms.TextBox();
-            this.txtZSLA = new System.Windows.Forms.TextBox();
-            this.label45 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -894,6 +894,28 @@ namespace MIS
             this.panel25.Size = new System.Drawing.Size(700, 92);
             this.panel25.TabIndex = 474;
             // 
+            // txtZSLA
+            // 
+            this.txtZSLA.BackColor = System.Drawing.Color.White;
+            this.txtZSLA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZSLA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtZSLA.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtZSLA.Location = new System.Drawing.Point(412, 60);
+            this.txtZSLA.MaxLength = 255;
+            this.txtZSLA.Name = "txtZSLA";
+            this.txtZSLA.Size = new System.Drawing.Size(283, 20);
+            this.txtZSLA.TabIndex = 511;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label45.Location = new System.Drawing.Point(351, 63);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(28, 14);
+            this.label45.TabIndex = 510;
+            this.label45.Text = "SLA";
+            // 
             // txtZArea
             // 
             this.txtZArea.BackColor = System.Drawing.Color.White;
@@ -1393,9 +1415,9 @@ namespace MIS
             this.label3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(18, 190);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 15);
+            this.label3.Size = new System.Drawing.Size(86, 15);
             this.label3.TabIndex = 110;
-            this.label3.Text = "PROVINCE *";
+            this.label3.Text = "CITY/PROVINCE *";
             // 
             // label2
             // 
@@ -2440,28 +2462,6 @@ namespace MIS
             this.txtFileName.Size = new System.Drawing.Size(169, 20);
             this.txtFileName.TabIndex = 438;
             this.txtFileName.Visible = false;
-            // 
-            // txtZSLA
-            // 
-            this.txtZSLA.BackColor = System.Drawing.Color.White;
-            this.txtZSLA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtZSLA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtZSLA.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtZSLA.Location = new System.Drawing.Point(412, 60);
-            this.txtZSLA.MaxLength = 255;
-            this.txtZSLA.Name = "txtZSLA";
-            this.txtZSLA.Size = new System.Drawing.Size(283, 20);
-            this.txtZSLA.TabIndex = 511;
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label45.Location = new System.Drawing.Point(351, 63);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(28, 14);
-            this.label45.TabIndex = 510;
-            this.label45.Text = "SLA";
             // 
             // frmParticular
             // 
