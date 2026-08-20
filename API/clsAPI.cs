@@ -6161,7 +6161,8 @@ namespace MIS
                             ">clsAPI.ClassResponseCode=" + dbFunction.AddBracketStartEnd(clsAPI.ClassResponseCode.ToString()) + "\n" +
                             ">Code=" + dbFunction.AddBracketStartEnd(ResponseCode) + "\n" +
                             ">Message=" + dbFunction.AddBracketStartEnd(clsGlobalVariables.strJSONResponse) + "\n" +
-                            clsFunction.sLineSeparator;
+                            clsFunction.sLineSeparator + "\n" +
+                            "NOTE: Click OK to copy the entire API response to the clipboard.";
             }
 
             if (ResponseCode.CompareTo(clsGlobalVariables.SUCCESS_RESPONSE) != 0 &&
@@ -6171,9 +6172,14 @@ namespace MIS
             }
             
             Debug.WriteLine(sMessage);
-            
+
             if (iShow)
+            {
                 MessageBox.Show(sMessage, "API Response", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
+                dbFunction.CopyToClipboard(sMessage); // copy message to clipboard
+            }
+                
         }
 
         public bool isImportFileName(string StatementType, string SearchBy, string SearchValue)

@@ -7013,6 +7013,26 @@ namespace MIS
             );
         }
 
+        public void CopyToClipboard(string pText)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(pText))
+                {
+                    Clipboard.SetText(pText);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Failed to copy to clipboard.\n\n{ex.Message}",
+                    "Clipboard Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
     }
 
 }
