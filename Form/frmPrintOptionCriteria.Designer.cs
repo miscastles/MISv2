@@ -290,7 +290,7 @@
             this.txtTerminalStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTerminalStatus.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTerminalStatus.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTerminalStatus.Location = new System.Drawing.Point(429, 4);
+            this.txtTerminalStatus.Location = new System.Drawing.Point(499, 7);
             this.txtTerminalStatus.MaxLength = 8;
             this.txtTerminalStatus.Name = "txtTerminalStatus";
             this.txtTerminalStatus.Size = new System.Drawing.Size(39, 20);
@@ -313,7 +313,7 @@
             this.bunifuImageButton1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuImageButton1.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.Image")));
             this.bunifuImageButton1.ImageActive = null;
-            this.bunifuImageButton1.Location = new System.Drawing.Point(3, 2);
+            this.bunifuImageButton1.Location = new System.Drawing.Point(3, 1);
             this.bunifuImageButton1.Name = "bunifuImageButton1";
             this.bunifuImageButton1.Size = new System.Drawing.Size(26, 25);
             this.bunifuImageButton1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -340,7 +340,7 @@
             this.lblHeader.AutoSize = true;
             this.lblHeader.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold);
             this.lblHeader.ForeColor = System.Drawing.Color.White;
-            this.lblHeader.Location = new System.Drawing.Point(35, 7);
+            this.lblHeader.Location = new System.Drawing.Point(35, 5);
             this.lblHeader.Name = "lblHeader";
             this.lblHeader.Size = new System.Drawing.Size(61, 18);
             this.lblHeader.TabIndex = 7;

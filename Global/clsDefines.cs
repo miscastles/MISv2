@@ -299,6 +299,7 @@ namespace MIS
         public const string gNull = "";
 
         public const string NOT_SELECTED = "[NOT SELECTED]";
+        public const string NOT_SPECIFIED = "[NOT SPECIFIED]";
 
         public const string HEADER_CURRENT_TERMINAL = "CURRENT TERMINAL DETAIL";
         public const string HEADER_CURRENT_SIM = "CURRENT SIM DETAIL";

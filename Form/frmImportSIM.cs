@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MIS.Model;
+using Newtonsoft.Json;
 using Spire.Xls;
 using System;
 using System.Collections.Generic;
@@ -2022,6 +2023,12 @@ namespace MIS
             if (fAutoLoadData)
             {
                 frmSearchField.fSelected = true;
+
+                // get modelSearch value
+                clsSearch.ClassSIMID = modelSearch.SIMID;
+                clsSearch.ClassSIMSerialNo = modelSearch.SIMSN;
+                
+                modelSearch.DebugSearch();
             }
             else
             {

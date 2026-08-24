@@ -317,6 +317,7 @@
             this.txtAssistNo = new System.Windows.Forms.TextBox();
             this.label160 = new System.Windows.Forms.Label();
             this.panel170 = new System.Windows.Forms.Panel();
+            this.btnOpenIR = new Bunifu.Framework.UI.BunifuImageButton();
             this.label170 = new System.Windows.Forms.Label();
             this.txtImageCnt = new System.Windows.Forms.TextBox();
             this.label67 = new System.Windows.Forms.Label();
@@ -882,6 +883,7 @@
             this.panel147.SuspendLayout();
             this.panel148.SuspendLayout();
             this.panel170.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenIR)).BeginInit();
             this.panel149.SuspendLayout();
             this.panel151.SuspendLayout();
             this.panel138.SuspendLayout();
@@ -1954,7 +1956,7 @@
             this.txtIRIDNo.ForeColor = System.Drawing.Color.Black;
             this.txtIRIDNo.Location = new System.Drawing.Point(90, 3);
             this.txtIRIDNo.Name = "txtIRIDNo";
-            this.txtIRIDNo.Size = new System.Drawing.Size(76, 20);
+            this.txtIRIDNo.Size = new System.Drawing.Size(52, 20);
             this.txtIRIDNo.TabIndex = 324;
             this.txtIRIDNo.WordWrap = false;
             // 
@@ -4720,6 +4722,7 @@
             // 
             // panel170
             // 
+            this.panel170.Controls.Add(this.btnOpenIR);
             this.panel170.Controls.Add(this.label170);
             this.panel170.Controls.Add(this.txtImageCnt);
             this.panel170.Controls.Add(this.label67);
@@ -4735,6 +4738,20 @@
             this.panel170.Name = "panel170";
             this.panel170.Size = new System.Drawing.Size(167, 112);
             this.panel170.TabIndex = 8;
+            // 
+            // btnOpenIR
+            // 
+            this.btnOpenIR.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenIR.Image = global::MIS.Properties.Resources.ic_apply;
+            this.btnOpenIR.ImageActive = null;
+            this.btnOpenIR.Location = new System.Drawing.Point(143, 2);
+            this.btnOpenIR.Name = "btnOpenIR";
+            this.btnOpenIR.Size = new System.Drawing.Size(23, 21);
+            this.btnOpenIR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnOpenIR.TabIndex = 482;
+            this.btnOpenIR.TabStop = false;
+            this.btnOpenIR.Zoom = 10;
+            this.btnOpenIR.Click += new System.EventHandler(this.btnOpenIR_Click);
             // 
             // label170
             // 
@@ -4805,7 +4822,7 @@
             this.txtSearchFSRReceiptTime.MaxLength = 200;
             this.txtSearchFSRReceiptTime.Name = "txtSearchFSRReceiptTime";
             this.txtSearchFSRReceiptTime.ReadOnly = true;
-            this.txtSearchFSRReceiptTime.Size = new System.Drawing.Size(76, 20);
+            this.txtSearchFSRReceiptTime.Size = new System.Drawing.Size(75, 20);
             this.txtSearchFSRReceiptTime.TabIndex = 434;
             // 
             // label40
@@ -10685,6 +10702,7 @@
             this.panel148.PerformLayout();
             this.panel170.ResumeLayout(false);
             this.panel170.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenIR)).EndInit();
             this.panel149.ResumeLayout(false);
             this.panel149.PerformLayout();
             this.panel151.ResumeLayout(false);
@@ -11724,5 +11742,6 @@
         private Bunifu.Framework.UI.BunifuImageButton btnAddZoning;
         private Bunifu.Framework.UI.BunifuImageButton btnSearchZoning;
         private System.Windows.Forms.Button btnOverrideUpdate;
+        private Bunifu.Framework.UI.BunifuImageButton btnOpenIR;
     }
 }

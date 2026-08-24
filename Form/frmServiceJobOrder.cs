@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.EMMA;
 using MIS.Controller;
 using MIS.Enums;
+using MIS.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -888,8 +889,8 @@ namespace MIS
             lblSubHeader.Text = txtRequestNo.Text;
 
             dbAPI.saveServicingActivityStart(ActivityType.JobOrders,
-                        clsUser.ClassUserID,
-                        clsUser.ClassUserFullName,
+                        clsSearch.ClassCurrentParticularID,
+                        clsSearch.ClassCurrentParticularName,
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
@@ -2714,8 +2715,8 @@ namespace MIS
 
                 if (wasFEEmpty)
                     dbAPI.saveServicingActivityStart(ActivityType.Dispatcher,
-                        clsUser.ClassUserID,
-                        clsUser.ClassUserFullName,
+                        clsSearch.ClassCurrentParticularID,
+                        clsSearch.ClassCurrentParticularName,
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
@@ -3875,9 +3876,9 @@ namespace MIS
                 checkAndSetDispatch();
 
                 if (!wasTermPrepStarted)
-                    dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep, 
-                        clsUser.ClassUserID, 
-                        clsUser.ClassUserFullName, 
+                    dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep,
+                        clsSearch.ClassCurrentParticularID,
+                        clsSearch.ClassCurrentParticularName,
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)), 
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)), 
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
@@ -3947,8 +3948,8 @@ namespace MIS
 
                 if (!wasTermPrepStarted)
                     dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep,
-                        clsUser.ClassUserID,
-                        clsUser.ClassUserFullName,
+                        clsSearch.ClassCurrentParticularID,
+                        clsSearch.ClassCurrentParticularName,
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
@@ -7555,6 +7556,27 @@ namespace MIS
             {
                 dbFunction.SetMessageBox("Service information must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
             }
+        }
+
+        private void btnOpenIR_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iMerchantID, txtMerchantID.Text)) return;
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iIRIDNo, txtIRIDNo.Text)) return;
+
+            // init values
+            modelSearch.ClientID = int.Parse(txtClientID.Text);
+            modelSearch.ParticularID = int.Parse(txtMerchantID.Text);
+            modelSearch.ParticularName = modelSearch.Merchant = txtMerchantName.Text;
+            modelSearch.IRIDNo = int.Parse(txtIRIDNo.Text);
+            modelSearch.IRNo = txtSearchIRNo.Text;
+            modelSearch.DebugSearch();
+
+            frmImportIR.fAutoLoadData = true;
+
+            dbFunction.SetMessageBox("Opening IR window with Merchant" + dbFunction.AddBracketStartEnd($"{modelSearch.Merchant}"), "Open window", clsFunction.IconType.iInformation);
+
+            frmImportIR frm = new frmImportIR();
+            dbFunction.handleForm(frm);
         }
     }
 }

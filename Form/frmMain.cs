@@ -280,7 +280,7 @@ namespace MIS
             initShortCutKeyboard();
 
             // init subAppsName
-            lblSubAppsName.Text = $"[ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} | {clsSearch.ClassCurrentUserName} ]";
+            lblSubAppsName.Text = $"[ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} | {clsSearch.ClassCurrentParticularName} ]";
             
             Cursor.Current = Cursors.Default;
         }
@@ -464,6 +464,7 @@ namespace MIS
             pnlSubMenuPOSRental.Visible = false;
             pnlSubMenuMSP.Visible = false;
             pnlSubMenuSwitchBank.Visible = false;
+            pnlSubMenuSearch.Visible = false;
 
             switch (iMenu)
             {
@@ -485,9 +486,9 @@ namespace MIS
                     pnlSubMenuServicing.Top =  gbOperationLocation.Y + yAxis;
                     break;
                 case 5: // Search   
-                    pnlSubMenuReports.Visible = fVisible;
-                    pnlSubMenuReports.Left = pnlMenu.Width - btnSearch.Left + iLeft;
-                    pnlSubMenuReports.Top = pnlMenu.Top + btnSearch.Top;
+                    pnlSubMenuSearch.Visible = fVisible;
+                    pnlSubMenuSearch.Left = pnlMenu.Width - btnSearch.Left + iLeft;
+                    pnlSubMenuSearch.Top = gbHelpdeskLocation.Y + yAxis;
                     break;
                 case 6: // Report
                     pnlSubMenuReports.Visible = fVisible;
@@ -556,7 +557,7 @@ namespace MIS
                     pnlSubMenuSwitchBank.Visible = fVisible;
                     pnlSubMenuSwitchBank.Left = pnlMenu.Width - btnSwitchBankCode.Left + iLeft;
                     pnlSubMenuSwitchBank.Top = gbManagementLocation.Y + yAxis;
-                    break;
+                    break;                
                 default:
                     break;
             }
@@ -843,13 +844,13 @@ namespace MIS
         private void btnPulse_Click(object sender, EventArgs e)
         {
             // Check Application Version
-            if (!dbAPI.isValidSystemVersion()) return;
+            //if (!dbAPI.isValidSystemVersion()) return;
 
-            iMenu = 0;
-            InitMenu(iMenu, false);
+            //iMenu = 24;
+            //InitMenu(iMenu, true);
 
             //dbFunction.SetMessageBox("Ongoing development...", "Oooops", clsFunction.IconType.iInformation);
-            return;
+            //return;
             
             //dbAPI.ResetAdvanceSearch();
             //frmSearchField.iSearchType = frmSearchField.SearchType.iDashboard;
@@ -1037,12 +1038,11 @@ namespace MIS
             // Check Application Version
             if (!dbAPI.isValidSystemVersion()) return;
 
-            iMenu = 0;
-            InitMenu(iMenu, false);
+            iMenu = 5;
+            InitMenu(iMenu, true);
 
-            //dbFunction.SetMessageBox("Ongoing development...", "Oooops", clsFunction.IconType.iInformation);
             return;
-            
+
         }
 
         private void InitPanelMenuList()
@@ -3254,6 +3254,59 @@ namespace MIS
             InitMenu(0, false);
             frmMZoning frm = new frmMZoning();
             frm.Text = "ENROLLMENT-ZONING";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnDashboardServiceDiagnostic_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 48)) return;
+
+            InitMenu(0, false);            
+            frmDiagService frm = new frmDiagService();
+            frm.Text = "SERVICE DIAGNOSTIC";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnDashboardPOSInventoryDiagnostic_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 48)) return;
+
+            InitMenu(0, false);
+            frmDiagTerminal frm = new frmDiagTerminal();
+            frm.Text = "TERMINAL INVENTORY DIAGNOSTIC";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnDashboardSIMInventoryDiagnostic_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 48)) return;
+
+            InitMenu(0, false);
+            frmDiagSIM frm = new frmDiagSIM();
+            frm.Text = "SIM INVENTORY DIAGNOSTIC";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnDashboardComponentsInventoryDiagnostic_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFinanceExpensesFSR_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 57)) return;
+
+            InitMenu(0, false);
+            frmExpenseFSR frm = new frmExpenseFSR();
+            frm.Text = "MANUAL EXPENSES - FSR";
             frm.WindowState = FormWindowState.Normal;
             frm.Show();
         }

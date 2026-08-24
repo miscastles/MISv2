@@ -740,7 +740,8 @@ namespace MIS
             dbReportFunc = new clsReportFunc();
 
             //lblHeader.Text = lblHeader.Text + " " + "[ " + sHeader + " ]";
-            
+            lblHeader.Text = $"REPORT [ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
+
             dbFunction.ClearTextBox(this);
             dbFunction.ClearComboBox(this);
             dbFunction.TextBoxUnLock(false, this);

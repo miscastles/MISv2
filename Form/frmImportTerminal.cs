@@ -1,20 +1,21 @@
-﻿using System;
+﻿using MIS.Model;
+using Newtonsoft.Json;
+using Spire.Xls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
 using System.Data.OleDb;
 using System.Diagnostics;
-using Spire.Xls;
-using System.Threading;
-using Newtonsoft.Json;
-using static MIS.Function.AppUtilities;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static MIS.Function.AppUtilities;
 
 namespace MIS
 {
@@ -2137,6 +2138,12 @@ namespace MIS
             if (fAutoLoadData)
             {
                 frmSearchField.fSelected = true;
+
+                // get modelSearch value
+                clsSearch.ClassTerminalID = modelSearch.TerminalID;
+                clsSearch.ClassTerminalSN = modelSearch.TerminalSN;
+
+                modelSearch.DebugSearch();
             }
             else
             {

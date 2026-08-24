@@ -76,7 +76,9 @@ namespace MIS
             dbFunction.setDoubleBuffer(lvwDetail, true);
             dbFunction.setDoubleBuffer(lvwMerchant, true);            
             dbFunction.setDoubleBuffer(lvwSearch, true);
-            
+            dbFunction.setDoubleBuffer(lvwServiceSummary, true);
+            dbFunction.setDoubleBuffer(lvwList, true);
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -630,6 +632,8 @@ namespace MIS
         }
         private void frmInstallationImport_Load(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             dbAPI = new clsAPI();
             dbSetting = new clsINI();
             dbFile = new clsFile();
@@ -682,10 +686,19 @@ namespace MIS
             dbFunction.SetButtonIconImage(btnMerchantListSearch);
             dbFunction.SetButtonIconImage(btnClientSearch);
 
+            if (fAutoLoadData)
+            {
+                btnMerchantSearch_Click(this, e);
+                fAutoLoadData = false;
+            }
+
             dbFunction.initTabSelection(tabTerminal, 1);
 
             ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
             Task.Delay(delay); // Asynchronously wait without blocking UI
+
+            Cursor.Current = Cursors.WaitCursor;
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -2277,6 +2290,7 @@ namespace MIS
             dbFunction.ClearListView(lvwSearch);
             dbFunction.ClearListView(lvwDetail);
             dbFunction.ClearListViewItems(lvwMerchant);
+            dbFunction.ClearListViewItems(lvwServiceSummary);
             dbFunction.ClearListViewItems(lvwList);
 
             dbFunction.ClearDataGrid(grdDummy);
@@ -2373,6 +2387,15 @@ namespace MIS
             if (fAutoLoadData)
             {
                 frmSearchField.fSelected = true;
+
+                // get modelSearch value
+                clsSearch.ClassParticularID = modelSearch.ParticularID;
+                clsSearch.ClassParticularName = modelSearch.ParticularName;
+                clsSearch.ClassIRIDNo = modelSearch.IRIDNo;
+                clsSearch.ClassClientID = modelSearch.ClientID;
+
+                modelSearch.DebugSearch();
+
             }
             else
             {
@@ -2393,8 +2416,8 @@ namespace MIS
                 txtMerchantID.Text = dbFunction.CheckAndSetNumericValue(clsSearch.ClassParticularID.ToString());
                 txtMerchantName.Text = txtMerchantName.Text = clsSearch.ClassParticularName;
 
-                txtIRTID.Text = clsFunction.sNull;
-                txtIRMID.Text = clsFunction.sNull;
+                txtIRTID.Text = txtTID.Text = clsFunction.sNull;
+                txtIRMID.Text = txtMID.Text = clsFunction.sNull;
 
                 //txtIRTID.Text = clsSearch.ClassTID;
                 //txtIRMID.Text = clsSearch.ClassMID;
@@ -2465,6 +2488,10 @@ namespace MIS
                 dbFunction.SetButtonIconImage(btnClientSearch);
 
                 btnAddTerminal.Enabled = true;
+
+                // Load service summary
+                dbAPI.initServiceSummaryListView(lvwServiceSummary);
+                dbAPI.loadServicingSummary(lvwServiceSummary, txtIRIDNo.Text, txtIRTID.Text, txtIRMID.Text);
 
                 // Load service history
                 ucInfoDataGridView.ClearData();
@@ -3144,8 +3171,8 @@ namespace MIS
                         txtMerchantTelNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 7);
                         txtMerchantMobile.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 8);
                         txtMerchantEmail.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 9);
-                        txtIRTID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 10);
-                        txtIRMID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 11);
+                        txtIRTID.Text = txtTID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 10);
+                        txtIRMID.Text = txtMID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 11);
                         txtMerchantPrimaryNum.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 12);
                         txtMerchantSecondaryNum.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 13);
 
@@ -4588,6 +4615,42 @@ namespace MIS
 
                 ucInfoDataGridView.SetData(jsonResult);
             }
+        }
+
+        private void btnOpenTerminal_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurTerminalID, txtTerminalID.Text)) return;
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurTerminalSN, txtTerminalSN.Text)) return;
+
+            // init values
+            modelSearch.TerminalID = int.Parse(txtTerminalID.Text);
+            modelSearch.TerminalSN = txtTerminalSN.Text;            
+            modelSearch.DebugSearch();
+
+            frmImportTerminal.fAutoLoadData = true;
+
+            dbFunction.SetMessageBox("Opening TERMINAL window with SN" + dbFunction.AddBracketStartEnd(modelSearch.TerminalSN), "Open window", clsFunction.IconType.iInformation);
+
+            frmImportTerminal frm = new frmImportTerminal();
+            dbFunction.handleForm(frm);
+        }
+
+        private void btnOpenSIM_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurSIMID, txtSIMID.Text)) return;
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurSIMSN, txtSIMSN.Text)) return;
+
+            // init values
+            modelSearch.SIMID = int.Parse(txtSIMID.Text);
+            modelSearch.SIMSN = txtSIMSN.Text;
+            modelSearch.DebugSearch();
+
+            frmImportSIM.fAutoLoadData = true;
+
+            dbFunction.SetMessageBox("Opening SIM window with SN" + dbFunction.AddBracketStartEnd(modelSearch.SIMSN), "Open window", clsFunction.IconType.iInformation);
+
+            frmImportSIM frm = new frmImportSIM();
+            dbFunction.handleForm(frm);
         }
     }
 }

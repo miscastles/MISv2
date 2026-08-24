@@ -1,6 +1,7 @@
 ﻿using iText.Forms.Form.Element;
 using MIS.Controller;
 using MIS.Enums;
+using MIS.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7015,6 +7016,27 @@ namespace MIS
             {
                 Cursor.Current = Cursors.Default;
             }
+        }
+
+        private void btnOpenIR_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iMerchantID, txtMerchantID.Text)) return;
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iIRIDNo, txtIRIDNo.Text)) return;
+
+            // init values
+            modelSearch.ClientID = int.Parse(txtClientID.Text);
+            modelSearch.ParticularID = int.Parse(txtMerchantID.Text);
+            modelSearch.ParticularName = modelSearch.Merchant = txtMerchantName.Text;
+            modelSearch.IRIDNo = int.Parse(txtIRIDNo.Text);
+            modelSearch.IRNo = txtSearchIRNo.Text;
+            modelSearch.DebugSearch();
+
+            frmImportIR.fAutoLoadData = true;
+
+            dbFunction.SetMessageBox("Opening IR window with Merchant" + dbFunction.AddBracketStartEnd($"{modelSearch.Merchant}"), "Open window", clsFunction.IconType.iInformation);
+
+            frmImportIR frm = new frmImportIR();
+            dbFunction.handleForm(frm);
         }
     }
 }
