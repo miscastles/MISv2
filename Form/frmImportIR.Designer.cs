@@ -33,8 +33,8 @@ namespace MIS
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmImportIR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel4 = new System.Windows.Forms.Panel();
             this.txtID = new System.Windows.Forms.TextBox();
             this.btnExit = new Bunifu.Framework.UI.BunifuImageButton();
@@ -99,7 +99,6 @@ namespace MIS
             this.chkOverwrite = new System.Windows.Forms.CheckBox();
             this.lblSelectedRow = new System.Windows.Forms.Label();
             this.panel37 = new System.Windows.Forms.Panel();
-            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
             this.label7 = new System.Windows.Forms.Label();
@@ -120,7 +119,6 @@ namespace MIS
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.panel40 = new System.Windows.Forms.Panel();
             this.panel41 = new System.Windows.Forms.Panel();
@@ -136,6 +134,8 @@ namespace MIS
             this.panel34 = new System.Windows.Forms.Panel();
             this.tabControl6 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnOpenSIM = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnOpenTerminal = new Bunifu.Framework.UI.BunifuImageButton();
             this.txtSIMLocation = new System.Windows.Forms.TextBox();
             this.txtSIMStatus = new System.Windows.Forms.TextBox();
             this.txtTerminalLocation = new System.Windows.Forms.TextBox();
@@ -350,6 +350,17 @@ namespace MIS
             this.lvwSearch = new System.Windows.Forms.ListView();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.txtRentalFeeID = new System.Windows.Forms.TextBox();
+            this.panel44 = new System.Windows.Forms.Panel();
+            this.panel45 = new System.Windows.Forms.Panel();
+            this.panel46 = new System.Windows.Forms.Panel();
+            this.label52 = new System.Windows.Forms.Label();
+            this.panel47 = new System.Windows.Forms.Panel();
+            this.txtTID = new System.Windows.Forms.TextBox();
+            this.txtMID = new System.Windows.Forms.TextBox();
+            this.label53 = new System.Windows.Forms.Label();
+            this.lvwServiceSummary = new System.Windows.Forms.ListView();
+            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
+            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddMerchant)).BeginInit();
@@ -378,6 +389,7 @@ namespace MIS
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.panel40.SuspendLayout();
+            this.panel41.SuspendLayout();
             this.panel42.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel33.SuspendLayout();
@@ -385,6 +397,8 @@ namespace MIS
             this.panel34.SuspendLayout();
             this.tabControl6.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenSIM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenTerminal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRemoveSIM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearchSIM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRemoveTerminal)).BeginInit();
@@ -429,22 +443,25 @@ namespace MIS
             ((System.ComponentModel.ISupportInitialize)(this.btnAddMerchantImport)).BeginInit();
             this.bunifuCards1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.panel44.SuspendLayout();
+            this.panel45.SuspendLayout();
+            this.panel46.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1348, 35);
+            this.panel4.Location = new System.Drawing.Point(1398, 35);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(2, 769);
+            this.panel4.Size = new System.Drawing.Size(2, 771);
             this.panel4.TabIndex = 300;
             // 
             // txtID
             // 
             this.txtID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtID.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtID.Location = new System.Drawing.Point(1389, 59);
+            this.txtID.Location = new System.Drawing.Point(1436, 59);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(92, 20);
             this.txtID.TabIndex = 102;
@@ -456,7 +473,7 @@ namespace MIS
             this.btnExit.BackColor = System.Drawing.Color.Maroon;
             this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
             this.btnExit.ImageActive = null;
-            this.btnExit.Location = new System.Drawing.Point(1317, 7);
+            this.btnExit.Location = new System.Drawing.Point(1369, 7);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(22, 20);
             this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -469,9 +486,9 @@ namespace MIS
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(1, 804);
+            this.panel3.Location = new System.Drawing.Point(1, 806);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1349, 2);
+            this.panel3.Size = new System.Drawing.Size(1399, 2);
             this.panel3.TabIndex = 299;
             // 
             // lblHeader
@@ -491,7 +508,7 @@ namespace MIS
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 35);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1, 771);
+            this.panel2.Size = new System.Drawing.Size(1, 773);
             this.panel2.TabIndex = 298;
             // 
             // pnlHeader
@@ -513,7 +530,7 @@ namespace MIS
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1350, 35);
+            this.pnlHeader.Size = new System.Drawing.Size(1400, 35);
             this.pnlHeader.TabIndex = 297;
             // 
             // txtZoneID
@@ -623,7 +640,7 @@ namespace MIS
             // 
             this.lblSubHeader.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSubHeader.ForeColor = System.Drawing.Color.Yellow;
-            this.lblSubHeader.Location = new System.Drawing.Point(867, 7);
+            this.lblSubHeader.Location = new System.Drawing.Point(919, 7);
             this.lblSubHeader.Name = "lblSubHeader";
             this.lblSubHeader.Size = new System.Drawing.Size(411, 20);
             this.lblSubHeader.TabIndex = 413;
@@ -635,7 +652,7 @@ namespace MIS
             this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
             this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
             this.btnMinimize.ImageActive = null;
-            this.btnMinimize.Location = new System.Drawing.Point(1292, 7);
+            this.btnMinimize.Location = new System.Drawing.Point(1344, 7);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(22, 20);
             this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -715,7 +732,7 @@ namespace MIS
             this.txtTerminalTypeID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTerminalTypeID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTerminalTypeID.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTerminalTypeID.Location = new System.Drawing.Point(1389, 165);
+            this.txtTerminalTypeID.Location = new System.Drawing.Point(1436, 165);
             this.txtTerminalTypeID.Name = "txtTerminalTypeID";
             this.txtTerminalTypeID.Size = new System.Drawing.Size(65, 20);
             this.txtTerminalTypeID.TabIndex = 310;
@@ -780,7 +797,7 @@ namespace MIS
             this.txtFEID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFEID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtFEID.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFEID.Location = new System.Drawing.Point(1399, 90);
+            this.txtFEID.Location = new System.Drawing.Point(1446, 90);
             this.txtFEID.Name = "txtFEID";
             this.txtFEID.Size = new System.Drawing.Size(65, 20);
             this.txtFEID.TabIndex = 303;
@@ -814,7 +831,7 @@ namespace MIS
             this.tabTerminal.Location = new System.Drawing.Point(9, 42);
             this.tabTerminal.Name = "tabTerminal";
             this.tabTerminal.SelectedIndex = 0;
-            this.tabTerminal.Size = new System.Drawing.Size(1336, 757);
+            this.tabTerminal.Size = new System.Drawing.Size(1385, 757);
             this.tabTerminal.TabIndex = 301;
             this.tabTerminal.SelectedIndexChanged += new System.EventHandler(this.tabTerminal_SelectedIndexChanged);
             // 
@@ -832,7 +849,7 @@ namespace MIS
             this.tabPage2.Location = new System.Drawing.Point(4, 28);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1328, 725);
+            this.tabPage2.Size = new System.Drawing.Size(1377, 725);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Import File";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -872,7 +889,7 @@ namespace MIS
             this.panel1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(910, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(412, 166);
+            this.panel1.Size = new System.Drawing.Size(464, 166);
             this.panel1.TabIndex = 534;
             // 
             // txtTotalUnique
@@ -996,7 +1013,7 @@ namespace MIS
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(410, 26);
+            this.panel5.Size = new System.Drawing.Size(462, 26);
             this.panel5.TabIndex = 311;
             // 
             // label48
@@ -1016,7 +1033,7 @@ namespace MIS
             this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel6.Location = new System.Drawing.Point(0, 24);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(410, 2);
+            this.panel6.Size = new System.Drawing.Size(462, 2);
             this.panel6.TabIndex = 0;
             // 
             // panel35
@@ -1028,7 +1045,7 @@ namespace MIS
             this.panel35.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel35.Location = new System.Drawing.Point(909, 176);
             this.panel35.Name = "panel35";
-            this.panel35.Size = new System.Drawing.Size(417, 543);
+            this.panel35.Size = new System.Drawing.Size(467, 543);
             this.panel35.TabIndex = 502;
             // 
             // tabControl1
@@ -1038,7 +1055,7 @@ namespace MIS
             this.tabControl1.Location = new System.Drawing.Point(2, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(414, 510);
+            this.tabControl1.Size = new System.Drawing.Size(466, 510);
             this.tabControl1.TabIndex = 481;
             // 
             // tabPage8
@@ -1048,7 +1065,7 @@ namespace MIS
             this.tabPage8.Location = new System.Drawing.Point(4, 23);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(406, 483);
+            this.tabPage8.Size = new System.Drawing.Size(458, 483);
             this.tabPage8.TabIndex = 0;
             this.tabPage8.Text = "Basic Information";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -1061,7 +1078,7 @@ namespace MIS
             this.tabInfo.Location = new System.Drawing.Point(6, 6);
             this.tabInfo.Name = "tabInfo";
             this.tabInfo.SelectedIndex = 0;
-            this.tabInfo.Size = new System.Drawing.Size(399, 442);
+            this.tabInfo.Size = new System.Drawing.Size(446, 442);
             this.tabInfo.TabIndex = 479;
             // 
             // tabPage7
@@ -1069,7 +1086,7 @@ namespace MIS
             this.tabPage7.Controls.Add(this.dgvRaw);
             this.tabPage7.Location = new System.Drawing.Point(4, 25);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(391, 413);
+            this.tabPage7.Size = new System.Drawing.Size(438, 413);
             this.tabPage7.TabIndex = 4;
             this.tabPage7.Text = "Raw Data";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1080,7 +1097,7 @@ namespace MIS
             this.dgvRaw.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRaw.Location = new System.Drawing.Point(0, 0);
             this.dgvRaw.Name = "dgvRaw";
-            this.dgvRaw.Size = new System.Drawing.Size(391, 413);
+            this.dgvRaw.Size = new System.Drawing.Size(438, 413);
             this.dgvRaw.TabIndex = 0;
             // 
             // tabPage4
@@ -1088,7 +1105,7 @@ namespace MIS
             this.tabPage4.Controls.Add(this.dgvProfile);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(391, 413);
+            this.tabPage4.Size = new System.Drawing.Size(438, 413);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Profile Config";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1099,7 +1116,7 @@ namespace MIS
             this.dgvProfile.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvProfile.Location = new System.Drawing.Point(0, 0);
             this.dgvProfile.Name = "dgvProfile";
-            this.dgvProfile.Size = new System.Drawing.Size(391, 413);
+            this.dgvProfile.Size = new System.Drawing.Size(438, 413);
             this.dgvProfile.TabIndex = 1;
             // 
             // btnUpdateRawData
@@ -1114,7 +1131,7 @@ namespace MIS
             this.btnUpdateRawData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnUpdateRawData.Location = new System.Drawing.Point(3, 451);
             this.btnUpdateRawData.Name = "btnUpdateRawData";
-            this.btnUpdateRawData.Size = new System.Drawing.Size(399, 29);
+            this.btnUpdateRawData.Size = new System.Drawing.Size(452, 29);
             this.btnUpdateRawData.TabIndex = 306;
             this.btnUpdateRawData.Text = "UPDATE SELECTED JSON DATA";
             this.btnUpdateRawData.UseVisualStyleBackColor = false;
@@ -1129,7 +1146,7 @@ namespace MIS
             this.tabPage9.Location = new System.Drawing.Point(4, 23);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(406, 483);
+            this.tabPage9.Size = new System.Drawing.Size(458, 483);
             this.tabPage9.TabIndex = 1;
             this.tabPage9.Text = "Bulk";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -1173,7 +1190,7 @@ namespace MIS
             this.grdBulk.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdBulk.Location = new System.Drawing.Point(3, 3);
             this.grdBulk.Name = "grdBulk";
-            this.grdBulk.Size = new System.Drawing.Size(401, 444);
+            this.grdBulk.Size = new System.Drawing.Size(452, 444);
             this.grdBulk.TabIndex = 3;
             // 
             // btnUpdateListRawData
@@ -1188,7 +1205,7 @@ namespace MIS
             this.btnUpdateListRawData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnUpdateListRawData.Location = new System.Drawing.Point(256, 451);
             this.btnUpdateListRawData.Name = "btnUpdateListRawData";
-            this.btnUpdateListRawData.Size = new System.Drawing.Size(150, 29);
+            this.btnUpdateListRawData.Size = new System.Drawing.Size(200, 29);
             this.btnUpdateListRawData.TabIndex = 480;
             this.btnUpdateListRawData.Text = "UPDATE LIST JSON DATA";
             this.btnUpdateListRawData.UseVisualStyleBackColor = false;
@@ -1203,7 +1220,7 @@ namespace MIS
             this.panel36.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel36.Location = new System.Drawing.Point(0, 0);
             this.panel36.Name = "panel36";
-            this.panel36.Size = new System.Drawing.Size(415, 24);
+            this.panel36.Size = new System.Drawing.Size(465, 24);
             this.panel36.TabIndex = 311;
             // 
             // chkOverwrite
@@ -1237,16 +1254,8 @@ namespace MIS
             this.panel37.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel37.Location = new System.Drawing.Point(0, 22);
             this.panel37.Name = "panel37";
-            this.panel37.Size = new System.Drawing.Size(415, 2);
+            this.panel37.Size = new System.Drawing.Size(465, 2);
             this.panel37.TabIndex = 0;
-            // 
-            // ucStatusDisplay
-            // 
-            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
-            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucStatusDisplay.Name = "ucStatusDisplay";
-            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
-            this.ucStatusDisplay.TabIndex = 346;
             // 
             // txtRemarks
             // 
@@ -1463,8 +1472,8 @@ namespace MIS
             // 
             this.grdList.AllowUserToAddRows = false;
             this.grdList.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 8.25F);
-            this.grdList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 8.25F);
+            this.grdList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.grdList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grdList.BackgroundColor = System.Drawing.Color.GhostWhite;
             this.grdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -1474,8 +1483,8 @@ namespace MIS
             this.grdList.Name = "grdList";
             this.grdList.ReadOnly = true;
             this.grdList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.grdList.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.grdList.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdList.Size = new System.Drawing.Size(899, 564);
             this.grdList.TabIndex = 105;
@@ -1518,6 +1527,7 @@ namespace MIS
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panel44);
             this.tabPage1.Controls.Add(this.ucInfoDataGridView);
             this.tabPage1.Controls.Add(this.btnRefresh);
             this.tabPage1.Controls.Add(this.panel40);
@@ -1535,19 +1545,11 @@ namespace MIS
             this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1328, 725);
+            this.tabPage1.Size = new System.Drawing.Size(1377, 725);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Manual Entry";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click_1);
-            // 
-            // ucInfoDataGridView
-            // 
-            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 329);
-            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
-            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
-            this.ucInfoDataGridView.Size = new System.Drawing.Size(417, 389);
-            this.ucInfoDataGridView.TabIndex = 484;
             // 
             // btnRefresh
             // 
@@ -1573,17 +1575,18 @@ namespace MIS
             this.panel40.Controls.Add(this.panel41);
             this.panel40.Controls.Add(this.panel42);
             this.panel40.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel40.Location = new System.Drawing.Point(909, 7);
+            this.panel40.Location = new System.Drawing.Point(909, 71);
             this.panel40.Name = "panel40";
-            this.panel40.Size = new System.Drawing.Size(417, 120);
+            this.panel40.Size = new System.Drawing.Size(467, 130);
             this.panel40.TabIndex = 482;
             // 
             // panel41
             // 
+            this.panel41.Controls.Add(this.lvwServiceSummary);
             this.panel41.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel41.Location = new System.Drawing.Point(0, 24);
             this.panel41.Name = "panel41";
-            this.panel41.Size = new System.Drawing.Size(415, 94);
+            this.panel41.Size = new System.Drawing.Size(465, 104);
             this.panel41.TabIndex = 312;
             // 
             // panel42
@@ -1594,7 +1597,7 @@ namespace MIS
             this.panel42.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel42.Location = new System.Drawing.Point(0, 0);
             this.panel42.Name = "panel42";
-            this.panel42.Size = new System.Drawing.Size(415, 24);
+            this.panel42.Size = new System.Drawing.Size(465, 24);
             this.panel42.TabIndex = 311;
             // 
             // label49
@@ -1614,7 +1617,7 @@ namespace MIS
             this.panel43.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel43.Location = new System.Drawing.Point(0, 23);
             this.panel43.Name = "panel43";
-            this.panel43.Size = new System.Drawing.Size(415, 1);
+            this.panel43.Size = new System.Drawing.Size(465, 1);
             this.panel43.TabIndex = 0;
             // 
             // panel7
@@ -1624,9 +1627,9 @@ namespace MIS
             this.panel7.Controls.Add(this.panel33);
             this.panel7.Controls.Add(this.panel38);
             this.panel7.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel7.Location = new System.Drawing.Point(910, 129);
+            this.panel7.Location = new System.Drawing.Point(910, 203);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(415, 196);
+            this.panel7.Size = new System.Drawing.Size(467, 180);
             this.panel7.TabIndex = 481;
             // 
             // panel33
@@ -1635,7 +1638,7 @@ namespace MIS
             this.panel33.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel33.Location = new System.Drawing.Point(0, 24);
             this.panel33.Name = "panel33";
-            this.panel33.Size = new System.Drawing.Size(413, 170);
+            this.panel33.Size = new System.Drawing.Size(465, 154);
             this.panel33.TabIndex = 312;
             // 
             // lvwList
@@ -1650,7 +1653,7 @@ namespace MIS
             this.lvwList.HideSelection = false;
             this.lvwList.Location = new System.Drawing.Point(0, 0);
             this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(413, 170);
+            this.lvwList.Size = new System.Drawing.Size(465, 154);
             this.lvwList.TabIndex = 117;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
@@ -1665,7 +1668,7 @@ namespace MIS
             this.panel38.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel38.Location = new System.Drawing.Point(0, 0);
             this.panel38.Name = "panel38";
-            this.panel38.Size = new System.Drawing.Size(413, 24);
+            this.panel38.Size = new System.Drawing.Size(465, 24);
             this.panel38.TabIndex = 311;
             // 
             // label51
@@ -1685,7 +1688,7 @@ namespace MIS
             this.panel39.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel39.Location = new System.Drawing.Point(0, 23);
             this.panel39.Name = "panel39";
-            this.panel39.Size = new System.Drawing.Size(413, 1);
+            this.panel39.Size = new System.Drawing.Size(465, 1);
             this.panel39.TabIndex = 0;
             // 
             // panel34
@@ -1716,6 +1719,8 @@ namespace MIS
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnOpenSIM);
+            this.tabPage3.Controls.Add(this.btnOpenTerminal);
             this.tabPage3.Controls.Add(this.txtSIMLocation);
             this.tabPage3.Controls.Add(this.txtSIMStatus);
             this.tabPage3.Controls.Add(this.txtTerminalLocation);
@@ -1749,6 +1754,34 @@ namespace MIS
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "BASIC INFORMATION";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnOpenSIM
+            // 
+            this.btnOpenSIM.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenSIM.Image = global::MIS.Properties.Resources.ic_apply;
+            this.btnOpenSIM.ImageActive = null;
+            this.btnOpenSIM.Location = new System.Drawing.Point(298, 139);
+            this.btnOpenSIM.Name = "btnOpenSIM";
+            this.btnOpenSIM.Size = new System.Drawing.Size(28, 21);
+            this.btnOpenSIM.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnOpenSIM.TabIndex = 497;
+            this.btnOpenSIM.TabStop = false;
+            this.btnOpenSIM.Zoom = 10;
+            this.btnOpenSIM.Click += new System.EventHandler(this.btnOpenSIM_Click);
+            // 
+            // btnOpenTerminal
+            // 
+            this.btnOpenTerminal.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenTerminal.Image = global::MIS.Properties.Resources.ic_apply;
+            this.btnOpenTerminal.ImageActive = null;
+            this.btnOpenTerminal.Location = new System.Drawing.Point(298, 57);
+            this.btnOpenTerminal.Name = "btnOpenTerminal";
+            this.btnOpenTerminal.Size = new System.Drawing.Size(28, 21);
+            this.btnOpenTerminal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnOpenTerminal.TabIndex = 496;
+            this.btnOpenTerminal.TabStop = false;
+            this.btnOpenTerminal.Zoom = 10;
+            this.btnOpenTerminal.Click += new System.EventHandler(this.btnOpenTerminal_Click);
             // 
             // txtSIMLocation
             // 
@@ -1852,7 +1885,7 @@ namespace MIS
             this.btnRemoveSIM.BackColor = System.Drawing.Color.Transparent;
             this.btnRemoveSIM.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveSIM.Image")));
             this.btnRemoveSIM.ImageActive = null;
-            this.btnRemoveSIM.Location = new System.Drawing.Point(301, 139);
+            this.btnRemoveSIM.Location = new System.Drawing.Point(273, 139);
             this.btnRemoveSIM.Name = "btnRemoveSIM";
             this.btnRemoveSIM.Size = new System.Drawing.Size(24, 21);
             this.btnRemoveSIM.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1866,7 +1899,7 @@ namespace MIS
             this.btnSearchSIM.BackColor = System.Drawing.Color.Transparent;
             this.btnSearchSIM.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchSIM.Image")));
             this.btnSearchSIM.ImageActive = null;
-            this.btnSearchSIM.Location = new System.Drawing.Point(276, 139);
+            this.btnSearchSIM.Location = new System.Drawing.Point(248, 139);
             this.btnSearchSIM.Name = "btnSearchSIM";
             this.btnSearchSIM.Size = new System.Drawing.Size(24, 21);
             this.btnSearchSIM.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1880,7 +1913,7 @@ namespace MIS
             this.btnRemoveTerminal.BackColor = System.Drawing.Color.Transparent;
             this.btnRemoveTerminal.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveTerminal.Image")));
             this.btnRemoveTerminal.ImageActive = null;
-            this.btnRemoveTerminal.Location = new System.Drawing.Point(301, 57);
+            this.btnRemoveTerminal.Location = new System.Drawing.Point(273, 57);
             this.btnRemoveTerminal.Name = "btnRemoveTerminal";
             this.btnRemoveTerminal.Size = new System.Drawing.Size(24, 21);
             this.btnRemoveTerminal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1894,7 +1927,7 @@ namespace MIS
             this.btnSearchTerminal.BackColor = System.Drawing.Color.Transparent;
             this.btnSearchTerminal.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchTerminal.Image")));
             this.btnSearchTerminal.ImageActive = null;
-            this.btnSearchTerminal.Location = new System.Drawing.Point(276, 57);
+            this.btnSearchTerminal.Location = new System.Drawing.Point(248, 57);
             this.btnSearchTerminal.Name = "btnSearchTerminal";
             this.btnSearchTerminal.Size = new System.Drawing.Size(24, 21);
             this.btnSearchTerminal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1959,7 +1992,7 @@ namespace MIS
             this.txtSIMSN.Location = new System.Drawing.Point(78, 138);
             this.txtSIMSN.Name = "txtSIMSN";
             this.txtSIMSN.ReadOnly = true;
-            this.txtSIMSN.Size = new System.Drawing.Size(196, 22);
+            this.txtSIMSN.Size = new System.Drawing.Size(168, 22);
             this.txtSIMSN.TabIndex = 472;
             // 
             // txtSIMID
@@ -2040,7 +2073,7 @@ namespace MIS
             this.txtTerminalSN.Location = new System.Drawing.Point(78, 57);
             this.txtTerminalSN.Name = "txtTerminalSN";
             this.txtTerminalSN.ReadOnly = true;
-            this.txtTerminalSN.Size = new System.Drawing.Size(196, 22);
+            this.txtTerminalSN.Size = new System.Drawing.Size(168, 22);
             this.txtTerminalSN.TabIndex = 470;
             // 
             // txtStatusID
@@ -4004,7 +4037,7 @@ namespace MIS
             this.txtMerchantTelNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMerchantTelNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMerchantTelNo.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMerchantTelNo.Location = new System.Drawing.Point(1393, 649);
+            this.txtMerchantTelNo.Location = new System.Drawing.Point(1440, 649);
             this.txtMerchantTelNo.Name = "txtMerchantTelNo";
             this.txtMerchantTelNo.ReadOnly = true;
             this.txtMerchantTelNo.Size = new System.Drawing.Size(221, 20);
@@ -4014,7 +4047,7 @@ namespace MIS
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(1361, 653);
+            this.label11.Location = new System.Drawing.Point(1408, 653);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 15);
             this.label11.TabIndex = 325;
@@ -4026,7 +4059,7 @@ namespace MIS
             this.txtClientTelNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtClientTelNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClientTelNo.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtClientTelNo.Location = new System.Drawing.Point(1377, 675);
+            this.txtClientTelNo.Location = new System.Drawing.Point(1424, 675);
             this.txtClientTelNo.Name = "txtClientTelNo";
             this.txtClientTelNo.ReadOnly = true;
             this.txtClientTelNo.Size = new System.Drawing.Size(95, 20);
@@ -4036,7 +4069,7 @@ namespace MIS
             // 
             this.label90.AutoSize = true;
             this.label90.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label90.Location = new System.Drawing.Point(1367, 679);
+            this.label90.Location = new System.Drawing.Point(1414, 679);
             this.label90.Name = "label90";
             this.label90.Size = new System.Drawing.Size(29, 15);
             this.label90.TabIndex = 325;
@@ -4046,7 +4079,7 @@ namespace MIS
             // 
             this.panel32.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel32.Controls.Add(this.lblMainStatus);
-            this.panel32.Location = new System.Drawing.Point(1389, 445);
+            this.panel32.Location = new System.Drawing.Point(1436, 445);
             this.panel32.Name = "panel32";
             this.panel32.Size = new System.Drawing.Size(419, 26);
             this.panel32.TabIndex = 477;
@@ -4069,7 +4102,7 @@ namespace MIS
             // 
             this.lblCountMID.Font = new System.Drawing.Font("Arial", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCountMID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblCountMID.Location = new System.Drawing.Point(1398, 360);
+            this.lblCountMID.Location = new System.Drawing.Point(1445, 360);
             this.lblCountMID.Name = "lblCountMID";
             this.lblCountMID.Size = new System.Drawing.Size(102, 12);
             this.lblCountMID.TabIndex = 424;
@@ -4079,7 +4112,7 @@ namespace MIS
             // 
             this.lblCountTID.Font = new System.Drawing.Font("Arial", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCountTID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblCountTID.Location = new System.Drawing.Point(1398, 348);
+            this.lblCountTID.Location = new System.Drawing.Point(1445, 348);
             this.lblCountTID.Name = "lblCountTID";
             this.lblCountTID.Size = new System.Drawing.Size(86, 12);
             this.lblCountTID.TabIndex = 423;
@@ -4094,7 +4127,7 @@ namespace MIS
             this.bunifuCards10.color = System.Drawing.Color.Black;
             this.bunifuCards10.Controls.Add(this.label4);
             this.bunifuCards10.LeftSahddow = false;
-            this.bunifuCards10.Location = new System.Drawing.Point(1399, 495);
+            this.bunifuCards10.Location = new System.Drawing.Point(1446, 495);
             this.bunifuCards10.Name = "bunifuCards10";
             this.bunifuCards10.RightSahddow = false;
             this.bunifuCards10.ShadowDepth = 20;
@@ -4134,7 +4167,7 @@ namespace MIS
             this.bunifuCards1.color = System.Drawing.Color.Black;
             this.bunifuCards1.Controls.Add(this.lvwDetail);
             this.bunifuCards1.LeftSahddow = false;
-            this.bunifuCards1.Location = new System.Drawing.Point(1399, 236);
+            this.bunifuCards1.Location = new System.Drawing.Point(1446, 236);
             this.bunifuCards1.Name = "bunifuCards1";
             this.bunifuCards1.RightSahddow = false;
             this.bunifuCards1.ShadowDepth = 20;
@@ -4253,18 +4286,143 @@ namespace MIS
             this.txtRentalFeeID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRentalFeeID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtRentalFeeID.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRentalFeeID.Location = new System.Drawing.Point(1389, 138);
+            this.txtRentalFeeID.Location = new System.Drawing.Point(1436, 138);
             this.txtRentalFeeID.Name = "txtRentalFeeID";
             this.txtRentalFeeID.Size = new System.Drawing.Size(65, 20);
             this.txtRentalFeeID.TabIndex = 426;
             this.txtRentalFeeID.Visible = false;
             this.txtRentalFeeID.WordWrap = false;
             // 
+            // panel44
+            // 
+            this.panel44.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel44.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel44.Controls.Add(this.panel45);
+            this.panel44.Controls.Add(this.panel46);
+            this.panel44.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel44.Location = new System.Drawing.Point(909, 6);
+            this.panel44.Name = "panel44";
+            this.panel44.Size = new System.Drawing.Size(466, 63);
+            this.panel44.TabIndex = 485;
+            // 
+            // panel45
+            // 
+            this.panel45.Controls.Add(this.txtMID);
+            this.panel45.Controls.Add(this.txtTID);
+            this.panel45.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel45.Location = new System.Drawing.Point(0, 24);
+            this.panel45.Name = "panel45";
+            this.panel45.Size = new System.Drawing.Size(464, 37);
+            this.panel45.TabIndex = 312;
+            // 
+            // panel46
+            // 
+            this.panel46.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel46.Controls.Add(this.label53);
+            this.panel46.Controls.Add(this.label52);
+            this.panel46.Controls.Add(this.panel47);
+            this.panel46.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel46.Location = new System.Drawing.Point(0, 0);
+            this.panel46.Name = "panel46";
+            this.panel46.Size = new System.Drawing.Size(464, 24);
+            this.panel46.TabIndex = 311;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label52.ForeColor = System.Drawing.Color.Black;
+            this.label52.Location = new System.Drawing.Point(3, 4);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(26, 16);
+            this.label52.TabIndex = 310;
+            this.label52.Text = "TID";
+            // 
+            // panel47
+            // 
+            this.panel47.BackColor = System.Drawing.Color.Silver;
+            this.panel47.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel47.Location = new System.Drawing.Point(0, 23);
+            this.panel47.Name = "panel47";
+            this.panel47.Size = new System.Drawing.Size(464, 1);
+            this.panel47.TabIndex = 0;
+            // 
+            // txtTID
+            // 
+            this.txtTID.BackColor = System.Drawing.Color.White;
+            this.txtTID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTID.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTID.ForeColor = System.Drawing.Color.Blue;
+            this.txtTID.Location = new System.Drawing.Point(3, 3);
+            this.txtTID.MaxLength = 8;
+            this.txtTID.Name = "txtTID";
+            this.txtTID.ReadOnly = true;
+            this.txtTID.Size = new System.Drawing.Size(182, 31);
+            this.txtTID.TabIndex = 321;
+            // 
+            // txtMID
+            // 
+            this.txtMID.BackColor = System.Drawing.Color.White;
+            this.txtMID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtMID.Font = new System.Drawing.Font("Courier New", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMID.ForeColor = System.Drawing.Color.Blue;
+            this.txtMID.Location = new System.Drawing.Point(186, 3);
+            this.txtMID.MaxLength = 8;
+            this.txtMID.Name = "txtMID";
+            this.txtMID.ReadOnly = true;
+            this.txtMID.Size = new System.Drawing.Size(276, 31);
+            this.txtMID.TabIndex = 322;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.ForeColor = System.Drawing.Color.Black;
+            this.label53.Location = new System.Drawing.Point(183, 4);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(32, 16);
+            this.label53.TabIndex = 311;
+            this.label53.Text = "MID";
+            // 
+            // lvwServiceSummary
+            // 
+            this.lvwServiceSummary.BackColor = System.Drawing.Color.GhostWhite;
+            this.lvwServiceSummary.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvwServiceSummary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwServiceSummary.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvwServiceSummary.ForeColor = System.Drawing.Color.Black;
+            this.lvwServiceSummary.FullRowSelect = true;
+            this.lvwServiceSummary.HideSelection = false;
+            this.lvwServiceSummary.Location = new System.Drawing.Point(0, 0);
+            this.lvwServiceSummary.Name = "lvwServiceSummary";
+            this.lvwServiceSummary.Size = new System.Drawing.Size(465, 104);
+            this.lvwServiceSummary.TabIndex = 118;
+            this.lvwServiceSummary.UseCompatibleStateImageBehavior = false;
+            this.lvwServiceSummary.View = System.Windows.Forms.View.Details;
+            // 
+            // ucStatusDisplay
+            // 
+            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
+            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ucStatusDisplay.Name = "ucStatusDisplay";
+            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
+            this.ucStatusDisplay.TabIndex = 346;
+            // 
+            // ucInfoDataGridView
+            // 
+            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
+            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
+            this.ucInfoDataGridView.Size = new System.Drawing.Size(466, 333);
+            this.ucInfoDataGridView.TabIndex = 484;
+            // 
             // frmImportIR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1350, 806);
+            this.ClientSize = new System.Drawing.Size(1400, 808);
             this.Controls.Add(this.txtRentalFeeID);
             this.Controls.Add(this.panel32);
             this.Controls.Add(this.txtMerchantTelNo);
@@ -4336,6 +4494,7 @@ namespace MIS
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.panel40.ResumeLayout(false);
+            this.panel41.ResumeLayout(false);
             this.panel42.ResumeLayout(false);
             this.panel42.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -4346,6 +4505,8 @@ namespace MIS
             this.tabControl6.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenSIM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenTerminal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRemoveSIM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearchSIM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRemoveTerminal)).EndInit();
@@ -4412,6 +4573,11 @@ namespace MIS
             this.bunifuCards1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.panel44.ResumeLayout(false);
+            this.panel45.ResumeLayout(false);
+            this.panel45.PerformLayout();
+            this.panel46.ResumeLayout(false);
+            this.panel46.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4733,5 +4899,16 @@ namespace MIS
         private System.Windows.Forms.TextBox txtSIMStatus;
         private System.Windows.Forms.Button btnRefresh;
         private ControlObject.ucInfoDataGridView ucInfoDataGridView;
+        private BunifuImageButton btnOpenTerminal;
+        private BunifuImageButton btnOpenSIM;
+        private System.Windows.Forms.Panel panel44;
+        private System.Windows.Forms.Panel panel45;
+        private System.Windows.Forms.TextBox txtTID;
+        private System.Windows.Forms.Panel panel46;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.Panel panel47;
+        private System.Windows.Forms.TextBox txtMID;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.ListView lvwServiceSummary;
     }
 }

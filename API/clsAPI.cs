@@ -5530,6 +5530,19 @@ namespace MIS
                                                 clsArray.FSRDate = FSRDateCol.ToArray();
                                             }
 
+                                            else if (SearchBy.Equals("Expense List"))
+                                            {
+                                                foreach (var element in Detail46.data)
+                                                {
+                                                    clsSearch.RecordFound = true;
+                                                    ExpensesIDCol.Add(element.ID.ToString());
+                                                    Detail_InfoCol.Add(element.detail_info);
+                                                }
+
+                                                clsArray.ExpensesID = ExpensesIDCol.ToArray();
+                                                clsArray.detail_info = Detail_InfoCol.ToArray();
+                                            }
+
                                             else if (SearchBy.Equals("Application Info List") ||
                                                 SearchBy.Equals("Diagnostic Master List") ||
                                                 SearchBy.Equals("Diagnostic Detail List") ||
@@ -5571,7 +5584,16 @@ namespace MIS
                                                 SearchBy.Equals("Zoning List") ||
                                                 SearchBy.Equals("Location List") ||
                                                 SearchBy.Equals("Incentives Service Detail") || 
-                                                SearchBy.Equals("Zoning Alias List")
+                                                SearchBy.Equals("Zoning Alias List") ||
+                                                SearchBy.Equals("Merchant Service Summary") ||
+                                                SearchBy.Equals("Service Diagnostic Summary") ||
+                                                SearchBy.Equals("Service Diagnostic Detail") ||
+                                                SearchBy.Equals("Terminal Inventory Diagnostic Summary") ||
+                                                SearchBy.Equals("Terminal Inventory Diagnostic Detail") ||
+                                                SearchBy.Equals("SIM Inventory Diagnostic Summary") ||
+                                                SearchBy.Equals("SIM Inventory Diagnostic Detail") ||
+                                                SearchBy.Equals("Expenses Detail") ||
+                                                SearchBy.Equals("Expenses Transacton Detail")
                                                 )
                                             {
                                                 foreach (var element in Detail46.data)
@@ -6161,7 +6183,8 @@ namespace MIS
                             ">clsAPI.ClassResponseCode=" + dbFunction.AddBracketStartEnd(clsAPI.ClassResponseCode.ToString()) + "\n" +
                             ">Code=" + dbFunction.AddBracketStartEnd(ResponseCode) + "\n" +
                             ">Message=" + dbFunction.AddBracketStartEnd(clsGlobalVariables.strJSONResponse) + "\n" +
-                            clsFunction.sLineSeparator;
+                            clsFunction.sLineSeparator + "\n" +
+                            "NOTE: Click OK to copy the entire API response to the clipboard.";
             }
 
             if (ResponseCode.CompareTo(clsGlobalVariables.SUCCESS_RESPONSE) != 0 &&
@@ -6171,9 +6194,14 @@ namespace MIS
             }
             
             Debug.WriteLine(sMessage);
-            
+
             if (iShow)
+            {
                 MessageBox.Show(sMessage, "API Response", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
+                dbFunction.CopyToClipboard(sMessage); // copy message to clipboard
+            }
+                
         }
 
         public bool isImportFileName(string StatementType, string SearchBy, string SearchValue)
@@ -13048,6 +13076,125 @@ namespace MIS
             dbFunction.GetListViewHeaderColumnFromFile("", "AppCRC", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvw.Columns.Add(outTitle, outWidth, outAlign);
 
+        }
+
+        public void initServiceSummaryListView(ListView lvw)
+        {
+            string outField = "";
+            int outWidth = 0;
+            string outTitle = "";
+            HorizontalAlignment outAlign = 0;
+            bool outVisible = false;
+            bool outAutoWidth = false;
+            string outFormat = "";
+
+            dbFunction = new clsFunction();
+
+            lvw.Clear();
+            lvw.View = View.Details;
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Line#", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "JobType", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "ServiceJobTypeDescription", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "TCompleted", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "TProcessing", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "TPending", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "TSuccess", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "TNegative", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+        }
+
+        public void loadServicingSummary(ListView lvw, string pIRIDNo, string pTID, string pMID)
+        {
+            int i = 0;
+            int iLineNo = 0;
+
+            Debug.WriteLine("--loadServicingSummary--");
+
+            dbFunction = new clsFunction();
+
+            lvw.Enabled = true;
+            lvw.Items.Clear();
+
+            string pSearchValue = dbFunction.CheckAndSetNumericValue(pIRIDNo);
+
+            Debug.WriteLine("clsSearch.ClassSearchValue=" + pSearchValue);
+
+            ExecuteAPI("GET", "View", "Merchant Service Summary", pSearchValue, "Advance Detail", "", "ViewAdvanceDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK) return;
+
+            if (isNoRecordFound() == false)
+            {
+                lvw.Items.Clear();
+                while (clsArray.ID.Length > i)
+                {
+                    // Add to List
+                    iLineNo++;
+                    ListViewItem item = new ListViewItem(iLineNo.ToString());
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "JobType"));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ServiceJobTypeDescription"));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "CompletedCount"));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ProcessingCount"));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "PendingCount"));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "SuccessCount"));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "NegativeCount"));
+
+                    lvw.Items.Add(item);
+
+                    i++;
+                }
+
+                dbFunction.ListViewAlternateBackColor(lvw);
+            }
+        }
+
+        public void FillComboBoxExpenseType(ComboBox obj)
+        {
+            int i = 0;
+            bool fSelect = false;
+
+            ExecuteAPI("GET", "View", "Expense List", clsDefines.gNull, "Advance Detail", "", "ViewAdvanceDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK)
+                return;
+
+            if (isNoRecordFound())
+                return;
+
+            obj.Items.Clear();
+
+            while (clsArray.ExpensesID.Length > i)
+            {
+                if (!fSelect)
+                {
+                    obj.Items.Add(clsFunction.sDefaultSelect);
+                    fSelect = true;
+                }
+
+                string description = GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Description);
+
+                obj.Items.Add(description);
+
+                i++;
+            }
+
+            obj.SelectedIndex = 0;
         }
 
     }

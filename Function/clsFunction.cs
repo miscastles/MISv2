@@ -2164,6 +2164,11 @@ namespace MIS
                     sTemp = "Supplier must not be blank.";
                     break;
                 case CheckType.iIRIDNo:
+                    if (isValidID(sValue))
+                    {
+                        fValid = true;
+                    }
+                    sTemp = "IRIDNo must not be blank.";
                     break;
                 case CheckType.iIRNo:
                     if (isValidDescription(sValue))
@@ -6363,7 +6368,7 @@ namespace MIS
                     lvw.View = View.Details;
                     lvw.Columns.Clear();
                     lvw.Columns.Add("LINE#", 60, HorizontalAlignment.Left);
-                    lvw.Columns.Add("TAG", 140, HorizontalAlignment.Left);
+                    lvw.Columns.Add("TAG", 160, HorizontalAlignment.Left);
                     lvw.Columns.Add("VALUE", 600, HorizontalAlignment.Left);
 
                     lvw.Items.Clear();
@@ -6391,7 +6396,7 @@ namespace MIS
                     dgv.Columns[0].Name = "LINE#";
                     dgv.Columns[0].Width = 60;
                     dgv.Columns[1].Name = "TAG";
-                    dgv.Columns[1].Width = 140;
+                    dgv.Columns[1].Width = 160;
                     dgv.Columns[2].Name = "VALUE";
                     dgv.Columns[2].Width = 600;
 
@@ -7011,6 +7016,35 @@ namespace MIS
                 clsDefines.ERROR_MSG,
                 IconType.iError
             );
+        }
+
+        public void CopyToClipboard(string pText)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(pText))
+                {
+                    Clipboard.SetText(pText);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Failed to copy to clipboard.\n\n{ex.Message}",
+                    "Clipboard Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        public bool isFileExists(string pFilePath)
+        {
+            if (string.IsNullOrWhiteSpace(pFilePath)) return false;
+            if (!Path.IsPathRooted(pFilePath)) return false;
+            if (!File.Exists(pFilePath)) return false;
+
+            return true;
         }
 
     }
