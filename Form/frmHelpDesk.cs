@@ -1347,6 +1347,11 @@ namespace MIS
             txtDispatcherMobileNo.Text    = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 8);
             txtDispatcherEmail.Text       = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 9);
 
+            txtDispatcherInfo.Text         = txtDispatcher.Text;
+            txtDispatcherInfoMobileNo.Text = txtDispatcherMobileNo.Text;
+            txtDispatcherInfoEmail.Text    = txtDispatcherEmail.Text;
+
+
         }
 
         private void LoadMerchantDetails(int MerchantID, int IRIDNo)
@@ -2266,9 +2271,39 @@ namespace MIS
             }
         }
 
+        
         private void LoadHelpdeskInfo()
         {
 
         }
+        private void btnSearchDispatcherInfo_Click(object sender, EventArgs e)
+        {
+            SearchTeamLead();
+        }
+
+        private void btnRemoveDispatcherInfo_Click(object sender, EventArgs e)
+        {
+            ClearTextBoxes(new[]
+            {
+                txtDispatcherInfo,
+                txtDispatcherInfoEmail,
+                txtDispatcherInfoMobileNo
+            });
+
+            ClearTextBoxes(new[]
+            {
+                txtDispatcher,
+                txtDispatcherEmail,
+                txtDispatcherMobileNo
+            });
+
+            VendorTeamLeadID = 0;
+        }
+
+        private void btnDispatch_Click(object sender, EventArgs e)
+        {
+            tabControl8.SelectedTab = tabPage24; // Customer Support — corrected target
+        }
+        
     }
 }

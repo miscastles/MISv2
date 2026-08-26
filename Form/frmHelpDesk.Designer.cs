@@ -48,6 +48,63 @@
             this.txtServiceNo = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabControl8 = new System.Windows.Forms.TabControl();
+            this.tabPage24 = new System.Windows.Forms.TabPage();
+            this.panel219 = new System.Windows.Forms.Panel();
+            this.panel220 = new System.Windows.Forms.Panel();
+            this.panel221 = new System.Windows.Forms.Panel();
+            this.bunifuImageButton8 = new Bunifu.Framework.UI.BunifuImageButton();
+            this.bunifuImageButton9 = new Bunifu.Framework.UI.BunifuImageButton();
+            this.label157 = new System.Windows.Forms.Label();
+            this.txtHDTeamLead = new System.Windows.Forms.TextBox();
+            this.panel222 = new System.Windows.Forms.Panel();
+            this.txtHDTLContactNo = new System.Windows.Forms.TextBox();
+            this.label158 = new System.Windows.Forms.Label();
+            this.txtHDTLEmail = new System.Windows.Forms.TextBox();
+            this.label159 = new System.Windows.Forms.Label();
+            this.panel223 = new System.Windows.Forms.Panel();
+            this.panel224 = new System.Windows.Forms.Panel();
+            this.panel225 = new System.Windows.Forms.Panel();
+            this.panel226 = new System.Windows.Forms.Panel();
+            this.panel126 = new System.Windows.Forms.Panel();
+            this.panel127 = new System.Windows.Forms.Panel();
+            this.panel128 = new System.Windows.Forms.Panel();
+            this.bunifuImageButton6 = new Bunifu.Framework.UI.BunifuImageButton();
+            this.bunifuImageButton7 = new Bunifu.Framework.UI.BunifuImageButton();
+            this.label154 = new System.Windows.Forms.Label();
+            this.txtHDName = new System.Windows.Forms.TextBox();
+            this.panel129 = new System.Windows.Forms.Panel();
+            this.txtHDContactNo = new System.Windows.Forms.TextBox();
+            this.label155 = new System.Windows.Forms.Label();
+            this.txtHDEmail = new System.Windows.Forms.TextBox();
+            this.label156 = new System.Windows.Forms.Label();
+            this.panel215 = new System.Windows.Forms.Panel();
+            this.panel216 = new System.Windows.Forms.Panel();
+            this.panel217 = new System.Windows.Forms.Panel();
+            this.panel218 = new System.Windows.Forms.Panel();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.panel118 = new System.Windows.Forms.Panel();
+            this.panel119 = new System.Windows.Forms.Panel();
+            this.panel120 = new System.Windows.Forms.Panel();
+            this.label64 = new System.Windows.Forms.Label();
+            this.txtDispatcherInfo = new System.Windows.Forms.TextBox();
+            this.btnSearchDispatcherInfo = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnRemoveDispatcherInfo = new Bunifu.Framework.UI.BunifuImageButton();
+            this.panel121 = new System.Windows.Forms.Panel();
+            this.txtDispatchID = new System.Windows.Forms.TextBox();
+            this.txtDispatcherInfoMobileNo = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.txtDispatcherInfoEmail = new System.Windows.Forms.TextBox();
+            this.label66 = new System.Windows.Forms.Label();
+            this.panel122 = new System.Windows.Forms.Panel();
+            this.panel123 = new System.Windows.Forms.Panel();
+            this.panel124 = new System.Windows.Forms.Panel();
+            this.panel125 = new System.Windows.Forms.Panel();
+            this.panel174 = new System.Windows.Forms.Panel();
+            this.panel189 = new System.Windows.Forms.Panel();
+            this.cboIssueCategory = new System.Windows.Forms.ComboBox();
+            this.panel190 = new System.Windows.Forms.Panel();
+            this.label94 = new System.Windows.Forms.Label();
             this.panel56 = new System.Windows.Forms.Panel();
             this.panel57 = new System.Windows.Forms.Panel();
             this.panel58 = new System.Windows.Forms.Panel();
@@ -216,42 +273,6 @@
             this.panel39 = new System.Windows.Forms.Panel();
             this.label23 = new System.Windows.Forms.Label();
             this.panel40 = new System.Windows.Forms.Panel();
-            this.panel78 = new System.Windows.Forms.Panel();
-            this.panel79 = new System.Windows.Forms.Panel();
-            this.panel140 = new System.Windows.Forms.Panel();
-            this.txtDispatcher = new System.Windows.Forms.TextBox();
-            this.btnSearchDispatcher = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnRemoveDispatcher = new Bunifu.Framework.UI.BunifuImageButton();
-            this.panel141 = new System.Windows.Forms.Panel();
-            this.txtDispatcherMobileNo = new System.Windows.Forms.TextBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.txtDispatcherEmail = new System.Windows.Forms.TextBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.panel146 = new System.Windows.Forms.Panel();
-            this.panel150 = new System.Windows.Forms.Panel();
-            this.panel184 = new System.Windows.Forms.Panel();
-            this.panel185 = new System.Windows.Forms.Panel();
-            this.panel186 = new System.Windows.Forms.Panel();
-            this.label50 = new System.Windows.Forms.Label();
-            this.panel187 = new System.Windows.Forms.Panel();
-            this.panel71 = new System.Windows.Forms.Panel();
-            this.panel72 = new System.Windows.Forms.Panel();
-            this.panel73 = new System.Windows.Forms.Panel();
-            this.txtFEName = new System.Windows.Forms.TextBox();
-            this.btnSearchFE = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnRemoveFE = new Bunifu.Framework.UI.BunifuImageButton();
-            this.panel74 = new System.Windows.Forms.Panel();
-            this.txtFEMobileNo = new System.Windows.Forms.TextBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.txtFEEmail = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.panel80 = new System.Windows.Forms.Panel();
-            this.panel81 = new System.Windows.Forms.Panel();
-            this.panel82 = new System.Windows.Forms.Panel();
-            this.panel83 = new System.Windows.Forms.Panel();
-            this.panel84 = new System.Windows.Forms.Panel();
-            this.label93 = new System.Windows.Forms.Label();
-            this.panel85 = new System.Windows.Forms.Panel();
             this.panel42 = new System.Windows.Forms.Panel();
             this.panel43 = new System.Windows.Forms.Panel();
             this.pnlSubHeader = new System.Windows.Forms.Panel();
@@ -308,6 +329,42 @@
             this.label110 = new System.Windows.Forms.Label();
             this.label78 = new System.Windows.Forms.Label();
             this.panel50 = new System.Windows.Forms.Panel();
+            this.panel78 = new System.Windows.Forms.Panel();
+            this.panel79 = new System.Windows.Forms.Panel();
+            this.panel140 = new System.Windows.Forms.Panel();
+            this.txtDispatcher = new System.Windows.Forms.TextBox();
+            this.btnSearchDispatcher = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnRemoveDispatcher = new Bunifu.Framework.UI.BunifuImageButton();
+            this.panel141 = new System.Windows.Forms.Panel();
+            this.txtDispatcherMobileNo = new System.Windows.Forms.TextBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.txtDispatcherEmail = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.panel146 = new System.Windows.Forms.Panel();
+            this.panel150 = new System.Windows.Forms.Panel();
+            this.panel184 = new System.Windows.Forms.Panel();
+            this.panel185 = new System.Windows.Forms.Panel();
+            this.panel186 = new System.Windows.Forms.Panel();
+            this.label50 = new System.Windows.Forms.Label();
+            this.panel187 = new System.Windows.Forms.Panel();
+            this.panel71 = new System.Windows.Forms.Panel();
+            this.panel72 = new System.Windows.Forms.Panel();
+            this.panel73 = new System.Windows.Forms.Panel();
+            this.txtFEName = new System.Windows.Forms.TextBox();
+            this.btnSearchFE = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnRemoveFE = new Bunifu.Framework.UI.BunifuImageButton();
+            this.panel74 = new System.Windows.Forms.Panel();
+            this.txtFEMobileNo = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.txtFEEmail = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.panel80 = new System.Windows.Forms.Panel();
+            this.panel81 = new System.Windows.Forms.Panel();
+            this.panel82 = new System.Windows.Forms.Panel();
+            this.panel83 = new System.Windows.Forms.Panel();
+            this.panel84 = new System.Windows.Forms.Panel();
+            this.label93 = new System.Windows.Forms.Label();
+            this.panel85 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel167 = new System.Windows.Forms.Panel();
             this.cboSearchServiceType = new System.Windows.Forms.ComboBox();
@@ -398,17 +455,53 @@
             this.panel108 = new System.Windows.Forms.Panel();
             this.label42 = new System.Windows.Forms.Label();
             this.panel109 = new System.Windows.Forms.Panel();
-            this.panel174 = new System.Windows.Forms.Panel();
-            this.panel189 = new System.Windows.Forms.Panel();
-            this.cboIssueCategory = new System.Windows.Forms.ComboBox();
-            this.panel190 = new System.Windows.Forms.Panel();
-            this.label94 = new System.Windows.Forms.Label();
+            this.panel110 = new System.Windows.Forms.Panel();
+            this.panel111 = new System.Windows.Forms.Panel();
+            this.panel112 = new System.Windows.Forms.Panel();
+            this.label61 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.bunifuImageButton2 = new Bunifu.Framework.UI.BunifuImageButton();
+            this.bunifuImageButton3 = new Bunifu.Framework.UI.BunifuImageButton();
+            this.panel113 = new System.Windows.Forms.Panel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtFEID = new System.Windows.Forms.TextBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.panel114 = new System.Windows.Forms.Panel();
+            this.panel115 = new System.Windows.Forms.Panel();
+            this.panel116 = new System.Windows.Forms.Panel();
+            this.panel117 = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabControl8.SuspendLayout();
+            this.tabPage24.SuspendLayout();
+            this.panel219.SuspendLayout();
+            this.panel220.SuspendLayout();
+            this.panel221.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton9)).BeginInit();
+            this.panel222.SuspendLayout();
+            this.panel126.SuspendLayout();
+            this.panel127.SuspendLayout();
+            this.panel128.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton7)).BeginInit();
+            this.panel129.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.panel118.SuspendLayout();
+            this.panel119.SuspendLayout();
+            this.panel120.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchDispatcherInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRemoveDispatcherInfo)).BeginInit();
+            this.panel121.SuspendLayout();
+            this.panel174.SuspendLayout();
+            this.panel189.SuspendLayout();
+            this.panel190.SuspendLayout();
             this.panel56.SuspendLayout();
             this.panel57.SuspendLayout();
             this.panel58.SuspendLayout();
@@ -458,6 +551,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnNoReferenceNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNoRequestID)).BeginInit();
             this.panel39.SuspendLayout();
+            this.panel42.SuspendLayout();
+            this.panel43.SuspendLayout();
+            this.pnlSubHeader.SuspendLayout();
+            this.panel44.SuspendLayout();
+            this.tabControl7.SuspendLayout();
+            this.tabPage16.SuspendLayout();
+            this.tabPage17.SuspendLayout();
+            this.tabPage18.SuspendLayout();
+            this.panel54.SuspendLayout();
+            this.panel55.SuspendLayout();
+            this.panel49.SuspendLayout();
             this.panel78.SuspendLayout();
             this.panel79.SuspendLayout();
             this.panel140.SuspendLayout();
@@ -472,17 +576,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnRemoveFE)).BeginInit();
             this.panel74.SuspendLayout();
             this.panel84.SuspendLayout();
-            this.panel42.SuspendLayout();
-            this.panel43.SuspendLayout();
-            this.pnlSubHeader.SuspendLayout();
-            this.panel44.SuspendLayout();
-            this.tabControl7.SuspendLayout();
-            this.tabPage16.SuspendLayout();
-            this.tabPage17.SuspendLayout();
-            this.tabPage18.SuspendLayout();
-            this.panel54.SuspendLayout();
-            this.panel55.SuspendLayout();
-            this.panel49.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel167.SuspendLayout();
             this.panel130.SuspendLayout();
@@ -510,9 +603,12 @@
             this.panel106.SuspendLayout();
             this.panel107.SuspendLayout();
             this.panel108.SuspendLayout();
-            this.panel174.SuspendLayout();
-            this.panel189.SuspendLayout();
-            this.panel190.SuspendLayout();
+            this.panel110.SuspendLayout();
+            this.panel111.SuspendLayout();
+            this.panel112.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton3)).BeginInit();
+            this.panel113.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -533,7 +629,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1388, 29);
+            this.pnlHeader.Size = new System.Drawing.Size(1391, 29);
             this.pnlHeader.TabIndex = 310;
             // 
             // txtClientID
@@ -729,6 +825,7 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.tabControl8);
             this.tabPage3.Controls.Add(this.panel174);
             this.tabPage3.Controls.Add(this.panel56);
             this.tabPage3.Controls.Add(this.panel93);
@@ -738,8 +835,6 @@
             this.tabPage3.Controls.Add(this.panel29);
             this.tabPage3.Controls.Add(this.panel16);
             this.tabPage3.Controls.Add(this.panel38);
-            this.tabPage3.Controls.Add(this.panel78);
-            this.tabPage3.Controls.Add(this.panel71);
             this.tabPage3.Controls.Add(this.panel42);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
@@ -747,6 +842,641 @@
             this.tabPage3.Size = new System.Drawing.Size(964, 831);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Basic Information";
+            // 
+            // tabControl8
+            // 
+            this.tabControl8.Appearance = System.Windows.Forms.TabAppearance.Buttons;
+            this.tabControl8.Controls.Add(this.tabPage24);
+            this.tabControl8.Controls.Add(this.tabPage5);
+            this.tabControl8.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl8.Location = new System.Drawing.Point(484, 158);
+            this.tabControl8.Name = "tabControl8";
+            this.tabControl8.SelectedIndex = 0;
+            this.tabControl8.Size = new System.Drawing.Size(480, 161);
+            this.tabControl8.TabIndex = 505;
+            // 
+            // tabPage24
+            // 
+            this.tabPage24.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage24.Controls.Add(this.panel219);
+            this.tabPage24.Controls.Add(this.panel126);
+            this.tabPage24.Location = new System.Drawing.Point(4, 27);
+            this.tabPage24.Name = "tabPage24";
+            this.tabPage24.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage24.Size = new System.Drawing.Size(472, 130);
+            this.tabPage24.TabIndex = 0;
+            this.tabPage24.Text = "CUSTOMER SUPPORT";
+            // 
+            // panel219
+            // 
+            this.panel219.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel219.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel219.Controls.Add(this.panel220);
+            this.panel219.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel219.Location = new System.Drawing.Point(2, 66);
+            this.panel219.Name = "panel219";
+            this.panel219.Size = new System.Drawing.Size(468, 64);
+            this.panel219.TabIndex = 496;
+            // 
+            // panel220
+            // 
+            this.panel220.Controls.Add(this.panel221);
+            this.panel220.Controls.Add(this.panel222);
+            this.panel220.Controls.Add(this.panel223);
+            this.panel220.Controls.Add(this.panel224);
+            this.panel220.Controls.Add(this.panel225);
+            this.panel220.Controls.Add(this.panel226);
+            this.panel220.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel220.Location = new System.Drawing.Point(0, 0);
+            this.panel220.Name = "panel220";
+            this.panel220.Size = new System.Drawing.Size(466, 62);
+            this.panel220.TabIndex = 312;
+            // 
+            // panel221
+            // 
+            this.panel221.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel221.Controls.Add(this.bunifuImageButton8);
+            this.panel221.Controls.Add(this.bunifuImageButton9);
+            this.panel221.Controls.Add(this.label157);
+            this.panel221.Controls.Add(this.txtHDTeamLead);
+            this.panel221.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel221.Location = new System.Drawing.Point(0, 0);
+            this.panel221.Name = "panel221";
+            this.panel221.Size = new System.Drawing.Size(466, 27);
+            this.panel221.TabIndex = 5;
+            // 
+            // bunifuImageButton8
+            // 
+            this.bunifuImageButton8.BackColor = System.Drawing.SystemColors.Control;
+            this.bunifuImageButton8.Enabled = false;
+            this.bunifuImageButton8.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton8.Image")));
+            this.bunifuImageButton8.ImageActive = null;
+            this.bunifuImageButton8.Location = new System.Drawing.Point(415, 2);
+            this.bunifuImageButton8.Name = "bunifuImageButton8";
+            this.bunifuImageButton8.Size = new System.Drawing.Size(24, 21);
+            this.bunifuImageButton8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.bunifuImageButton8.TabIndex = 336;
+            this.bunifuImageButton8.TabStop = false;
+            this.bunifuImageButton8.Zoom = 10;
+            this.bunifuImageButton8.Click += new System.EventHandler(this.btnSearchDispatcher_Click_1);
+            // 
+            // bunifuImageButton9
+            // 
+            this.bunifuImageButton9.BackColor = System.Drawing.SystemColors.Control;
+            this.bunifuImageButton9.Enabled = false;
+            this.bunifuImageButton9.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton9.Image")));
+            this.bunifuImageButton9.ImageActive = null;
+            this.bunifuImageButton9.Location = new System.Drawing.Point(441, 2);
+            this.bunifuImageButton9.Name = "bunifuImageButton9";
+            this.bunifuImageButton9.Size = new System.Drawing.Size(24, 21);
+            this.bunifuImageButton9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.bunifuImageButton9.TabIndex = 337;
+            this.bunifuImageButton9.TabStop = false;
+            this.bunifuImageButton9.Zoom = 10;
+            this.bunifuImageButton9.Click += new System.EventHandler(this.btnRemoveDispatcher_Click);
+            // 
+            // label157
+            // 
+            this.label157.AutoSize = true;
+            this.label157.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label157.Location = new System.Drawing.Point(2, 5);
+            this.label157.Name = "label157";
+            this.label157.Size = new System.Drawing.Size(69, 14);
+            this.label157.TabIndex = 335;
+            this.label157.Text = "TEAM LEAD";
+            // 
+            // txtHDTeamLead
+            // 
+            this.txtHDTeamLead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtHDTeamLead.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHDTeamLead.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtHDTeamLead.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHDTeamLead.Location = new System.Drawing.Point(91, 2);
+            this.txtHDTeamLead.Name = "txtHDTeamLead";
+            this.txtHDTeamLead.ReadOnly = true;
+            this.txtHDTeamLead.Size = new System.Drawing.Size(322, 21);
+            this.txtHDTeamLead.TabIndex = 149;
+            // 
+            // panel222
+            // 
+            this.panel222.Controls.Add(this.txtHDTLContactNo);
+            this.panel222.Controls.Add(this.label158);
+            this.panel222.Controls.Add(this.txtHDTLEmail);
+            this.panel222.Controls.Add(this.label159);
+            this.panel222.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel222.Location = new System.Drawing.Point(0, 0);
+            this.panel222.Name = "panel222";
+            this.panel222.Size = new System.Drawing.Size(466, 62);
+            this.panel222.TabIndex = 4;
+            // 
+            // txtHDTLContactNo
+            // 
+            this.txtHDTLContactNo.BackColor = System.Drawing.Color.White;
+            this.txtHDTLContactNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHDTLContactNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtHDTLContactNo.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtHDTLContactNo.Location = new System.Drawing.Point(92, 31);
+            this.txtHDTLContactNo.Name = "txtHDTLContactNo";
+            this.txtHDTLContactNo.ReadOnly = true;
+            this.txtHDTLContactNo.Size = new System.Drawing.Size(108, 20);
+            this.txtHDTLContactNo.TabIndex = 331;
+            // 
+            // label158
+            // 
+            this.label158.AutoSize = true;
+            this.label158.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label158.Location = new System.Drawing.Point(3, 32);
+            this.label158.Name = "label158";
+            this.label158.Size = new System.Drawing.Size(58, 15);
+            this.label158.TabIndex = 333;
+            this.label158.Text = "CONTACT#";
+            // 
+            // txtHDTLEmail
+            // 
+            this.txtHDTLEmail.BackColor = System.Drawing.Color.White;
+            this.txtHDTLEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHDTLEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtHDTLEmail.Location = new System.Drawing.Point(244, 31);
+            this.txtHDTLEmail.Name = "txtHDTLEmail";
+            this.txtHDTLEmail.ReadOnly = true;
+            this.txtHDTLEmail.Size = new System.Drawing.Size(220, 20);
+            this.txtHDTLEmail.TabIndex = 336;
+            // 
+            // label159
+            // 
+            this.label159.AutoSize = true;
+            this.label159.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label159.Location = new System.Drawing.Point(205, 34);
+            this.label159.Name = "label159";
+            this.label159.Size = new System.Drawing.Size(37, 15);
+            this.label159.TabIndex = 335;
+            this.label159.Text = "EMAIL:";
+            // 
+            // panel223
+            // 
+            this.panel223.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel223.Location = new System.Drawing.Point(0, 0);
+            this.panel223.Name = "panel223";
+            this.panel223.Size = new System.Drawing.Size(466, 62);
+            this.panel223.TabIndex = 3;
+            // 
+            // panel224
+            // 
+            this.panel224.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel224.Location = new System.Drawing.Point(0, 0);
+            this.panel224.Name = "panel224";
+            this.panel224.Size = new System.Drawing.Size(466, 62);
+            this.panel224.TabIndex = 2;
+            // 
+            // panel225
+            // 
+            this.panel225.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel225.Location = new System.Drawing.Point(0, 0);
+            this.panel225.Name = "panel225";
+            this.panel225.Size = new System.Drawing.Size(466, 62);
+            this.panel225.TabIndex = 1;
+            // 
+            // panel226
+            // 
+            this.panel226.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel226.Location = new System.Drawing.Point(0, 0);
+            this.panel226.Name = "panel226";
+            this.panel226.Size = new System.Drawing.Size(466, 62);
+            this.panel226.TabIndex = 0;
+            // 
+            // panel126
+            // 
+            this.panel126.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel126.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel126.Controls.Add(this.panel127);
+            this.panel126.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel126.Location = new System.Drawing.Point(2, 3);
+            this.panel126.Name = "panel126";
+            this.panel126.Size = new System.Drawing.Size(468, 62);
+            this.panel126.TabIndex = 456;
+            // 
+            // panel127
+            // 
+            this.panel127.Controls.Add(this.panel128);
+            this.panel127.Controls.Add(this.panel129);
+            this.panel127.Controls.Add(this.panel215);
+            this.panel127.Controls.Add(this.panel216);
+            this.panel127.Controls.Add(this.panel217);
+            this.panel127.Controls.Add(this.panel218);
+            this.panel127.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel127.Location = new System.Drawing.Point(0, 0);
+            this.panel127.Name = "panel127";
+            this.panel127.Size = new System.Drawing.Size(466, 60);
+            this.panel127.TabIndex = 312;
+            // 
+            // panel128
+            // 
+            this.panel128.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel128.Controls.Add(this.bunifuImageButton6);
+            this.panel128.Controls.Add(this.bunifuImageButton7);
+            this.panel128.Controls.Add(this.label154);
+            this.panel128.Controls.Add(this.txtHDName);
+            this.panel128.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel128.Location = new System.Drawing.Point(0, 0);
+            this.panel128.Name = "panel128";
+            this.panel128.Size = new System.Drawing.Size(466, 27);
+            this.panel128.TabIndex = 5;
+            // 
+            // bunifuImageButton6
+            // 
+            this.bunifuImageButton6.BackColor = System.Drawing.SystemColors.Control;
+            this.bunifuImageButton6.Enabled = false;
+            this.bunifuImageButton6.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton6.Image")));
+            this.bunifuImageButton6.ImageActive = null;
+            this.bunifuImageButton6.Location = new System.Drawing.Point(415, 1);
+            this.bunifuImageButton6.Name = "bunifuImageButton6";
+            this.bunifuImageButton6.Size = new System.Drawing.Size(24, 21);
+            this.bunifuImageButton6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.bunifuImageButton6.TabIndex = 335;
+            this.bunifuImageButton6.TabStop = false;
+            this.bunifuImageButton6.Zoom = 10;
+            this.bunifuImageButton6.Click += new System.EventHandler(this.btnSearchFE_Click);
+            // 
+            // bunifuImageButton7
+            // 
+            this.bunifuImageButton7.BackColor = System.Drawing.SystemColors.Control;
+            this.bunifuImageButton7.Enabled = false;
+            this.bunifuImageButton7.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton7.Image")));
+            this.bunifuImageButton7.ImageActive = null;
+            this.bunifuImageButton7.Location = new System.Drawing.Point(441, 1);
+            this.bunifuImageButton7.Name = "bunifuImageButton7";
+            this.bunifuImageButton7.Size = new System.Drawing.Size(24, 21);
+            this.bunifuImageButton7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.bunifuImageButton7.TabIndex = 336;
+            this.bunifuImageButton7.TabStop = false;
+            this.bunifuImageButton7.Zoom = 10;
+            this.bunifuImageButton7.Click += new System.EventHandler(this.btnRemoveFE_Click);
+            // 
+            // label154
+            // 
+            this.label154.AutoSize = true;
+            this.label154.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label154.Location = new System.Drawing.Point(2, 4);
+            this.label154.Name = "label154";
+            this.label154.Size = new System.Drawing.Size(61, 14);
+            this.label154.TabIndex = 334;
+            this.label154.Text = "HELPDESK";
+            // 
+            // txtHDName
+            // 
+            this.txtHDName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtHDName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHDName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtHDName.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHDName.Location = new System.Drawing.Point(91, 2);
+            this.txtHDName.Name = "txtHDName";
+            this.txtHDName.ReadOnly = true;
+            this.txtHDName.Size = new System.Drawing.Size(322, 21);
+            this.txtHDName.TabIndex = 149;
+            // 
+            // panel129
+            // 
+            this.panel129.Controls.Add(this.txtHDContactNo);
+            this.panel129.Controls.Add(this.label155);
+            this.panel129.Controls.Add(this.txtHDEmail);
+            this.panel129.Controls.Add(this.label156);
+            this.panel129.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel129.Location = new System.Drawing.Point(0, 0);
+            this.panel129.Name = "panel129";
+            this.panel129.Size = new System.Drawing.Size(466, 60);
+            this.panel129.TabIndex = 4;
+            // 
+            // txtHDContactNo
+            // 
+            this.txtHDContactNo.BackColor = System.Drawing.Color.White;
+            this.txtHDContactNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHDContactNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtHDContactNo.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtHDContactNo.Location = new System.Drawing.Point(92, 31);
+            this.txtHDContactNo.Name = "txtHDContactNo";
+            this.txtHDContactNo.ReadOnly = true;
+            this.txtHDContactNo.Size = new System.Drawing.Size(108, 20);
+            this.txtHDContactNo.TabIndex = 331;
+            // 
+            // label155
+            // 
+            this.label155.AutoSize = true;
+            this.label155.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label155.Location = new System.Drawing.Point(3, 32);
+            this.label155.Name = "label155";
+            this.label155.Size = new System.Drawing.Size(58, 15);
+            this.label155.TabIndex = 333;
+            this.label155.Text = "CONTACT#";
+            // 
+            // txtHDEmail
+            // 
+            this.txtHDEmail.BackColor = System.Drawing.Color.White;
+            this.txtHDEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHDEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtHDEmail.Location = new System.Drawing.Point(244, 31);
+            this.txtHDEmail.Name = "txtHDEmail";
+            this.txtHDEmail.ReadOnly = true;
+            this.txtHDEmail.Size = new System.Drawing.Size(220, 20);
+            this.txtHDEmail.TabIndex = 336;
+            // 
+            // label156
+            // 
+            this.label156.AutoSize = true;
+            this.label156.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label156.Location = new System.Drawing.Point(205, 32);
+            this.label156.Name = "label156";
+            this.label156.Size = new System.Drawing.Size(37, 15);
+            this.label156.TabIndex = 335;
+            this.label156.Text = "EMAIL:";
+            // 
+            // panel215
+            // 
+            this.panel215.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel215.Location = new System.Drawing.Point(0, 0);
+            this.panel215.Name = "panel215";
+            this.panel215.Size = new System.Drawing.Size(466, 60);
+            this.panel215.TabIndex = 3;
+            // 
+            // panel216
+            // 
+            this.panel216.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel216.Location = new System.Drawing.Point(0, 0);
+            this.panel216.Name = "panel216";
+            this.panel216.Size = new System.Drawing.Size(466, 60);
+            this.panel216.TabIndex = 2;
+            // 
+            // panel217
+            // 
+            this.panel217.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel217.Location = new System.Drawing.Point(0, 0);
+            this.panel217.Name = "panel217";
+            this.panel217.Size = new System.Drawing.Size(466, 60);
+            this.panel217.TabIndex = 1;
+            // 
+            // panel218
+            // 
+            this.panel218.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel218.Location = new System.Drawing.Point(0, 0);
+            this.panel218.Name = "panel218";
+            this.panel218.Size = new System.Drawing.Size(466, 60);
+            this.panel218.TabIndex = 0;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.panel118);
+            this.tabPage5.Location = new System.Drawing.Point(4, 27);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(472, 130);
+            this.tabPage5.TabIndex = 3;
+            this.tabPage5.Text = "TECHNICAL  SUPPORT";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // panel118
+            // 
+            this.panel118.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel118.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel118.Controls.Add(this.panel119);
+            this.panel118.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel118.Location = new System.Drawing.Point(0, 0);
+            this.panel118.Name = "panel118";
+            this.panel118.Size = new System.Drawing.Size(468, 64);
+            this.panel118.TabIndex = 495;
+            // 
+            // panel119
+            // 
+            this.panel119.Controls.Add(this.panel120);
+            this.panel119.Controls.Add(this.panel121);
+            this.panel119.Controls.Add(this.panel122);
+            this.panel119.Controls.Add(this.panel123);
+            this.panel119.Controls.Add(this.panel124);
+            this.panel119.Controls.Add(this.panel125);
+            this.panel119.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel119.Location = new System.Drawing.Point(0, 0);
+            this.panel119.Name = "panel119";
+            this.panel119.Size = new System.Drawing.Size(466, 62);
+            this.panel119.TabIndex = 312;
+            // 
+            // panel120
+            // 
+            this.panel120.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel120.Controls.Add(this.label64);
+            this.panel120.Controls.Add(this.txtDispatcherInfo);
+            this.panel120.Controls.Add(this.btnSearchDispatcherInfo);
+            this.panel120.Controls.Add(this.btnRemoveDispatcherInfo);
+            this.panel120.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel120.Location = new System.Drawing.Point(0, 0);
+            this.panel120.Name = "panel120";
+            this.panel120.Size = new System.Drawing.Size(466, 27);
+            this.panel120.TabIndex = 5;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label64.Location = new System.Drawing.Point(2, 5);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(72, 14);
+            this.label64.TabIndex = 335;
+            this.label64.Text = "DISPATCHER";
+            // 
+            // txtDispatcherInfo
+            // 
+            this.txtDispatcherInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtDispatcherInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDispatcherInfo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDispatcherInfo.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDispatcherInfo.Location = new System.Drawing.Point(91, 2);
+            this.txtDispatcherInfo.Name = "txtDispatcherInfo";
+            this.txtDispatcherInfo.ReadOnly = true;
+            this.txtDispatcherInfo.Size = new System.Drawing.Size(322, 21);
+            this.txtDispatcherInfo.TabIndex = 149;
+            // 
+            // btnSearchDispatcherInfo
+            // 
+            this.btnSearchDispatcherInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.btnSearchDispatcherInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchDispatcherInfo.Image")));
+            this.btnSearchDispatcherInfo.ImageActive = null;
+            this.btnSearchDispatcherInfo.Location = new System.Drawing.Point(414, 1);
+            this.btnSearchDispatcherInfo.Name = "btnSearchDispatcherInfo";
+            this.btnSearchDispatcherInfo.Size = new System.Drawing.Size(24, 21);
+            this.btnSearchDispatcherInfo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchDispatcherInfo.TabIndex = 147;
+            this.btnSearchDispatcherInfo.TabStop = false;
+            this.btnSearchDispatcherInfo.Zoom = 10;
+            this.btnSearchDispatcherInfo.Click += new System.EventHandler(this.btnSearchDispatcher_Click_1);
+            // 
+            // btnRemoveDispatcherInfo
+            // 
+            this.btnRemoveDispatcherInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.btnRemoveDispatcherInfo.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveDispatcherInfo.Image")));
+            this.btnRemoveDispatcherInfo.ImageActive = null;
+            this.btnRemoveDispatcherInfo.Location = new System.Drawing.Point(440, 1);
+            this.btnRemoveDispatcherInfo.Name = "btnRemoveDispatcherInfo";
+            this.btnRemoveDispatcherInfo.Size = new System.Drawing.Size(24, 21);
+            this.btnRemoveDispatcherInfo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnRemoveDispatcherInfo.TabIndex = 148;
+            this.btnRemoveDispatcherInfo.TabStop = false;
+            this.btnRemoveDispatcherInfo.Zoom = 10;
+            this.btnRemoveDispatcherInfo.Click += new System.EventHandler(this.btnRemoveDispatcher_Click);
+            // 
+            // panel121
+            // 
+            this.panel121.Controls.Add(this.txtDispatchID);
+            this.panel121.Controls.Add(this.txtDispatcherInfoMobileNo);
+            this.panel121.Controls.Add(this.label65);
+            this.panel121.Controls.Add(this.txtDispatcherInfoEmail);
+            this.panel121.Controls.Add(this.label66);
+            this.panel121.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel121.Location = new System.Drawing.Point(0, 0);
+            this.panel121.Name = "panel121";
+            this.panel121.Size = new System.Drawing.Size(466, 62);
+            this.panel121.TabIndex = 4;
+            // 
+            // txtDispatchID
+            // 
+            this.txtDispatchID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            this.txtDispatchID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDispatchID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDispatchID.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDispatchID.Location = new System.Drawing.Point(415, 31);
+            this.txtDispatchID.Name = "txtDispatchID";
+            this.txtDispatchID.ReadOnly = true;
+            this.txtDispatchID.Size = new System.Drawing.Size(49, 21);
+            this.txtDispatchID.TabIndex = 471;
+            this.txtDispatchID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDispatchID.WordWrap = false;
+            // 
+            // txtDispatcherInfoMobileNo
+            // 
+            this.txtDispatcherInfoMobileNo.BackColor = System.Drawing.Color.White;
+            this.txtDispatcherInfoMobileNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDispatcherInfoMobileNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDispatcherInfoMobileNo.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtDispatcherInfoMobileNo.Location = new System.Drawing.Point(92, 31);
+            this.txtDispatcherInfoMobileNo.Name = "txtDispatcherInfoMobileNo";
+            this.txtDispatcherInfoMobileNo.ReadOnly = true;
+            this.txtDispatcherInfoMobileNo.Size = new System.Drawing.Size(108, 20);
+            this.txtDispatcherInfoMobileNo.TabIndex = 331;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label65.Location = new System.Drawing.Point(3, 32);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(58, 15);
+            this.label65.TabIndex = 333;
+            this.label65.Text = "CONTACT#";
+            // 
+            // txtDispatcherInfoEmail
+            // 
+            this.txtDispatcherInfoEmail.BackColor = System.Drawing.Color.White;
+            this.txtDispatcherInfoEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDispatcherInfoEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtDispatcherInfoEmail.Location = new System.Drawing.Point(244, 31);
+            this.txtDispatcherInfoEmail.Name = "txtDispatcherInfoEmail";
+            this.txtDispatcherInfoEmail.ReadOnly = true;
+            this.txtDispatcherInfoEmail.Size = new System.Drawing.Size(170, 20);
+            this.txtDispatcherInfoEmail.TabIndex = 336;
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label66.Location = new System.Drawing.Point(205, 34);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(37, 15);
+            this.label66.TabIndex = 335;
+            this.label66.Text = "EMAIL:";
+            // 
+            // panel122
+            // 
+            this.panel122.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel122.Location = new System.Drawing.Point(0, 0);
+            this.panel122.Name = "panel122";
+            this.panel122.Size = new System.Drawing.Size(466, 62);
+            this.panel122.TabIndex = 3;
+            // 
+            // panel123
+            // 
+            this.panel123.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel123.Location = new System.Drawing.Point(0, 0);
+            this.panel123.Name = "panel123";
+            this.panel123.Size = new System.Drawing.Size(466, 62);
+            this.panel123.TabIndex = 2;
+            // 
+            // panel124
+            // 
+            this.panel124.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel124.Location = new System.Drawing.Point(0, 0);
+            this.panel124.Name = "panel124";
+            this.panel124.Size = new System.Drawing.Size(466, 62);
+            this.panel124.TabIndex = 1;
+            // 
+            // panel125
+            // 
+            this.panel125.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel125.Location = new System.Drawing.Point(0, 0);
+            this.panel125.Name = "panel125";
+            this.panel125.Size = new System.Drawing.Size(466, 62);
+            this.panel125.TabIndex = 0;
+            // 
+            // panel174
+            // 
+            this.panel174.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel174.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel174.Controls.Add(this.panel189);
+            this.panel174.Controls.Add(this.panel190);
+            this.panel174.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel174.Location = new System.Drawing.Point(483, 326);
+            this.panel174.Name = "panel174";
+            this.panel174.Size = new System.Drawing.Size(149, 55);
+            this.panel174.TabIndex = 503;
+            // 
+            // panel189
+            // 
+            this.panel189.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel189.Controls.Add(this.cboIssueCategory);
+            this.panel189.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel189.Location = new System.Drawing.Point(0, 24);
+            this.panel189.Name = "panel189";
+            this.panel189.Size = new System.Drawing.Size(147, 27);
+            this.panel189.TabIndex = 313;
+            // 
+            // cboIssueCategory
+            // 
+            this.cboIssueCategory.BackColor = System.Drawing.Color.White;
+            this.cboIssueCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboIssueCategory.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboIssueCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.cboIssueCategory.FormattingEnabled = true;
+            this.cboIssueCategory.Location = new System.Drawing.Point(-2, 1);
+            this.cboIssueCategory.Name = "cboIssueCategory";
+            this.cboIssueCategory.Size = new System.Drawing.Size(145, 24);
+            this.cboIssueCategory.TabIndex = 349;
+            // 
+            // panel190
+            // 
+            this.panel190.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            this.panel190.Controls.Add(this.label94);
+            this.panel190.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel190.Location = new System.Drawing.Point(0, 0);
+            this.panel190.Name = "panel190";
+            this.panel190.Size = new System.Drawing.Size(147, 24);
+            this.panel190.TabIndex = 311;
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            this.label94.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label94.ForeColor = System.Drawing.Color.Black;
+            this.label94.Location = new System.Drawing.Point(3, 4);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(135, 15);
+            this.label94.TabIndex = 310;
+            this.label94.Text = "SELECT ISSUE CATEGORY";
             // 
             // panel56
             // 
@@ -2645,404 +3375,6 @@
             this.panel40.Size = new System.Drawing.Size(954, 1);
             this.panel40.TabIndex = 0;
             // 
-            // panel78
-            // 
-            this.panel78.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel78.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel78.Controls.Add(this.panel79);
-            this.panel78.Controls.Add(this.panel186);
-            this.panel78.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel78.Location = new System.Drawing.Point(484, 238);
-            this.panel78.Name = "panel78";
-            this.panel78.Size = new System.Drawing.Size(477, 84);
-            this.panel78.TabIndex = 496;
-            // 
-            // panel79
-            // 
-            this.panel79.Controls.Add(this.panel140);
-            this.panel79.Controls.Add(this.panel141);
-            this.panel79.Controls.Add(this.panel146);
-            this.panel79.Controls.Add(this.panel150);
-            this.panel79.Controls.Add(this.panel184);
-            this.panel79.Controls.Add(this.panel185);
-            this.panel79.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel79.Location = new System.Drawing.Point(0, 24);
-            this.panel79.Name = "panel79";
-            this.panel79.Size = new System.Drawing.Size(475, 58);
-            this.panel79.TabIndex = 312;
-            // 
-            // panel140
-            // 
-            this.panel140.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel140.Controls.Add(this.txtDispatcher);
-            this.panel140.Controls.Add(this.btnSearchDispatcher);
-            this.panel140.Controls.Add(this.btnRemoveDispatcher);
-            this.panel140.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel140.Location = new System.Drawing.Point(0, 0);
-            this.panel140.Name = "panel140";
-            this.panel140.Size = new System.Drawing.Size(475, 27);
-            this.panel140.TabIndex = 5;
-            // 
-            // txtDispatcher
-            // 
-            this.txtDispatcher.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.txtDispatcher.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDispatcher.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDispatcher.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDispatcher.Location = new System.Drawing.Point(2, 2);
-            this.txtDispatcher.Name = "txtDispatcher";
-            this.txtDispatcher.ReadOnly = true;
-            this.txtDispatcher.Size = new System.Drawing.Size(415, 21);
-            this.txtDispatcher.TabIndex = 149;
-            // 
-            // btnSearchDispatcher
-            // 
-            this.btnSearchDispatcher.BackColor = System.Drawing.SystemColors.Control;
-            this.btnSearchDispatcher.Enabled = false;
-            this.btnSearchDispatcher.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchDispatcher.Image")));
-            this.btnSearchDispatcher.ImageActive = null;
-            this.btnSearchDispatcher.Location = new System.Drawing.Point(420, 2);
-            this.btnSearchDispatcher.Name = "btnSearchDispatcher";
-            this.btnSearchDispatcher.Size = new System.Drawing.Size(24, 21);
-            this.btnSearchDispatcher.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnSearchDispatcher.TabIndex = 147;
-            this.btnSearchDispatcher.TabStop = false;
-            this.btnSearchDispatcher.Zoom = 10;
-            this.btnSearchDispatcher.Click += new System.EventHandler(this.btnSearchDispatcher_Click_1);
-            // 
-            // btnRemoveDispatcher
-            // 
-            this.btnRemoveDispatcher.BackColor = System.Drawing.SystemColors.Control;
-            this.btnRemoveDispatcher.Enabled = false;
-            this.btnRemoveDispatcher.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveDispatcher.Image")));
-            this.btnRemoveDispatcher.ImageActive = null;
-            this.btnRemoveDispatcher.Location = new System.Drawing.Point(446, 2);
-            this.btnRemoveDispatcher.Name = "btnRemoveDispatcher";
-            this.btnRemoveDispatcher.Size = new System.Drawing.Size(24, 21);
-            this.btnRemoveDispatcher.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnRemoveDispatcher.TabIndex = 148;
-            this.btnRemoveDispatcher.TabStop = false;
-            this.btnRemoveDispatcher.Zoom = 10;
-            this.btnRemoveDispatcher.Click += new System.EventHandler(this.btnRemoveDispatcher_Click);
-            // 
-            // panel141
-            // 
-            this.panel141.BackColor = System.Drawing.Color.White;
-            this.panel141.Controls.Add(this.txtDispatcherMobileNo);
-            this.panel141.Controls.Add(this.label43);
-            this.panel141.Controls.Add(this.txtDispatcherEmail);
-            this.panel141.Controls.Add(this.label46);
-            this.panel141.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel141.Location = new System.Drawing.Point(0, 0);
-            this.panel141.Name = "panel141";
-            this.panel141.Size = new System.Drawing.Size(475, 58);
-            this.panel141.TabIndex = 4;
-            // 
-            // txtDispatcherMobileNo
-            // 
-            this.txtDispatcherMobileNo.BackColor = System.Drawing.Color.White;
-            this.txtDispatcherMobileNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDispatcherMobileNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDispatcherMobileNo.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtDispatcherMobileNo.Location = new System.Drawing.Point(66, 32);
-            this.txtDispatcherMobileNo.Name = "txtDispatcherMobileNo";
-            this.txtDispatcherMobileNo.ReadOnly = true;
-            this.txtDispatcherMobileNo.Size = new System.Drawing.Size(108, 20);
-            this.txtDispatcherMobileNo.TabIndex = 331;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label43.Location = new System.Drawing.Point(3, 34);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(58, 15);
-            this.label43.TabIndex = 333;
-            this.label43.Text = "CONTACT#";
-            // 
-            // txtDispatcherEmail
-            // 
-            this.txtDispatcherEmail.BackColor = System.Drawing.Color.White;
-            this.txtDispatcherEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDispatcherEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtDispatcherEmail.Location = new System.Drawing.Point(221, 32);
-            this.txtDispatcherEmail.Name = "txtDispatcherEmail";
-            this.txtDispatcherEmail.ReadOnly = true;
-            this.txtDispatcherEmail.Size = new System.Drawing.Size(251, 20);
-            this.txtDispatcherEmail.TabIndex = 336;
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label46.Location = new System.Drawing.Point(179, 34);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(37, 15);
-            this.label46.TabIndex = 335;
-            this.label46.Text = "EMAIL:";
-            // 
-            // panel146
-            // 
-            this.panel146.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel146.Location = new System.Drawing.Point(0, 0);
-            this.panel146.Name = "panel146";
-            this.panel146.Size = new System.Drawing.Size(475, 58);
-            this.panel146.TabIndex = 3;
-            // 
-            // panel150
-            // 
-            this.panel150.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel150.Location = new System.Drawing.Point(0, 0);
-            this.panel150.Name = "panel150";
-            this.panel150.Size = new System.Drawing.Size(475, 58);
-            this.panel150.TabIndex = 2;
-            // 
-            // panel184
-            // 
-            this.panel184.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel184.Location = new System.Drawing.Point(0, 0);
-            this.panel184.Name = "panel184";
-            this.panel184.Size = new System.Drawing.Size(475, 58);
-            this.panel184.TabIndex = 1;
-            // 
-            // panel185
-            // 
-            this.panel185.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel185.Location = new System.Drawing.Point(0, 0);
-            this.panel185.Name = "panel185";
-            this.panel185.Size = new System.Drawing.Size(475, 58);
-            this.panel185.TabIndex = 0;
-            // 
-            // panel186
-            // 
-            this.panel186.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
-            this.panel186.Controls.Add(this.label50);
-            this.panel186.Controls.Add(this.panel187);
-            this.panel186.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel186.Location = new System.Drawing.Point(0, 0);
-            this.panel186.Name = "panel186";
-            this.panel186.Size = new System.Drawing.Size(475, 24);
-            this.panel186.TabIndex = 311;
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label50.ForeColor = System.Drawing.Color.Black;
-            this.label50.Location = new System.Drawing.Point(3, 4);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(234, 15);
-            this.label50.TabIndex = 310;
-            this.label50.Text = "SELECT VENDOR TEAM LEAD INFORMATION";
-            // 
-            // panel187
-            // 
-            this.panel187.BackColor = System.Drawing.Color.Silver;
-            this.panel187.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel187.Location = new System.Drawing.Point(0, 23);
-            this.panel187.Name = "panel187";
-            this.panel187.Size = new System.Drawing.Size(475, 1);
-            this.panel187.TabIndex = 0;
-            // 
-            // panel71
-            // 
-            this.panel71.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel71.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel71.Controls.Add(this.panel72);
-            this.panel71.Controls.Add(this.panel84);
-            this.panel71.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel71.Location = new System.Drawing.Point(483, 154);
-            this.panel71.Name = "panel71";
-            this.panel71.Size = new System.Drawing.Size(477, 81);
-            this.panel71.TabIndex = 456;
-            // 
-            // panel72
-            // 
-            this.panel72.Controls.Add(this.panel73);
-            this.panel72.Controls.Add(this.panel74);
-            this.panel72.Controls.Add(this.panel80);
-            this.panel72.Controls.Add(this.panel81);
-            this.panel72.Controls.Add(this.panel82);
-            this.panel72.Controls.Add(this.panel83);
-            this.panel72.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel72.Location = new System.Drawing.Point(0, 24);
-            this.panel72.Name = "panel72";
-            this.panel72.Size = new System.Drawing.Size(475, 55);
-            this.panel72.TabIndex = 312;
-            // 
-            // panel73
-            // 
-            this.panel73.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel73.Controls.Add(this.txtFEName);
-            this.panel73.Controls.Add(this.btnSearchFE);
-            this.panel73.Controls.Add(this.btnRemoveFE);
-            this.panel73.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel73.Location = new System.Drawing.Point(0, 0);
-            this.panel73.Name = "panel73";
-            this.panel73.Size = new System.Drawing.Size(475, 27);
-            this.panel73.TabIndex = 5;
-            // 
-            // txtFEName
-            // 
-            this.txtFEName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.txtFEName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFEName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtFEName.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFEName.Location = new System.Drawing.Point(3, 2);
-            this.txtFEName.Name = "txtFEName";
-            this.txtFEName.ReadOnly = true;
-            this.txtFEName.Size = new System.Drawing.Size(415, 21);
-            this.txtFEName.TabIndex = 149;
-            // 
-            // btnSearchFE
-            // 
-            this.btnSearchFE.BackColor = System.Drawing.SystemColors.Control;
-            this.btnSearchFE.Enabled = false;
-            this.btnSearchFE.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchFE.Image")));
-            this.btnSearchFE.ImageActive = null;
-            this.btnSearchFE.Location = new System.Drawing.Point(420, 2);
-            this.btnSearchFE.Name = "btnSearchFE";
-            this.btnSearchFE.Size = new System.Drawing.Size(24, 21);
-            this.btnSearchFE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnSearchFE.TabIndex = 147;
-            this.btnSearchFE.TabStop = false;
-            this.btnSearchFE.Zoom = 10;
-            this.btnSearchFE.Click += new System.EventHandler(this.btnSearchFE_Click);
-            // 
-            // btnRemoveFE
-            // 
-            this.btnRemoveFE.BackColor = System.Drawing.SystemColors.Control;
-            this.btnRemoveFE.Enabled = false;
-            this.btnRemoveFE.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveFE.Image")));
-            this.btnRemoveFE.ImageActive = null;
-            this.btnRemoveFE.Location = new System.Drawing.Point(446, 2);
-            this.btnRemoveFE.Name = "btnRemoveFE";
-            this.btnRemoveFE.Size = new System.Drawing.Size(24, 21);
-            this.btnRemoveFE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnRemoveFE.TabIndex = 148;
-            this.btnRemoveFE.TabStop = false;
-            this.btnRemoveFE.Zoom = 10;
-            this.btnRemoveFE.Click += new System.EventHandler(this.btnRemoveFE_Click);
-            // 
-            // panel74
-            // 
-            this.panel74.BackColor = System.Drawing.Color.White;
-            this.panel74.Controls.Add(this.txtFEMobileNo);
-            this.panel74.Controls.Add(this.label35);
-            this.panel74.Controls.Add(this.txtFEEmail);
-            this.panel74.Controls.Add(this.label6);
-            this.panel74.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel74.Location = new System.Drawing.Point(0, 0);
-            this.panel74.Name = "panel74";
-            this.panel74.Size = new System.Drawing.Size(475, 55);
-            this.panel74.TabIndex = 4;
-            // 
-            // txtFEMobileNo
-            // 
-            this.txtFEMobileNo.BackColor = System.Drawing.Color.White;
-            this.txtFEMobileNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFEMobileNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtFEMobileNo.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtFEMobileNo.Location = new System.Drawing.Point(65, 30);
-            this.txtFEMobileNo.Name = "txtFEMobileNo";
-            this.txtFEMobileNo.ReadOnly = true;
-            this.txtFEMobileNo.Size = new System.Drawing.Size(108, 20);
-            this.txtFEMobileNo.TabIndex = 331;
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(4, 32);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(58, 15);
-            this.label35.TabIndex = 333;
-            this.label35.Text = "CONTACT#";
-            // 
-            // txtFEEmail
-            // 
-            this.txtFEEmail.BackColor = System.Drawing.Color.White;
-            this.txtFEEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFEEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtFEEmail.Location = new System.Drawing.Point(221, 30);
-            this.txtFEEmail.Name = "txtFEEmail";
-            this.txtFEEmail.ReadOnly = true;
-            this.txtFEEmail.Size = new System.Drawing.Size(251, 20);
-            this.txtFEEmail.TabIndex = 336;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(179, 32);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 15);
-            this.label6.TabIndex = 335;
-            this.label6.Text = "EMAIL:";
-            // 
-            // panel80
-            // 
-            this.panel80.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel80.Location = new System.Drawing.Point(0, 0);
-            this.panel80.Name = "panel80";
-            this.panel80.Size = new System.Drawing.Size(475, 55);
-            this.panel80.TabIndex = 3;
-            // 
-            // panel81
-            // 
-            this.panel81.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel81.Location = new System.Drawing.Point(0, 0);
-            this.panel81.Name = "panel81";
-            this.panel81.Size = new System.Drawing.Size(475, 55);
-            this.panel81.TabIndex = 2;
-            // 
-            // panel82
-            // 
-            this.panel82.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel82.Location = new System.Drawing.Point(0, 0);
-            this.panel82.Name = "panel82";
-            this.panel82.Size = new System.Drawing.Size(475, 55);
-            this.panel82.TabIndex = 1;
-            // 
-            // panel83
-            // 
-            this.panel83.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel83.Location = new System.Drawing.Point(0, 0);
-            this.panel83.Name = "panel83";
-            this.panel83.Size = new System.Drawing.Size(475, 55);
-            this.panel83.TabIndex = 0;
-            // 
-            // panel84
-            // 
-            this.panel84.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
-            this.panel84.Controls.Add(this.label93);
-            this.panel84.Controls.Add(this.panel85);
-            this.panel84.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel84.Location = new System.Drawing.Point(0, 0);
-            this.panel84.Name = "panel84";
-            this.panel84.Size = new System.Drawing.Size(475, 24);
-            this.panel84.TabIndex = 311;
-            // 
-            // label93
-            // 
-            this.label93.AutoSize = true;
-            this.label93.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label93.ForeColor = System.Drawing.Color.Black;
-            this.label93.Location = new System.Drawing.Point(3, 4);
-            this.label93.Name = "label93";
-            this.label93.Size = new System.Drawing.Size(228, 15);
-            this.label93.TabIndex = 310;
-            this.label93.Text = "SELECT VENDOR HELPDESK INFORMATION";
-            // 
-            // panel85
-            // 
-            this.panel85.BackColor = System.Drawing.Color.Silver;
-            this.panel85.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel85.Location = new System.Drawing.Point(0, 23);
-            this.panel85.Name = "panel85";
-            this.panel85.Size = new System.Drawing.Size(475, 1);
-            this.panel85.TabIndex = 0;
-            // 
             // panel42
             // 
             this.panel42.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -3685,6 +4017,404 @@
             this.panel50.Name = "panel50";
             this.panel50.Size = new System.Drawing.Size(955, 1);
             this.panel50.TabIndex = 0;
+            // 
+            // panel78
+            // 
+            this.panel78.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel78.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel78.Controls.Add(this.panel79);
+            this.panel78.Controls.Add(this.panel186);
+            this.panel78.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel78.Location = new System.Drawing.Point(1437, 205);
+            this.panel78.Name = "panel78";
+            this.panel78.Size = new System.Drawing.Size(477, 84);
+            this.panel78.TabIndex = 496;
+            // 
+            // panel79
+            // 
+            this.panel79.Controls.Add(this.panel140);
+            this.panel79.Controls.Add(this.panel141);
+            this.panel79.Controls.Add(this.panel146);
+            this.panel79.Controls.Add(this.panel150);
+            this.panel79.Controls.Add(this.panel184);
+            this.panel79.Controls.Add(this.panel185);
+            this.panel79.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel79.Location = new System.Drawing.Point(0, 24);
+            this.panel79.Name = "panel79";
+            this.panel79.Size = new System.Drawing.Size(475, 58);
+            this.panel79.TabIndex = 312;
+            // 
+            // panel140
+            // 
+            this.panel140.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel140.Controls.Add(this.txtDispatcher);
+            this.panel140.Controls.Add(this.btnSearchDispatcher);
+            this.panel140.Controls.Add(this.btnRemoveDispatcher);
+            this.panel140.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel140.Location = new System.Drawing.Point(0, 0);
+            this.panel140.Name = "panel140";
+            this.panel140.Size = new System.Drawing.Size(475, 27);
+            this.panel140.TabIndex = 5;
+            // 
+            // txtDispatcher
+            // 
+            this.txtDispatcher.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtDispatcher.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDispatcher.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDispatcher.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDispatcher.Location = new System.Drawing.Point(2, 2);
+            this.txtDispatcher.Name = "txtDispatcher";
+            this.txtDispatcher.ReadOnly = true;
+            this.txtDispatcher.Size = new System.Drawing.Size(415, 21);
+            this.txtDispatcher.TabIndex = 149;
+            // 
+            // btnSearchDispatcher
+            // 
+            this.btnSearchDispatcher.BackColor = System.Drawing.SystemColors.Control;
+            this.btnSearchDispatcher.Enabled = false;
+            this.btnSearchDispatcher.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchDispatcher.Image")));
+            this.btnSearchDispatcher.ImageActive = null;
+            this.btnSearchDispatcher.Location = new System.Drawing.Point(420, 2);
+            this.btnSearchDispatcher.Name = "btnSearchDispatcher";
+            this.btnSearchDispatcher.Size = new System.Drawing.Size(24, 21);
+            this.btnSearchDispatcher.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchDispatcher.TabIndex = 147;
+            this.btnSearchDispatcher.TabStop = false;
+            this.btnSearchDispatcher.Zoom = 10;
+            this.btnSearchDispatcher.Click += new System.EventHandler(this.btnSearchDispatcher_Click_1);
+            // 
+            // btnRemoveDispatcher
+            // 
+            this.btnRemoveDispatcher.BackColor = System.Drawing.SystemColors.Control;
+            this.btnRemoveDispatcher.Enabled = false;
+            this.btnRemoveDispatcher.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveDispatcher.Image")));
+            this.btnRemoveDispatcher.ImageActive = null;
+            this.btnRemoveDispatcher.Location = new System.Drawing.Point(446, 2);
+            this.btnRemoveDispatcher.Name = "btnRemoveDispatcher";
+            this.btnRemoveDispatcher.Size = new System.Drawing.Size(24, 21);
+            this.btnRemoveDispatcher.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnRemoveDispatcher.TabIndex = 148;
+            this.btnRemoveDispatcher.TabStop = false;
+            this.btnRemoveDispatcher.Zoom = 10;
+            this.btnRemoveDispatcher.Click += new System.EventHandler(this.btnRemoveDispatcher_Click);
+            // 
+            // panel141
+            // 
+            this.panel141.BackColor = System.Drawing.Color.White;
+            this.panel141.Controls.Add(this.txtDispatcherMobileNo);
+            this.panel141.Controls.Add(this.label43);
+            this.panel141.Controls.Add(this.txtDispatcherEmail);
+            this.panel141.Controls.Add(this.label46);
+            this.panel141.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel141.Location = new System.Drawing.Point(0, 0);
+            this.panel141.Name = "panel141";
+            this.panel141.Size = new System.Drawing.Size(475, 58);
+            this.panel141.TabIndex = 4;
+            // 
+            // txtDispatcherMobileNo
+            // 
+            this.txtDispatcherMobileNo.BackColor = System.Drawing.Color.White;
+            this.txtDispatcherMobileNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDispatcherMobileNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDispatcherMobileNo.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtDispatcherMobileNo.Location = new System.Drawing.Point(66, 32);
+            this.txtDispatcherMobileNo.Name = "txtDispatcherMobileNo";
+            this.txtDispatcherMobileNo.ReadOnly = true;
+            this.txtDispatcherMobileNo.Size = new System.Drawing.Size(108, 20);
+            this.txtDispatcherMobileNo.TabIndex = 331;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label43.Location = new System.Drawing.Point(3, 34);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(58, 15);
+            this.label43.TabIndex = 333;
+            this.label43.Text = "CONTACT#";
+            // 
+            // txtDispatcherEmail
+            // 
+            this.txtDispatcherEmail.BackColor = System.Drawing.Color.White;
+            this.txtDispatcherEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDispatcherEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtDispatcherEmail.Location = new System.Drawing.Point(221, 32);
+            this.txtDispatcherEmail.Name = "txtDispatcherEmail";
+            this.txtDispatcherEmail.ReadOnly = true;
+            this.txtDispatcherEmail.Size = new System.Drawing.Size(251, 20);
+            this.txtDispatcherEmail.TabIndex = 336;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label46.Location = new System.Drawing.Point(179, 34);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(37, 15);
+            this.label46.TabIndex = 335;
+            this.label46.Text = "EMAIL:";
+            // 
+            // panel146
+            // 
+            this.panel146.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel146.Location = new System.Drawing.Point(0, 0);
+            this.panel146.Name = "panel146";
+            this.panel146.Size = new System.Drawing.Size(475, 58);
+            this.panel146.TabIndex = 3;
+            // 
+            // panel150
+            // 
+            this.panel150.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel150.Location = new System.Drawing.Point(0, 0);
+            this.panel150.Name = "panel150";
+            this.panel150.Size = new System.Drawing.Size(475, 58);
+            this.panel150.TabIndex = 2;
+            // 
+            // panel184
+            // 
+            this.panel184.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel184.Location = new System.Drawing.Point(0, 0);
+            this.panel184.Name = "panel184";
+            this.panel184.Size = new System.Drawing.Size(475, 58);
+            this.panel184.TabIndex = 1;
+            // 
+            // panel185
+            // 
+            this.panel185.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel185.Location = new System.Drawing.Point(0, 0);
+            this.panel185.Name = "panel185";
+            this.panel185.Size = new System.Drawing.Size(475, 58);
+            this.panel185.TabIndex = 0;
+            // 
+            // panel186
+            // 
+            this.panel186.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            this.panel186.Controls.Add(this.label50);
+            this.panel186.Controls.Add(this.panel187);
+            this.panel186.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel186.Location = new System.Drawing.Point(0, 0);
+            this.panel186.Name = "panel186";
+            this.panel186.Size = new System.Drawing.Size(475, 24);
+            this.panel186.TabIndex = 311;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label50.ForeColor = System.Drawing.Color.Black;
+            this.label50.Location = new System.Drawing.Point(3, 4);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(234, 15);
+            this.label50.TabIndex = 310;
+            this.label50.Text = "SELECT VENDOR TEAM LEAD INFORMATION";
+            // 
+            // panel187
+            // 
+            this.panel187.BackColor = System.Drawing.Color.Silver;
+            this.panel187.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel187.Location = new System.Drawing.Point(0, 23);
+            this.panel187.Name = "panel187";
+            this.panel187.Size = new System.Drawing.Size(475, 1);
+            this.panel187.TabIndex = 0;
+            // 
+            // panel71
+            // 
+            this.panel71.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel71.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel71.Controls.Add(this.panel72);
+            this.panel71.Controls.Add(this.panel84);
+            this.panel71.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel71.Location = new System.Drawing.Point(1436, 121);
+            this.panel71.Name = "panel71";
+            this.panel71.Size = new System.Drawing.Size(477, 81);
+            this.panel71.TabIndex = 456;
+            // 
+            // panel72
+            // 
+            this.panel72.Controls.Add(this.panel73);
+            this.panel72.Controls.Add(this.panel74);
+            this.panel72.Controls.Add(this.panel80);
+            this.panel72.Controls.Add(this.panel81);
+            this.panel72.Controls.Add(this.panel82);
+            this.panel72.Controls.Add(this.panel83);
+            this.panel72.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel72.Location = new System.Drawing.Point(0, 24);
+            this.panel72.Name = "panel72";
+            this.panel72.Size = new System.Drawing.Size(475, 55);
+            this.panel72.TabIndex = 312;
+            // 
+            // panel73
+            // 
+            this.panel73.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel73.Controls.Add(this.txtFEName);
+            this.panel73.Controls.Add(this.btnSearchFE);
+            this.panel73.Controls.Add(this.btnRemoveFE);
+            this.panel73.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel73.Location = new System.Drawing.Point(0, 0);
+            this.panel73.Name = "panel73";
+            this.panel73.Size = new System.Drawing.Size(475, 27);
+            this.panel73.TabIndex = 5;
+            // 
+            // txtFEName
+            // 
+            this.txtFEName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.txtFEName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFEName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFEName.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFEName.Location = new System.Drawing.Point(3, 2);
+            this.txtFEName.Name = "txtFEName";
+            this.txtFEName.ReadOnly = true;
+            this.txtFEName.Size = new System.Drawing.Size(415, 21);
+            this.txtFEName.TabIndex = 149;
+            // 
+            // btnSearchFE
+            // 
+            this.btnSearchFE.BackColor = System.Drawing.SystemColors.Control;
+            this.btnSearchFE.Enabled = false;
+            this.btnSearchFE.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchFE.Image")));
+            this.btnSearchFE.ImageActive = null;
+            this.btnSearchFE.Location = new System.Drawing.Point(420, 2);
+            this.btnSearchFE.Name = "btnSearchFE";
+            this.btnSearchFE.Size = new System.Drawing.Size(24, 21);
+            this.btnSearchFE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchFE.TabIndex = 147;
+            this.btnSearchFE.TabStop = false;
+            this.btnSearchFE.Zoom = 10;
+            this.btnSearchFE.Click += new System.EventHandler(this.btnSearchFE_Click);
+            // 
+            // btnRemoveFE
+            // 
+            this.btnRemoveFE.BackColor = System.Drawing.SystemColors.Control;
+            this.btnRemoveFE.Enabled = false;
+            this.btnRemoveFE.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveFE.Image")));
+            this.btnRemoveFE.ImageActive = null;
+            this.btnRemoveFE.Location = new System.Drawing.Point(446, 2);
+            this.btnRemoveFE.Name = "btnRemoveFE";
+            this.btnRemoveFE.Size = new System.Drawing.Size(24, 21);
+            this.btnRemoveFE.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnRemoveFE.TabIndex = 148;
+            this.btnRemoveFE.TabStop = false;
+            this.btnRemoveFE.Zoom = 10;
+            this.btnRemoveFE.Click += new System.EventHandler(this.btnRemoveFE_Click);
+            // 
+            // panel74
+            // 
+            this.panel74.BackColor = System.Drawing.Color.White;
+            this.panel74.Controls.Add(this.txtFEMobileNo);
+            this.panel74.Controls.Add(this.label35);
+            this.panel74.Controls.Add(this.txtFEEmail);
+            this.panel74.Controls.Add(this.label6);
+            this.panel74.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel74.Location = new System.Drawing.Point(0, 0);
+            this.panel74.Name = "panel74";
+            this.panel74.Size = new System.Drawing.Size(475, 55);
+            this.panel74.TabIndex = 4;
+            // 
+            // txtFEMobileNo
+            // 
+            this.txtFEMobileNo.BackColor = System.Drawing.Color.White;
+            this.txtFEMobileNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFEMobileNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFEMobileNo.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtFEMobileNo.Location = new System.Drawing.Point(65, 30);
+            this.txtFEMobileNo.Name = "txtFEMobileNo";
+            this.txtFEMobileNo.ReadOnly = true;
+            this.txtFEMobileNo.Size = new System.Drawing.Size(108, 20);
+            this.txtFEMobileNo.TabIndex = 331;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(4, 32);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(58, 15);
+            this.label35.TabIndex = 333;
+            this.label35.Text = "CONTACT#";
+            // 
+            // txtFEEmail
+            // 
+            this.txtFEEmail.BackColor = System.Drawing.Color.White;
+            this.txtFEEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFEEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.txtFEEmail.Location = new System.Drawing.Point(221, 30);
+            this.txtFEEmail.Name = "txtFEEmail";
+            this.txtFEEmail.ReadOnly = true;
+            this.txtFEEmail.Size = new System.Drawing.Size(251, 20);
+            this.txtFEEmail.TabIndex = 336;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(179, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(37, 15);
+            this.label6.TabIndex = 335;
+            this.label6.Text = "EMAIL:";
+            // 
+            // panel80
+            // 
+            this.panel80.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel80.Location = new System.Drawing.Point(0, 0);
+            this.panel80.Name = "panel80";
+            this.panel80.Size = new System.Drawing.Size(475, 55);
+            this.panel80.TabIndex = 3;
+            // 
+            // panel81
+            // 
+            this.panel81.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel81.Location = new System.Drawing.Point(0, 0);
+            this.panel81.Name = "panel81";
+            this.panel81.Size = new System.Drawing.Size(475, 55);
+            this.panel81.TabIndex = 2;
+            // 
+            // panel82
+            // 
+            this.panel82.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel82.Location = new System.Drawing.Point(0, 0);
+            this.panel82.Name = "panel82";
+            this.panel82.Size = new System.Drawing.Size(475, 55);
+            this.panel82.TabIndex = 1;
+            // 
+            // panel83
+            // 
+            this.panel83.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel83.Location = new System.Drawing.Point(0, 0);
+            this.panel83.Name = "panel83";
+            this.panel83.Size = new System.Drawing.Size(475, 55);
+            this.panel83.TabIndex = 0;
+            // 
+            // panel84
+            // 
+            this.panel84.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            this.panel84.Controls.Add(this.label93);
+            this.panel84.Controls.Add(this.panel85);
+            this.panel84.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel84.Location = new System.Drawing.Point(0, 0);
+            this.panel84.Name = "panel84";
+            this.panel84.Size = new System.Drawing.Size(475, 24);
+            this.panel84.TabIndex = 311;
+            // 
+            // label93
+            // 
+            this.label93.AutoSize = true;
+            this.label93.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label93.ForeColor = System.Drawing.Color.Black;
+            this.label93.Location = new System.Drawing.Point(3, 4);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(228, 15);
+            this.label93.TabIndex = 310;
+            this.label93.Text = "SELECT VENDOR HELPDESK INFORMATION";
+            // 
+            // panel85
+            // 
+            this.panel85.BackColor = System.Drawing.Color.Silver;
+            this.panel85.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel85.Location = new System.Drawing.Point(0, 23);
+            this.panel85.Name = "panel85";
+            this.panel85.Size = new System.Drawing.Size(475, 1);
+            this.panel85.TabIndex = 0;
             // 
             // panel5
             // 
@@ -4722,68 +5452,201 @@
             this.panel109.Size = new System.Drawing.Size(408, 1);
             this.panel109.TabIndex = 0;
             // 
-            // panel174
+            // panel110
             // 
-            this.panel174.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel174.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel174.Controls.Add(this.panel189);
-            this.panel174.Controls.Add(this.panel190);
-            this.panel174.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel174.Location = new System.Drawing.Point(483, 326);
-            this.panel174.Name = "panel174";
-            this.panel174.Size = new System.Drawing.Size(149, 55);
-            this.panel174.TabIndex = 503;
+            this.panel110.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel110.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel110.Controls.Add(this.panel111);
+            this.panel110.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel110.Location = new System.Drawing.Point(1438, 300);
+            this.panel110.Name = "panel110";
+            this.panel110.Size = new System.Drawing.Size(468, 62);
+            this.panel110.TabIndex = 455;
             // 
-            // panel189
+            // panel111
             // 
-            this.panel189.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel189.Controls.Add(this.cboIssueCategory);
-            this.panel189.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel189.Location = new System.Drawing.Point(0, 24);
-            this.panel189.Name = "panel189";
-            this.panel189.Size = new System.Drawing.Size(147, 27);
-            this.panel189.TabIndex = 313;
+            this.panel111.Controls.Add(this.panel112);
+            this.panel111.Controls.Add(this.panel113);
+            this.panel111.Controls.Add(this.panel114);
+            this.panel111.Controls.Add(this.panel115);
+            this.panel111.Controls.Add(this.panel116);
+            this.panel111.Controls.Add(this.panel117);
+            this.panel111.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel111.Location = new System.Drawing.Point(0, 0);
+            this.panel111.Name = "panel111";
+            this.panel111.Size = new System.Drawing.Size(466, 60);
+            this.panel111.TabIndex = 312;
             // 
-            // cboIssueCategory
+            // panel112
             // 
-            this.cboIssueCategory.BackColor = System.Drawing.Color.White;
-            this.cboIssueCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboIssueCategory.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboIssueCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.cboIssueCategory.FormattingEnabled = true;
-            this.cboIssueCategory.Location = new System.Drawing.Point(-2, 1);
-            this.cboIssueCategory.Name = "cboIssueCategory";
-            this.cboIssueCategory.Size = new System.Drawing.Size(145, 24);
-            this.cboIssueCategory.TabIndex = 349;
+            this.panel112.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel112.Controls.Add(this.label61);
+            this.panel112.Controls.Add(this.textBox1);
+            this.panel112.Controls.Add(this.bunifuImageButton2);
+            this.panel112.Controls.Add(this.bunifuImageButton3);
+            this.panel112.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel112.Location = new System.Drawing.Point(0, 0);
+            this.panel112.Name = "panel112";
+            this.panel112.Size = new System.Drawing.Size(466, 27);
+            this.panel112.TabIndex = 5;
             // 
-            // panel190
+            // label61
             // 
-            this.panel190.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
-            this.panel190.Controls.Add(this.label94);
-            this.panel190.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel190.Location = new System.Drawing.Point(0, 0);
-            this.panel190.Name = "panel190";
-            this.panel190.Size = new System.Drawing.Size(147, 24);
-            this.panel190.TabIndex = 311;
+            this.label61.AutoSize = true;
+            this.label61.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label61.Location = new System.Drawing.Point(2, 4);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(89, 14);
+            this.label61.TabIndex = 334;
+            this.label61.Text = "FIELD ENGINEER";
             // 
-            // label94
+            // textBox1
             // 
-            this.label94.AutoSize = true;
-            this.label94.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
-            this.label94.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label94.ForeColor = System.Drawing.Color.Black;
-            this.label94.Location = new System.Drawing.Point(3, 4);
-            this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(135, 15);
-            this.label94.TabIndex = 310;
-            this.label94.Text = "SELECT ISSUE CATEGORY";
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBox1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(91, 2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(322, 21);
+            this.textBox1.TabIndex = 149;
+            // 
+            // bunifuImageButton2
+            // 
+            this.bunifuImageButton2.BackColor = System.Drawing.SystemColors.Control;
+            this.bunifuImageButton2.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton2.Image")));
+            this.bunifuImageButton2.ImageActive = null;
+            this.bunifuImageButton2.Location = new System.Drawing.Point(414, 1);
+            this.bunifuImageButton2.Name = "bunifuImageButton2";
+            this.bunifuImageButton2.Size = new System.Drawing.Size(24, 21);
+            this.bunifuImageButton2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.bunifuImageButton2.TabIndex = 147;
+            this.bunifuImageButton2.TabStop = false;
+            this.bunifuImageButton2.Zoom = 10;
+            // 
+            // bunifuImageButton3
+            // 
+            this.bunifuImageButton3.BackColor = System.Drawing.SystemColors.Control;
+            this.bunifuImageButton3.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton3.Image")));
+            this.bunifuImageButton3.ImageActive = null;
+            this.bunifuImageButton3.Location = new System.Drawing.Point(440, 1);
+            this.bunifuImageButton3.Name = "bunifuImageButton3";
+            this.bunifuImageButton3.Size = new System.Drawing.Size(24, 21);
+            this.bunifuImageButton3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.bunifuImageButton3.TabIndex = 148;
+            this.bunifuImageButton3.TabStop = false;
+            this.bunifuImageButton3.Zoom = 10;
+            // 
+            // panel113
+            // 
+            this.panel113.Controls.Add(this.textBox2);
+            this.panel113.Controls.Add(this.label62);
+            this.panel113.Controls.Add(this.textBox3);
+            this.panel113.Controls.Add(this.txtFEID);
+            this.panel113.Controls.Add(this.label63);
+            this.panel113.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel113.Location = new System.Drawing.Point(0, 0);
+            this.panel113.Name = "panel113";
+            this.panel113.Size = new System.Drawing.Size(466, 60);
+            this.panel113.TabIndex = 4;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.White;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBox2.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.textBox2.Location = new System.Drawing.Point(92, 31);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(108, 20);
+            this.textBox2.TabIndex = 331;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label62.Location = new System.Drawing.Point(3, 32);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(58, 15);
+            this.label62.TabIndex = 333;
+            this.label62.Text = "CONTACT#";
+            // 
+            // textBox3
+            // 
+            this.textBox3.BackColor = System.Drawing.Color.White;
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox3.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.textBox3.Location = new System.Drawing.Point(244, 31);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(170, 20);
+            this.textBox3.TabIndex = 336;
+            // 
+            // txtFEID
+            // 
+            this.txtFEID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+            this.txtFEID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFEID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFEID.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFEID.Location = new System.Drawing.Point(415, 29);
+            this.txtFEID.Name = "txtFEID";
+            this.txtFEID.ReadOnly = true;
+            this.txtFEID.Size = new System.Drawing.Size(49, 21);
+            this.txtFEID.TabIndex = 321;
+            this.txtFEID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFEID.WordWrap = false;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label63.Location = new System.Drawing.Point(205, 32);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(37, 15);
+            this.label63.TabIndex = 335;
+            this.label63.Text = "EMAIL:";
+            // 
+            // panel114
+            // 
+            this.panel114.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel114.Location = new System.Drawing.Point(0, 0);
+            this.panel114.Name = "panel114";
+            this.panel114.Size = new System.Drawing.Size(466, 60);
+            this.panel114.TabIndex = 3;
+            // 
+            // panel115
+            // 
+            this.panel115.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel115.Location = new System.Drawing.Point(0, 0);
+            this.panel115.Name = "panel115";
+            this.panel115.Size = new System.Drawing.Size(466, 60);
+            this.panel115.TabIndex = 2;
+            // 
+            // panel116
+            // 
+            this.panel116.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel116.Location = new System.Drawing.Point(0, 0);
+            this.panel116.Name = "panel116";
+            this.panel116.Size = new System.Drawing.Size(466, 60);
+            this.panel116.TabIndex = 1;
+            // 
+            // panel117
+            // 
+            this.panel117.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel117.Location = new System.Drawing.Point(0, 0);
+            this.panel117.Name = "panel117";
+            this.panel117.Size = new System.Drawing.Size(466, 60);
+            this.panel117.TabIndex = 0;
             // 
             // frmHelpDesk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1388, 924);
+            this.ClientSize = new System.Drawing.Size(1391, 923);
+            this.Controls.Add(this.panel110);
             this.Controls.Add(this.panel106);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.panel103);
@@ -4793,7 +5656,9 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.panel78);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel71);
             this.Controls.Add(this.panel138);
             this.Controls.Add(this.panel156);
             this.Controls.Add(this.panel5);
@@ -4812,6 +5677,37 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.tabControl8.ResumeLayout(false);
+            this.tabPage24.ResumeLayout(false);
+            this.panel219.ResumeLayout(false);
+            this.panel220.ResumeLayout(false);
+            this.panel221.ResumeLayout(false);
+            this.panel221.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton9)).EndInit();
+            this.panel222.ResumeLayout(false);
+            this.panel222.PerformLayout();
+            this.panel126.ResumeLayout(false);
+            this.panel127.ResumeLayout(false);
+            this.panel128.ResumeLayout(false);
+            this.panel128.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton7)).EndInit();
+            this.panel129.ResumeLayout(false);
+            this.panel129.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.panel118.ResumeLayout(false);
+            this.panel119.ResumeLayout(false);
+            this.panel120.ResumeLayout(false);
+            this.panel120.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchDispatcherInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRemoveDispatcherInfo)).EndInit();
+            this.panel121.ResumeLayout(false);
+            this.panel121.PerformLayout();
+            this.panel174.ResumeLayout(false);
+            this.panel189.ResumeLayout(false);
+            this.panel190.ResumeLayout(false);
+            this.panel190.PerformLayout();
             this.panel56.ResumeLayout(false);
             this.panel57.ResumeLayout(false);
             this.panel58.ResumeLayout(false);
@@ -4885,6 +5781,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnNoRequestID)).EndInit();
             this.panel39.ResumeLayout(false);
             this.panel39.PerformLayout();
+            this.panel42.ResumeLayout(false);
+            this.panel43.ResumeLayout(false);
+            this.pnlSubHeader.ResumeLayout(false);
+            this.pnlSubHeader.PerformLayout();
+            this.panel44.ResumeLayout(false);
+            this.tabControl7.ResumeLayout(false);
+            this.tabPage16.ResumeLayout(false);
+            this.tabPage16.PerformLayout();
+            this.tabPage17.ResumeLayout(false);
+            this.tabPage17.PerformLayout();
+            this.tabPage18.ResumeLayout(false);
+            this.panel54.ResumeLayout(false);
+            this.panel54.PerformLayout();
+            this.panel55.ResumeLayout(false);
+            this.panel55.PerformLayout();
+            this.panel49.ResumeLayout(false);
+            this.panel49.PerformLayout();
             this.panel78.ResumeLayout(false);
             this.panel79.ResumeLayout(false);
             this.panel140.ResumeLayout(false);
@@ -4905,23 +5818,6 @@
             this.panel74.PerformLayout();
             this.panel84.ResumeLayout(false);
             this.panel84.PerformLayout();
-            this.panel42.ResumeLayout(false);
-            this.panel43.ResumeLayout(false);
-            this.pnlSubHeader.ResumeLayout(false);
-            this.pnlSubHeader.PerformLayout();
-            this.panel44.ResumeLayout(false);
-            this.tabControl7.ResumeLayout(false);
-            this.tabPage16.ResumeLayout(false);
-            this.tabPage16.PerformLayout();
-            this.tabPage17.ResumeLayout(false);
-            this.tabPage17.PerformLayout();
-            this.tabPage18.ResumeLayout(false);
-            this.panel54.ResumeLayout(false);
-            this.panel54.PerformLayout();
-            this.panel55.ResumeLayout(false);
-            this.panel55.PerformLayout();
-            this.panel49.ResumeLayout(false);
-            this.panel49.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel167.ResumeLayout(false);
             this.panel130.ResumeLayout(false);
@@ -4964,10 +5860,14 @@
             this.panel107.PerformLayout();
             this.panel108.ResumeLayout(false);
             this.panel108.PerformLayout();
-            this.panel174.ResumeLayout(false);
-            this.panel189.ResumeLayout(false);
-            this.panel190.ResumeLayout(false);
-            this.panel190.PerformLayout();
+            this.panel110.ResumeLayout(false);
+            this.panel111.ResumeLayout(false);
+            this.panel112.ResumeLayout(false);
+            this.panel112.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton3)).EndInit();
+            this.panel113.ResumeLayout(false);
+            this.panel113.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5348,5 +6248,74 @@
         private System.Windows.Forms.ComboBox cboIssueCategory;
         private System.Windows.Forms.Panel panel190;
         private System.Windows.Forms.Label label94;
+        private System.Windows.Forms.TabControl tabControl8;
+        private System.Windows.Forms.Panel panel110;
+        private System.Windows.Forms.Panel panel111;
+        private System.Windows.Forms.Panel panel112;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.TextBox textBox1;
+        private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton2;
+        private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton3;
+        private System.Windows.Forms.Panel panel113;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtFEID;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.Panel panel114;
+        private System.Windows.Forms.Panel panel115;
+        private System.Windows.Forms.Panel panel116;
+        private System.Windows.Forms.Panel panel117;
+        private System.Windows.Forms.Panel panel118;
+        private System.Windows.Forms.Panel panel119;
+        private System.Windows.Forms.Panel panel120;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.TextBox txtDispatcherInfo;
+        private Bunifu.Framework.UI.BunifuImageButton btnSearchDispatcherInfo;
+        private Bunifu.Framework.UI.BunifuImageButton btnRemoveDispatcherInfo;
+        private System.Windows.Forms.Panel panel121;
+        private System.Windows.Forms.TextBox txtDispatchID;
+        private System.Windows.Forms.TextBox txtDispatcherInfoMobileNo;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.TextBox txtDispatcherInfoEmail;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.Panel panel122;
+        private System.Windows.Forms.Panel panel123;
+        private System.Windows.Forms.Panel panel124;
+        private System.Windows.Forms.Panel panel125;
+        private System.Windows.Forms.TabPage tabPage24;
+        private System.Windows.Forms.Panel panel219;
+        private System.Windows.Forms.Panel panel220;
+        private System.Windows.Forms.Panel panel221;
+        private System.Windows.Forms.Label label157;
+        private System.Windows.Forms.TextBox txtHDTeamLead;
+        private System.Windows.Forms.Panel panel222;
+        private System.Windows.Forms.TextBox txtHDTLContactNo;
+        private System.Windows.Forms.Label label158;
+        private System.Windows.Forms.TextBox txtHDTLEmail;
+        private System.Windows.Forms.Label label159;
+        private System.Windows.Forms.Panel panel223;
+        private System.Windows.Forms.Panel panel224;
+        private System.Windows.Forms.Panel panel225;
+        private System.Windows.Forms.Panel panel226;
+        private System.Windows.Forms.Panel panel126;
+        private System.Windows.Forms.Panel panel127;
+        private System.Windows.Forms.Panel panel128;
+        private System.Windows.Forms.Label label154;
+        private System.Windows.Forms.TextBox txtHDName;
+        private System.Windows.Forms.Panel panel129;
+        private System.Windows.Forms.TextBox txtHDContactNo;
+        private System.Windows.Forms.Label label155;
+        private System.Windows.Forms.TextBox txtHDEmail;
+        private System.Windows.Forms.Label label156;
+        private System.Windows.Forms.Panel panel215;
+        private System.Windows.Forms.Panel panel216;
+        private System.Windows.Forms.Panel panel217;
+        private System.Windows.Forms.Panel panel218;
+        private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton8;
+        private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton9;
+        private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton6;
+        private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton7;
+        private System.Windows.Forms.TabPage tabPage5;
     }
 }
