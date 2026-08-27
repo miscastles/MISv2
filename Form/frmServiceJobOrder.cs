@@ -57,6 +57,8 @@ namespace MIS
         private string gLastAttemptTATStatus = "";
         private string gNewScheduleTATStatus = "";
 
+        private string formName = "JOB ORDER";
+
         private enum searchType
         {
             iTerminal, iSIM, iDocker
@@ -118,8 +120,9 @@ namespace MIS
             InitButton();          
             InitDate();
 
-            lblHeader.Text = lblHeader.Text + " " + "[ " + sHeader + " ]";
-            
+            //lblHeader.Text = lblHeader.Text + " " + "[ " + sHeader + " ]";
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
+
             InitStatusTitle(true);
             
             UpdateButton(true);
@@ -252,13 +255,27 @@ namespace MIS
 
             if (dbFunction.isValidID(txtMerchantID.Text))
             {
+                /*
                 if (!fEdit)
+                {
                     dbAPI.ExecuteAPI("GET", "Search", "Merchant Info", txtMerchantID.Text + clsFunction.sPipe + txtIRIDNo.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                    Debug.WriteLine("--GET [Merchant Info]--");
+                    dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 0);
+                }                    
                 else
+                {
                     dbAPI.ExecuteAPI("GET", "Search", "Service Merchant Info", txtSearchServiceNo.Text, "Get Info Detail", "", "GetInfoDetail");
 
-                // parse delimited
-                dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
+                    Debug.WriteLine("--GET [Service Merchant Info]--");
+                    dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 0);
+                } 
+                */
+
+                dbAPI.ExecuteAPI("GET", "Search", "Merchant Info", txtMerchantID.Text + clsFunction.sPipe + txtIRIDNo.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                Debug.WriteLine("--GET [Merchant Info]--");
+                dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 0);
 
                 if (dbAPI.isNoRecordFound() == false)
                 {
@@ -289,20 +306,27 @@ namespace MIS
                     txtCustomerContactNo.Text = txtMerchantMobileNo.Text;
                     txtCustomerEmail.Text = txtMerchantEmail.Text;
 
+                    /*
                     // get json data
-                    if (!fEdit)
+                    if (!fEdit) // [Merchant Info]
                     {
                         profile_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 29);
                         rawdata_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 30);
                         profile_config_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 34);
                     }
-                    else
+                    else       // [Service Merchant Info] 
                     {
                         profile_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 26);
                         rawdata_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 27);
                         profile_config_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 28);
                     }
-                    
+                    */
+
+                    profile_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 29);
+                    rawdata_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 30);
+                    profile_config_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 34);
+
+                    /*
                     if (!fEdit)
                     {
                         if (cboSearchServiceType.SelectedItem.ToString().Equals(clsGlobalVariables.STATUS_INSTALLATION_DESC))
@@ -314,7 +338,11 @@ namespace MIS
                     {
                         txtRMInstruction.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 21);
                     }
-                    
+                    */
+
+                    txtRMInstruction.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 21);
+
+                    /*
                     if (!fEdit)
                     {
                         txtRemarks.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 28);
@@ -331,13 +359,23 @@ namespace MIS
                         txtRequestor.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 25);
                         
                     }
+                    */
+
+                    txtRemarks.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 28);
+                    txtIRStatusDescription.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 32);
+
+                    txtRequestor.Text = dbFunction.getJSONTagValue(rawdata_info, clsDefines.IR_REQUESTOR, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
+                    txtVendor.Text = dbFunction.getJSONTagValue(rawdata_info, clsDefines.IR_VENDOR, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
 
                     // Zoning
-                    if (!fEdit)                    
-                        txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);                    
-                    else                    
+                    /*
+                    if (!fEdit) // [Merchant Info]
+                        txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);
+                    else        // [Service Merchant Info]                   
                         txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 29);
-                    
+                    */
+                    txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);
+
                     // rawdata_info
                     if (dbFunction.isValidDescription(rawdata_info))
                         dbFunction.populateListViewFromJsonString(lvwRaw, rawdata_info, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
@@ -819,8 +857,10 @@ namespace MIS
 
             InitStatusTitle(true);
             UpdateButton(true);
-        
-            lblHeader.Text = "JOB ORDER";
+
+            //lblHeader.Text = "JOB ORDER";
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
+
             lblSubHeader.Text = clsFunction.sDash;
 
             //InitSearchRemoveButton(true);
@@ -902,13 +942,15 @@ namespace MIS
             btnSave.Enabled = true;
             btnServiceSearch.Enabled = false;            
             cboSearchServiceType.Enabled = true;
-            lblHeader.Text = "CREATE JOB ORDER";    
-            
+
+            //lblHeader.Text = "CREATE JOB ORDER";    
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"CREATE {formName}");
+
             SetMKTextBoxBackColor();
             SetPKTextBoxBackColor();
             
             //txtSearchServiceNo.Text = clsFunction.sZero;
-            InitStatusTitle(false);
+            //InitStatusTitle(false);
 
             //InitSearchRemoveButton(false);
 
@@ -2449,7 +2491,7 @@ namespace MIS
 
                     if (dbFunction.isValidDescription(txtDispatcher.Text))
                         dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
-                            clsUser.ClassUserID, clsUser.ClassUserFullName);
+                            clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
 
                     SaveDeploymentDetail();
 
@@ -2581,13 +2623,13 @@ namespace MIS
                 // Activity 2 — Terminal Prep completion
                 if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtCurSIMID.Text) && !dbFunction.isValidID(txtFEID.Text))                
                     dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
-                        clsUser.ClassUserID, clsUser.ClassUserFullName);
+                        clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
 
                 // Activity 3 — Dispatcher completion
                 if (dbFunction.isValidID(txtFEID.Text) && chkDispatch.Checked)
                 {
                     dbAPI.saveServicingActivityEnd(ActivityType.Dispatcher, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
-                        clsUser.ClassUserID, clsUser.ClassUserFullName);
+                        clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
                 }
 
                 Cursor.Current = Cursors.Default;
@@ -2963,13 +3005,17 @@ namespace MIS
                 {
                     //lblMainStatus.ForeColor = Color.Cyan;
                     lblMainStatus.Text = "UPDATE JO";
-                    lblHeader.Text = "UPDATE JOB ORDER " + cboSearchServiceType.Text;
+
+                    //lblHeader.Text = "UPDATE JOB ORDER " + cboSearchServiceType.Text;
+                    lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"UPDATE {formName} {dbFunction.AddBracketStartEnd(cboSearchServiceType.Text)}");
                 }
                 else
                 {
                     //lblMainStatus.ForeColor = Color.Yellow;
                     lblMainStatus.Text = "NEW JO";
-                    lblHeader.Text = "CREATE JOB ORDER " + cboSearchServiceType.Text;
+
+                    //lblHeader.Text = "CREATE JOB ORDER " + cboSearchServiceType.Text;
+                    lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"CREATE {formName} {dbFunction.AddBracketStartEnd(cboSearchServiceType.Text)}");
                 }
             }
 
@@ -4290,7 +4336,9 @@ namespace MIS
                     txtTicketStatus.Text = clsFunction.sNull;
 
                     // Init header
-                    lblHeader.Text = "CREATE JOB ORDER" + " " + dbFunction.AddBracketStartEnd(cboSearchServiceType.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    //lblHeader.Text = "CREATE JOB ORDER" + " " + dbFunction.AddBracketStartEnd(cboSearchServiceType.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"CREATE {formName} {dbFunction.AddBracketStartEnd(cboSearchServiceType.Text)} {dbFunction.AddBracketStartEnd(txtIRTID.Text)} {dbFunction.AddBracketStartEnd(txtIRMID.Text)}");
+
                     lblSubHeader.Text = txtSearchSTJobTypeDescription.Text + " - " + txtRequestNo.Text;
 
                     tabFillUp.TabIndex = 0;
@@ -4311,6 +4359,10 @@ namespace MIS
                     }
 
                     getServiceAuditInfo();
+
+                    // set processedBy and processDate
+                    txtProcessedBy.Text = clsSearch.ClassCurrentParticularName;
+                    txtProcessedDate.Text = dbFunction.getCurrentDate();
 
                     btnClear.Focus();
 
@@ -4719,10 +4771,12 @@ namespace MIS
 
                     btnOverrideUpdate.Enabled = true;
 
-                    AdditionalComBoBoxUnlock(true);                    
+                    AdditionalComBoBoxUnlock(true);
 
                     // Init header
-                    lblHeader.Text = "UPDATE JOB ORDER" + " " + dbFunction.AddBracketStartEnd(cboSearchServiceType.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    //lblHeader.Text = "UPDATE JOB ORDER" + " " + dbFunction.AddBracketStartEnd(cboSearchServiceType.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"UPDATE {formName} {dbFunction.AddBracketStartEnd(cboSearchServiceType.Text)} {dbFunction.AddBracketStartEnd(txtIRTID.Text)} {dbFunction.AddBracketStartEnd(txtIRMID.Text)}");
+
                     lblSubHeader.Text = txtSearchSTJobTypeDescription.Text + " - " + txtRequestNo.Text;
 
                     tabFillUp.TabIndex = 0;
@@ -4830,6 +4884,7 @@ namespace MIS
                 dbAPI.ExecuteAPI("GET", "Search", "Servicing Info", txtSearchServiceNo.Text, "Get Info Detail", "", "GetInfoDetail");
 
                 // parse delimited
+                Debug.WriteLine("--GET [Servicing Info]--");
                 dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
 
                 if (dbAPI.isNoRecordFound() == false)
@@ -7578,5 +7633,6 @@ namespace MIS
             frmImportIR frm = new frmImportIR();
             dbFunction.handleForm(frm);
         }
+
     }
 }

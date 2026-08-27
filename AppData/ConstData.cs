@@ -72,6 +72,39 @@ namespace MIS.AppData
 
                 // ... Add more message constants here
             }
+
+            public static class ReceiptOCR
+            {
+                public static class Transaction
+                {
+                    public const string TRANSACTION = "TRANSACTION";
+                    public const string SALE = "SALE";
+                    public const string PURCHASE = "PURCHASE";
+
+                    public static readonly string[] Values =
+                    {
+                        TRANSACTION,
+                        SALE,
+                        PURCHASE
+                    };
+                }
+
+                public static class Amount
+                {
+                    public const string AMT = "AMT";
+                    public const string AMOUNT = "AMOUNT";
+                    public const string TOTAL = "TOTAL";
+                    public const string TOTAL_AMOUNT = "TOTAL AMOUNT";
+
+                    public static readonly string[] Values =
+                    {
+                        AMT,
+                        AMOUNT,
+                        TOTAL,
+                        TOTAL_AMOUNT
+                    };
+                }
+            }
         }
     }
 }

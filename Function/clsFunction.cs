@@ -4098,8 +4098,8 @@ namespace MIS
                 }
 
                 Debug.WriteLine("--parseDelimitedString--");
-                Debug.WriteLine("Len=" + pString.Length + ",pString=" + pString);
-                Debug.WriteLine("pDelimeter=" + pDelimeter);
+                //Debug.WriteLine("Len=" + pString.Length + ",pString=" + pString);
+                //Debug.WriteLine("pDelimeter=" + pDelimeter);
                 Debug.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 Debug.WriteLine(sTemp);
                 Debug.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -5019,7 +5019,8 @@ namespace MIS
                 case "btnSearchMSP":
                 case "btnProvinceSearch":
                 case "btnSearchSales":
-                case "btnSearch":                
+                case "btnSearch":
+                case "btnSearchExpensesReferenceNo":
                     obj.Image = (isEnable ? Properties.Resources.find_on : Properties.Resources.find_off);
                     break;
                 case "btnNoRequestID":
@@ -6324,101 +6325,339 @@ namespace MIS
             func(obj.Controls);
         }
 
-        public void populateListViewFromJsonString(Control control, string jsonString, string rootKey, string nestedObject = "")
+        public void populateListViewFromJsonString(
+    Control control,
+    string jsonString,
+    string rootKey,
+    string nestedObject = "")
         {
             try
             {
+                Debug.WriteLine("");
+                Debug.WriteLine("============================================================");
+                Debug.WriteLine("populateListViewFromJsonString - START");
+                Debug.WriteLine("============================================================");
+
+                Debug.WriteLine($"[INPUT] Control       : {control?.GetType().Name}");
+                Debug.WriteLine($"[INPUT] rootKey       : [{rootKey}]");
+                Debug.WriteLine($"[INPUT] nestedObject  : [{nestedObject}]");
+                Debug.WriteLine($"[INPUT] JSON Length   : {jsonString?.Length ?? 0}");
+
+                Debug.WriteLine("");
+                Debug.WriteLine("[INPUT] JSON String:");
+                Debug.WriteLine(jsonString);
+
+                // ---------------------------------------------------------
                 // Parse JSON
+                // ---------------------------------------------------------
+                Debug.WriteLine("");
+                Debug.WriteLine("[STEP 1] Parsing JSON...");
+
                 var jsonObject = JObject.Parse(jsonString);
+
+                Debug.WriteLine("[STEP 1] JSON parsing SUCCESS.");
+                Debug.WriteLine($"[STEP 1] Root properties count: {jsonObject.Properties().Count()}");
+
+                foreach (var property in jsonObject.Properties())
+                {
+                    Debug.WriteLine($"[JSON ROOT] {property.Name} = {property.Value}");
+                }
+
                 Dictionary<string, string> values = null;
 
-                // Handle different cases for rootKey and nestedObject
+                // ---------------------------------------------------------
+                // Handle rootKey
+                // ---------------------------------------------------------
                 if (!string.IsNullOrEmpty(rootKey) && jsonObject[rootKey] != null)
                 {
-                    // If nestedObject exists inside rootKey
-                    if (!string.IsNullOrEmpty(nestedObject) && jsonObject[rootKey]?[nestedObject] != null)
-                        values = jsonObject[rootKey][nestedObject].ToObject<Dictionary<string, string>>();
+                    Debug.WriteLine("");
+                    Debug.WriteLine($"[STEP 2] rootKey found: [{rootKey}]");
+                    Debug.WriteLine($"[STEP 2] rootKey JSON: {jsonObject[rootKey]}");
+
+                    // -----------------------------------------------------
+                    // Handle nestedObject
+                    // -----------------------------------------------------
+                    if (!string.IsNullOrEmpty(nestedObject) &&
+                        jsonObject[rootKey]?[nestedObject] != null)
+                    {
+                        Debug.WriteLine("");
+                        Debug.WriteLine($"[STEP 3] nestedObject found: [{nestedObject}]");
+                        Debug.WriteLine(
+                            $"[STEP 3] Nested JSON: {jsonObject[rootKey][nestedObject]}");
+
+                        values = jsonObject[rootKey][nestedObject]
+                            .ToObject<Dictionary<string, string>>();
+
+                        Debug.WriteLine(
+                            $"[STEP 3] Converted nestedObject to Dictionary. Count: {values?.Count ?? 0}");
+                    }
                     else
-                        values = jsonObject[rootKey].ToObject<Dictionary<string, string>>();
+                    {
+                        Debug.WriteLine("");
+                        Debug.WriteLine(
+                            $"[STEP 3] nestedObject not specified or not found.");
+                        Debug.WriteLine(
+                            $"[STEP 3] Using rootKey directly: [{rootKey}]");
+
+                        values = jsonObject[rootKey]
+                            .ToObject<Dictionary<string, string>>();
+
+                        Debug.WriteLine(
+                            $"[STEP 3] Converted rootKey to Dictionary. Count: {values?.Count ?? 0}");
+                    }
                 }
-                else if (string.IsNullOrEmpty(rootKey)) // No root key provided
+                else if (string.IsNullOrEmpty(rootKey))
                 {
-                    if (!string.IsNullOrEmpty(nestedObject) && jsonObject[nestedObject] != null)
-                        values = jsonObject[nestedObject].ToObject<Dictionary<string, string>>();
+                    Debug.WriteLine("");
+                    Debug.WriteLine("[STEP 2] rootKey is EMPTY.");
+
+                    // -----------------------------------------------------
+                    // No rootKey - check nestedObject
+                    // -----------------------------------------------------
+                    if (!string.IsNullOrEmpty(nestedObject) &&
+                        jsonObject[nestedObject] != null)
+                    {
+                        Debug.WriteLine("");
+                        Debug.WriteLine(
+                            $"[STEP 3] nestedObject found at root: [{nestedObject}]");
+
+                        Debug.WriteLine(
+                            $"[STEP 3] Nested JSON: {jsonObject[nestedObject]}");
+
+                        values = jsonObject[nestedObject]
+                            .ToObject<Dictionary<string, string>>();
+
+                        Debug.WriteLine(
+                            $"[STEP 3] Converted nestedObject to Dictionary. Count: {values?.Count ?? 0}");
+                    }
                     else
-                        values = jsonObject.ToObject<Dictionary<string, string>>(); // Use entire JSON object
+                    {
+                        Debug.WriteLine("");
+                        Debug.WriteLine(
+                            "[STEP 3] No nestedObject found.");
+                        Debug.WriteLine(
+                            "[STEP 3] Using entire JSON object.");
+
+                        values = jsonObject
+                            .ToObject<Dictionary<string, string>>();
+
+                        Debug.WriteLine(
+                            $"[STEP 3] Converted entire JSON to Dictionary. Count: {values?.Count ?? 0}");
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine("");
+                    Debug.WriteLine(
+                        $"[ERROR] rootKey NOT FOUND: [{rootKey}]");
+
+                    Debug.WriteLine("[ERROR] Available root keys:");
+
+                    foreach (var property in jsonObject.Properties())
+                    {
+                        Debug.WriteLine($"        - [{property.Name}]");
+                    }
                 }
 
-                // If values is still null, show an error
+                // ---------------------------------------------------------
+                // Validate values
+                // ---------------------------------------------------------
                 if (values == null)
                 {
-                    Debug.WriteLine($"Key is invalid\n\n rootKey:[{rootKey}]\nestedObject:[{nestedObject}]\nJSON String:[{jsonString}]");
-                    MessageBox.Show("Key is invalid." + "\n\n" +
+                    Debug.WriteLine("");
+                    Debug.WriteLine("============================================================");
+                    Debug.WriteLine("[ERROR] VALUES IS NULL");
+                    Debug.WriteLine("============================================================");
+
+                    Debug.WriteLine($"rootKey      : [{rootKey}]");
+                    Debug.WriteLine($"nestedObject : [{nestedObject}]");
+                    Debug.WriteLine($"JSON String  : {jsonString}");
+
+                    MessageBox.Show(
+                        "Key is invalid." + "\n\n" +
                         "rootKey: " + rootKey + "\n" +
                         "nestedObject: " + nestedObject + "\n" +
-                        "JSON String: " + jsonString, 
-                        "Error: populateListViewFromJsonString", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        "JSON String: " + jsonString,
+                        "Error: populateListViewFromJsonString",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
                     return;
                 }
 
-                // Handle ListView population
+                // ---------------------------------------------------------
+                // Debug dictionary values
+                // ---------------------------------------------------------
+                Debug.WriteLine("");
+                Debug.WriteLine("[STEP 4] Dictionary values:");
+
+                int debugIndex = 1;
+
+                foreach (var kvp in values)
+                {
+                    Debug.WriteLine(
+                        $"    [{debugIndex}] KEY=[{kvp.Key}] VALUE=[{kvp.Value}]");
+
+                    debugIndex++;
+                }
+
+                Debug.WriteLine($"[STEP 4] Total values: {values.Count}");
+
+                // ---------------------------------------------------------
+                // Handle ListView
+                // ---------------------------------------------------------
                 if (control is ListView lvw)
                 {
-                    // Configure ListView
-                    lvw.View = View.Details;
-                    lvw.Columns.Clear();
-                    lvw.Columns.Add("LINE#", 60, HorizontalAlignment.Left);
-                    lvw.Columns.Add("TAG", 160, HorizontalAlignment.Left);
-                    lvw.Columns.Add("VALUE", 600, HorizontalAlignment.Left);
+                    Debug.WriteLine("");
+                    Debug.WriteLine("[STEP 5] Control Type = ListView");
 
+                    lvw.View = View.Details;
+
+                    Debug.WriteLine("[STEP 5] Clearing ListView columns...");
+                    lvw.Columns.Clear();
+
+                    lvw.Columns.Add(
+                        "LINE#",
+                        60,
+                        HorizontalAlignment.Left);
+
+                    lvw.Columns.Add(
+                        "TAG",
+                        160,
+                        HorizontalAlignment.Left);
+
+                    lvw.Columns.Add(
+                        "VALUE",
+                        600,
+                        HorizontalAlignment.Left);
+
+                    Debug.WriteLine("[STEP 5] ListView columns configured.");
+
+                    Debug.WriteLine("[STEP 5] Clearing ListView items...");
                     lvw.Items.Clear();
+
                     int lineNumber = 1;
 
-                    // Populate ListView
                     foreach (var kvp in values)
                     {
-                        ListViewItem item = new ListViewItem(lineNumber.ToString());
+                        Debug.WriteLine(
+                            $"[LISTVIEW] Adding LINE={lineNumber}, TAG=[{kvp.Key}], VALUE=[{kvp.Value}]");
+
+                        ListViewItem item =
+                            new ListViewItem(lineNumber.ToString());
+
                         item.SubItems.Add(kvp.Key);
                         item.SubItems.Add(kvp.Value);
+
                         lvw.Items.Add(item);
+
                         lineNumber++;
                     }
 
-                    //ListViewAlternateBackColor(lvw);
+                    Debug.WriteLine(
+                        $"[STEP 5] ListView population COMPLETE. Rows={lvw.Items.Count}");
                 }
-                // Handle DataGridView population
+
+                // ---------------------------------------------------------
+                // Handle DataGridView
+                // ---------------------------------------------------------
                 else if (control is DataGridView dgv)
                 {
+                    Debug.WriteLine("");
+                    Debug.WriteLine("[STEP 5] Control Type = DataGridView");
+
+                    Debug.WriteLine("[STEP 5] Clearing DataGridView columns...");
                     dgv.Columns.Clear();
+
+                    Debug.WriteLine("[STEP 5] Clearing DataGridView rows...");
                     dgv.Rows.Clear();
+
                     dgv.ColumnCount = 3;
 
                     dgv.Columns[0].Name = "LINE#";
                     dgv.Columns[0].Width = 60;
+
                     dgv.Columns[1].Name = "TAG";
                     dgv.Columns[1].Width = 160;
+
                     dgv.Columns[2].Name = "VALUE";
                     dgv.Columns[2].Width = 600;
+
+                    Debug.WriteLine(
+                        "[STEP 5] DataGridView columns configured.");
 
                     int lineNumber = 1;
 
                     foreach (var kvp in values)
                     {
-                        dgv.Rows.Add(lineNumber.ToString(), kvp.Key, kvp.Value);
+                        Debug.WriteLine(
+                            $"[DATAGRIDVIEW] Adding LINE={lineNumber}, TAG=[{kvp.Key}], VALUE=[{kvp.Value}]");
+
+                        dgv.Rows.Add(
+                            lineNumber.ToString(),
+                            kvp.Key,
+                            kvp.Value);
+
                         lineNumber++;
                     }
 
-                    //DataGridViewAlternateBackColor(dgv);
+                    Debug.WriteLine(
+                        $"[STEP 5] DataGridView population COMPLETE. Rows={dgv.Rows.Count}");
                 }
+
+                // ---------------------------------------------------------
+                // Unsupported control
+                // ---------------------------------------------------------
                 else
                 {
-                    throw new ArgumentException("Unsupported control type. Use ListView or DataGridView.");
+                    Debug.WriteLine("");
+                    Debug.WriteLine(
+                        $"[ERROR] Unsupported control type: {control?.GetType().Name}");
+
+                    throw new ArgumentException(
+                        "Unsupported control type. Use ListView or DataGridView.");
                 }
+
+                // ---------------------------------------------------------
+                // END
+                // ---------------------------------------------------------
+                Debug.WriteLine("");
+                Debug.WriteLine("============================================================");
+                Debug.WriteLine("populateListViewFromJsonString - SUCCESS");
+                Debug.WriteLine("============================================================");
+                Debug.WriteLine("");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error parsing JSON: {ex.Message}" + "\n\n" +
-                    "JSON String: " + jsonString, "Error: populateListViewFromJsonString", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Debug.WriteLine("");
+                Debug.WriteLine("============================================================");
+                Debug.WriteLine("populateListViewFromJsonString - EXCEPTION");
+                Debug.WriteLine("============================================================");
+
+                Debug.WriteLine($"Exception Type    : {ex.GetType().FullName}");
+                Debug.WriteLine($"Exception Message : {ex.Message}");
+                Debug.WriteLine($"Stack Trace       : {ex.StackTrace}");
+
+                if (ex.InnerException != null)
+                {
+                    Debug.WriteLine(
+                        $"Inner Exception   : {ex.InnerException.Message}");
+                }
+
+                Debug.WriteLine("");
+                Debug.WriteLine($"rootKey      : [{rootKey}]");
+                Debug.WriteLine($"nestedObject : [{nestedObject}]");
+                Debug.WriteLine($"JSON String  : {jsonString}");
+
+                Debug.WriteLine("============================================================");
+                Debug.WriteLine("");
+
+                MessageBox.Show(
+                    $"Error parsing JSON: {ex.Message}" + "\n\n" +
+                    "JSON String: " + jsonString,
+                    "Error: populateListViewFromJsonString",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
             }
         }
 
@@ -7045,6 +7284,12 @@ namespace MIS
             if (!File.Exists(pFilePath)) return false;
 
             return true;
+        }
+
+        public string getSystemEnvironmentLabel(string pTile)
+        {
+            return $"{pTile} [ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
+
         }
 
     }

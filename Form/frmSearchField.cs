@@ -81,7 +81,8 @@ namespace MIS
             iTypeList,
             iProblem,
             iHelpDeskProblem,
-            iZoning
+            iZoning,
+            iExpense
         }
 
         private void lvwSearch_SelectedIndexChanged(object sender, EventArgs e)
@@ -90,6 +91,9 @@ namespace MIS
             {
                 string LineNo = lvwSearch.SelectedItems[0].Text;
                 txtLineNo.Text = LineNo;
+
+                string jsonResult = dbFunction.genJSONFormat(lvwSearch, lvwSearch.SelectedIndices[0], "", "");
+                Debug.WriteLine(jsonResult);
 
                 if (LineNo.Length > 0)
                 {   
@@ -144,7 +148,9 @@ namespace MIS
                             clsSearch.ClassSIMID = int.Parse(lvwSearch.SelectedItems[0].SubItems[1].Text);
                             clsSearch.ClassSIMSerialNo = lvwSearch.SelectedItems[0].SubItems[2].Text;
                             clsSearch.ClassSIMCarrier = lvwSearch.SelectedItems[0].SubItems[3].Text;
-                            clsSearch.ClassSIMStatus = int.Parse(lvwSearch.SelectedItems[0].SubItems[4].Text); 
+                            clsSearch.ClassSIMStatus = int.Parse(lvwSearch.SelectedItems[0].SubItems[4].Text);
+                            clsSearch.ClassSIMStatusDescription = lvwSearch.SelectedItems[0].SubItems[5].Text;
+                            clsSearch.ClassSIMLocaton = lvwSearch.SelectedItems[0].SubItems[11].Text;
                             break;
                         case SearchType.iTerminal:
                         case SearchType.iStockDetail:
@@ -153,7 +159,9 @@ namespace MIS
                             clsSearch.ClassTerminalType = lvwSearch.SelectedItems[0].SubItems[3].Text;
                             clsSearch.ClassTerminalModel = lvwSearch.SelectedItems[0].SubItems[4].Text;
                             clsSearch.ClassTerminalBrand = lvwSearch.SelectedItems[0].SubItems[5].Text;
-                            clsSearch.ClassTerminalStatus = int.Parse(lvwSearch.SelectedItems[0].SubItems[6].Text);                            
+                            clsSearch.ClassTerminalStatus = int.Parse(lvwSearch.SelectedItems[0].SubItems[6].Text);
+                            clsSearch.ClassTerminalStatusDescription = lvwSearch.SelectedItems[0].SubItems[7].Text;
+                            clsSearch.ClassTerminalLocaton = lvwSearch.SelectedItems[0].SubItems[13].Text;
                             break;
                         case SearchType.iAllReason:
                         case SearchType.iReason:
@@ -304,6 +312,14 @@ namespace MIS
                             clsSearch.ClassZRegion = lvwSearch.SelectedItems[0].SubItems[4].Text;
                             clsSearch.ClassZArea = lvwSearch.SelectedItems[0].SubItems[5].Text;
                             clsSearch.ClassZCityMunicipal = lvwSearch.SelectedItems[0].SubItems[6].Text;
+                            break;
+                        case SearchType.iExpense:
+                            clsSearch.ClassExpenseDetailID = int.Parse(lvwSearch.SelectedItems[0].SubItems[1].Text);
+                            clsSearch.ClassExpenseReferenceNo = lvwSearch.SelectedItems[0].SubItems[2].Text;
+                            clsSearch.ClassServiceNo = int.Parse(lvwSearch.SelectedItems[0].SubItems[3].Text);
+                            clsSearch.ClassMerchantID = int.Parse(lvwSearch.SelectedItems[0].SubItems[4].Text);
+                            clsSearch.ClassIRIDNo = int.Parse(lvwSearch.SelectedItems[0].SubItems[5].Text);
+                            clsSearch.ClassFSRNo = int.Parse(lvwSearch.SelectedItems[0].SubItems[6].Text);
                             break;
 
                     }                             
@@ -771,6 +787,13 @@ namespace MIS
 
                     dbAPI.FillListViewZoning(lvwSearch, clsSearch.ClassAdvanceSearchValue);
                     break;
+
+                case SearchType.iExpense:
+                    clsSearch.ClassAdvanceSearchValue = dbFunction.CheckAndSetStringValue(txtSearch.Text);
+
+                    dbAPI.FillListViewExpenseReference(lvwSearch, clsSearch.ClassAdvanceSearchValue);
+                    break;
+
             }
             
             lblSearchStatus.Text = lvwSearch.Items.Count.ToString() + " " + "record(s) found.";
@@ -973,6 +996,17 @@ namespace MIS
                                    "> Region: " + dbFunction.GetSearchValue("Region") + "\n" +
                                    "> Area: " + dbFunction.GetSearchValue("Area") + "\n" +                                   
                                    "> City/Municipal: " + dbFunction.GetSearchValue("City/Municipal");
+                        isConfrim = true;
+                        break;
+                    case SearchType.iExpense:
+                        pMessage = "Are you sure to select the following expense reference?\n" +
+                                   clsFunction.sLineSeparator + "\n" +
+                                   "> Reference No.: " + dbFunction.GetSearchValue("Reference No") + "\n" +
+                                   "> Service No.: " + dbFunction.GetSearchValue("ServiceNo") + "\n" +
+                                   "> Merchant: " + dbFunction.GetSearchValue("Merchant") + "\n" +
+                                   "> Expense Type: " + dbFunction.GetSearchValue("Type") + "\n" +
+                                   "> Amount: " + dbFunction.GetSearchValue("Amount");
+
                         isConfrim = true;
                         break;
                 }
@@ -2535,6 +2569,59 @@ namespace MIS
 
                     break;
 
+                case SearchType.iExpense:
+                    lvwSearch.View = View.Details;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "LINE#", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "ID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "ReferenceNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "ServiceNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "MerchantID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "IRIDNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "FSRNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Name", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Type", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Amount", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Remarks", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Date", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    break;
+
             }            
         }
 
@@ -2645,11 +2732,12 @@ namespace MIS
                 case SearchType.iHelpDeskProblem:
                     lblSearchString.Text = lblSearchString.Text + " " + "MERCHANT NAME / TID / MID / REQUEST ID / REFERENCE NO / ASSIST NO / PROBLEM NO / PROBLEM REPORTED / HELPDESK / TEAM LEAD";
                     break;
-
                 case SearchType.iZoning:
                     lblSearchString.Text = lblSearchString.Text + " " + "CLUSTER / ZONE / REGION / AREA / CITY / MUNICIPAL";
                     break;
-
+                case SearchType.iExpense:
+                    lblSearchString.Text = lblSearchString.Text + " EXPENSE REFERENCE NO. / SERVICE NO. / MERCHANT / TID / MID";
+                    break;
                 default:
                     lblSearchString.Text = lblSearchString.Text + " " + "DETAIL";
                     break;

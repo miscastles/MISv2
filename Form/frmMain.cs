@@ -279,9 +279,9 @@ namespace MIS
 
             initShortCutKeyboard();
 
-            // init subAppsName
-            lblSubAppsName.Text = $"[ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} | {clsSearch.ClassCurrentParticularName} ]";
-            
+            // init subAppsName            
+            lblSubAppsName.Text = dbFunction.getSystemEnvironmentLabel("MAIN");
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -1231,6 +1231,10 @@ namespace MIS
                 case Keys.H: // Helpdesk
                     if (e.Control)
                         btnServiceMaintenance_Click(this, e);
+                    break;
+                case Keys.E: // Expenses-FSR
+                    if (e.Control)
+                        btnFinanceExpensesFSR_Click(this, e);
                     break;
 
             }
@@ -3053,6 +3057,7 @@ namespace MIS
                                     "CTRL+P > Pending eFSR\n" +
                                     "CTRL+F > Failed Service\n" +
                                     "CTRL+H > Helpdesk\n" +
+                                    "CTRL+E > Expenses-FSR\n" +
                                     "ESC    > Close Window / Form";
 
         }

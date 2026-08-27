@@ -21,6 +21,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Profile;
 using System.Windows.Forms;
 using static MIS.Function.AppUtilities;
 
@@ -696,6 +697,11 @@ namespace MIS
 
             ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
             Task.Delay(delay); // Asynchronously wait without blocking UI
+
+            chkAll.Checked = false;
+            chkAll.Text = "CHECK ALL";
+
+            chkDeployed.Checked = false;
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -2298,6 +2304,10 @@ namespace MIS
             dbFunction.ClearDataGrid(dgvProfile);
             dbFunction.ClearDataGrid(dgvRaw);
 
+            dbFunction.ClearDataGrid(dgvIRProfile);
+            dbFunction.ClearDataGrid(dgvIRRaw);
+            dbFunction.ClearDataGrid(dgvIRProfileConfig);
+
             InitButton();
 
             dbFunction.TextBoxUnLock(false, this);
@@ -2334,6 +2344,11 @@ namespace MIS
             fAutoLoadData = false;
 
             ucInfoDataGridView.ClearData();
+
+            chkAll.Checked = false;
+            chkAll.Text = "CHECK ALL";
+
+            chkDeployed.Checked = false;
 
         }
 
@@ -2476,8 +2491,6 @@ namespace MIS
 
                 FillMerchantServiceInfo();
 
-                FillServicingSNInfo();
-
                 cboRequestType_SelectedIndexChanged(this, e);
 
                 cboPOSType_SelectedIndexChanged(this, e);
@@ -2506,8 +2519,8 @@ namespace MIS
 
         private void FillMerchantServiceInfo()
         {
-            txtStatusID.Text = txtTerminalID.Text = txtSIMID.Text = txtTCount.Text = clsFunction.sZero;
-            txtIRStatudDescription.Text = txtTerminalSN.Text = txtSIMSN.Text = clsFunction.sDash;
+            txtStatusID.Text = txtRepTerminalID.Text = txtRepSIMID.Text = txtTCount.Text = clsFunction.sZero;
+            txtIRStatudDescription.Text = txtCurTerminalSN.Text = txtCurSIMSN.Text = clsFunction.sDash;
 
             if (dbFunction.isValidID(txtIRIDNo.Text))
             {
@@ -2515,16 +2528,26 @@ namespace MIS
 
                 if (dbAPI.isNoRecordFound() == false)
                 {
+                    string pTerminalInfo = $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalType)} {clsDefines.gPipe} " +
+                                            $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalModel)} {clsDefines.gPipe} " +
+                                            $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalStatus)} {clsDefines.gPipe} " +
+                                            $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalLocation)}";
+
+                    string pSIMInfo = $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMCarrier)} {clsDefines.gPipe} " +                                            
+                                            $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMStatus)} {clsDefines.gPipe} " +
+                                            $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMLocation)}";
+
                     txtTCount.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_ServiceCount);
                     txtIRStatudDescription.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_IRStatusDescription);
                     txtStatusID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_IRStatus);
-                    txtTerminalID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalID);
-                    txtTerminalSN.Text = clsSearch.ClassHoldTerminalSN = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalSN);
-                    txtTerminalType.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalType);
-                    txtTerminalModel.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalModel);
-                    txtSIMID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMID);
-                    txtSIMSN.Text = clsSearch.ClassHoldSIMSN = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMSN);
-                    txtSIMCarrier.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMCarrier);
+                    
+                    txtCurTerminalID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalID);
+                    txtCurTerminalSN.Text = clsSearch.ClassHoldTerminalSN = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalSN);
+                    txtCurTerminalInfo.Text = pTerminalInfo;                    
+
+                    txtCurSIMID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMID);
+                    txtCurSIMSN.Text = clsSearch.ClassHoldSIMSN = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMSN);
+                    txtCurSIMInfo.Text = pSIMInfo;
                 }
             }
 
@@ -2927,8 +2950,8 @@ namespace MIS
             //}
 
             txtStatusID.ReadOnly = fReadOnly;
-            txtTerminalID.ReadOnly = txtSIMID.ReadOnly = fReadOnly;
-            txtTerminalSN.ReadOnly = txtSIMSN.ReadOnly = fReadOnly;
+            txtRepTerminalID.ReadOnly = txtRepSIMID.ReadOnly = fReadOnly;
+            txtRepTerminalSN.ReadOnly = txtRepSIMSN.ReadOnly = fReadOnly;
             txtTCount.ReadOnly = fReadOnly;
         }
 
@@ -3131,6 +3154,7 @@ namespace MIS
         {
             string profile_info;
             string rawdata_info;
+            string profile_config_info;
 
             txtMerchantName.Text =          
             txtMerchantAddress.Text =
@@ -3149,6 +3173,7 @@ namespace MIS
             {
                 dbAPI.ExecuteAPI("GET", "Search", "Merchant Info", dbFunction.CheckAndSetNumericValue(txtMerchantID.Text) + clsFunction.sPipe + dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text), "Get Info Detail", "", "GetInfoDetail");
 
+                Debug.WriteLine("--GET [Merchant Info]--");
                 dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 0);
 
                 if (dbAPI.isNoRecordFound() == false)
@@ -3158,6 +3183,16 @@ namespace MIS
                     {
                         profile_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 29);
                         rawdata_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 30);
+                        profile_config_info = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 34);
+
+                        Debug.WriteLine("--Retrieve [pProfile_Info]--");
+                        dbFunction.parseDelimitedString(profile_info, clsDefines.gComma, 0);
+
+                        Debug.WriteLine("--Retrieve [rawdata_info]--");
+                        dbFunction.parseDelimitedString(rawdata_info, clsDefines.gComma, 0);
+
+                        Debug.WriteLine("--Retrieve [profile_config_info]--");
+                        dbFunction.parseDelimitedString(profile_config_info, clsDefines.gComma, 0);
 
                         txtProfile_Info.Text = profile_info;
                        
@@ -3187,10 +3222,10 @@ namespace MIS
 
                         txtMInstruction.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 21);
 
+                        cboRequestType.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);
+
                         // Zoning
                         txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);
-
-                        cboRequestType.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 35);
 
                         txtMSetup.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 25);
                         txtMRequestFor.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 26);
@@ -3204,12 +3239,25 @@ namespace MIS
 
                         // rawdata_info
                         if (dbFunction.isValidDescription(rawdata_info))
-                            dbFunction.populateListViewFromJsonString(dgvRaw, rawdata_info, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
+                        {
+                            //dbFunction.populateListViewFromJsonString(dgvRaw, rawdata_info, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
+                            dbFunction.populateListViewFromJsonString(dgvIRRaw, rawdata_info, clsDefines.ROOTKEY_RAWDATA_INFO, clsDefines.NESTED_OBJECT_VALUES);
+                        }
 
                         // profile_info
                         if (dbFunction.isValidDescription(profile_info))
-                            dbFunction.populateListViewFromJsonString(dgvProfile, profile_info, clsDefines.ROOTKEY_PROFILE_INFO, clsDefines.gNull);
-                        
+                        {
+                            //dbFunction.populateListViewFromJsonString(dgvProfile, profile_info, clsDefines.ROOTKEY_PROFILE_INFO, clsDefines.gNull);
+                            dbFunction.populateListViewFromJsonString(dgvIRProfile, profile_info, clsDefines.ROOTKEY_PROFILE_INFO, clsDefines.gNull);
+                        }
+
+                        // profile_config_info
+                        if (dbFunction.isValidDescription(profile_config_info))
+                        {
+                            //dbFunction.populateListViewFromJsonString(dgvProfile, profile_info, clsDefines.ROOTKEY_PROFILE_INFO, clsDefines.gNull);
+                            dbFunction.populateListViewFromJsonString(dgvIRProfileConfig, profile_config_info, clsDefines.ROOTKEY_PROFILE_CONFIG_INFO, clsDefines.NESTED_OBJECT_VALUES);
+                        }
+
                         fEdit = true;
                     }
                     else
@@ -3679,6 +3727,12 @@ namespace MIS
 
                         clsSearch.ClassIRIDNo = int.Parse(dbFunction.CheckAndSetNumericValue(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRIDNo)));
 
+                        Debug.WriteLine("--Existing [pProfile_Info]--");
+                        dbFunction.parseDelimitedString(pProfile_Info, clsDefines.gComma, 0);
+
+                        Debug.WriteLine("--Existing [pRawData_Info]--");
+                        dbFunction.parseDelimitedString(pRawData_Info, clsDefines.gComma, 0);
+
                         //if (isPrompt)
                         //    if (!dbFunction.fPromptConfirmation("Are you sure to update JSON data?")) return;
 
@@ -3698,6 +3752,9 @@ namespace MIS
                             if (chkOverwrite.Checked)
                             {
                                 //Debug.WriteLine($"Updating rawdata_info IRIDNo[{clsSearch.ClassIRIDNo}] IRNo:[{clsSearch.ClassIRNo}] TID:[{clsSearch.ClassTID}] MID:[{clsSearch.ClassMID}]");
+
+                                Debug.WriteLine("--Overwrite [pRawData_Info]--");
+                                dbFunction.parseDelimitedString(clsSearch.ClassRawDataInfo, clsDefines.gComma, 0);
 
                                 ucStatusDisplay.SetStatus($"Updating rawdata_info Request ID: [{clsSearch.ClassIRNo}]", Enums.StatusType.Processing);
 
@@ -3719,6 +3776,9 @@ namespace MIS
                             if (chkOverwrite.Checked)
                             {
                                 //Debug.WriteLine($"Updating profile_info IRIDNo[{clsSearch.ClassIRIDNo}] IRNo:[{clsSearch.ClassIRNo}] TID:[{clsSearch.ClassTID}] MID:[{clsSearch.ClassMID}]");
+
+                                Debug.WriteLine("--Overwrite [pProfile_Info]--");
+                                dbFunction.parseDelimitedString(clsSearch.ClassProfileDataInfo, clsDefines.gComma, 0);
 
                                 ucStatusDisplay.SetStatus($"Updating profile_info Request ID: [{clsSearch.ClassIRNo}]", Enums.StatusType.Processing);
 
@@ -4140,8 +4200,11 @@ namespace MIS
 
         private void btnUpdateSN_Click(object sender, EventArgs e)
         {
+            // check if listview is check
+            if (!dbFunction.isValidListViewChecked(lvwList)) return;
+
             // check if unchanged SN
-            if (txtTerminalSN.Text.Equals(clsSearch.ClassHoldTerminalSN) && txtSIMSN.Text.Equals(clsSearch.ClassHoldSIMSN))
+            if (txtRepTerminalSN.Text.Equals(clsSearch.ClassHoldTerminalSN) && txtRepSIMSN.Text.Equals(clsSearch.ClassHoldSIMSN))
             {
                 dbFunction.SetMessageBox(
                     "No changes detected. Terminal and SIM SN remain unchanged.",
@@ -4155,53 +4218,75 @@ namespace MIS
             // ---------------------------------
             // Check for duplicate SN - Terminal
             // ---------------------------------
-            if (dbFunction.isValidID(txtTerminalID.Text))
+            if (dbFunction.isValidID(txtRepTerminalID.Text))
             {
-                if (!dbAPI.isDuplicateSN(int.Parse(txtTerminalID.Text), txtTerminalSN.Text, int.Parse(txtIRIDNo.Text), clsDefines.SEARCH_TERMINAL))
+                if (!dbAPI.isDuplicateSN(int.Parse(txtRepTerminalID.Text), txtRepTerminalSN.Text, int.Parse(txtIRIDNo.Text), clsDefines.SEARCH_TERMINAL))
                     return;
             }
 
             // ---------------------------------
             // Check for duplicate SN - SIM
             // ---------------------------------
-            if (dbFunction.isValidID(txtSIMID.Text))
+            if (dbFunction.isValidID(txtRepSIMID.Text))
             {
-                if (!dbAPI.isDuplicateSN(int.Parse(txtSIMID.Text), txtSIMSN.Text, int.Parse(txtIRIDNo.Text), clsDefines.SEARCH_SIM))
+                if (!dbAPI.isDuplicateSN(int.Parse(txtRepSIMID.Text), txtRepSIMSN.Text, int.Parse(txtIRIDNo.Text), clsDefines.SEARCH_SIM))
                     return;
             }
 
-            string terminalSNStatus = txtTerminalSN.Text.Equals(clsSearch.ClassHoldTerminalSN)? "UNCHANGED": "CHANGED";
+            string terminalSNStatus = txtRepTerminalSN.Text.Equals(clsSearch.ClassHoldTerminalSN)? "UNCHANGED": "CHANGED";
 
-            string simSNStatus = txtSIMSN.Text.Equals(clsSearch.ClassHoldSIMSN)? "UNCHANGED": "CHANGED";
+            string simSNStatus = txtRepSIMSN.Text.Equals(clsSearch.ClassHoldSIMSN)? "UNCHANGED": "CHANGED";
 
             if (!dbFunction.fPromptConfirmation($@"
             Are you sure you want to update the merchant-assigned serial numbers?
 
             * Terminal
               Current : [{clsSearch.ClassHoldTerminalSN}]
-              New     : [{txtTerminalSN.Text}]
+              New     : [{txtRepTerminalSN.Text}]
               Status  : {terminalSNStatus}
 
             * SIM
               Current : [{clsSearch.ClassHoldSIMSN}]
-              New     : [{txtSIMSN.Text}]
+              New     : [{txtRepSIMSN.Text}]
               Status  : {simSNStatus}
             "))
             {
                 return;
             }
 
-            string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetNumericValue(txtTerminalID.Text)}{clsDefines.gPipe}" +
-                                    $"{txtTerminalSN.Text}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetNumericValue(txtSIMID.Text)}{clsDefines.gPipe}" +
-                                    $"{txtSIMSN.Text}";
+            Cursor.Current = Cursors.WaitCursor;
 
+            string pServiceNos = getSelectedServiceNos(lvwList);
+
+            string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtClientID.Text)}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetNumericValue(txtRepTerminalID.Text)}{clsDefines.gPipe}" +
+                                    $"{txtRepTerminalSN.Text}{clsDefines.gPipe}" +
+                                    $"{dbFunction.CheckAndSetNumericValue(txtRepSIMID.Text)}{clsDefines.gPipe}" +
+                                    $"{txtRepSIMSN.Text}{clsDefines.gPipe}" +
+                                    $"{pServiceNos}{clsDefines.gPipe}{dbFunction.CheckAndSetBooleanValue(chkDeployed.Checked)}";            
+
+            Debug.WriteLine("--pServiceNos--");
+            dbFunction.parseDelimitedString(pServiceNos, clsDefines.gComma, 1);
+
+            Debug.WriteLine("--pSearchValue--");
             dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 1);
 
             dbAPI.ExecuteAPI("PUT", "Update", "Update IR Detail Terminal/SIM", pSearchValue, "", "", "UpdateCollectionDetail");
 
             dbFunction.SetMessageBox("Merchant assigned SN's updated.", lblHeader.Text, clsFunction.IconType.iInformation);
+
+            // Load service history
+            ucInfoDataGridView.ClearData();
+            dbAPI.initServiceHistoryListView(lvwList);
+            dbAPI.loadServicingDetail(lvwList, txtIRIDNo.Text, txtIRTID.Text, txtIRMID.Text);
+
+            chkAll.Checked = false;
+            chkAll.Text = "CHECK ALL";
+
+            chkDeployed.Checked = false;
+
+            Cursor.Current = Cursors.Default;
 
         }
 
@@ -4219,21 +4304,19 @@ namespace MIS
 
             if (frmSearchField.fSelected)
             {
-                txtTerminalID.Text = $"{clsSearch.ClassTerminalID}";
-                txtTerminalSN.Text = $"{clsSearch.ClassTerminalSN}";
-                txtTerminalType.Text = $"{clsSearch.ClassTerminalType}";
-                txtTerminalModel.Text = $"{clsSearch.ClassTerminalModel}";
+                txtRepTerminalID.Text = $"{clsSearch.ClassTerminalID}";
+                txtRepTerminalSN.Text = $"{clsSearch.ClassTerminalSN}";
 
-                FillServicingSNInfo();
+                txtRepTerminalInfo.Text = $"{clsSearch.ClassTerminalType} {clsDefines.gPipe} {clsSearch.ClassTerminalModel} {clsDefines.gPipe} {clsSearch.ClassTerminalStatusDescription} {clsDefines.gPipe} {clsSearch.ClassTerminalLocaton}";
+                
             }
         }
 
         private void btnRemoveTerminal_Click(object sender, EventArgs e)
         {
-            txtTerminalID.Text =
-            txtTerminalSN.Text = 
-            txtTerminalType.Text =
-            txtTerminalModel.Text =
+            txtRepTerminalID.Text =
+            txtRepTerminalSN.Text = 
+            txtRepTerminalInfo.Text =            
             clsFunction.sNull;
         }
 
@@ -4250,20 +4333,19 @@ namespace MIS
 
             if (frmSearchField.fSelected)
             {
-                txtSIMID.Text = $"{clsSearch.ClassSIMID}";
-                txtSIMSN.Text = $"{clsSearch.ClassSIMSerialNo}";
-                txtSIMCarrier.Text = $"{clsSearch.ClassSIMCarrier}";
+                txtRepSIMID.Text = $"{clsSearch.ClassSIMID}";
+                txtRepSIMSN.Text = $"{clsSearch.ClassSIMSerialNo}";
 
-                FillServicingSNInfo();
+                txtRepSIMInfo.Text = $"{clsSearch.ClassSIMCarrier} {clsDefines.gPipe} {clsSearch.ClassSIMStatusDescription} {clsDefines.gPipe} {clsSearch.ClassSIMLocaton}";
             }
 
         }
 
         private void btnRemoveSIM_Click(object sender, EventArgs e)
         {
-            txtSIMID.Text =
-            txtSIMSN.Text = 
-            txtSIMCarrier.Text =
+            txtRepSIMID.Text =
+            txtRepSIMSN.Text = 
+            txtRepSIMInfo.Text =
             clsFunction.sNull;
         }
 
@@ -4274,6 +4356,10 @@ namespace MIS
             if (dbFunction.isValidID(txtZoneID.Text))
             {
                 string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{txtZoneID.Text}");
+
+                Debug.WriteLine("--GET [Zoning Detail]--");
+                dbFunction.parseDelimitedString(pJSONString, clsFunction.cPipe, 0);
+
                 if (dbFunction.isValidDescription(pJSONString))
                 {
                     txtZZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);
@@ -4584,25 +4670,6 @@ namespace MIS
 
         }
 
-        private void FillServicingSNInfo()
-        {
-            if (dbFunction.isValidID(txtTerminalID.Text))
-            {
-                dbAPI.ExecuteAPI("GET", "Search", "Terminal SN Info", txtTerminalID.Text, "Get Info Detail", "", "GetInfoDetail");
-
-                txtTerminalStatus.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 5);
-                txtTerminalLocation.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 13);
-            }
-
-            if (dbFunction.isValidID(txtSIMID.Text))
-            {
-                dbAPI.ExecuteAPI("GET", "Search", "SIM SN Info", txtSIMID.Text, "Get Info Detail", "", "GetInfoDetail");
-
-                txtSIMStatus.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 2);
-                txtSIMLocation.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 7);
-            }
-        }
-
         private void lvwList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvwList.SelectedItems.Count > 0)
@@ -4619,12 +4686,12 @@ namespace MIS
 
         private void btnOpenTerminal_Click(object sender, EventArgs e)
         {
-            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurTerminalID, txtTerminalID.Text)) return;
-            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurTerminalSN, txtTerminalSN.Text)) return;
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurTerminalID, txtRepTerminalID.Text)) return;
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurTerminalSN, txtRepTerminalSN.Text)) return;
 
             // init values
-            modelSearch.TerminalID = int.Parse(txtTerminalID.Text);
-            modelSearch.TerminalSN = txtTerminalSN.Text;            
+            modelSearch.TerminalID = int.Parse(txtRepTerminalID.Text);
+            modelSearch.TerminalSN = txtRepTerminalSN.Text;            
             modelSearch.DebugSearch();
 
             frmImportTerminal.fAutoLoadData = true;
@@ -4637,12 +4704,12 @@ namespace MIS
 
         private void btnOpenSIM_Click(object sender, EventArgs e)
         {
-            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurSIMID, txtSIMID.Text)) return;
-            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurSIMSN, txtSIMSN.Text)) return;
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurSIMID, txtRepSIMID.Text)) return;
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iCurSIMSN, txtRepSIMSN.Text)) return;
 
             // init values
-            modelSearch.SIMID = int.Parse(txtSIMID.Text);
-            modelSearch.SIMSN = txtSIMSN.Text;
+            modelSearch.SIMID = int.Parse(txtRepSIMID.Text);
+            modelSearch.SIMSN = txtRepSIMSN.Text;
             modelSearch.DebugSearch();
 
             frmImportSIM.fAutoLoadData = true;
@@ -4651,6 +4718,50 @@ namespace MIS
 
             frmImportSIM frm = new frmImportSIM();
             dbFunction.handleForm(frm);
+        }
+
+        private string getSelectedServiceNos(ListView lvw)
+        {
+            List<string> serviceNos = new List<string>();
+
+            foreach (ListViewItem item in lvw.Items)
+            {
+                if (item.Checked)
+                {
+                    string serviceNo = item.SubItems[1].Text;
+
+                    if (!string.IsNullOrWhiteSpace(serviceNo))
+                    {
+                        serviceNos.Add(serviceNo.Trim());
+                    }
+                }
+            }
+
+            return JsonConvert.SerializeObject(serviceNos);
+        }
+
+        private void chkAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAll.Text.Equals("CHECK ALL"))
+            {
+                chkAll.Text = "UNCHECK ALL";
+
+                // Check All
+                foreach (ListViewItem i in lvwList.Items)
+                {
+                    i.Checked = true;
+                }
+            }
+            else
+            {
+                chkAll.Text = "CHECK ALL";
+
+                // UnCheck All
+                foreach (ListViewItem i in lvwList.Items)
+                {
+                    i.Checked = false;
+                }
+            }
         }
     }
 }

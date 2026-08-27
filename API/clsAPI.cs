@@ -5593,7 +5593,8 @@ namespace MIS
                                                 SearchBy.Equals("SIM Inventory Diagnostic Summary") ||
                                                 SearchBy.Equals("SIM Inventory Diagnostic Detail") ||
                                                 SearchBy.Equals("Expenses Detail") ||
-                                                SearchBy.Equals("Expenses Transacton Detail")
+                                                SearchBy.Equals("Expenses Transaction Detail") ||
+                                                SearchBy.Equals("Expense Reference List")
                                                 )
                                             {
                                                 foreach (var element in Detail46.data)
@@ -13195,6 +13196,62 @@ namespace MIS
             }
 
             obj.SelectedIndex = 0;
+        }
+
+        public void FillListViewExpenseReference(ListView obj, string SearchValue)
+        {
+            int i = 0;
+            int iLineNo = 0;
+
+            dbFunction = new clsFunction();
+
+            obj.Items.Clear();
+
+            ExecuteAPI("GET", "View", "Expense Reference List", SearchValue, "Advance Detail", "", "ViewAdvanceDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK) return;
+
+            if (isNoRecordFound() == false)
+            {
+                obj.Items.Clear();
+
+                while (clsArray.ID.Length > i)
+                {
+                    iLineNo++;
+
+                    ListViewItem item = new ListViewItem(iLineNo.ToString());
+
+                    string pDetailID = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "DetailID");
+                    string pExpenseReferenceNo = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesReferenceNo");
+                    string pServiceNo = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ServiceNo");
+                    string pMerchantID = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "MerchantID");
+                    string pIRIDNo = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "IRIDNo");
+                    string pFSRNo = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "FSRNo");
+                    string pMerchantName = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "MerchantName");
+                    string pExpenseType = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpenseType");
+                    string pExpenseAmount = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesAmount");
+                    string pExpenseDescription = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesDescription");
+                    string pExpenseDate = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesDate");
+
+                    item.SubItems.Add(pDetailID);
+                    item.SubItems.Add(pExpenseReferenceNo);
+                    item.SubItems.Add(pServiceNo);
+                    item.SubItems.Add(pMerchantID);
+                    item.SubItems.Add(pIRIDNo);
+                    item.SubItems.Add(pFSRNo);
+                    item.SubItems.Add(pMerchantName);
+                    item.SubItems.Add(pExpenseType);
+                    item.SubItems.Add(pExpenseAmount);
+                    item.SubItems.Add(pExpenseDescription);
+                    item.SubItems.Add(pExpenseDate);
+
+                    obj.Items.Add(item);
+
+                    i++;
+                }
+
+                dbFunction.ListViewAlternateBackColor(obj);
+            }
         }
 
     }

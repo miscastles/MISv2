@@ -322,8 +322,8 @@ namespace MIS
             {
                 dbAPI.ExecuteAPI("GET", "Search", "Merchant Info", txtMerchantID.Text + clsFunction.sPipe + txtIRIDNo.Text, "Get Info Detail", "", "GetInfoDetail");
 
-                // parse delimited
-                dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
+                Debug.WriteLine("--GET [Merchant Info]--");
+                dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 0);
 
                 if (dbAPI.isNoRecordFound() == false)
                 {
@@ -2507,6 +2507,7 @@ namespace MIS
                     txtSearchIRNo.Text = clsSearch.ClassIRNo;
 
                     FillMerchantTextBox();
+
                     FillClientTextBox();
 
                     FillFETextBox();
@@ -2650,6 +2651,10 @@ namespace MIS
                         clsFunction.IconType.iWarning);
                     }
 
+                    // set processedBy and processDate
+                    txtFsrProcessedBy.Text = txtFsrModifiedBy.Text = clsSearch.ClassCurrentParticularName;
+                    txtFsrProcessedDate.Text = txtFsrModifiedDate.Text = dbFunction.getCurrentDate();
+
                     btnClear.Focus();
 
                     Cursor.Current = Cursors.Default;
@@ -2735,6 +2740,7 @@ namespace MIS
                     txtSearchIRNo.Text = clsSearch.ClassIRNo;
 
                     FillMerchantTextBox();
+
                     FillClientTextBox();
 
                     FillFETextBox();

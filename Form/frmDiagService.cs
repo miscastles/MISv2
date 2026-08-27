@@ -156,7 +156,7 @@ namespace MIS
 
             cboServiceStatus.SelectedIndex = 0;
 
-            lblHeader.Text = $"SERVICE DIAGNOSTIC [ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel("SERVICE DIAGNOSTIC");
 
             // Fill combbbox
             dbAPI.FillComboBoxClient(cboClient);

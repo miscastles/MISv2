@@ -43,7 +43,7 @@ namespace MIS
             dbAPI = new clsAPI();
             dbFunction = new clsFunction();
 
-            lblHeader.Text = $"SIM INVENTORY DIAGNOSTIC [ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel("SIM INVENTORY DIAGNOSTIC");
 
             // Fill ComboBox
             dbAPI.FillComboBoxClient(cboClient);
@@ -362,6 +362,45 @@ namespace MIS
             cboType.SelectedIndex = 0;
             cboItemCategory.SelectedIndex = 0;
             cboLocation.SelectedIndex = 0;
+        }
+
+        private void lvwList_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvwList.Items.Count > 0)
+            {
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);
+                string jsonResult = dbFunction.genJSONFormat(lvwList, lvwList.SelectedIndices[0], "", "");
+
+                // Pass JSON to popup window
+                frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
+                frm.ShowDialog();
+            }
+        }
+
+        private void lvwListLocationIssues_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvwListLocationIssues.Items.Count > 0)
+            {
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwListLocationIssues, 0);
+                string jsonResult = dbFunction.genJSONFormat(lvwListLocationIssues, lvwListLocationIssues.SelectedIndices[0], "", "");
+
+                // Pass JSON to popup window
+                frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
+                frm.ShowDialog();
+            }
+        }
+
+        private void lvwListStatusIssues_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvwListStatusIssues.Items.Count > 0)
+            {
+                string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwListStatusIssues, 0);
+                string jsonResult = dbFunction.genJSONFormat(lvwListStatusIssues, lvwListStatusIssues.SelectedIndices[0], "", "");
+
+                // Pass JSON to popup window
+                frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
+                frm.ShowDialog();
+            }
         }
     }
 }

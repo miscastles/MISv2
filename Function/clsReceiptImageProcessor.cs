@@ -1,4 +1,5 @@
-﻿using OpenCvSharp;
+﻿using CrystalDecisions.ReportAppServer.DataDefModel;
+using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System;
 using System.Diagnostics;
@@ -8,6 +9,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Tesseract;
 using static MIS.AppData.ConstData.Api.ReceiptOCR;
+using MIS.Function;
 
 namespace MIS
 {
@@ -17,10 +19,11 @@ namespace MIS
         Grayscale,
         Otsu,
         Adaptive
-    }   
+    }
     public class clsReceiptImageProcessor
     {
         private clsFunction dbFunction = new clsFunction();
+        private clsFile dbFile = new clsFile();
 
         // preprocess image increase accuracy
         public Bitmap CreatePreview(string pImagePath, ReceiptPreviewMode previewMode)
@@ -99,25 +102,66 @@ namespace MIS
 
         public string ExtractText(string pImagePath)
         {
-            string pOCRDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OCRData");
-            string pEnglishDataPath = Path.Combine(pOCRDataPath, "eng.traineddata");
+            string pOCRDataPath = dbFile.sOCRDataPath;
+            string pEnglishDataPath = Path.Combine(
+                pOCRDataPath,
+                "eng.traineddata"
+            );
 
-            if (!File.Exists(pEnglishDataPath)) throw new FileNotFoundException("Tesseract data could not be found.", pEnglishDataPath);
+            if (!Directory.Exists(pOCRDataPath))
+            {
+                throw new DirectoryNotFoundException(
+                    $"Tesseract OCRData folder was not found.\n\n" +
+                    $"Path: {pOCRDataPath}"
+                );
+            }
 
-            using (Mat sourceImage = Cv2.ImRead(pImagePath, ImreadModes.Color))
+            if (!File.Exists(pEnglishDataPath))
+            {
+                throw new FileNotFoundException(
+                    $"Tesseract data could not be found.\n\n" +
+                    $"File: {pEnglishDataPath}",
+                    pEnglishDataPath
+                );
+            }
+
+            using (Mat sourceImage = Cv2.ImRead(
+                pImagePath,
+                ImreadModes.Color))
             using (Mat processedImage = new Mat())
             {
-                if (sourceImage.Empty()) throw new Exception("OpenCV could not read the receipt image.");
+                if (sourceImage.Empty())
+                {
+                    throw new Exception(
+                        $"OpenCV could not read the receipt image.\n\n" +
+                        $"File: {pImagePath}"
+                    );
+                }
 
-                CreateProcessedReceipt(sourceImage, processedImage);
+                CreateProcessedReceipt(
+                    sourceImage,
+                    processedImage
+                );
 
                 byte[] pImageData;
 
-                Cv2.ImEncode(".png", processedImage, out pImageData);
+                Cv2.ImEncode(
+                    ".png",
+                    processedImage,
+                    out pImageData
+                );
 
-                using (TesseractEngine ocrEngine = new TesseractEngine(pOCRDataPath, "eng", EngineMode.LstmOnly))
-                using (Pix receiptImage = Pix.LoadFromMemory(pImageData))
-                using (Page ocrPage = ocrEngine.Process(receiptImage, PageSegMode.Auto))
+                using (TesseractEngine ocrEngine =
+                    new TesseractEngine(
+                        pOCRDataPath,
+                        "eng",
+                        EngineMode.LstmOnly))
+                using (Pix receiptImage =
+                    Pix.LoadFromMemory(pImageData))
+                using (Page ocrPage =
+                    ocrEngine.Process(
+                        receiptImage,
+                        PageSegMode.Auto))
                 {
                     return ocrPage.GetText();
                 }

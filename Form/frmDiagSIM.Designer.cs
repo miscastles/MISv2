@@ -467,6 +467,7 @@
             this.lvwList.TabIndex = 315;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
+            this.lvwList.DoubleClick += new System.EventHandler(this.lvwList_DoubleClick);
             // 
             // tabPage1
             // 
@@ -494,6 +495,7 @@
             this.lvwListLocationIssues.TabIndex = 317;
             this.lvwListLocationIssues.UseCompatibleStateImageBehavior = false;
             this.lvwListLocationIssues.View = System.Windows.Forms.View.Details;
+            this.lvwListLocationIssues.DoubleClick += new System.EventHandler(this.lvwListLocationIssues_DoubleClick);
             // 
             // listView2
             // 
@@ -537,6 +539,7 @@
             this.lvwListStatusIssues.TabIndex = 317;
             this.lvwListStatusIssues.UseCompatibleStateImageBehavior = false;
             this.lvwListStatusIssues.View = System.Windows.Forms.View.Details;
+            this.lvwListStatusIssues.DoubleClick += new System.EventHandler(this.lvwListStatusIssues_DoubleClick);
             // 
             // listView3
             // 

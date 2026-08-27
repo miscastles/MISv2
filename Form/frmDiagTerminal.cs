@@ -117,7 +117,7 @@ namespace MIS
             dbAPI = new clsAPI();
             dbFunction = new clsFunction();
 
-            lblHeader.Text = $"TERMINAL INVENTORY DIAGNOSTIC [ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel("TERMINAL INVENTORY DIAGNOSTIC");
 
             // Fill ComboBox
             dbAPI.FillComboBoxClient(cboClient);

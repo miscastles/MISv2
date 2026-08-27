@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,7 +18,12 @@ namespace MIS
         private clsReceiptImageProcessor dbReceiptImageProcessor;
 
         bool fEdit;
+        bool fNewExpense;
+
         string sSelectedImagePath = "";
+
+        private ListViewItem pendingImageItem;
+        private JObject pendingImageData;
 
         string pExpenseFTPHost = $"{clsGlobalVariables.strFTPURL}/{clsGlobalVariables.strFTPUploadPath}/expenses/{clsSearch.ClassBankCode}";
 
@@ -166,9 +172,11 @@ namespace MIS
             Cursor.Current = Cursors.WaitCursor;
 
             fEdit = false;
-
+            fNewExpense = false;
+    
             lblHeader.Text = $"EXPENSES - FSR [ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
 
+            ResetImageFields();
             InitButtons();
 
             Cursor.Current = Cursors.Default;
@@ -176,13 +184,55 @@ namespace MIS
 
         private void InitButtons()
         {
-            if (fEdit)
+            txtExpenseReferenceNo.ReadOnly = true;
+
+            if (dbFunction.isValidID(txtServiceNo.Text))
             {
-                btnSave.Enabled = true;
+                btnNew.Enabled = true;
             }
-            if (!fEdit)
+            else
             {
+                btnNew.Enabled = false;
+            }
+
+            if (fNewExpense)
+            {
+                btnAddExpense.Enabled = true;
                 btnSave.Enabled = false;
+                btnDeleteExpense.Enabled = false;
+                btnClearExpense.Enabled = true;
+
+                dtExpenseDate.Enabled = true;
+                cboExpenseType.Enabled = true;
+                txtExpenseAmount.Enabled = false;
+                txtRemarks.ReadOnly = false;
+                btnAddSelectImage.Enabled = true;
+            }
+            else if (fEdit)
+            {
+                btnAddExpense.Enabled = false;
+                btnSave.Enabled = true;
+                btnDeleteExpense.Enabled = true;
+                btnClearExpense.Enabled = true;
+
+                dtExpenseDate.Enabled = true;
+                cboExpenseType.Enabled = false;
+                txtExpenseAmount.Enabled = true;
+                txtRemarks.ReadOnly = false;
+                btnAddSelectImage.Enabled = true;
+            }
+            else
+            {
+                btnAddExpense.Enabled = false;
+                btnSave.Enabled = false;
+                btnDeleteExpense.Enabled = false;
+                btnClearExpense.Enabled = false;
+
+                dtExpenseDate.Enabled = false;
+                cboExpenseType.Enabled = false;
+                txtExpenseAmount.Enabled = false;
+                txtRemarks.ReadOnly = true;
+                btnAddSelectImage.Enabled = false;
             }
         }
 
@@ -370,6 +420,10 @@ namespace MIS
             try
             {
                 string[] pFiles = await Task.Run(() => ftpClient.directoryListSimple(""));
+
+                if (pFiles == null || pFiles.Length <= 0) return false;
+
+                Array.Sort(pFiles, StringComparer.OrdinalIgnoreCase);
 
                 if (pFiles == null || !Array.Exists(pFiles, pFile => !string.IsNullOrWhiteSpace(pFile)))
                 {
@@ -612,8 +666,9 @@ namespace MIS
                 Cursor.Current = Cursors.WaitCursor;
 
                 string[] pFiles = ftpClient.directoryListSimple("");
-                Array.Sort(pFiles, StringComparer.OrdinalIgnoreCase);
+                if (pFiles == null || pFiles.Length <= 0) return;
 
+                Array.Sort(pFiles, StringComparer.OrdinalIgnoreCase);
                 int iLineNo = 0;
 
                 foreach (string pRemoteEntry in pFiles)
@@ -623,6 +678,8 @@ namespace MIS
                     string pFileName = Path.GetFileName(pRemoteEntry.TrimEnd('/', '\\'));
 
                     if (!dbFunction.isValidDescription(pFileName)) continue;
+
+                    if (!pFileName.StartsWith(pFilePrefix, StringComparison.OrdinalIgnoreCase)) continue;
 
                     long pFileSize = ftpClient.getFileSize(pFileName);
                     string pLastModified = clsDefines.gNull;
@@ -728,15 +785,43 @@ namespace MIS
             // Expense amount check
             decimal dExpenseAmount;
 
-            if (!decimal.TryParse(txtExpenseAmount.Text, out dExpenseAmount) ||
-                dExpenseAmount <= 0)
+            if (!decimal.TryParse(
+                txtExpenseAmount.Text.Trim(),
+                NumberStyles.Number,
+                CultureInfo.InvariantCulture,
+                out dExpenseAmount))
             {
                 dbFunction.SetMessageBox(
                     "Please enter a valid expense amount.",
-                    "Validation failed",
-                    clsFunction.IconType.iError
+                    "Expense Amount",
+                    clsFunction.IconType.iWarning
                 );
 
+                txtExpenseAmount.Focus();
+                return false;
+            }
+
+            if (dExpenseAmount <= 0)
+            {
+                dbFunction.SetMessageBox(
+                        "Expense amount must be greater than zero.",
+                    "Expense Amount",
+                    clsFunction.IconType.iWarning
+                );
+
+                txtExpenseAmount.Focus();
+                return false;
+            }
+
+            if (decimal.Round(dExpenseAmount, 2) != dExpenseAmount)
+            {
+                dbFunction.SetMessageBox(
+                    "Expense amount can only have two decimal places.",
+                    "Expense Amount",
+                    clsFunction.IconType.iWarning
+                );
+
+                txtExpenseAmount.Focus();
                 return false;
             }
 
@@ -761,6 +846,7 @@ namespace MIS
         private void ResetExpenseFields()
         {
             txtExpenseID.Text = "";
+            txtExpenseReferenceNo.Text = "";
             txtRemarks.Text = "";
             txtExpenseAmount.Text = "";
             cboExpenseType.SelectedIndex = 0;
@@ -771,14 +857,30 @@ namespace MIS
             sSelectedImagePath = clsDefines.gNull;
             lblFileName.Text = clsDefines.gNull;
             pBoxPreview.Image = null;
+
+            pendingImageItem = null;
+            pendingImageData = null;
+
+            txtImageAmount.Text = "";
+            txtImageAmount.Enabled = false;
+            btnAddAmount.Enabled = false;
+
+            if (fNewExpense || fEdit)
+            {
+                btnAddSelectImage.Enabled = true;
+            }
+            else
+            {
+                btnAddSelectImage.Enabled = false;
+            }
         }
 
         private bool ValidateExpenseImages()
         {
-            if (lvwExpenseImages.Items.Count < 0)
+            if (lvwExpenseImages.Items.Count < 1)
             {
                 dbFunction.SetMessageBox(
-                    "A minimum of 10 receipt images is required.\n\n" +
+                    "A minimum of 1 receipt images is required.\n\n" +
                     "Current image count: " +
                     lvwExpenseImages.Items.Count,
                     "Insufficient images",
@@ -943,6 +1045,20 @@ namespace MIS
 
             if (!frmSearchField.fSelected) return;
 
+            if (clsSearch.ClassFSRNo <= 0)
+            {
+                frmSearchField.fSelected = false;
+
+                dbFunction.SetMessageBox(
+                    "This service cannot be selected because it is still in the Job Order or Dispatch stage.\n\n" +
+                    "Expenses can only be added after the FSR has been completed.",
+                    "FSR not completed",
+                    clsFunction.IconType.iError
+                );
+
+                return;
+            }
+
             try
             {
                 Enabled = false;
@@ -1048,7 +1164,7 @@ namespace MIS
 
                 string pExpensesReferenceNo = GenerateExpensesReference();
 
-                if(pExpensesReferenceNo == clsDefines.gNull)
+                if (!dbFunction.isValidDescription(pExpensesReferenceNo))
                 {
                     dbFunction.SetMessageBox(
                         "Expenses ReferenceNo not generated",
@@ -1107,6 +1223,7 @@ namespace MIS
                 btnRefresh.PerformClick();
                 SetStatus(clsDefines.gNull);
 
+                fNewExpense = false;
                 fEdit = false;
 
                 lvwExpenseList.SelectedIndices.Clear();
@@ -1218,7 +1335,9 @@ namespace MIS
                 dtExpenseDate.Value = DateTime.Today;
                 cboExpenseType.Enabled = true;
 
+                fNewExpense = false;
                 fEdit = false;
+
                 InitButtons();
             }
             catch (Exception ex)
@@ -1260,6 +1379,7 @@ namespace MIS
 
             string pDetailID = dbAPI.GetValueFromJSONString(pJSONString, "DetailID");
             string pExpensesID = dbAPI.GetValueFromJSONString(pJSONString, "ExpensesID");
+            string pExpenseReferenceNo = dbAPI.GetValueFromJSONString(pJSONString, "ExpensesReferenceNo");
             string pExpenseType = dbAPI.GetValueFromJSONString(pJSONString, "ExpenseType");
             string pAmount = dbAPI.GetValueFromJSONString(pJSONString, "ExpensesAmount");
             string pRemarks = dbAPI.GetValueFromJSONString(pJSONString, "ExpensesDescription");
@@ -1277,9 +1397,7 @@ namespace MIS
                 return;
             }
 
-            string pSearchValue =
-                dbFunction.CheckAndSetNumericValue(pServiceNo) + clsDefines.gPipe +
-                dbFunction.CheckAndSetNumericValue(pDetailID);
+            string pSearchValue = dbFunction.CheckAndSetNumericValue(pServiceNo) + clsDefines.gPipe + dbFunction.CheckAndSetNumericValue(pDetailID);
 
             if (!dbFunction.fPromptConfirmation(
                 "Are you sure you want to permanently delete this expense?\n\n" +
@@ -1341,6 +1459,50 @@ namespace MIS
             }
         }
 
+        private bool PromptManualReceiptAmount(out decimal pReceiptAmount)
+        {
+            pReceiptAmount = 0M;
+
+            while (true)
+            {
+                InputBox.iInputType = clsFunction.Numeric_Input;
+                InputBox.iInputLimitSize = 12;
+
+                InputBoxResult amountInput = InputBox.Show(
+                    "Enter the receipt amount.",
+                    "Receipt Amount",
+                    "0.00",
+                    100,
+                    0,
+                    12,
+                    (int)Enums.OptionType.Others
+                );
+
+                if (amountInput.ReturnCode != DialogResult.OK)
+                {
+                    return false;
+                }
+
+                if (decimal.TryParse(
+                    amountInput.Text.Trim(),
+                    NumberStyles.Number,
+                    CultureInfo.InvariantCulture,
+                    out pReceiptAmount) &&
+                    pReceiptAmount > 0 &&
+                    decimal.Round(pReceiptAmount, 2) == pReceiptAmount)
+                {
+                    return true;
+                }
+
+                dbFunction.SetMessageBox(
+                    "Please enter a valid receipt amount greater than zero " +
+                    "with no more than two decimal places.",
+                    "Invalid Receipt Amount",
+                    clsFunction.IconType.iWarning
+                );
+            }
+        }
+
         private void btnSelectImage_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFile = new OpenFileDialog())
@@ -1357,8 +1519,7 @@ namespace MIS
                 {
                     if (existingItem.Tag == null) continue;
 
-                    JObject existingImageData =
-                        JObject.Parse(existingItem.Tag.ToString());
+                    JObject existingImageData = JObject.Parse(existingItem.Tag.ToString());
 
                     string pExistingImageSource =
                         Convert.ToString(existingImageData["ImageSource"]);
@@ -1399,15 +1560,37 @@ namespace MIS
                 imageData["Extension"] = fileInfo.Extension;
                 imageData["ImageSource"] = fileInfo.FullName;
 
+                if (pBoxPreview.Image != null)
+                {
+                    pBoxPreview.Image.Dispose();
+                    pBoxPreview.Image = null;
+                }
+
+                pBoxPreview.Image = dbReceiptImageProcessor.CreatePreview(fileInfo.FullName, ReceiptPreviewMode.Original);
+                pBoxPreview.SizeMode = PictureBoxSizeMode.Zoom;
+
+                lblFileName.Text = fileInfo.Name;
+
+                pBoxPreview.Refresh();
+                lblFileName.Refresh();
+
                 string pOCRText = dbReceiptImageProcessor.ExtractText(fileInfo.FullName);
+
                 decimal? dDetectedReceiptTotal = dbReceiptImageProcessor.ExtractTransactionAmount(pOCRText);
 
-                txtDetectedReceiptTotal.Text = dDetectedReceiptTotal.HasValue
-                        ? dDetectedReceiptTotal.Value.ToString("0.00")
-                        : "[ERROR]";
-
+                if (dDetectedReceiptTotal.HasValue)
+                {
+                    txtDetectedReceiptTotal.Text = dDetectedReceiptTotal.Value.ToString("0.00");
+                    imageData["DetectedReceiptTotal"] = dDetectedReceiptTotal.Value.ToString("0.00");
+                }
+                else
+                {
+                    txtDetectedReceiptTotal.Text = "[ERROR]";
+                    imageData["DetectedReceiptTotal"] = string.Empty;
+                }
 
                 bool fUseDetectedTotal = false;
+                decimal dReceiptAmount = 0M;
 
                 if (dDetectedReceiptTotal.HasValue)
                 {
@@ -1419,22 +1602,68 @@ namespace MIS
 
                     if (fUseDetectedTotal)
                     {
-                        decimal dCurrentExpenseAmount = 0M;
+                        dReceiptAmount = dDetectedReceiptTotal.Value;
+                    }
+                    else
+                    {
+                        pendingImageItem = item;
+                        pendingImageData = imageData;
 
-                        decimal.TryParse(txtExpenseAmount.Text, out dCurrentExpenseAmount);
+                        txtImageAmount.Text = "";
+                        txtImageAmount.Enabled = true;
+                        btnAddAmount.Enabled = true;
+                        btnAddSelectImage.Enabled = false;
 
-                        txtExpenseAmount.Text =
-                            (
-                                dCurrentExpenseAmount +
-                                dDetectedReceiptTotal.Value
-                            ).ToString("0.00");
+                        txtImageAmount.Focus();
+                        return;
                     }
                 }
+                else
+                {
+                    dbFunction.SetMessageBox(
+                        "The receipt amount could not be detected.\n\n" +
+                        "Please enter the amount manually.",
+                        "Receipt OCR",
+                        clsFunction.IconType.iWarning
+                    );
 
-                imageData["DetectedReceiptTotal"] = dDetectedReceiptTotal.HasValue
-                            ? dDetectedReceiptTotal.Value.ToString("0.00")
-                            : string.Empty;
+                    pendingImageItem = item;
+                    pendingImageData = imageData;
 
+                    txtImageAmount.Text = "";
+                    txtImageAmount.Enabled = true;
+                    btnAddAmount.Enabled = true;
+                    btnAddSelectImage.Enabled = false;
+
+                    txtImageAmount.Focus();
+                    return;
+                }
+
+                decimal dCurrentExpenseAmount = 0M;
+
+                decimal.TryParse(
+                    txtExpenseAmount.Text,
+                    NumberStyles.Number,
+                    CultureInfo.InvariantCulture,
+                    out dCurrentExpenseAmount
+                );
+
+                txtExpenseAmount.Text =
+                    (
+                        dCurrentExpenseAmount +
+                        dReceiptAmount
+                    ).ToString("0.00");
+
+                if (dDetectedReceiptTotal.HasValue)
+                {
+                    imageData["DetectedReceiptTotal"] = dDetectedReceiptTotal.Value.ToString("0.00");
+                }
+                else
+                {
+                    imageData["DetectedReceiptTotal"] = string.Empty;
+                }
+
+                imageData["AppliedReceiptAmount"] = dReceiptAmount.ToString("0.00");
                 imageData["OCRAmountAccepted"] = fUseDetectedTotal;
 
                 item.Tag = imageData.ToString();
@@ -1566,6 +1795,12 @@ namespace MIS
 
             try
             {
+                SetStatus("Loading image preview...");
+
+                lvwExpenseImages.Enabled = false;
+                UseWaitCursor = true;
+                Cursor.Current = Cursors.WaitCursor;
+
                 if (pBoxPreview.Image != null)
                 {
                     pBoxPreview.Image.Dispose();
@@ -1602,9 +1837,14 @@ namespace MIS
                     lblFileName.Text = Convert.ToString(imageData["FileName"]);
 
                     string pDetectedReceiptTotal = Convert.ToString(imageData["DetectedReceiptTotal"]);
-                    txtDetectedReceiptTotal.Text = string.IsNullOrWhiteSpace(pDetectedReceiptTotal)
-                                ? "[ERROR]"
-                                : pDetectedReceiptTotal;
+                        if (string.IsNullOrWhiteSpace(pDetectedReceiptTotal))
+                        {
+                            txtDetectedReceiptTotal.Text = "[ERROR]";
+                        }
+                        else
+                        {
+                            txtDetectedReceiptTotal.Text = pDetectedReceiptTotal;
+                        }
                     }
                 }
 
@@ -1621,6 +1861,10 @@ namespace MIS
             }
             finally
             {
+                lvwExpenseImages.Enabled = true;
+                UseWaitCursor = false;
+                Cursor.Current = Cursors.Default;
+
                 SetStatus(clsDefines.gNull);
             }
         }
@@ -1675,8 +1919,7 @@ namespace MIS
                         {
                             ftpClient.delete(pFTPFileName);
 
-                            long pRemainingFileSize =
-                                ftpClient.getFileSize(pFTPFileName);
+                            long pRemainingFileSize = ftpClient.getFileSize(pFTPFileName);
 
                             return pRemainingFileSize <= 0;
                         }
@@ -1728,8 +1971,7 @@ namespace MIS
                 iLineNo++;
             }
 
-            txtImageCount.Text =
-                lvwExpenseImages.Items.Count.ToString();
+            txtImageCount.Text = lvwExpenseImages.Items.Count.ToString();
 
             ResetImageFields();
         }
@@ -1749,12 +1991,14 @@ namespace MIS
                 string pJSONString = item.Tag.ToString();
 
                 string pExpensesID = dbAPI.GetValueFromJSONString(pJSONString, "ExpensesID");
+                string pExpenseReferenceNo = item.SubItems[2].Text;
                 string pExpenseType = dbAPI.GetValueFromJSONString(pJSONString, "ExpenseType");
                 string pRemarks = dbAPI.GetValueFromJSONString(pJSONString, "ExpensesDescription");
                 string pAmount = dbAPI.GetValueFromJSONString(pJSONString, "ExpensesAmount");
                 string pExpenseDate = dbAPI.GetValueFromJSONString(pJSONString, "ExpensesDate");
 
                 txtExpenseID.Text = pExpensesID;
+                txtExpenseReferenceNo.Text = pExpenseReferenceNo;
                 txtRemarks.Text = pRemarks;
                 txtExpenseAmount.Text = pAmount;
 
@@ -1770,13 +2014,15 @@ namespace MIS
                 }
 
                 FillExpenseImage();
+
+                fNewExpense = false;
                 fEdit = true;
+
                 InitButtons();
             }
             finally
             {
                 SetStatus(clsDefines.gNull);
-
             }
         }
 
@@ -1806,14 +2052,198 @@ namespace MIS
             dtExpenseDate.Value = DateTime.Today;
 
             cboExpenseType.Enabled = true;
-            btnAddSelectImage.Enabled = true;
 
             SetStatus(clsDefines.gNull);
 
+            fNewExpense = false;
             fEdit = false;
             InitButtons();
 
             cboExpenseType.Focus();
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            txtExpenseID.Text = "";
+            txtExpenseReferenceNo.Text = "";
+            txtExpenseAmount.Text = "";
+            txtRemarks.Text = "";
+
+            cboExpenseType.SelectedIndex = 0;
+            dtExpenseDate.Value = DateTime.Today;
+
+            string pExpenseReferenceNo = GenerateExpensesReference();
+
+            if (!dbFunction.isValidDescription(pExpenseReferenceNo))
+            {
+                dbFunction.SetMessageBox(
+                    "Unable to generate the expense reference number.",
+                    "Expense",
+                    clsFunction.IconType.iError
+                );
+
+                return;
+            }
+
+            txtExpenseReferenceNo.Text = pExpenseReferenceNo;
+
+            fNewExpense = true;
+            fEdit = false;
+
+            InitButtons();
+
+            cboExpenseType.Focus();
+        }
+
+        private void btnAddAmount_Click(object sender, EventArgs e)
+        {
+            if (pendingImageItem == null || pendingImageData == null)
+            {
+                dbFunction.SetMessageBox(
+                    "There is no pending receipt image.",
+                    "Receipt Amount",
+                    clsFunction.IconType.iWarning
+                );
+
+                return;
+            }
+
+            if (!dbFunction.isValidAmount(txtImageAmount.Text.Trim()))
+            {
+                dbFunction.SetMessageBox(
+                    "Please enter the receipt amount.",
+                    "Receipt Amount",
+                    clsFunction.IconType.iWarning
+                );
+
+                txtImageAmount.Focus();
+                return;
+            }
+
+            decimal dReceiptAmount;
+
+            if (!decimal.TryParse(txtImageAmount.Text.Trim(), NumberStyles.Number, CultureInfo.InvariantCulture, out dReceiptAmount))
+            {
+                dbFunction.SetMessageBox(
+                    "Please enter a valid receipt amount.",
+                    "Receipt Amount",
+                    clsFunction.IconType.iWarning
+                );
+
+                txtImageAmount.Focus();
+                return;
+            }
+
+            if (dReceiptAmount <= 0)
+            {
+                dbFunction.SetMessageBox(
+                    "Receipt amount must be greater than zero.",
+                    "Receipt Amount",
+                    clsFunction.IconType.iWarning
+                );
+
+                txtImageAmount.Focus();
+                return;
+            }
+
+            if (decimal.Round(dReceiptAmount, 2) != dReceiptAmount)
+            {
+                dbFunction.SetMessageBox(
+                    "Receipt amount can only have two decimal places.",
+                    "Receipt Amount",
+                    clsFunction.IconType.iWarning
+                );
+
+                txtImageAmount.Focus();
+                return;
+            }
+
+            decimal dCurrentExpenseAmount = 0M;
+
+            decimal.TryParse(txtExpenseAmount.Text, NumberStyles.Number, CultureInfo.InvariantCulture, out dCurrentExpenseAmount);
+
+            txtExpenseAmount.Text = (dCurrentExpenseAmount + dReceiptAmount).ToString("0.00");
+
+            pendingImageData["AppliedReceiptAmount"] = dReceiptAmount.ToString("0.00");
+            pendingImageData["OCRAmountAccepted"] = false;
+
+            pendingImageItem.Tag = pendingImageData.ToString();
+
+            lvwExpenseImages.Items.Add(pendingImageItem);
+            txtImageCount.Text = lvwExpenseImages.Items.Count.ToString();
+
+            ResetImageFields();
+        }
+
+        private async void btnSearchExpensesReferenceNo_Click(object sender, EventArgs e)
+        {
+            frmSearchField.iSearchType = frmSearchField.SearchType.iExpense;
+            frmSearchField.sHeader = "EXPENSE REFERENCE";
+            frmSearchField.isCheckBoxes = false;
+
+            frmSearchField frm = new frmSearchField();
+
+            frm.ShowDialog(this);
+
+            if (!frmSearchField.fSelected) return;
+
+            if (clsSearch.ClassFSRNo <= 0)
+            {
+                frmSearchField.fSelected = false;
+
+                dbFunction.SetMessageBox(
+                    "This service cannot be selected because it is still in the Job Order or Dispatch stage.\n\n" +
+                    "Expenses can only be viewed after the FSR has been completed.",
+                    "FSR not completed",
+                    clsFunction.IconType.iError
+                );
+
+                return;
+            }
+
+            try
+            {
+                Enabled = false;
+                UseWaitCursor = true;
+                Cursor.Current = Cursors.WaitCursor;
+
+                fNewExpense = false;
+                fEdit = false;
+
+                dbFunction.ClearListViewItems(lvwExpenseList);
+                dbFunction.ClearListViewItems(lvwExpenseImages);
+
+                await FetchData();
+
+                foreach (ListViewItem item in lvwExpenseList.Items)
+                {
+                    if (item.SubItems[2].Text.Equals(clsSearch.ClassExpenseReferenceNo, StringComparison.OrdinalIgnoreCase))
+                    {
+                        item.Selected = true;
+                        item.Focused = true;
+                        item.EnsureVisible();
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                dbFunction.SetMessageBox(
+                    "An error occurred while loading the expense information.\n\n" +
+                    "Error: " + ex.Message,
+                    "Loading failed",
+                    clsFunction.IconType.iError
+                );
+            }
+            finally
+            {
+                Enabled = true;
+                UseWaitCursor = false;
+
+                InitButtons();
+
+                Cursor.Current = Cursors.Default;
+            }
         }
     }
 }
