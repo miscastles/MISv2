@@ -50,21 +50,24 @@ namespace MIS
         // The column we are currently using for sorting.
         private ColumnHeader SortingColumn = null;
 
+        private string formName = "SIM INVENTORY";
+
         class jsonObj
         {
             public object outParamValue { get; set; }
         }
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
+#if ENABLE_COMPOSITED
+                protected override CreateParams CreateParams
+                {
+                    get
+                    {
+                        CreateParams cp = base.CreateParams;
+                        cp.ExStyle |= 0x02000000;
+                        return cp;
+                    }
+                }
+#endif
 
         public frmImportSIM()
         {
@@ -231,7 +234,7 @@ namespace MIS
             fEnableScan = false;
             InitButton();
             InitDate();
-            InitTab();
+            //InitTab();
             InitTimerSerialNo();
             PKTextBoxBackColor(true);
 
@@ -258,6 +261,8 @@ namespace MIS
             }
 
             initClientSelection();
+
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
 
             Cursor.Current = Cursors.Default;
         }
@@ -1536,7 +1541,7 @@ namespace MIS
 
         private void tabImport_SelectedIndexChanged(object sender, EventArgs e)
         {                        
-            InitTab();
+            //InitTab();
         }
 
         private void lvwList_DoubleClick(object sender, EventArgs e)

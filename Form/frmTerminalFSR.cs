@@ -46,6 +46,8 @@ namespace MIS
         private System.Timers.Timer timer;
         private int remainingSeconds;
 
+        private string formName = "MANUAL FSR";
+
         class jsonObj
         {
             public object outParamValue { get; set; }
@@ -149,6 +151,8 @@ namespace MIS
             btnPreviewSvcHistory.Enabled = btnPreviewFSR.Enabled = btnResetEmail.Enabled = btnSendFSRAndDiagEmail.Enabled = btnViewDiagnostic.Enabled = false;
 
             lblReason.Text = "RESOLVED";
+
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
 
             EditableServiceDateTime(true);
 
@@ -893,7 +897,8 @@ namespace MIS
             //InitSearchRemoveButton(true);
 
             lblSubHeader.Text = clsFunction.sDash;
-            lblHeader.Text = "FSR";
+            //lblHeader.Text = "FSR";
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
             lblReason.Text = "RESOLVED";
             
             chkBillable.Enabled = true;
@@ -2604,7 +2609,8 @@ namespace MIS
                     btnCloseTicket.Enabled = true;
 
                     // Init header
-                    lblHeader.Text = "CREATE FSR" + " " + dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    //lblHeader.Text = "CREATE FSR" + " " + dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"CREATE {formName} {dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text)} {dbFunction.AddBracketStartEnd(txtIRTID.Text)} {dbFunction.AddBracketStartEnd(txtIRMID.Text)}");
 
                     tabFillUp.TabIndex = 0;
 
@@ -2845,7 +2851,8 @@ namespace MIS
                     btnCancelJO.Enabled = true;
 
                     // Init header
-                    lblHeader.Text = "UPDATE FSR" + " " + dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    //lblHeader.Text = "UPDATE FSR" + " " + dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"UPDATE {formName} {dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text)} {dbFunction.AddBracketStartEnd(txtIRTID.Text)} {dbFunction.AddBracketStartEnd(txtIRMID.Text)}");
 
                     tabFillUp.TabIndex = 0;
 

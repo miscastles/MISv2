@@ -7288,7 +7288,7 @@ namespace MIS
 
         public string getSystemEnvironmentLabel(string pTile)
         {
-            return $"{pTile} [ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
+            return $"{pTile} [ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} | {clsSearch.ClassCurrentUserName} ]";
 
         }
 

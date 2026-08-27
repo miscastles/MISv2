@@ -17,16 +17,18 @@ namespace MIS
         private clsAPI dbAPI;
         private clsFunction dbFunction;
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
+        private string formName = "TERMINAL INVENTORU DIAGNNOSTIC";
+#if ENABLE_COMPOSITED
+                protected override CreateParams CreateParams
+                {
+                    get
+                    {
+                        CreateParams cp = base.CreateParams;
+                        cp.ExStyle |= 0x02000000;
+                        return cp;
+                    }
+                }
+#endif
         public frmDiagTerminal()
         {
             InitializeComponent();
@@ -117,7 +119,7 @@ namespace MIS
             dbAPI = new clsAPI();
             dbFunction = new clsFunction();
 
-            lblHeader.Text = dbFunction.getSystemEnvironmentLabel("TERMINAL INVENTORY DIAGNOSTIC");
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
 
             // Fill ComboBox
             dbAPI.FillComboBoxClient(cboClient);

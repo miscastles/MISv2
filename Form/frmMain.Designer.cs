@@ -355,6 +355,16 @@ namespace MIS
             this.bunifuFlatButton5 = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnDashboardServiceDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnDashboardPOSInventoryDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.panelMinimizedForms = new System.Windows.Forms.Panel();
+            this.panel22 = new System.Windows.Forms.Panel();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.label42 = new System.Windows.Forms.Label();
+            this.lvwFormMinimized = new System.Windows.Forms.ListView();
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel24 = new System.Windows.Forms.Panel();
+            this.label55 = new System.Windows.Forms.Label();
+            this.panel25 = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.pnlButtonList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximize)).BeginInit();
@@ -415,6 +425,10 @@ namespace MIS
             this.panel14.SuspendLayout();
             this.panel16.SuspendLayout();
             this.pnlSubMenuSearch.SuspendLayout();
+            this.panelMinimizedForms.SuspendLayout();
+            this.panel22.SuspendLayout();
+            this.panel23.SuspendLayout();
+            this.panel24.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -2193,7 +2207,7 @@ namespace MIS
             this.pnlSubMenuInventoryEntry.Controls.Add(this.btnInventorySIM);
             this.pnlSubMenuInventoryEntry.Controls.Add(this.btnInventoryTerminal);
             this.pnlSubMenuInventoryEntry.Controls.Add(this.bunifuFlatButton7);
-            this.pnlSubMenuInventoryEntry.Location = new System.Drawing.Point(894, 66);
+            this.pnlSubMenuInventoryEntry.Location = new System.Drawing.Point(894, 98);
             this.pnlSubMenuInventoryEntry.Name = "pnlSubMenuInventoryEntry";
             this.pnlSubMenuInventoryEntry.Size = new System.Drawing.Size(232, 263);
             this.pnlSubMenuInventoryEntry.TabIndex = 258;
@@ -3248,7 +3262,7 @@ namespace MIS
             this.pnlSubMenuServicing.Controls.Add(this.bunifuFlatButton16);
             this.pnlSubMenuServicing.Controls.Add(this.btnServicingManualEntryFSR);
             this.pnlSubMenuServicing.Controls.Add(this.panel17);
-            this.pnlSubMenuServicing.Location = new System.Drawing.Point(916, 57);
+            this.pnlSubMenuServicing.Location = new System.Drawing.Point(994, 57);
             this.pnlSubMenuServicing.Name = "pnlSubMenuServicing";
             this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 682);
             this.pnlSubMenuServicing.TabIndex = 278;
@@ -4472,7 +4486,7 @@ namespace MIS
             this.pnlSubMenuReports.Controls.Add(this.btnFinanceViewReport);
             this.pnlSubMenuReports.Controls.Add(this.btnAdminViewReport);
             this.pnlSubMenuReports.Controls.Add(this.bunifuFlatButton6);
-            this.pnlSubMenuReports.Location = new System.Drawing.Point(755, 137);
+            this.pnlSubMenuReports.Location = new System.Drawing.Point(745, 264);
             this.pnlSubMenuReports.Name = "pnlSubMenuReports";
             this.pnlSubMenuReports.Size = new System.Drawing.Size(232, 185);
             this.pnlSubMenuReports.TabIndex = 280;
@@ -4691,7 +4705,7 @@ namespace MIS
             this.pnlSubMenuFinance.Controls.Add(this.btnFinanceSettlement);
             this.pnlSubMenuFinance.Controls.Add(this.btnFinanceBilling);
             this.pnlSubMenuFinance.Controls.Add(this.bunifuFlatButton14);
-            this.pnlSubMenuFinance.Location = new System.Drawing.Point(759, 74);
+            this.pnlSubMenuFinance.Location = new System.Drawing.Point(741, 359);
             this.pnlSubMenuFinance.Name = "pnlSubMenuFinance";
             this.pnlSubMenuFinance.Size = new System.Drawing.Size(232, 202);
             this.pnlSubMenuFinance.TabIndex = 281;
@@ -4954,7 +4968,7 @@ namespace MIS
             this.pnlSubMenuLog.Controls.Add(this.bunifuFlatButton4);
             this.pnlSubMenuLog.Controls.Add(this.btnUserLog);
             this.pnlSubMenuLog.Controls.Add(this.btnUserAction);
-            this.pnlSubMenuLog.Location = new System.Drawing.Point(454, 102);
+            this.pnlSubMenuLog.Location = new System.Drawing.Point(743, 352);
             this.pnlSubMenuLog.Name = "pnlSubMenuLog";
             this.pnlSubMenuLog.Size = new System.Drawing.Size(232, 84);
             this.pnlSubMenuLog.TabIndex = 283;
@@ -5077,7 +5091,7 @@ namespace MIS
             this.pnlSubMenuCustomerService.Controls.Add(this.bunifuFlatButton21);
             this.pnlSubMenuCustomerService.Controls.Add(this.btnCustomerServiceCallHistory);
             this.pnlSubMenuCustomerService.Controls.Add(this.btnCustomerServiceNewCall);
-            this.pnlSubMenuCustomerService.Location = new System.Drawing.Point(505, 61);
+            this.pnlSubMenuCustomerService.Location = new System.Drawing.Point(745, 332);
             this.pnlSubMenuCustomerService.Name = "pnlSubMenuCustomerService";
             this.pnlSubMenuCustomerService.Size = new System.Drawing.Size(232, 97);
             this.pnlSubMenuCustomerService.TabIndex = 284;
@@ -6747,7 +6761,7 @@ namespace MIS
             this.pnlSubMenuMSP.Controls.Add(this.btnMSPValidation);
             this.pnlSubMenuMSP.Controls.Add(this.btnMSPOnboarding);
             this.pnlSubMenuMSP.Controls.Add(this.bunifuFlatButton17);
-            this.pnlSubMenuMSP.Location = new System.Drawing.Point(744, 164);
+            this.pnlSubMenuMSP.Location = new System.Drawing.Point(742, 305);
             this.pnlSubMenuMSP.Name = "pnlSubMenuMSP";
             this.pnlSubMenuMSP.Size = new System.Drawing.Size(232, 152);
             this.pnlSubMenuMSP.TabIndex = 302;
@@ -7398,12 +7412,122 @@ namespace MIS
             this.btnDashboardPOSInventoryDiagnostic.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnDashboardPOSInventoryDiagnostic.Click += new System.EventHandler(this.btnDashboardPOSInventoryDiagnostic_Click);
             // 
+            // panelMinimizedForms
+            // 
+            this.panelMinimizedForms.BackColor = System.Drawing.Color.Transparent;
+            this.panelMinimizedForms.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMinimizedForms.Controls.Add(this.panel22);
+            this.panelMinimizedForms.Controls.Add(this.panel24);
+            this.panelMinimizedForms.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panelMinimizedForms.Location = new System.Drawing.Point(641, 56);
+            this.panelMinimizedForms.Name = "panelMinimizedForms";
+            this.panelMinimizedForms.Size = new System.Drawing.Size(371, 200);
+            this.panelMinimizedForms.TabIndex = 453;
+            // 
+            // panel22
+            // 
+            this.panel22.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel22.Controls.Add(this.panel23);
+            this.panel22.Controls.Add(this.lvwFormMinimized);
+            this.panel22.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel22.Location = new System.Drawing.Point(0, 24);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(369, 174);
+            this.panel22.TabIndex = 312;
+            // 
+            // panel23
+            // 
+            this.panel23.BackColor = System.Drawing.Color.Transparent;
+            this.panel23.Controls.Add(this.label42);
+            this.panel23.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel23.Location = new System.Drawing.Point(0, 159);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(369, 15);
+            this.panel23.TabIndex = 0;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label42.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.ForeColor = System.Drawing.Color.Black;
+            this.label42.Location = new System.Drawing.Point(0, 1);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(154, 14);
+            this.label42.TabIndex = 0;
+            this.label42.Text = "Doub click to Restore";
+            // 
+            // lvwFormMinimized
+            // 
+            this.lvwFormMinimized.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(46)))), ((int)(((byte)(59)))));
+            this.lvwFormMinimized.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvwFormMinimized.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader11,
+            this.columnHeader12});
+            this.lvwFormMinimized.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lvwFormMinimized.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwFormMinimized.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvwFormMinimized.ForeColor = System.Drawing.Color.White;
+            this.lvwFormMinimized.FullRowSelect = true;
+            this.lvwFormMinimized.HideSelection = false;
+            this.lvwFormMinimized.Location = new System.Drawing.Point(0, 0);
+            this.lvwFormMinimized.Name = "lvwFormMinimized";
+            this.lvwFormMinimized.Scrollable = false;
+            this.lvwFormMinimized.Size = new System.Drawing.Size(369, 174);
+            this.lvwFormMinimized.TabIndex = 104;
+            this.lvwFormMinimized.UseCompatibleStateImageBehavior = false;
+            this.lvwFormMinimized.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "FORM TITLE";
+            this.columnHeader11.Width = 220;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "MINIMIZE TIME";
+            this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader12.Width = 130;
+            // 
+            // panel24
+            // 
+            this.panel24.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel24.Controls.Add(this.label55);
+            this.panel24.Controls.Add(this.panel25);
+            this.panel24.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel24.Location = new System.Drawing.Point(0, 0);
+            this.panel24.Name = "panel24";
+            this.panel24.Size = new System.Drawing.Size(369, 24);
+            this.panel24.TabIndex = 311;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label55.ForeColor = System.Drawing.Color.Black;
+            this.label55.Location = new System.Drawing.Point(3, 4);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(127, 16);
+            this.label55.TabIndex = 310;
+            this.label55.Text = "MINIMIZED FORMS";
+            // 
+            // panel25
+            // 
+            this.panel25.BackColor = System.Drawing.Color.Silver;
+            this.panel25.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel25.Location = new System.Drawing.Point(0, 22);
+            this.panel25.Name = "panel25";
+            this.panel25.Size = new System.Drawing.Size(369, 2);
+            this.panel25.TabIndex = 0;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(46)))), ((int)(((byte)(59)))));
             this.ClientSize = new System.Drawing.Size(1427, 848);
+            this.Controls.Add(this.pnlSubMenuReports);
+            this.Controls.Add(this.panelMinimizedForms);
             this.Controls.Add(this.pnlSubMenuFinance);
             this.Controls.Add(this.pnlSubMenuServicing);
             this.Controls.Add(this.pnlSubMenuLog);
@@ -7411,8 +7535,6 @@ namespace MIS
             this.Controls.Add(this.pnlSubMenuEnrollment);
             this.Controls.Add(this.pnlSubMenuMSP);
             this.Controls.Add(this.pnlSubMenuInventoryEntry);
-            this.Controls.Add(this.lblRemainingDays);
-            this.Controls.Add(this.pnlSubMenuReports);
             this.Controls.Add(this.pnlSubMenuAdministrative);
             this.Controls.Add(this.btnMSP);
             this.Controls.Add(this.pnlSubMenuSwitchBank);
@@ -7431,6 +7553,7 @@ namespace MIS
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlDashboard);
             this.Controls.Add(this.pnlTicket);
+            this.Controls.Add(this.lblRemainingDays);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -7516,6 +7639,12 @@ namespace MIS
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
             this.pnlSubMenuSearch.ResumeLayout(false);
+            this.panelMinimizedForms.ResumeLayout(false);
+            this.panel22.ResumeLayout(false);
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
+            this.panel24.ResumeLayout(false);
+            this.panel24.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7845,6 +7974,16 @@ namespace MIS
         private BunifuFlatButton btnDashboardComponentsInventoryDiagnostic;
         private BunifuFlatButton btnFinanceExpensesFSR;
         private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panelMinimizedForms;
+        private System.Windows.Forms.Panel panel22;
+        private System.Windows.Forms.Panel panel23;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.ListView lvwFormMinimized;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.Panel panel24;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.Panel panel25;
     }
 }
 

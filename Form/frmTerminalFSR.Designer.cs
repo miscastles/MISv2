@@ -371,6 +371,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.txtServiceRequestDate = new System.Windows.Forms.TextBox();
             this.panel141 = new System.Windows.Forms.Panel();
+            this.btnOpenIR = new Bunifu.Framework.UI.BunifuImageButton();
             this.label162 = new System.Windows.Forms.Label();
             this.label121 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
@@ -828,7 +829,6 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
-            this.btnOpenIR = new Bunifu.Framework.UI.BunifuImageButton();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -893,6 +893,7 @@
             this.panel139.SuspendLayout();
             this.panel140.SuspendLayout();
             this.panel141.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenIR)).BeginInit();
             this.panel156.SuspendLayout();
             this.panel132.SuspendLayout();
             this.panel133.SuspendLayout();
@@ -1060,7 +1061,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddResolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).BeginInit();
             this.panel53.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnOpenIR)).BeginInit();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -1175,11 +1175,12 @@
             // 
             // lblHeader
             // 
+            this.lblHeader.AutoSize = true;
             this.lblHeader.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHeader.ForeColor = System.Drawing.Color.White;
             this.lblHeader.Location = new System.Drawing.Point(36, 4);
             this.lblHeader.Name = "lblHeader";
-            this.lblHeader.Size = new System.Drawing.Size(477, 19);
+            this.lblHeader.Size = new System.Drawing.Size(100, 18);
             this.lblHeader.TabIndex = 7;
             this.lblHeader.Text = "MANUAL FSR";
             // 
@@ -5376,6 +5377,20 @@
             this.panel141.Name = "panel141";
             this.panel141.Size = new System.Drawing.Size(219, 91);
             this.panel141.TabIndex = 315;
+            // 
+            // btnOpenIR
+            // 
+            this.btnOpenIR.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenIR.Image = global::MIS.Properties.Resources.ic_apply;
+            this.btnOpenIR.ImageActive = null;
+            this.btnOpenIR.Location = new System.Drawing.Point(194, 2);
+            this.btnOpenIR.Name = "btnOpenIR";
+            this.btnOpenIR.Size = new System.Drawing.Size(23, 21);
+            this.btnOpenIR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnOpenIR.TabIndex = 483;
+            this.btnOpenIR.TabStop = false;
+            this.btnOpenIR.Zoom = 10;
+            this.btnOpenIR.Click += new System.EventHandler(this.btnOpenIR_Click);
             // 
             // label162
             // 
@@ -10652,20 +10667,6 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
-            // btnOpenIR
-            // 
-            this.btnOpenIR.BackColor = System.Drawing.Color.Transparent;
-            this.btnOpenIR.Image = global::MIS.Properties.Resources.ic_apply;
-            this.btnOpenIR.ImageActive = null;
-            this.btnOpenIR.Location = new System.Drawing.Point(194, 2);
-            this.btnOpenIR.Name = "btnOpenIR";
-            this.btnOpenIR.Size = new System.Drawing.Size(23, 21);
-            this.btnOpenIR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnOpenIR.TabIndex = 483;
-            this.btnOpenIR.TabStop = false;
-            this.btnOpenIR.Zoom = 10;
-            this.btnOpenIR.Click += new System.EventHandler(this.btnOpenIR_Click);
-            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10715,6 +10716,7 @@
             this.Load += new System.EventHandler(this.frmTerminalFSR_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmTerminalFSR_KeyDown);
             this.pnlHeader.ResumeLayout(false);
+            this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).EndInit();
@@ -10811,6 +10813,7 @@
             this.panel140.PerformLayout();
             this.panel141.ResumeLayout(false);
             this.panel141.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenIR)).EndInit();
             this.panel156.ResumeLayout(false);
             this.panel156.PerformLayout();
             this.panel132.ResumeLayout(false);
@@ -11046,7 +11049,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).EndInit();
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnOpenIR)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

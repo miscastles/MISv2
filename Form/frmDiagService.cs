@@ -16,16 +16,19 @@ namespace MIS
         private clsAPI dbAPI;
         private clsFunction dbFunction;
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
+        private string formName = "SERVICE DIAGNNOSTIC";
+
+#if ENABLE_COMPOSITED
+                protected override CreateParams CreateParams
+                {
+                    get
+                    {
+                        CreateParams cp = base.CreateParams;
+                        cp.ExStyle |= 0x02000000;
+                        return cp;
+                    }
+                }
+#endif
 
         public frmDiagService()
         {
@@ -156,7 +159,7 @@ namespace MIS
 
             cboServiceStatus.SelectedIndex = 0;
 
-            lblHeader.Text = dbFunction.getSystemEnvironmentLabel("SERVICE DIAGNOSTIC");
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
 
             // Fill combbbox
             dbAPI.FillComboBoxClient(cboClient);
