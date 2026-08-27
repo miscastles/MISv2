@@ -206,6 +206,8 @@ namespace MIS
             this.btnAdminViewReport = new Bunifu.Framework.UI.BunifuFlatButton();
             this.bunifuFlatButton6 = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlSubMenuFinance = new System.Windows.Forms.Panel();
+            this.btnFinanceExpensesFSR = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.panel9 = new System.Windows.Forms.Panel();
             this.panel15 = new System.Windows.Forms.Panel();
             this.btnFinanceSettlement = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnFinanceBilling = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -347,6 +349,22 @@ namespace MIS
             this.label53 = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
             this.btnMSP = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.pnlSubMenuSearch = new System.Windows.Forms.Panel();
+            this.btnDashboardComponentsInventoryDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnDashboardSIMInventoryDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.bunifuFlatButton5 = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnDashboardServiceDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnDashboardPOSInventoryDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.panelMinimizedForms = new System.Windows.Forms.Panel();
+            this.panel22 = new System.Windows.Forms.Panel();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.label42 = new System.Windows.Forms.Label();
+            this.lvwFormMinimized = new System.Windows.Forms.ListView();
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel24 = new System.Windows.Forms.Panel();
+            this.label55 = new System.Windows.Forms.Label();
+            this.panel25 = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.pnlButtonList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximize)).BeginInit();
@@ -406,6 +424,11 @@ namespace MIS
             this.panel3.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel16.SuspendLayout();
+            this.pnlSubMenuSearch.SuspendLayout();
+            this.panelMinimizedForms.SuspendLayout();
+            this.panel22.SuspendLayout();
+            this.panel23.SuspendLayout();
+            this.panel24.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -862,7 +885,7 @@ namespace MIS
             this.btnPulse.OnHovercolor = System.Drawing.Color.Transparent;
             this.btnPulse.OnHoverTextColor = System.Drawing.Color.Yellow;
             this.btnPulse.selected = false;
-            this.btnPulse.Size = new System.Drawing.Size(200, 28);
+            this.btnPulse.Size = new System.Drawing.Size(211, 28);
             this.btnPulse.TabIndex = 276;
             this.btnPulse.Text = "     Dashboard";
             this.btnPulse.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2184,7 +2207,7 @@ namespace MIS
             this.pnlSubMenuInventoryEntry.Controls.Add(this.btnInventorySIM);
             this.pnlSubMenuInventoryEntry.Controls.Add(this.btnInventoryTerminal);
             this.pnlSubMenuInventoryEntry.Controls.Add(this.bunifuFlatButton7);
-            this.pnlSubMenuInventoryEntry.Location = new System.Drawing.Point(894, 66);
+            this.pnlSubMenuInventoryEntry.Location = new System.Drawing.Point(894, 98);
             this.pnlSubMenuInventoryEntry.Name = "pnlSubMenuInventoryEntry";
             this.pnlSubMenuInventoryEntry.Size = new System.Drawing.Size(232, 263);
             this.pnlSubMenuInventoryEntry.TabIndex = 258;
@@ -3239,7 +3262,7 @@ namespace MIS
             this.pnlSubMenuServicing.Controls.Add(this.bunifuFlatButton16);
             this.pnlSubMenuServicing.Controls.Add(this.btnServicingManualEntryFSR);
             this.pnlSubMenuServicing.Controls.Add(this.panel17);
-            this.pnlSubMenuServicing.Location = new System.Drawing.Point(916, 57);
+            this.pnlSubMenuServicing.Location = new System.Drawing.Point(994, 57);
             this.pnlSubMenuServicing.Name = "pnlSubMenuServicing";
             this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 682);
             this.pnlSubMenuServicing.TabIndex = 278;
@@ -4463,7 +4486,7 @@ namespace MIS
             this.pnlSubMenuReports.Controls.Add(this.btnFinanceViewReport);
             this.pnlSubMenuReports.Controls.Add(this.btnAdminViewReport);
             this.pnlSubMenuReports.Controls.Add(this.bunifuFlatButton6);
-            this.pnlSubMenuReports.Location = new System.Drawing.Point(755, 137);
+            this.pnlSubMenuReports.Location = new System.Drawing.Point(745, 264);
             this.pnlSubMenuReports.Name = "pnlSubMenuReports";
             this.pnlSubMenuReports.Size = new System.Drawing.Size(232, 185);
             this.pnlSubMenuReports.TabIndex = 280;
@@ -4675,16 +4698,63 @@ namespace MIS
             // 
             this.pnlSubMenuFinance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pnlSubMenuFinance.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSubMenuFinance.Controls.Add(this.btnFinanceExpensesFSR);
+            this.pnlSubMenuFinance.Controls.Add(this.panel9);
             this.pnlSubMenuFinance.Controls.Add(this.btnServiceBilling);
             this.pnlSubMenuFinance.Controls.Add(this.panel15);
             this.pnlSubMenuFinance.Controls.Add(this.btnFinanceSettlement);
             this.pnlSubMenuFinance.Controls.Add(this.btnFinanceBilling);
             this.pnlSubMenuFinance.Controls.Add(this.bunifuFlatButton14);
-            this.pnlSubMenuFinance.Location = new System.Drawing.Point(759, 74);
+            this.pnlSubMenuFinance.Location = new System.Drawing.Point(741, 359);
             this.pnlSubMenuFinance.Name = "pnlSubMenuFinance";
-            this.pnlSubMenuFinance.Size = new System.Drawing.Size(232, 163);
+            this.pnlSubMenuFinance.Size = new System.Drawing.Size(232, 202);
             this.pnlSubMenuFinance.TabIndex = 281;
             this.pnlSubMenuFinance.Visible = false;
+            // 
+            // btnFinanceExpensesFSR
+            // 
+            this.btnFinanceExpensesFSR.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnFinanceExpensesFSR.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnFinanceExpensesFSR.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFinanceExpensesFSR.BorderRadius = 0;
+            this.btnFinanceExpensesFSR.ButtonText = "          Expenses - FSR";
+            this.btnFinanceExpensesFSR.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFinanceExpensesFSR.DisabledColor = System.Drawing.Color.Gray;
+            this.btnFinanceExpensesFSR.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFinanceExpensesFSR.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnFinanceExpensesFSR.Iconimage = null;
+            this.btnFinanceExpensesFSR.Iconimage_right = null;
+            this.btnFinanceExpensesFSR.Iconimage_right_Selected = null;
+            this.btnFinanceExpensesFSR.Iconimage_Selected = null;
+            this.btnFinanceExpensesFSR.IconMarginLeft = 0;
+            this.btnFinanceExpensesFSR.IconMarginRight = 0;
+            this.btnFinanceExpensesFSR.IconRightVisible = true;
+            this.btnFinanceExpensesFSR.IconRightZoom = 0D;
+            this.btnFinanceExpensesFSR.IconVisible = true;
+            this.btnFinanceExpensesFSR.IconZoom = 40D;
+            this.btnFinanceExpensesFSR.IsTab = true;
+            this.btnFinanceExpensesFSR.Location = new System.Drawing.Point(4, 155);
+            this.btnFinanceExpensesFSR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnFinanceExpensesFSR.Name = "btnFinanceExpensesFSR";
+            this.btnFinanceExpensesFSR.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnFinanceExpensesFSR.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnFinanceExpensesFSR.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnFinanceExpensesFSR.selected = false;
+            this.btnFinanceExpensesFSR.Size = new System.Drawing.Size(225, 28);
+            this.btnFinanceExpensesFSR.TabIndex = 54;
+            this.btnFinanceExpensesFSR.Text = "          Expenses - FSR";
+            this.btnFinanceExpensesFSR.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFinanceExpensesFSR.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnFinanceExpensesFSR.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnFinanceExpensesFSR.Click += new System.EventHandler(this.btnFinanceExpensesFSR_Click);
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.White;
+            this.panel9.Location = new System.Drawing.Point(20, 149);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(190, 1);
+            this.panel9.TabIndex = 53;
             // 
             // panel15
             // 
@@ -4898,7 +4968,7 @@ namespace MIS
             this.pnlSubMenuLog.Controls.Add(this.bunifuFlatButton4);
             this.pnlSubMenuLog.Controls.Add(this.btnUserLog);
             this.pnlSubMenuLog.Controls.Add(this.btnUserAction);
-            this.pnlSubMenuLog.Location = new System.Drawing.Point(454, 102);
+            this.pnlSubMenuLog.Location = new System.Drawing.Point(743, 352);
             this.pnlSubMenuLog.Name = "pnlSubMenuLog";
             this.pnlSubMenuLog.Size = new System.Drawing.Size(232, 84);
             this.pnlSubMenuLog.TabIndex = 283;
@@ -5021,7 +5091,7 @@ namespace MIS
             this.pnlSubMenuCustomerService.Controls.Add(this.bunifuFlatButton21);
             this.pnlSubMenuCustomerService.Controls.Add(this.btnCustomerServiceCallHistory);
             this.pnlSubMenuCustomerService.Controls.Add(this.btnCustomerServiceNewCall);
-            this.pnlSubMenuCustomerService.Location = new System.Drawing.Point(505, 61);
+            this.pnlSubMenuCustomerService.Location = new System.Drawing.Point(745, 332);
             this.pnlSubMenuCustomerService.Name = "pnlSubMenuCustomerService";
             this.pnlSubMenuCustomerService.Size = new System.Drawing.Size(232, 97);
             this.pnlSubMenuCustomerService.TabIndex = 284;
@@ -6691,7 +6761,7 @@ namespace MIS
             this.pnlSubMenuMSP.Controls.Add(this.btnMSPValidation);
             this.pnlSubMenuMSP.Controls.Add(this.btnMSPOnboarding);
             this.pnlSubMenuMSP.Controls.Add(this.bunifuFlatButton17);
-            this.pnlSubMenuMSP.Location = new System.Drawing.Point(744, 164);
+            this.pnlSubMenuMSP.Location = new System.Drawing.Point(742, 305);
             this.pnlSubMenuMSP.Name = "pnlSubMenuMSP";
             this.pnlSubMenuMSP.Size = new System.Drawing.Size(232, 152);
             this.pnlSubMenuMSP.TabIndex = 302;
@@ -7141,19 +7211,330 @@ namespace MIS
             this.btnMSP.Visible = false;
             this.btnMSP.Click += new System.EventHandler(this.btnMSP_Click);
             // 
+            // pnlSubMenuSearch
+            // 
+            this.pnlSubMenuSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.pnlSubMenuSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSubMenuSearch.Controls.Add(this.btnDashboardComponentsInventoryDiagnostic);
+            this.pnlSubMenuSearch.Controls.Add(this.btnDashboardSIMInventoryDiagnostic);
+            this.pnlSubMenuSearch.Controls.Add(this.bunifuFlatButton5);
+            this.pnlSubMenuSearch.Controls.Add(this.btnDashboardServiceDiagnostic);
+            this.pnlSubMenuSearch.Controls.Add(this.btnDashboardPOSInventoryDiagnostic);
+            this.pnlSubMenuSearch.Location = new System.Drawing.Point(597, 382);
+            this.pnlSubMenuSearch.Name = "pnlSubMenuSearch";
+            this.pnlSubMenuSearch.Size = new System.Drawing.Size(290, 183);
+            this.pnlSubMenuSearch.TabIndex = 452;
+            this.pnlSubMenuSearch.Visible = false;
+            // 
+            // btnDashboardComponentsInventoryDiagnostic
+            // 
+            this.btnDashboardComponentsInventoryDiagnostic.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardComponentsInventoryDiagnostic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardComponentsInventoryDiagnostic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnDashboardComponentsInventoryDiagnostic.BorderRadius = 0;
+            this.btnDashboardComponentsInventoryDiagnostic.ButtonText = "          Components Inventory Diagnostic";
+            this.btnDashboardComponentsInventoryDiagnostic.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDashboardComponentsInventoryDiagnostic.DisabledColor = System.Drawing.Color.Gray;
+            this.btnDashboardComponentsInventoryDiagnostic.Enabled = false;
+            this.btnDashboardComponentsInventoryDiagnostic.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDashboardComponentsInventoryDiagnostic.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnDashboardComponentsInventoryDiagnostic.Iconimage = null;
+            this.btnDashboardComponentsInventoryDiagnostic.Iconimage_right = null;
+            this.btnDashboardComponentsInventoryDiagnostic.Iconimage_right_Selected = null;
+            this.btnDashboardComponentsInventoryDiagnostic.Iconimage_Selected = null;
+            this.btnDashboardComponentsInventoryDiagnostic.IconMarginLeft = 0;
+            this.btnDashboardComponentsInventoryDiagnostic.IconMarginRight = 0;
+            this.btnDashboardComponentsInventoryDiagnostic.IconRightVisible = true;
+            this.btnDashboardComponentsInventoryDiagnostic.IconRightZoom = 0D;
+            this.btnDashboardComponentsInventoryDiagnostic.IconVisible = true;
+            this.btnDashboardComponentsInventoryDiagnostic.IconZoom = 40D;
+            this.btnDashboardComponentsInventoryDiagnostic.IsTab = true;
+            this.btnDashboardComponentsInventoryDiagnostic.Location = new System.Drawing.Point(3, 136);
+            this.btnDashboardComponentsInventoryDiagnostic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnDashboardComponentsInventoryDiagnostic.Name = "btnDashboardComponentsInventoryDiagnostic";
+            this.btnDashboardComponentsInventoryDiagnostic.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardComponentsInventoryDiagnostic.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardComponentsInventoryDiagnostic.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnDashboardComponentsInventoryDiagnostic.selected = false;
+            this.btnDashboardComponentsInventoryDiagnostic.Size = new System.Drawing.Size(277, 28);
+            this.btnDashboardComponentsInventoryDiagnostic.TabIndex = 39;
+            this.btnDashboardComponentsInventoryDiagnostic.Text = "          Components Inventory Diagnostic";
+            this.btnDashboardComponentsInventoryDiagnostic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDashboardComponentsInventoryDiagnostic.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnDashboardComponentsInventoryDiagnostic.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnDashboardComponentsInventoryDiagnostic.Click += new System.EventHandler(this.btnDashboardComponentsInventoryDiagnostic_Click);
+            // 
+            // btnDashboardSIMInventoryDiagnostic
+            // 
+            this.btnDashboardSIMInventoryDiagnostic.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardSIMInventoryDiagnostic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardSIMInventoryDiagnostic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnDashboardSIMInventoryDiagnostic.BorderRadius = 0;
+            this.btnDashboardSIMInventoryDiagnostic.ButtonText = "          SIM Inventory Diagnostic";
+            this.btnDashboardSIMInventoryDiagnostic.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDashboardSIMInventoryDiagnostic.DisabledColor = System.Drawing.Color.Gray;
+            this.btnDashboardSIMInventoryDiagnostic.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDashboardSIMInventoryDiagnostic.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnDashboardSIMInventoryDiagnostic.Iconimage = null;
+            this.btnDashboardSIMInventoryDiagnostic.Iconimage_right = null;
+            this.btnDashboardSIMInventoryDiagnostic.Iconimage_right_Selected = null;
+            this.btnDashboardSIMInventoryDiagnostic.Iconimage_Selected = null;
+            this.btnDashboardSIMInventoryDiagnostic.IconMarginLeft = 0;
+            this.btnDashboardSIMInventoryDiagnostic.IconMarginRight = 0;
+            this.btnDashboardSIMInventoryDiagnostic.IconRightVisible = true;
+            this.btnDashboardSIMInventoryDiagnostic.IconRightZoom = 0D;
+            this.btnDashboardSIMInventoryDiagnostic.IconVisible = true;
+            this.btnDashboardSIMInventoryDiagnostic.IconZoom = 40D;
+            this.btnDashboardSIMInventoryDiagnostic.IsTab = true;
+            this.btnDashboardSIMInventoryDiagnostic.Location = new System.Drawing.Point(3, 102);
+            this.btnDashboardSIMInventoryDiagnostic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnDashboardSIMInventoryDiagnostic.Name = "btnDashboardSIMInventoryDiagnostic";
+            this.btnDashboardSIMInventoryDiagnostic.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardSIMInventoryDiagnostic.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardSIMInventoryDiagnostic.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnDashboardSIMInventoryDiagnostic.selected = false;
+            this.btnDashboardSIMInventoryDiagnostic.Size = new System.Drawing.Size(225, 28);
+            this.btnDashboardSIMInventoryDiagnostic.TabIndex = 38;
+            this.btnDashboardSIMInventoryDiagnostic.Text = "          SIM Inventory Diagnostic";
+            this.btnDashboardSIMInventoryDiagnostic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDashboardSIMInventoryDiagnostic.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnDashboardSIMInventoryDiagnostic.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnDashboardSIMInventoryDiagnostic.Click += new System.EventHandler(this.btnDashboardSIMInventoryDiagnostic_Click);
+            // 
+            // bunifuFlatButton5
+            // 
+            this.bunifuFlatButton5.Activecolor = System.Drawing.Color.Firebrick;
+            this.bunifuFlatButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuFlatButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuFlatButton5.BorderRadius = 0;
+            this.bunifuFlatButton5.ButtonText = "     DIAGNOSTIC";
+            this.bunifuFlatButton5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bunifuFlatButton5.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuFlatButton5.Enabled = false;
+            this.bunifuFlatButton5.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bunifuFlatButton5.Iconcolor = System.Drawing.Color.Transparent;
+            this.bunifuFlatButton5.Iconimage = null;
+            this.bunifuFlatButton5.Iconimage_right = null;
+            this.bunifuFlatButton5.Iconimage_right_Selected = null;
+            this.bunifuFlatButton5.Iconimage_Selected = null;
+            this.bunifuFlatButton5.IconMarginLeft = 0;
+            this.bunifuFlatButton5.IconMarginRight = 0;
+            this.bunifuFlatButton5.IconRightVisible = true;
+            this.bunifuFlatButton5.IconRightZoom = 0D;
+            this.bunifuFlatButton5.IconVisible = true;
+            this.bunifuFlatButton5.IconZoom = 40D;
+            this.bunifuFlatButton5.IsTab = true;
+            this.bunifuFlatButton5.Location = new System.Drawing.Point(-1, 2);
+            this.bunifuFlatButton5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.bunifuFlatButton5.Name = "bunifuFlatButton5";
+            this.bunifuFlatButton5.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuFlatButton5.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuFlatButton5.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.bunifuFlatButton5.selected = false;
+            this.bunifuFlatButton5.Size = new System.Drawing.Size(232, 28);
+            this.bunifuFlatButton5.TabIndex = 37;
+            this.bunifuFlatButton5.Text = "     DIAGNOSTIC";
+            this.bunifuFlatButton5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bunifuFlatButton5.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.bunifuFlatButton5.TextFont = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            // 
+            // btnDashboardServiceDiagnostic
+            // 
+            this.btnDashboardServiceDiagnostic.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardServiceDiagnostic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardServiceDiagnostic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnDashboardServiceDiagnostic.BorderRadius = 0;
+            this.btnDashboardServiceDiagnostic.ButtonText = "          Service Diagnostic";
+            this.btnDashboardServiceDiagnostic.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDashboardServiceDiagnostic.DisabledColor = System.Drawing.Color.Gray;
+            this.btnDashboardServiceDiagnostic.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDashboardServiceDiagnostic.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnDashboardServiceDiagnostic.Iconimage = null;
+            this.btnDashboardServiceDiagnostic.Iconimage_right = null;
+            this.btnDashboardServiceDiagnostic.Iconimage_right_Selected = null;
+            this.btnDashboardServiceDiagnostic.Iconimage_Selected = null;
+            this.btnDashboardServiceDiagnostic.IconMarginLeft = 0;
+            this.btnDashboardServiceDiagnostic.IconMarginRight = 0;
+            this.btnDashboardServiceDiagnostic.IconRightVisible = true;
+            this.btnDashboardServiceDiagnostic.IconRightZoom = 0D;
+            this.btnDashboardServiceDiagnostic.IconVisible = true;
+            this.btnDashboardServiceDiagnostic.IconZoom = 40D;
+            this.btnDashboardServiceDiagnostic.IsTab = true;
+            this.btnDashboardServiceDiagnostic.Location = new System.Drawing.Point(3, 32);
+            this.btnDashboardServiceDiagnostic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnDashboardServiceDiagnostic.Name = "btnDashboardServiceDiagnostic";
+            this.btnDashboardServiceDiagnostic.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardServiceDiagnostic.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardServiceDiagnostic.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnDashboardServiceDiagnostic.selected = false;
+            this.btnDashboardServiceDiagnostic.Size = new System.Drawing.Size(225, 28);
+            this.btnDashboardServiceDiagnostic.TabIndex = 9;
+            this.btnDashboardServiceDiagnostic.Text = "          Service Diagnostic";
+            this.btnDashboardServiceDiagnostic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDashboardServiceDiagnostic.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnDashboardServiceDiagnostic.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnDashboardServiceDiagnostic.Click += new System.EventHandler(this.btnDashboardServiceDiagnostic_Click);
+            // 
+            // btnDashboardPOSInventoryDiagnostic
+            // 
+            this.btnDashboardPOSInventoryDiagnostic.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardPOSInventoryDiagnostic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardPOSInventoryDiagnostic.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnDashboardPOSInventoryDiagnostic.BorderRadius = 0;
+            this.btnDashboardPOSInventoryDiagnostic.ButtonText = "          Terminal Inventory Diagnostic";
+            this.btnDashboardPOSInventoryDiagnostic.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDashboardPOSInventoryDiagnostic.DisabledColor = System.Drawing.Color.Gray;
+            this.btnDashboardPOSInventoryDiagnostic.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDashboardPOSInventoryDiagnostic.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnDashboardPOSInventoryDiagnostic.Iconimage = null;
+            this.btnDashboardPOSInventoryDiagnostic.Iconimage_right = null;
+            this.btnDashboardPOSInventoryDiagnostic.Iconimage_right_Selected = null;
+            this.btnDashboardPOSInventoryDiagnostic.Iconimage_Selected = null;
+            this.btnDashboardPOSInventoryDiagnostic.IconMarginLeft = 0;
+            this.btnDashboardPOSInventoryDiagnostic.IconMarginRight = 0;
+            this.btnDashboardPOSInventoryDiagnostic.IconRightVisible = true;
+            this.btnDashboardPOSInventoryDiagnostic.IconRightZoom = 0D;
+            this.btnDashboardPOSInventoryDiagnostic.IconVisible = true;
+            this.btnDashboardPOSInventoryDiagnostic.IconZoom = 40D;
+            this.btnDashboardPOSInventoryDiagnostic.IsTab = true;
+            this.btnDashboardPOSInventoryDiagnostic.Location = new System.Drawing.Point(3, 68);
+            this.btnDashboardPOSInventoryDiagnostic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnDashboardPOSInventoryDiagnostic.Name = "btnDashboardPOSInventoryDiagnostic";
+            this.btnDashboardPOSInventoryDiagnostic.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardPOSInventoryDiagnostic.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnDashboardPOSInventoryDiagnostic.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnDashboardPOSInventoryDiagnostic.selected = false;
+            this.btnDashboardPOSInventoryDiagnostic.Size = new System.Drawing.Size(266, 28);
+            this.btnDashboardPOSInventoryDiagnostic.TabIndex = 10;
+            this.btnDashboardPOSInventoryDiagnostic.Text = "          Terminal Inventory Diagnostic";
+            this.btnDashboardPOSInventoryDiagnostic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDashboardPOSInventoryDiagnostic.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnDashboardPOSInventoryDiagnostic.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnDashboardPOSInventoryDiagnostic.Click += new System.EventHandler(this.btnDashboardPOSInventoryDiagnostic_Click);
+            // 
+            // panelMinimizedForms
+            // 
+            this.panelMinimizedForms.BackColor = System.Drawing.Color.Transparent;
+            this.panelMinimizedForms.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMinimizedForms.Controls.Add(this.panel22);
+            this.panelMinimizedForms.Controls.Add(this.panel24);
+            this.panelMinimizedForms.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panelMinimizedForms.Location = new System.Drawing.Point(641, 56);
+            this.panelMinimizedForms.Name = "panelMinimizedForms";
+            this.panelMinimizedForms.Size = new System.Drawing.Size(371, 200);
+            this.panelMinimizedForms.TabIndex = 453;
+            // 
+            // panel22
+            // 
+            this.panel22.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel22.Controls.Add(this.panel23);
+            this.panel22.Controls.Add(this.lvwFormMinimized);
+            this.panel22.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel22.Location = new System.Drawing.Point(0, 24);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(369, 174);
+            this.panel22.TabIndex = 312;
+            // 
+            // panel23
+            // 
+            this.panel23.BackColor = System.Drawing.Color.Transparent;
+            this.panel23.Controls.Add(this.label42);
+            this.panel23.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel23.Location = new System.Drawing.Point(0, 159);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(369, 15);
+            this.panel23.TabIndex = 0;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label42.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.ForeColor = System.Drawing.Color.Black;
+            this.label42.Location = new System.Drawing.Point(0, 1);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(154, 14);
+            this.label42.TabIndex = 0;
+            this.label42.Text = "Doub click to Restore";
+            // 
+            // lvwFormMinimized
+            // 
+            this.lvwFormMinimized.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(46)))), ((int)(((byte)(59)))));
+            this.lvwFormMinimized.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvwFormMinimized.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader11,
+            this.columnHeader12});
+            this.lvwFormMinimized.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lvwFormMinimized.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwFormMinimized.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvwFormMinimized.ForeColor = System.Drawing.Color.White;
+            this.lvwFormMinimized.FullRowSelect = true;
+            this.lvwFormMinimized.HideSelection = false;
+            this.lvwFormMinimized.Location = new System.Drawing.Point(0, 0);
+            this.lvwFormMinimized.Name = "lvwFormMinimized";
+            this.lvwFormMinimized.Scrollable = false;
+            this.lvwFormMinimized.Size = new System.Drawing.Size(369, 174);
+            this.lvwFormMinimized.TabIndex = 104;
+            this.lvwFormMinimized.UseCompatibleStateImageBehavior = false;
+            this.lvwFormMinimized.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "FORM TITLE";
+            this.columnHeader11.Width = 220;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "MINIMIZE TIME";
+            this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader12.Width = 130;
+            // 
+            // panel24
+            // 
+            this.panel24.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel24.Controls.Add(this.label55);
+            this.panel24.Controls.Add(this.panel25);
+            this.panel24.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel24.Location = new System.Drawing.Point(0, 0);
+            this.panel24.Name = "panel24";
+            this.panel24.Size = new System.Drawing.Size(369, 24);
+            this.panel24.TabIndex = 311;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label55.ForeColor = System.Drawing.Color.Black;
+            this.label55.Location = new System.Drawing.Point(3, 4);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(127, 16);
+            this.label55.TabIndex = 310;
+            this.label55.Text = "MINIMIZED FORMS";
+            // 
+            // panel25
+            // 
+            this.panel25.BackColor = System.Drawing.Color.Silver;
+            this.panel25.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel25.Location = new System.Drawing.Point(0, 22);
+            this.panel25.Name = "panel25";
+            this.panel25.Size = new System.Drawing.Size(369, 2);
+            this.panel25.TabIndex = 0;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(46)))), ((int)(((byte)(59)))));
             this.ClientSize = new System.Drawing.Size(1427, 848);
-            this.Controls.Add(this.pnlSubMenuEnrollment);
-            this.Controls.Add(this.pnlSubMenuServicing);
-            this.Controls.Add(this.pnlSubMenuMSP);
-            this.Controls.Add(this.pnlSubMenuFinance);
-            this.Controls.Add(this.pnlSubMenuInventoryEntry);
-            this.Controls.Add(this.lblRemainingDays);
             this.Controls.Add(this.pnlSubMenuReports);
+            this.Controls.Add(this.panelMinimizedForms);
+            this.Controls.Add(this.pnlSubMenuFinance);
+            this.Controls.Add(this.pnlSubMenuServicing);
+            this.Controls.Add(this.pnlSubMenuLog);
+            this.Controls.Add(this.pnlSubMenuSearch);
+            this.Controls.Add(this.pnlSubMenuEnrollment);
+            this.Controls.Add(this.pnlSubMenuMSP);
+            this.Controls.Add(this.pnlSubMenuInventoryEntry);
             this.Controls.Add(this.pnlSubMenuAdministrative);
             this.Controls.Add(this.btnMSP);
             this.Controls.Add(this.pnlSubMenuSwitchBank);
@@ -7161,7 +7542,6 @@ namespace MIS
             this.Controls.Add(this.pnlDummy);
             this.Controls.Add(this.pnlSubMenuPOSRental);
             this.Controls.Add(this.pnlSubMenuAccount);
-            this.Controls.Add(this.pnlSubMenuLog);
             this.Controls.Add(this.btnServiceDispatchJobType);
             this.Controls.Add(this.btnServiceDispatchServiceCall);
             this.Controls.Add(this.bunifuFlatButton27);
@@ -7173,6 +7553,7 @@ namespace MIS
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlDashboard);
             this.Controls.Add(this.pnlTicket);
+            this.Controls.Add(this.lblRemainingDays);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -7257,6 +7638,13 @@ namespace MIS
             this.panel14.ResumeLayout(false);
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
+            this.pnlSubMenuSearch.ResumeLayout(false);
+            this.panelMinimizedForms.ResumeLayout(false);
+            this.panel22.ResumeLayout(false);
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
+            this.panel24.ResumeLayout(false);
+            this.panel24.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7578,6 +7966,24 @@ namespace MIS
         private BunifuFlatButton btnTerminalBrand;
         private BunifuFlatButton btnLocation;
         private BunifuFlatButton btnZoning;
+        private System.Windows.Forms.Panel pnlSubMenuSearch;
+        private BunifuFlatButton bunifuFlatButton5;
+        private BunifuFlatButton btnDashboardServiceDiagnostic;
+        private BunifuFlatButton btnDashboardPOSInventoryDiagnostic;
+        private BunifuFlatButton btnDashboardSIMInventoryDiagnostic;
+        private BunifuFlatButton btnDashboardComponentsInventoryDiagnostic;
+        private BunifuFlatButton btnFinanceExpensesFSR;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panelMinimizedForms;
+        private System.Windows.Forms.Panel panel22;
+        private System.Windows.Forms.Panel panel23;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.ListView lvwFormMinimized;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.Panel panel24;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.Panel panel25;
     }
 }
 

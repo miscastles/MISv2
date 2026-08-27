@@ -5,6 +5,7 @@ using MIS.AppMainActivity;
 using MIS.Function;
 using MIS.Report;
 using OfficeOpenXml;
+using Org.BouncyCastle.Asn1.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -4109,23 +4110,77 @@ namespace MIS
 
         private bool isValidReportDataSet(DataSet dsReport, string ReportPath)
         {
-            bool isValid = false;
+            bool isValid = true;
+            string reason = string.Empty;
 
-            if (dsReport == null || dsReport.Tables.Count == 0 || dsReport.Tables[0].Rows.Count == 0)
+            int tableCount = 0;
+            int rowCount = 0;
+
+            if (dsReport == null)
             {
                 isValid = false;
+                reason = "DataSet is NULL";
             }
             else
             {
-                isValid = true;
+                tableCount = dsReport.Tables.Count;
+
+                if (tableCount == 0)
+                {
+                    isValid = false;
+                    reason = "DataSet contains NO TABLES";
+                }
+                else
+                {
+                    rowCount = dsReport.Tables[0].Rows.Count;
+
+                    if (rowCount == 0)
+                    {
+                        isValid = false;
+                        reason = "DataSet Table[0] contains NO ROWS";
+                    }
+                }
             }
+
+            string pLogs =
+                    "---------------------------------------" + Environment.NewLine +
+                    $"REPORT DATA SET....{Environment.NewLine}" +
+                    $"[Report ID: {clsSearch.ClassReportID}]{Environment.NewLine}" +
+                    $"[Report Type: {clsSearch.ClassReportDescription}]{Environment.NewLine}" +
+                    $"[Statement Type: {clsSearch.ClassStatementType}]{Environment.NewLine}" +
+                    $"[Search By: {clsSearch.ClassSearchBy}]{Environment.NewLine}" +
+                    $"[Search Value: {clsSearch.ClassSearchValue}]{Environment.NewLine}" +
+                    $"[Stored Procedure: {clsSearch.ClassStoredProcedureName}]{Environment.NewLine}" +
+                    $"[Report Template Path: {ReportPath}]{Environment.NewLine}" +
+                    $"[TableCount: {tableCount}]{Environment.NewLine}" +
+                    $"[RowCount: {rowCount}]{Environment.NewLine}" +
+                    $"[Valid: {isValid}]" +
+                    (!string.IsNullOrEmpty(reason)
+                        ? $"{Environment.NewLine}[Reason: {reason}]"
+                        : "") +
+                    Environment.NewLine +
+                    "---------------------------------------";
+
+            // Dump Apps Log
+            dbFile.WriteSysytemLog(pLogs);
+
+            // Dump Request Log
+            dbFile.WriteAPILog(0, pLogs);
 
             if (!isValid)
             {
                 Debug.WriteLine("INVALID DATA SET");
 
-                dbFunction.SetMessageBox("No records found." + "\n\n" + "Report: " + dbFunction.AddBracketStartEnd(ReportPath) + "\n\n" +
-                                         "Please check your fields filtered.", "Report", clsFunction.IconType.iInformation);
+                dbFunction.SetMessageBox(
+                    "No records found." +
+                    "\n\n" +
+                    "Report: " + dbFunction.AddBracketStartEnd(ReportPath) +
+                    "\n\n" +
+                    "Please check your fields filtered.",
+                    "Report",
+                    clsFunction.IconType.iInformation
+                );
+
                 this.Close();
             }
 

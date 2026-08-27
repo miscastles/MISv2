@@ -2694,5 +2694,36 @@ namespace MIS
             set { _DaysWeekends = value; }
 
         }
+        public static int _ExpenseDetailID;
+        public static int ClassExpenseDetailID
+        {
+            get { return _ExpenseDetailID; }
+            set { _ExpenseDetailID = value; }
+
+        }
+
+        public static string _ExpenseReferenceNo;
+        public static string ClassExpenseReferenceNo
+        {
+            get { return _ExpenseReferenceNo; }
+            set { _ExpenseReferenceNo = value; }
+
+        }
+
+        public static string _TerminalLocaton;
+        public static string ClassTerminalLocaton
+        {
+            get { return _TerminalLocaton; }
+            set { _TerminalLocaton = value; }
+
+        }
+
+        public static string _SIMLocaton;
+        public static string ClassSIMLocaton
+        {
+            get { return _SIMLocaton; }
+            set { _SIMLocaton = value; }
+
+        }
     }
 }

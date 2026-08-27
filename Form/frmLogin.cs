@@ -30,12 +30,10 @@ namespace MIS
 
         protected override CreateParams CreateParams
         {
-            // Override CreateParams to enable double-buffering for child controls
             get
             {
                 CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
+                cp.ExStyle |= 0x02000000;
                 return cp;
             }
         }

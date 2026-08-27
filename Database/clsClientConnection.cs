@@ -237,7 +237,8 @@ namespace MIS
             Debug.WriteLine($" > StoreProcedureName=[{StoreProcedureName}]");
             Debug.WriteLine("--GetReportWithStoredProcedure--");
 
-            Debug.WriteLine("--Stored Procedure(Report) --");
+            Debug.WriteLine("--Stored Procedure(Report/DateSet) --");
+
             string spString = "CALL " + StoreProcedureName + "(" + "\"" + StatementType + "\"" + "," + "\"" + SearchBy + "\"" + "," + "\"" + SearchValue + "\"" + ")" + ";";
             Debug.WriteLine(spString);
 
@@ -303,14 +304,18 @@ namespace MIS
             DataSet rtnDs = new DataSet();
 
             Debug.WriteLine("--getStoredProcedureDateSet--");
-            Debug.WriteLine($" > ReportID=[{clsReport.ClassReportID}]");
-            Debug.WriteLine($" > ReportDesc=[{clsReport.ClassReportDesc}]");
+            Debug.WriteLine($" > clsReport.ClassReportID=[{clsReport.ClassReportID}]");
+            Debug.WriteLine($" > clsReport.ClassReportDesc=[{clsReport.ClassReportDesc}]");
+            Debug.WriteLine($" > clsSearch.ClassReportID=[{clsSearch.ClassReportID}]");
+            Debug.WriteLine($" > clsSearch.ClassReportDescription=[{clsSearch.ClassReportDescription}]");
             Debug.WriteLine($" > StatementType=[{StatementType}]");
             Debug.WriteLine($" > SearchBy=[{SearchBy}]");
             Debug.WriteLine($" > SearchValue=[{SearchValue}]");
-            Debug.WriteLine($" > StoreProcedureName=[{StoreProcedureName}]");            
+            Debug.WriteLine($" > StoreProcedureName=[{StoreProcedureName}]");
+            Debug.WriteLine("--getStoredProcedureDateSet--");
 
-            Debug.WriteLine("--Stored Procedure(Report) --");
+            Debug.WriteLine("--Stored Procedure(DateSet) --");
+
             string spString = "CALL " + StoreProcedureName + "(" + "\"" + StatementType + "\"" + "," + "\"" + SearchBy + "\"" + "," + "\"" + SearchValue + "\"" + ")" + ";";
             Debug.WriteLine(spString);
 

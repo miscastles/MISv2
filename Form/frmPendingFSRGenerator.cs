@@ -19,16 +19,17 @@ namespace MIS
         private clsFile dbFile;
         private clsInternet dbInternet;
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
+#if ENABLE_COMPOSITED
+                protected override CreateParams CreateParams
+                {
+                    get
+                    {
+                        CreateParams cp = base.CreateParams;
+                        cp.ExStyle |= 0x02000000;
+                        return cp;
+                    }
+                }
+#endif
 
         public frmPendingFSRGenerator()
         {

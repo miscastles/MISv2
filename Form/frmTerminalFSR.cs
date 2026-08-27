@@ -1,6 +1,7 @@
 ﻿using iText.Forms.Form.Element;
 using MIS.Controller;
 using MIS.Enums;
+using MIS.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,8 @@ namespace MIS
 
         private System.Timers.Timer timer;
         private int remainingSeconds;
+
+        private string formName = "MANUAL FSR";
 
         class jsonObj
         {
@@ -148,6 +151,8 @@ namespace MIS
             btnPreviewSvcHistory.Enabled = btnPreviewFSR.Enabled = btnResetEmail.Enabled = btnSendFSRAndDiagEmail.Enabled = btnViewDiagnostic.Enabled = false;
 
             lblReason.Text = "RESOLVED";
+
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
 
             EditableServiceDateTime(true);
 
@@ -321,8 +326,8 @@ namespace MIS
             {
                 dbAPI.ExecuteAPI("GET", "Search", "Merchant Info", txtMerchantID.Text + clsFunction.sPipe + txtIRIDNo.Text, "Get Info Detail", "", "GetInfoDetail");
 
-                // parse delimited
-                dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
+                Debug.WriteLine("--GET [Merchant Info]--");
+                dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 0);
 
                 if (dbAPI.isNoRecordFound() == false)
                 {
@@ -892,7 +897,8 @@ namespace MIS
             //InitSearchRemoveButton(true);
 
             lblSubHeader.Text = clsFunction.sDash;
-            lblHeader.Text = "FSR";
+            //lblHeader.Text = "FSR";
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
             lblReason.Text = "RESOLVED";
             
             chkBillable.Enabled = true;
@@ -2506,6 +2512,7 @@ namespace MIS
                     txtSearchIRNo.Text = clsSearch.ClassIRNo;
 
                     FillMerchantTextBox();
+
                     FillClientTextBox();
 
                     FillFETextBox();
@@ -2602,7 +2609,8 @@ namespace MIS
                     btnCloseTicket.Enabled = true;
 
                     // Init header
-                    lblHeader.Text = "CREATE FSR" + " " + dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    //lblHeader.Text = "CREATE FSR" + " " + dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"CREATE {formName} {dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text)} {dbFunction.AddBracketStartEnd(txtIRTID.Text)} {dbFunction.AddBracketStartEnd(txtIRMID.Text)}");
 
                     tabFillUp.TabIndex = 0;
 
@@ -2648,6 +2656,10 @@ namespace MIS
                         "Beyond TAT",
                         clsFunction.IconType.iWarning);
                     }
+
+                    // set processedBy and processDate
+                    txtFsrProcessedBy.Text = txtFsrModifiedBy.Text = clsSearch.ClassCurrentParticularName;
+                    txtFsrProcessedDate.Text = txtFsrModifiedDate.Text = dbFunction.getCurrentDate();
 
                     btnClear.Focus();
 
@@ -2734,6 +2746,7 @@ namespace MIS
                     txtSearchIRNo.Text = clsSearch.ClassIRNo;
 
                     FillMerchantTextBox();
+
                     FillClientTextBox();
 
                     FillFETextBox();
@@ -2838,7 +2851,8 @@ namespace MIS
                     btnCancelJO.Enabled = true;
 
                     // Init header
-                    lblHeader.Text = "UPDATE FSR" + " " + dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    //lblHeader.Text = "UPDATE FSR" + " " + dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text) + " " + dbFunction.AddBracketStartEnd(txtIRTID.Text) + " " + dbFunction.AddBracketStartEnd(txtIRMID.Text);
+                    lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"UPDATE {formName} {dbFunction.AddBracketStartEnd(txtServiceJobTypeDescription.Text)} {dbFunction.AddBracketStartEnd(txtIRTID.Text)} {dbFunction.AddBracketStartEnd(txtIRMID.Text)}");
 
                     tabFillUp.TabIndex = 0;
 
@@ -7015,6 +7029,27 @@ namespace MIS
             {
                 Cursor.Current = Cursors.Default;
             }
+        }
+
+        private void btnOpenIR_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iMerchantID, txtMerchantID.Text)) return;
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iIRIDNo, txtIRIDNo.Text)) return;
+
+            // init values
+            modelSearch.ClientID = int.Parse(txtClientID.Text);
+            modelSearch.ParticularID = int.Parse(txtMerchantID.Text);
+            modelSearch.ParticularName = modelSearch.Merchant = txtMerchantName.Text;
+            modelSearch.IRIDNo = int.Parse(txtIRIDNo.Text);
+            modelSearch.IRNo = txtSearchIRNo.Text;
+            modelSearch.DebugSearch();
+
+            frmImportIR.fAutoLoadData = true;
+
+            dbFunction.SetMessageBox("Opening IR window with Merchant" + dbFunction.AddBracketStartEnd($"{modelSearch.Merchant}"), "Open window", clsFunction.IconType.iInformation);
+
+            frmImportIR frm = new frmImportIR();
+            dbFunction.handleForm(frm);
         }
     }
 }

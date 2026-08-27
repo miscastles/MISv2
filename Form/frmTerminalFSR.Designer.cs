@@ -166,6 +166,12 @@
             this.lblMainStatus = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pnlPreviewImage = new System.Windows.Forms.Panel();
+            this.lblCountDown = new System.Windows.Forms.Label();
+            this.picPreview = new System.Windows.Forms.PictureBox();
+            this.panel195 = new System.Windows.Forms.Panel();
+            this.label190 = new System.Windows.Forms.Label();
+            this.panel196 = new System.Windows.Forms.Panel();
             this.panel135 = new System.Windows.Forms.Panel();
             this.panel193 = new System.Windows.Forms.Panel();
             this.label179 = new System.Windows.Forms.Label();
@@ -365,6 +371,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.txtServiceRequestDate = new System.Windows.Forms.TextBox();
             this.panel141 = new System.Windows.Forms.Panel();
+            this.btnOpenIR = new Bunifu.Framework.UI.BunifuImageButton();
             this.label162 = new System.Windows.Forms.Label();
             this.label121 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
@@ -754,7 +761,6 @@
             this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
             this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.tabPage25 = new System.Windows.Forms.TabPage();
-            this.lblCountDown = new System.Windows.Forms.Label();
             this.lblCreatedDate = new System.Windows.Forms.Label();
             this.txtFEPosition = new System.Windows.Forms.TextBox();
             this.label131 = new System.Windows.Forms.Label();
@@ -823,11 +829,6 @@
             this.panel53 = new System.Windows.Forms.Panel();
             this.txtProblemNo = new System.Windows.Forms.TextBox();
             this.txtAssistNo = new System.Windows.Forms.TextBox();
-            this.pnlPreviewImage = new System.Windows.Forms.Panel();
-            this.picPreview = new System.Windows.Forms.PictureBox();
-            this.panel195 = new System.Windows.Forms.Panel();
-            this.panel196 = new System.Windows.Forms.Panel();
-            this.label190 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -840,6 +841,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.pnlPreviewImage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
+            this.panel195.SuspendLayout();
             this.panel135.SuspendLayout();
             this.panel193.SuspendLayout();
             this.tabControl3.SuspendLayout();
@@ -889,6 +893,7 @@
             this.panel139.SuspendLayout();
             this.panel140.SuspendLayout();
             this.panel141.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenIR)).BeginInit();
             this.panel156.SuspendLayout();
             this.panel132.SuspendLayout();
             this.panel133.SuspendLayout();
@@ -1056,9 +1061,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddResolution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).BeginInit();
             this.panel53.SuspendLayout();
-            this.pnlPreviewImage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
-            this.panel195.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -1081,7 +1083,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(1, 930);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1392, 2);
+            this.panel3.Size = new System.Drawing.Size(1390, 2);
             this.panel3.TabIndex = 306;
             this.panel3.Visible = false;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
@@ -1090,7 +1092,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1391, 0);
+            this.panel4.Location = new System.Drawing.Point(1389, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(2, 930);
             this.panel4.TabIndex = 307;
@@ -1101,7 +1103,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel8.Location = new System.Drawing.Point(1, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1390, 2);
+            this.panel8.Size = new System.Drawing.Size(1388, 2);
             this.panel8.TabIndex = 388;
             // 
             // pnlHeader
@@ -1115,7 +1117,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(1, 2);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1390, 29);
+            this.pnlHeader.Size = new System.Drawing.Size(1388, 29);
             this.pnlHeader.TabIndex = 390;
             // 
             // btnMinimize
@@ -1173,11 +1175,12 @@
             // 
             // lblHeader
             // 
+            this.lblHeader.AutoSize = true;
             this.lblHeader.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHeader.ForeColor = System.Drawing.Color.White;
             this.lblHeader.Location = new System.Drawing.Point(36, 4);
             this.lblHeader.Name = "lblHeader";
-            this.lblHeader.Size = new System.Drawing.Size(477, 19);
+            this.lblHeader.Size = new System.Drawing.Size(100, 18);
             this.lblHeader.TabIndex = 7;
             this.lblHeader.Text = "MANUAL FSR";
             // 
@@ -2049,7 +2052,7 @@
             this.txtIRIDNo.ForeColor = System.Drawing.Color.Black;
             this.txtIRIDNo.Location = new System.Drawing.Point(72, 2);
             this.txtIRIDNo.Name = "txtIRIDNo";
-            this.txtIRIDNo.Size = new System.Drawing.Size(145, 21);
+            this.txtIRIDNo.Size = new System.Drawing.Size(121, 21);
             this.txtIRIDNo.TabIndex = 347;
             this.txtIRIDNo.WordWrap = false;
             // 
@@ -2839,6 +2842,76 @@
             this.tabPage1.Size = new System.Drawing.Size(1378, 863);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
+            // 
+            // pnlPreviewImage
+            // 
+            this.pnlPreviewImage.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlPreviewImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlPreviewImage.Controls.Add(this.lblCountDown);
+            this.pnlPreviewImage.Controls.Add(this.picPreview);
+            this.pnlPreviewImage.Controls.Add(this.panel195);
+            this.pnlPreviewImage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlPreviewImage.Location = new System.Drawing.Point(1292, 794);
+            this.pnlPreviewImage.Name = "pnlPreviewImage";
+            this.pnlPreviewImage.Size = new System.Drawing.Size(80, 68);
+            this.pnlPreviewImage.TabIndex = 500;
+            // 
+            // lblCountDown
+            // 
+            this.lblCountDown.Font = new System.Drawing.Font("Century Gothic", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCountDown.ForeColor = System.Drawing.Color.Blue;
+            this.lblCountDown.Location = new System.Drawing.Point(3, 24);
+            this.lblCountDown.Name = "lblCountDown";
+            this.lblCountDown.Size = new System.Drawing.Size(73, 39);
+            this.lblCountDown.TabIndex = 494;
+            this.lblCountDown.Text = "15";
+            this.lblCountDown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCountDown.Visible = false;
+            // 
+            // picPreview
+            // 
+            this.picPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picPreview.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picPreview.Location = new System.Drawing.Point(0, 24);
+            this.picPreview.Name = "picPreview";
+            this.picPreview.Size = new System.Drawing.Size(78, 42);
+            this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picPreview.TabIndex = 313;
+            this.picPreview.TabStop = false;
+            // 
+            // panel195
+            // 
+            this.panel195.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel195.Controls.Add(this.label190);
+            this.panel195.Controls.Add(this.panel196);
+            this.panel195.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel195.Location = new System.Drawing.Point(0, 0);
+            this.panel195.Name = "panel195";
+            this.panel195.Size = new System.Drawing.Size(78, 24);
+            this.panel195.TabIndex = 311;
+            // 
+            // label190
+            // 
+            this.label190.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label190.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label190.ForeColor = System.Drawing.Color.Transparent;
+            this.label190.Location = new System.Drawing.Point(-1, -1);
+            this.label190.Name = "label190";
+            this.label190.Size = new System.Drawing.Size(82, 26);
+            this.label190.TabIndex = 318;
+            this.label190.Text = "COUNTER";
+            this.label190.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel196
+            // 
+            this.panel196.BackColor = System.Drawing.Color.Silver;
+            this.panel196.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel196.Location = new System.Drawing.Point(0, 22);
+            this.panel196.Name = "panel196";
+            this.panel196.Size = new System.Drawing.Size(78, 2);
+            this.panel196.TabIndex = 0;
             // 
             // panel135
             // 
@@ -5291,6 +5364,7 @@
             // 
             // panel141
             // 
+            this.panel141.Controls.Add(this.btnOpenIR);
             this.panel141.Controls.Add(this.txtServiceRequestNo);
             this.panel141.Controls.Add(this.label162);
             this.panel141.Controls.Add(this.label121);
@@ -5303,6 +5377,20 @@
             this.panel141.Name = "panel141";
             this.panel141.Size = new System.Drawing.Size(219, 91);
             this.panel141.TabIndex = 315;
+            // 
+            // btnOpenIR
+            // 
+            this.btnOpenIR.BackColor = System.Drawing.Color.Transparent;
+            this.btnOpenIR.Image = global::MIS.Properties.Resources.ic_apply;
+            this.btnOpenIR.ImageActive = null;
+            this.btnOpenIR.Location = new System.Drawing.Point(194, 2);
+            this.btnOpenIR.Name = "btnOpenIR";
+            this.btnOpenIR.Size = new System.Drawing.Size(23, 21);
+            this.btnOpenIR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnOpenIR.TabIndex = 483;
+            this.btnOpenIR.TabStop = false;
+            this.btnOpenIR.Zoom = 10;
+            this.btnOpenIR.Click += new System.EventHandler(this.btnOpenIR_Click);
             // 
             // label162
             // 
@@ -9546,7 +9634,7 @@
             this.tabPage20.Location = new System.Drawing.Point(4, 28);
             this.tabPage20.Name = "tabPage20";
             this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage20.Size = new System.Drawing.Size(1375, 863);
+            this.tabPage20.Size = new System.Drawing.Size(1378, 863);
             this.tabPage20.TabIndex = 1;
             this.tabPage20.Text = "Additional Information";
             this.tabPage20.UseVisualStyleBackColor = true;
@@ -9705,7 +9793,7 @@
             this.tabPage24.Location = new System.Drawing.Point(4, 28);
             this.tabPage24.Name = "tabPage24";
             this.tabPage24.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage24.Size = new System.Drawing.Size(1375, 863);
+            this.tabPage24.Size = new System.Drawing.Size(1378, 863);
             this.tabPage24.TabIndex = 2;
             this.tabPage24.Text = "Helpdesk Information";
             this.tabPage24.UseVisualStyleBackColor = true;
@@ -9759,22 +9847,10 @@
             this.tabPage25.Location = new System.Drawing.Point(4, 28);
             this.tabPage25.Name = "tabPage25";
             this.tabPage25.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage25.Size = new System.Drawing.Size(1375, 863);
+            this.tabPage25.Size = new System.Drawing.Size(1378, 863);
             this.tabPage25.TabIndex = 3;
             this.tabPage25.Text = "Deployment Information";
             this.tabPage25.UseVisualStyleBackColor = true;
-            // 
-            // lblCountDown
-            // 
-            this.lblCountDown.Font = new System.Drawing.Font("Century Gothic", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCountDown.ForeColor = System.Drawing.Color.Blue;
-            this.lblCountDown.Location = new System.Drawing.Point(3, 24);
-            this.lblCountDown.Name = "lblCountDown";
-            this.lblCountDown.Size = new System.Drawing.Size(73, 39);
-            this.lblCountDown.TabIndex = 494;
-            this.lblCountDown.Text = "15";
-            this.lblCountDown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblCountDown.Visible = false;
             // 
             // lblCreatedDate
             // 
@@ -10591,69 +10667,11 @@
             this.txtAssistNo.Size = new System.Drawing.Size(35, 20);
             this.txtAssistNo.TabIndex = 411;
             // 
-            // pnlPreviewImage
-            // 
-            this.pnlPreviewImage.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pnlPreviewImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPreviewImage.Controls.Add(this.lblCountDown);
-            this.pnlPreviewImage.Controls.Add(this.picPreview);
-            this.pnlPreviewImage.Controls.Add(this.panel195);
-            this.pnlPreviewImage.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlPreviewImage.Location = new System.Drawing.Point(1292, 794);
-            this.pnlPreviewImage.Name = "pnlPreviewImage";
-            this.pnlPreviewImage.Size = new System.Drawing.Size(80, 68);
-            this.pnlPreviewImage.TabIndex = 500;
-            // 
-            // picPreview
-            // 
-            this.picPreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picPreview.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picPreview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picPreview.Location = new System.Drawing.Point(0, 24);
-            this.picPreview.Name = "picPreview";
-            this.picPreview.Size = new System.Drawing.Size(78, 42);
-            this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picPreview.TabIndex = 313;
-            this.picPreview.TabStop = false;
-            // 
-            // panel195
-            // 
-            this.panel195.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel195.Controls.Add(this.label190);
-            this.panel195.Controls.Add(this.panel196);
-            this.panel195.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel195.Location = new System.Drawing.Point(0, 0);
-            this.panel195.Name = "panel195";
-            this.panel195.Size = new System.Drawing.Size(78, 24);
-            this.panel195.TabIndex = 311;
-            // 
-            // panel196
-            // 
-            this.panel196.BackColor = System.Drawing.Color.Silver;
-            this.panel196.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel196.Location = new System.Drawing.Point(0, 22);
-            this.panel196.Name = "panel196";
-            this.panel196.Size = new System.Drawing.Size(78, 2);
-            this.panel196.TabIndex = 0;
-            // 
-            // label190
-            // 
-            this.label190.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label190.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label190.ForeColor = System.Drawing.Color.Transparent;
-            this.label190.Location = new System.Drawing.Point(-1, -1);
-            this.label190.Name = "label190";
-            this.label190.Size = new System.Drawing.Size(82, 26);
-            this.label190.TabIndex = 318;
-            this.label190.Text = "COUNTER";
-            this.label190.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // frmTerminalFSR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1393, 932);
+            this.ClientSize = new System.Drawing.Size(1391, 932);
             this.Controls.Add(this.lblCreatedDate);
             this.Controls.Add(this.panel53);
             this.Controls.Add(this.txtSearchMerchantName);
@@ -10698,6 +10716,7 @@
             this.Load += new System.EventHandler(this.frmTerminalFSR_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmTerminalFSR_KeyDown);
             this.pnlHeader.ResumeLayout(false);
+            this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).EndInit();
@@ -10715,6 +10734,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.pnlPreviewImage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
+            this.panel195.ResumeLayout(false);
             this.panel135.ResumeLayout(false);
             this.panel193.ResumeLayout(false);
             this.panel193.PerformLayout();
@@ -10791,6 +10813,7 @@
             this.panel140.PerformLayout();
             this.panel141.ResumeLayout(false);
             this.panel141.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOpenIR)).EndInit();
             this.panel156.ResumeLayout(false);
             this.panel156.PerformLayout();
             this.panel132.ResumeLayout(false);
@@ -11026,9 +11049,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddExpenses)).EndInit();
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
-            this.pnlPreviewImage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();
-            this.panel195.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11834,5 +11854,6 @@
         private System.Windows.Forms.Panel panel195;
         private System.Windows.Forms.Panel panel196;
         private System.Windows.Forms.Label label190;
+        private Bunifu.Framework.UI.BunifuImageButton btnOpenIR;
     }
 }

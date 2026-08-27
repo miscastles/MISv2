@@ -60,16 +60,17 @@ namespace MIS
 
         private int IssueCategoryID { get; set; }
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
+#if ENABLE_COMPOSITED
+                protected override CreateParams CreateParams
+                {
+                    get
+                    {
+                        CreateParams cp = base.CreateParams;
+                        cp.ExStyle |= 0x02000000;
+                        return cp;
+                    }
+                }
+#endif
 
         public frmHelpDesk()
         {
@@ -2269,6 +2270,11 @@ namespace MIS
         private void LoadHelpdeskInfo()
         {
 
+        }
+
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

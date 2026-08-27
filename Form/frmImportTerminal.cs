@@ -1,20 +1,21 @@
-﻿using System;
+﻿using MIS.Model;
+using Newtonsoft.Json;
+using Spire.Xls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.IO;
 using System.Data.OleDb;
 using System.Diagnostics;
-using Spire.Xls;
-using System.Threading;
-using Newtonsoft.Json;
-using static MIS.Function.AppUtilities;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static MIS.Function.AppUtilities;
 
 namespace MIS
 {
@@ -50,21 +51,24 @@ namespace MIS
 
         int delay = 5; // 500 default
 
+        private string formName = "TERMINAL INVENTORY";
+
         class jsonObj
         {
             public object outParamValue { get; set; }          
         }
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
+#if ENABLE_COMPOSITED
+                protected override CreateParams CreateParams
+                {
+                    get
+                    {
+                        CreateParams cp = base.CreateParams;
+                        cp.ExStyle |= 0x02000000;
+                        return cp;
+                    }
+                }
+#endif
 
         public frmImportTerminal()
         {
@@ -454,7 +458,7 @@ namespace MIS
             fEnableScan = false;
             InitDate();
 
-            InitTab();
+            //InitTab();
             InitTimerSerialNo();
             PKTextBoxBackColor(true);
             
@@ -482,6 +486,8 @@ namespace MIS
             ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
 
             initClientSelection();
+
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
 
             Cursor.Current = Cursors.Default;
         }
@@ -1192,7 +1198,7 @@ namespace MIS
 
         private void tabTerminal_SelectedIndexChanged(object sender, EventArgs e)
         {
-            InitTab();
+            //InitTab();
         }
         
         private void btnClearGenerateList_Click(object sender, EventArgs e)
@@ -2137,6 +2143,12 @@ namespace MIS
             if (fAutoLoadData)
             {
                 frmSearchField.fSelected = true;
+
+                // get modelSearch value
+                clsSearch.ClassTerminalID = modelSearch.TerminalID;
+                clsSearch.ClassTerminalSN = modelSearch.TerminalSN;
+
+                modelSearch.DebugSearch();
             }
             else
             {

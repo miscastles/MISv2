@@ -31,17 +31,17 @@ namespace MIS
         private string reqWaiver { get; set; }
 
 
-        protected override CreateParams CreateParams
-        {
-            // Override CreateParams to enable double-buffering for child controls
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
+#if ENABLE_COMPOSITED
+                protected override CreateParams CreateParams
+                {
+                    get
+                    {
+                        CreateParams cp = base.CreateParams;
+                        cp.ExStyle |= 0x02000000;
+                        return cp;
+                    }
+                }
+#endif
 
         public frmParticular()
         {
@@ -278,155 +278,178 @@ namespace MIS
 
             Cursor.Current = Cursors.WaitCursor;
 
-            if (!fEdit)
+            try
             {
-                sRowSQL = "";
-                sRowSQL = " ('" + dbFunction.CheckAndSetStringValue(StrClean(txtName.Text)) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtCode.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(StrClean(txtAddress.Text)) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(StrClean(txtAddress2.Text)) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(StrClean(txtAddress3.Text)) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(StrClean(txtAddress4.Text)) + "', " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtProvinceID.Text) + ", " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtCityID.Text) + ", " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtParticularTypeID.Text) + ", " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(sParticularDescription).ToUpper() + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(StrClean(txtContactPerson.Text)) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtTelNo.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtMobile.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtFax.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtEmail.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtContractTerms.Text) + "', " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtRegionID.Text) + ", " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtProvince.Text) + "', " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtRegionType.Text) + ", " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtRegion.Text) + "', " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtDepartmentID.Text) + ", " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtPositionID.Text) + ", " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(cboEmploymentStatus.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtCode.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtComputerName.Text) + "', " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtRentalType.Text) + ", " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtRentalTerms.Text) + ", " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetBooleanValue(chkActive.Checked) + ", " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetBooleanValue(chkWorkArrangement.Checked) + ", " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetBooleanValue(chkTimeSheet.Checked) + ", " +
-                sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetBooleanValue(chkVersionApp.Checked) + ", " +
+                if (!fEdit)
+                {
+                    sRowSQL = "";
+                    sRowSQL = " ('" + dbFunction.CheckAndSetStringValue(StrClean(txtName.Text)) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtCode.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(StrClean(txtAddress.Text)) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(StrClean(txtAddress2.Text)) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(StrClean(txtAddress3.Text)) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(StrClean(txtAddress4.Text)) + "', " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtProvinceID.Text) + ", " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtCityID.Text) + ", " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtParticularTypeID.Text) + ", " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(sParticularDescription).ToUpper() + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(StrClean(txtContactPerson.Text)) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtTelNo.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtMobile.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtFax.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtEmail.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtContractTerms.Text) + "', " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtRegionID.Text) + ", " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtProvince.Text) + "', " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtRegionType.Text) + ", " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtRegion.Text) + "', " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtDepartmentID.Text) + ", " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtPositionID.Text) + ", " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(cboEmploymentStatus.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtCode.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtComputerName.Text) + "', " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtRentalType.Text) + ", " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetNumericValue(txtRentalTerms.Text) + ", " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetBooleanValue(chkActive.Checked) + ", " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetBooleanValue(chkWorkArrangement.Checked) + ", " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetBooleanValue(chkTimeSheet.Checked) + ", " +
+                    sRowSQL + sRowSQL + " " + dbFunction.CheckAndSetBooleanValue(chkVersionApp.Checked) + ", " +
 
-                // ROCKY - PARTICULAR: ADDITIONAL PARTICULAR INFO - SAVE
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtJobDesc.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetDatePickerValueToDate(dtpDateHired) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtTINNo.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtPhilHealthNo.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtSSSNo.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtHDMFNo.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(cboEducLevel.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtPresentID.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetDatePickerValueToDate(dtpBirthDate) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(cboGender.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetDatePickerValueToDate(dtpDateResign) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtPresIDNo.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtAccountInfo.Text) + "', " +
+                    // ROCKY - PARTICULAR: ADDITIONAL PARTICULAR INFO - SAVE
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtJobDesc.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetDatePickerValueToDate(dtpDateHired) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtTINNo.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtPhilHealthNo.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtSSSNo.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtHDMFNo.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(cboEducLevel.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtPresentID.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetDatePickerValueToDate(dtpBirthDate) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(cboGender.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetDatePickerValueToDate(dtpDateResign) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtPresIDNo.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtAccountInfo.Text) + "', " +
 
-                // ROCKY - PARTICULAR: ADDITIONAL PARTICULAR REQUIREMENTS INFO - SAVE
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtNbiClearance.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtSchoolCred.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtApplicationForm.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtWaiverForm.Text) + "', " +
-                sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtZoneID.Text) + "') ";
+                    // ROCKY - PARTICULAR: ADDITIONAL PARTICULAR REQUIREMENTS INFO - SAVE
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtNbiClearance.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtSchoolCred.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtApplicationForm.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetStringValue(txtWaiverForm.Text) + "', " +
+                    sRowSQL + sRowSQL + " '" + dbFunction.CheckAndSetNumericValue(txtZoneID.Text) + "') ";
 
-                sSQL = sSQL + sRowSQL;
-                //sSQL = sSQL.Replace("&", "AND");
+                    sSQL = sSQL + sRowSQL;
+                    //sSQL = sSQL.Replace("&", "AND");
 
-                Debug.WriteLine("sSQL=" + sSQL);
+                    Debug.WriteLine("sSQL=" + sSQL);
 
-                dbAPI.ExecuteAPI("POST", "Insert", "", "", "Particular", sSQL, "InsertMaintenanceMaster");
+                    // parse delimited
+                    Debug.WriteLine("Particular saving parsed....");
+                    dbFunction.parseDelimitedString(sSQL, clsDefines.gComma, 0);
 
-                txtParticularID.Text = clsLastID.ClassLastInsertedID.ToString();
+                    dbAPI.ExecuteAPI("POST", "Insert", "", "", "Particular", sSQL, "InsertMaintenanceMaster");
 
-                MessageBox.Show("New Particular successfully saved", "Saved",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information,
-                MessageBoxDefaultButton.Button1);
+                    txtParticularID.Text = clsLastID.ClassLastInsertedID.ToString();
+
+                    MessageBox.Show("New Particular successfully saved", "Saved",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1);
+                }
+                else
+                {
+                    clsSearch.ClassAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtParticularID.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(StrClean(txtName.Text)) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(StrClean(txtAddress.Text)) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(StrClean(txtAddress2.Text)) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(StrClean(txtAddress3.Text)) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(StrClean(txtAddress4.Text)) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetNumericValue(txtProvinceID.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetNumericValue(txtCityID.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetNumericValue(txtParticularTypeID.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtParticularDescription.Text.ToUpper()) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(StrClean(txtContactPerson.Text)) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtTelNo.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtMobile.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtFax.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtEmail.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtContractTerms.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetNumericValue(txtRegionID.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtProvince.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetNumericValue(txtRegionType.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtRegion.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetNumericValue(txtDepartmentID.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetNumericValue(txtPositionID.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(cboEmploymentStatus.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtCode.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtComputerName.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetBooleanValue(chkActive.Checked) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetBooleanValue(chkWorkArrangement.Checked) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetBooleanValue(chkTimeSheet.Checked) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetBooleanValue(chkVersionApp.Checked) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetNumericValue(txtRentalType.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetNumericValue(txtRentalTerms.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtAcntNo.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtCustomerNo.Text) + clsFunction.sPipe +
+
+                                                        // ROCKY - PARTICULAR: ADDITIONAL PARTICULAR INFO - GET
+                                                        dbFunction.CheckAndSetStringValue(txtJobDesc.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetDatePickerValueToDate(dtpDateHired) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtTINNo.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtPhilHealthNo.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtSSSNo.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtHDMFNo.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(cboEducLevel.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtPresentID.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(cboGender.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetDatePickerValueToDate(dtpDateResign) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtPresIDNo.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtAccountInfo.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetDatePickerValueToDate(dtpBirthDate) + clsFunction.sPipe +
+
+                                                        // ROCKY - PARTICULAR: ADDITIONAL PARTICULAR REQUIREMENTS INFO - GET
+                                                        dbFunction.CheckAndSetStringValue(txtNbiClearance.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtSchoolCred.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtApplicationForm.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetStringValue(txtWaiverForm.Text) + clsFunction.sPipe +
+                                                        dbFunction.CheckAndSetNumericValue(txtZoneID.Text);
+
+                    //clsSearch.ClassAdvanceSearchValue = clsSearch.ClassAdvanceSearchValue.Replace("&", "AND");
+
+                    Debug.WriteLine("clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
+
+                    Debug.WriteLine("Particular updating parsed....");
+                    dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
+
+                    dbAPI.ExecuteAPI("PUT", "Update", "Particular", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+
+                    MessageBox.Show("Particular has been successfully modified", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                clsSearch.ClassAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtParticularID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(StrClean(txtName.Text)) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(StrClean(txtAddress.Text)) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(StrClean(txtAddress2.Text)) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(StrClean(txtAddress3.Text)) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(StrClean(txtAddress4.Text)) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtProvinceID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtCityID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtParticularTypeID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtParticularDescription.Text.ToUpper()) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(StrClean(txtContactPerson.Text)) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtTelNo.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtMobile.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtFax.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtEmail.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtContractTerms.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtRegionID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtProvince.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtRegionType.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtRegion.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtDepartmentID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtPositionID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(cboEmploymentStatus.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtCode.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtComputerName.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetBooleanValue(chkActive.Checked) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetBooleanValue(chkWorkArrangement.Checked) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetBooleanValue(chkTimeSheet.Checked) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetBooleanValue(chkVersionApp.Checked) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtRentalType.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtRentalTerms.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtAcntNo.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtCustomerNo.Text) + clsFunction.sPipe +
-
-                                                    // ROCKY - PARTICULAR: ADDITIONAL PARTICULAR INFO - GET
-                                                    dbFunction.CheckAndSetStringValue(txtJobDesc.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetDatePickerValueToDate(dtpDateHired) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtTINNo.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtPhilHealthNo.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtSSSNo.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtHDMFNo.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(cboEducLevel.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtPresentID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(cboGender.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetDatePickerValueToDate(dtpDateResign) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtPresIDNo.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtAccountInfo.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetDatePickerValueToDate(dtpBirthDate) + clsFunction.sPipe +
-
-                                                    // ROCKY - PARTICULAR: ADDITIONAL PARTICULAR REQUIREMENTS INFO - GET
-                                                    dbFunction.CheckAndSetStringValue(txtNbiClearance.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtSchoolCred.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtApplicationForm.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetStringValue(txtWaiverForm.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtZoneID.Text);
-
-                //clsSearch.ClassAdvanceSearchValue = clsSearch.ClassAdvanceSearchValue.Replace("&", "AND");
-
-                Debug.WriteLine("clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
-
-                dbAPI.ExecuteAPI("PUT", "Update", "Particular", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
-
-                MessageBox.Show("Particular has been successfully modified", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                dbFunction.SetExceptionMessageBox(ex);
             }
 
+            // -------------------------------------------
             // for employee
-            if (iParticularType == clsGlobalVariables.iFE_Type)
+            // -------------------------------------------
+            try
             {
-                //SaveBitmap();
+                if (iParticularType == clsGlobalVariables.iFE_Type)
+                {
+                    //SaveBitmap();
 
-                //UploadImage();
+                    //UploadImage();
 
-                UploadRequirementToServer(txtNbiClearance.Text);
-                UploadRequirementToServer(txtSchoolCred.Text);
-                UploadRequirementToServer(txtApplicationForm.Text);
-                UploadRequirementToServer(txtWaiverForm.Text);
+                    UploadRequirementToServer(txtNbiClearance.Text);
+                    UploadRequirementToServer(txtSchoolCred.Text);
+                    UploadRequirementToServer(txtApplicationForm.Text);
+                    UploadRequirementToServer(txtWaiverForm.Text);
+                }
+            }
+            catch (Exception ex)
+            {
+                dbFunction.SetExceptionMessageBox(ex);
             }
 
             Cursor.Current = Cursors.Default;
@@ -648,21 +671,33 @@ namespace MIS
         private bool CheckParticular()
         {
             bool fExist = false;
-            
-            fExist = dbAPI.isRecordExist("Search", "Particular Name", txtName.Text + clsDefines.gPipe + txtRegionType.Text + clsDefines.gPipe + txtRegionID.Text + clsDefines.gPipe + txtAddress.Text);
+            string pSearchValue = $"{dbFunction.CheckAndSetStringValue(StrClean(txtName.Text))}{clsDefines.gPipe}{txtRegionType.Text}{clsDefines.gPipe}{txtRegionID.Text}{clsDefines.gPipe}{dbFunction.CheckAndSetStringValue(StrClean(txtAddress.Text))}";
 
-            if (fExist)
+            // parse delimited
+            Debug.WriteLine("Check Particular parsed....");
+            dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
+            try
             {
-                dbFunction.SetMessageBox("Unable to save particular." +
-                            "\n\n" +
-                            "Name: " + txtName.Text + "\n" +
-                            "Region: " + txtRegion.Text + "\n" +
-                            "City: " + txtProvince.Text + "\n" +
-                            "Address: " + txtAddress.Text + "\n" +
-                            "\n", "Already exist.", clsFunction.IconType.iWarning);
+                fExist = dbAPI.isRecordExist("Search", "Particular Name", pSearchValue);
+
+                if (fExist)
+                {
+                    dbFunction.SetMessageBox("Unable to save particular." +
+                                "\n\n" +
+                                "Name: " + txtName.Text + "\n" +
+                                "Region: " + txtRegion.Text + "\n" +
+                                "City: " + txtProvince.Text + "\n" +
+                                "Address: " + txtAddress.Text + "\n" +
+                                "\n", "Already exist.", clsFunction.IconType.iWarning);
 
 
+                }
             }
+            catch (Exception ex)
+            {
+                dbFunction.SetExceptionMessageBox(ex);
+            }            
 
             return fExist;
         }

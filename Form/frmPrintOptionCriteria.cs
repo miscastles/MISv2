@@ -48,16 +48,17 @@ namespace MIS
 
         public static int iReportType;
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
+#if ENABLE_COMPOSITED
+                protected override CreateParams CreateParams
+                {
+                    get
+                    {
+                        CreateParams cp = base.CreateParams;
+                        cp.ExStyle |= 0x02000000;
+                        return cp;
+                    }
+                }
+#endif
 
         public frmPrintOptionCriteria()
         {
@@ -739,8 +740,8 @@ namespace MIS
             dbFile = new clsFile();
             dbReportFunc = new clsReportFunc();
 
-            //lblHeader.Text = lblHeader.Text + " " + "[ " + sHeader + " ]";
-            
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel("REPORT");
+
             dbFunction.ClearTextBox(this);
             dbFunction.ClearComboBox(this);
             dbFunction.TextBoxUnLock(false, this);
@@ -1133,8 +1134,8 @@ namespace MIS
                                                         clsSearch.ClassJobTypeList + clsFunction.sPipe +
                                                         clsSearch.ClassIRIDNo + clsFunction.sPipe + 
                                                         clsFunction.sZero + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateFrom + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateTo + clsFunction.sPipe +
+                                                        clsSearch.ClassDateFrom + clsFunction.sPipe +
+                                                        clsSearch.ClassDateTo + clsFunction.sPipe +
                                                         clsSearch.ClassIsExcludePending + clsFunction.sPipe +
                                                         clsSearch.ClassReasonID + clsFunction.sPipe +
                                                         clsSearch.ClassReportStatus;
@@ -1145,8 +1146,8 @@ namespace MIS
                                                         $"{clsGlobalVariables.JOB_TYPE_SERVICING}{clsFunction.sComma}{clsGlobalVariables.JOB_TYPE_REPLACEMENT}" + clsFunction.sPipe +
                                                         clsSearch.ClassIRIDNo + clsFunction.sPipe +
                                                         clsFunction.sZero + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateFrom + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateTo + clsFunction.sPipe +
+                                                        clsSearch.ClassDateFrom + clsFunction.sPipe +
+                                                        clsSearch.ClassDateTo + clsFunction.sPipe +
                                                         clsSearch.ClassIsExcludePending + clsFunction.sPipe +
                                                         clsSearch.ClassReasonID + clsFunction.sPipe +
                                                         clsSearch.ClassReportStatus;
@@ -1157,8 +1158,8 @@ namespace MIS
                                                         clsSearch.ClassJobTypeList + clsFunction.sPipe +
                                                         clsSearch.ClassIRIDNo + clsFunction.sPipe +
                                                         clsFunction.sZero + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateFrom + clsFunction.sPipe +
-                                                        clsSearch.ClassDetailDateTo + clsFunction.sPipe +
+                                                        clsSearch.ClassDateFrom + clsFunction.sPipe +
+                                                        clsSearch.ClassDateTo + clsFunction.sPipe +
                                                         clsSearch.ClassIsExcludePending + clsFunction.sPipe +
                                                         clsSearch.ClassReasonID + clsFunction.sPipe +
                                                         clsSearch.ClassReportStatus;

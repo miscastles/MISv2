@@ -56,17 +56,20 @@ namespace MIS
         private ServicingDetailController _mServicingDetailController;
 
         private List<ServicingDetailController> mList = null;
-        
+
+        // Keeps track of all minimized forms
+        private readonly Dictionary<string, Form> minimizedForms =
+            new Dictionary<string, Form>();
+
         protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
-                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
-                return cp;
-            }
-        }
+                {
+                    get
+                    {
+                        CreateParams cp = base.CreateParams;
+                        cp.ExStyle |= 0x02000000;
+                        return cp;
+                    }
+                }
 
         public frmMain()
         {
@@ -79,6 +82,8 @@ namespace MIS
                 Move += new EventHandler(dbFunction.onFormMove);
 
             _mServicingDetailController = new ServicingDetailController();
+
+            InitializeMinimizedFormsPanel();
 
         }
 
@@ -279,9 +284,9 @@ namespace MIS
 
             initShortCutKeyboard();
 
-            // init subAppsName
-            lblSubAppsName.Text = $"[ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} | {clsSearch.ClassCurrentUserName} ]";
-            
+            // init subAppsName            
+            lblSubAppsName.Text = dbFunction.getSystemEnvironmentLabel("MAIN");
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -371,7 +376,10 @@ namespace MIS
             */
 
             frmToolSelections frm = new frmToolSelections();
+            frm.Text = "TOOLS";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -386,6 +394,8 @@ namespace MIS
             frmSetting frm = new frmSetting();
             frm.Text = "SETTING";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -464,6 +474,7 @@ namespace MIS
             pnlSubMenuPOSRental.Visible = false;
             pnlSubMenuMSP.Visible = false;
             pnlSubMenuSwitchBank.Visible = false;
+            pnlSubMenuSearch.Visible = false;
 
             switch (iMenu)
             {
@@ -485,9 +496,9 @@ namespace MIS
                     pnlSubMenuServicing.Top =  gbOperationLocation.Y + yAxis;
                     break;
                 case 5: // Search   
-                    pnlSubMenuReports.Visible = fVisible;
-                    pnlSubMenuReports.Left = pnlMenu.Width - btnSearch.Left + iLeft;
-                    pnlSubMenuReports.Top = pnlMenu.Top + btnSearch.Top;
+                    pnlSubMenuSearch.Visible = fVisible;
+                    pnlSubMenuSearch.Left = pnlMenu.Width - btnSearch.Left + iLeft;
+                    pnlSubMenuSearch.Top = gbHelpdeskLocation.Y + yAxis;
                     break;
                 case 6: // Report
                     pnlSubMenuReports.Visible = fVisible;
@@ -556,7 +567,7 @@ namespace MIS
                     pnlSubMenuSwitchBank.Visible = fVisible;
                     pnlSubMenuSwitchBank.Left = pnlMenu.Width - btnSwitchBankCode.Left + iLeft;
                     pnlSubMenuSwitchBank.Top = gbManagementLocation.Y + yAxis;
-                    break;
+                    break;                
                 default:
                     break;
             }
@@ -649,6 +660,8 @@ namespace MIS
             frmParticular frm = new frmParticular();
             frm.Text = "ENROLLMENT-MERCHANT";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -662,6 +675,8 @@ namespace MIS
             frmParticular frm = new frmParticular();
             frm.Text = "ENROLLMENT-CLIENT";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -675,6 +690,8 @@ namespace MIS
             frmParticular frm = new frmParticular();
             frm.Text = "ENROLLMENT-VENDOR REPRESENTATIVE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -685,6 +702,7 @@ namespace MIS
             frmParticular frm = new frmParticular();
             frm.Text = "ENROLLMENT-SUPPLIER";
             frm.WindowState = FormWindowState.Normal;
+
             frm.Show();            
         }   
 
@@ -697,6 +715,8 @@ namespace MIS
             frmTerminalType frm = new frmTerminalType();
             frm.Text = "ENROLLMENT-TERMINAL TYPE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -709,6 +729,8 @@ namespace MIS
             frmTerminalModel frm = new frmTerminalModel();
             frm.Text = "ENROLLMENT-TERMINAL MODEL";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -718,6 +740,8 @@ namespace MIS
             frmTerminalBrand frm = new frmTerminalBrand();
             frm.Text = "ENROLLMENT-TERMINAL BRAND";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -727,6 +751,8 @@ namespace MIS
             frmTerminalStatus frm = new frmTerminalStatus();
             frm.Text = "ENROLLMENT-TERMINAL STATUS";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -737,6 +763,8 @@ namespace MIS
             frmParticular frm = new frmParticular();
             frm.Text = "ENROLLMENT-PARTICULAR";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -746,6 +774,8 @@ namespace MIS
             frmServiceType frm = new frmServiceType();
             frm.Text = "ENROLLMENT-SERVICE TYPE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -755,6 +785,8 @@ namespace MIS
             frmOtherServiceType frm = new frmOtherServiceType();
             frm.Text = "ENROLLMENT-OTHER SERVICE TYPE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -767,6 +799,8 @@ namespace MIS
             frmRegion frm = new frmRegion();
             frm.Text = "ENROLLMENT-REGION";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -779,6 +813,8 @@ namespace MIS
             frmRegionDetail frm = new frmRegionDetail();
             frm.Text = "ENROLLMENT-PROVINCE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();            
         }
 
@@ -843,13 +879,13 @@ namespace MIS
         private void btnPulse_Click(object sender, EventArgs e)
         {
             // Check Application Version
-            if (!dbAPI.isValidSystemVersion()) return;
+            //if (!dbAPI.isValidSystemVersion()) return;
 
-            iMenu = 0;
-            InitMenu(iMenu, false);
+            //iMenu = 24;
+            //InitMenu(iMenu, true);
 
             //dbFunction.SetMessageBox("Ongoing development...", "Oooops", clsFunction.IconType.iInformation);
-            return;
+            //return;
             
             //dbAPI.ResetAdvanceSearch();
             //frmSearchField.iSearchType = frmSearchField.SearchType.iDashboard;
@@ -897,6 +933,8 @@ namespace MIS
             frmReason frm = new frmReason();
             frm.Text = "ENROLLMENT-REASON";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
        
@@ -1023,8 +1061,10 @@ namespace MIS
             dbAPI.ResetAdvanceSearch();
             frmTerminalFSR.fAutoLoadData = false;
             frmTerminalFSR frm = new frmTerminalFSR();
-            frm.Text = "FSR";
+            frm.Text = "MANUAL FSR";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
             
         }
@@ -1037,12 +1077,11 @@ namespace MIS
             // Check Application Version
             if (!dbAPI.isValidSystemVersion()) return;
 
-            iMenu = 0;
-            InitMenu(iMenu, false);
+            iMenu = 5;
+            InitMenu(iMenu, true);
 
-            //dbFunction.SetMessageBox("Ongoing development...", "Oooops", clsFunction.IconType.iInformation);
             return;
-            
+
         }
 
         private void InitPanelMenuList()
@@ -1076,6 +1115,8 @@ namespace MIS
             frmServiceCall frm = new frmServiceCall();
             frm.Text = "SERVICING-NEW CALL";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -1088,6 +1129,8 @@ namespace MIS
             frmUser frm = new frmUser();
             frm.Text = "USER";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
         
@@ -1168,6 +1211,8 @@ namespace MIS
             frmServiceCall frm = new frmServiceCall();
             frm.Text = "SERVICING-RECEIVE CALL";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -1231,6 +1276,10 @@ namespace MIS
                 case Keys.H: // Helpdesk
                     if (e.Control)
                         btnServiceMaintenance_Click(this, e);
+                    break;
+                case Keys.E: // Expenses-FSR
+                    if (e.Control)
+                        btnFinanceExpensesFSR_Click(this, e);
                     break;
 
             }
@@ -2105,6 +2154,8 @@ namespace MIS
             frmLeaveType frm = new frmLeaveType();
             frm.Text = "ENROLLMENT-LEAVE TYPE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2117,6 +2168,8 @@ namespace MIS
             frmImportERM frm = new frmImportERM();
             frm.Text = "ERM BILLING";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2139,6 +2192,8 @@ namespace MIS
             frmLeaveType frm = new frmLeaveType();
             frm.Text = "ENROLLMENT-LEAVE TYPE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2151,6 +2206,8 @@ namespace MIS
             frmLeaveAssignment frm = new frmLeaveAssignment();
             frm.Text = "LEAVE ASSIGNMENT";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2163,6 +2220,8 @@ namespace MIS
             frmLeaveApplication frm = new frmLeaveApplication();
             frm.Text = "LEAVE APPLICATION";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2175,6 +2234,8 @@ namespace MIS
             frmHoliday frm = new frmHoliday();
             frm.Text = "ENROLMENT-HOLIDAY";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2208,6 +2269,8 @@ namespace MIS
             frmWorkArrangement frm = new frmWorkArrangement();
             frm.Text = "WORK ARRANGEMENT";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2250,6 +2313,8 @@ namespace MIS
             frmTimeSheet frm = new frmTimeSheet();
             frm.Text = "TIMESHEET";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2262,6 +2327,8 @@ namespace MIS
             frmWorkType frm = new frmWorkType();
             frm.Text = "ENROLLMENT-WORK TYPE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
         
@@ -2277,7 +2344,11 @@ namespace MIS
             frmPrintOption.iParticularType = 0;
 
             frmPrintOption frm = new frmPrintOption();
+
+            frm.Text = "REPORTS - ADMINISTRATIVE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2289,7 +2360,11 @@ namespace MIS
             InitMenu(0, false);
             frmPrintOptionCriteria.iReportType = clsGlobalVariables.REPORT_TYPE_OPERATION;
             frmPrintOptionCriteria frm = new frmPrintOptionCriteria();
+
+            frm.Text = "REPORTS - OPERATION";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2305,7 +2380,11 @@ namespace MIS
             frmPrintOption.iParticularType = 2;
 
             frmPrintOption frm = new frmPrintOption();
+
+            frm.Text = "REPORTS - FINANCE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2322,6 +2401,8 @@ namespace MIS
             frmServiceJobOrder frm = new frmServiceJobOrder();
             frm.Text = "JOB ORDER";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2333,7 +2414,11 @@ namespace MIS
             InitMenu(0, false);
             frmPrintOptionCriteria.iReportType = clsGlobalVariables.REPORT_TYPE_INVENTORY;
             frmPrintOptionCriteria frm = new frmPrintOptionCriteria();
+
+            frm.Text = "REPORTS - INVENTORY";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2346,6 +2431,8 @@ namespace MIS
             frmImportTerminal frm = new frmImportTerminal();
             frm.Text = "INVENTORY-TERMINAL";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2358,6 +2445,8 @@ namespace MIS
             frmImportSIM frm = new frmImportSIM();
             frm.Text = "INVENTORY-SIM";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2371,6 +2460,8 @@ namespace MIS
             frmImportIR frm = new frmImportIR();
             frm.Text = "INSTALLATION REQUEST";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
         
@@ -2380,6 +2471,8 @@ namespace MIS
             frmPRCreateInvoice frm = new frmPRCreateInvoice();
             frm.Text = "POS RENTAL - CREATE INVOICE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2389,6 +2482,8 @@ namespace MIS
             frmPRSendInvoice frm = new frmPRSendInvoice();
             frm.Text = "POS RENTAL - SEND INVOICE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2397,6 +2492,8 @@ namespace MIS
             InitMenu(0, false);
             frmMRequestID frm = new frmMRequestID();
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2409,6 +2506,8 @@ namespace MIS
             frmAppsInfo frm = new frmAppsInfo();
             frm.Text = "APPLICATION INFORMATION";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2421,6 +2520,8 @@ namespace MIS
             frmCloseTicket frm = new frmCloseTicket();
             frm.Text = "CLOSE TICKET";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2433,6 +2534,8 @@ namespace MIS
             frmServicesBilling frm = new frmServicesBilling();
             frm.Text = "BILLING";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2445,6 +2548,8 @@ namespace MIS
             frmDiagnostic frm = new frmDiagnostic();
             frm.Text = "UPDATE DIAGNOSTIC";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2532,6 +2637,8 @@ namespace MIS
             frmPendingFSRGenerator frm = new frmPendingFSRGenerator();
             frm.Text = "PENDING eFSR GENERATOR";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2544,6 +2651,8 @@ namespace MIS
             frmStockEntry frm = new frmStockEntry();
             frm.Text = "CONPONENTS ENTRY";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2553,6 +2662,8 @@ namespace MIS
             frmStockAdjustment frm = new frmStockAdjustment();
             frm.Text = "COMPONENTS ADJUSTMENT";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2562,6 +2673,8 @@ namespace MIS
             frmStockTransfer frm = new frmStockTransfer();
             frm.Text = "COMPONENTS TRANSFER";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2574,6 +2687,8 @@ namespace MIS
             frmServiceOveride frm = new frmServiceOveride();
             frm.Text = "OVERRIDE SERVICE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2583,6 +2698,8 @@ namespace MIS
             frmPendingFailedService frm = new frmPendingFailedService();
             frm.Text = "FAILED SERVICE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2741,6 +2858,8 @@ namespace MIS
             frmMerchantOnboarding frm = new frmMerchantOnboarding();
             frm.Text = "MSP-MERCHANT ONBOARDING";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2753,6 +2872,8 @@ namespace MIS
             frmMerchantValidation frm = new frmMerchantValidation();
             frm.Text = "MSP-MERCHANT VALIDATION";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2880,13 +3001,12 @@ namespace MIS
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 48)) return;
 
             InitMenu(0, false);
-            dbAPI.ResetAdvanceSearch();
-            //frmHelpDesk.sHeader = "HELPDESK - MAINTENANCE";
-            //frmHelpDesk.fAutoLoadData = false;
-            //frmHelpDesk.fModify = false;
+            dbAPI.ResetAdvanceSearch();            
             frmHelpDesk frm = new frmHelpDesk();
             frm.Text = "HELPDESK";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2899,6 +3019,8 @@ namespace MIS
             frmMUpdateRequestID frm = new frmMUpdateRequestID();
             frm.Text = "UPDATE REQUEST ID";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -2911,6 +3033,8 @@ namespace MIS
             frmMUpdateServiceStatus frm = new frmMUpdateServiceStatus();
             frm.Text = "UPDATE SERVICE STATUS";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
         
@@ -2960,6 +3084,8 @@ namespace MIS
             frmMerchantDocumentGenerator frm = new frmMerchantDocumentGenerator();
             frm.Text = "MSP-MERCHANT DOCUMENNT GENERATOR";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -3053,6 +3179,7 @@ namespace MIS
                                     "CTRL+P > Pending eFSR\n" +
                                     "CTRL+F > Failed Service\n" +
                                     "CTRL+H > Helpdesk\n" +
+                                    "CTRL+E > Expenses-FSR\n" +
                                     "ESC    > Close Window / Form";
 
         }
@@ -3180,6 +3307,8 @@ namespace MIS
             frmMUpdateMerchantSN frm = new frmMUpdateMerchantSN();
             frm.Text = "UPDATE MERCHANT SN";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -3192,6 +3321,8 @@ namespace MIS
             frmImportSettlement frm = new frmImportSettlement();
             frm.Text = "ERM SETTLEMENT REPORT";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -3206,6 +3337,8 @@ namespace MIS
             frmMInventoryDeletion frm = new frmMInventoryDeletion();
             frm.Text = "TOOLS-INVENTORY DELETION";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -3219,6 +3352,8 @@ namespace MIS
             frmServiceArchive frm = new frmServiceArchive();
             frm.Text = "SERVICE- ARCHIVE";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -3231,6 +3366,8 @@ namespace MIS
             frmTerminalBrand frm = new frmTerminalBrand();
             frm.Text = "ENROLLMENT-TERMINAL BRAND";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -3243,6 +3380,8 @@ namespace MIS
             frmMLocation frm = new frmMLocation();
             frm.Text = "ENROLLMENT-LOCATION";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
 
@@ -3255,7 +3394,286 @@ namespace MIS
             frmMZoning frm = new frmMZoning();
             frm.Text = "ENROLLMENT-ZONING";
             frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
             frm.Show();
         }
+
+        private void btnDashboardServiceDiagnostic_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 48)) return;
+
+            InitMenu(0, false);            
+            frmDiagService frm = new frmDiagService();
+            frm.Text = "SERVICE DIAGNOSTIC";
+            frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
+            frm.Show();
+        }
+
+        private void btnDashboardPOSInventoryDiagnostic_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 48)) return;
+
+            InitMenu(0, false);
+            frmDiagTerminal frm = new frmDiagTerminal();
+            frm.Text = "TERMINAL INVENTORY DIAGNOSTIC";
+            frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
+            frm.Show();
+        }
+
+        private void btnDashboardSIMInventoryDiagnostic_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 48)) return;
+
+            InitMenu(0, false);
+            frmDiagSIM frm = new frmDiagSIM();
+            frm.Text = "SIM INVENTORY DIAGNOSTIC";
+            frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
+            frm.Show();
+        }
+
+        private void btnDashboardComponentsInventoryDiagnostic_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFinanceExpensesFSR_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 57)) return;
+
+            InitMenu(0, false);
+            frmExpenseFSR frm = new frmExpenseFSR();
+            frm.Text = "MANUAL EXPENSES - FSR";
+            frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
+            frm.Show();
+        }
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        private void InitializeMinimizedFormsPanel()
+        {
+            lvwFormMinimized.View = View.Details;
+            lvwFormMinimized.FullRowSelect = true;            
+            lvwFormMinimized.MultiSelect = false;
+
+            // Background
+            lvwFormMinimized.BackColor = ColorTranslator.FromHtml(clsSearch.ClassBankSecondaryColor);
+
+            lvwFormMinimized.Columns.Clear();
+
+            lvwFormMinimized.Columns.Add("FORM TITLE", 220);
+            lvwFormMinimized.Columns.Add("MINIMIZED TIME", 140);
+
+            lvwFormMinimized.DoubleClick += lvwFormMinimized_DoubleClick;
+        }
+
+
+        // =========================================================
+        // REGISTER FORM
+        // =========================================================
+        public void RegisterForm(Form form)
+        {
+            if (form == null)
+                return;
+
+            form.Resize -= ChildForm_Resize;
+            form.Resize += ChildForm_Resize;
+
+            form.FormClosed -= ChildForm_FormClosed;
+            form.FormClosed += ChildForm_FormClosed;
+        }
+
+
+        // =========================================================
+        // FORM RESIZE / MINIMIZE
+        // =========================================================
+        private void ChildForm_Resize(object sender, EventArgs e)
+        {
+            Form form = sender as Form;
+
+            if (form == null)
+                return;
+
+            if (form.WindowState == FormWindowState.Minimized)
+            {
+                MinimizeFormToPanel(form);
+            }
+        }
+
+
+        // =========================================================
+        // MINIMIZE FORM TO MAIN PANEL
+        // =========================================================
+        private void MinimizeFormToPanel(Form form)
+        {
+            string formKey = form.Name;
+
+            // Prevent duplicate entry
+            if (minimizedForms.ContainsKey(formKey))
+            {
+                form.WindowState = FormWindowState.Normal;
+                form.Hide();
+                return;
+            }
+
+            minimizedForms.Add(formKey, form);
+
+            ListViewItem item = new ListViewItem(form.Text);
+
+            item.SubItems.Add(
+                DateTime.Now.ToString("hh:mm:ss tt")
+            );
+
+            // Store actual Form object
+            item.Tag = form;
+
+            lvwFormMinimized.Items.Add(item);
+
+            // Restore WindowState before hiding
+            form.WindowState = FormWindowState.Normal;
+
+            // Hide the actual form
+            form.Hide();
+
+            // Show minimized forms panel
+            panelMinimizedForms.Visible = true;
+            panelMinimizedForms.BringToFront();
+        }
+
+
+        // =========================================================
+        // RESTORE FORM
+        // =========================================================
+        private void lvwFormMinimized_DoubleClick(
+            object sender,
+            EventArgs e)
+        {
+            if (lvwFormMinimized.SelectedItems.Count == 0)
+                return;
+
+            ListViewItem item =
+                lvwFormMinimized.SelectedItems[0];
+
+            Form form = item.Tag as Form;
+
+            if (form == null)
+                return;
+
+            RestoreForm(form, item);
+        }
+
+
+        // =========================================================
+        // RESTORE FORM
+        // =========================================================
+        private void RestoreForm(
+        Form form,
+        ListViewItem item)
+        {
+            if (form == null || form.IsDisposed)
+                return;
+
+            string formKey = form.Name;
+
+            if (minimizedForms.ContainsKey(formKey))
+                minimizedForms.Remove(formKey);
+
+            if (item != null)
+                lvwFormMinimized.Items.Remove(item);
+
+            // Restore
+            form.WindowState = FormWindowState.Normal;
+
+            if (!form.Visible)
+                form.Show();
+
+            form.BringToFront();
+            form.Activate();
+
+            // Force complete repaint
+            form.Invalidate(true);
+            form.Update();
+
+            UpdateMinimizedFormsPanel();
+        }
+
+
+        // =========================================================
+        // FORM CLOSED
+        // =========================================================
+        private void ChildForm_FormClosed(
+            object sender,
+            FormClosedEventArgs e)
+        {
+            Form form = sender as Form;
+
+            if (form == null)
+                return;
+
+            RemoveMinimizedForm(form);
+        }
+
+
+        // =========================================================
+        // REMOVE FROM MINIMIZED LIST
+        // =========================================================
+        private void RemoveMinimizedForm(Form form)
+        {
+            string formKey = form.Name;
+
+            if (minimizedForms.ContainsKey(formKey))
+                minimizedForms.Remove(formKey);
+
+            for (int i = lvwFormMinimized.Items.Count - 1; i >= 0; i--)
+            {
+                ListViewItem item = lvwFormMinimized.Items[i];
+
+                if (item.Tag == form)
+                {
+                    lvwFormMinimized.Items.RemoveAt(i);
+                    break;
+                }
+            }
+
+            UpdateMinimizedFormsPanel();
+        }
+
+
+        // =========================================================
+        // UPDATE PANEL
+        // =========================================================
+        private void UpdateMinimizedFormsPanel()
+        {
+            // Keep the minimized forms panel visible at all times.
+            panelMinimizedForms.Visible = true;
+
+            panelMinimizedForms.BringToFront();
+
+            if (lvwFormMinimized.Items.Count == 0)
+            {
+                lvwFormMinimized.Text = "MINIMIZED FORMS";
+
+                // Optional empty-state text
+                // lblMinimizedForms.Text = "MINIMIZED FORMS  (None)";
+            }
+            else
+            {
+                lvwFormMinimized.Text =
+                    $"MINIMIZED FORMS ({lvwFormMinimized.Items.Count})";
+            }
+        }
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
 }
