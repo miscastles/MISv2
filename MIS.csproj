@@ -319,6 +319,8 @@
     <Compile Include="Controller\MSPMasterController.cs" />
     <Compile Include="Controller\ParticularController.cs" />
     <Compile Include="Controller\ReasonController.cs" />
+    <Compile Include="Controller\QRDeliveryController.cs" />
+    <Compile Include="Report\QRDeliveryWaybillReport.cs" />
     <Compile Include="Controller\ReportController.cs" />
     <Compile Include="Controller\ServiceTypeController.cs" />
     <Compile Include="Controller\ServicingDetailController.cs" />
@@ -446,6 +448,12 @@
       <DependentUpon>ucVendorRepInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Form\frmQRDeliveryPrototype.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmQRDeliveryPrototype.Designer.cs">
+      <DependentUpon>frmQRDeliveryPrototype.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\frmExpenseFSR.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -840,6 +848,12 @@
     <Compile Include="Model\clsReport.cs" />
     <Compile Include="APIObject\clsReportDetailOnline.cs" />
     <Compile Include="Model\clsSearch.cs" />
+    <Compile Include="Model\QRDeliveryValidation.cs" />
+    <Compile Include="Model\QRDeliveryValidationMockTests.cs" />
+    <Compile Include="Model\QRDeliveryBackend.cs" />
+    <Compile Include="Model\QRDeliveryBackendMockTests.cs" />
+    <Compile Include="Model\LocalMySqlQRDeliveryHistoryStore.cs" />
+    <Compile Include="Model\QRDeliveryStoreFactory.cs" />
     <Compile Include="Model\clsServiceCall.cs" />
     <Compile Include="APIObject\clsServiceCallDetailOnline.cs" />
     <Compile Include="Model\clsServiceProvider.cs" />
@@ -1694,6 +1708,9 @@
     <EmbeddedResource Include="Form\frmPRSendInvoice.resx">
       <DependentUpon>frmPRSendInvoice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmQRDeliveryPrototype.resx">
+      <DependentUpon>frmQRDeliveryPrototype.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\frmRegionDetail.resx">
       <DependentUpon>frmRegionDetail.cs</DependentUpon>
     </EmbeddedResource>
@@ -2258,6 +2275,9 @@
     <EmbeddedResource Include="Report\rptBlank.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptBlank.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\rptQRDeliveryWaybill.rpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\rptZoningAlias.rpt">

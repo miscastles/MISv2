@@ -51,6 +51,7 @@ namespace MIS
         string sInput = "";
 
         private static Timer _timer;
+        private Bunifu.Framework.UI.BunifuFlatButton btnQrDeliveryPrototype;
 
         // Controller        
         private ServicingDetailController _mServicingDetailController;
@@ -84,7 +85,50 @@ namespace MIS
             _mServicingDetailController = new ServicingDetailController();
 
             InitializeMinimizedFormsPanel();
+            InitializeQrDeliveryPrototypeMenu();
 
+        }
+
+        private void InitializeQrDeliveryPrototypeMenu()
+        {
+            btnQrDeliveryPrototype = new Bunifu.Framework.UI.BunifuFlatButton();
+            btnQrDeliveryPrototype.Activecolor = Color.FromArgb(64, 64, 64);
+            btnQrDeliveryPrototype.BackColor = Color.FromArgb(64, 64, 64);
+            btnQrDeliveryPrototype.BackgroundImageLayout = ImageLayout.Stretch;
+            btnQrDeliveryPrototype.BorderRadius = 0;
+            btnQrDeliveryPrototype.ButtonText = "          QR Delivery";
+            btnQrDeliveryPrototype.Cursor = Cursors.Hand;
+            btnQrDeliveryPrototype.DisabledColor = Color.Gray;
+            btnQrDeliveryPrototype.Iconcolor = Color.Transparent;
+            btnQrDeliveryPrototype.Iconimage = null;
+            btnQrDeliveryPrototype.IconVisible = true;
+            btnQrDeliveryPrototype.IconZoom = 40D;
+            btnQrDeliveryPrototype.IsTab = true;
+            btnQrDeliveryPrototype.Location = new Point(-1, 670);
+            btnQrDeliveryPrototype.Name = "btnQrDeliveryPrototype";
+            btnQrDeliveryPrototype.Normalcolor = Color.FromArgb(64, 64, 64);
+            btnQrDeliveryPrototype.OnHovercolor = Color.FromArgb(64, 64, 64);
+            btnQrDeliveryPrototype.OnHoverTextColor = Color.Yellow;
+            btnQrDeliveryPrototype.Size = new Size(225, 28);
+            btnQrDeliveryPrototype.TabIndex = 310;
+            btnQrDeliveryPrototype.Text = "          QR Delivery";
+            btnQrDeliveryPrototype.TextAlign = ContentAlignment.MiddleLeft;
+            btnQrDeliveryPrototype.Textcolor = Color.FromArgb(224, 224, 224);
+            btnQrDeliveryPrototype.TextFont = new Font("Century Gothic", 9.75F);
+            btnQrDeliveryPrototype.Click += btnQrDeliveryPrototype_Click;
+
+            pnlSubMenuServicing.Controls.Add(btnQrDeliveryPrototype);
+            pnlSubMenuServicing.Height = Math.Max(pnlSubMenuServicing.Height, 704);
+            btnQrDeliveryPrototype.BringToFront();
+        }
+
+        private void btnQrDeliveryPrototype_Click(object sender, EventArgs e)
+        {
+            InitMenu(0, false);
+            frmQRDeliveryPrototype frm = new frmQRDeliveryPrototype();
+            frm.Text = "QR DELIVERY";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
         }
 
         private void btnLogoff_Click(object sender, EventArgs e)
