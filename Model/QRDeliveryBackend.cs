@@ -18,8 +18,8 @@ namespace MIS
         {
             if (request == null) throw new ArgumentNullException("request");
             if (string.IsNullOrWhiteSpace(request.QRContent)) throw new InvalidOperationException("QR content is required.");
-            if (request.InventoryStatus != "MATCH" && request.InventoryStatus != "MISMATCH")
-                throw new InvalidOperationException("Inventory status must be MATCH or MISMATCH.");
+            if (request.InventoryStatus != "VALID" && request.InventoryStatus != "INVALID")
+                throw new InvalidOperationException("Inventory status must be VALID or INVALID.");
             if (string.IsNullOrWhiteSpace(request.ProcessedBy)) throw new InvalidOperationException("Processed By is required.");
             if (request.CreatedDate == DateTime.MinValue) request.CreatedDate = DateTime.Now;
 

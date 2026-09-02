@@ -1007,7 +1007,7 @@ namespace MIS
                                         foreach (var element in DetailLastInsert1.data)
                                         {
                                             clsLastID.RecordFound = true;
-                                            clsLastID.ClassLastInsertedID = element.LastInsertID;
+                                            clsLastID.ClassLastInsertedID = element.LastInsertID ?? 0;
                                             clsLastID.ClassLastTableName = element.LastTableName;
                                         }
                                         break;
@@ -1021,7 +1021,7 @@ namespace MIS
                                         foreach (var element in DetailLastInsert2.data)
                                         {
                                             clsLastID.RecordFound = true;
-                                            clsLastID.ClassLastInsertedID = element.LastInsertID;
+                                            clsLastID.ClassLastInsertedID = element.LastInsertID ?? 0;
                                             clsLastID.ClassLastTableName = element.LastTableName;
                                         }
 
@@ -1043,7 +1043,7 @@ namespace MIS
                                         foreach (var element in DetailLastInsert3.data)
                                         {
                                             clsLastID.RecordFound = true;
-                                            clsLastID.ClassLastInsertedID = element.LastInsertID;
+                                            clsLastID.ClassLastInsertedID = element.LastInsertID ?? 0;
                                             clsLastID.ClassLastTableName = element.LastTableName;
                                         }
                                         break;
@@ -2189,7 +2189,7 @@ namespace MIS
                                             foreach (var element in Detail13.data)
                                             {
                                                 clsLastID.RecordFound = true;
-                                                clsLastID.ClassLastInsertedID = element.LastInsertID;
+                                                clsLastID.ClassLastInsertedID = element.LastInsertID ?? 0;
                                             }
                                             break;
                                         case "View":

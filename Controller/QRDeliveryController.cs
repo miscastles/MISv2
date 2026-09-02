@@ -32,15 +32,23 @@ namespace MIS.Controller
                 IRIDNo = data.IRIDNo,
                 MerchantID = data.MerchantID,
                 JobType = data.JobType,
-                JobTypeDescription = data.JobTypeDescription,
+                JobTypeDescription = string.IsNullOrWhiteSpace(data.JobTypeDescription)
+                    ? data.pJobTypeDescription : data.JobTypeDescription,
+                JobTypeStatusDescription = data.JobTypeStatusDescription,
+                TerminalInventoryStatus = data.EffectiveTerminalStatus,
+                SimInventoryStatus = data.EffectiveSimStatus,
                 Expected = new QRDeliveryData
                 {
+                    ServiceNo = data.ServiceNo,
+                    IRIDNo = data.IRIDNo,
                     TID = data.TID,
                     MID = data.MID,
                     MerchantName = data.MerchantName,
                     MerchantAddress = data.MerchantAddress,
-                    TerminalSerialNo = data.TerminalSN,
-                    SimSerialNo = data.SIMSerialNo
+                    TerminalID = data.EffectiveTerminalID,
+                    TerminalSerialNo = data.EffectiveTerminalSN,
+                    SimID = data.EffectiveSIMID,
+                    SimSerialNo = data.EffectiveSIMSN
                 }
             };
         }
@@ -71,6 +79,16 @@ namespace MIS.Controller
                 "InsertCollectionDetail");
 
             EnsureSuccess("saving the QR Delivery record");
+
+            QRDeliverySaveApiResponse response =
+                JsonConvert.DeserializeObject<QRDeliverySaveApiResponse>(
+                    clsGlobalVariables.strJSONResponse);
+            if (response == null || response.Data == null || response.Data.Count == 0 ||
+                !response.Data[0].LastInsertID.HasValue || response.Data[0].LastInsertID.Value <= 0)
+            {
+                throw new InvalidOperationException(
+                    "The MIS API responded successfully, but no QR Delivery audit record was inserted.");
+            }
         }
 
         public IList<QRDeliveryHistoryItem> GetRecent(int serviceNo, int limit)
@@ -119,6 +137,18 @@ namespace MIS.Controller
             public List<QRDeliveryHistoryItem> Data { get; set; }
         }
 
+        private sealed class QRDeliverySaveApiResponse
+        {
+            [JsonProperty("data")]
+            public List<QRDeliverySaveApiData> Data { get; set; }
+        }
+
+        private sealed class QRDeliverySaveApiData
+        {
+            [JsonProperty("LastInsertID")]
+            public int? LastInsertID { get; set; }
+        }
+
         private sealed class LookupJson
         {
             public int ServiceNo { get; set; }
@@ -126,12 +156,44 @@ namespace MIS.Controller
             public int MerchantID { get; set; }
             public int JobType { get; set; }
             public string JobTypeDescription { get; set; }
+            public string pJobTypeDescription { get; set; }
+            public string JobTypeStatusDescription { get; set; }
             public string MerchantName { get; set; }
             public string MerchantAddress { get; set; }
             public string TID { get; set; }
             public string MID { get; set; }
             public string TerminalSN { get; set; }
+            public int TerminalID { get; set; }
+            public string TerminalStatus { get; set; }
+            public string pTerminalStatus { get; set; }
+            public int ReplaceTerminalID { get; set; }
+            public string ReplaceTerminalSN { get; set; }
+            public string ReplaceTerminalStatus { get; set; }
+            public string pReplaceTerminalStatus { get; set; }
+            public int SIMID { get; set; }
             public string SIMSerialNo { get; set; }
+            public string SIMStatus { get; set; }
+            public string pSIMStatus { get; set; }
+            public int ReplaceSIMID { get; set; }
+            public string ReplaceSIMSN { get; set; }
+            public string ReplaceSIMStatus { get; set; }
+            public string pReplaceSIMStatus { get; set; }
+
+            public bool IsReplacement { get { return JobType == 7; } }
+            public int EffectiveTerminalID { get { return IsReplacement ? ReplaceTerminalID : TerminalID; } }
+            public string EffectiveTerminalSN { get { return IsReplacement ? ReplaceTerminalSN : TerminalSN; } }
+            public string EffectiveTerminalStatus { get { return IsReplacement
+                ? First(ReplaceTerminalStatus, pReplaceTerminalStatus)
+                : First(TerminalStatus, pTerminalStatus); } }
+            public int EffectiveSIMID { get { return IsReplacement ? ReplaceSIMID : SIMID; } }
+            public string EffectiveSIMSN { get { return IsReplacement ? ReplaceSIMSN : SIMSerialNo; } }
+            public string EffectiveSimStatus { get { return IsReplacement
+                ? First(ReplaceSIMStatus, pReplaceSIMStatus)
+                : First(SIMStatus, pSIMStatus); } }
+            private static string First(string first, string second)
+            {
+                return string.IsNullOrWhiteSpace(first) ? second : first;
+            }
         }
     }
 }

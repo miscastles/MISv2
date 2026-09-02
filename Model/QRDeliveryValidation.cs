@@ -7,11 +7,15 @@ namespace MIS
 {
     public sealed class QRDeliveryData
     {
+        public int ServiceNo { get; set; }
+        public int IRIDNo { get; set; }
         public string TID { get; set; }
         public string MID { get; set; }
         public string MerchantName { get; set; }
         public string MerchantAddress { get; set; }
+        public int TerminalID { get; set; }
         public string TerminalSerialNo { get; set; }
+        public int SimID { get; set; }
         public string SimSerialNo { get; set; }
     }
 
@@ -63,6 +67,9 @@ namespace MIS
         public int MerchantID { get; set; }
         public int JobType { get; set; }
         public string JobTypeDescription { get; set; }
+        public string JobTypeStatusDescription { get; set; }
+        public string TerminalInventoryStatus { get; set; }
+        public string SimInventoryStatus { get; set; }
         public QRDeliveryData Expected { get; set; }
     }
 
@@ -105,11 +112,6 @@ namespace MIS
 
     public sealed class QRDeliveryValidator
     {
-        private static readonly string[] RequiredFields =
-        {
-            "tid", "mid", "merchantName", "terminalSerialNo", "simSerialNo"
-        };
-
         public QRDeliveryValidationResult Validate(string json, QRDeliveryData expected)
         {
             if (string.IsNullOrWhiteSpace(json))
@@ -129,18 +131,21 @@ namespace MIS
             }
 
             QRDeliveryValidationResult result = new QRDeliveryValidationResult();
-            foreach (string field in RequiredFields)
-            {
-                JToken token = source.GetValue(field, StringComparison.OrdinalIgnoreCase);
-                if (token == null || string.IsNullOrWhiteSpace(token.ToString()))
-                    result.MissingFields.Add(DisplayName(field));
-            }
+            AddMissing(result, "TID", Value(source, "tid"));
+            AddMissing(result, "MID", Value(source, "mid"));
+            AddMissing(result, "Merchant Name", Value(source, "merchantName"));
+            AddMissing(result, "Terminal Serial No.",
+                FirstValue(source, "terminalSN", "terminalSerialNo"));
+            AddMissing(result, "SIM Serial No.",
+                FirstValue(source, "simSN", "simSerialNo"));
 
             AddResult(result, "TID", Value(source, "tid"), expected.TID);
             AddResult(result, "MID", Value(source, "mid"), expected.MID);
             AddResult(result, "Merchant Name", Value(source, "merchantName"), expected.MerchantName);
-            AddResult(result, "Terminal Serial No.", Value(source, "terminalSerialNo"), expected.TerminalSerialNo);
-            AddResult(result, "SIM Serial No.", Value(source, "simSerialNo"), expected.SimSerialNo);
+            AddResult(result, "Terminal Serial No.",
+                FirstValue(source, "terminalSN", "terminalSerialNo"), expected.TerminalSerialNo);
+            AddResult(result, "SIM Serial No.",
+                FirstValue(source, "simSN", "simSerialNo"), expected.SimSerialNo);
 
             result.IsMatch = result.MissingFields.Count == 0;
             foreach (QRDeliveryFieldResult field in result.Fields)
@@ -169,9 +174,30 @@ namespace MIS
                 TID = Value(source, "tid"),
                 MID = Value(source, "mid"),
                 MerchantName = Value(source, "merchantName"),
-                TerminalSerialNo = Value(source, "terminalSerialNo"),
-                SimSerialNo = Value(source, "simSerialNo")
+                TerminalSerialNo = FirstValue(source, "terminalSN", "terminalSerialNo"),
+                SimSerialNo = FirstValue(source, "simSN", "simSerialNo")
             };
+        }
+
+        public string CreateInternalContent(QRDeliveryLookupResult lookup)
+        {
+            if (lookup == null || lookup.Expected == null)
+                throw new ArgumentNullException("lookup");
+
+            QRDeliveryData data = lookup.Expected;
+            JObject content = new JObject
+            {
+                ["ServiceNo"] = lookup.ServiceNo.ToString(),
+                ["IRIDNo"] = lookup.IRIDNo.ToString(),
+                ["MerchantName"] = data.MerchantName ?? string.Empty,
+                ["TID"] = data.TID ?? string.Empty,
+                ["MID"] = data.MID ?? string.Empty,
+                ["TerminalID"] = data.TerminalID.ToString(),
+                ["TerminalSN"] = data.TerminalSerialNo ?? string.Empty,
+                ["SIMID"] = data.SimID.ToString(),
+                ["SIMSN"] = data.SimSerialNo ?? string.Empty
+            };
+            return content.ToString(Formatting.None);
         }
 
         private static void AddResult(QRDeliveryValidationResult result, string field,
@@ -188,10 +214,25 @@ namespace MIS
             });
         }
 
+        private static void AddMissing(QRDeliveryValidationResult result, string field, string value)
+        {
+            if (string.IsNullOrWhiteSpace(value)) result.MissingFields.Add(field);
+        }
+
         private static string Value(JObject source, string name)
         {
             JToken token = source.GetValue(name, StringComparison.OrdinalIgnoreCase);
             return token == null ? string.Empty : token.ToString();
+        }
+
+        private static string FirstValue(JObject source, params string[] names)
+        {
+            foreach (string name in names)
+            {
+                string value = Value(source, name);
+                if (!string.IsNullOrWhiteSpace(value)) return value;
+            }
+            return string.Empty;
         }
 
         private static string Normalize(string value)
@@ -199,15 +240,31 @@ namespace MIS
             return (value ?? string.Empty).Trim();
         }
 
-        private static string DisplayName(string field)
+    }
+
+    public static class QRDeliveryStatusRules
+    {
+        public static bool IsInventoryValid(string status)
         {
-            switch (field)
-            {
-                case "merchantName": return "Merchant Name";
-                case "terminalSerialNo": return "Terminal Serial No.";
-                case "simSerialNo": return "SIM Serial No.";
-                default: return field.ToUpperInvariant();
-            }
+            return string.Equals(status, "AVAILABLE", StringComparison.OrdinalIgnoreCase) ||
+                   string.Equals(status, "ALLOCATED", StringComparison.OrdinalIgnoreCase) ||
+                   string.Equals(status, "DISPATCH", StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static string TerminalPrepStatus(QRDeliveryData data)
+        {
+            return data != null && data.TerminalID > 0 &&
+                   !string.IsNullOrWhiteSpace(data.TerminalSerialNo)
+                ? "VALID" : "INVALID";
+        }
+
+        public static string DispatcherStatus(string jobTypeStatusDescription)
+        {
+            if (string.Equals(jobTypeStatusDescription, "PROCESSING", StringComparison.OrdinalIgnoreCase))
+                return "DISPATCH";
+            if (string.Equals(jobTypeStatusDescription, "PENDING", StringComparison.OrdinalIgnoreCase))
+                return "NOT YET DISPATCH";
+            return "INVALID";
         }
     }
 }

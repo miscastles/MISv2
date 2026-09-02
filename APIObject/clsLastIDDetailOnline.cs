@@ -9,9 +9,9 @@ namespace MIS
 {
     public class LastIDData
     {
-        private int _LastInsertID;
+        private int? _LastInsertID;
         [JsonProperty("LastInsertID")]
-        public int LastInsertID
+        public int? LastInsertID
         {
             get { return _LastInsertID; }
             set { _LastInsertID = value; }

@@ -96,7 +96,7 @@ namespace MIS
             // bunifuImageButton1
             // 
             this.bunifuImageButton1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuImageButton1.Image = global::MIS.Properties.Resources.ic_service;
+            this.bunifuImageButton1.Image = ((System.Drawing.Image)(global::MIS.Properties.Resources.ResourceManager.GetObject("ic_open1")));
             this.bunifuImageButton1.ImageActive = null;
             this.bunifuImageButton1.Location = new System.Drawing.Point(3, 0);
             this.bunifuImageButton1.Name = "bunifuImageButton1";
@@ -149,7 +149,6 @@ namespace MIS
             this.pnlToolbar.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pnlToolbar.Controls.Add(this.button4);
             this.pnlToolbar.Controls.Add(this.btnAdd);
-            this.pnlToolbar.Controls.Add(this.button1);
             this.pnlToolbar.Controls.Add(this.btnSave);
             this.pnlToolbar.Controls.Add(this.button2);
             this.pnlToolbar.Controls.Add(this.button3);
@@ -166,7 +165,7 @@ namespace MIS
             this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button4.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Font = new System.Drawing.Font("Arial Narrow", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button4.Location = new System.Drawing.Point(13, 11);
             this.button4.Name = "button4";
@@ -181,7 +180,7 @@ namespace MIS
             this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.btnAdd.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnAdd.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdd.Font = new System.Drawing.Font("Arial Narrow", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnAdd.Location = new System.Drawing.Point(100, 11);
             this.btnAdd.Name = "btnAdd";
@@ -197,11 +196,11 @@ namespace MIS
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Font = new System.Drawing.Font("Arial Narrow", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button1.Location = new System.Drawing.Point(187, 11);
+            this.button1.Location = new System.Drawing.Point(930, 43);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 27);
+            this.button1.Size = new System.Drawing.Size(130, 27);
             this.button1.TabIndex = 395;
             this.button1.Text = "HISTORY";
             this.button1.UseVisualStyleBackColor = false;
@@ -212,7 +211,7 @@ namespace MIS
             this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.btnSave.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnSave.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Font = new System.Drawing.Font("Arial Narrow", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnSave.Location = new System.Drawing.Point(274, 11);
             this.btnSave.Name = "btnSave";
@@ -227,7 +226,7 @@ namespace MIS
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button2.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Font = new System.Drawing.Font("Arial Narrow", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button2.Location = new System.Drawing.Point(361, 11);
             this.button2.Name = "button2";
@@ -242,7 +241,7 @@ namespace MIS
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button3.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Font = new System.Drawing.Font("Arial Narrow", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.button3.Location = new System.Drawing.Point(448, 11);
             this.button3.Name = "button3";
@@ -254,6 +253,7 @@ namespace MIS
             // grpService
             // 
             this.grpService.Controls.Add(this.btnSearchMerchant);
+            this.grpService.Controls.Add(this.button1);
             this.grpService.Controls.Add(this.lblServiceNo);
             this.grpService.Controls.Add(this.txtServiceNo);
             this.grpService.Controls.Add(this.lblServiceDetails);
@@ -294,7 +294,7 @@ namespace MIS
             // 
             this.txtServiceNo.BackColor = System.Drawing.Color.White;
             this.txtServiceNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtServiceNo.Font = new System.Drawing.Font("Courier New", 9F);
+            this.txtServiceNo.Font = new System.Drawing.Font("Courier New", 10F);
             this.txtServiceNo.ForeColor = System.Drawing.Color.Black;
             this.txtServiceNo.Location = new System.Drawing.Point(18, 42);
             this.txtServiceNo.Name = "txtServiceNo";
@@ -305,7 +305,7 @@ namespace MIS
             // lblServiceDetails
             // 
             this.lblServiceDetails.AutoSize = false;
-            this.lblServiceDetails.Font = new System.Drawing.Font("Courier New", 8F);
+            this.lblServiceDetails.Font = new System.Drawing.Font("Courier New", 9F);
             this.lblServiceDetails.ForeColor = System.Drawing.Color.Black;
             this.lblServiceDetails.Location = new System.Drawing.Point(480, 20);
             this.lblServiceDetails.Name = "lblServiceDetails";
@@ -342,7 +342,7 @@ namespace MIS
             // 
             this.rtbQRContent.BackColor = System.Drawing.Color.White;
             this.rtbQRContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtbQRContent.Font = new System.Drawing.Font("Courier New", 9F);
+            this.rtbQRContent.Font = new System.Drawing.Font("Courier New", 10F);
             this.rtbQRContent.ForeColor = System.Drawing.Color.Black;
             this.rtbQRContent.Location = new System.Drawing.Point(15, 43);
             this.rtbQRContent.Name = "rtbQRContent";
@@ -442,7 +442,7 @@ namespace MIS
             // 
             // lblQRStatus
             // 
-            this.lblQRStatus.Font = new System.Drawing.Font("Century Gothic", 20F, System.Drawing.FontStyle.Bold);
+            this.lblQRStatus.Font = new System.Drawing.Font("Century Gothic", 21F, System.Drawing.FontStyle.Bold);
             this.lblQRStatus.ForeColor = System.Drawing.Color.Silver;
             this.lblQRStatus.Location = new System.Drawing.Point(6, 67);
             this.lblQRStatus.Name = "lblQRStatus";
@@ -473,7 +473,7 @@ namespace MIS
             this.Controls.Add(this.grpService);
             this.Controls.Add(this.pnlToolbar);
             this.Controls.Add(this.pnlHeader);
-            this.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.Font = new System.Drawing.Font("Courier New", 9.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "frmQRDeliveryPrototype";

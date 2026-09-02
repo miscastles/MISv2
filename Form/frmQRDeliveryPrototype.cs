@@ -6,6 +6,7 @@ using System.Drawing.Printing;
 using System.Text;
 using System.Windows.Forms;
 using MIS.Controller;
+using QRCoder;
 
 namespace MIS
 {
@@ -19,6 +20,13 @@ namespace MIS
         private readonly QRDeliveryValidator qrValidator;
         private ServicingDetailController selectedService;
         private string validatedQRContent;
+        private string internalQRContent;
+        private string inventoryStatus;
+        private string terminalPrepStatus;
+        private string dispatcherStatus;
+        private Bitmap generatedQrImage;
+        private readonly List<QRDeliveryHistoryItem> sessionHistory =
+            new List<QRDeliveryHistoryItem>();
         private bool validationInProgress;
 
         public frmQRDeliveryPrototype()
@@ -27,14 +35,12 @@ namespace MIS
 
             dbFunction = new clsFunction();
             servicingController = new ServicingDetailController();
-            IQRDeliveryHistoryStore historyStore;
-            bool isLocalDatabase = QRDeliveryStoreFactory.TryCreateLocal(out historyStore);
-            if (!isLocalDatabase)
-                historyStore = new InMemoryQRDeliveryHistoryStore();
-            qrBackend = new QRDeliveryBackendService(historyStore);
-            qrLookup = isLocalDatabase
-                ? (IQRDeliveryLookupStore)historyStore
-                : new QRDeliveryController();
+            // Lookup, save, and history must use the same authoritative MIS API.
+            // Mixing a SIT/UAT lookup with the optional local history store causes
+            // schema drift and saves the validation to the wrong environment.
+            QRDeliveryController apiStore = new QRDeliveryController();
+            qrBackend = new QRDeliveryBackendService(apiStore);
+            qrLookup = apiStore;
             printDocument = new PrintDocument();
             qrValidator = new QRDeliveryValidator();
 
@@ -107,11 +113,11 @@ namespace MIS
                 if (!lookup.Found || lookup.Expected == null)
                 {
                     selectedService = null;
-                    QRDeliveryValidationResult missingJo = qrValidator.Validate(
-                        rtbQRContent.Text, new QRDeliveryData());
-                    foreach (QRDeliveryFieldResult field in missingJo.Fields) AddResult(field);
-                    AddStatusRows("MISMATCH");
+                    txtServiceNo.Clear();
                     validatedQRContent = rtbQRContent.Text.Trim();
+                    inventoryStatus = "INVALID";
+                    terminalPrepStatus = "INVALID";
+                    dispatcherStatus = "NO JO";
                     lblQRStatus.Text = "NO JO";
                     lblQRStatus.ForeColor = Color.Red;
                     button3.Enabled = false;
@@ -119,10 +125,10 @@ namespace MIS
                         "NO INSTALLATION OR REPLACEMENT J.O. FOR TID: {0} / MID: {1}       PROCESSED BY: {2}",
                         scanned.TID, scanned.MID,
                         string.IsNullOrWhiteSpace(clsUser.ClassUserName) ? "CURRENT USER" : clsUser.ClassUserName);
-                    AutoSaveValidationAttempt();
                     MessageBox.Show("No Installation or Replacement J.O. was found for the scanned TID and MID. " +
-                        "This failed validation was saved automatically for audit/history.", "QR Delivery",
+                        "Printing remains disabled until a valid service record is selected.", "QR Delivery",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    TrySaveValidationAttempt();
                     return;
                 }
 
@@ -136,7 +142,9 @@ namespace MIS
                     MID = lookup.Expected.MID,
                     MerchantName = lookup.Expected.MerchantName,
                     Address = lookup.Expected.MerchantAddress,
+                    TerminalID = lookup.Expected.TerminalID,
                     TerminalSN = lookup.Expected.TerminalSerialNo,
+                    SIMID = lookup.Expected.SimID,
                     SIMSN = lookup.Expected.SimSerialNo
                 };
                 txtServiceNo.Text = selectedService.ServiceNo.ToString();
@@ -151,13 +159,16 @@ namespace MIS
 
                 foreach (QRDeliveryFieldResult field in result.Fields)
                     AddResult(field);
-                AddStatusRows(result.IsMatch ? "MATCH" : "MISMATCH");
+                bool allStatusesValid = AddStatusRows(lookup, result);
 
                 validatedQRContent = rtbQRContent.Text.Trim();
                 lblQRStatus.Text = result.IsMatch ? "MATCH" : "MISMATCH";
                 lblQRStatus.ForeColor = result.IsMatch ? Color.Green : Color.Red;
-                button3.Enabled = result.IsMatch;
-                AutoSaveValidationAttempt();
+                button3.Enabled = result.IsMatch && allStatusesValid;
+                if (result.IsMatch && allStatusesValid)
+                    internalQRContent = qrValidator.CreateInternalContent(lookup);
+
+                TrySaveValidationAttempt();
 
                 if (result.MissingFields.Count > 0)
                     MessageBox.Show("The QR code is missing required information:\n\n- " +
@@ -168,13 +179,15 @@ namespace MIS
             catch (QRDeliveryValidationException ex)
             {
                 validatedQRContent = rtbQRContent.Text.Trim();
+                inventoryStatus = "INVALID";
+                terminalPrepStatus = "INVALID";
+                dispatcherStatus = "INVALID QR";
                 lblQRStatus.Text = "INVALID QR";
                 lblQRStatus.ForeColor = Color.Red;
                 button3.Enabled = false;
-                AddStatusRows("MISMATCH");
-                AutoSaveValidationAttempt();
                 MessageBox.Show(ex.Message,
                     "QR Delivery", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                TrySaveValidationAttempt();
             }
             catch (Exception ex)
             {
@@ -193,17 +206,59 @@ namespace MIS
         {
             int row = dgvValidation.Rows.Add(result.Field, result.ScannedValue,
                 result.ExpectedValue, result.IsMatch ? "MATCH" : "MISMATCH");
-            dgvValidation.Rows[row].Cells[3].Style.ForeColor = result.IsMatch ? Color.Green : Color.Red;
+            ApplyResultCellStyle(dgvValidation.Rows[row].Cells[3], result.IsMatch);
         }
 
-        private void AddStatusRows(string inventoryStatus)
+        private bool AddStatusRows(QRDeliveryLookupResult lookup,
+            QRDeliveryValidationResult validation)
         {
-            int row = dgvValidation.Rows.Add("Inventory Status", string.Empty,
-                string.Empty, inventoryStatus);
-            dgvValidation.Rows[row].Cells[3].Style.ForeColor =
-                inventoryStatus == "MATCH" ? Color.Green : Color.Red;
-            dgvValidation.Rows.Add("Terminal Prep Status", string.Empty, string.Empty, string.Empty);
-            dgvValidation.Rows.Add("Dispatcher Status", string.Empty, string.Empty, string.Empty);
+            bool terminalInventoryValid = lookup.Expected.TerminalID > 0 &&
+                IsFieldMatch(validation, "Terminal Serial No.");
+            bool simInventoryValid = lookup.Expected.SimID > 0 &&
+                IsFieldMatch(validation, "SIM Serial No.");
+            inventoryStatus = terminalInventoryValid && simInventoryValid && validation.IsMatch
+                ? "VALID" : "INVALID";
+            terminalPrepStatus = QRDeliveryStatusRules.TerminalPrepStatus(lookup.Expected);
+            dispatcherStatus = QRDeliveryStatusRules.DispatcherStatus(
+                lookup.JobTypeStatusDescription);
+
+            AddStatusRow("Inventory Terminal Status",
+                lookup.Expected.TerminalID.ToString(),
+                terminalInventoryValid ? "VALID" : "INVALID");
+            AddStatusRow("Inventory SIM Status",
+                lookup.Expected.SimID.ToString(),
+                simInventoryValid ? "VALID" : "INVALID");
+            AddStatusRow("Terminal Prep Status", lookup.Expected.TerminalID.ToString(),
+                terminalPrepStatus);
+            AddStatusRow("Dispatcher Status", lookup.JobTypeStatusDescription,
+                dispatcherStatus);
+            return inventoryStatus == "VALID" && terminalPrepStatus == "VALID" &&
+                   dispatcherStatus == "DISPATCH";
+        }
+
+        private static bool IsFieldMatch(QRDeliveryValidationResult validation, string fieldName)
+        {
+            foreach (QRDeliveryFieldResult field in validation.Fields)
+                if (string.Equals(field.Field, fieldName, StringComparison.OrdinalIgnoreCase))
+                    return field.IsMatch;
+            return false;
+        }
+
+        private void AddStatusRow(string name, string sourceValue, string result)
+        {
+            int row = dgvValidation.Rows.Add(name, sourceValue, string.Empty, result);
+            bool valid = result == "VALID" || result == "DISPATCH";
+            ApplyResultCellStyle(dgvValidation.Rows[row].Cells[3], valid);
+        }
+
+        private static void ApplyResultCellStyle(DataGridViewCell cell, bool valid)
+        {
+            Color background = valid ? Color.Green : Color.Firebrick;
+            cell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            cell.Style.BackColor = background;
+            cell.Style.ForeColor = Color.White;
+            cell.Style.SelectionBackColor = background;
+            cell.Style.SelectionForeColor = Color.White;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -217,39 +272,94 @@ namespace MIS
                 "QR Delivery", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void AutoSaveValidationAttempt()
+        private void SaveValidationAttempt()
         {
+            DateTime savedAt = DateTime.Now;
+            string processedBy = string.IsNullOrWhiteSpace(clsUser.ClassUserName)
+                ? "CURRENT USER" : clsUser.ClassUserName;
             qrBackend.SaveValidation(new QRDeliverySaveRequest
             {
                 ServiceNo = selectedService == null ? 0 : selectedService.ServiceNo,
                 IRIDNo = selectedService == null ? 0 : selectedService.IRIDNo,
                 MerchantID = selectedService == null ? 0 : selectedService.MerchantID,
                 QRContent = validatedQRContent,
-                InventoryStatus = lblQRStatus.Text == "MATCH" ? "MATCH" : "MISMATCH",
-                TerminalPrepStatus = string.Empty,
-                DispatcherStatus = string.Empty,
-                ProcessedBy = string.IsNullOrWhiteSpace(clsUser.ClassUserName) ? "CURRENT USER" : clsUser.ClassUserName,
-                CreatedDate = DateTime.Now
+                InventoryStatus = inventoryStatus,
+                TerminalPrepStatus = terminalPrepStatus,
+                DispatcherStatus = dispatcherStatus,
+                ProcessedBy = processedBy,
+                CreatedDate = savedAt
             });
+
+            sessionHistory.Insert(0, new QRDeliveryHistoryItem
+            {
+                ServiceNo = selectedService == null ? 0 : selectedService.ServiceNo,
+                IRIDNo = selectedService == null ? 0 : selectedService.IRIDNo,
+                MerchantID = selectedService == null ? 0 : selectedService.MerchantID,
+                InventoryStatus = inventoryStatus,
+                TerminalPrepStatus = terminalPrepStatus,
+                DispatcherStatus = dispatcherStatus,
+                ProcessedBy = processedBy,
+                QRDate = savedAt.Date,
+                DateTimeStamp = savedAt
+            });
+        }
+
+        private void TrySaveValidationAttempt()
+        {
+            try
+            {
+                SaveValidationAttempt();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("The scan result was displayed, but its audit record could not be saved.\n\n" +
+                    ex.Message, "QR Delivery Audit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnHistory_Click(object sender, EventArgs e)
         {
-            int serviceNo = selectedService == null ? 0 : selectedService.ServiceNo;
-            IList<QRDeliveryHistoryItem> items = qrBackend.GetRecentHistory(serviceNo, 50);
-            List<string> lines = new List<string>();
-            foreach (QRDeliveryHistoryItem item in items)
-                lines.Add(string.Format("{0:yyyy-MM-dd HH:mm:ss} | Service {1} | {2} | {3}",
-                    item.DateTimeStamp, item.ServiceNo, item.InventoryStatus, item.ProcessedBy));
-            string history = lines.Count == 0
-                ? "No QR delivery validations have been saved."
-                : string.Join(Environment.NewLine, lines.ToArray());
-            MessageBox.Show(history, "QR Delivery History", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                int serviceNo = selectedService == null ? 0 : selectedService.ServiceNo;
+                if (serviceNo <= 0)
+                {
+                    if (sessionHistory.Count > 0)
+                    {
+                        using (frmQRDeliveryHistory history =
+                            new frmQRDeliveryHistory(sessionHistory, true))
+                            history.ShowDialog(this);
+                    }
+                    else
+                        MessageBox.Show("No QR delivery scans have been recorded in this session.",
+                            "QR Delivery History", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                IList<QRDeliveryHistoryItem> items = qrBackend.GetRecentHistory(serviceNo, 50);
+                using (frmQRDeliveryHistory history =
+                    new frmQRDeliveryHistory(items, false))
+                    history.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                if (sessionHistory.Count > 0)
+                {
+                    using (frmQRDeliveryHistory history =
+                        new frmQRDeliveryHistory(sessionHistory, true))
+                        history.ShowDialog(this);
+                    return;
+                }
+
+                MessageBox.Show("No QR delivery validations have been saved in this session.",
+                    "QR Delivery History", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            if (selectedService == null || string.IsNullOrWhiteSpace(validatedQRContent))
+            if (selectedService == null || string.IsNullOrWhiteSpace(internalQRContent) ||
+                !button3.Enabled)
             {
                 MessageBox.Show("Only a successfully validated QR code can be printed.", "QR Delivery",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -258,7 +368,7 @@ namespace MIS
 
             try
             {
-                QRDeliveryWaybillReport.ShowPreview(this, selectedService);
+                QRDeliveryWaybillReport.ShowPreview(this, selectedService, internalQRContent);
             }
             catch (Exception ex)
             {
@@ -274,23 +384,29 @@ namespace MIS
 
         private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
-            StringBuilder content = new StringBuilder();
-            content.AppendLine("QR DELIVERY VALIDATION");
-            content.AppendLine();
-            content.AppendLine("Service No.: " + selectedService.ServiceNo);
-            content.AppendLine("IR ID No.: " + selectedService.IRIDNo);
-            content.AppendLine("Merchant: " + selectedService.MerchantName);
-            content.AppendLine("TID: " + selectedService.TID);
-            content.AppendLine("MID: " + selectedService.MID);
-            content.AppendLine("Terminal SN: " + selectedService.TerminalSN);
-            content.AppendLine("SIM SN: " + selectedService.SIMSN);
-            content.AppendLine("Status: " + lblQRStatus.Text);
-            content.AppendLine();
-            content.AppendLine("QR CONTENT:");
-            content.AppendLine(validatedQRContent);
+            const int qrSize = 320;
+            int qrX = e.MarginBounds.Left + (e.MarginBounds.Width - qrSize) / 2;
+            int qrY = e.MarginBounds.Top + 35;
 
-            using (Font font = new Font("Courier New", 10F))
-                e.Graphics.DrawString(content.ToString(), font, Brushes.Black, e.MarginBounds);
+            using (Font titleFont = new Font("Arial", 14F, FontStyle.Bold))
+            using (Font contentFont = new Font("Courier New", 9F))
+            {
+                e.Graphics.DrawString("QR DELIVERY", titleFont, Brushes.Black,
+                    e.MarginBounds.Left, e.MarginBounds.Top);
+                if (generatedQrImage != null)
+                    e.Graphics.DrawImage(generatedQrImage,
+                        new Rectangle(qrX, qrY, qrSize, qrSize));
+
+                RectangleF contentBounds = new RectangleF(
+                    e.MarginBounds.Left,
+                    qrY + qrSize + 20,
+                    e.MarginBounds.Width,
+                    e.MarginBounds.Bottom - (qrY + qrSize + 20));
+                e.Graphics.DrawString(internalQRContent, contentFont, Brushes.Black,
+                    contentBounds);
+            }
+
+            e.HasMorePages = false;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -301,7 +417,16 @@ namespace MIS
         private void ResetForm()
         {
             selectedService = null;
+            if (generatedQrImage != null)
+            {
+                generatedQrImage.Dispose();
+                generatedQrImage = null;
+            }
             validatedQRContent = string.Empty;
+            internalQRContent = string.Empty;
+            inventoryStatus = string.Empty;
+            terminalPrepStatus = string.Empty;
+            dispatcherStatus = string.Empty;
             txtServiceNo.Clear();
             rtbQRContent.Clear();
             lblServiceDetails.Text = string.Format(
@@ -324,6 +449,10 @@ namespace MIS
         {
             dgvValidation.Rows.Clear();
             validatedQRContent = string.Empty;
+            internalQRContent = string.Empty;
+            inventoryStatus = string.Empty;
+            terminalPrepStatus = string.Empty;
+            dispatcherStatus = string.Empty;
             lblQRStatus.Text = "NOT VALIDATED";
             lblQRStatus.ForeColor = Color.Silver;
             btnSave.Enabled = false;
@@ -377,7 +506,7 @@ namespace MIS
             using (Pen borderPen = new Pen(borderColor))
                 e.Graphics.DrawRectangle(borderPen, 0, 0, section.Width - 1, section.Height - 1);
             using (SolidBrush textBrush = new SolidBrush(Color.Navy))
-            using (Font font = new Font("Courier New", 8.25F, FontStyle.Bold))
+            using (Font font = new Font("Courier New", 9.25F, FontStyle.Bold))
                 e.Graphics.DrawString(Convert.ToString(section.Tag), font, textBrush, 7, 5);
         }
 

@@ -5,9 +5,11 @@ using MIS.Controller;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using QRCoder;
 
 namespace MIS
 {
@@ -15,9 +17,12 @@ namespace MIS
     {
         private const string ReportFileName = "rptQRDeliveryWaybill.rpt";
 
-        public static void ShowPreview(IWin32Window owner, ServicingDetailController service)
+        public static void ShowPreview(IWin32Window owner, ServicingDetailController service,
+            string internalQRContent)
         {
             if (service == null) throw new ArgumentNullException("service");
+            if (string.IsNullOrWhiteSpace(internalQRContent))
+                throw new ArgumentException("The internal QR content is required.", "internalQRContent");
 
             string reportPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                 "Report", ReportFileName);
@@ -25,6 +30,7 @@ namespace MIS
                 throw new FileNotFoundException("The QR Delivery waybill template was not found.", reportPath);
 
             ReportDocument report = new ReportDocument();
+            string qrImagePath = null;
             try
             {
                 report.Load(reportPath);
@@ -35,6 +41,8 @@ namespace MIS
 
                 BindParameters(report, values);
                 BindTextObjects(report, values);
+                // The report's current QR is an approved placeholder. The senior
+                // developer will provide the data-bound QR object in the final RPT.
 
                 QRDeliveryReportPreview preview = new QRDeliveryReportPreview(report);
                 report = null; // the preview owns and disposes the report
@@ -47,7 +55,51 @@ namespace MIS
                     report.Close();
                     report.Dispose();
                 }
+                if (!string.IsNullOrWhiteSpace(qrImagePath) && File.Exists(qrImagePath))
+                    File.Delete(qrImagePath);
             }
+        }
+
+        private static string CreateQrImage(string content)
+        {
+            string path = Path.Combine(Path.GetTempPath(),
+                "MIS_QR_DELIVERY_" + Guid.NewGuid().ToString("N") + ".bmp");
+            using (QRCodeGenerator generator = new QRCodeGenerator())
+            using (QRCodeData data = generator.CreateQrCode(content, QRCodeGenerator.ECCLevel.Q))
+            using (QRCode qrCode = new QRCode(data))
+            using (Bitmap bitmap = qrCode.GetGraphic(12))
+                bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Bmp);
+            return path;
+        }
+
+        private static void BindQrPicture(ReportDocument report, string imagePath)
+        {
+            CrystalDecisions.ReportAppServer.Controllers.ReportObjectController controller =
+                report.ReportClientDocument.ReportDefController.ReportObjectController;
+            CrystalDecisions.ReportAppServer.ReportDefModel.ReportObjects objects =
+                controller.GetAllReportObjects();
+
+            foreach (CrystalDecisions.ReportAppServer.ReportDefModel.ISCRReportObject item in objects)
+            {
+                if (!string.Equals(item.Name, "Picture5", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                CrystalDecisions.ReportAppServer.ReportDefModel.ISCRPictureObject picture =
+                    item as CrystalDecisions.ReportAppServer.ReportDefModel.ISCRPictureObject;
+                if (picture == null) break;
+
+                CrystalDecisions.ReportAppServer.CommonObjectModel.ByteArray imageData =
+                    new CrystalDecisions.ReportAppServer.CommonObjectModel.ByteArrayClass();
+                imageData.ByteArray = File.ReadAllBytes(imagePath);
+                picture.PictureData = imageData;
+                picture.PictureType =
+                    CrystalDecisions.ReportAppServer.ReportDefModel.CrPictureTypeEnum.crPictureTypeBitmap;
+                controller.Modify(item, picture);
+                return;
+            }
+
+            throw new InvalidOperationException(
+                "The QR picture placeholder (Picture5) was not found in the waybill report.");
         }
 
         private static IDictionary<string, object> CreateValues(
