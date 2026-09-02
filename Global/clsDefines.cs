@@ -44,6 +44,7 @@ namespace MIS
         public const string RESP_DATABASELIST_FILENAME = "respDatabaseList.json";
         public const string RESP_ISSUECATEGORYLIST_FILENAME = "respIssueCategoryList.json";
         public const string RESP_ZONINGLIST_FILENAME = "respZoningList.json";
+        public const string RESP_EXPENSES_FILENAME = "respExpensesList.json";
 
         public const string CONTACT_ADMIN_MESSAGE = "Please contact system administrator.";
         public const string MUST_NOT_BLANK_MESSAGE = " must not be blank.";
@@ -316,6 +317,7 @@ namespace MIS
         public const string CONTROLID_PREFIX_HELPDESK = "HD";
         public const string CONTROLID_PREFIX_IMPORT_BASE = "IB";
         public const string CONTROLID_PREFIX_MSP = "MSP";
+        public const string CONTROLID_PREFIX_EXPENSES = "EXP-";
 
         public const string TAG_MIN = "MIN";
         public const string TAG_MAX = "MAX";
@@ -480,6 +482,7 @@ namespace MIS
 
         public const string TAG_UpdatedID = "UpdatedID";
         public const string TAG_UpdatedAt = "UpdatedAt";
+        public const string TAG_UpdatedDate = "UpdatedDate";
         public const string TAG_UpdatedBy = "UpdatedBy";
 
         public const string TAG_SubmitID = "SubmitID";
@@ -776,6 +779,12 @@ namespace MIS
         public const string TAG_fsrServicedDate = "fsrServicedDate";
         public const string TAG_svcClosedTicketBy = "svcClosedTicketBy";
         public const string TAG_svcClosedTicketDate = "svcClosedTicketDate";
+
+        // Expenses-FSR
+        public const string TAG_ExpensesID = "ExpensesID";
+        public const string TAG_ServiceNoList = "ServiceNoList";
+        public const string TAG_IRNoList = "IRNoList";
+        public const string TAG_ReceiptList = "ReceiptList";        
 
     }
 }

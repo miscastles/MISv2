@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -311,6 +311,7 @@
     <Compile Include="AppActivity\AppReports.cs" />
     <Compile Include="AppActivity\ServiceActivity.cs" />
     <Compile Include="Controller\clsSNController.cs" />
+    <Compile Include="Controller\ExpensesController.cs" />
     <Compile Include="Controller\FSRDetailController.cs" />
     <Compile Include="Controller\HelpDeskController.cs" />
     <Compile Include="Controller\ImportMasterController.cs" />
@@ -325,6 +326,7 @@
     <Compile Include="Controller\TerminalController.cs" />
     <Compile Include="Controller\TypeController.cs" />
     <Compile Include="Controller\UserController.cs" />
+    <Compile Include="Controller\ZoningController.cs" />
     <Compile Include="ControlObject\ucAppsInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -662,6 +664,18 @@
     <Compile Include="Form\frmDiagSIM.Designer.cs">
       <DependentUpon>frmDiagSIM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\frmServiceExpenses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmServiceExpenses.Designer.cs">
+      <DependentUpon>frmServiceExpenses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmServiceExpensesFSR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmServiceExpensesFSR.Designer.cs">
+      <DependentUpon>frmServiceExpensesFSR.cs</DependentUpon>
+    </Compile>
     <Compile Include="Function\clsComboBox.cs" />
     <Compile Include="Function\clsReceiptImageProcessor.cs" />
     <Compile Include="Function\DataGridViewHelper.cs" />
@@ -974,12 +988,6 @@
     <Compile Include="Form\frmSearchField.Designer.cs">
       <DependentUpon>frmSearchField.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\frmServiceExpenses.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\frmServiceExpenses.Designer.cs">
-      <DependentUpon>frmServiceExpenses.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form\frmServiceType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1042,6 +1050,8 @@
     </Compile>
     <Compile Include="Model\clsVendor.cs" />
     <Compile Include="Model\modelDashboard.cs" />
+    <Compile Include="Model\modelExpensesDetail.cs" />
+    <Compile Include="Model\modelExpensesMaster.cs" />
     <Compile Include="Model\modelParticular.cs" />
     <Compile Include="Model\modelPrivacyDetail.cs" />
     <Compile Include="Model\modelPrivacyMaster.cs" />
@@ -1586,6 +1596,13 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Report\rptExpensesReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptExpensesReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <EmbeddedResource Include="ControlObject\ucAttachDocument.resx">
       <DependentUpon>ucAttachDocument.cs</DependentUpon>
     </EmbeddedResource>
@@ -1739,9 +1756,6 @@
     <EmbeddedResource Include="Form\frmSearchField.resx">
       <DependentUpon>frmSearchField.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\frmServiceExpenses.resx">
-      <DependentUpon>frmServiceExpenses.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\frmServicesBilling.resx">
       <DependentUpon>frmServicesBilling.cs</DependentUpon>
     </EmbeddedResource>
@@ -1882,6 +1896,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmDiagSIM.resx">
       <DependentUpon>frmDiagSIM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmServiceExpenses.resx">
+      <DependentUpon>frmServiceExpenses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmServiceExpensesFSR.resx">
+      <DependentUpon>frmServiceExpensesFSR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -2268,6 +2288,11 @@
     <EmbeddedResource Include="Report\rptZoningList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptZoningList.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\rptExpensesReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptExpensesReport.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="ControlObject\dsReport.xsc">

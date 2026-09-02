@@ -343,6 +343,10 @@ namespace MIS
                             ZoningAliasListReport();
                             break;
 
+                        case 61:
+                            ExpensesReport();
+                            break;
+
                         // INVOICES
                         case 1001:
                             // Servicing Invoice
@@ -5113,7 +5117,55 @@ namespace MIS
             }
 
             Cursor.Current = Cursors.Default;
-        }        
+        }
+
+        private void ExpensesReport()
+        {
+            string ReportPath = "";
+            string reportFullPath = "";
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            ReportPath = GetReportPath();
+            reportFullPath = Path.Combine(ReportPath, "rptExpensesReport.rpt");
+
+            Debug.WriteLine("reportFullPath=" + reportFullPath);
+
+            if (!File.Exists(reportFullPath))
+            {
+                MessageBox.Show("Report Path [" + reportFullPath + "]" + "\n\nFile not found!");
+
+                Cursor.Current = Cursors.Default;
+                return;
+            }
+
+            try
+            {
+                DataSet dsReport = dbConnect.GetReportWithStoredProcedure(clsSearch.ClassReportID, clsSearch.ClassStatementType, clsSearch.ClassSearchBy, clsSearch.ClassSearchValue, clsSearch.ClassStoredProcedureName, lvwList);
+
+                if (!isValidReportDataSet(dsReport, reportFullPath)) return;
+
+                rptExpensesReport rptViewer = new rptExpensesReport();
+
+                rptViewer.Load(reportFullPath);
+                rptViewer.SetDataSource(dsReport.Tables[0]);
+
+                SetReceiptReportHeader(rptViewer);
+                SetReceiptUser(rptViewer);
+
+                myViewer.ReportSource = rptViewer;
+                myViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message + "\n[" + reportFullPath + "]", "Report could not be created",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
+            }
+
+            Cursor.Current = Cursors.Default;
+        }
 
     }
 }

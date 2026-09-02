@@ -832,6 +832,15 @@ namespace MIS
             set { _ZoneName = value; }
         }
 
+        // Expenses Type        
+        private int _ExpensesID;
+        [JsonProperty("ExpensesID")]
+        public int ExpensesID
+        {
+            get { return _ExpensesID; }
+            set { _ExpensesID = value; }
+        }
+
     }
 
     public class CollectionDataDetailOnline

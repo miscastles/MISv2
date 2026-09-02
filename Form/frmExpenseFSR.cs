@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MIS.Controller;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,6 +19,9 @@ namespace MIS
         private clsFile dbFile;
         private clsReceiptImageProcessor dbReceiptImageProcessor;
 
+        // Controller
+        private ServicingDetailController _mServicingDetailController;
+
         bool fEdit;
         bool fNewExpense;
 
@@ -27,17 +32,16 @@ namespace MIS
 
         string pExpenseFTPHost = $"{clsGlobalVariables.strFTPURL}/{clsGlobalVariables.strFTPUploadPath}/expenses/{clsSearch.ClassBankCode}";
 
-#if ENABLE_COMPOSITED
-                protected override CreateParams CreateParams
-                {
-                    get
-                    {
-                        CreateParams cp = base.CreateParams;
-                        cp.ExStyle |= 0x02000000;
-                        return cp;
-                    }
-                }
-#endif
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED
+                //cp.ExStyle |= 0x20; // WS_EX_TRANSPARENT
+                return cp;
+            }
+        }
 
         private class ExpenseSummaryGrid : DataGridView
         {
@@ -166,19 +170,41 @@ namespace MIS
             dbReceiptImageProcessor = new clsReceiptImageProcessor();
 
             ExpenseSummaryGrid.Configure(dgvSummary);
+
+            // Initialize the controller object
+            _mServicingDetailController = new ServicingDetailController();
         }
 
         private void frmExpenseFSR_Load(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
+            dbAPI = new clsAPI();            
+            dbFile = new clsFile();
+            dbFunction = new clsFunction();            
+
             fEdit = false;
             fNewExpense = false;
-    
-            lblHeader.Text = $"EXPENSES - FSR [ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} ]";
+
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel("EXPENSES-FSR");
 
             ResetImageFields();
+
             InitButtons();
+
+            btnNew.Enabled = true;
+
+            btnSearchService.Enabled = false;
+            dbFunction.SetButtonIconImage(btnSearchService);
+
+            btnSearchExpensesReferenceNo.Enabled = true;
+            dbFunction.SetButtonIconImage(btnSearchExpensesReferenceNo);
+
+            dbAPI.FillComboBoxServiceType(cboSearchServiceType);
+
+
+            initServiceListView(lvwServiceList);
+            initReceiptListView(lvwReceiptList);
 
             Cursor.Current = Cursors.Default;
         }
@@ -190,10 +216,12 @@ namespace MIS
             if (dbFunction.isValidID(txtServiceNo.Text))
             {
                 btnNew.Enabled = true;
+                btnSave.Enabled = true;
             }
             else
             {
                 btnNew.Enabled = false;
+                btnSave.Enabled = true;
             }
 
             if (fNewExpense)
@@ -1016,9 +1044,12 @@ namespace MIS
         private void btnClear_Click(object sender, EventArgs e)
         {
             fEdit = false;
-
+            
             dbFunction.ClearListViewItems(lvwExpenseList);
             dbFunction.ClearListViewItems(lvwExpenseImages);
+            dbFunction.ClearListViewItems(lvwServiceList);
+            dbFunction.ClearListViewItems(lvwReceiptList);
+
             dbFunction.ClearTextBox(this);
 
             cboExpenseType.SelectedIndex = 0;
@@ -1030,6 +1061,16 @@ namespace MIS
             dgvSummary.Rows.Clear();
 
             InitButtons();
+
+            btnNew.Enabled = true;
+
+            btnSearchService.Enabled = false;
+            dbFunction.SetButtonIconImage(btnSearchService);
+
+            btnSearchExpensesReferenceNo.Enabled = true;
+            dbFunction.SetButtonIconImage(btnSearchExpensesReferenceNo);
+
+            lblTServiceNos.Text = $"{clsDefines.gZero}";
         }
 
         private async void btnSearchService_Click(object sender, EventArgs e)
@@ -1073,6 +1114,9 @@ namespace MIS
                 btnSave.Enabled = true;
                 cboExpenseType.Enabled = true;
                 btnAddSelectImage.Enabled = true;
+
+                addServiceToServiceList($"{clsSearch.ClassServiceNo}", $"{clsSearch.ClassIRIDNo}");
+
             }
             catch (Exception ex)
             {
@@ -1340,6 +1384,9 @@ namespace MIS
                 fEdit = false;
 
                 InitButtons();
+
+                btnClear_Click(this, e);
+
             }
             catch (Exception ex)
             {
@@ -2093,6 +2140,12 @@ namespace MIS
 
             InitButtons();
 
+            btnSearchService.Enabled = true;
+            dbFunction.SetButtonIconImage(btnSearchService);
+
+            btnSearchExpensesReferenceNo.Enabled = false;
+            dbFunction.SetButtonIconImage(btnSearchExpensesReferenceNo);
+
             cboExpenseType.Focus();
         }
 
@@ -2214,6 +2267,9 @@ namespace MIS
                 dbFunction.ClearListViewItems(lvwExpenseList);
                 dbFunction.ClearListViewItems(lvwExpenseImages);
 
+                // fill expenses info
+                txtExpenseReferenceNo.Text = $"{clsSearch.ClassExpenseReferenceNo}";
+
                 await FetchData();
 
                 foreach (ListViewItem item in lvwExpenseList.Items)
@@ -2245,6 +2301,612 @@ namespace MIS
 
                 Cursor.Current = Cursors.Default;
             }
+        }
+
+        private void initServiceListView(ListView lvw)
+        {
+            string outField = "";
+            int outWidth = 0;
+            string outTitle = "";
+            HorizontalAlignment outAlign = 0;
+            bool outVisible = false;
+            bool outAutoWidth = false;
+            string outFormat = "";
+
+            dbFunction = new clsFunction();
+
+            lvw.Clear();
+            lvw.View = View.Details;
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Line#", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "ServiceNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "IRIDNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Service Type", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Request No.", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Merchant", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "TID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "MID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+        }
+
+        private void initReceiptListView(ListView lvw)
+        {
+            string outField = "";
+            int outWidth = 0;
+            string outTitle = "";
+            HorizontalAlignment outAlign = 0;
+            bool outVisible = false;
+            bool outAutoWidth = false;
+            string outFormat = "";
+
+            dbFunction = new clsFunction();
+
+            lvw.Clear();
+            lvw.View = View.Details;
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Line#", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Receipt", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "ReceiptAmount", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);                      
+
+        }
+
+        private void addServiceToServiceList(string pServiceNo, string pIRIDNo)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            // fill additional info
+            _mServicingDetailController = _mServicingDetailController.getServicingInfo($"{pServiceNo}{clsDefines.gPipe}{pIRIDNo}");
+
+            string ServiceNo = $"{_mServicingDetailController.ServiceNo}";
+            string JobType = $"{_mServicingDetailController.JobType}";
+            string IRIDNo = $"{_mServicingDetailController.IRIDNo}";
+            string RequestID = $"{_mServicingDetailController.IRNo}";
+            string Merchant = $"{_mServicingDetailController.MerchantName}";
+            string TID = $"{_mServicingDetailController.TID}";
+            string MID = $"{_mServicingDetailController.MID}";
+            string JobTypeDescription = $"{_mServicingDetailController.ServiceJobTypeDescription}";
+
+
+            // -------------------------------------------------------------
+            // Prevent duplicate Service #
+            // -------------------------------------------------------------
+            foreach (ListViewItem item in lvwServiceList.Items)
+            {
+                string existingServiceNo = item.SubItems[1].Text;
+                string existingIRIDNo = item.SubItems[2].Text;
+
+                if (existingServiceNo.Equals(ServiceNo, StringComparison.OrdinalIgnoreCase) &&
+                    existingIRIDNo.Equals(IRIDNo, StringComparison.OrdinalIgnoreCase))
+                {
+                    return;
+                }
+            }
+
+            // -------------------------------------------------------------
+            // Add Service to ListView
+            // -------------------------------------------------------------
+            int lineNo = lvwServiceList.Items.Count + 1;
+
+            ListViewItem lvi = new ListViewItem(lineNo.ToString());            
+            lvi.SubItems.Add(ServiceNo);
+            lvi.SubItems.Add(IRIDNo);   
+            lvi.SubItems.Add(JobTypeDescription);    
+            lvi.SubItems.Add(RequestID);
+            lvi.SubItems.Add(Merchant);
+            lvi.SubItems.Add(TID);
+            lvi.SubItems.Add(MID);
+
+            // -------------------------------------------------------------
+            // Store useful values in Tag
+            // -------------------------------------------------------------
+            lvi.Tag = new
+            {
+                ServiceNo = ServiceNo,
+                IRIDNo = IRIDNo,
+                JobType = JobType,
+                RequestID = RequestID,
+                Merchant = Merchant,
+                TID = TID,
+                MID = MID
+            };
+
+
+            lvwServiceList.Items.Add(lvi);
+
+            Cursor.Current = Cursors.Default;
+
+        }
+
+        private void frmExpenseFSR_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {   
+                case Keys.Escape:
+                    this.Close();
+                    break;
+            }
+        }
+
+        private void btnServiceRemove_Click(object sender, EventArgs e)
+        {
+            dbFunction.removeItemListView(lvwServiceList, false);
+        }
+
+        private void btnServiceClearAll_Click(object sender, EventArgs e)
+        {
+            dbFunction.ClearListViewItems(lvwServiceList);
+        }
+
+        private void addReceiptToReceiptList()
+        {
+            if (string.IsNullOrWhiteSpace(sSelectedImagePath))
+            {
+                dbFunction.SetMessageBox(
+                    "Please select a receipt image first.",
+                    "Receipt",
+                    clsFunction.IconType.iWarning
+                );
+
+                return;
+            }
+
+            decimal dReceiptAmount = 0M;
+
+            if (!decimal.TryParse(
+                    txtImageAmount.Text.Trim(),
+                    NumberStyles.Number,
+                    CultureInfo.InvariantCulture,
+                    out dReceiptAmount))
+            {
+                dbFunction.SetMessageBox(
+                    "Please enter a valid receipt amount.",
+                    "Receipt Amount",
+                    clsFunction.IconType.iWarning
+                );
+
+                txtImageAmount.Focus();
+                return;
+            }
+
+            if (dReceiptAmount <= 0)
+            {
+                dbFunction.SetMessageBox(
+                    "Receipt amount must be greater than zero.",
+                    "Receipt Amount",
+                    clsFunction.IconType.iWarning
+                );
+
+                txtImageAmount.Focus();
+                return;
+            }
+
+
+            // -------------------------------------------------------------
+            // Check duplicate receipt
+            // -------------------------------------------------------------
+            foreach (ListViewItem existingItem in lvwReceiptList.Items)
+            {
+                if (existingItem.Tag == null)
+                    continue;
+
+                string existingReceipt =
+                    existingItem.Tag.ToString();
+
+                if (existingReceipt.Equals(
+                        sSelectedImagePath,
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    dbFunction.SetMessageBox(
+                        "The selected receipt is already in the list.",
+                        "Duplicate Receipt",
+                        clsFunction.IconType.iError
+                    );
+
+                    return;
+                }
+            }
+
+
+            // -------------------------------------------------------------
+            // Add Receipt
+            // -------------------------------------------------------------
+            int iLineNo = lvwReceiptList.Items.Count + 1;
+
+            FileInfo fileInfo = new FileInfo(sSelectedImagePath);
+
+            ListViewItem item =
+                new ListViewItem(iLineNo.ToString());
+
+            // Receipt
+            item.SubItems.Add(fileInfo.Name);
+
+            // Receipt Amount
+            item.SubItems.Add(
+                dReceiptAmount.ToString("N2")
+            );
+
+            // Store full path
+            item.Tag = sSelectedImagePath;
+
+            lvwReceiptList.Items.Add(item);
+
+
+            // -------------------------------------------------------------
+            // Update Expense Amount
+            // -------------------------------------------------------------
+            decimal dCurrentExpenseAmount = 0M;
+
+            decimal.TryParse(
+                txtExpenseAmount.Text.Trim(),
+                NumberStyles.Number,
+                CultureInfo.InvariantCulture,
+                out dCurrentExpenseAmount
+            );
+
+            txtExpenseAmount.Text =
+                (dCurrentExpenseAmount + dReceiptAmount)
+                .ToString("N2");
+
+
+            // -------------------------------------------------------------
+            // Reset
+            // -------------------------------------------------------------
+            sSelectedImagePath = "";
+
+            txtImageAmount.Text = "";
+
+            txtImageAmount.Enabled = false;
+            btnAddAmount.Enabled = false;
+            btnAddSelectImage.Enabled = true;
+        }
+
+        private void btnReceiptAdd_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFile = new OpenFileDialog())
+            {
+                openFile.Title = "Select Receipt Image";
+
+                openFile.Filter =
+                    "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|" +
+                    "PNG Images (*.png)|*.png|" +
+                    "JPEG Images (*.jpg;*.jpeg)|*.jpg;*.jpeg";
+
+                openFile.Multiselect = false;
+
+                if (openFile.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+
+                FileInfo fileInfo = new FileInfo(openFile.FileName);
+
+                // ---------------------------------------------------------
+                // Check duplicate receipt
+                // ---------------------------------------------------------
+                foreach (ListViewItem existingItem in lvwReceiptList.Items)
+                {
+                    if (existingItem.Tag == null)
+                        continue;
+
+                    string existingReceipt =
+                        existingItem.Tag.ToString();
+
+                    if (existingReceipt.Equals(
+                            fileInfo.FullName,
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        dbFunction.SetMessageBox(
+                            "The selected receipt is already in the list.",
+                            "Duplicate Receipt",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+                }
+
+
+                // ---------------------------------------------------------
+                // Store selected receipt
+                // ---------------------------------------------------------
+                sSelectedImagePath = fileInfo.FullName;
+
+
+                // ---------------------------------------------------------
+                // Preview Receipt
+                // ---------------------------------------------------------
+                try
+                {
+                    if (pbReceiptPreview.Image != null)
+                    {
+                        pbReceiptPreview.Image.Dispose();
+                        pbReceiptPreview.Image = null;
+                    }
+
+                    pbReceiptPreview.Image =
+                        dbReceiptImageProcessor.CreatePreview(
+                            fileInfo.FullName,
+                            ReceiptPreviewMode.Original
+                        );
+
+                    pbReceiptPreview.SizeMode =
+                        PictureBoxSizeMode.Zoom;
+
+                    pbReceiptPreview.Refresh();
+                }
+                catch (Exception ex)
+                {
+                    dbFunction.SetMessageBox(
+                        $"Unable to preview receipt.\n\n{ex.Message}",
+                        "Receipt Preview",
+                        clsFunction.IconType.iError
+                    );
+
+                    return;
+                }
+
+
+                // ---------------------------------------------------------
+                // OCR Receipt Amount
+                // ---------------------------------------------------------
+                string pOCRText =
+                    dbReceiptImageProcessor.ExtractText(
+                        fileInfo.FullName
+                    );
+
+                decimal? dDetectedReceiptTotal =
+                    dbReceiptImageProcessor.ExtractTransactionAmount(
+                        pOCRText
+                    );
+
+
+                // ---------------------------------------------------------
+                // OCR Amount Found
+                // ---------------------------------------------------------
+                if (dDetectedReceiptTotal.HasValue)
+                {
+                    bool fUseDetectedTotal =
+                        dbFunction.fPromptConfirmation(
+                            "Receipt total detected:\n\n" +
+                            "₱" +
+                            dDetectedReceiptTotal.Value.ToString("N2") +
+                            "\n\n" +
+                            "Do you want to use this amount?"
+                        );
+
+                    if (fUseDetectedTotal)
+                    {
+                        txtImageAmount.Text =
+                            dDetectedReceiptTotal.Value.ToString("0.00");
+
+                        addReceiptToReceiptList();
+
+                        return;
+                    }
+                }
+                else
+                {
+                    dbFunction.SetMessageBox(
+                        "The receipt amount could not be detected.\n\n" +
+                        "Please enter the amount manually.",
+                        "Receipt OCR",
+                        clsFunction.IconType.iWarning
+                    );
+                }
+
+
+                // ---------------------------------------------------------
+                // Manual Amount
+                // ---------------------------------------------------------
+                txtImageAmount.Text = "";
+
+                txtImageAmount.Enabled = true;
+
+                txtImageAmount.Focus();
+            }
+        }
+
+        private void lvwReceiptList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvwReceiptList.SelectedItems.Count == 0)
+            {
+                ClearReceiptPreview();
+                return;
+            }
+
+            ListViewItem item = lvwReceiptList.SelectedItems[0];
+
+            if (item.Tag == null)
+            {
+                ClearReceiptPreview();
+                return;
+            }
+
+            string receiptPath = item.Tag.ToString();
+
+            if (!File.Exists(receiptPath))
+            {
+                ClearReceiptPreview();
+
+                dbFunction.SetMessageBox(
+                    "The selected receipt file could not be found.",
+                    "Receipt Preview",
+                    clsFunction.IconType.iWarning
+                );
+
+                return;
+            }
+
+            try
+            {
+                if (pbReceiptPreview.Image != null)
+                {
+                    pbReceiptPreview.Image.Dispose();
+                    pbReceiptPreview.Image = null;
+                }
+
+                pbReceiptPreview.Image =
+                    dbReceiptImageProcessor.CreatePreview(
+                        receiptPath,
+                        ReceiptPreviewMode.Original
+                    );
+
+                pbReceiptPreview.SizeMode =
+                    PictureBoxSizeMode.Zoom;
+
+                pbReceiptPreview.Refresh();
+            }
+            catch (Exception ex)
+            {
+                ClearReceiptPreview();
+
+                dbFunction.SetMessageBox(
+                    $"Unable to preview receipt.\n\n{ex.Message}",
+                    "Receipt Preview",
+                    clsFunction.IconType.iError
+                );
+            }
+        }
+        private void ClearReceiptPreview()
+        {
+            if (pbReceiptPreview.Image != null)
+            {
+                pbReceiptPreview.Image.Dispose();
+                pbReceiptPreview.Image = null;
+            }
+
+            pbReceiptPreview.Refresh();
+        }
+
+        private void btnSearchServiceNos_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            
+            frmSearchField.iSearchType = frmSearchField.SearchType.iFSR;
+            frmSearchField.sHeader = "SEARCH COMPLETED SERVICE";
+            frmSearchField.isCheckBoxes = true;
+            frmSearchField frm = new frmSearchField();
+            frm.ShowDialog();
+
+            if (frmSearchField.fSelected)
+            {
+                lblTServiceNos.Text = $"{clsDefines.gZero}";
+
+                if (clsArray.ID.Length > 0)
+                {
+                    while (clsArray.ID.Length > i)
+                    {
+                        // ServiceNo
+                        Debug.WriteLine($"ID = {clsArray.ID[i]}");
+
+                        string pServiceNo = $"{clsArray.ID[i]}";
+                        string pIRIDNo = $"{clsDefines.gZero}";                        
+
+                        addServiceToServiceList(pServiceNo, pIRIDNo);
+
+                        i++;
+                    }
+                }
+
+                lblTServiceNos.Text = $"{clsArray.ID.Length}";
+
+                displayList();
+            }
+        }
+
+        private string getSelectedListView(ListView lvw, int colIndex)
+        {
+            List<string> selectedList = new List<string>();
+
+            foreach (ListViewItem item in lvw.Items)
+            {
+                string selected = item.SubItems[colIndex].Text;
+
+                if (!string.IsNullOrWhiteSpace(selected))
+                {
+                    selectedList.Add(selected.Trim());
+                }
+            }
+
+            return JsonConvert.SerializeObject(selectedList);
+        }
+
+        private void displayList()
+        {
+            string pServiceNos = getSelectedListView(lvwServiceList, 1);
+            string pIRIDNos = getSelectedListView(lvwServiceList, 2);
+            string pIRNos = getSelectedListView(lvwServiceList, 4);
+            
+            txtServiceNos.Text = pServiceNos;
+            txtIRIDNos.Text = pIRIDNos;
+            txtIRNos.Text = pIRNos;
+
+
+        }
+
+        private void btnGenerateReport_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidID(txtServiceNo.Text))
+            {
+                dbFunction.SetMessageBox(
+                    "Please select a valid service first.",
+                    "Generate expense report",
+                    clsFunction.IconType.iWarning
+                );
+
+                return;
+            }
+
+            if (clsSearch.ClassMerchantID <= 0)
+            {
+                dbFunction.SetMessageBox(
+                    "The selected service has no valid merchant.",
+                    "Generate expense report",
+                    clsFunction.IconType.iWarning
+                );
+
+                return;
+            }
+
+            clsReport.ClassReportDesc = "OPERATIONS REIMBURSEMENT REPORT";
+
+            clsSearch.ClassReportID = 61;
+            clsSearch.ClassReportDescription = clsReport.ClassReportDesc;
+
+            clsSearch.ClassStatementType = "View";
+            clsSearch.ClassSearchBy = "Expenses-Report";
+
+            clsSearch.ClassSearchValue = dbFunction.CheckAndSetNumericValue(txtServiceNo.Text) +
+                clsDefines.gPipe +
+                dbFunction.CheckAndSetNumericValue(clsSearch.ClassMerchantID.ToString());
+
+            clsSearch.ClassStoredProcedureName = "spViewReport";
+
+            dbFunction.ProcessReport(clsSearch.ClassReportID);
+        }
+
+        private void cboSearchServiceType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

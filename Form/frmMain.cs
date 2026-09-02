@@ -3452,8 +3452,8 @@ namespace MIS
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 57)) return;
 
             InitMenu(0, false);
-            frmExpenseFSR frm = new frmExpenseFSR();
-            frm.Text = "MANUAL EXPENSES - FSR";
+            frmServiceExpensesFSR frm = new frmServiceExpensesFSR();            
+            frm.Text = "EXPENSES - FSR";
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);

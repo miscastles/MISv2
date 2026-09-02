@@ -382,11 +382,11 @@
             // 
             this.chkSelect.AutoSize = true;
             this.chkSelect.Enabled = false;
-            this.chkSelect.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkSelect.ForeColor = System.Drawing.Color.Red;
+            this.chkSelect.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkSelect.ForeColor = System.Drawing.Color.Blue;
             this.chkSelect.Location = new System.Drawing.Point(8, 5);
             this.chkSelect.Name = "chkSelect";
-            this.chkSelect.Size = new System.Drawing.Size(96, 18);
+            this.chkSelect.Size = new System.Drawing.Size(106, 20);
             this.chkSelect.TabIndex = 442;
             this.chkSelect.Text = "CHECK ALL?";
             this.chkSelect.UseVisualStyleBackColor = true;

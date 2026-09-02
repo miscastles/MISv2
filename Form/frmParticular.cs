@@ -1113,6 +1113,8 @@ namespace MIS
                 // Zoning
                 txtZoneID.Text = clsParticular.ClassZoneID.ToString();
                 getZoningInfo();
+
+                grpEmployee.Text = $"Particular Details - {txtName.Text}";
             }
 
             Cursor.Current = Cursors.Default;
