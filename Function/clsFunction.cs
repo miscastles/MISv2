@@ -2999,21 +2999,36 @@ namespace MIS
 
         public bool isValidAmount(string sAmount)
         {
-            bool isValid = false;
+            if (string.IsNullOrWhiteSpace(sAmount))
+                return false;
 
-            if (sAmount.Length > 0)
+            sAmount = sAmount.Trim();
+
+            // Check default amount
+            if (sAmount.Equals(
+                    sDefaultAmount,
+                    StringComparison.OrdinalIgnoreCase))
             {
-                if (sAmount.CompareTo(sDefaultAmount) == 0)
-                    isValid = false;
-                else
-                    isValid = true;
-            }
-            else
-            {
-                isValid = false;
+                return false;
             }
 
-            return isValid;
+            decimal dAmount = 0M;
+
+            // Validate numeric format
+            if (!decimal.TryParse(
+                    sAmount,
+                    NumberStyles.Number,
+                    CultureInfo.InvariantCulture,
+                    out dAmount))
+            {
+                return false;
+            }
+
+            // Amount must be greater than zero
+            if (dAmount <= 0M)
+                return false;
+
+            return true;
         }
 
         public void GetCurrentDateTime()
@@ -3367,114 +3382,190 @@ namespace MIS
 
             clsSearch.ClassOutFileID = 0;
 
-            List<string> IDCol = new List<String>();
-            List<string> DescriptionCol = new List<String>();
-            List<string> DescriptionCol2 = new List<String>();
+            List<string> IDCol = new List<string>();
+            List<string> DescriptionCol = new List<string>();
+            List<string> DescriptionCol2 = new List<string>();
 
             // ----------------------------------------------------------------------------
             // FileName Path
-            // ----------------------------------------------------------------------------           
+            // ----------------------------------------------------------------------------
             switch (pSearchBy)
             {
                 case "Region":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_REGIONLIST_FILENAME;
                     break;
+
                 case "Province":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_PROVINCELIST_FILENAME;
                     break;
+
                 case "RegionDetail":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_REGIONDETAILLIST_FILENAME;
                     break;
+
                 case "Terminal Type":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_TERMINALTYPELIST_FILENAME;
                     break;
+
                 case "Terminal Model":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_TERMINALMODELLIST_FILENAME;
                     break;
+
                 case "Terminal Brand":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_TERMINALBRANDLIST_FILENAME;
                     break;
+
                 case "Status List":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_TERMINALSTATUSLIST_FILENAME;
                     break;
+
                 case "Service Type Active":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_SERVICETYPELIST_FILENAME;
                     break;
+
                 case "Service Status Active":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_SERVICESTATUSLIST_FILENAME;
                     break;
+
                 case "Client List":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_CLIENTLIST_FILENAME;
                     break;
+
                 case "SP List":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_SPLIST_FILENAME;
                     break;
+
                 case "FE List":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_FELIST_FILENAME;
                     break;
+
                 case "Reason":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_REASON_FILENAME;
                     break;
+
                 //case "Resolution":
                 //    pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_RESOLUTION_FILENAME;
                 //    break;
+
                 case "Department":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_DEPARTMENTLIST_FILENAME;
                     break;
+
                 case "Position":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_POSITIONLIST_FILENAME;
                     break;
+
                 case "LeaveType":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_LEAVETYPELIST_FILENAME;
                     break;
+
                 case "WorkType":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_WORKTYPELIST_FILENAME;
                     break;
+
                 case "Country":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_COUNTRYLIST_FILENAME;
                     break;
+
                 case "Location":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_LOCATIONLIST_FILENAME;
                     break;
+
                 case "Asset Type":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_ASSETTYPELIST_FILENAME;
                     break;
+
                 case "Carrier":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_CARRIERLIST_FILENAME;
                     break;
+
                 case "Setup":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_SETUPLIST_FILENAME;
                     break;
+
                 case "Particular":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_PARTICULARLIST_FILENAME;
                     break;
+
                 case "Type List":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_TYPELIST_FILENAME;
                     break;
+
                 case "Rental Fee List":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_RENTALFEELIST_FILENAME;
                     break;
+
                 case "Issue Category":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_ISSUECATEGORYLIST_FILENAME;
                     break;
+
                 case "Zoning List":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_ZONINGLIST_FILENAME;
                     break;
+
                 case "All Type":
                     pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_ALLTYPE_FILENAME;
                     break;
+
+                case "Expense List":
+                    pFullPathFileName = dbFile.sRespFullPath + clsDefines.RESP_EXPENSES_FILENAME;
+                    break;
             }
-            //Debug.WriteLine("pFullPathFileName=" + pFullPathFileName);
+
             // ----------------------------------------------------------------------------
-            // FileName Path
+            // Validate File
             // ----------------------------------------------------------------------------
 
-            using (StreamReader r = new StreamReader(pFullPathFileName))
+            Debug.WriteLine("pFullPathFileName=" + pFullPathFileName);
+            Debug.WriteLine("pSearchBy=" + pSearchBy);
+            Debug.WriteLine("pSearchValue=" + pSearchValue);
+
+            if (string.IsNullOrWhiteSpace(pFullPathFileName))
             {
-                json = r.ReadToEnd(); // issue value is None  cannot be parse
+                Debug.WriteLine("GetIDFromFile: File path is empty.");
+                return;
             }
 
-            CollectionDataDetailOnline colData = JsonConvert.DeserializeObject<CollectionDataDetailOnline>(json); // Parse JSON Format
+            if (!File.Exists(pFullPathFileName))
+            {
+                Debug.WriteLine("GetIDFromFile: File does not exist.");
+                Debug.WriteLine("File=" + pFullPathFileName);
+                return;
+            }
+
+            // ----------------------------------------------------------------------------
+            // Read JSON
+            // ----------------------------------------------------------------------------
+
+            json = File.ReadAllText(pFullPathFileName);
+
+            Debug.WriteLine("========== READ JSON FORMATTED FILE ==========");
+            Debug.WriteLine(json);
+            Debug.WriteLine("==============================================");
+
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                Debug.WriteLine("GetIDFromFile: JSON file is empty.");
+                return;
+            }
+
+            // ----------------------------------------------------------------------------
+            // Parse JSON
+            // ----------------------------------------------------------------------------
+
+            CollectionDataDetailOnline colData =
+                JsonConvert.DeserializeObject<CollectionDataDetailOnline>(json);
+
+            if (colData == null || colData.data == null)
+            {
+                Debug.WriteLine("GetIDFromFile: Unable to parse JSON or data is null.");
+                return;
+            }
+
+            // ----------------------------------------------------------------------------
+            // Populate ID / Description
+            // ----------------------------------------------------------------------------
+
             foreach (var element in colData.data)
             {
                 switch (pSearchBy)
@@ -3483,42 +3574,52 @@ namespace MIS
                         IDCol.Add(element.RegionID.ToString());
                         DescriptionCol.Add(element.Region);
                         break;
+
                     case "Province":
                         IDCol.Add(element.RegionID.ToString());
                         DescriptionCol.Add(element.Region);
                         break;
+
                     case "RegionDetail":
                         IDCol.Add(element.RegionID.ToString());
                         DescriptionCol.Add(element.Province);
                         break;
+
                     case "Terminal Type":
                         IDCol.Add(element.TerminalTypeID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Terminal Model":
                         IDCol.Add(element.TerminalModelID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Terminal Brand":
                         IDCol.Add(element.TerminalBrandID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Status List":
                         IDCol.Add(element.TerminalStatusID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Status":
                         IDCol.Add(element.TerminalStatusID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Service Type Active":
                         IDCol.Add(element.ServiceTypeID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Service Status Active":
                         IDCol.Add(element.ServiceStatus.ToString());
                         DescriptionCol.Add(element.ServiceStatusDescription);
                         break;
+
                     case "Particular List":
                     case "Client List":
                     case "SP List":
@@ -3527,31 +3628,37 @@ namespace MIS
                         DescriptionCol.Add(element.Name);
                         //DescriptionCol2.Add(element.Address);
                         break;
+
                     case "Reason":
-                        //case "Resolution":
                         IDCol.Add(element.RegionID.ToString());
                         DescriptionCol.Add(element.Region);
                         break;
+
                     case "Department":
                         IDCol.Add(element.DepartmentID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Position":
                         IDCol.Add(element.PositionID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "LeaveType":
                         IDCol.Add(element.LeaveTypeID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "WorkType":
                         IDCol.Add(element.WorkTypeID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Country":
                         IDCol.Add(element.ID.ToString());
                         DescriptionCol.Add(element.Country);
                         break;
+
                     case "Location":
                     case "Asset Type":
                     case "Carrier":
@@ -3559,61 +3666,172 @@ namespace MIS
                         IDCol.Add(element.ID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Particular":
                         IDCol.Add(element.ID.ToString());
                         DescriptionCol.Add(element.ParticularName);
                         break;
+
                     case "Type List":
                     case "Type":
                     case "All Type":
                         IDCol.Add(element.TypeID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Rental Fee List":
                         IDCol.Add(element.TypeID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Issue Category":
                         IDCol.Add(element.TypeID.ToString());
                         DescriptionCol.Add(element.Description);
                         break;
+
                     case "Zoning List":
                         IDCol.Add(element.ZoneID.ToString());
                         DescriptionCol.Add(element.CityMunicipal);
                         break;
+
+                    // ====================================================================
+                    // EXPENSE LIST
+                    // ====================================================================
+                    case "Expense List":
+
+                        /*
+                         * JSON structure:
+                         *
+                         * {
+                         *     "ID": "3",
+                         *     "detail_info":
+                         *         "{\"ExpensesID\": 3,
+                         *           \"Description\": \"ACCOMODATION\",
+                         *           \"SequenceDisplay\": 0}"
+                         * }
+                         *
+                         * ID is located directly in the outer object.
+                         * Description is inside detail_info, which is a JSON string.
+                         */
+
+                        string expenseID = element.ID.ToString();
+                        string expenseDescription = "";
+
+                        if (!string.IsNullOrWhiteSpace(element.detail_info))
+                        {
+                            try
+                            {
+                                JObject detailInfo =
+                                    JsonConvert.DeserializeObject<JObject>(
+                                        element.detail_info
+                                    );
+
+                                if (detailInfo != null)
+                                {
+                                    expenseDescription =
+                                        detailInfo["Description"]?.ToString() ?? "";
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(
+                                    "GetIDFromFile - Expense detail_info parse error: "
+                                    + ex.Message
+                                );
+                            }
+                        }
+
+                        IDCol.Add(expenseID);
+                        DescriptionCol.Add(expenseDescription);
+
+                        Debug.WriteLine(
+                            $"Expense => ID=[{expenseID}], Description=[{expenseDescription}]"
+                        );
+
+                        break;
                 }
             }
+
+            // ----------------------------------------------------------------------------
+            // Debug Collection
+            // ----------------------------------------------------------------------------
+
+            Debug.WriteLine("IDCol COUNT = " + IDCol.Count);
+            Debug.WriteLine("DescriptionCol COUNT = " + DescriptionCol.Count);
+
+            for (int x = 0; x < IDCol.Count; x++)
+            {
+                Debug.WriteLine(
+                    $"COL[{x}] => ID=[{IDCol[x]}], Description=[{DescriptionCol[x]}]"
+                );
+            }
+
+            // ----------------------------------------------------------------------------
+            // Convert to Array
+            // ----------------------------------------------------------------------------
 
             clsArray.ID = IDCol.ToArray();
             clsArray.Description = DescriptionCol.ToArray();
 
-            //Debug.WriteLine("GetIDFromFile, clsArray.ID=" + clsArray.ID.Length);
+            Debug.WriteLine(
+                "GetIDFromFile, LENGTH: clsArray.ID=" +
+                clsArray.ID.Length
+            );
 
+            Debug.WriteLine(
+                "GetIDFromFile, LENGTH: clsArray.Description=" +
+                clsArray.Description.Length
+            );
+
+            // ----------------------------------------------------------------------------
             // Loop to search
-            while (clsArray.ID.Length > i)
+            // ----------------------------------------------------------------------------
+
+            while (i < clsArray.ID.Length)
             {
-                Debug.WriteLine(pSearchValue + " is equal to " + clsArray.Description[i]);
-                if (pSearchValue.Equals(clsArray.ID[i]) || pSearchValue.Equals(clsArray.Description[i]))
+                Debug.WriteLine(
+                    $"i = {i} => ID = {clsArray.ID[i]}, Description = {clsArray.Description[i]}"
+                );
+
+                if (string.Equals(
+                        pSearchValue,
+                        clsArray.ID[i],
+                        StringComparison.OrdinalIgnoreCase)
+                    ||
+                    string.Equals(
+                        pSearchValue,
+                        clsArray.Description[i],
+                        StringComparison.OrdinalIgnoreCase))
                 {
                     // found
-                    ID = int.Parse(clsArray.ID[i]);
-                    Description = clsArray.Description[i];
-                    //Description2 = clsArray.Address[i];
+                    if (int.TryParse(clsArray.ID[i], out ID))
+                    {
+                        Description = clsArray.Description[i];
+
+                        Debug.WriteLine(
+                            $"FOUND => ID=[{ID}], Description=[{Description}]"
+                        );
+                    }
+
                     break;
                 }
 
                 i++;
             }
 
+            // ----------------------------------------------------------------------------
+            // Return Search Result
+            // ----------------------------------------------------------------------------
+
             clsSearch.ClassOutFileID = ID;
             clsSearch.ClassOutFileDescription = Description;
+
             //clsSearch.ClassOutFileDescription2 = Description2; // Address
 
             //Debug.WriteLine("Search result...");
             //Debug.WriteLine("clsSearch.ClassOutFileID=" + clsSearch.ClassOutFileID);
             //Debug.WriteLine("clsSearch.ClassOutFileDescription=" + clsSearch.ClassOutFileDescription);
             //Debug.WriteLine("clsSearch.ClassOutFileDescription2=" + clsSearch.ClassOutFileDescription2);
-
         }
 
         public void GetServiceTypeInfoFromFile(string pSearchBy, string pSearchValue,
@@ -5021,6 +5239,7 @@ namespace MIS
                 case "btnSearchSales":
                 case "btnSearch":
                 case "btnSearchExpensesReferenceNo":
+                case "btnSearchServiceNos":
                     obj.Image = (isEnable ? Properties.Resources.find_on : Properties.Resources.find_off);
                     break;
                 case "btnNoRequestID":

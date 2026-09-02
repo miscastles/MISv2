@@ -92,6 +92,7 @@ namespace MIS
                 string LineNo = lvwSearch.SelectedItems[0].Text;
                 txtLineNo.Text = LineNo;
 
+                Debug.WriteLine("--Selected in SearchField Form--");
                 string jsonResult = dbFunction.genJSONFormat(lvwSearch, lvwSearch.SelectedIndices[0], "", "");
                 Debug.WriteLine(jsonResult);
 
@@ -3101,9 +3102,9 @@ namespace MIS
             switch (iSearchType)
             {
                 case SearchType.iZoning:
-
+                case SearchType.iFSR:
                     txtSearch.Text = pSearchValue;
-                    break;
+                    break;                                   
             }
         }
     }
