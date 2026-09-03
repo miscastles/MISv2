@@ -1,29 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Security.Cryptography;
-using System.Windows.Forms;
-using System.Deployment.Application;
-using System.Drawing;
-using System.Diagnostics;
-using System.Threading;
-using System.Data;
-using System.Data.OleDb;
-using System.Globalization;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using MIS.Enums;
 using Newtonsoft.Json;
-using System.Net;
-using System.Drawing.Imaging;
 using Newtonsoft.Json.Linq;
-using System.Text.RegularExpressions;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
-using static MIS.Function.AppUtilities;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
+using System.Deployment.Application;
+using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MIS.Model;
+using static MIS.Function.AppUtilities;
 
 namespace MIS
 {
@@ -7509,6 +7511,53 @@ namespace MIS
         {
             return $"{pTile} [ {clsSearch.ClassBankDisplayName} | {clsSystemSetting.ClassSystemEnvironment} | {clsSearch.ClassCurrentUserName} ]";
 
+        }
+
+        public string generateSyncID(object model, SyncEntity entity)
+        {
+            string prefix = "";
+            string syncId = "";
+
+            Debug.WriteLine($"model = {model}");
+
+            switch (entity)
+            {
+                case SyncEntity.Expenses_Master:
+                    {
+                        dynamic data = model;
+
+                        prefix =
+                            $"{data.ExpensesDate}-" +
+                            $"{data.IRIDNo}-" +
+                            $"{data.MerchantID}-" +
+                            $"{data.ReferenceNo}";
+
+                        break;
+                    }
+
+                case SyncEntity.Expenses_Detail:
+                    {
+                        dynamic data = model;
+
+                        prefix =
+                            $"{data.DetailID}-" +
+                            $"{data.ExpensesID}-" +
+                            $"{data.ExpensesReferenceNo}";
+
+                        break;
+                    }
+
+                default:
+                    prefix = "GEN";
+                    break;
+            }
+
+            syncId = $"{prefix}-{DateTime.Now:yyyyMMddHHmmss}-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+            Debug.WriteLine($"prefix = {prefix}");
+            Debug.WriteLine($"syncId = {syncId}");
+
+            return syncId;
         }
 
     }

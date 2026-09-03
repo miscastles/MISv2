@@ -1281,6 +1281,10 @@ namespace MIS
                     if (e.Control)
                         btnFinanceExpensesFSR_Click(this, e);
                     break;
+                case Keys.Q: // QR Delivery
+                    if (e.Control)
+                        btnQrDelivery_Click(this, e);
+                    break;
 
             }
         }
@@ -3180,6 +3184,7 @@ namespace MIS
                                     "CTRL+F > Failed Service\n" +
                                     "CTRL+H > Helpdesk\n" +
                                     "CTRL+E > Expenses-FSR\n" +
+                                    "CTRL+Q > QR Delivery\n" +
                                     "ESC    > Close Window / Form";
 
         }
@@ -3674,6 +3679,18 @@ namespace MIS
             }
         }
 
-        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        private void btnQrDelivery_Click(object sender, EventArgs e)
+        {
+            // Check User Access Rights
+            //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 53)) return;
+
+            InitMenu(0, false);
+            frmQRDelivery frm = new frmQRDelivery();
+            frm.Text = "QR DELIVERY";
+            frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
+            frm.Show();
+        }        
     }
 }

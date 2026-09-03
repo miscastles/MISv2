@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationRevision>15</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -229,6 +229,9 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="Spire.XLS, Version=15.2.6.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>packages\Spire.XLS.15.3.0\lib\net40\Spire.XLS.dll</HintPath>
     </Reference>
@@ -319,6 +322,7 @@
     <Compile Include="Controller\MSPDetailController.cs" />
     <Compile Include="Controller\MSPMasterController.cs" />
     <Compile Include="Controller\ParticularController.cs" />
+    <Compile Include="Controller\QRDeliveryController.cs" />
     <Compile Include="Controller\ReasonController.cs" />
     <Compile Include="Controller\ReportController.cs" />
     <Compile Include="Controller\ServiceTypeController.cs" />
@@ -675,6 +679,12 @@
     </Compile>
     <Compile Include="Form\frmServiceExpensesFSR.Designer.cs">
       <DependentUpon>frmServiceExpensesFSR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmQRDelivery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmQRDelivery.Designer.cs">
+      <DependentUpon>frmQRDelivery.cs</DependentUpon>
     </Compile>
     <Compile Include="Function\clsComboBox.cs" />
     <Compile Include="Function\clsReceiptImageProcessor.cs" />
@@ -1058,10 +1068,13 @@
     <Compile Include="Model\modelSearch.cs" />
     <Compile Include="Model\modelStock.cs" />
     <Compile Include="Model\modelZoning.cs" />
+    <Compile Include="Model\QRDeliveryBackendService.cs" />
+    <Compile Include="Model\QRDeliveryValidation.cs" />
     <Compile Include="Model\ReportInfo.cs" />
     <Compile Include="Model\SystemInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\QRDeliveryWaybillReport.cs" />
     <Compile Include="Report\rptActiveDetailTerminal.cs">
       <DependentUpon>rptActiveDetailTerminal.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1903,6 +1916,9 @@
     <EmbeddedResource Include="Form\frmServiceExpensesFSR.resx">
       <DependentUpon>frmServiceExpensesFSR.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmQRDelivery.resx">
+      <DependentUpon>frmQRDelivery.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -2317,6 +2333,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Report\rptQRDeliveryWaybill.rpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

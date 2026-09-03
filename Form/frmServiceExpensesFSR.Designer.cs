@@ -33,7 +33,7 @@
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.txtFEID = new System.Windows.Forms.TextBox();
-            this.txtExpnesesNo = new System.Windows.Forms.TextBox();
+            this.txtExpensesNo = new System.Windows.Forms.TextBox();
             this.txtZoneID = new System.Windows.Forms.TextBox();
             this.txtMerchantID = new System.Windows.Forms.TextBox();
             this.txtIRIDNo = new System.Windows.Forms.TextBox();
@@ -93,6 +93,7 @@
             this.lvwServiceList = new System.Windows.Forms.ListView();
             this.tabPage20 = new System.Windows.Forms.TabPage();
             this.panel26 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.pbReceiptPreview = new System.Windows.Forms.PictureBox();
             this.btnReceiptDownload = new System.Windows.Forms.Button();
             this.btnReceiptDelete = new System.Windows.Forms.Button();
@@ -132,6 +133,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.panel17 = new System.Windows.Forms.Panel();
             this.panel14 = new System.Windows.Forms.Panel();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtLocationFrom = new System.Windows.Forms.TextBox();
             this.btnClearExpense = new System.Windows.Forms.Button();
             this.dtExpenseDate = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
@@ -155,7 +158,9 @@
             this.panel20 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.panel21 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txtLocationTo = new System.Windows.Forms.TextBox();
+            this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -202,7 +207,7 @@
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.pnlHeader.Controls.Add(this.txtFEID);
-            this.pnlHeader.Controls.Add(this.txtExpnesesNo);
+            this.pnlHeader.Controls.Add(this.txtExpensesNo);
             this.pnlHeader.Controls.Add(this.txtZoneID);
             this.pnlHeader.Controls.Add(this.txtMerchantID);
             this.pnlHeader.Controls.Add(this.txtIRIDNo);
@@ -229,16 +234,16 @@
             this.txtFEID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtFEID.Visible = false;
             // 
-            // txtExpnesesNo
+            // txtExpensesNo
             // 
-            this.txtExpnesesNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtExpnesesNo.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtExpnesesNo.Location = new System.Drawing.Point(562, 4);
-            this.txtExpnesesNo.Name = "txtExpnesesNo";
-            this.txtExpnesesNo.Size = new System.Drawing.Size(60, 20);
-            this.txtExpnesesNo.TabIndex = 347;
-            this.txtExpnesesNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtExpnesesNo.Visible = false;
+            this.txtExpensesNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtExpensesNo.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtExpensesNo.Location = new System.Drawing.Point(562, 4);
+            this.txtExpensesNo.Name = "txtExpensesNo";
+            this.txtExpensesNo.Size = new System.Drawing.Size(60, 20);
+            this.txtExpensesNo.TabIndex = 347;
+            this.txtExpensesNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtExpensesNo.Visible = false;
             // 
             // txtZoneID
             // 
@@ -959,6 +964,19 @@
             this.panel26.Size = new System.Drawing.Size(672, 375);
             this.panel26.TabIndex = 474;
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.White;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.textBox1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold);
+            this.textBox1.Location = new System.Drawing.Point(345, 345);
+            this.textBox1.MaxLength = 12;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(106, 26);
+            this.textBox1.TabIndex = 480;
+            // 
             // pbReceiptPreview
             // 
             this.pbReceiptPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -1444,11 +1462,16 @@
             // panel14
             // 
             this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel14.Controls.Add(this.bunifuSeparator2);
+            this.panel14.Controls.Add(this.label26);
             this.panel14.Controls.Add(this.btnClearExpense);
             this.panel14.Controls.Add(this.dtExpenseDate);
+            this.panel14.Controls.Add(this.txtLocationTo);
             this.panel14.Controls.Add(this.label9);
+            this.panel14.Controls.Add(this.label24);
             this.panel14.Controls.Add(this.btnAddExpense);
             this.panel14.Controls.Add(this.cboExpenseType);
+            this.panel14.Controls.Add(this.txtLocationFrom);
             this.panel14.Controls.Add(this.label14);
             this.panel14.Controls.Add(this.label11);
             this.panel14.Controls.Add(this.txtExpensesRemarks);
@@ -1458,6 +1481,29 @@
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(438, 309);
             this.panel14.TabIndex = 461;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(2, 65);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(98, 14);
+            this.label24.TabIndex = 471;
+            this.label24.Text = "LOCATION FROM";
+            // 
+            // txtLocationFrom
+            // 
+            this.txtLocationFrom.BackColor = System.Drawing.Color.White;
+            this.txtLocationFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLocationFrom.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtLocationFrom.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtLocationFrom.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLocationFrom.Location = new System.Drawing.Point(105, 61);
+            this.txtLocationFrom.MaxLength = 12;
+            this.txtLocationFrom.Name = "txtLocationFrom";
+            this.txtLocationFrom.Size = new System.Drawing.Size(329, 22);
+            this.txtLocationFrom.TabIndex = 470;
             // 
             // btnClearExpense
             // 
@@ -1482,16 +1528,16 @@
             this.dtExpenseDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dtExpenseDate.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold);
             this.dtExpenseDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtExpenseDate.Location = new System.Drawing.Point(60, 214);
+            this.dtExpenseDate.Location = new System.Drawing.Point(105, 3);
             this.dtExpenseDate.Name = "dtExpenseDate";
-            this.dtExpenseDate.Size = new System.Drawing.Size(374, 26);
+            this.dtExpenseDate.Size = new System.Drawing.Size(329, 26);
             this.dtExpenseDate.TabIndex = 461;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(3, 220);
+            this.label9.Location = new System.Drawing.Point(2, 9);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 14);
             this.label9.TabIndex = 456;
@@ -1517,11 +1563,11 @@
             // cboExpenseType
             // 
             this.cboExpenseType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboExpenseType.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboExpenseType.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboExpenseType.FormattingEnabled = true;
-            this.cboExpenseType.Location = new System.Drawing.Point(60, 5);
+            this.cboExpenseType.Location = new System.Drawing.Point(104, 32);
             this.cboExpenseType.Name = "cboExpenseType";
-            this.cboExpenseType.Size = new System.Drawing.Size(373, 24);
+            this.cboExpenseType.Size = new System.Drawing.Size(329, 26);
             this.cboExpenseType.TabIndex = 463;
             this.cboExpenseType.SelectedIndexChanged += new System.EventHandler(this.cboExpenseType_SelectedIndexChanged);
             // 
@@ -1529,7 +1575,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(1, 9);
+            this.label14.Location = new System.Drawing.Point(4, 38);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(35, 14);
             this.label14.TabIndex = 462;
@@ -1539,7 +1585,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(1, 69);
+            this.label11.Location = new System.Drawing.Point(4, 146);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(56, 14);
             this.label11.TabIndex = 460;
@@ -1550,12 +1596,12 @@
             this.txtExpensesRemarks.BackColor = System.Drawing.Color.White;
             this.txtExpensesRemarks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtExpensesRemarks.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtExpensesRemarks.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtExpensesRemarks.Location = new System.Drawing.Point(60, 67);
+            this.txtExpensesRemarks.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtExpensesRemarks.Location = new System.Drawing.Point(105, 141);
             this.txtExpensesRemarks.Multiline = true;
             this.txtExpensesRemarks.Name = "txtExpensesRemarks";
             this.txtExpensesRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtExpensesRemarks.Size = new System.Drawing.Size(374, 141);
+            this.txtExpensesRemarks.Size = new System.Drawing.Size(330, 112);
             this.txtExpensesRemarks.TabIndex = 459;
             this.txtExpensesRemarks.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRemarks_KeyDown);
             // 
@@ -1563,7 +1609,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(1, 39);
+            this.label10.Location = new System.Drawing.Point(4, 116);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(49, 14);
             this.label10.TabIndex = 458;
@@ -1576,10 +1622,10 @@
             this.txtExpenseAmount.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtExpenseAmount.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtExpenseAmount.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold);
-            this.txtExpenseAmount.Location = new System.Drawing.Point(60, 35);
+            this.txtExpenseAmount.Location = new System.Drawing.Point(105, 112);
             this.txtExpenseAmount.MaxLength = 12;
             this.txtExpenseAmount.Name = "txtExpenseAmount";
-            this.txtExpenseAmount.Size = new System.Drawing.Size(373, 26);
+            this.txtExpenseAmount.Size = new System.Drawing.Size(329, 26);
             this.txtExpenseAmount.TabIndex = 457;
             this.txtExpenseAmount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtExpenseAmount_KeyDown);
             // 
@@ -1727,18 +1773,40 @@
             this.panel21.Size = new System.Drawing.Size(502, 2);
             this.panel21.TabIndex = 0;
             // 
-            // textBox1
+            // label26
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBox1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold);
-            this.textBox1.Location = new System.Drawing.Point(345, 345);
-            this.textBox1.MaxLength = 12;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(106, 26);
-            this.textBox1.TabIndex = 480;
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(2, 90);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(84, 14);
+            this.label26.TabIndex = 473;
+            this.label26.Text = "LOCATION TO";
+            // 
+            // txtLocationTo
+            // 
+            this.txtLocationTo.BackColor = System.Drawing.Color.White;
+            this.txtLocationTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLocationTo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtLocationTo.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtLocationTo.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLocationTo.Location = new System.Drawing.Point(105, 87);
+            this.txtLocationTo.MaxLength = 12;
+            this.txtLocationTo.Name = "txtLocationTo";
+            this.txtLocationTo.Size = new System.Drawing.Size(329, 22);
+            this.txtLocationTo.TabIndex = 472;
+            // 
+            // bunifuSeparator2
+            // 
+            this.bunifuSeparator2.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuSeparator2.LineColor = System.Drawing.Color.DimGray;
+            this.bunifuSeparator2.LineThickness = 1;
+            this.bunifuSeparator2.Location = new System.Drawing.Point(7, 254);
+            this.bunifuSeparator2.Name = "bunifuSeparator2";
+            this.bunifuSeparator2.Size = new System.Drawing.Size(424, 6);
+            this.bunifuSeparator2.TabIndex = 474;
+            this.bunifuSeparator2.Transparency = 255;
+            this.bunifuSeparator2.Vertical = false;
             // 
             // frmServiceExpensesFSR
             // 
@@ -1937,7 +2005,7 @@
         private System.Windows.Forms.TextBox txtCreatedDate;
         private System.Windows.Forms.Panel panel22;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox txtExpnesesNo;
+        private System.Windows.Forms.TextBox txtExpensesNo;
         private System.Windows.Forms.Button btnExpenseClearAll;
         private System.Windows.Forms.Button btnExpenseRemove;
         private System.Windows.Forms.TextBox txtClientID;
@@ -1948,5 +2016,10 @@
         private System.Windows.Forms.TextBox txtRemarks;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txtLocationFrom;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox txtLocationTo;
+        private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator2;
     }
 }

@@ -114,13 +114,13 @@ namespace MIS
         private void InitDate()
         {   
             dtExpenseDate.Value = DateTime.Now.Date;
-            dbFunction.SetDateFormat(dtExpenseDate, clsFunction.sDateDefaultFormat);
+            dbFunction.SetDateFormat(dtExpenseDate, clsFunction.sStandardDateDefault);
 
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            dbAPI.GenerateID(true, txtExpenseReferenceNo, txtExpensesID, "Expenses-FSR", clsDefines.CONTROLID_PREFIX_EXPENSES);            
+            dbAPI.GenerateID(true, txtExpenseReferenceNo, txtExpensesNo, "Expenses-FSR", clsDefines.CONTROLID_PREFIX_EXPENSES);            
 
             lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"CREATE {formName}");
 
@@ -145,7 +145,9 @@ namespace MIS
         {
             string sSQL = "";
             string sRowSQL = "";
-            
+            string pSearchBy = "";
+            string pSearchValue = "";
+
             if (!ValidateFields()) return;
 
             if (!dbFunction.fSavingConfirm(true)) return;
@@ -187,7 +189,7 @@ namespace MIS
                 dbAPI.ExecuteAPI("POST", "Insert", "", "", "Expenses Trans Master", sSQL, "InsertCollectionMaster");
 
                 Debug.WriteLine($"Last inserted ID = {clsLastID.ClassLastInsertedID}");
-                txtExpnesesNo.Text = dbFunction.CheckAndSetNumericValue(clsLastID.ClassLastInsertedID.ToString());
+                txtExpensesNo.Text = dbFunction.CheckAndSetNumericValue(clsLastID.ClassLastInsertedID.ToString());
 
                 // ----------------------------------------------------------------------------------
                 // API call to save tblexpensestransdetail
@@ -202,7 +204,7 @@ namespace MIS
 
                     var detail = new
                     {
-                        ExpensesNo = dbFunction.CheckAndSetNumericValue(txtExpnesesNo.Text),
+                        ExpensesNo = dbFunction.CheckAndSetNumericValue(txtExpensesNo.Text),
                         ExpensesID = int.Parse(pExpensesID),
                         ServiceNo = dbFunction.CheckAndSetNumericValue(txtServiceNo.Text),
                         IRIDNo = dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text),
@@ -232,7 +234,39 @@ namespace MIS
                 {
                     dbAPI.ExecuteAPI("POST", "Insert", "", "", "Expenses Trans Detail", sRowSQL, "InsertCollectionDetail");
                 }
+
+                // -------------------------------------------------
+                // update syncID -> Expenses Trans Master
+                // -------------------------------------------------
+                pSearchBy = "Expenses Trans Master";
+                pSearchValue = $"{pSearchBy}{clsDefines.gPipe}{txtExpensesNo.Text}{clsDefines.gPipe}{dbFunction.generateSyncID(master, Enums.SyncEntity.Expenses_Master)}";
                 
+                Debug.WriteLine("--Update SyncID ExpensesTransMaster--");
+                dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
+                dbAPI.ExecuteAPI("PUT", "Update", "SyncID", pSearchValue, "", "", "UpdateCollectionDetail");
+
+                // -------------------------------------------------
+                // update syncID -> Expenses Trans Detail
+                // -------------------------------------------------               
+                List<modelExpensesDetail> detailList = _mExpensesController.getDetailList("Expense Reference List", txtExpenseReferenceNo.Text);
+                if (detailList != null)
+                {
+                    foreach (modelExpensesDetail _mDetail in detailList)
+                    {
+                        Debug.WriteLine($"DetailID = {_mDetail.DetailID}");
+                        Debug.WriteLine($"ExpensesID = {_mDetail.ExpensesID}");                        
+
+                        pSearchBy = "Expenses Trans Detail";
+                        pSearchValue = $"{pSearchBy}{clsDefines.gPipe}{_mDetail.DetailID}{clsDefines.gPipe}{dbFunction.generateSyncID(_mDetail, Enums.SyncEntity.Expenses_Detail)}";
+
+                        Debug.WriteLine("--Update SyncID ExpensesTransDetail--");
+                        dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
+
+                        dbAPI.ExecuteAPI("PUT", "Update", "SyncID", pSearchValue, "", "", "UpdateCollectionDetail");
+                    }
+                }
+
                 // Display messagebox completiion
                 if (!fEdit)
                     dbFunction.SetMessageBox("Expenses successfully saved.", clsDefines.CONFIRMATION_MSG, clsFunction.IconType.iInformation);
@@ -275,6 +309,8 @@ namespace MIS
 
             btnSearchServiceNos.Enabled = false;
             dbFunction.SetButtonIconImage(btnSearchServiceNos);
+
+            initExpensesEntry();
 
         }
 
@@ -350,7 +386,7 @@ namespace MIS
                 btnSearchServiceNos.Enabled = true;
                 dbFunction.SetButtonIconImage(btnSearchServiceNos);
 
-                dbAPI.GenerateID(true, txtExpenseReferenceNo, txtExpensesID, "Expenses-FSR", clsDefines.CONTROLID_PREFIX_EXPENSES);
+                dbAPI.GenerateID(true, txtExpenseReferenceNo, txtExpensesNo, "Expenses-FSR", clsDefines.CONTROLID_PREFIX_EXPENSES);
 
                 txtCreatedBy.Text = txtUpdatedBy.Text = clsSearch.ClassCurrentParticularName;
                 txtCreatedDate.Text = txtUpdatedDate.Text = dbFunction.getCurrentDateTime();
@@ -389,7 +425,7 @@ namespace MIS
                     txtTID.Text = _mIRDetailController.TID;
                     txtMID.Text = _mIRDetailController.MID;
                     txtMerchantAddress.Text = _mIRDetailController.Address;
-                    txtMerchantCity.Text = _mIRDetailController.Province;
+                    txtMerchantCity.Text = txtLocationTo.Text = _mIRDetailController.Province;
                     txtMerchantRegion.Text = _mIRDetailController.Region;
                     txtZoneID.Text = $"{_mIRDetailController.ZoneID}";
                 }
@@ -443,7 +479,7 @@ namespace MIS
             frmSearchField.iSearchType = frmSearchField.SearchType.iFSR;
             frmSearchField.sHeader = "SEARCH COMPLETED SERVICE";
             frmSearchField.sSearchChar = dbFunction.CheckAndSetStringValue(txtTID.Text);
-            frmSearchField.isCheckBoxes = false;
+            frmSearchField.isCheckBoxes = true;
 
             frmSearchField frm = new frmSearchField();
             frm.ShowDialog();
@@ -506,6 +542,12 @@ namespace MIS
             lvw.Columns.Add(outTitle, outWidth, outAlign);
 
             dbFunction.GetListViewHeaderColumnFromFile("", "ExpensesDate", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Location From", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Location To", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvw.Columns.Add(outTitle, outWidth, outAlign);
 
             dbFunction.GetListViewHeaderColumnFromFile("", "ExpensesAmount", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
@@ -836,10 +878,16 @@ namespace MIS
             model.ExpensesDate = dbFunction.CheckAndSetDatePickerValueToDate(dtExpenseDate);
             model.Amount = decimal.Parse(txtExpenseAmount.Text);
             model.Remarks = txtExpensesRemarks.Text;
+            model.LocationFrom = txtLocationFrom.Text;
+            model.LocationTo = txtLocationTo.Text;
 
             addExpensesToExpensesList(model);
 
             txtTotalExpenses.Text = $"{ComputeTotalExpenses()}";
+
+            // clear entry
+            initExpensesEntry();
+
         }
 
         private void addExpensesToExpensesList(modelExpensesDetail pModel)
@@ -858,8 +906,10 @@ namespace MIS
 
                 string existingExpensesID = item.SubItems[1].Text.Trim();
                 string existingExpensesDate = item.SubItems[3].Text.Trim();
-                string existingAmount = item.SubItems[4].Text.Trim();
-                string existingRemarks = item.SubItems[5].Text.Trim();
+                string existingLocationFrom = item.SubItems[4].Text.Trim();
+                string existingLocationTo = item.SubItems[5].Text.Trim();
+                string existingAmount = item.SubItems[6].Text.Trim();
+                string existingRemarks = item.SubItems[7].Text.Trim();
 
                 // ---------------------------------------------------------
                 // Compare values
@@ -987,9 +1037,9 @@ namespace MIS
             if (item.Tag == null)
                 return;
 
-            modelExpensesMaster model = item.Tag as modelExpensesMaster;
+            modelExpensesDetail modelDetail = item.Tag as modelExpensesDetail;
 
-            if (model == null)
+            if (modelDetail == null)
                 return;
 
 
@@ -998,13 +1048,19 @@ namespace MIS
             // -------------------------------------------------------------
 
             // Expense Type
-            cboExpenseType.Text = model.ExpensesType ?? "";
+            cboExpenseType.Text = modelDetail.ExpensesType ?? "";
 
             // Expense Amount
-            txtExpenseAmount.Text = model.TotalAmount.ToString("N2");
+            txtExpenseAmount.Text = modelDetail.Amount.ToString();
 
             // Remarks
-            txtExpensesRemarks.Text = model.Remarks ?? "";
+            txtExpensesRemarks.Text = modelDetail.Remarks ?? "";
+
+            // Location From
+            txtLocationFrom.Text = modelDetail.LocationFrom;
+
+            // Location To
+            txtLocationTo.Text = modelDetail.LocationTo;
         }
 
         private bool ValidateFields()
@@ -1141,6 +1197,17 @@ namespace MIS
 
         private void btnReceiptDownload_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void initExpensesEntry()
+        {
+            txtLocationFrom.Text = "";
+            cboExpenseType.SelectedIndex = 0;
+            txtExpenseAmount.Text = "0.00";
+            txtExpensesRemarks.Text = "";
+
+            InitDate();
 
         }
     }

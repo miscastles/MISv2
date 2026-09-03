@@ -38,41 +38,20 @@ namespace MIS
             this.lblSubAppsName = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.pnlEnvironment = new System.Windows.Forms.Panel();
             this.pnlButtonList = new System.Windows.Forms.Panel();
-            this.btnMaximize = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblDate = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.lblTime = new Bunifu.Framework.UI.BunifuCustomLabel();
-            this.btnMinimize = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnExit = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblPublishVersion = new System.Windows.Forms.Label();
             this.lblAppsName = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.lblRemainingDays = new System.Windows.Forms.Label();
-            this.imgLogo = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblEnvironment = new System.Windows.Forms.Label();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.bunifuCards11 = new Bunifu.Framework.UI.BunifuCards();
-            this.imgBankLogo = new Bunifu.Framework.UI.BunifuImageButton();
             this.gbOther = new System.Windows.Forms.GroupBox();
-            this.btnHelp = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnExitApplication = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnLogoff = new Bunifu.Framework.UI.BunifuFlatButton();
             this.gbManagement = new System.Windows.Forms.GroupBox();
-            this.btnSwitchBankCode = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnPulse = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnUserAcnt = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnLogs = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnSettings = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnTools = new Bunifu.Framework.UI.BunifuFlatButton();
             this.gbOperation = new System.Windows.Forms.GroupBox();
-            this.btnEnrollment = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnInventoryEntry = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnServicing = new Bunifu.Framework.UI.BunifuFlatButton();
             this.gbHelpdesk = new System.Windows.Forms.GroupBox();
-            this.btnReports = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnSearch = new Bunifu.Framework.UI.BunifuFlatButton();
             this.gbAdministrative = new System.Windows.Forms.GroupBox();
-            this.btnAdministrative = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnFinance = new Bunifu.Framework.UI.BunifuFlatButton();
             this.label34 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.pnlSubMenuEnrollment = new System.Windows.Forms.Panel();
@@ -333,8 +312,6 @@ namespace MIS
             this.panel11 = new System.Windows.Forms.Panel();
             this.label51 = new System.Windows.Forms.Label();
             this.panel36 = new System.Windows.Forms.Panel();
-            this.btnShow = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnRefresh = new Bunifu.Framework.UI.BunifuImageButton();
             this.label45 = new System.Windows.Forms.Label();
             this.panel37 = new System.Windows.Forms.Panel();
             this.pnlSubMenuSwitchBank = new System.Windows.Forms.Panel();
@@ -348,7 +325,6 @@ namespace MIS
             this.panel16 = new System.Windows.Forms.Panel();
             this.label53 = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
-            this.btnMSP = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlSubMenuSearch = new System.Windows.Forms.Panel();
             this.btnDashboardComponentsInventoryDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnDashboardSIMInventoryDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -365,15 +341,35 @@ namespace MIS
             this.panel24 = new System.Windows.Forms.Panel();
             this.label55 = new System.Windows.Forms.Label();
             this.panel25 = new System.Windows.Forms.Panel();
+            this.btnQrDelivery = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnMSP = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.imgLogo = new Bunifu.Framework.UI.BunifuImageButton();
+            this.imgBankLogo = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnHelp = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnExitApplication = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnLogoff = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnSwitchBankCode = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnPulse = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnUserAcnt = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnLogs = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnSettings = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnTools = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnEnrollment = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnInventoryEntry = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnServicing = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnReports = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnSearch = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnAdministrative = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnFinance = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnMaximize = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnMinimize = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnExit = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnShow = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnRefresh = new Bunifu.Framework.UI.BunifuImageButton();
             this.pnlHeader.SuspendLayout();
             this.pnlButtonList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMaximize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.pnlMenu.SuspendLayout();
             this.bunifuCards11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgBankLogo)).BeginInit();
             this.gbOther.SuspendLayout();
             this.gbManagement.SuspendLayout();
             this.gbOperation.SuspendLayout();
@@ -418,8 +414,6 @@ namespace MIS
             this.panel10.SuspendLayout();
             this.panel11.SuspendLayout();
             this.panel36.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnShow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).BeginInit();
             this.pnlSubMenuSwitchBank.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel14.SuspendLayout();
@@ -429,6 +423,13 @@ namespace MIS
             this.panel22.SuspendLayout();
             this.panel23.SuspendLayout();
             this.panel24.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgBankLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMaximize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).BeginInit();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -486,20 +487,6 @@ namespace MIS
             this.pnlButtonList.Size = new System.Drawing.Size(433, 52);
             this.pnlButtonList.TabIndex = 257;
             // 
-            // btnMaximize
-            // 
-            this.btnMaximize.BackColor = System.Drawing.Color.Transparent;
-            this.btnMaximize.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximize.Image")));
-            this.btnMaximize.ImageActive = null;
-            this.btnMaximize.Location = new System.Drawing.Point(372, 12);
-            this.btnMaximize.Name = "btnMaximize";
-            this.btnMaximize.Size = new System.Drawing.Size(22, 24);
-            this.btnMaximize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnMaximize.TabIndex = 10;
-            this.btnMaximize.TabStop = false;
-            this.btnMaximize.Zoom = 10;
-            this.btnMaximize.Click += new System.EventHandler(this.btnMaximize_Click);
-            // 
             // lblDate
             // 
             this.lblDate.BackColor = System.Drawing.Color.Transparent;
@@ -523,34 +510,6 @@ namespace MIS
             this.lblTime.TabIndex = 8;
             this.lblTime.Text = ".";
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnMinimize
-            // 
-            this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
-            this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
-            this.btnMinimize.ImageActive = null;
-            this.btnMinimize.Location = new System.Drawing.Point(344, 12);
-            this.btnMinimize.Name = "btnMinimize";
-            this.btnMinimize.Size = new System.Drawing.Size(22, 24);
-            this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnMinimize.TabIndex = 3;
-            this.btnMinimize.TabStop = false;
-            this.btnMinimize.Zoom = 10;
-            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.BackColor = System.Drawing.Color.Transparent;
-            this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
-            this.btnExit.ImageActive = null;
-            this.btnExit.Location = new System.Drawing.Point(400, 12);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(22, 24);
-            this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnExit.TabIndex = 2;
-            this.btnExit.TabStop = false;
-            this.btnExit.Zoom = 10;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // lblPublishVersion
             // 
@@ -597,23 +556,6 @@ namespace MIS
             this.lblRemainingDays.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblRemainingDays.Visible = false;
             // 
-            // imgLogo
-            // 
-            this.imgLogo.BackColor = System.Drawing.Color.Transparent;
-            this.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.imgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imgLogo.ErrorImage = null;
-            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
-            this.imgLogo.ImageActive = null;
-            this.imgLogo.InitialImage = null;
-            this.imgLogo.Location = new System.Drawing.Point(0, 0);
-            this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(229, 59);
-            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imgLogo.TabIndex = 258;
-            this.imgLogo.TabStop = false;
-            this.imgLogo.Zoom = 5;
-            // 
             // lblEnvironment
             // 
             this.lblEnvironment.BackColor = System.Drawing.Color.Transparent;
@@ -659,22 +601,6 @@ namespace MIS
             this.bunifuCards11.Size = new System.Drawing.Size(229, 59);
             this.bunifuCards11.TabIndex = 475;
             // 
-            // imgBankLogo
-            // 
-            this.imgBankLogo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.imgBankLogo.BackColor = System.Drawing.Color.White;
-            this.imgBankLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.imgBankLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgBankLogo.Image")));
-            this.imgBankLogo.ImageActive = null;
-            this.imgBankLogo.Location = new System.Drawing.Point(12, 684);
-            this.imgBankLogo.Name = "imgBankLogo";
-            this.imgBankLogo.Size = new System.Drawing.Size(233, 64);
-            this.imgBankLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imgBankLogo.TabIndex = 259;
-            this.imgBankLogo.TabStop = false;
-            this.imgBankLogo.Zoom = 5;
-            // 
             // gbOther
             // 
             this.gbOther.BackColor = System.Drawing.Color.Transparent;
@@ -689,117 +615,6 @@ namespace MIS
             this.gbOther.TabIndex = 288;
             this.gbOther.TabStop = false;
             this.gbOther.Text = "OTHERS";
-            // 
-            // btnHelp
-            // 
-            this.btnHelp.Activecolor = System.Drawing.Color.Transparent;
-            this.btnHelp.BackColor = System.Drawing.Color.Transparent;
-            this.btnHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnHelp.BorderRadius = 0;
-            this.btnHelp.ButtonText = "     Help";
-            this.btnHelp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnHelp.DisabledColor = System.Drawing.Color.Gray;
-            this.btnHelp.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHelp.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnHelp.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnHelp.Iconimage")));
-            this.btnHelp.Iconimage_right = null;
-            this.btnHelp.Iconimage_right_Selected = null;
-            this.btnHelp.Iconimage_Selected = null;
-            this.btnHelp.IconMarginLeft = 0;
-            this.btnHelp.IconMarginRight = 0;
-            this.btnHelp.IconRightVisible = true;
-            this.btnHelp.IconRightZoom = 0D;
-            this.btnHelp.IconVisible = true;
-            this.btnHelp.IconZoom = 40D;
-            this.btnHelp.IsTab = true;
-            this.btnHelp.Location = new System.Drawing.Point(13, 21);
-            this.btnHelp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnHelp.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnHelp.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnHelp.selected = false;
-            this.btnHelp.Size = new System.Drawing.Size(201, 28);
-            this.btnHelp.TabIndex = 16;
-            this.btnHelp.Text = "     Help";
-            this.btnHelp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHelp.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnHelp.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
-            // 
-            // btnExitApplication
-            // 
-            this.btnExitApplication.Activecolor = System.Drawing.Color.Transparent;
-            this.btnExitApplication.BackColor = System.Drawing.Color.Transparent;
-            this.btnExitApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnExitApplication.BorderRadius = 0;
-            this.btnExitApplication.ButtonText = "     Exit";
-            this.btnExitApplication.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnExitApplication.DisabledColor = System.Drawing.Color.Gray;
-            this.btnExitApplication.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExitApplication.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnExitApplication.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnExitApplication.Iconimage")));
-            this.btnExitApplication.Iconimage_right = null;
-            this.btnExitApplication.Iconimage_right_Selected = null;
-            this.btnExitApplication.Iconimage_Selected = null;
-            this.btnExitApplication.IconMarginLeft = 0;
-            this.btnExitApplication.IconMarginRight = 0;
-            this.btnExitApplication.IconRightVisible = true;
-            this.btnExitApplication.IconRightZoom = 0D;
-            this.btnExitApplication.IconVisible = true;
-            this.btnExitApplication.IconZoom = 40D;
-            this.btnExitApplication.IsTab = true;
-            this.btnExitApplication.Location = new System.Drawing.Point(14, 75);
-            this.btnExitApplication.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnExitApplication.Name = "btnExitApplication";
-            this.btnExitApplication.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnExitApplication.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnExitApplication.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnExitApplication.selected = false;
-            this.btnExitApplication.Size = new System.Drawing.Size(201, 28);
-            this.btnExitApplication.TabIndex = 19;
-            this.btnExitApplication.Text = "     Exit";
-            this.btnExitApplication.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExitApplication.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnExitApplication.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnExitApplication.Click += new System.EventHandler(this.btnExitApplication_Click);
-            // 
-            // btnLogoff
-            // 
-            this.btnLogoff.Activecolor = System.Drawing.Color.Transparent;
-            this.btnLogoff.BackColor = System.Drawing.Color.Transparent;
-            this.btnLogoff.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnLogoff.BorderRadius = 0;
-            this.btnLogoff.ButtonText = "     Logoff";
-            this.btnLogoff.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLogoff.DisabledColor = System.Drawing.Color.Gray;
-            this.btnLogoff.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogoff.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnLogoff.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnLogoff.Iconimage")));
-            this.btnLogoff.Iconimage_right = null;
-            this.btnLogoff.Iconimage_right_Selected = null;
-            this.btnLogoff.Iconimage_Selected = null;
-            this.btnLogoff.IconMarginLeft = 0;
-            this.btnLogoff.IconMarginRight = 0;
-            this.btnLogoff.IconRightVisible = true;
-            this.btnLogoff.IconRightZoom = 0D;
-            this.btnLogoff.IconVisible = true;
-            this.btnLogoff.IconZoom = 40D;
-            this.btnLogoff.IsTab = true;
-            this.btnLogoff.Location = new System.Drawing.Point(13, 48);
-            this.btnLogoff.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnLogoff.Name = "btnLogoff";
-            this.btnLogoff.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnLogoff.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnLogoff.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnLogoff.selected = false;
-            this.btnLogoff.Size = new System.Drawing.Size(201, 28);
-            this.btnLogoff.TabIndex = 18;
-            this.btnLogoff.Text = "     Logoff";
-            this.btnLogoff.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogoff.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnLogoff.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnLogoff.Click += new System.EventHandler(this.btnLogoff_Click);
             // 
             // gbManagement
             // 
@@ -819,228 +634,6 @@ namespace MIS
             this.gbManagement.TabStop = false;
             this.gbManagement.Text = "MANAGEMENT";
             // 
-            // btnSwitchBankCode
-            // 
-            this.btnSwitchBankCode.Activecolor = System.Drawing.Color.Transparent;
-            this.btnSwitchBankCode.BackColor = System.Drawing.Color.Transparent;
-            this.btnSwitchBankCode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSwitchBankCode.BorderRadius = 0;
-            this.btnSwitchBankCode.ButtonText = "     Switch Bank";
-            this.btnSwitchBankCode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSwitchBankCode.DisabledColor = System.Drawing.Color.Gray;
-            this.btnSwitchBankCode.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSwitchBankCode.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSwitchBankCode.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnSwitchBankCode.Iconimage")));
-            this.btnSwitchBankCode.Iconimage_right = null;
-            this.btnSwitchBankCode.Iconimage_right_Selected = null;
-            this.btnSwitchBankCode.Iconimage_Selected = null;
-            this.btnSwitchBankCode.IconMarginLeft = 0;
-            this.btnSwitchBankCode.IconMarginRight = 0;
-            this.btnSwitchBankCode.IconRightVisible = true;
-            this.btnSwitchBankCode.IconRightZoom = 0D;
-            this.btnSwitchBankCode.IconVisible = true;
-            this.btnSwitchBankCode.IconZoom = 40D;
-            this.btnSwitchBankCode.IsTab = true;
-            this.btnSwitchBankCode.Location = new System.Drawing.Point(14, 20);
-            this.btnSwitchBankCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnSwitchBankCode.Name = "btnSwitchBankCode";
-            this.btnSwitchBankCode.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnSwitchBankCode.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnSwitchBankCode.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnSwitchBankCode.selected = false;
-            this.btnSwitchBankCode.Size = new System.Drawing.Size(200, 28);
-            this.btnSwitchBankCode.TabIndex = 277;
-            this.btnSwitchBankCode.Text = "     Switch Bank";
-            this.btnSwitchBankCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSwitchBankCode.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnSwitchBankCode.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnSwitchBankCode.Click += new System.EventHandler(this.btnSwitchBankCode_Click);
-            // 
-            // btnPulse
-            // 
-            this.btnPulse.Activecolor = System.Drawing.Color.Transparent;
-            this.btnPulse.BackColor = System.Drawing.Color.Transparent;
-            this.btnPulse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPulse.BorderRadius = 0;
-            this.btnPulse.ButtonText = "     Dashboard";
-            this.btnPulse.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPulse.DisabledColor = System.Drawing.Color.Gray;
-            this.btnPulse.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPulse.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnPulse.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnPulse.Iconimage")));
-            this.btnPulse.Iconimage_right = null;
-            this.btnPulse.Iconimage_right_Selected = null;
-            this.btnPulse.Iconimage_Selected = null;
-            this.btnPulse.IconMarginLeft = 0;
-            this.btnPulse.IconMarginRight = 0;
-            this.btnPulse.IconRightVisible = true;
-            this.btnPulse.IconRightZoom = 0D;
-            this.btnPulse.IconVisible = true;
-            this.btnPulse.IconZoom = 40D;
-            this.btnPulse.IsTab = true;
-            this.btnPulse.Location = new System.Drawing.Point(14, 46);
-            this.btnPulse.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnPulse.Name = "btnPulse";
-            this.btnPulse.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnPulse.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnPulse.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnPulse.selected = false;
-            this.btnPulse.Size = new System.Drawing.Size(211, 28);
-            this.btnPulse.TabIndex = 276;
-            this.btnPulse.Text = "     Dashboard";
-            this.btnPulse.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPulse.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnPulse.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnPulse.Click += new System.EventHandler(this.btnPulse_Click);
-            // 
-            // btnUserAcnt
-            // 
-            this.btnUserAcnt.Activecolor = System.Drawing.Color.Transparent;
-            this.btnUserAcnt.BackColor = System.Drawing.Color.Transparent;
-            this.btnUserAcnt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnUserAcnt.BorderRadius = 0;
-            this.btnUserAcnt.ButtonText = "     User Account";
-            this.btnUserAcnt.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUserAcnt.DisabledColor = System.Drawing.Color.Gray;
-            this.btnUserAcnt.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUserAcnt.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnUserAcnt.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnUserAcnt.Iconimage")));
-            this.btnUserAcnt.Iconimage_right = null;
-            this.btnUserAcnt.Iconimage_right_Selected = null;
-            this.btnUserAcnt.Iconimage_Selected = null;
-            this.btnUserAcnt.IconMarginLeft = 0;
-            this.btnUserAcnt.IconMarginRight = 0;
-            this.btnUserAcnt.IconRightVisible = true;
-            this.btnUserAcnt.IconRightZoom = 0D;
-            this.btnUserAcnt.IconVisible = true;
-            this.btnUserAcnt.IconZoom = 40D;
-            this.btnUserAcnt.IsTab = true;
-            this.btnUserAcnt.Location = new System.Drawing.Point(14, 71);
-            this.btnUserAcnt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnUserAcnt.Name = "btnUserAcnt";
-            this.btnUserAcnt.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnUserAcnt.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnUserAcnt.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnUserAcnt.selected = false;
-            this.btnUserAcnt.Size = new System.Drawing.Size(200, 28);
-            this.btnUserAcnt.TabIndex = 0;
-            this.btnUserAcnt.Text = "     User Account";
-            this.btnUserAcnt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUserAcnt.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnUserAcnt.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnUserAcnt.Click += new System.EventHandler(this.btnAccounts_Click);
-            // 
-            // btnLogs
-            // 
-            this.btnLogs.Activecolor = System.Drawing.Color.Transparent;
-            this.btnLogs.BackColor = System.Drawing.Color.Transparent;
-            this.btnLogs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnLogs.BorderRadius = 0;
-            this.btnLogs.ButtonText = "     Logs";
-            this.btnLogs.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLogs.DisabledColor = System.Drawing.Color.Gray;
-            this.btnLogs.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogs.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnLogs.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnLogs.Iconimage")));
-            this.btnLogs.Iconimage_right = null;
-            this.btnLogs.Iconimage_right_Selected = null;
-            this.btnLogs.Iconimage_Selected = null;
-            this.btnLogs.IconMarginLeft = 0;
-            this.btnLogs.IconMarginRight = 0;
-            this.btnLogs.IconRightVisible = true;
-            this.btnLogs.IconRightZoom = 0D;
-            this.btnLogs.IconVisible = true;
-            this.btnLogs.IconZoom = 40D;
-            this.btnLogs.IsTab = true;
-            this.btnLogs.Location = new System.Drawing.Point(14, 96);
-            this.btnLogs.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnLogs.Name = "btnLogs";
-            this.btnLogs.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnLogs.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnLogs.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnLogs.selected = false;
-            this.btnLogs.Size = new System.Drawing.Size(200, 28);
-            this.btnLogs.TabIndex = 11;
-            this.btnLogs.Text = "     Logs";
-            this.btnLogs.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogs.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnLogs.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnLogs.Click += new System.EventHandler(this.btnLogs_Click);
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Activecolor = System.Drawing.Color.Transparent;
-            this.btnSettings.BackColor = System.Drawing.Color.Transparent;
-            this.btnSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSettings.BorderRadius = 0;
-            this.btnSettings.ButtonText = "     Settings";
-            this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSettings.DisabledColor = System.Drawing.Color.Gray;
-            this.btnSettings.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettings.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSettings.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnSettings.Iconimage")));
-            this.btnSettings.Iconimage_right = null;
-            this.btnSettings.Iconimage_right_Selected = null;
-            this.btnSettings.Iconimage_Selected = null;
-            this.btnSettings.IconMarginLeft = 0;
-            this.btnSettings.IconMarginRight = 0;
-            this.btnSettings.IconRightVisible = true;
-            this.btnSettings.IconRightZoom = 0D;
-            this.btnSettings.IconVisible = true;
-            this.btnSettings.IconZoom = 40D;
-            this.btnSettings.IsTab = true;
-            this.btnSettings.Location = new System.Drawing.Point(14, 121);
-            this.btnSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnSettings.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnSettings.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnSettings.selected = false;
-            this.btnSettings.Size = new System.Drawing.Size(200, 28);
-            this.btnSettings.TabIndex = 14;
-            this.btnSettings.Text = "     Settings";
-            this.btnSettings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSettings.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnSettings.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
-            // 
-            // btnTools
-            // 
-            this.btnTools.Activecolor = System.Drawing.Color.Transparent;
-            this.btnTools.BackColor = System.Drawing.Color.Transparent;
-            this.btnTools.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnTools.BorderRadius = 0;
-            this.btnTools.ButtonText = "     Tools";
-            this.btnTools.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTools.DisabledColor = System.Drawing.Color.Gray;
-            this.btnTools.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTools.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnTools.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnTools.Iconimage")));
-            this.btnTools.Iconimage_right = null;
-            this.btnTools.Iconimage_right_Selected = null;
-            this.btnTools.Iconimage_Selected = null;
-            this.btnTools.IconMarginLeft = 0;
-            this.btnTools.IconMarginRight = 0;
-            this.btnTools.IconRightVisible = true;
-            this.btnTools.IconRightZoom = 0D;
-            this.btnTools.IconVisible = true;
-            this.btnTools.IconZoom = 40D;
-            this.btnTools.IsTab = true;
-            this.btnTools.Location = new System.Drawing.Point(14, 146);
-            this.btnTools.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnTools.Name = "btnTools";
-            this.btnTools.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnTools.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnTools.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnTools.selected = false;
-            this.btnTools.Size = new System.Drawing.Size(200, 28);
-            this.btnTools.TabIndex = 15;
-            this.btnTools.Text = "     Tools";
-            this.btnTools.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTools.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnTools.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnTools.Click += new System.EventHandler(this.btnTools_Click);
-            // 
             // gbOperation
             // 
             this.gbOperation.BackColor = System.Drawing.Color.Transparent;
@@ -1056,117 +649,6 @@ namespace MIS
             this.gbOperation.TabStop = false;
             this.gbOperation.Text = "OPERATION";
             // 
-            // btnEnrollment
-            // 
-            this.btnEnrollment.Activecolor = System.Drawing.Color.Transparent;
-            this.btnEnrollment.BackColor = System.Drawing.Color.Transparent;
-            this.btnEnrollment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnEnrollment.BorderRadius = 0;
-            this.btnEnrollment.ButtonText = "     Enrollment";
-            this.btnEnrollment.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEnrollment.DisabledColor = System.Drawing.Color.Gray;
-            this.btnEnrollment.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnrollment.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnEnrollment.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnEnrollment.Iconimage")));
-            this.btnEnrollment.Iconimage_right = null;
-            this.btnEnrollment.Iconimage_right_Selected = null;
-            this.btnEnrollment.Iconimage_Selected = null;
-            this.btnEnrollment.IconMarginLeft = 0;
-            this.btnEnrollment.IconMarginRight = 0;
-            this.btnEnrollment.IconRightVisible = true;
-            this.btnEnrollment.IconRightZoom = 0D;
-            this.btnEnrollment.IconVisible = true;
-            this.btnEnrollment.IconZoom = 40D;
-            this.btnEnrollment.IsTab = true;
-            this.btnEnrollment.Location = new System.Drawing.Point(14, 18);
-            this.btnEnrollment.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.btnEnrollment.Name = "btnEnrollment";
-            this.btnEnrollment.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnEnrollment.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnEnrollment.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnEnrollment.selected = false;
-            this.btnEnrollment.Size = new System.Drawing.Size(199, 28);
-            this.btnEnrollment.TabIndex = 22;
-            this.btnEnrollment.Text = "     Enrollment";
-            this.btnEnrollment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEnrollment.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnEnrollment.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnEnrollment.Click += new System.EventHandler(this.btnEnrollment_Click);
-            // 
-            // btnInventoryEntry
-            // 
-            this.btnInventoryEntry.Activecolor = System.Drawing.Color.Transparent;
-            this.btnInventoryEntry.BackColor = System.Drawing.Color.Transparent;
-            this.btnInventoryEntry.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnInventoryEntry.BorderRadius = 0;
-            this.btnInventoryEntry.ButtonText = "     Inventory";
-            this.btnInventoryEntry.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnInventoryEntry.DisabledColor = System.Drawing.Color.Gray;
-            this.btnInventoryEntry.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInventoryEntry.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnInventoryEntry.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnInventoryEntry.Iconimage")));
-            this.btnInventoryEntry.Iconimage_right = null;
-            this.btnInventoryEntry.Iconimage_right_Selected = null;
-            this.btnInventoryEntry.Iconimage_Selected = null;
-            this.btnInventoryEntry.IconMarginLeft = 0;
-            this.btnInventoryEntry.IconMarginRight = 0;
-            this.btnInventoryEntry.IconRightVisible = true;
-            this.btnInventoryEntry.IconRightZoom = 0D;
-            this.btnInventoryEntry.IconVisible = true;
-            this.btnInventoryEntry.IconZoom = 40D;
-            this.btnInventoryEntry.IsTab = true;
-            this.btnInventoryEntry.Location = new System.Drawing.Point(13, 43);
-            this.btnInventoryEntry.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnInventoryEntry.Name = "btnInventoryEntry";
-            this.btnInventoryEntry.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnInventoryEntry.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnInventoryEntry.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnInventoryEntry.selected = false;
-            this.btnInventoryEntry.Size = new System.Drawing.Size(199, 28);
-            this.btnInventoryEntry.TabIndex = 9;
-            this.btnInventoryEntry.Text = "     Inventory";
-            this.btnInventoryEntry.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInventoryEntry.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnInventoryEntry.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnInventoryEntry.Click += new System.EventHandler(this.btnTerminal_Click);
-            // 
-            // btnServicing
-            // 
-            this.btnServicing.Activecolor = System.Drawing.Color.Transparent;
-            this.btnServicing.BackColor = System.Drawing.Color.Transparent;
-            this.btnServicing.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnServicing.BorderRadius = 0;
-            this.btnServicing.ButtonText = "     Service";
-            this.btnServicing.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnServicing.DisabledColor = System.Drawing.Color.Gray;
-            this.btnServicing.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnServicing.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnServicing.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnServicing.Iconimage")));
-            this.btnServicing.Iconimage_right = null;
-            this.btnServicing.Iconimage_right_Selected = null;
-            this.btnServicing.Iconimage_Selected = null;
-            this.btnServicing.IconMarginLeft = 0;
-            this.btnServicing.IconMarginRight = 0;
-            this.btnServicing.IconRightVisible = true;
-            this.btnServicing.IconRightZoom = 0D;
-            this.btnServicing.IconVisible = true;
-            this.btnServicing.IconZoom = 40D;
-            this.btnServicing.IsTab = true;
-            this.btnServicing.Location = new System.Drawing.Point(13, 69);
-            this.btnServicing.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnServicing.Name = "btnServicing";
-            this.btnServicing.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnServicing.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnServicing.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnServicing.selected = false;
-            this.btnServicing.Size = new System.Drawing.Size(199, 28);
-            this.btnServicing.TabIndex = 23;
-            this.btnServicing.Text = "     Service";
-            this.btnServicing.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnServicing.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnServicing.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnServicing.Click += new System.EventHandler(this.btnServicing_Click);
-            // 
             // gbHelpdesk
             // 
             this.gbHelpdesk.BackColor = System.Drawing.Color.Transparent;
@@ -1181,80 +663,6 @@ namespace MIS
             this.gbHelpdesk.TabStop = false;
             this.gbHelpdesk.Text = "SEARCH / REPORT";
             // 
-            // btnReports
-            // 
-            this.btnReports.Activecolor = System.Drawing.Color.Transparent;
-            this.btnReports.BackColor = System.Drawing.Color.Transparent;
-            this.btnReports.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnReports.BorderRadius = 0;
-            this.btnReports.ButtonText = "     Reports";
-            this.btnReports.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnReports.DisabledColor = System.Drawing.Color.Gray;
-            this.btnReports.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReports.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnReports.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnReports.Iconimage")));
-            this.btnReports.Iconimage_right = null;
-            this.btnReports.Iconimage_right_Selected = null;
-            this.btnReports.Iconimage_Selected = null;
-            this.btnReports.IconMarginLeft = 0;
-            this.btnReports.IconMarginRight = 0;
-            this.btnReports.IconRightVisible = true;
-            this.btnReports.IconRightZoom = 0D;
-            this.btnReports.IconVisible = true;
-            this.btnReports.IconZoom = 40D;
-            this.btnReports.IsTab = true;
-            this.btnReports.Location = new System.Drawing.Point(13, 44);
-            this.btnReports.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnReports.Name = "btnReports";
-            this.btnReports.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnReports.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnReports.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnReports.selected = false;
-            this.btnReports.Size = new System.Drawing.Size(199, 28);
-            this.btnReports.TabIndex = 13;
-            this.btnReports.Text = "     Reports";
-            this.btnReports.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReports.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnReports.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Activecolor = System.Drawing.Color.Transparent;
-            this.btnSearch.BackColor = System.Drawing.Color.Transparent;
-            this.btnSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSearch.BorderRadius = 0;
-            this.btnSearch.ButtonText = "     Search";
-            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSearch.DisabledColor = System.Drawing.Color.Transparent;
-            this.btnSearch.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSearch.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnSearch.Iconimage")));
-            this.btnSearch.Iconimage_right = null;
-            this.btnSearch.Iconimage_right_Selected = null;
-            this.btnSearch.Iconimage_Selected = null;
-            this.btnSearch.IconMarginLeft = 0;
-            this.btnSearch.IconMarginRight = 0;
-            this.btnSearch.IconRightVisible = true;
-            this.btnSearch.IconRightZoom = 0D;
-            this.btnSearch.IconVisible = true;
-            this.btnSearch.IconZoom = 40D;
-            this.btnSearch.IsTab = true;
-            this.btnSearch.Location = new System.Drawing.Point(15, 19);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnSearch.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnSearch.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnSearch.selected = false;
-            this.btnSearch.Size = new System.Drawing.Size(197, 28);
-            this.btnSearch.TabIndex = 21;
-            this.btnSearch.Text = "     Search";
-            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearch.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnSearch.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
             // gbAdministrative
             // 
             this.gbAdministrative.BackColor = System.Drawing.Color.Transparent;
@@ -1268,80 +676,6 @@ namespace MIS
             this.gbAdministrative.TabIndex = 285;
             this.gbAdministrative.TabStop = false;
             this.gbAdministrative.Text = "ADMINISTRATIVE";
-            // 
-            // btnAdministrative
-            // 
-            this.btnAdministrative.Activecolor = System.Drawing.Color.Transparent;
-            this.btnAdministrative.BackColor = System.Drawing.Color.Transparent;
-            this.btnAdministrative.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAdministrative.BorderRadius = 0;
-            this.btnAdministrative.ButtonText = "     Administrative";
-            this.btnAdministrative.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAdministrative.DisabledColor = System.Drawing.Color.Gray;
-            this.btnAdministrative.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdministrative.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnAdministrative.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnAdministrative.Iconimage")));
-            this.btnAdministrative.Iconimage_right = null;
-            this.btnAdministrative.Iconimage_right_Selected = null;
-            this.btnAdministrative.Iconimage_Selected = null;
-            this.btnAdministrative.IconMarginLeft = 0;
-            this.btnAdministrative.IconMarginRight = 0;
-            this.btnAdministrative.IconRightVisible = true;
-            this.btnAdministrative.IconRightZoom = 0D;
-            this.btnAdministrative.IconVisible = true;
-            this.btnAdministrative.IconZoom = 40D;
-            this.btnAdministrative.IsTab = true;
-            this.btnAdministrative.Location = new System.Drawing.Point(13, 21);
-            this.btnAdministrative.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.btnAdministrative.Name = "btnAdministrative";
-            this.btnAdministrative.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnAdministrative.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnAdministrative.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnAdministrative.selected = false;
-            this.btnAdministrative.Size = new System.Drawing.Size(200, 28);
-            this.btnAdministrative.TabIndex = 285;
-            this.btnAdministrative.Text = "     Administrative";
-            this.btnAdministrative.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdministrative.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnAdministrative.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnAdministrative.Click += new System.EventHandler(this.btnAdministrative_Click);
-            // 
-            // btnFinance
-            // 
-            this.btnFinance.Activecolor = System.Drawing.Color.Transparent;
-            this.btnFinance.BackColor = System.Drawing.Color.Transparent;
-            this.btnFinance.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnFinance.BorderRadius = 0;
-            this.btnFinance.ButtonText = "     Finance";
-            this.btnFinance.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFinance.DisabledColor = System.Drawing.Color.Gray;
-            this.btnFinance.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFinance.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnFinance.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnFinance.Iconimage")));
-            this.btnFinance.Iconimage_right = null;
-            this.btnFinance.Iconimage_right_Selected = null;
-            this.btnFinance.Iconimage_Selected = null;
-            this.btnFinance.IconMarginLeft = 0;
-            this.btnFinance.IconMarginRight = 0;
-            this.btnFinance.IconRightVisible = true;
-            this.btnFinance.IconRightZoom = 0D;
-            this.btnFinance.IconVisible = true;
-            this.btnFinance.IconZoom = 40D;
-            this.btnFinance.IsTab = true;
-            this.btnFinance.Location = new System.Drawing.Point(13, 48);
-            this.btnFinance.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnFinance.Name = "btnFinance";
-            this.btnFinance.Normalcolor = System.Drawing.Color.Transparent;
-            this.btnFinance.OnHovercolor = System.Drawing.Color.Transparent;
-            this.btnFinance.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnFinance.selected = false;
-            this.btnFinance.Size = new System.Drawing.Size(200, 28);
-            this.btnFinance.TabIndex = 277;
-            this.btnFinance.Text = "     Finance";
-            this.btnFinance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFinance.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnFinance.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnFinance.Click += new System.EventHandler(this.btnFinance_Click);
             // 
             // label34
             // 
@@ -3237,6 +2571,7 @@ namespace MIS
             // 
             this.pnlSubMenuServicing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pnlSubMenuServicing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSubMenuServicing.Controls.Add(this.btnQrDelivery);
             this.pnlSubMenuServicing.Controls.Add(this.btnServicingArchieve);
             this.pnlSubMenuServicing.Controls.Add(this.btnMaintenanceUpdateMerchantSN);
             this.pnlSubMenuServicing.Controls.Add(this.btnMaintenanceUpdateServiceStatus);
@@ -3264,7 +2599,7 @@ namespace MIS
             this.pnlSubMenuServicing.Controls.Add(this.panel17);
             this.pnlSubMenuServicing.Location = new System.Drawing.Point(994, 57);
             this.pnlSubMenuServicing.Name = "pnlSubMenuServicing";
-            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 682);
+            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 718);
             this.pnlSubMenuServicing.TabIndex = 278;
             this.pnlSubMenuServicing.Visible = false;
             this.pnlSubMenuServicing.Paint += new System.Windows.Forms.PaintEventHandler(this.panel15_Paint);
@@ -7018,35 +6353,6 @@ namespace MIS
             this.panel36.Size = new System.Drawing.Size(369, 24);
             this.panel36.TabIndex = 311;
             // 
-            // btnShow
-            // 
-            this.btnShow.BackColor = System.Drawing.Color.Transparent;
-            this.btnShow.Image = global::MIS.Properties.Resources.ic_up;
-            this.btnShow.ImageActive = null;
-            this.btnShow.Location = new System.Drawing.Point(342, 0);
-            this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(24, 23);
-            this.btnShow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnShow.TabIndex = 312;
-            this.btnShow.TabStop = false;
-            this.btnShow.Tag = "up";
-            this.btnShow.Zoom = 10;
-            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.BackColor = System.Drawing.Color.Transparent;
-            this.btnRefresh.Image = global::MIS.Properties.Resources.ic_refresh;
-            this.btnRefresh.ImageActive = null;
-            this.btnRefresh.Location = new System.Drawing.Point(312, 0);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(24, 23);
-            this.btnRefresh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnRefresh.TabIndex = 311;
-            this.btnRefresh.TabStop = false;
-            this.btnRefresh.Zoom = 10;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // label45
             // 
             this.label45.AutoSize = true;
@@ -7172,44 +6478,6 @@ namespace MIS
             this.panel19.Name = "panel19";
             this.panel19.Size = new System.Drawing.Size(259, 2);
             this.panel19.TabIndex = 0;
-            // 
-            // btnMSP
-            // 
-            this.btnMSP.Activecolor = System.Drawing.Color.Black;
-            this.btnMSP.BackColor = System.Drawing.Color.Black;
-            this.btnMSP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnMSP.BorderRadius = 0;
-            this.btnMSP.ButtonText = "     MSP";
-            this.btnMSP.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMSP.DisabledColor = System.Drawing.Color.Gray;
-            this.btnMSP.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMSP.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnMSP.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnMSP.Iconimage")));
-            this.btnMSP.Iconimage_right = null;
-            this.btnMSP.Iconimage_right_Selected = null;
-            this.btnMSP.Iconimage_Selected = null;
-            this.btnMSP.IconMarginLeft = 0;
-            this.btnMSP.IconMarginRight = 0;
-            this.btnMSP.IconRightVisible = true;
-            this.btnMSP.IconRightZoom = 0D;
-            this.btnMSP.IconVisible = true;
-            this.btnMSP.IconZoom = 40D;
-            this.btnMSP.IsTab = true;
-            this.btnMSP.Location = new System.Drawing.Point(751, 472);
-            this.btnMSP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnMSP.Name = "btnMSP";
-            this.btnMSP.Normalcolor = System.Drawing.Color.Black;
-            this.btnMSP.OnHovercolor = System.Drawing.Color.Black;
-            this.btnMSP.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnMSP.selected = false;
-            this.btnMSP.Size = new System.Drawing.Size(200, 28);
-            this.btnMSP.TabIndex = 286;
-            this.btnMSP.Text = "     MSP";
-            this.btnMSP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMSP.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnMSP.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnMSP.Visible = false;
-            this.btnMSP.Click += new System.EventHandler(this.btnMSP_Click);
             // 
             // pnlSubMenuSearch
             // 
@@ -7520,6 +6788,777 @@ namespace MIS
             this.panel25.Size = new System.Drawing.Size(369, 2);
             this.panel25.TabIndex = 0;
             // 
+            // btnQrDelivery
+            // 
+            this.btnQrDelivery.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnQrDelivery.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnQrDelivery.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnQrDelivery.BorderRadius = 0;
+            this.btnQrDelivery.ButtonText = "          QR Delivery";
+            this.btnQrDelivery.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnQrDelivery.DisabledColor = System.Drawing.Color.Gray;
+            this.btnQrDelivery.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQrDelivery.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnQrDelivery.Iconimage = null;
+            this.btnQrDelivery.Iconimage_right = null;
+            this.btnQrDelivery.Iconimage_right_Selected = null;
+            this.btnQrDelivery.Iconimage_Selected = null;
+            this.btnQrDelivery.IconMarginLeft = 0;
+            this.btnQrDelivery.IconMarginRight = 0;
+            this.btnQrDelivery.IconRightVisible = true;
+            this.btnQrDelivery.IconRightZoom = 0D;
+            this.btnQrDelivery.IconVisible = true;
+            this.btnQrDelivery.IconZoom = 40D;
+            this.btnQrDelivery.IsTab = true;
+            this.btnQrDelivery.Location = new System.Drawing.Point(1, 674);
+            this.btnQrDelivery.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnQrDelivery.Name = "btnQrDelivery";
+            this.btnQrDelivery.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnQrDelivery.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnQrDelivery.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnQrDelivery.selected = false;
+            this.btnQrDelivery.Size = new System.Drawing.Size(225, 28);
+            this.btnQrDelivery.TabIndex = 309;
+            this.btnQrDelivery.Text = "          QR Delivery";
+            this.btnQrDelivery.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQrDelivery.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnQrDelivery.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnQrDelivery.Click += new System.EventHandler(this.btnQrDelivery_Click);
+            // 
+            // btnMSP
+            // 
+            this.btnMSP.Activecolor = System.Drawing.Color.Black;
+            this.btnMSP.BackColor = System.Drawing.Color.Black;
+            this.btnMSP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnMSP.BorderRadius = 0;
+            this.btnMSP.ButtonText = "     MSP";
+            this.btnMSP.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMSP.DisabledColor = System.Drawing.Color.Gray;
+            this.btnMSP.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMSP.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnMSP.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnMSP.Iconimage")));
+            this.btnMSP.Iconimage_right = null;
+            this.btnMSP.Iconimage_right_Selected = null;
+            this.btnMSP.Iconimage_Selected = null;
+            this.btnMSP.IconMarginLeft = 0;
+            this.btnMSP.IconMarginRight = 0;
+            this.btnMSP.IconRightVisible = true;
+            this.btnMSP.IconRightZoom = 0D;
+            this.btnMSP.IconVisible = true;
+            this.btnMSP.IconZoom = 40D;
+            this.btnMSP.IsTab = true;
+            this.btnMSP.Location = new System.Drawing.Point(751, 472);
+            this.btnMSP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnMSP.Name = "btnMSP";
+            this.btnMSP.Normalcolor = System.Drawing.Color.Black;
+            this.btnMSP.OnHovercolor = System.Drawing.Color.Black;
+            this.btnMSP.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnMSP.selected = false;
+            this.btnMSP.Size = new System.Drawing.Size(200, 28);
+            this.btnMSP.TabIndex = 286;
+            this.btnMSP.Text = "     MSP";
+            this.btnMSP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMSP.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnMSP.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnMSP.Visible = false;
+            this.btnMSP.Click += new System.EventHandler(this.btnMSP_Click);
+            // 
+            // imgLogo
+            // 
+            this.imgLogo.BackColor = System.Drawing.Color.Transparent;
+            this.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.imgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imgLogo.ErrorImage = null;
+            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
+            this.imgLogo.ImageActive = null;
+            this.imgLogo.InitialImage = null;
+            this.imgLogo.Location = new System.Drawing.Point(0, 0);
+            this.imgLogo.Name = "imgLogo";
+            this.imgLogo.Size = new System.Drawing.Size(229, 59);
+            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imgLogo.TabIndex = 258;
+            this.imgLogo.TabStop = false;
+            this.imgLogo.Zoom = 5;
+            // 
+            // imgBankLogo
+            // 
+            this.imgBankLogo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgBankLogo.BackColor = System.Drawing.Color.White;
+            this.imgBankLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.imgBankLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgBankLogo.Image")));
+            this.imgBankLogo.ImageActive = null;
+            this.imgBankLogo.Location = new System.Drawing.Point(12, 684);
+            this.imgBankLogo.Name = "imgBankLogo";
+            this.imgBankLogo.Size = new System.Drawing.Size(233, 64);
+            this.imgBankLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imgBankLogo.TabIndex = 259;
+            this.imgBankLogo.TabStop = false;
+            this.imgBankLogo.Zoom = 5;
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.Activecolor = System.Drawing.Color.Transparent;
+            this.btnHelp.BackColor = System.Drawing.Color.Transparent;
+            this.btnHelp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnHelp.BorderRadius = 0;
+            this.btnHelp.ButtonText = "     Help";
+            this.btnHelp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnHelp.DisabledColor = System.Drawing.Color.Gray;
+            this.btnHelp.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHelp.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnHelp.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnHelp.Iconimage")));
+            this.btnHelp.Iconimage_right = null;
+            this.btnHelp.Iconimage_right_Selected = null;
+            this.btnHelp.Iconimage_Selected = null;
+            this.btnHelp.IconMarginLeft = 0;
+            this.btnHelp.IconMarginRight = 0;
+            this.btnHelp.IconRightVisible = true;
+            this.btnHelp.IconRightZoom = 0D;
+            this.btnHelp.IconVisible = true;
+            this.btnHelp.IconZoom = 40D;
+            this.btnHelp.IsTab = true;
+            this.btnHelp.Location = new System.Drawing.Point(13, 21);
+            this.btnHelp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnHelp.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnHelp.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnHelp.selected = false;
+            this.btnHelp.Size = new System.Drawing.Size(201, 28);
+            this.btnHelp.TabIndex = 16;
+            this.btnHelp.Text = "     Help";
+            this.btnHelp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHelp.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnHelp.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            // 
+            // btnExitApplication
+            // 
+            this.btnExitApplication.Activecolor = System.Drawing.Color.Transparent;
+            this.btnExitApplication.BackColor = System.Drawing.Color.Transparent;
+            this.btnExitApplication.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnExitApplication.BorderRadius = 0;
+            this.btnExitApplication.ButtonText = "     Exit";
+            this.btnExitApplication.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExitApplication.DisabledColor = System.Drawing.Color.Gray;
+            this.btnExitApplication.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExitApplication.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnExitApplication.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnExitApplication.Iconimage")));
+            this.btnExitApplication.Iconimage_right = null;
+            this.btnExitApplication.Iconimage_right_Selected = null;
+            this.btnExitApplication.Iconimage_Selected = null;
+            this.btnExitApplication.IconMarginLeft = 0;
+            this.btnExitApplication.IconMarginRight = 0;
+            this.btnExitApplication.IconRightVisible = true;
+            this.btnExitApplication.IconRightZoom = 0D;
+            this.btnExitApplication.IconVisible = true;
+            this.btnExitApplication.IconZoom = 40D;
+            this.btnExitApplication.IsTab = true;
+            this.btnExitApplication.Location = new System.Drawing.Point(14, 75);
+            this.btnExitApplication.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnExitApplication.Name = "btnExitApplication";
+            this.btnExitApplication.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnExitApplication.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnExitApplication.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnExitApplication.selected = false;
+            this.btnExitApplication.Size = new System.Drawing.Size(201, 28);
+            this.btnExitApplication.TabIndex = 19;
+            this.btnExitApplication.Text = "     Exit";
+            this.btnExitApplication.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExitApplication.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnExitApplication.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnExitApplication.Click += new System.EventHandler(this.btnExitApplication_Click);
+            // 
+            // btnLogoff
+            // 
+            this.btnLogoff.Activecolor = System.Drawing.Color.Transparent;
+            this.btnLogoff.BackColor = System.Drawing.Color.Transparent;
+            this.btnLogoff.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLogoff.BorderRadius = 0;
+            this.btnLogoff.ButtonText = "     Logoff";
+            this.btnLogoff.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLogoff.DisabledColor = System.Drawing.Color.Gray;
+            this.btnLogoff.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogoff.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnLogoff.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnLogoff.Iconimage")));
+            this.btnLogoff.Iconimage_right = null;
+            this.btnLogoff.Iconimage_right_Selected = null;
+            this.btnLogoff.Iconimage_Selected = null;
+            this.btnLogoff.IconMarginLeft = 0;
+            this.btnLogoff.IconMarginRight = 0;
+            this.btnLogoff.IconRightVisible = true;
+            this.btnLogoff.IconRightZoom = 0D;
+            this.btnLogoff.IconVisible = true;
+            this.btnLogoff.IconZoom = 40D;
+            this.btnLogoff.IsTab = true;
+            this.btnLogoff.Location = new System.Drawing.Point(13, 48);
+            this.btnLogoff.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnLogoff.Name = "btnLogoff";
+            this.btnLogoff.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnLogoff.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnLogoff.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnLogoff.selected = false;
+            this.btnLogoff.Size = new System.Drawing.Size(201, 28);
+            this.btnLogoff.TabIndex = 18;
+            this.btnLogoff.Text = "     Logoff";
+            this.btnLogoff.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLogoff.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnLogoff.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnLogoff.Click += new System.EventHandler(this.btnLogoff_Click);
+            // 
+            // btnSwitchBankCode
+            // 
+            this.btnSwitchBankCode.Activecolor = System.Drawing.Color.Transparent;
+            this.btnSwitchBankCode.BackColor = System.Drawing.Color.Transparent;
+            this.btnSwitchBankCode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSwitchBankCode.BorderRadius = 0;
+            this.btnSwitchBankCode.ButtonText = "     Switch Bank";
+            this.btnSwitchBankCode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSwitchBankCode.DisabledColor = System.Drawing.Color.Gray;
+            this.btnSwitchBankCode.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSwitchBankCode.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnSwitchBankCode.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnSwitchBankCode.Iconimage")));
+            this.btnSwitchBankCode.Iconimage_right = null;
+            this.btnSwitchBankCode.Iconimage_right_Selected = null;
+            this.btnSwitchBankCode.Iconimage_Selected = null;
+            this.btnSwitchBankCode.IconMarginLeft = 0;
+            this.btnSwitchBankCode.IconMarginRight = 0;
+            this.btnSwitchBankCode.IconRightVisible = true;
+            this.btnSwitchBankCode.IconRightZoom = 0D;
+            this.btnSwitchBankCode.IconVisible = true;
+            this.btnSwitchBankCode.IconZoom = 40D;
+            this.btnSwitchBankCode.IsTab = true;
+            this.btnSwitchBankCode.Location = new System.Drawing.Point(14, 20);
+            this.btnSwitchBankCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSwitchBankCode.Name = "btnSwitchBankCode";
+            this.btnSwitchBankCode.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnSwitchBankCode.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnSwitchBankCode.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnSwitchBankCode.selected = false;
+            this.btnSwitchBankCode.Size = new System.Drawing.Size(200, 28);
+            this.btnSwitchBankCode.TabIndex = 277;
+            this.btnSwitchBankCode.Text = "     Switch Bank";
+            this.btnSwitchBankCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSwitchBankCode.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnSwitchBankCode.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnSwitchBankCode.Click += new System.EventHandler(this.btnSwitchBankCode_Click);
+            // 
+            // btnPulse
+            // 
+            this.btnPulse.Activecolor = System.Drawing.Color.Transparent;
+            this.btnPulse.BackColor = System.Drawing.Color.Transparent;
+            this.btnPulse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPulse.BorderRadius = 0;
+            this.btnPulse.ButtonText = "     Dashboard";
+            this.btnPulse.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPulse.DisabledColor = System.Drawing.Color.Gray;
+            this.btnPulse.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPulse.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnPulse.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnPulse.Iconimage")));
+            this.btnPulse.Iconimage_right = null;
+            this.btnPulse.Iconimage_right_Selected = null;
+            this.btnPulse.Iconimage_Selected = null;
+            this.btnPulse.IconMarginLeft = 0;
+            this.btnPulse.IconMarginRight = 0;
+            this.btnPulse.IconRightVisible = true;
+            this.btnPulse.IconRightZoom = 0D;
+            this.btnPulse.IconVisible = true;
+            this.btnPulse.IconZoom = 40D;
+            this.btnPulse.IsTab = true;
+            this.btnPulse.Location = new System.Drawing.Point(14, 46);
+            this.btnPulse.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnPulse.Name = "btnPulse";
+            this.btnPulse.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnPulse.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnPulse.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnPulse.selected = false;
+            this.btnPulse.Size = new System.Drawing.Size(211, 28);
+            this.btnPulse.TabIndex = 276;
+            this.btnPulse.Text = "     Dashboard";
+            this.btnPulse.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPulse.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnPulse.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnPulse.Click += new System.EventHandler(this.btnPulse_Click);
+            // 
+            // btnUserAcnt
+            // 
+            this.btnUserAcnt.Activecolor = System.Drawing.Color.Transparent;
+            this.btnUserAcnt.BackColor = System.Drawing.Color.Transparent;
+            this.btnUserAcnt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnUserAcnt.BorderRadius = 0;
+            this.btnUserAcnt.ButtonText = "     User Account";
+            this.btnUserAcnt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUserAcnt.DisabledColor = System.Drawing.Color.Gray;
+            this.btnUserAcnt.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUserAcnt.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnUserAcnt.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnUserAcnt.Iconimage")));
+            this.btnUserAcnt.Iconimage_right = null;
+            this.btnUserAcnt.Iconimage_right_Selected = null;
+            this.btnUserAcnt.Iconimage_Selected = null;
+            this.btnUserAcnt.IconMarginLeft = 0;
+            this.btnUserAcnt.IconMarginRight = 0;
+            this.btnUserAcnt.IconRightVisible = true;
+            this.btnUserAcnt.IconRightZoom = 0D;
+            this.btnUserAcnt.IconVisible = true;
+            this.btnUserAcnt.IconZoom = 40D;
+            this.btnUserAcnt.IsTab = true;
+            this.btnUserAcnt.Location = new System.Drawing.Point(14, 71);
+            this.btnUserAcnt.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnUserAcnt.Name = "btnUserAcnt";
+            this.btnUserAcnt.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnUserAcnt.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnUserAcnt.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnUserAcnt.selected = false;
+            this.btnUserAcnt.Size = new System.Drawing.Size(200, 28);
+            this.btnUserAcnt.TabIndex = 0;
+            this.btnUserAcnt.Text = "     User Account";
+            this.btnUserAcnt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUserAcnt.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnUserAcnt.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnUserAcnt.Click += new System.EventHandler(this.btnAccounts_Click);
+            // 
+            // btnLogs
+            // 
+            this.btnLogs.Activecolor = System.Drawing.Color.Transparent;
+            this.btnLogs.BackColor = System.Drawing.Color.Transparent;
+            this.btnLogs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLogs.BorderRadius = 0;
+            this.btnLogs.ButtonText = "     Logs";
+            this.btnLogs.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLogs.DisabledColor = System.Drawing.Color.Gray;
+            this.btnLogs.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogs.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnLogs.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnLogs.Iconimage")));
+            this.btnLogs.Iconimage_right = null;
+            this.btnLogs.Iconimage_right_Selected = null;
+            this.btnLogs.Iconimage_Selected = null;
+            this.btnLogs.IconMarginLeft = 0;
+            this.btnLogs.IconMarginRight = 0;
+            this.btnLogs.IconRightVisible = true;
+            this.btnLogs.IconRightZoom = 0D;
+            this.btnLogs.IconVisible = true;
+            this.btnLogs.IconZoom = 40D;
+            this.btnLogs.IsTab = true;
+            this.btnLogs.Location = new System.Drawing.Point(14, 96);
+            this.btnLogs.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnLogs.Name = "btnLogs";
+            this.btnLogs.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnLogs.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnLogs.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnLogs.selected = false;
+            this.btnLogs.Size = new System.Drawing.Size(200, 28);
+            this.btnLogs.TabIndex = 11;
+            this.btnLogs.Text = "     Logs";
+            this.btnLogs.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLogs.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnLogs.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnLogs.Click += new System.EventHandler(this.btnLogs_Click);
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.Activecolor = System.Drawing.Color.Transparent;
+            this.btnSettings.BackColor = System.Drawing.Color.Transparent;
+            this.btnSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSettings.BorderRadius = 0;
+            this.btnSettings.ButtonText = "     Settings";
+            this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSettings.DisabledColor = System.Drawing.Color.Gray;
+            this.btnSettings.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSettings.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnSettings.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnSettings.Iconimage")));
+            this.btnSettings.Iconimage_right = null;
+            this.btnSettings.Iconimage_right_Selected = null;
+            this.btnSettings.Iconimage_Selected = null;
+            this.btnSettings.IconMarginLeft = 0;
+            this.btnSettings.IconMarginRight = 0;
+            this.btnSettings.IconRightVisible = true;
+            this.btnSettings.IconRightZoom = 0D;
+            this.btnSettings.IconVisible = true;
+            this.btnSettings.IconZoom = 40D;
+            this.btnSettings.IsTab = true;
+            this.btnSettings.Location = new System.Drawing.Point(14, 121);
+            this.btnSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnSettings.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnSettings.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnSettings.selected = false;
+            this.btnSettings.Size = new System.Drawing.Size(200, 28);
+            this.btnSettings.TabIndex = 14;
+            this.btnSettings.Text = "     Settings";
+            this.btnSettings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSettings.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnSettings.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
+            // btnTools
+            // 
+            this.btnTools.Activecolor = System.Drawing.Color.Transparent;
+            this.btnTools.BackColor = System.Drawing.Color.Transparent;
+            this.btnTools.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnTools.BorderRadius = 0;
+            this.btnTools.ButtonText = "     Tools";
+            this.btnTools.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTools.DisabledColor = System.Drawing.Color.Gray;
+            this.btnTools.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTools.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnTools.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnTools.Iconimage")));
+            this.btnTools.Iconimage_right = null;
+            this.btnTools.Iconimage_right_Selected = null;
+            this.btnTools.Iconimage_Selected = null;
+            this.btnTools.IconMarginLeft = 0;
+            this.btnTools.IconMarginRight = 0;
+            this.btnTools.IconRightVisible = true;
+            this.btnTools.IconRightZoom = 0D;
+            this.btnTools.IconVisible = true;
+            this.btnTools.IconZoom = 40D;
+            this.btnTools.IsTab = true;
+            this.btnTools.Location = new System.Drawing.Point(14, 146);
+            this.btnTools.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnTools.Name = "btnTools";
+            this.btnTools.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnTools.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnTools.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnTools.selected = false;
+            this.btnTools.Size = new System.Drawing.Size(200, 28);
+            this.btnTools.TabIndex = 15;
+            this.btnTools.Text = "     Tools";
+            this.btnTools.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTools.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnTools.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnTools.Click += new System.EventHandler(this.btnTools_Click);
+            // 
+            // btnEnrollment
+            // 
+            this.btnEnrollment.Activecolor = System.Drawing.Color.Transparent;
+            this.btnEnrollment.BackColor = System.Drawing.Color.Transparent;
+            this.btnEnrollment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnEnrollment.BorderRadius = 0;
+            this.btnEnrollment.ButtonText = "     Enrollment";
+            this.btnEnrollment.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEnrollment.DisabledColor = System.Drawing.Color.Gray;
+            this.btnEnrollment.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEnrollment.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnEnrollment.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnEnrollment.Iconimage")));
+            this.btnEnrollment.Iconimage_right = null;
+            this.btnEnrollment.Iconimage_right_Selected = null;
+            this.btnEnrollment.Iconimage_Selected = null;
+            this.btnEnrollment.IconMarginLeft = 0;
+            this.btnEnrollment.IconMarginRight = 0;
+            this.btnEnrollment.IconRightVisible = true;
+            this.btnEnrollment.IconRightZoom = 0D;
+            this.btnEnrollment.IconVisible = true;
+            this.btnEnrollment.IconZoom = 40D;
+            this.btnEnrollment.IsTab = true;
+            this.btnEnrollment.Location = new System.Drawing.Point(14, 18);
+            this.btnEnrollment.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.btnEnrollment.Name = "btnEnrollment";
+            this.btnEnrollment.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnEnrollment.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnEnrollment.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnEnrollment.selected = false;
+            this.btnEnrollment.Size = new System.Drawing.Size(199, 28);
+            this.btnEnrollment.TabIndex = 22;
+            this.btnEnrollment.Text = "     Enrollment";
+            this.btnEnrollment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEnrollment.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnEnrollment.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnEnrollment.Click += new System.EventHandler(this.btnEnrollment_Click);
+            // 
+            // btnInventoryEntry
+            // 
+            this.btnInventoryEntry.Activecolor = System.Drawing.Color.Transparent;
+            this.btnInventoryEntry.BackColor = System.Drawing.Color.Transparent;
+            this.btnInventoryEntry.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnInventoryEntry.BorderRadius = 0;
+            this.btnInventoryEntry.ButtonText = "     Inventory";
+            this.btnInventoryEntry.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnInventoryEntry.DisabledColor = System.Drawing.Color.Gray;
+            this.btnInventoryEntry.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInventoryEntry.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnInventoryEntry.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnInventoryEntry.Iconimage")));
+            this.btnInventoryEntry.Iconimage_right = null;
+            this.btnInventoryEntry.Iconimage_right_Selected = null;
+            this.btnInventoryEntry.Iconimage_Selected = null;
+            this.btnInventoryEntry.IconMarginLeft = 0;
+            this.btnInventoryEntry.IconMarginRight = 0;
+            this.btnInventoryEntry.IconRightVisible = true;
+            this.btnInventoryEntry.IconRightZoom = 0D;
+            this.btnInventoryEntry.IconVisible = true;
+            this.btnInventoryEntry.IconZoom = 40D;
+            this.btnInventoryEntry.IsTab = true;
+            this.btnInventoryEntry.Location = new System.Drawing.Point(13, 43);
+            this.btnInventoryEntry.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnInventoryEntry.Name = "btnInventoryEntry";
+            this.btnInventoryEntry.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnInventoryEntry.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnInventoryEntry.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnInventoryEntry.selected = false;
+            this.btnInventoryEntry.Size = new System.Drawing.Size(199, 28);
+            this.btnInventoryEntry.TabIndex = 9;
+            this.btnInventoryEntry.Text = "     Inventory";
+            this.btnInventoryEntry.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnInventoryEntry.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnInventoryEntry.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnInventoryEntry.Click += new System.EventHandler(this.btnTerminal_Click);
+            // 
+            // btnServicing
+            // 
+            this.btnServicing.Activecolor = System.Drawing.Color.Transparent;
+            this.btnServicing.BackColor = System.Drawing.Color.Transparent;
+            this.btnServicing.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnServicing.BorderRadius = 0;
+            this.btnServicing.ButtonText = "     Service";
+            this.btnServicing.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnServicing.DisabledColor = System.Drawing.Color.Gray;
+            this.btnServicing.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnServicing.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnServicing.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnServicing.Iconimage")));
+            this.btnServicing.Iconimage_right = null;
+            this.btnServicing.Iconimage_right_Selected = null;
+            this.btnServicing.Iconimage_Selected = null;
+            this.btnServicing.IconMarginLeft = 0;
+            this.btnServicing.IconMarginRight = 0;
+            this.btnServicing.IconRightVisible = true;
+            this.btnServicing.IconRightZoom = 0D;
+            this.btnServicing.IconVisible = true;
+            this.btnServicing.IconZoom = 40D;
+            this.btnServicing.IsTab = true;
+            this.btnServicing.Location = new System.Drawing.Point(13, 69);
+            this.btnServicing.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnServicing.Name = "btnServicing";
+            this.btnServicing.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnServicing.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnServicing.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnServicing.selected = false;
+            this.btnServicing.Size = new System.Drawing.Size(199, 28);
+            this.btnServicing.TabIndex = 23;
+            this.btnServicing.Text = "     Service";
+            this.btnServicing.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnServicing.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnServicing.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnServicing.Click += new System.EventHandler(this.btnServicing_Click);
+            // 
+            // btnReports
+            // 
+            this.btnReports.Activecolor = System.Drawing.Color.Transparent;
+            this.btnReports.BackColor = System.Drawing.Color.Transparent;
+            this.btnReports.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnReports.BorderRadius = 0;
+            this.btnReports.ButtonText = "     Reports";
+            this.btnReports.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReports.DisabledColor = System.Drawing.Color.Gray;
+            this.btnReports.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReports.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnReports.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnReports.Iconimage")));
+            this.btnReports.Iconimage_right = null;
+            this.btnReports.Iconimage_right_Selected = null;
+            this.btnReports.Iconimage_Selected = null;
+            this.btnReports.IconMarginLeft = 0;
+            this.btnReports.IconMarginRight = 0;
+            this.btnReports.IconRightVisible = true;
+            this.btnReports.IconRightZoom = 0D;
+            this.btnReports.IconVisible = true;
+            this.btnReports.IconZoom = 40D;
+            this.btnReports.IsTab = true;
+            this.btnReports.Location = new System.Drawing.Point(13, 44);
+            this.btnReports.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnReports.Name = "btnReports";
+            this.btnReports.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnReports.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnReports.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnReports.selected = false;
+            this.btnReports.Size = new System.Drawing.Size(199, 28);
+            this.btnReports.TabIndex = 13;
+            this.btnReports.Text = "     Reports";
+            this.btnReports.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReports.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnReports.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Activecolor = System.Drawing.Color.Transparent;
+            this.btnSearch.BackColor = System.Drawing.Color.Transparent;
+            this.btnSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSearch.BorderRadius = 0;
+            this.btnSearch.ButtonText = "     Search";
+            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSearch.DisabledColor = System.Drawing.Color.Transparent;
+            this.btnSearch.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnSearch.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnSearch.Iconimage")));
+            this.btnSearch.Iconimage_right = null;
+            this.btnSearch.Iconimage_right_Selected = null;
+            this.btnSearch.Iconimage_Selected = null;
+            this.btnSearch.IconMarginLeft = 0;
+            this.btnSearch.IconMarginRight = 0;
+            this.btnSearch.IconRightVisible = true;
+            this.btnSearch.IconRightZoom = 0D;
+            this.btnSearch.IconVisible = true;
+            this.btnSearch.IconZoom = 40D;
+            this.btnSearch.IsTab = true;
+            this.btnSearch.Location = new System.Drawing.Point(15, 19);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnSearch.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnSearch.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnSearch.selected = false;
+            this.btnSearch.Size = new System.Drawing.Size(197, 28);
+            this.btnSearch.TabIndex = 21;
+            this.btnSearch.Text = "     Search";
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearch.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnSearch.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnAdministrative
+            // 
+            this.btnAdministrative.Activecolor = System.Drawing.Color.Transparent;
+            this.btnAdministrative.BackColor = System.Drawing.Color.Transparent;
+            this.btnAdministrative.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAdministrative.BorderRadius = 0;
+            this.btnAdministrative.ButtonText = "     Administrative";
+            this.btnAdministrative.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAdministrative.DisabledColor = System.Drawing.Color.Gray;
+            this.btnAdministrative.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdministrative.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnAdministrative.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnAdministrative.Iconimage")));
+            this.btnAdministrative.Iconimage_right = null;
+            this.btnAdministrative.Iconimage_right_Selected = null;
+            this.btnAdministrative.Iconimage_Selected = null;
+            this.btnAdministrative.IconMarginLeft = 0;
+            this.btnAdministrative.IconMarginRight = 0;
+            this.btnAdministrative.IconRightVisible = true;
+            this.btnAdministrative.IconRightZoom = 0D;
+            this.btnAdministrative.IconVisible = true;
+            this.btnAdministrative.IconZoom = 40D;
+            this.btnAdministrative.IsTab = true;
+            this.btnAdministrative.Location = new System.Drawing.Point(13, 21);
+            this.btnAdministrative.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.btnAdministrative.Name = "btnAdministrative";
+            this.btnAdministrative.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnAdministrative.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnAdministrative.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnAdministrative.selected = false;
+            this.btnAdministrative.Size = new System.Drawing.Size(200, 28);
+            this.btnAdministrative.TabIndex = 285;
+            this.btnAdministrative.Text = "     Administrative";
+            this.btnAdministrative.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdministrative.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnAdministrative.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnAdministrative.Click += new System.EventHandler(this.btnAdministrative_Click);
+            // 
+            // btnFinance
+            // 
+            this.btnFinance.Activecolor = System.Drawing.Color.Transparent;
+            this.btnFinance.BackColor = System.Drawing.Color.Transparent;
+            this.btnFinance.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFinance.BorderRadius = 0;
+            this.btnFinance.ButtonText = "     Finance";
+            this.btnFinance.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFinance.DisabledColor = System.Drawing.Color.Gray;
+            this.btnFinance.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFinance.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnFinance.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnFinance.Iconimage")));
+            this.btnFinance.Iconimage_right = null;
+            this.btnFinance.Iconimage_right_Selected = null;
+            this.btnFinance.Iconimage_Selected = null;
+            this.btnFinance.IconMarginLeft = 0;
+            this.btnFinance.IconMarginRight = 0;
+            this.btnFinance.IconRightVisible = true;
+            this.btnFinance.IconRightZoom = 0D;
+            this.btnFinance.IconVisible = true;
+            this.btnFinance.IconZoom = 40D;
+            this.btnFinance.IsTab = true;
+            this.btnFinance.Location = new System.Drawing.Point(13, 48);
+            this.btnFinance.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnFinance.Name = "btnFinance";
+            this.btnFinance.Normalcolor = System.Drawing.Color.Transparent;
+            this.btnFinance.OnHovercolor = System.Drawing.Color.Transparent;
+            this.btnFinance.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnFinance.selected = false;
+            this.btnFinance.Size = new System.Drawing.Size(200, 28);
+            this.btnFinance.TabIndex = 277;
+            this.btnFinance.Text = "     Finance";
+            this.btnFinance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFinance.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnFinance.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnFinance.Click += new System.EventHandler(this.btnFinance_Click);
+            // 
+            // btnMaximize
+            // 
+            this.btnMaximize.BackColor = System.Drawing.Color.Transparent;
+            this.btnMaximize.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximize.Image")));
+            this.btnMaximize.ImageActive = null;
+            this.btnMaximize.Location = new System.Drawing.Point(372, 12);
+            this.btnMaximize.Name = "btnMaximize";
+            this.btnMaximize.Size = new System.Drawing.Size(22, 24);
+            this.btnMaximize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnMaximize.TabIndex = 10;
+            this.btnMaximize.TabStop = false;
+            this.btnMaximize.Zoom = 10;
+            this.btnMaximize.Click += new System.EventHandler(this.btnMaximize_Click);
+            // 
+            // btnMinimize
+            // 
+            this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
+            this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
+            this.btnMinimize.ImageActive = null;
+            this.btnMinimize.Location = new System.Drawing.Point(344, 12);
+            this.btnMinimize.Name = "btnMinimize";
+            this.btnMinimize.Size = new System.Drawing.Size(22, 24);
+            this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnMinimize.TabIndex = 3;
+            this.btnMinimize.TabStop = false;
+            this.btnMinimize.Zoom = 10;
+            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.BackColor = System.Drawing.Color.Transparent;
+            this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
+            this.btnExit.ImageActive = null;
+            this.btnExit.Location = new System.Drawing.Point(400, 12);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(22, 24);
+            this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnExit.TabIndex = 2;
+            this.btnExit.TabStop = false;
+            this.btnExit.Zoom = 10;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // btnShow
+            // 
+            this.btnShow.BackColor = System.Drawing.Color.Transparent;
+            this.btnShow.Image = global::MIS.Properties.Resources.ic_up;
+            this.btnShow.ImageActive = null;
+            this.btnShow.Location = new System.Drawing.Point(342, 0);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(24, 23);
+            this.btnShow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnShow.TabIndex = 312;
+            this.btnShow.TabStop = false;
+            this.btnShow.Tag = "up";
+            this.btnShow.Zoom = 10;
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.BackColor = System.Drawing.Color.Transparent;
+            this.btnRefresh.Image = global::MIS.Properties.Resources.ic_refresh;
+            this.btnRefresh.ImageActive = null;
+            this.btnRefresh.Location = new System.Drawing.Point(312, 0);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(24, 23);
+            this.btnRefresh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnRefresh.TabIndex = 311;
+            this.btnRefresh.TabStop = false;
+            this.btnRefresh.Zoom = 10;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -7572,13 +7611,8 @@ namespace MIS
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.pnlButtonList.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnMaximize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             this.pnlMenu.ResumeLayout(false);
             this.bunifuCards11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imgBankLogo)).EndInit();
             this.gbOther.ResumeLayout(false);
             this.gbManagement.ResumeLayout(false);
             this.gbOperation.ResumeLayout(false);
@@ -7631,8 +7665,6 @@ namespace MIS
             this.panel11.PerformLayout();
             this.panel36.ResumeLayout(false);
             this.panel36.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnShow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).EndInit();
             this.pnlSubMenuSwitchBank.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel14.ResumeLayout(false);
@@ -7645,6 +7677,13 @@ namespace MIS
             this.panel23.PerformLayout();
             this.panel24.ResumeLayout(false);
             this.panel24.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgBankLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMaximize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnShow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7984,6 +8023,7 @@ namespace MIS
         private System.Windows.Forms.Panel panel24;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Panel panel25;
+        private BunifuFlatButton btnQrDelivery;
     }
 }
 

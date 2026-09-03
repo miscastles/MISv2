@@ -781,10 +781,13 @@ namespace MIS
         public const string TAG_svcClosedTicketDate = "svcClosedTicketDate";
 
         // Expenses-FSR
+        public const string TAG_ExpensesNo = "ExpensesNo";
         public const string TAG_ExpensesID = "ExpensesID";
         public const string TAG_ServiceNoList = "ServiceNoList";
         public const string TAG_IRNoList = "IRNoList";
-        public const string TAG_ReceiptList = "ReceiptList";        
+        public const string TAG_ReceiptList = "ReceiptList";
+        public const string TAG_DetailID = "DetailID";
+        public const string TAG_ExpensesReferenceNo = "ExpensesReferenceNo";
 
     }
 }

@@ -82,5 +82,44 @@ namespace MIS.Controller
 
             return model;
         }
+
+        public List<modelExpensesDetail> getDetailList(string pSearchBy, string pSearchValue)
+        {
+            int i = 0;
+
+            // Create an empty list to store Expenses Detail models
+            List<modelExpensesDetail> mList = new List<modelExpensesDetail>();
+
+            dbAPI.ExecuteAPI("GET","View", pSearchBy, pSearchValue, "Advance Detail", "", "ViewAdvanceDetail");
+
+            if (!dbAPI.isNoRecordFound())
+            {
+                while (clsArray.ID.Length > i)
+                {
+                    string detail_info = clsArray.detail_info[i];
+
+                    modelExpensesDetail model = new modelExpensesDetail();
+
+                    switch (pSearchBy)
+                    {
+                        case "Expense Reference List":
+
+                            model.DetailID = int.Parse(dbAPI.GetValueFromJSONString(detail_info,clsDefines.TAG_DetailID));
+                            model.ExpensesNo = int.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesNo));
+                            model.ExpensesID = int.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesID));
+                            model.ExpensesReferenceNo = dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesReferenceNo);
+
+                            break;
+                    }
+
+                    // Add model to list
+                    mList.Add(model);
+
+                    i++;
+                }
+            }
+
+            return mList;
+        }
     }
 }
