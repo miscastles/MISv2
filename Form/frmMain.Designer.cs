@@ -160,6 +160,7 @@ namespace MIS
             this.lblConn = new System.Windows.Forms.Label();
             this.lblPulse = new System.Windows.Forms.Label();
             this.pnlSubMenuServicing = new System.Windows.Forms.Panel();
+            this.btnQrDelivery = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnServicingArchieve = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnMaintenanceUpdateMerchantSN = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnMaintenanceUpdateServiceStatus = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -3237,6 +3238,7 @@ namespace MIS
             // 
             this.pnlSubMenuServicing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pnlSubMenuServicing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSubMenuServicing.Controls.Add(this.btnQrDelivery);
             this.pnlSubMenuServicing.Controls.Add(this.btnServicingArchieve);
             this.pnlSubMenuServicing.Controls.Add(this.btnMaintenanceUpdateMerchantSN);
             this.pnlSubMenuServicing.Controls.Add(this.btnMaintenanceUpdateServiceStatus);
@@ -3264,10 +3266,47 @@ namespace MIS
             this.pnlSubMenuServicing.Controls.Add(this.panel17);
             this.pnlSubMenuServicing.Location = new System.Drawing.Point(994, 57);
             this.pnlSubMenuServicing.Name = "pnlSubMenuServicing";
-            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 682);
+            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 725);
             this.pnlSubMenuServicing.TabIndex = 278;
             this.pnlSubMenuServicing.Visible = false;
             this.pnlSubMenuServicing.Paint += new System.Windows.Forms.PaintEventHandler(this.panel15_Paint);
+            // 
+            // btnQrDelivery
+            // 
+            this.btnQrDelivery.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnQrDelivery.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnQrDelivery.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnQrDelivery.BorderRadius = 0;
+            this.btnQrDelivery.ButtonText = "          QR Delivery";
+            this.btnQrDelivery.Cursor = System.Windows.Forms.Cursors.AppStarting;
+            this.btnQrDelivery.DisabledColor = System.Drawing.Color.Gray;
+            this.btnQrDelivery.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQrDelivery.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnQrDelivery.Iconimage = null;
+            this.btnQrDelivery.Iconimage_right = null;
+            this.btnQrDelivery.Iconimage_right_Selected = null;
+            this.btnQrDelivery.Iconimage_Selected = null;
+            this.btnQrDelivery.IconMarginLeft = 0;
+            this.btnQrDelivery.IconMarginRight = 0;
+            this.btnQrDelivery.IconRightVisible = true;
+            this.btnQrDelivery.IconRightZoom = 0D;
+            this.btnQrDelivery.IconVisible = true;
+            this.btnQrDelivery.IconZoom = 40D;
+            this.btnQrDelivery.IsTab = true;
+            this.btnQrDelivery.Location = new System.Drawing.Point(-2, 674);
+            this.btnQrDelivery.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnQrDelivery.Name = "btnQrDelivery";
+            this.btnQrDelivery.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnQrDelivery.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnQrDelivery.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnQrDelivery.selected = false;
+            this.btnQrDelivery.Size = new System.Drawing.Size(225, 28);
+            this.btnQrDelivery.TabIndex = 309;
+            this.btnQrDelivery.Text = "          QR Delivery";
+            this.btnQrDelivery.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQrDelivery.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnQrDelivery.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnQrDelivery.Click += new System.EventHandler(this.btnQrDelivery_Click);
             // 
             // btnServicingArchieve
             // 
@@ -7984,6 +8023,7 @@ namespace MIS
         private System.Windows.Forms.Panel panel24;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Panel panel25;
+        private BunifuFlatButton btnQrDelivery;
     }
 }
 

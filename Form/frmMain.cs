@@ -3718,6 +3718,16 @@ namespace MIS
             }
         }
 
+        private void btnQrDelivery_Click(object sender, EventArgs e)
+        {
+            InitMenu(0, false);
+            frmQRDeliveryPrototype frm = new frmQRDeliveryPrototype();
+            frm.Text = "QR DELIVERY";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
 }
