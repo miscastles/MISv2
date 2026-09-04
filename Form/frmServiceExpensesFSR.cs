@@ -3,6 +3,7 @@ using iText.Forms.Form.Element;
 using MIS.Controller;
 using MIS.Model;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,10 +12,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MIS.AppData.ConstData.Api;
 using static MIS.Function.AppUtilities;
 
 namespace MIS
@@ -25,6 +28,7 @@ namespace MIS
         private clsFunction dbFunction;
         private clsFile dbFile;
         private clsReceiptImageProcessor dbReceiptImageProcessor;
+        private string pExpenseFTPHost = $"{clsGlobalVariables.strFTPURL}/{clsGlobalVariables.strFTPUploadPath}/expenses/{clsSearch.ClassBankCode}";
 
         // Controller
         private ServicingDetailController _mServicingDetailController;
@@ -78,6 +82,7 @@ namespace MIS
 
             dbAPI = new clsAPI();
             dbFunction = new clsFunction();
+            dbReceiptImageProcessor = new clsReceiptImageProcessor();
 
             lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
 
@@ -111,7 +116,7 @@ namespace MIS
 
         private void initAmount()
         {
-            txtExpenseAmount.Text = txtTotalExpenses.Text = "0.00";
+            txtExpenseAmount.Text = txtTotalExpenses.Text = txtTotalReceptAmount.Text = "0.00";
         }
 
         private void InitDate()
@@ -159,6 +164,8 @@ namespace MIS
 
             try
             {
+                displayList();
+
                 // ----------------------------------------------------------------------------------
                 // API call to save tblexpensestransmaster
                 // ----------------------------------------------------------------------------------
@@ -180,12 +187,12 @@ namespace MIS
                     ServiceNoList = txtServiceNoList.Text,
                     IRIDNoList = txtIRIDNoList.Text,
                     IRNoList = txtIRNoList.Text,
-                    ReceiptList = "",
+                    ReceiptList = txtReceiptList.Text,
                     FEID = int.Parse(dbFunction.CheckAndSetNumericValue(txtFEID.Text)),
                     Remarks = txtRemarks.Text
                 };
 
-                sSQL = IFormat.Insert(master);
+                sSQL = IFormat.Insert(master, true);
 
                 Debug.WriteLine("--ExpensesTransMaster--");
                 Debug.WriteLine($"sSQL={sSQL}");
@@ -276,6 +283,11 @@ namespace MIS
                     }
                 }
 
+                // ----------------------------------------------------------------------------------
+                // Upload receipt images to ftp /upload/expenses/bank/
+                // ----------------------------------------------------------------------------------
+                uploadReceiptFTP(txtExpenseReferenceNo.Text);
+
                 // Display messagebox completiion
                 if (!fEdit)
                     dbFunction.SetMessageBox("Expenses successfully saved.", clsDefines.CONFIRMATION_MSG, clsFunction.IconType.iInformation);
@@ -323,6 +335,8 @@ namespace MIS
             dbFunction.SetButtonIconImage(btnSearchFieldEngineer);
 
             initExpensesEntry();
+
+            pbReceiptPreview.Image = null;
 
         }
 
@@ -497,6 +511,9 @@ namespace MIS
                 return;
             }
 
+            // FEID
+            clsSearch.ClassFEID = int.Parse(dbFunction.CheckAndSetNumericValue(txtFEID.Text));
+
             // -------------------------------------------------------------
             // set JobTypeDescription
             // -------------------------------------------------------------
@@ -666,6 +683,8 @@ namespace MIS
             dbFunction.GetListViewHeaderColumnFromFile("", "ReceiptAmount", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvw.Columns.Add(outTitle, outWidth, outAlign);
 
+            dbFunction.GetListViewHeaderColumnFromFile("", "ReceiptDate", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);            
         }
 
         private void addServiceToServiceList(string pServiceNo, string pIRIDNo)
@@ -763,11 +782,41 @@ namespace MIS
             string pServiceNos = getSelectedListView(lvwServiceList, 1);
             string pIRIDNos = getSelectedListView(lvwServiceList, 2);
             string pIRNos = getSelectedListView(lvwServiceList, 4);
+            string pReceipts = getSelectedListView(lvwReceiptList, 1);
 
             txtServiceNoList.Text = pServiceNos;
             txtIRIDNoList.Text = pIRIDNos;
             txtIRNoList.Text = pIRNos;
 
+            // for receipt
+            if (dbFunction.isValidCount(lvwReceiptList.Items.Count))
+            {
+                int index = 1;
+                List<string> pReceiptList = new List<string>();
+
+                foreach (ListViewItem item in lvwReceiptList.Items)
+                {
+                    string pImageSource = item.Tag.ToString();
+                    string pExtension = Path.GetExtension(pImageSource).ToLowerInvariant();
+                    string pExpenseDate = dtExpenseDate.Value.ToString("yyyyMMdd");
+
+                    string pFileName =
+                        txtExpenseReferenceNo.Text + "_" +
+                        pExpenseDate + "_" +
+                        index.ToString("00") +
+                        pExtension;
+
+                    pReceiptList.Add(pFileName);
+
+                    index++;
+                }
+
+                txtReceiptList.Text = string.Join(",", pReceiptList);
+            }
+            else
+            {
+                txtReceiptList.Clear();
+            }
         }
 
         private string getSelectedListView(ListView lvw, int colIndex)
@@ -784,7 +833,7 @@ namespace MIS
                 }
             }
 
-            return JsonConvert.SerializeObject(selectedList);
+            return string.Join(",", selectedList);
         }
 
         private void FillExpenseList()
@@ -826,7 +875,7 @@ namespace MIS
                 item.SubItems.Add(iLineNo.ToString());
                 item.SubItems.Add(pExpenseReferenceNo);
                 item.SubItems.Add(pExpenseType);
-                item.SubItems.Add(dExpenseAmount.ToString("N2"));
+                item.SubItems.Add(dExpenseAmount.ToString());
                 item.SubItems.Add(pRemarks);
                 item.SubItems.Add(pExpenseDate);
 
@@ -839,7 +888,7 @@ namespace MIS
 
             dbFunction.ListViewAlternateBackColor(lvwExpenseList);
 
-            txtTotalExpenses.Text = $"{ComputeTotalExpenses()}";
+            txtTotalExpenses.Text = $"{ComputeTotalAmount(lvwExpenseList, 6)}";
         }
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
@@ -932,7 +981,7 @@ namespace MIS
 
             addExpensesToExpensesList(model);
 
-            txtTotalExpenses.Text = $"{ComputeTotalExpenses()}";
+            txtTotalExpenses.Text = $"{ComputeTotalAmount(lvwExpenseList, 6)}";
 
             // clear entry
             initExpensesEntry();
@@ -1071,7 +1120,7 @@ namespace MIS
         {
             dbFunction.removeItemListView(lvwExpenseList, false);
 
-            txtTotalExpenses.Text = $"{ComputeTotalExpenses()}";
+            txtTotalExpenses.Text = $"{ComputeTotalAmount(lvwExpenseList, 6)}";
         }
 
         private void btnExpenseClearAll_Click(object sender, EventArgs e)
@@ -1080,7 +1129,7 @@ namespace MIS
 
             initExpensesEntry();
 
-            txtTotalExpenses.Text = $"{ComputeTotalExpenses()}";
+            txtTotalExpenses.Text = $"{ComputeTotalAmount(lvwExpenseList, 6)}";
             txtTotalExpenses.Text = "0.00";
             cboExpenseType.Focus();
         }
@@ -1133,15 +1182,13 @@ namespace MIS
                 isValid = false;
             }
 
-            // Receipt List
-            /*
+            // Receipt List            
             if (!dbFunction.isValidCount(lvwReceiptList.Items.Count))
             {
                 dbFunction.SetMessageBox("Please select at least one receipt.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
 
                 isValid = false;
-            }
-            */
+            }            
 
             // Expenses List
             if (!dbFunction.isValidCount(lvwExpenseList.Items.Count))
@@ -1186,29 +1233,29 @@ namespace MIS
             return isValid;
         }
 
-        private decimal ComputeTotalExpenses()
+        private decimal ComputeTotalAmount(ListView lvw, int colIndex)
         {
-            decimal dTotalExpenses = 0M;
+            decimal dTotal = 0M;
             int amtColIndex = 6;
 
-            foreach (ListViewItem item in lvwExpenseList.Items)
+            foreach (ListViewItem item in lvw.Items)
             {
-                if (item.SubItems.Count <= amtColIndex)
+                if (item.SubItems.Count <= colIndex)
                     continue;
 
                 decimal dAmount = 0M;
 
                 decimal.TryParse(
-                    item.SubItems[amtColIndex].Text.Trim(),
+                    item.SubItems[colIndex].Text.Trim(),
                     NumberStyles.Number,
                     CultureInfo.InvariantCulture,
                     out dAmount
                 );
 
-                dTotalExpenses += dAmount;
+                dTotal += dAmount;
             }
 
-            return dTotalExpenses;
+            return dTotal;
         }
 
         private void txtExpenseAmount_KeyDown(object sender, KeyEventArgs e)
@@ -1241,7 +1288,96 @@ namespace MIS
 
         private void btnReceiptAdd_Click(object sender, EventArgs e)
         {
+            using (OpenFileDialog openFile = new OpenFileDialog())
+            {
+                openFile.Title = "Select Receipt Images";
 
+                openFile.Filter =
+                    "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg|" +
+                    "PNG Images (*.png)|*.png|" +
+                    "JPEG Images (*.jpg;*.jpeg)|*.jpg;*.jpeg";
+
+                openFile.Multiselect = true;
+
+                if (openFile.ShowDialog(this) != DialogResult.OK) return;
+
+                Cursor.Current = Cursors.WaitCursor;
+
+                Cursor.Current = Cursors.WaitCursor;
+
+                try
+                {
+                    foreach (string pSelectedReceipt in openFile.FileNames)
+                    {
+                        if (!File.Exists(pSelectedReceipt))
+                        {
+                            dbFunction.SetMessageBox(
+                                "Receipt is not found.",
+                                clsDefines.FIELD_CHECK_MSG,
+                                clsFunction.IconType.iWarning
+                            );
+
+                            continue;
+                        }
+
+                        FileInfo fileInfo = new FileInfo(pSelectedReceipt);
+
+                        int iLineNo = lvwReceiptList.Items.Count + 1;
+
+                        ListViewItem item = new ListViewItem(iLineNo.ToString());
+
+                        item.SubItems.Add(fileInfo.Name);
+
+                        // init
+                        item.SubItems.Add(clsDefines.gNull);
+                        item.SubItems.Add(clsDefines.gNull);
+
+                        item.Tag = fileInfo.FullName;
+
+                        lvwReceiptList.Items.Add(item);
+
+                        dbFunction.RefreshCountListView(txtTReceiptCount, lvwReceiptList);
+
+                        try
+                        {
+                            JObject pOCRResult = receiptOCR(fileInfo.FullName);
+
+                            decimal? dReceiptAmount = pOCRResult.Value<decimal?>("Amount");
+                            string pReceiptDate = pOCRResult.Value<string>("ReceiptDate");
+
+                            item.SubItems[2].Text = dReceiptAmount.Value.ToString();
+                            item.SubItems[3].Text = pReceiptDate;
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine(
+                                "Receipt OCR failed: " +
+                                fileInfo.Name + "\n" + ex
+                            );
+                        }
+                        
+                        // Select the last added receipt - preview
+                        lvwReceiptList.SelectedItems.Clear();
+                        item.Selected = true;
+                        item.Focused = true;
+                        item.EnsureVisible();
+                        lvwReceiptList_SelectedIndexChanged(this, e);
+
+                    }
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                }
+
+                // Compute Amount
+                txtTotalReceptAmount.Text = $"{ComputeTotalAmount(lvwReceiptList, 2)}";
+
+                dbFunction.RefreshCountListView(txtTReceiptCount, lvwReceiptList);
+                dbFunction.ListViewAlternateBackColor(lvwReceiptList);
+            }
+
+            displayList();
         }
 
         private void btnReceiptEdit_Click(object sender, EventArgs e)
@@ -1251,7 +1387,12 @@ namespace MIS
 
         private void btnReceiptDelete_Click(object sender, EventArgs e)
         {
+            dbFunction.removeItemListView(lvwReceiptList, false);
+            dbFunction.RefreshCountListView(txtTReceiptCount, lvwReceiptList);
 
+            // Compute Amount
+            txtTotalReceptAmount.Text = $"{ComputeTotalAmount(lvwReceiptList, 2)}";
+            pbReceiptPreview.Image = null;
         }
 
         private void btnReceiptDownload_Click(object sender, EventArgs e)
@@ -1319,6 +1460,183 @@ namespace MIS
                     txtExpenseAmount.Text = "0.00";
                     txtExpenseAmount.SelectAll();
                     txtExpenseAmount.Focus();
+                    break;
+            }
+        }
+
+        private JObject receiptOCR(string pImagePath)
+        {
+            JObject pOCRResult = new JObject
+            {
+                ["Amount"] = 0,
+                ["ReceiptDate"] = "0000-00-00"
+            };
+
+            string pOCRText = dbReceiptImageProcessor.ExtractText(pImagePath);
+
+            decimal? dReceiptAmount = dbReceiptImageProcessor.ExtractTransactionAmount(pOCRText);
+
+            string pReceiptDate = dbReceiptImageProcessor.ExtractTransactionDate(pOCRText);
+
+            // Default Amount = 0 if OCR cannot extract amount
+            pOCRResult["Amount"] = dReceiptAmount ?? 0;
+
+            // Default Date = 0000-00-00 if OCR cannot extract date
+            pOCRResult["ReceiptDate"] = string.IsNullOrWhiteSpace(pReceiptDate) ? "0000-00-00" : pReceiptDate;
+
+            return pOCRResult;
+        }
+
+        private void lvwReceiptList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvwReceiptList.SelectedItems.Count == 0)
+                return;
+
+            ListViewItem item = lvwReceiptList.SelectedItems[0];
+
+            if (item.Tag == null)
+                return;
+
+            Image pPreviousImage = pbReceiptPreview.Image;
+
+            try
+            {
+                pbReceiptPreview.Image = dbReceiptImageProcessor.CreatePreview(
+                    item.Tag.ToString(),
+                    ReceiptPreviewMode.Original
+                );
+
+                pbReceiptPreview.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+            finally
+            {
+                if (pPreviousImage != null)
+                    pPreviousImage.Dispose();
+            }
+        }
+
+        private void uploadReceiptFTP(string pExpensesReferenceNo)
+        {
+            ftp ftpClient = new ftp(pExpenseFTPHost, clsGlobalVariables.strFTPUserName, clsGlobalVariables.strFTPPassword);
+
+            int ImageCount = 1;
+
+            try
+            {
+                int iTotalImages = lvwReceiptList.Items.Count;
+                JArray pReceiptList = new JArray();
+
+                foreach (ListViewItem item in lvwReceiptList.Items)
+                {
+                    if (item.Tag == null)
+                    {
+                        dbFunction.SetMessageBox(
+                            "The selected receipt contains invalid image information.",
+                            "Receipt upload failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
+                    string pImageSource = item.Tag.ToString();
+
+                    if (!File.Exists(pImageSource))
+                    {
+                        dbFunction.SetMessageBox(
+                            "The receipt image could not be found.\n\n" +
+                            "File: " + pImageSource,
+                            "Receipt upload failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
+                    string pExtension = Path.GetExtension(pImageSource).ToLowerInvariant();
+                    string pExpenseDate = dtExpenseDate.Value.ToString("yyyyMMdd");
+
+                    string pFileName = pExpensesReferenceNo + "_" + pExpenseDate + "_" + ImageCount.ToString("00") + pExtension; pReceiptList.Add(pFileName);
+
+                    Debug.WriteLine("FTP host: " + pExpenseFTPHost);
+                    Debug.WriteLine("FTP filename: " + pFileName);
+
+                    ftpClient.upload(pFileName, pImageSource);
+
+                    long pLocalFileSize = new FileInfo(pImageSource).Length;
+                    long pUploadedFileSize = ftpClient.getFileSize(pFileName);
+
+                    if (pUploadedFileSize <= 0 || pUploadedFileSize != pLocalFileSize)
+                    {
+                        dbFunction.SetMessageBox(
+                            "The receipt image could not be verified on FTP.\n\n" +
+                            "File: " + pFileName,
+                            "Receipt upload failed",
+                            clsFunction.IconType.iError
+                        );
+
+                        return;
+                    }
+
+                    ImageCount++;
+                }
+
+                txtReceiptList.Text = pReceiptList.ToString(Formatting.None);
+                return;
+            }
+            catch (Exception ex)
+            {
+                dbFunction.SetMessageBox(
+                    "The expense was saved, but its receipt images could not be uploaded.\n\n" +
+                    ex.Message,
+                    "Receipt upload failed",
+                    clsFunction.IconType.iError
+                );
+
+                return;
+            }
+            finally
+            {
+                ftpClient.disconnect();
+            }
+        }
+
+        private void btnReceiptClearAll_Click(object sender, EventArgs e)
+        {
+            dbFunction.ClearListViewItems(lvwReceiptList);
+            dbFunction.RefreshCountListView(txtTReceiptCount, lvwReceiptList);
+
+            // Compute Amount
+            txtTotalReceptAmount.Text = $"{ComputeTotalAmount(lvwReceiptList, 2)}";
+            pbReceiptPreview.Image = null;
+        }
+
+        private void lvwServiceList_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Delete:
+                    btnServiceRemove_Click(this, e);
+                    break;
+            }
+        }
+
+        private void lvwReceiptList_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Delete:
+                    btnReceiptDelete_Click(this, e);
+                    break;
+            }
+        }
+
+        private void lvwExpenseList_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Delete:
+                    btnExpenseRemove_Click(this, e);
                     break;
             }
         }

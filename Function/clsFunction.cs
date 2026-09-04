@@ -7561,6 +7561,14 @@ namespace MIS
             return syncId;
         }
 
+        public void RefreshCountListView(TextBox pTextBox, ListView pListView)
+        {
+            if (pTextBox == null || pListView == null) return;
+
+            pTextBox.Text = pListView.Items.Count.ToString();
+            pTextBox.Refresh();
+        }
+
     }
 
 }

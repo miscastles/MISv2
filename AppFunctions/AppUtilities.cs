@@ -235,13 +235,17 @@ namespace MIS.Function
             }
 
             // Format the Insert Data Operation using Model or Object
-            public static string Insert<T>(T model)
+            public static string Insert<T>(T model, bool skipClean = false)
             {
                 // Use reflection to get the property values.
                 var propertyValues = GetModelProperties(model);
 
-                // Apply string cleanup and delimiter here.
-                var cleanedValues = propertyValues.Select(value => $"'{StrClean(value)}'");
+                // Apply string cleanup unless skipClean is true.
+                var cleanedValues = propertyValues.Select(value =>
+                    skipClean
+                        ? $"'{value}'"
+                        : $"'{StrClean(value)}'"
+                );
 
                 // Comma Delimited
                 return $"({string.Join(",", cleanedValues)})";
