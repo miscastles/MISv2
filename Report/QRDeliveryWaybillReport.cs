@@ -15,7 +15,8 @@ namespace MIS
 {
     internal static class QRDeliveryWaybillReport
     {
-        private const string ReportFileName = "rptQRDeliveryWaybill.rpt";
+        private const string ReportPath = @"C:\CASTLESTECH_MIS\REPORTS\";
+        private static readonly string ReportFileName = Path.Combine(ReportPath, "rptQRDeliveryWaybill.rpt");
 
         public static void ShowPreview(IWin32Window owner, ServicingDetailController service,
             string internalQRContent)

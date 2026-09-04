@@ -59,7 +59,7 @@ namespace MIS
             btnExit.Click += btnClose_Click;            
             btnSave.Visible = false;
             btnClear.Click += btnClear_Click;
-            button3.Click += btnPrint_Click;            
+            btnPrintQR.Click += btnPrint_Click;            
             printDocument.PrintPage += printDocument_PrintPage;
             rtbQRContent.KeyDown += rtbQRContent_KeyDown;
             txtServiceNo.ReadOnly = true;
@@ -114,7 +114,7 @@ namespace MIS
                     dispatcherStatus = "NO JO";
                     lblQRStatus.Text = "NO JO";
                     lblQRStatus.ForeColor = Color.Red;
-                    button3.Enabled = false;
+                    btnPrintQR.Enabled = false;
                     lblServiceDetails.Text = string.Format(
                         "NO INSTALLATION OR REPLACEMENT J.O. FOR TID: {0} / MID: {1}       PROCESSED BY: {2}",
                         scanned.TID, scanned.MID,
@@ -158,7 +158,7 @@ namespace MIS
                 validatedQRContent = rtbQRContent.Text.Trim();
                 lblQRStatus.Text = result.IsMatch ? "MATCH" : "MISMATCH";
                 lblQRStatus.ForeColor = result.IsMatch ? Color.Green : Color.Red;
-                button3.Enabled = result.IsMatch && allStatusesValid;
+                btnPrintQR.Enabled = result.IsMatch && allStatusesValid;
                 if (result.IsMatch && allStatusesValid)
                     internalQRContent = qrValidator.CreateInternalContent(lookup);
 
@@ -178,14 +178,14 @@ namespace MIS
                 dispatcherStatus = "INVALID QR";
                 lblQRStatus.Text = "INVALID QR";
                 lblQRStatus.ForeColor = Color.Red;
-                button3.Enabled = false;
+                btnPrintQR.Enabled = false;
                 MessageBox.Show(ex.Message,
                     "QR Delivery", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 TrySaveValidationAttempt();
             }
             catch (Exception ex)
             {
-                button3.Enabled = false;
+                btnPrintQR.Enabled = false;
                 MessageBox.Show("The validation attempt could not be completed or saved.\n\n" + ex.Message,
                     "QR Delivery", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -247,7 +247,7 @@ namespace MIS
 
         private static void ApplyResultCellStyle(DataGridViewCell cell, bool valid)
         {
-            Color background = valid ? Color.Green : Color.Firebrick;
+            Color background = valid ? Color.Green : Color.Red;
             cell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             cell.Style.BackColor = background;
             cell.Style.ForeColor = Color.White;
@@ -303,18 +303,23 @@ namespace MIS
             try
             {
                 SaveValidationAttempt();
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The scan result was displayed, but its audit record could not be saved.\n\n" +
                     ex.Message, "QR Delivery Audit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            // SET OVERALL QR STATUS ONLY AFTER VALIDATION RESULTS EXIST
+            if (dgvValidation.Rows.Count > 0)
+                setOverallQRStatus();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
             if (selectedService == null || string.IsNullOrWhiteSpace(internalQRContent) ||
-                !button3.Enabled)
+                !btnPrintQR.Enabled)
             {
                 MessageBox.Show("Only a successfully validated QR code can be printed.", "QR Delivery",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -416,7 +421,7 @@ namespace MIS
             lblQRStatus.Text = "NOT VALIDATED";
             lblQRStatus.ForeColor = Color.Silver;
             btnSave.Enabled = false;
-            button3.Enabled = false;
+            btnPrintQR.Enabled = false;
         }
 
         private void rtbQRContent_TextChanged(object sender, EventArgs e)
@@ -475,6 +480,49 @@ namespace MIS
         private void btnSearchMerchant_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void setOverallQRStatus()
+        {
+            bool hasError = false;
+
+            foreach (DataGridViewRow row in dgvValidation.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                DataGridViewCell resultCell = row.Cells[3];
+
+                string result = resultCell.Value?.ToString().Trim();
+
+                // Check result value
+                bool invalidResult =
+                    result == "NOT MATCH" ||
+                    result == "NOT YET DISPATCH" ||
+                    result == "INVALID";
+
+                // Check result cell color
+                bool redResult =
+                    resultCell.InheritedStyle.BackColor == Color.Red ||
+                    resultCell.Style.BackColor == Color.Red;
+
+                if (invalidResult || redResult)
+                {
+                    hasError = true;
+                    break;
+                }
+            }
+
+            if (hasError)
+            {
+                lblQRStatus.Text = "NOT READY TO DISPATCH";
+                lblQRStatus.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblQRStatus.Text = "READY TO DISPATCH";
+                lblQRStatus.ForeColor = Color.Green;
+            }
         }
     }
 }

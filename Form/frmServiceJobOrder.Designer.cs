@@ -760,10 +760,6 @@
             this.tabPage23 = new System.Windows.Forms.TabPage();
             this.lvwRaw = new System.Windows.Forms.ListView();
             this.tabPage19 = new System.Windows.Forms.TabPage();
-            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
-            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
-            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
-            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.panel168 = new System.Windows.Forms.Panel();
             this.panel196 = new System.Windows.Forms.Panel();
             this.panel208 = new System.Windows.Forms.Panel();
@@ -832,6 +828,11 @@
             this.txtSearchSTServiceJobTypeDescription = new System.Windows.Forms.TextBox();
             this.panel53 = new System.Windows.Forms.Panel();
             this.btnTASearch = new Bunifu.Framework.UI.BunifuImageButton();
+            this.tabPage28 = new System.Windows.Forms.TabPage();
+            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
+            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
+            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
+            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -1051,6 +1052,7 @@
             this.panel6.SuspendLayout();
             this.panel53.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).BeginInit();
+            this.tabPage28.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -1073,14 +1075,14 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(1, 954);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1391, 2);
+            this.panel3.Size = new System.Drawing.Size(1420, 2);
             this.panel3.TabIndex = 306;
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1390, 0);
+            this.panel4.Location = new System.Drawing.Point(1419, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(2, 954);
             this.panel4.TabIndex = 307;
@@ -1096,7 +1098,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(1, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1389, 29);
+            this.pnlHeader.Size = new System.Drawing.Size(1418, 29);
             this.pnlHeader.TabIndex = 309;
             // 
             // btnMinimize
@@ -1104,7 +1106,7 @@
             this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
             this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
             this.btnMinimize.ImageActive = null;
-            this.btnMinimize.Location = new System.Drawing.Point(1336, 3);
+            this.btnMinimize.Location = new System.Drawing.Point(1365, 3);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(21, 23);
             this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1117,7 +1119,7 @@
             // 
             this.lblSubHeader.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSubHeader.ForeColor = System.Drawing.Color.Yellow;
-            this.lblSubHeader.Location = new System.Drawing.Point(919, 4);
+            this.lblSubHeader.Location = new System.Drawing.Point(948, 4);
             this.lblSubHeader.Name = "lblSubHeader";
             this.lblSubHeader.Size = new System.Drawing.Size(407, 20);
             this.lblSubHeader.TabIndex = 388;
@@ -1142,7 +1144,7 @@
             this.btnExit.BackColor = System.Drawing.Color.Transparent;
             this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
             this.btnExit.ImageActive = null;
-            this.btnExit.Location = new System.Drawing.Point(1361, 3);
+            this.btnExit.Location = new System.Drawing.Point(1390, 3);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(21, 23);
             this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1203,7 +1205,7 @@
             this.txtIRInstallationDate.Location = new System.Drawing.Point(303, 2);
             this.txtIRInstallationDate.Name = "txtIRInstallationDate";
             this.txtIRInstallationDate.ReadOnly = true;
-            this.txtIRInstallationDate.Size = new System.Drawing.Size(103, 20);
+            this.txtIRInstallationDate.Size = new System.Drawing.Size(134, 20);
             this.txtIRInstallationDate.TabIndex = 160;
             // 
             // txtAttemptCnt
@@ -1425,7 +1427,7 @@
             this.txtServiceStatus.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.txtServiceStatus.Location = new System.Drawing.Point(368, 1);
             this.txtServiceStatus.Name = "txtServiceStatus";
-            this.txtServiceStatus.Size = new System.Drawing.Size(38, 20);
+            this.txtServiceStatus.Size = new System.Drawing.Size(69, 20);
             this.txtServiceStatus.TabIndex = 391;
             this.txtServiceStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtServiceStatus.WordWrap = false;
@@ -2121,7 +2123,7 @@
             this.txtSearchIRNo.Location = new System.Drawing.Point(2, 1);
             this.txtSearchIRNo.Name = "txtSearchIRNo";
             this.txtSearchIRNo.ReadOnly = true;
-            this.txtSearchIRNo.Size = new System.Drawing.Size(379, 24);
+            this.txtSearchIRNo.Size = new System.Drawing.Size(409, 24);
             this.txtSearchIRNo.TabIndex = 156;
             // 
             // txtMerchantRegion
@@ -2338,7 +2340,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSave.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSave.Location = new System.Drawing.Point(1421, 753);
+            this.btnSave.Location = new System.Drawing.Point(13, 790);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(81, 26);
             this.btnSave.TabIndex = 333;
@@ -2357,7 +2359,7 @@
             this.lvwList.HideSelection = false;
             this.lvwList.Location = new System.Drawing.Point(0, 0);
             this.lvwList.Name = "lvwList";
-            this.lvwList.Size = new System.Drawing.Size(396, 88);
+            this.lvwList.Size = new System.Drawing.Size(430, 198);
             this.lvwList.TabIndex = 116;
             this.lvwList.UseCompatibleStateImageBehavior = false;
             this.lvwList.View = System.Windows.Forms.View.Details;
@@ -2499,7 +2501,7 @@
             this.cboSearchTerminalStatus.Items.AddRange(new object[] {
             "VALID FSR",
             "INVALID FSR"});
-            this.cboSearchTerminalStatus.Location = new System.Drawing.Point(1422, 642);
+            this.cboSearchTerminalStatus.Location = new System.Drawing.Point(14, 679);
             this.cboSearchTerminalStatus.Name = "cboSearchTerminalStatus";
             this.cboSearchTerminalStatus.Size = new System.Drawing.Size(65, 22);
             this.cboSearchTerminalStatus.TabIndex = 417;
@@ -2513,7 +2515,7 @@
             this.cboSearchSIMStatus.Items.AddRange(new object[] {
             "VALID FSR",
             "INVALID FSR"});
-            this.cboSearchSIMStatus.Location = new System.Drawing.Point(1422, 664);
+            this.cboSearchSIMStatus.Location = new System.Drawing.Point(14, 701);
             this.cboSearchSIMStatus.Name = "cboSearchSIMStatus";
             this.cboSearchSIMStatus.Size = new System.Drawing.Size(65, 22);
             this.cboSearchSIMStatus.TabIndex = 418;
@@ -2575,7 +2577,7 @@
             this.dteReqTime.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dteReqTime.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteReqTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dteReqTime.Location = new System.Drawing.Point(1446, 788);
+            this.dteReqTime.Location = new System.Drawing.Point(38, 825);
             this.dteReqTime.Name = "dteReqTime";
             this.dteReqTime.Size = new System.Drawing.Size(153, 21);
             this.dteReqTime.TabIndex = 368;
@@ -2672,7 +2674,7 @@
             this.btnClearService.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnClearService.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearService.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnClearService.Location = new System.Drawing.Point(1418, 719);
+            this.btnClearService.Location = new System.Drawing.Point(10, 756);
             this.btnClearService.Name = "btnClearService";
             this.btnClearService.Size = new System.Drawing.Size(199, 26);
             this.btnClearService.TabIndex = 443;
@@ -2691,7 +2693,7 @@
             this.btnPreviewSvcHistory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnPreviewSvcHistory.Location = new System.Drawing.Point(204, 2);
             this.btnPreviewSvcHistory.Name = "btnPreviewSvcHistory";
-            this.btnPreviewSvcHistory.Size = new System.Drawing.Size(187, 26);
+            this.btnPreviewSvcHistory.Size = new System.Drawing.Size(223, 26);
             this.btnPreviewSvcHistory.TabIndex = 442;
             this.btnPreviewSvcHistory.Text = "SERVICE HISTORY REPORT";
             this.btnPreviewSvcHistory.UseVisualStyleBackColor = false;
@@ -3017,7 +3019,7 @@
             this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel10.Controls.Add(this.chkBillable);
             this.panel10.Controls.Add(this.label49);
-            this.panel10.Location = new System.Drawing.Point(1424, 615);
+            this.panel10.Location = new System.Drawing.Point(16, 652);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(136, 25);
             this.panel10.TabIndex = 431;
@@ -3067,7 +3069,7 @@
             this.tabControl1.Location = new System.Drawing.Point(5, 32);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1385, 919);
+            this.tabControl1.Size = new System.Drawing.Size(1417, 919);
             this.tabControl1.TabIndex = 437;
             // 
             // tabPage1
@@ -3077,7 +3079,6 @@
             this.tabPage1.Controls.Add(this.btnUpdateServiceType);
             this.tabPage1.Controls.Add(this.panel155);
             this.tabPage1.Controls.Add(this.btnRefreshService);
-            this.tabPage1.Controls.Add(this.panel136);
             this.tabPage1.Controls.Add(this.tabMain);
             this.tabPage1.Controls.Add(this.panel11);
             this.tabPage1.Controls.Add(this.btnAdd);
@@ -3098,7 +3099,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1377, 887);
+            this.tabPage1.Size = new System.Drawing.Size(1409, 887);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
@@ -3146,7 +3147,7 @@
             this.panel155.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel155.Location = new System.Drawing.Point(963, 166);
             this.panel155.Name = "panel155";
-            this.panel155.Size = new System.Drawing.Size(410, 26);
+            this.panel155.Size = new System.Drawing.Size(442, 26);
             this.panel155.TabIndex = 496;
             // 
             // panel160
@@ -3158,7 +3159,7 @@
             this.panel160.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel160.Location = new System.Drawing.Point(0, 0);
             this.panel160.Name = "panel160";
-            this.panel160.Size = new System.Drawing.Size(408, 24);
+            this.panel160.Size = new System.Drawing.Size(440, 24);
             this.panel160.TabIndex = 312;
             // 
             // btnRefreshService
@@ -3201,9 +3202,9 @@
             this.panel136.Controls.Add(this.label138);
             this.panel136.Controls.Add(this.panel137);
             this.panel136.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel136.Location = new System.Drawing.Point(963, 706);
+            this.panel136.Location = new System.Drawing.Point(5, 3);
             this.panel136.Name = "panel136";
-            this.panel136.Size = new System.Drawing.Size(409, 111);
+            this.panel136.Size = new System.Drawing.Size(431, 198);
             this.panel136.TabIndex = 474;
             // 
             // txtIRStatusDescription
@@ -3216,7 +3217,7 @@
             this.txtIRStatusDescription.Location = new System.Drawing.Point(322, 25);
             this.txtIRStatusDescription.Name = "txtIRStatusDescription";
             this.txtIRStatusDescription.ReadOnly = true;
-            this.txtIRStatusDescription.Size = new System.Drawing.Size(84, 20);
+            this.txtIRStatusDescription.Size = new System.Drawing.Size(104, 20);
             this.txtIRStatusDescription.TabIndex = 493;
             this.txtIRStatusDescription.Text = "-";
             this.txtIRStatusDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -3241,7 +3242,7 @@
             this.txtMerchantSign.Location = new System.Drawing.Point(322, 89);
             this.txtMerchantSign.Name = "txtMerchantSign";
             this.txtMerchantSign.ReadOnly = true;
-            this.txtMerchantSign.Size = new System.Drawing.Size(84, 20);
+            this.txtMerchantSign.Size = new System.Drawing.Size(104, 20);
             this.txtMerchantSign.TabIndex = 491;
             this.txtMerchantSign.Text = "-";
             this.txtMerchantSign.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -3256,7 +3257,7 @@
             this.txtDiagnostic.Location = new System.Drawing.Point(322, 67);
             this.txtDiagnostic.Name = "txtDiagnostic";
             this.txtDiagnostic.ReadOnly = true;
-            this.txtDiagnostic.Size = new System.Drawing.Size(84, 20);
+            this.txtDiagnostic.Size = new System.Drawing.Size(104, 20);
             this.txtDiagnostic.TabIndex = 490;
             this.txtDiagnostic.Text = "-";
             this.txtDiagnostic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -3291,7 +3292,7 @@
             this.txtBillable.Location = new System.Drawing.Point(322, 46);
             this.txtBillable.Name = "txtBillable";
             this.txtBillable.ReadOnly = true;
-            this.txtBillable.Size = new System.Drawing.Size(84, 20);
+            this.txtBillable.Size = new System.Drawing.Size(104, 20);
             this.txtBillable.TabIndex = 481;
             this.txtBillable.Text = "-";
             this.txtBillable.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -3408,7 +3409,7 @@
             // 
             // panel137
             // 
-            this.panel137.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.panel137.BackColor = System.Drawing.Color.Gainsboro;
             this.panel137.Controls.Add(this.label27);
             this.panel137.Controls.Add(this.btnResetServiceStatus);
             this.panel137.Controls.Add(this.label137);
@@ -3416,7 +3417,7 @@
             this.panel137.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel137.Location = new System.Drawing.Point(0, 0);
             this.panel137.Name = "panel137";
-            this.panel137.Size = new System.Drawing.Size(407, 24);
+            this.panel137.Size = new System.Drawing.Size(429, 24);
             this.panel137.TabIndex = 311;
             // 
             // label27
@@ -3424,7 +3425,7 @@
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Century Gothic", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label27.Location = new System.Drawing.Point(246, 5);
+            this.label27.Location = new System.Drawing.Point(267, 5);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(123, 15);
             this.label27.TabIndex = 481;
@@ -3435,7 +3436,7 @@
             this.btnResetServiceStatus.BackColor = System.Drawing.Color.Transparent;
             this.btnResetServiceStatus.Image = global::MIS.Properties.Resources.ic_reset;
             this.btnResetServiceStatus.ImageActive = null;
-            this.btnResetServiceStatus.Location = new System.Drawing.Point(375, 1);
+            this.btnResetServiceStatus.Location = new System.Drawing.Point(396, 1);
             this.btnResetServiceStatus.Name = "btnResetServiceStatus";
             this.btnResetServiceStatus.Size = new System.Drawing.Size(30, 28);
             this.btnResetServiceStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -3461,7 +3462,7 @@
             this.panel193.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel193.Location = new System.Drawing.Point(0, 23);
             this.panel193.Name = "panel193";
-            this.panel193.Size = new System.Drawing.Size(407, 1);
+            this.panel193.Size = new System.Drawing.Size(429, 1);
             this.panel193.TabIndex = 0;
             // 
             // tabMain
@@ -3473,11 +3474,12 @@
             this.tabMain.Controls.Add(this.tabPage6);
             this.tabMain.Controls.Add(this.tabPage2);
             this.tabMain.Controls.Add(this.tabPage7);
+            this.tabMain.Controls.Add(this.tabPage28);
             this.tabMain.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabMain.Location = new System.Drawing.Point(961, 581);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(412, 127);
+            this.tabMain.Size = new System.Drawing.Size(446, 237);
             this.tabMain.TabIndex = 493;
             // 
             // tabPage5
@@ -3486,7 +3488,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 27);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(404, 96);
+            this.tabPage5.Size = new System.Drawing.Size(438, 206);
             this.tabPage5.TabIndex = 3;
             this.tabPage5.Text = "FUNCTION";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -3503,7 +3505,7 @@
             this.panel143.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel143.Location = new System.Drawing.Point(3, 3);
             this.panel143.Name = "panel143";
-            this.panel143.Size = new System.Drawing.Size(398, 90);
+            this.panel143.Size = new System.Drawing.Size(432, 200);
             this.panel143.TabIndex = 474;
             // 
             // btnSendServiceEmail
@@ -3516,9 +3518,9 @@
             this.btnSendServiceEmail.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSendServiceEmail.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSendServiceEmail.ForeColor = System.Drawing.Color.White;
-            this.btnSendServiceEmail.Location = new System.Drawing.Point(206, 28);
+            this.btnSendServiceEmail.Location = new System.Drawing.Point(205, 28);
             this.btnSendServiceEmail.Name = "btnSendServiceEmail";
-            this.btnSendServiceEmail.Size = new System.Drawing.Size(185, 26);
+            this.btnSendServiceEmail.Size = new System.Drawing.Size(222, 26);
             this.btnSendServiceEmail.TabIndex = 494;
             this.btnSendServiceEmail.Text = "EMAIL SERVICE REQUEST";
             this.btnSendServiceEmail.UseVisualStyleBackColor = false;
@@ -3548,7 +3550,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 27);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(404, 96);
+            this.tabPage4.Size = new System.Drawing.Size(438, 206);
             this.tabPage4.TabIndex = 2;
             this.tabPage4.Text = "HISTORY";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -3562,7 +3564,7 @@
             this.panel135.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel135.Location = new System.Drawing.Point(3, 3);
             this.panel135.Name = "panel135";
-            this.panel135.Size = new System.Drawing.Size(398, 90);
+            this.panel135.Size = new System.Drawing.Size(432, 200);
             this.panel135.TabIndex = 448;
             // 
             // tabPage3
@@ -3581,7 +3583,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 27);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(404, 96);
+            this.tabPage3.Size = new System.Drawing.Size(438, 206);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "GEOMETRIC";
             // 
@@ -3605,7 +3607,7 @@
             this.txtGeoAddress.Multiline = true;
             this.txtGeoAddress.Name = "txtGeoAddress";
             this.txtGeoAddress.ReadOnly = true;
-            this.txtGeoAddress.Size = new System.Drawing.Size(327, 40);
+            this.txtGeoAddress.Size = new System.Drawing.Size(363, 40);
             this.txtGeoAddress.TabIndex = 453;
             // 
             // label133
@@ -3627,7 +3629,7 @@
             this.txtGeoLocality.Location = new System.Drawing.Point(276, 26);
             this.txtGeoLocality.Name = "txtGeoLocality";
             this.txtGeoLocality.ReadOnly = true;
-            this.txtGeoLocality.Size = new System.Drawing.Size(122, 20);
+            this.txtGeoLocality.Size = new System.Drawing.Size(158, 20);
             this.txtGeoLocality.TabIndex = 451;
             // 
             // label132
@@ -3671,7 +3673,7 @@
             this.txtGeoLongitude.Location = new System.Drawing.Point(276, 4);
             this.txtGeoLongitude.Name = "txtGeoLongitude";
             this.txtGeoLongitude.ReadOnly = true;
-            this.txtGeoLongitude.Size = new System.Drawing.Size(122, 20);
+            this.txtGeoLongitude.Size = new System.Drawing.Size(158, 20);
             this.txtGeoLongitude.TabIndex = 447;
             // 
             // label122
@@ -3719,7 +3721,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 27);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(404, 96);
+            this.tabPage6.Size = new System.Drawing.Size(438, 206);
             this.tabPage6.TabIndex = 4;
             this.tabPage6.Text = "SLA/TAT";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -3728,7 +3730,7 @@
             // 
             this.label185.AutoSize = true;
             this.label185.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label185.Location = new System.Drawing.Point(124, 77);
+            this.label185.Location = new System.Drawing.Point(164, 77);
             this.label185.Name = "label185";
             this.label185.Size = new System.Drawing.Size(63, 14);
             this.label185.TabIndex = 468;
@@ -3740,10 +3742,10 @@
             this.txtDaysWeekends.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDaysWeekends.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDaysWeekends.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDaysWeekends.Location = new System.Drawing.Point(188, 72);
+            this.txtDaysWeekends.Location = new System.Drawing.Point(231, 72);
             this.txtDaysWeekends.Name = "txtDaysWeekends";
             this.txtDaysWeekends.ReadOnly = true;
-            this.txtDaysWeekends.Size = new System.Drawing.Size(50, 22);
+            this.txtDaysWeekends.Size = new System.Drawing.Size(203, 22);
             this.txtDaysWeekends.TabIndex = 467;
             this.txtDaysWeekends.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -3763,10 +3765,10 @@
             this.txtDaysHoliday.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDaysHoliday.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDaysHoliday.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDaysHoliday.Location = new System.Drawing.Point(73, 72);
+            this.txtDaysHoliday.Location = new System.Drawing.Point(100, 72);
             this.txtDaysHoliday.Name = "txtDaysHoliday";
             this.txtDaysHoliday.ReadOnly = true;
-            this.txtDaysHoliday.Size = new System.Drawing.Size(46, 22);
+            this.txtDaysHoliday.Size = new System.Drawing.Size(60, 22);
             this.txtDaysHoliday.TabIndex = 465;
             this.txtDaysHoliday.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -3776,10 +3778,10 @@
             this.txtSLAArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSLAArea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtSLAArea.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtSLAArea.Location = new System.Drawing.Point(221, 50);
+            this.txtSLAArea.Location = new System.Drawing.Point(231, 50);
             this.txtSLAArea.Name = "txtSLAArea";
             this.txtSLAArea.ReadOnly = true;
-            this.txtSLAArea.Size = new System.Drawing.Size(180, 20);
+            this.txtSLAArea.Size = new System.Drawing.Size(203, 20);
             this.txtSLAArea.TabIndex = 463;
             this.txtSLAArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -3799,10 +3801,10 @@
             this.txtSLAZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSLAZone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtSLAZone.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtSLAZone.Location = new System.Drawing.Point(221, 28);
+            this.txtSLAZone.Location = new System.Drawing.Point(231, 28);
             this.txtSLAZone.Name = "txtSLAZone";
             this.txtSLAZone.ReadOnly = true;
-            this.txtSLAZone.Size = new System.Drawing.Size(180, 20);
+            this.txtSLAZone.Size = new System.Drawing.Size(203, 20);
             this.txtSLAZone.TabIndex = 461;
             this.txtSLAZone.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -3835,7 +3837,7 @@
             this.txtTargetSLADate.Location = new System.Drawing.Point(271, 4);
             this.txtTargetSLADate.Name = "txtTargetSLADate";
             this.txtTargetSLADate.ReadOnly = true;
-            this.txtTargetSLADate.Size = new System.Drawing.Size(130, 22);
+            this.txtTargetSLADate.Size = new System.Drawing.Size(163, 22);
             this.txtTargetSLADate.TabIndex = 453;
             this.txtTargetSLADate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -3843,7 +3845,7 @@
             // 
             this.label143.AutoSize = true;
             this.label143.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label143.Location = new System.Drawing.Point(238, 75);
+            this.label143.Location = new System.Drawing.Point(4, 100);
             this.label143.Name = "label143";
             this.label143.Size = new System.Drawing.Size(49, 14);
             this.label143.TabIndex = 452;
@@ -3855,10 +3857,10 @@
             this.txtTATStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTATStatus.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTATStatus.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTATStatus.Location = new System.Drawing.Point(288, 72);
+            this.txtTATStatus.Location = new System.Drawing.Point(100, 95);
             this.txtTATStatus.Name = "txtTATStatus";
             this.txtTATStatus.ReadOnly = true;
-            this.txtTATStatus.Size = new System.Drawing.Size(113, 22);
+            this.txtTATStatus.Size = new System.Drawing.Size(334, 22);
             this.txtTATStatus.TabIndex = 451;
             this.txtTATStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -3939,7 +3941,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(404, 96);
+            this.tabPage2.Size = new System.Drawing.Size(438, 206);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "SWITCH SN";
             // 
@@ -3953,7 +3955,7 @@
             this.panel52.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel52.Location = new System.Drawing.Point(3, 4);
             this.panel52.Name = "panel52";
-            this.panel52.Size = new System.Drawing.Size(399, 54);
+            this.panel52.Size = new System.Drawing.Size(432, 54);
             this.panel52.TabIndex = 477;
             // 
             // panel110
@@ -3963,7 +3965,7 @@
             this.panel110.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel110.Location = new System.Drawing.Point(225, 24);
             this.panel110.Name = "panel110";
-            this.panel110.Size = new System.Drawing.Size(181, 28);
+            this.panel110.Size = new System.Drawing.Size(203, 28);
             this.panel110.TabIndex = 315;
             // 
             // txtNewTerminalSN
@@ -3976,7 +3978,7 @@
             this.txtNewTerminalSN.Location = new System.Drawing.Point(65, 4);
             this.txtNewTerminalSN.Name = "txtNewTerminalSN";
             this.txtNewTerminalSN.ReadOnly = true;
-            this.txtNewTerminalSN.Size = new System.Drawing.Size(106, 21);
+            this.txtNewTerminalSN.Size = new System.Drawing.Size(135, 21);
             this.txtNewTerminalSN.TabIndex = 469;
             // 
             // label116
@@ -4030,7 +4032,7 @@
             this.panel176.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel176.Location = new System.Drawing.Point(0, 0);
             this.panel176.Name = "panel176";
-            this.panel176.Size = new System.Drawing.Size(397, 24);
+            this.panel176.Size = new System.Drawing.Size(430, 24);
             this.panel176.TabIndex = 311;
             // 
             // label69
@@ -4050,7 +4052,7 @@
             this.panel177.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel177.Location = new System.Drawing.Point(0, 22);
             this.panel177.Name = "panel177";
-            this.panel177.Size = new System.Drawing.Size(397, 2);
+            this.panel177.Size = new System.Drawing.Size(430, 2);
             this.panel177.TabIndex = 0;
             // 
             // panel21
@@ -4062,7 +4064,7 @@
             this.panel21.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel21.Location = new System.Drawing.Point(3, 60);
             this.panel21.Name = "panel21";
-            this.panel21.Size = new System.Drawing.Size(400, 29);
+            this.panel21.Size = new System.Drawing.Size(433, 29);
             this.panel21.TabIndex = 478;
             // 
             // panel33
@@ -4072,7 +4074,7 @@
             this.panel33.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel33.Location = new System.Drawing.Point(225, 0);
             this.panel33.Name = "panel33";
-            this.panel33.Size = new System.Drawing.Size(181, 27);
+            this.panel33.Size = new System.Drawing.Size(204, 27);
             this.panel33.TabIndex = 315;
             // 
             // label114
@@ -4095,7 +4097,7 @@
             this.txtNewSIMSN.Location = new System.Drawing.Point(65, 4);
             this.txtNewSIMSN.Name = "txtNewSIMSN";
             this.txtNewSIMSN.ReadOnly = true;
-            this.txtNewSIMSN.Size = new System.Drawing.Size(107, 21);
+            this.txtNewSIMSN.Size = new System.Drawing.Size(136, 21);
             this.txtNewSIMSN.TabIndex = 468;
             // 
             // panel172
@@ -4140,7 +4142,7 @@
             this.tabPage7.Location = new System.Drawing.Point(4, 27);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(404, 96);
+            this.tabPage7.Size = new System.Drawing.Size(438, 206);
             this.tabPage7.TabIndex = 5;
             this.tabPage7.Text = "MOBILE";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -4200,7 +4202,7 @@
             this.panel11.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel11.Location = new System.Drawing.Point(963, 467);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(410, 111);
+            this.panel11.Size = new System.Drawing.Size(442, 111);
             this.panel11.TabIndex = 491;
             // 
             // tabControl3
@@ -4212,7 +4214,7 @@
             this.tabControl3.Location = new System.Drawing.Point(-2, 26);
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(414, 85);
+            this.tabControl3.Size = new System.Drawing.Size(441, 85);
             this.tabControl3.TabIndex = 498;
             // 
             // tabPage26
@@ -4222,7 +4224,7 @@
             this.tabPage26.Location = new System.Drawing.Point(4, 27);
             this.tabPage26.Name = "tabPage26";
             this.tabPage26.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage26.Size = new System.Drawing.Size(406, 54);
+            this.tabPage26.Size = new System.Drawing.Size(433, 54);
             this.tabPage26.TabIndex = 3;
             this.tabPage26.Text = "JOB ORDER";
             this.tabPage26.UseVisualStyleBackColor = true;
@@ -4243,7 +4245,7 @@
             this.panel230.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel230.Location = new System.Drawing.Point(3, 3);
             this.panel230.Name = "panel230";
-            this.panel230.Size = new System.Drawing.Size(400, 48);
+            this.panel230.Size = new System.Drawing.Size(427, 48);
             this.panel230.TabIndex = 474;
             // 
             // label73
@@ -4298,7 +4300,7 @@
             this.txtDispatchDate.Location = new System.Drawing.Point(316, 24);
             this.txtDispatchDate.Name = "txtDispatchDate";
             this.txtDispatchDate.ReadOnly = true;
-            this.txtDispatchDate.Size = new System.Drawing.Size(81, 20);
+            this.txtDispatchDate.Size = new System.Drawing.Size(106, 20);
             this.txtDispatchDate.TabIndex = 389;
             // 
             // txtProcessedDate
@@ -4310,7 +4312,7 @@
             this.txtProcessedDate.Location = new System.Drawing.Point(316, 3);
             this.txtProcessedDate.Name = "txtProcessedDate";
             this.txtProcessedDate.ReadOnly = true;
-            this.txtProcessedDate.Size = new System.Drawing.Size(81, 20);
+            this.txtProcessedDate.Size = new System.Drawing.Size(106, 20);
             this.txtProcessedDate.TabIndex = 438;
             // 
             // txtDispatchBy
@@ -4343,7 +4345,7 @@
             this.tabPage27.Location = new System.Drawing.Point(4, 27);
             this.tabPage27.Name = "tabPage27";
             this.tabPage27.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage27.Size = new System.Drawing.Size(406, 54);
+            this.tabPage27.Size = new System.Drawing.Size(433, 54);
             this.tabPage27.TabIndex = 2;
             this.tabPage27.Text = "FSR";
             this.tabPage27.UseVisualStyleBackColor = true;
@@ -4364,7 +4366,7 @@
             this.panel231.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel231.Location = new System.Drawing.Point(3, 3);
             this.panel231.Name = "panel231";
-            this.panel231.Size = new System.Drawing.Size(400, 48);
+            this.panel231.Size = new System.Drawing.Size(427, 48);
             this.panel231.TabIndex = 474;
             // 
             // txtFsrServicedDate
@@ -4376,7 +4378,7 @@
             this.txtFsrServicedDate.Location = new System.Drawing.Point(315, 2);
             this.txtFsrServicedDate.Name = "txtFsrServicedDate";
             this.txtFsrServicedDate.ReadOnly = true;
-            this.txtFsrServicedDate.Size = new System.Drawing.Size(82, 20);
+            this.txtFsrServicedDate.Size = new System.Drawing.Size(107, 20);
             this.txtFsrServicedDate.TabIndex = 458;
             // 
             // label180
@@ -4420,7 +4422,7 @@
             this.txtSvcTicketDate.Location = new System.Drawing.Point(315, 23);
             this.txtSvcTicketDate.Name = "txtSvcTicketDate";
             this.txtSvcTicketDate.ReadOnly = true;
-            this.txtSvcTicketDate.Size = new System.Drawing.Size(82, 20);
+            this.txtSvcTicketDate.Size = new System.Drawing.Size(107, 20);
             this.txtSvcTicketDate.TabIndex = 454;
             // 
             // label74
@@ -4465,7 +4467,7 @@
             this.panel191.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel191.Location = new System.Drawing.Point(0, 0);
             this.panel191.Name = "panel191";
-            this.panel191.Size = new System.Drawing.Size(408, 24);
+            this.panel191.Size = new System.Drawing.Size(440, 24);
             this.panel191.TabIndex = 311;
             // 
             // label2
@@ -4485,7 +4487,7 @@
             this.panel192.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel192.Location = new System.Drawing.Point(0, 22);
             this.panel192.Name = "panel192";
-            this.panel192.Size = new System.Drawing.Size(408, 2);
+            this.panel192.Size = new System.Drawing.Size(440, 2);
             this.panel192.TabIndex = 0;
             // 
             // btnAdd
@@ -4515,7 +4517,7 @@
             this.panel179.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel179.Location = new System.Drawing.Point(963, 819);
             this.panel179.Name = "panel179";
-            this.panel179.Size = new System.Drawing.Size(410, 68);
+            this.panel179.Size = new System.Drawing.Size(443, 68);
             this.panel179.TabIndex = 482;
             // 
             // panel180
@@ -4526,7 +4528,7 @@
             this.panel180.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel180.Location = new System.Drawing.Point(0, 28);
             this.panel180.Name = "panel180";
-            this.panel180.Size = new System.Drawing.Size(408, 38);
+            this.panel180.Size = new System.Drawing.Size(441, 38);
             this.panel180.TabIndex = 312;
             // 
             // panel181
@@ -4536,7 +4538,7 @@
             this.panel181.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel181.Location = new System.Drawing.Point(206, 0);
             this.panel181.Name = "panel181";
-            this.panel181.Size = new System.Drawing.Size(215, 36);
+            this.panel181.Size = new System.Drawing.Size(232, 36);
             this.panel181.TabIndex = 318;
             // 
             // txtNegativeCnt
@@ -4551,7 +4553,7 @@
             this.txtNegativeCnt.MaxLength = 200;
             this.txtNegativeCnt.Name = "txtNegativeCnt";
             this.txtNegativeCnt.ReadOnly = true;
-            this.txtNegativeCnt.Size = new System.Drawing.Size(213, 47);
+            this.txtNegativeCnt.Size = new System.Drawing.Size(230, 47);
             this.txtNegativeCnt.TabIndex = 351;
             this.txtNegativeCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -4589,7 +4591,7 @@
             this.panel183.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel183.Location = new System.Drawing.Point(0, 0);
             this.panel183.Name = "panel183";
-            this.panel183.Size = new System.Drawing.Size(408, 28);
+            this.panel183.Size = new System.Drawing.Size(441, 28);
             this.panel183.TabIndex = 311;
             // 
             // label109
@@ -4599,7 +4601,7 @@
             this.label109.ForeColor = System.Drawing.Color.Transparent;
             this.label109.Location = new System.Drawing.Point(208, 0);
             this.label109.Name = "label109";
-            this.label109.Size = new System.Drawing.Size(200, 29);
+            this.label109.Size = new System.Drawing.Size(232, 29);
             this.label109.TabIndex = 315;
             this.label109.Text = "NEGATIVE";
             this.label109.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4658,7 +4660,7 @@
             this.panel147.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel147.Location = new System.Drawing.Point(963, 325);
             this.panel147.Name = "panel147";
-            this.panel147.Size = new System.Drawing.Size(410, 138);
+            this.panel147.Size = new System.Drawing.Size(441, 138);
             this.panel147.TabIndex = 457;
             // 
             // panel148
@@ -4672,7 +4674,7 @@
             this.panel148.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel148.Location = new System.Drawing.Point(0, 24);
             this.panel148.Name = "panel148";
-            this.panel148.Size = new System.Drawing.Size(408, 112);
+            this.panel148.Size = new System.Drawing.Size(439, 112);
             this.panel148.TabIndex = 312;
             // 
             // txtProblemNo
@@ -4685,7 +4687,7 @@
             this.txtProblemNo.Location = new System.Drawing.Point(340, 65);
             this.txtProblemNo.Name = "txtProblemNo";
             this.txtProblemNo.ReadOnly = true;
-            this.txtProblemNo.Size = new System.Drawing.Size(66, 20);
+            this.txtProblemNo.Size = new System.Drawing.Size(96, 20);
             this.txtProblemNo.TabIndex = 389;
             // 
             // label161
@@ -4708,7 +4710,7 @@
             this.txtAssistNo.Location = new System.Drawing.Point(340, 21);
             this.txtAssistNo.Name = "txtAssistNo";
             this.txtAssistNo.ReadOnly = true;
-            this.txtAssistNo.Size = new System.Drawing.Size(66, 20);
+            this.txtAssistNo.Size = new System.Drawing.Size(96, 20);
             this.txtAssistNo.TabIndex = 388;
             // 
             // label160
@@ -4997,7 +4999,7 @@
             this.panel151.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel151.Location = new System.Drawing.Point(0, 0);
             this.panel151.Name = "panel151";
-            this.panel151.Size = new System.Drawing.Size(408, 24);
+            this.panel151.Size = new System.Drawing.Size(439, 24);
             this.panel151.TabIndex = 311;
             // 
             // txtFSRRequestNo
@@ -5031,7 +5033,7 @@
             this.panel169.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel169.Location = new System.Drawing.Point(0, 23);
             this.panel169.Name = "panel169";
-            this.panel169.Size = new System.Drawing.Size(408, 1);
+            this.panel169.Size = new System.Drawing.Size(439, 1);
             this.panel169.TabIndex = 0;
             // 
             // panel138
@@ -5043,7 +5045,7 @@
             this.panel138.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel138.Location = new System.Drawing.Point(963, 193);
             this.panel138.Name = "panel138";
-            this.panel138.Size = new System.Drawing.Size(410, 130);
+            this.panel138.Size = new System.Drawing.Size(442, 130);
             this.panel138.TabIndex = 457;
             // 
             // panel139
@@ -5059,7 +5061,7 @@
             this.panel139.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel139.Location = new System.Drawing.Point(0, 24);
             this.panel139.Name = "panel139";
-            this.panel139.Size = new System.Drawing.Size(408, 104);
+            this.panel139.Size = new System.Drawing.Size(440, 104);
             this.panel139.TabIndex = 312;
             // 
             // cboBillingType
@@ -5075,7 +5077,7 @@
             "TNS SIM"});
             this.cboBillingType.Location = new System.Drawing.Point(111, 5);
             this.cboBillingType.Name = "cboBillingType";
-            this.cboBillingType.Size = new System.Drawing.Size(294, 22);
+            this.cboBillingType.Size = new System.Drawing.Size(325, 22);
             this.cboBillingType.TabIndex = 362;
             // 
             // label118
@@ -5111,7 +5113,7 @@
             "TNS SIM"});
             this.cboSource.Location = new System.Drawing.Point(111, 29);
             this.cboSource.Name = "cboSource";
-            this.cboSource.Size = new System.Drawing.Size(294, 22);
+            this.cboSource.Size = new System.Drawing.Size(325, 22);
             this.cboSource.TabIndex = 354;
             // 
             // cboSubCategory
@@ -5127,7 +5129,7 @@
             "TNS SIM"});
             this.cboSubCategory.Location = new System.Drawing.Point(111, 78);
             this.cboSubCategory.Name = "cboSubCategory";
-            this.cboSubCategory.Size = new System.Drawing.Size(294, 22);
+            this.cboSubCategory.Size = new System.Drawing.Size(325, 22);
             this.cboSubCategory.TabIndex = 358;
             // 
             // label8
@@ -5163,7 +5165,7 @@
             "TNS SIM"});
             this.cboCategory.Location = new System.Drawing.Point(111, 54);
             this.cboCategory.Name = "cboCategory";
-            this.cboCategory.Size = new System.Drawing.Size(294, 22);
+            this.cboCategory.Size = new System.Drawing.Size(325, 22);
             this.cboCategory.TabIndex = 356;
             // 
             // panel144
@@ -5174,7 +5176,7 @@
             this.panel144.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel144.Location = new System.Drawing.Point(0, 0);
             this.panel144.Name = "panel144";
-            this.panel144.Size = new System.Drawing.Size(408, 24);
+            this.panel144.Size = new System.Drawing.Size(440, 24);
             this.panel144.TabIndex = 311;
             // 
             // label28
@@ -5194,7 +5196,7 @@
             this.panel145.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel145.Location = new System.Drawing.Point(0, 23);
             this.panel145.Name = "panel145";
-            this.panel145.Size = new System.Drawing.Size(408, 1);
+            this.panel145.Size = new System.Drawing.Size(440, 1);
             this.panel145.TabIndex = 0;
             // 
             // panel156
@@ -5206,7 +5208,7 @@
             this.panel156.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel156.Location = new System.Drawing.Point(963, 58);
             this.panel156.Name = "panel156";
-            this.panel156.Size = new System.Drawing.Size(410, 51);
+            this.panel156.Size = new System.Drawing.Size(442, 51);
             this.panel156.TabIndex = 459;
             // 
             // panel157
@@ -5217,7 +5219,7 @@
             this.panel157.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel157.Location = new System.Drawing.Point(0, 24);
             this.panel157.Name = "panel157";
-            this.panel157.Size = new System.Drawing.Size(408, 27);
+            this.panel157.Size = new System.Drawing.Size(440, 27);
             this.panel157.TabIndex = 312;
             // 
             // btnSearchMerchant
@@ -5225,7 +5227,7 @@
             this.btnSearchMerchant.BackColor = System.Drawing.SystemColors.Control;
             this.btnSearchMerchant.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchMerchant.Image")));
             this.btnSearchMerchant.ImageActive = null;
-            this.btnSearchMerchant.Location = new System.Drawing.Point(382, -1);
+            this.btnSearchMerchant.Location = new System.Drawing.Point(412, -1);
             this.btnSearchMerchant.Name = "btnSearchMerchant";
             this.btnSearchMerchant.Size = new System.Drawing.Size(24, 25);
             this.btnSearchMerchant.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -5244,7 +5246,7 @@
             this.txtSearchMerchantName.Location = new System.Drawing.Point(1, 1);
             this.txtSearchMerchantName.Name = "txtSearchMerchantName";
             this.txtSearchMerchantName.ReadOnly = true;
-            this.txtSearchMerchantName.Size = new System.Drawing.Size(379, 24);
+            this.txtSearchMerchantName.Size = new System.Drawing.Size(409, 24);
             this.txtSearchMerchantName.TabIndex = 167;
             // 
             // panel158
@@ -5255,7 +5257,7 @@
             this.panel158.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel158.Location = new System.Drawing.Point(0, 0);
             this.panel158.Name = "panel158";
-            this.panel158.Size = new System.Drawing.Size(408, 24);
+            this.panel158.Size = new System.Drawing.Size(440, 24);
             this.panel158.TabIndex = 311;
             // 
             // label57
@@ -5275,7 +5277,7 @@
             this.panel159.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel159.Location = new System.Drawing.Point(0, 22);
             this.panel159.Name = "panel159";
-            this.panel159.Size = new System.Drawing.Size(408, 2);
+            this.panel159.Size = new System.Drawing.Size(440, 2);
             this.panel159.TabIndex = 0;
             // 
             // panel152
@@ -5287,7 +5289,7 @@
             this.panel152.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel152.Location = new System.Drawing.Point(963, 111);
             this.panel152.Name = "panel152";
-            this.panel152.Size = new System.Drawing.Size(410, 54);
+            this.panel152.Size = new System.Drawing.Size(442, 54);
             this.panel152.TabIndex = 456;
             // 
             // panel153
@@ -5300,7 +5302,7 @@
             this.panel153.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel153.Location = new System.Drawing.Point(0, 24);
             this.panel153.Name = "panel153";
-            this.panel153.Size = new System.Drawing.Size(408, 28);
+            this.panel153.Size = new System.Drawing.Size(440, 28);
             this.panel153.TabIndex = 312;
             // 
             // panel154
@@ -5311,7 +5313,7 @@
             this.panel154.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel154.Location = new System.Drawing.Point(0, 0);
             this.panel154.Name = "panel154";
-            this.panel154.Size = new System.Drawing.Size(408, 27);
+            this.panel154.Size = new System.Drawing.Size(440, 27);
             this.panel154.TabIndex = 5;
             // 
             // btnSearchService
@@ -5320,7 +5322,7 @@
             this.btnSearchService.Enabled = false;
             this.btnSearchService.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchService.Image")));
             this.btnSearchService.ImageActive = null;
-            this.btnSearchService.Location = new System.Drawing.Point(382, 1);
+            this.btnSearchService.Location = new System.Drawing.Point(412, 1);
             this.btnSearchService.Name = "btnSearchService";
             this.btnSearchService.Size = new System.Drawing.Size(24, 25);
             this.btnSearchService.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -5334,7 +5336,7 @@
             this.panel161.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel161.Location = new System.Drawing.Point(0, 0);
             this.panel161.Name = "panel161";
-            this.panel161.Size = new System.Drawing.Size(408, 28);
+            this.panel161.Size = new System.Drawing.Size(440, 28);
             this.panel161.TabIndex = 3;
             // 
             // panel162
@@ -5342,7 +5344,7 @@
             this.panel162.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel162.Location = new System.Drawing.Point(0, 0);
             this.panel162.Name = "panel162";
-            this.panel162.Size = new System.Drawing.Size(408, 28);
+            this.panel162.Size = new System.Drawing.Size(440, 28);
             this.panel162.TabIndex = 2;
             // 
             // panel163
@@ -5350,7 +5352,7 @@
             this.panel163.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel163.Location = new System.Drawing.Point(0, 0);
             this.panel163.Name = "panel163";
-            this.panel163.Size = new System.Drawing.Size(408, 28);
+            this.panel163.Size = new System.Drawing.Size(440, 28);
             this.panel163.TabIndex = 1;
             // 
             // panel164
@@ -5358,7 +5360,7 @@
             this.panel164.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel164.Location = new System.Drawing.Point(0, 0);
             this.panel164.Name = "panel164";
-            this.panel164.Size = new System.Drawing.Size(408, 28);
+            this.panel164.Size = new System.Drawing.Size(440, 28);
             this.panel164.TabIndex = 0;
             // 
             // panel165
@@ -5369,7 +5371,7 @@
             this.panel165.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel165.Location = new System.Drawing.Point(0, 0);
             this.panel165.Name = "panel165";
-            this.panel165.Size = new System.Drawing.Size(408, 24);
+            this.panel165.Size = new System.Drawing.Size(440, 24);
             this.panel165.TabIndex = 311;
             // 
             // label53
@@ -5389,7 +5391,7 @@
             this.panel166.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel166.Location = new System.Drawing.Point(0, 23);
             this.panel166.Name = "panel166";
-            this.panel166.Size = new System.Drawing.Size(408, 1);
+            this.panel166.Size = new System.Drawing.Size(440, 1);
             this.panel166.TabIndex = 0;
             // 
             // panel42
@@ -8851,7 +8853,7 @@
             this.panel5.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel5.Location = new System.Drawing.Point(963, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(410, 54);
+            this.panel5.Size = new System.Drawing.Size(442, 54);
             this.panel5.TabIndex = 446;
             // 
             // panel167
@@ -8861,7 +8863,7 @@
             this.panel167.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel167.Location = new System.Drawing.Point(0, 24);
             this.panel167.Name = "panel167";
-            this.panel167.Size = new System.Drawing.Size(408, 27);
+            this.panel167.Size = new System.Drawing.Size(440, 27);
             this.panel167.TabIndex = 313;
             // 
             // cboSearchServiceType
@@ -8873,7 +8875,7 @@
             this.cboSearchServiceType.FormattingEnabled = true;
             this.cboSearchServiceType.Location = new System.Drawing.Point(2, 1);
             this.cboSearchServiceType.Name = "cboSearchServiceType";
-            this.cboSearchServiceType.Size = new System.Drawing.Size(402, 26);
+            this.cboSearchServiceType.Size = new System.Drawing.Size(432, 26);
             this.cboSearchServiceType.TabIndex = 349;
             this.cboSearchServiceType.SelectedIndexChanged += new System.EventHandler(this.cboSearchServiceType_SelectedIndexChanged);
             // 
@@ -8885,7 +8887,7 @@
             this.panel130.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel130.Location = new System.Drawing.Point(0, 0);
             this.panel130.Name = "panel130";
-            this.panel130.Size = new System.Drawing.Size(408, 24);
+            this.panel130.Size = new System.Drawing.Size(440, 24);
             this.panel130.TabIndex = 311;
             // 
             // label20
@@ -8905,7 +8907,7 @@
             this.panel131.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel131.Location = new System.Drawing.Point(0, 22);
             this.panel131.Name = "panel131";
-            this.panel131.Size = new System.Drawing.Size(408, 2);
+            this.panel131.Size = new System.Drawing.Size(440, 2);
             this.panel131.TabIndex = 0;
             // 
             // tabControl8
@@ -9594,7 +9596,7 @@
             this.tabPage14.Location = new System.Drawing.Point(4, 28);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(1377, 887);
+            this.tabPage14.Size = new System.Drawing.Size(1409, 887);
             this.tabPage14.TabIndex = 1;
             this.tabPage14.Text = "Additional Information";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -9610,7 +9612,7 @@
             this.tabControl2.Location = new System.Drawing.Point(3, 6);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1376, 447);
+            this.tabControl2.Size = new System.Drawing.Size(1400, 447);
             this.tabControl2.TabIndex = 500;
             // 
             // tabPage21
@@ -9620,7 +9622,7 @@
             this.tabPage21.Location = new System.Drawing.Point(4, 27);
             this.tabPage21.Name = "tabPage21";
             this.tabPage21.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage21.Size = new System.Drawing.Size(1368, 416);
+            this.tabPage21.Size = new System.Drawing.Size(1392, 416);
             this.tabPage21.TabIndex = 1;
             this.tabPage21.Text = "MULTI MERCHANT";
             // 
@@ -9640,7 +9642,7 @@
             this.lvwMM.HideSelection = false;
             this.lvwMM.Location = new System.Drawing.Point(3, 3);
             this.lvwMM.Name = "lvwMM";
-            this.lvwMM.Size = new System.Drawing.Size(1362, 410);
+            this.lvwMM.Size = new System.Drawing.Size(1386, 410);
             this.lvwMM.TabIndex = 314;
             this.lvwMM.UseCompatibleStateImageBehavior = false;
             this.lvwMM.View = System.Windows.Forms.View.Details;
@@ -9671,7 +9673,7 @@
             this.tabPage22.Location = new System.Drawing.Point(4, 27);
             this.tabPage22.Name = "tabPage22";
             this.tabPage22.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage22.Size = new System.Drawing.Size(1368, 416);
+            this.tabPage22.Size = new System.Drawing.Size(1392, 416);
             this.tabPage22.TabIndex = 3;
             this.tabPage22.Text = "PROFILE CONFIG 1";
             this.tabPage22.UseVisualStyleBackColor = true;
@@ -9687,7 +9689,7 @@
             this.lvwProfile1.HideSelection = false;
             this.lvwProfile1.Location = new System.Drawing.Point(3, 3);
             this.lvwProfile1.Name = "lvwProfile1";
-            this.lvwProfile1.Size = new System.Drawing.Size(1362, 410);
+            this.lvwProfile1.Size = new System.Drawing.Size(1386, 410);
             this.lvwProfile1.TabIndex = 316;
             this.lvwProfile1.UseCompatibleStateImageBehavior = false;
             this.lvwProfile1.View = System.Windows.Forms.View.Details;
@@ -9698,7 +9700,7 @@
             this.tabPage12.Location = new System.Drawing.Point(4, 27);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(1368, 416);
+            this.tabPage12.Size = new System.Drawing.Size(1392, 416);
             this.tabPage12.TabIndex = 5;
             this.tabPage12.Text = "PROFILE CONFIG 2";
             this.tabPage12.UseVisualStyleBackColor = true;
@@ -9714,7 +9716,7 @@
             this.lvwProfile2.HideSelection = false;
             this.lvwProfile2.Location = new System.Drawing.Point(3, 3);
             this.lvwProfile2.Name = "lvwProfile2";
-            this.lvwProfile2.Size = new System.Drawing.Size(1362, 410);
+            this.lvwProfile2.Size = new System.Drawing.Size(1386, 410);
             this.lvwProfile2.TabIndex = 317;
             this.lvwProfile2.UseCompatibleStateImageBehavior = false;
             this.lvwProfile2.View = System.Windows.Forms.View.Details;
@@ -9725,7 +9727,7 @@
             this.tabPage23.Location = new System.Drawing.Point(4, 27);
             this.tabPage23.Name = "tabPage23";
             this.tabPage23.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage23.Size = new System.Drawing.Size(1368, 416);
+            this.tabPage23.Size = new System.Drawing.Size(1392, 416);
             this.tabPage23.TabIndex = 4;
             this.tabPage23.Text = "RAW DATA";
             this.tabPage23.UseVisualStyleBackColor = true;
@@ -9741,7 +9743,7 @@
             this.lvwRaw.HideSelection = false;
             this.lvwRaw.Location = new System.Drawing.Point(3, 3);
             this.lvwRaw.Name = "lvwRaw";
-            this.lvwRaw.Size = new System.Drawing.Size(1362, 410);
+            this.lvwRaw.Size = new System.Drawing.Size(1386, 410);
             this.lvwRaw.TabIndex = 315;
             this.lvwRaw.UseCompatibleStateImageBehavior = false;
             this.lvwRaw.View = System.Windows.Forms.View.Details;
@@ -9755,53 +9757,10 @@
             this.tabPage19.Location = new System.Drawing.Point(4, 28);
             this.tabPage19.Name = "tabPage19";
             this.tabPage19.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage19.Size = new System.Drawing.Size(1377, 887);
+            this.tabPage19.Size = new System.Drawing.Size(1409, 887);
             this.tabPage19.TabIndex = 2;
             this.tabPage19.Text = "Helpdesk Information";
             this.tabPage19.UseVisualStyleBackColor = true;
-            // 
-            // ucHelpDeskEntryInfo
-            // 
-            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
-            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
-            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
-            this.ucHelpDeskEntryInfo.TabIndex = 4;
-            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
-            // 
-            // ucVendorHelpDeskTeamLeadInfo
-            // 
-            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
-            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
-            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
-            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
-            // 
-            // ucVendorHelpDeskRepInfo
-            // 
-            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
-            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
-            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
-            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
-            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskRepInfo.VendorName = "";
-            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
-            // 
-            // ucHelpDeskServiceInfo
-            // 
-            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
-            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
-            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
-            this.ucHelpDeskServiceInfo.TabIndex = 0;
-            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
             // 
             // panel168
             // 
@@ -9933,7 +9892,7 @@
             // 
             this.label102.AutoSize = true;
             this.label102.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label102.Location = new System.Drawing.Point(1409, 576);
+            this.label102.Location = new System.Drawing.Point(1, 613);
             this.label102.Name = "label102";
             this.label102.Size = new System.Drawing.Size(35, 14);
             this.label102.TabIndex = 390;
@@ -9946,7 +9905,7 @@
             this.txtDispatchTime.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtDispatchTime.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDispatchTime.ForeColor = System.Drawing.Color.Black;
-            this.txtDispatchTime.Location = new System.Drawing.Point(1451, 574);
+            this.txtDispatchTime.Location = new System.Drawing.Point(43, 611);
             this.txtDispatchTime.Name = "txtDispatchTime";
             this.txtDispatchTime.ReadOnly = true;
             this.txtDispatchTime.Size = new System.Drawing.Size(148, 20);
@@ -10106,7 +10065,7 @@
             // 
             this.label65.AutoSize = true;
             this.label65.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(1410, 789);
+            this.label65.Location = new System.Drawing.Point(2, 826);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(29, 15);
             this.label65.TabIndex = 335;
@@ -10141,7 +10100,7 @@
             this.panel118.Controls.Add(this.panel119);
             this.panel118.Controls.Add(this.panel128);
             this.panel118.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel118.Location = new System.Drawing.Point(1426, 448);
+            this.panel118.Location = new System.Drawing.Point(18, 485);
             this.panel118.Name = "panel118";
             this.panel118.Size = new System.Drawing.Size(358, 54);
             this.panel118.TabIndex = 458;
@@ -10296,7 +10255,7 @@
             this.panel86.Controls.Add(this.panel87);
             this.panel86.Controls.Add(this.panel99);
             this.panel86.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel86.Location = new System.Drawing.Point(1426, 509);
+            this.panel86.Location = new System.Drawing.Point(18, 546);
             this.panel86.Name = "panel86";
             this.panel86.Size = new System.Drawing.Size(404, 54);
             this.panel86.TabIndex = 459;
@@ -10530,15 +10489,20 @@
             this.panel53.Controls.Add(this.label94);
             this.panel53.Controls.Add(this.lblCreatedDate);
             this.panel53.Controls.Add(this.txtMerchantTelNo);
+            this.panel53.Controls.Add(this.label65);
             this.panel53.Controls.Add(this.label80);
+            this.panel53.Controls.Add(this.txtDispatchTime);
             this.panel53.Controls.Add(this.txtClientTelNo);
+            this.panel53.Controls.Add(this.label102);
             this.panel53.Controls.Add(this.label90);
+            this.panel53.Controls.Add(this.btnClearService);
             this.panel53.Controls.Add(this.txtFETelNo);
             this.panel53.Controls.Add(this.label16);
             this.panel53.Controls.Add(this.label95);
             this.panel53.Controls.Add(this.txtFEAddress);
             this.panel53.Controls.Add(this.txtSearchSTJobTypeDescription);
             this.panel53.Controls.Add(this.txtAttemptCnt);
+            this.panel53.Controls.Add(this.dteReqTime);
             this.panel53.Controls.Add(this.txtSearchServiceDate);
             this.panel53.Controls.Add(this.txtRepSIMLocationID);
             this.panel53.Controls.Add(this.txtServiceJobTypeDesc);
@@ -10549,17 +10513,23 @@
             this.panel53.Controls.Add(this.txtCurSIMLocationID);
             this.panel53.Controls.Add(this.txtDispatchDateTime);
             this.panel53.Controls.Add(this.txtServiceRequestNo);
+            this.panel53.Controls.Add(this.btnSave);
             this.panel53.Controls.Add(this.txtCurTerminalLocationID);
             this.panel53.Controls.Add(this.panel178);
+            this.panel53.Controls.Add(this.panel10);
             this.panel53.Controls.Add(this.panel14);
+            this.panel53.Controls.Add(this.panel118);
             this.panel53.Controls.Add(this.btnSendEmail);
             this.panel53.Controls.Add(this.btnRefreshSN);
             this.panel53.Controls.Add(this.txtLastServiceRequest);
             this.panel53.Controls.Add(this.txtServiceJobType);
+            this.panel53.Controls.Add(this.panel86);
             this.panel53.Controls.Add(this.txtLastServiceNo);
-            this.panel53.Location = new System.Drawing.Point(1408, 55);
+            this.panel53.Controls.Add(this.cboSearchSIMStatus);
+            this.panel53.Controls.Add(this.cboSearchTerminalStatus);
+            this.panel53.Location = new System.Drawing.Point(1452, 62);
             this.panel53.Name = "panel53";
-            this.panel53.Size = new System.Drawing.Size(177, 508);
+            this.panel53.Size = new System.Drawing.Size(177, 883);
             this.panel53.TabIndex = 470;
             // 
             // btnTASearch
@@ -10575,25 +10545,73 @@
             this.btnTASearch.TabStop = false;
             this.btnTASearch.Zoom = 10;
             // 
+            // tabPage28
+            // 
+            this.tabPage28.Controls.Add(this.panel136);
+            this.tabPage28.Location = new System.Drawing.Point(4, 27);
+            this.tabPage28.Name = "tabPage28";
+            this.tabPage28.Size = new System.Drawing.Size(438, 206);
+            this.tabPage28.TabIndex = 6;
+            this.tabPage28.Text = "STATUS";
+            this.tabPage28.UseVisualStyleBackColor = true;
+            // 
+            // ucHelpDeskEntryInfo
+            // 
+            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
+            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
+            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
+            this.ucHelpDeskEntryInfo.TabIndex = 4;
+            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
+            // 
+            // ucVendorHelpDeskTeamLeadInfo
+            // 
+            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
+            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
+            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
+            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
+            // 
+            // ucVendorHelpDeskRepInfo
+            // 
+            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
+            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
+            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
+            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
+            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskRepInfo.VendorName = "";
+            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
+            // 
+            // ucHelpDeskServiceInfo
+            // 
+            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
+            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
+            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
+            this.ucHelpDeskServiceInfo.TabIndex = 0;
+            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
+            // 
             // frmServiceJobOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.ClientSize = new System.Drawing.Size(1392, 956);
+            this.ClientSize = new System.Drawing.Size(1421, 956);
             this.Controls.Add(this.txtMerchantTID);
             this.Controls.Add(this.panel53);
             this.Controls.Add(this.panel168);
-            this.Controls.Add(this.label65);
-            this.Controls.Add(this.txtDispatchTime);
-            this.Controls.Add(this.label102);
-            this.Controls.Add(this.btnClearService);
             this.Controls.Add(this.txtOldSIMID);
             this.Controls.Add(this.txtOldTerminalID);
             this.Controls.Add(this.txtReasonCode);
             this.Controls.Add(this.txtSearchSTServiceJobTypeDescription);
             this.Controls.Add(this.btnTASearch);
-            this.Controls.Add(this.dteReqTime);
             this.Controls.Add(this.txtSearchSTJobType);
             this.Controls.Add(this.txtSearchSTStatusDescription);
             this.Controls.Add(this.txtSearchSTStatus);
@@ -10603,19 +10621,13 @@
             this.Controls.Add(this.panel15);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.panel6);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.cboSearchDockStatus);
-            this.Controls.Add(this.panel10);
-            this.Controls.Add(this.panel118);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.txtSearchTAIDNo);
             this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel86);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.cboSearchTerminalStatus);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.cboSearchSIMStatus);
             this.Controls.Add(this.panel12);
             this.Controls.Add(this.txtSearchSTID);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -10936,6 +10948,7 @@
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).EndInit();
+            this.tabPage28.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11745,5 +11758,6 @@
         private Bunifu.Framework.UI.BunifuImageButton btnSearchZoning;
         private System.Windows.Forms.Button btnOverrideUpdate;
         private Bunifu.Framework.UI.BunifuImageButton btnOpenIR;
+        private System.Windows.Forms.TabPage tabPage28;
     }
 }

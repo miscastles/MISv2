@@ -592,7 +592,8 @@ namespace MIS
                                                         clsFunction.sZero + clsFunction.sPipe +
                                                         dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
                                                         clsFunction.sZero + clsFunction.sPipe +
-                                                        dbFunction.GetPageLimit();
+                                                        dbFunction.GetPageLimit() + clsFunction.sPipe +
+                                                        clsFunction.sZero;
                     dbAPI.FillListViewAServiceDispatch(lvwSearch, "View", "Dispatch Servicing 2", clsSearch.ClassAdvanceSearchValue);
                     break;
                 case SearchType.iService:             
@@ -603,17 +604,26 @@ namespace MIS
                                                         clsFunction.sZero + clsFunction.sPipe +
                                                         dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
                                                         clsFunction.sZero + clsFunction.sPipe +
-                                                        dbFunction.GetPageLimit();
+                                                        dbFunction.GetPageLimit() + clsFunction.sPipe +
+                                                        clsFunction.sZero;
                     dbAPI.FillListViewAServiceDispatch(lvwSearch, "View", "Dispatch Servicing 2", clsSearch.ClassAdvanceSearchValue);
                     break;
                 case SearchType.iFSR:
-                    clsSearch.ClassAdvanceSearchValue = clsFunction.sZero + clsFunction.sPipe +
-                                                        clsFunction.sZero + clsFunction.sPipe +
-                                                        clsGlobalVariables.JOB_TYPE_STATUS_COMPLETED_DESC + clsFunction.sPipe +
-                                                        clsFunction.sZero + clsFunction.sPipe +
-                                                        dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
-                                                        clsFunction.sZero + clsFunction.sPipe +
-                                                        dbFunction.GetPageLimit();
+                    string pJobTypeDescription = "";
+
+                    if (!dbFunction.isValidDescription(clsSearch.ClassJobTypeDescription))
+                        pJobTypeDescription = clsFunction.sZero;
+                    else
+                        pJobTypeDescription = clsSearch.ClassJobTypeDescription;
+
+                        clsSearch.ClassAdvanceSearchValue = clsFunction.sZero + clsFunction.sPipe +
+                                                            pJobTypeDescription + clsFunction.sPipe +
+                                                            clsGlobalVariables.JOB_TYPE_STATUS_COMPLETED_DESC + clsFunction.sPipe +
+                                                            clsFunction.sZero + clsFunction.sPipe +
+                                                            dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
+                                                            clsFunction.sZero + clsFunction.sPipe +
+                                                            dbFunction.GetPageLimit() + clsFunction.sPipe +
+                                                            dbFunction.CheckAndSetNumericValue(clsSearch.ClassFEID.ToString());
                     dbAPI.FillListViewAServiceDispatch(lvwSearch, "View", "Dispatch Servicing 2", clsSearch.ClassAdvanceSearchValue);
                     break;
                 case SearchType.iMerchantList:

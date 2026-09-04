@@ -43,7 +43,7 @@ namespace MIS
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnPrintQR = new System.Windows.Forms.Button();
             this.grpService = new System.Windows.Forms.GroupBox();
             this.btnSearchMerchant = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblServiceNo = new System.Windows.Forms.Label();
@@ -152,7 +152,7 @@ namespace MIS
             this.pnlToolbar.Controls.Add(this.btnAdd);
             this.pnlToolbar.Controls.Add(this.btnSave);
             this.pnlToolbar.Controls.Add(this.btnClear);
-            this.pnlToolbar.Controls.Add(this.button3);
+            this.pnlToolbar.Controls.Add(this.btnPrintQR);
             this.pnlToolbar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlToolbar.Location = new System.Drawing.Point(0, 632);
             this.pnlToolbar.Name = "pnlToolbar";
@@ -208,20 +208,20 @@ namespace MIS
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // button3
+            // btnPrintQR
             // 
-            this.button3.AutoSize = true;
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button3.Font = new System.Drawing.Font("Arial Narrow", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button3.Location = new System.Drawing.Point(274, 11);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(181, 27);
-            this.button3.TabIndex = 398;
-            this.button3.Text = "PRINT QR";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnPrintQR.AutoSize = true;
+            this.btnPrintQR.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnPrintQR.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnPrintQR.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnPrintQR.Font = new System.Drawing.Font("Arial Narrow", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrintQR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnPrintQR.Location = new System.Drawing.Point(274, 11);
+            this.btnPrintQR.Name = "btnPrintQR";
+            this.btnPrintQR.Size = new System.Drawing.Size(181, 27);
+            this.btnPrintQR.TabIndex = 398;
+            this.btnPrintQR.Text = "PRINT QR";
+            this.btnPrintQR.UseVisualStyleBackColor = false;
             // 
             // grpService
             // 
@@ -412,11 +412,11 @@ namespace MIS
             // 
             // lblQRStatus
             // 
-            this.lblQRStatus.Font = new System.Drawing.Font("Century Gothic", 21F, System.Drawing.FontStyle.Bold);
+            this.lblQRStatus.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQRStatus.ForeColor = System.Drawing.Color.Silver;
-            this.lblQRStatus.Location = new System.Drawing.Point(6, 67);
+            this.lblQRStatus.Location = new System.Drawing.Point(6, 26);
             this.lblQRStatus.Name = "lblQRStatus";
-            this.lblQRStatus.Size = new System.Drawing.Size(242, 48);
+            this.lblQRStatus.Size = new System.Drawing.Size(242, 172);
             this.lblQRStatus.TabIndex = 1;
             this.lblQRStatus.Text = "NOT VALIDATED";
             this.lblQRStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -457,8 +457,8 @@ namespace MIS
             // 
             // lblAction
             // 
-            this.lblAction.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAction.ForeColor = System.Drawing.Color.Silver;
+            this.lblAction.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAction.ForeColor = System.Drawing.Color.Blue;
             this.lblAction.Location = new System.Drawing.Point(6, 50);
             this.lblAction.Name = "lblAction";
             this.lblAction.Size = new System.Drawing.Size(241, 48);
@@ -516,7 +516,7 @@ namespace MIS
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnPrintQR;
         private Bunifu.Framework.UI.BunifuImageButton btnSearchMerchant;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;

@@ -5242,6 +5242,7 @@ namespace MIS
                 case "btnSearch":
                 case "btnSearchExpensesReferenceNo":
                 case "btnSearchServiceNos":
+                case "btnSearchFieldEngineer":
                     obj.Image = (isEnable ? Properties.Resources.find_on : Properties.Resources.find_off);
                     break;
                 case "btnNoRequestID":

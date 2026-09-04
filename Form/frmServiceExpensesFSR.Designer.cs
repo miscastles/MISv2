@@ -133,13 +133,16 @@
             this.label16 = new System.Windows.Forms.Label();
             this.panel17 = new System.Windows.Forms.Panel();
             this.panel14 = new System.Windows.Forms.Panel();
-            this.label24 = new System.Windows.Forms.Label();
-            this.txtLocationFrom = new System.Windows.Forms.TextBox();
+            this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
+            this.label26 = new System.Windows.Forms.Label();
             this.btnClearExpense = new System.Windows.Forms.Button();
             this.dtExpenseDate = new System.Windows.Forms.DateTimePicker();
+            this.txtLocationTo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.btnAddExpense = new System.Windows.Forms.Button();
             this.cboExpenseType = new System.Windows.Forms.ComboBox();
+            this.txtLocationFrom = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.txtExpensesRemarks = new System.Windows.Forms.TextBox();
@@ -158,9 +161,10 @@
             this.panel20 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.panel21 = new System.Windows.Forms.Panel();
-            this.label26 = new System.Windows.Forms.Label();
-            this.txtLocationTo = new System.Windows.Forms.TextBox();
-            this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
+            this.txtFEName = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.btnSearchFieldEngineer = new Bunifu.Framework.UI.BunifuImageButton();
+            this.chkExpensensRemarks = new System.Windows.Forms.CheckBox();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -196,6 +200,7 @@
             this.panel10.SuspendLayout();
             this.panel19.SuspendLayout();
             this.panel20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchFieldEngineer)).BeginInit();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -232,7 +237,6 @@
             this.txtFEID.Size = new System.Drawing.Size(60, 20);
             this.txtFEID.TabIndex = 348;
             this.txtFEID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtFEID.Visible = false;
             // 
             // txtExpensesNo
             // 
@@ -243,7 +247,6 @@
             this.txtExpensesNo.Size = new System.Drawing.Size(60, 20);
             this.txtExpensesNo.TabIndex = 347;
             this.txtExpensesNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtExpensesNo.Visible = false;
             // 
             // txtZoneID
             // 
@@ -254,7 +257,6 @@
             this.txtZoneID.Size = new System.Drawing.Size(60, 20);
             this.txtZoneID.TabIndex = 346;
             this.txtZoneID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtZoneID.Visible = false;
             // 
             // txtMerchantID
             // 
@@ -265,7 +267,6 @@
             this.txtMerchantID.Size = new System.Drawing.Size(60, 20);
             this.txtMerchantID.TabIndex = 345;
             this.txtMerchantID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtMerchantID.Visible = false;
             // 
             // txtIRIDNo
             // 
@@ -276,7 +277,6 @@
             this.txtIRIDNo.Size = new System.Drawing.Size(60, 20);
             this.txtIRIDNo.TabIndex = 344;
             this.txtIRIDNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtIRIDNo.Visible = false;
             // 
             // txtExpensesID
             // 
@@ -287,7 +287,6 @@
             this.txtExpensesID.Size = new System.Drawing.Size(60, 20);
             this.txtExpensesID.TabIndex = 343;
             this.txtExpensesID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtExpensesID.Visible = false;
             // 
             // btnMinimize
             // 
@@ -326,7 +325,6 @@
             this.txtLineNo.Size = new System.Drawing.Size(60, 20);
             this.txtLineNo.TabIndex = 306;
             this.txtLineNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtLineNo.Visible = false;
             // 
             // bunifuImageButton1
             // 
@@ -406,7 +404,7 @@
             this.btnSearchServiceNos.ImageActive = null;
             this.btnSearchServiceNos.Location = new System.Drawing.Point(366, 9);
             this.btnSearchServiceNos.Name = "btnSearchServiceNos";
-            this.btnSearchServiceNos.Size = new System.Drawing.Size(26, 26);
+            this.btnSearchServiceNos.Size = new System.Drawing.Size(25, 24);
             this.btnSearchServiceNos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnSearchServiceNos.TabIndex = 503;
             this.btnSearchServiceNos.TabStop = false;
@@ -504,6 +502,9 @@
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.txtFEName);
+            this.panel5.Controls.Add(this.label29);
+            this.panel5.Controls.Add(this.btnSearchFieldEngineer);
             this.panel5.Controls.Add(this.txtClientID);
             this.panel5.Controls.Add(this.txtClientName);
             this.panel5.Controls.Add(this.label18);
@@ -536,7 +537,7 @@
             this.txtClientID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtClientID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClientID.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClientID.Location = new System.Drawing.Point(289, 246);
+            this.txtClientID.Location = new System.Drawing.Point(289, 221);
             this.txtClientID.Name = "txtClientID";
             this.txtClientID.ReadOnly = true;
             this.txtClientID.Size = new System.Drawing.Size(102, 20);
@@ -548,7 +549,7 @@
             this.txtClientName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtClientName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClientName.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtClientName.Location = new System.Drawing.Point(107, 246);
+            this.txtClientName.Location = new System.Drawing.Point(107, 221);
             this.txtClientName.Name = "txtClientName";
             this.txtClientName.ReadOnly = true;
             this.txtClientName.Size = new System.Drawing.Size(179, 20);
@@ -558,7 +559,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(4, 251);
+            this.label18.Location = new System.Drawing.Point(3, 223);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(49, 14);
             this.label18.TabIndex = 474;
@@ -570,7 +571,7 @@
             this.txtZRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtZRegion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtZRegion.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZRegion.Location = new System.Drawing.Point(289, 224);
+            this.txtZRegion.Location = new System.Drawing.Point(289, 199);
             this.txtZRegion.Name = "txtZRegion";
             this.txtZRegion.ReadOnly = true;
             this.txtZRegion.Size = new System.Drawing.Size(102, 20);
@@ -582,7 +583,7 @@
             this.txtZZone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtZZone.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtZZone.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtZZone.Location = new System.Drawing.Point(107, 224);
+            this.txtZZone.Location = new System.Drawing.Point(107, 199);
             this.txtZZone.Name = "txtZZone";
             this.txtZZone.ReadOnly = true;
             this.txtZZone.Size = new System.Drawing.Size(179, 20);
@@ -592,7 +593,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(4, 230);
+            this.label6.Location = new System.Drawing.Point(4, 201);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 14);
             this.label6.TabIndex = 471;
@@ -661,7 +662,7 @@
             this.btnSearchExpensesReferenceNo.ImageActive = null;
             this.btnSearchExpensesReferenceNo.Location = new System.Drawing.Point(369, 0);
             this.btnSearchExpensesReferenceNo.Name = "btnSearchExpensesReferenceNo";
-            this.btnSearchExpensesReferenceNo.Size = new System.Drawing.Size(26, 26);
+            this.btnSearchExpensesReferenceNo.Size = new System.Drawing.Size(25, 24);
             this.btnSearchExpensesReferenceNo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnSearchExpensesReferenceNo.TabIndex = 465;
             this.btnSearchExpensesReferenceNo.TabStop = false;
@@ -674,7 +675,7 @@
             this.txtMerchantRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMerchantRegion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMerchantRegion.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMerchantRegion.Location = new System.Drawing.Point(289, 202);
+            this.txtMerchantRegion.Location = new System.Drawing.Point(289, 178);
             this.txtMerchantRegion.Name = "txtMerchantRegion";
             this.txtMerchantRegion.ReadOnly = true;
             this.txtMerchantRegion.Size = new System.Drawing.Size(102, 20);
@@ -686,7 +687,7 @@
             this.txtMerchantCity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMerchantCity.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMerchantCity.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtMerchantCity.Location = new System.Drawing.Point(107, 202);
+            this.txtMerchantCity.Location = new System.Drawing.Point(107, 177);
             this.txtMerchantCity.Name = "txtMerchantCity";
             this.txtMerchantCity.ReadOnly = true;
             this.txtMerchantCity.Size = new System.Drawing.Size(179, 20);
@@ -712,7 +713,7 @@
             this.txtMerchantAddress.Multiline = true;
             this.txtMerchantAddress.Name = "txtMerchantAddress";
             this.txtMerchantAddress.ReadOnly = true;
-            this.txtMerchantAddress.Size = new System.Drawing.Size(284, 70);
+            this.txtMerchantAddress.Size = new System.Drawing.Size(284, 45);
             this.txtMerchantAddress.TabIndex = 461;
             // 
             // txtMerchant
@@ -766,7 +767,7 @@
             this.btnSearchService.ImageActive = null;
             this.btnSearchService.Location = new System.Drawing.Point(369, 30);
             this.btnSearchService.Name = "btnSearchService";
-            this.btnSearchService.Size = new System.Drawing.Size(26, 26);
+            this.btnSearchService.Size = new System.Drawing.Size(25, 24);
             this.btnSearchService.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnSearchService.TabIndex = 454;
             this.btnSearchService.TabStop = false;
@@ -1462,6 +1463,7 @@
             // panel14
             // 
             this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel14.Controls.Add(this.chkExpensensRemarks);
             this.panel14.Controls.Add(this.bunifuSeparator2);
             this.panel14.Controls.Add(this.label26);
             this.panel14.Controls.Add(this.btnClearExpense);
@@ -1482,28 +1484,27 @@
             this.panel14.Size = new System.Drawing.Size(438, 309);
             this.panel14.TabIndex = 461;
             // 
-            // label24
+            // bunifuSeparator2
             // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(2, 65);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(98, 14);
-            this.label24.TabIndex = 471;
-            this.label24.Text = "LOCATION FROM";
+            this.bunifuSeparator2.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.bunifuSeparator2.LineThickness = 1;
+            this.bunifuSeparator2.Location = new System.Drawing.Point(7, 254);
+            this.bunifuSeparator2.Name = "bunifuSeparator2";
+            this.bunifuSeparator2.Size = new System.Drawing.Size(424, 6);
+            this.bunifuSeparator2.TabIndex = 474;
+            this.bunifuSeparator2.Transparency = 255;
+            this.bunifuSeparator2.Vertical = false;
             // 
-            // txtLocationFrom
+            // label26
             // 
-            this.txtLocationFrom.BackColor = System.Drawing.Color.White;
-            this.txtLocationFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLocationFrom.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtLocationFrom.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtLocationFrom.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLocationFrom.Location = new System.Drawing.Point(105, 61);
-            this.txtLocationFrom.MaxLength = 12;
-            this.txtLocationFrom.Name = "txtLocationFrom";
-            this.txtLocationFrom.Size = new System.Drawing.Size(329, 22);
-            this.txtLocationFrom.TabIndex = 470;
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(2, 90);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(84, 14);
+            this.label26.TabIndex = 473;
+            this.label26.Text = "LOCATION TO";
             // 
             // btnClearExpense
             // 
@@ -1533,6 +1534,20 @@
             this.dtExpenseDate.Size = new System.Drawing.Size(329, 26);
             this.dtExpenseDate.TabIndex = 461;
             // 
+            // txtLocationTo
+            // 
+            this.txtLocationTo.BackColor = System.Drawing.Color.White;
+            this.txtLocationTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLocationTo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtLocationTo.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtLocationTo.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLocationTo.Location = new System.Drawing.Point(105, 87);
+            this.txtLocationTo.MaxLength = 12;
+            this.txtLocationTo.Name = "txtLocationTo";
+            this.txtLocationTo.Size = new System.Drawing.Size(329, 22);
+            this.txtLocationTo.TabIndex = 472;
+            this.txtLocationTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtLocationTo_KeyDown);
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -1542,6 +1557,16 @@
             this.label9.Size = new System.Drawing.Size(35, 14);
             this.label9.TabIndex = 456;
             this.label9.Text = "DATE";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(2, 65);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(98, 14);
+            this.label24.TabIndex = 471;
+            this.label24.Text = "LOCATION FROM";
             // 
             // btnAddExpense
             // 
@@ -1570,6 +1595,20 @@
             this.cboExpenseType.Size = new System.Drawing.Size(329, 26);
             this.cboExpenseType.TabIndex = 463;
             this.cboExpenseType.SelectedIndexChanged += new System.EventHandler(this.cboExpenseType_SelectedIndexChanged);
+            // 
+            // txtLocationFrom
+            // 
+            this.txtLocationFrom.BackColor = System.Drawing.Color.White;
+            this.txtLocationFrom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtLocationFrom.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtLocationFrom.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtLocationFrom.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLocationFrom.Location = new System.Drawing.Point(105, 61);
+            this.txtLocationFrom.MaxLength = 12;
+            this.txtLocationFrom.Name = "txtLocationFrom";
+            this.txtLocationFrom.Size = new System.Drawing.Size(329, 22);
+            this.txtLocationFrom.TabIndex = 470;
+            this.txtLocationFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtLocationFrom_KeyDown);
             // 
             // label14
             // 
@@ -1601,7 +1640,7 @@
             this.txtExpensesRemarks.Multiline = true;
             this.txtExpensesRemarks.Name = "txtExpensesRemarks";
             this.txtExpensesRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtExpensesRemarks.Size = new System.Drawing.Size(330, 112);
+            this.txtExpensesRemarks.Size = new System.Drawing.Size(330, 91);
             this.txtExpensesRemarks.TabIndex = 459;
             this.txtExpensesRemarks.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRemarks_KeyDown);
             // 
@@ -1773,40 +1812,53 @@
             this.panel21.Size = new System.Drawing.Size(502, 2);
             this.panel21.TabIndex = 0;
             // 
-            // label26
+            // txtFEName
             // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(2, 90);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(84, 14);
-            this.label26.TabIndex = 473;
-            this.label26.Text = "LOCATION TO";
+            this.txtFEName.BackColor = System.Drawing.Color.White;
+            this.txtFEName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFEName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFEName.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFEName.Location = new System.Drawing.Point(107, 243);
+            this.txtFEName.Name = "txtFEName";
+            this.txtFEName.ReadOnly = true;
+            this.txtFEName.Size = new System.Drawing.Size(261, 22);
+            this.txtFEName.TabIndex = 478;
             // 
-            // txtLocationTo
+            // label29
             // 
-            this.txtLocationTo.BackColor = System.Drawing.Color.White;
-            this.txtLocationTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtLocationTo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtLocationTo.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtLocationTo.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLocationTo.Location = new System.Drawing.Point(105, 87);
-            this.txtLocationTo.MaxLength = 12;
-            this.txtLocationTo.Name = "txtLocationTo";
-            this.txtLocationTo.Size = new System.Drawing.Size(329, 22);
-            this.txtLocationTo.TabIndex = 472;
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(2, 246);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(105, 14);
+            this.label29.TabIndex = 479;
+            this.label29.Text = "FIELD ENGINEER";
             // 
-            // bunifuSeparator2
+            // btnSearchFieldEngineer
             // 
-            this.bunifuSeparator2.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuSeparator2.LineColor = System.Drawing.Color.DimGray;
-            this.bunifuSeparator2.LineThickness = 1;
-            this.bunifuSeparator2.Location = new System.Drawing.Point(7, 254);
-            this.bunifuSeparator2.Name = "bunifuSeparator2";
-            this.bunifuSeparator2.Size = new System.Drawing.Size(424, 6);
-            this.bunifuSeparator2.TabIndex = 474;
-            this.bunifuSeparator2.Transparency = 255;
-            this.bunifuSeparator2.Vertical = false;
+            this.btnSearchFieldEngineer.BackColor = System.Drawing.Color.Transparent;
+            this.btnSearchFieldEngineer.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchFieldEngineer.Image")));
+            this.btnSearchFieldEngineer.ImageActive = null;
+            this.btnSearchFieldEngineer.Location = new System.Drawing.Point(369, 241);
+            this.btnSearchFieldEngineer.Name = "btnSearchFieldEngineer";
+            this.btnSearchFieldEngineer.Size = new System.Drawing.Size(25, 24);
+            this.btnSearchFieldEngineer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchFieldEngineer.TabIndex = 477;
+            this.btnSearchFieldEngineer.TabStop = false;
+            this.btnSearchFieldEngineer.Zoom = 10;
+            this.btnSearchFieldEngineer.Click += new System.EventHandler(this.btnSearchFE_Click);
+            // 
+            // chkExpensensRemarks
+            // 
+            this.chkExpensensRemarks.AutoSize = true;
+            this.chkExpensensRemarks.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkExpensensRemarks.Location = new System.Drawing.Point(105, 236);
+            this.chkExpensensRemarks.Name = "chkExpensensRemarks";
+            this.chkExpensensRemarks.Size = new System.Drawing.Size(61, 18);
+            this.chkExpensensRemarks.TabIndex = 475;
+            this.chkExpensensRemarks.Text = "Null?";
+            this.chkExpensensRemarks.UseVisualStyleBackColor = true;
+            this.chkExpensensRemarks.CheckedChanged += new System.EventHandler(this.chkExpensensRemarks_CheckedChanged);
             // 
             // frmServiceExpensesFSR
             // 
@@ -1883,6 +1935,7 @@
             this.panel19.PerformLayout();
             this.panel20.ResumeLayout(false);
             this.panel20.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchFieldEngineer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2021,5 +2074,9 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.TextBox txtLocationTo;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator2;
+        private System.Windows.Forms.TextBox txtFEName;
+        private System.Windows.Forms.Label label29;
+        private Bunifu.Framework.UI.BunifuImageButton btnSearchFieldEngineer;
+        private System.Windows.Forms.CheckBox chkExpensensRemarks;
     }
 }

@@ -96,6 +96,9 @@ namespace MIS
             btnSearchExpensesReferenceNo.Enabled = true;
             dbFunction.SetButtonIconImage(btnSearchExpensesReferenceNo);
 
+            btnSearchFieldEngineer.Enabled = false;
+            dbFunction.SetButtonIconImage(btnSearchFieldEngineer);
+
             dbAPI.FillComboBoxServiceType(cboSearchServiceType);
             dbAPI.FillComboBoxExpenseType(cboExpenseType);
 
@@ -152,6 +155,8 @@ namespace MIS
 
             if (!dbFunction.fSavingConfirm(true)) return;
 
+            Cursor.Current = Cursors.WaitCursor;
+
             try
             {
                 // ----------------------------------------------------------------------------------
@@ -199,8 +204,10 @@ namespace MIS
                     string pExpensesID = item.SubItems[1].Text;
                     string pExpensesType = item.SubItems[2].Text;
                     string pExpensesDate = item.SubItems[3].Text;
-                    string pExpensesAmount = item.SubItems[4].Text;
-                    string pExpensesRemarks = item.SubItems[5].Text;
+                    string pExpensesLocatonFrom = item.SubItems[4].Text;
+                    string pExpensesLocationTo = item.SubItems[5].Text;
+                    string pExpensesAmount = item.SubItems[6].Text;
+                    string pExpensesRemarks = item.SubItems[7].Text;
 
                     var detail = new
                     {
@@ -211,7 +218,9 @@ namespace MIS
                         ExpensesReferenceNo = txtExpenseReferenceNo.Text,
                         ExpensesDate = pExpensesDate,
                         Amount = decimal.Parse(pExpensesAmount),
-                        Remarks = pExpensesRemarks
+                        Remarks = pExpensesRemarks,
+                        LocationFrom = pExpensesLocatonFrom,
+                        LocationTo = pExpensesLocationTo
                     };
                     
                     sSQL = IFormat.Insert(detail);
@@ -284,8 +293,8 @@ namespace MIS
                         "Saving failed",
                         clsFunction.IconType.iError);
             }
-            
 
+            Cursor.Current = Cursors.Default;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -309,6 +318,9 @@ namespace MIS
 
             btnSearchServiceNos.Enabled = false;
             dbFunction.SetButtonIconImage(btnSearchServiceNos);
+
+            btnSearchFieldEngineer.Enabled = false;
+            dbFunction.SetButtonIconImage(btnSearchFieldEngineer);
 
             initExpensesEntry();
 
@@ -385,6 +397,9 @@ namespace MIS
 
                 btnSearchServiceNos.Enabled = true;
                 dbFunction.SetButtonIconImage(btnSearchServiceNos);
+
+                btnSearchFieldEngineer.Enabled = true;
+                dbFunction.SetButtonIconImage(btnSearchFieldEngineer);
 
                 dbAPI.GenerateID(true, txtExpenseReferenceNo, txtExpensesNo, "Expenses-FSR", clsDefines.CONTROLID_PREFIX_EXPENSES);
 
@@ -475,6 +490,31 @@ namespace MIS
         private void btnSearchServiceNos_Click(object sender, EventArgs e)
         {
             int i = 0;
+
+            if (!dbFunction.isValidDescriptionEntry(txtFEName.Text, "Field Engineer" + clsDefines.MUST_NOT_BLANK_MESSAGE))
+            {
+                btnSearchFieldEngineer.Focus();
+                return;
+            }
+
+            // -------------------------------------------------------------
+            // set JobTypeDescription
+            // -------------------------------------------------------------
+            clsSearch.ClassJobType = 0;
+            clsSearch.ClassJobTypeDescription = "";
+            if (dbFunction.isValidDescription(cboSearchServiceType.Text))
+            {
+                dbAPI.ExecuteAPI("GET", "Search", "Service Type Info", cboSearchServiceType.Text, "Get Info Detail", "", "GetInfoDetail");
+
+                if (dbAPI.isNoRecordFound() == false)
+                {
+                    clsSearch.ClassJobType = int.Parse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 5));
+                    clsSearch.ClassJobTypeDescription = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 6);
+
+                }
+            }            
+            // -------------------------------------------------------------
+            // -------------------------------------------------------------
 
             frmSearchField.iSearchType = frmSearchField.SearchType.iFSR;
             frmSearchField.sHeader = "SEARCH COMPLETED SERVICE";
@@ -597,6 +637,9 @@ namespace MIS
             dbFunction.GetListViewHeaderColumnFromFile("", "MID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvw.Columns.Add(outTitle, outWidth, outAlign);
 
+            dbFunction.GetListViewHeaderColumnFromFile("", "FieldEngineer", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
         }
 
         private void initReceiptListView(ListView lvw)
@@ -650,7 +693,7 @@ namespace MIS
                     $"{_mServicingDetailController.ServiceJobTypeDescription}";
                 string ActionMade =
                     $"{_mServicingDetailController.ActionMade}".Trim();
-
+                string FEName = $"{_mServicingDetailController.FEName}";
 
                 // -------------------------------------------------------------
                 // Validate Action Made
@@ -705,6 +748,7 @@ namespace MIS
                 lvi.SubItems.Add(Merchant);
                 lvi.SubItems.Add(TID);
                 lvi.SubItems.Add(MID);
+                lvi.SubItems.Add(FEName);
 
                 lvwServiceList.Items.Add(lvi);
             }
@@ -841,21 +885,26 @@ namespace MIS
 
         private void cboExpenseType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtExpenseAmount.Text = "0.00";
-            txtExpenseAmount.SelectAll();
-            txtExpenseAmount.Focus();
+            txtLocationFrom.Text = "";            
+            txtLocationFrom.Focus();            
         }
 
         private void cboSearchServiceType_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnAddExpense_Click(object sender, EventArgs e)
-        {
-            if (!dbFunction.isValidDescriptionEntry(cboExpenseType.Text, "Expenses Type." + clsDefines.MUST_NOT_BLANK_MESSAGE))
+        {   
+            if (!dbFunction.isValidDescriptionEntry(cboExpenseType.Text, "Expenses Type" + clsDefines.MUST_NOT_BLANK_MESSAGE))
             {
                 cboExpenseType.Focus();
+                return;
+            }
+
+            if (!dbFunction.isValidDescriptionEntry(txtExpensesRemarks.Text, "Expenses Remarks" + clsDefines.MUST_NOT_BLANK_MESSAGE))
+            {
+                txtExpensesRemarks.Focus();
                 return;
             }
 
@@ -905,6 +954,7 @@ namespace MIS
                     continue;
 
                 string existingExpensesID = item.SubItems[1].Text.Trim();
+                string existingExpensesType = item.SubItems[2].Text.Trim();
                 string existingExpensesDate = item.SubItems[3].Text.Trim();
                 string existingLocationFrom = item.SubItems[4].Text.Trim();
                 string existingLocationTo = item.SubItems[5].Text.Trim();
@@ -984,6 +1034,12 @@ namespace MIS
             // Expenses Date
             lvi.SubItems.Add(pModel.ExpensesDate ?? "");
 
+            // Location From
+            lvi.SubItems.Add(pModel.LocationFrom ?? "");
+
+            // Location To
+            lvi.SubItems.Add(pModel.LocationTo ?? "");
+
             // Amount
             lvi.SubItems.Add(pModel.Amount.ToString());
 
@@ -1021,6 +1077,8 @@ namespace MIS
         private void btnExpenseClearAll_Click(object sender, EventArgs e)
         {
             dbFunction.ClearListViewItems(lvwExpenseList);
+
+            initExpensesEntry();
 
             txtTotalExpenses.Text = $"{ComputeTotalExpenses()}";
             txtTotalExpenses.Text = "0.00";
@@ -1131,16 +1189,17 @@ namespace MIS
         private decimal ComputeTotalExpenses()
         {
             decimal dTotalExpenses = 0M;
+            int amtColIndex = 6;
 
             foreach (ListViewItem item in lvwExpenseList.Items)
             {
-                if (item.SubItems.Count <= 4)
+                if (item.SubItems.Count <= amtColIndex)
                     continue;
 
                 decimal dAmount = 0M;
 
                 decimal.TryParse(
-                    item.SubItems[4].Text.Trim(),
+                    item.SubItems[amtColIndex].Text.Trim(),
                     NumberStyles.Number,
                     CultureInfo.InvariantCulture,
                     out dAmount
@@ -1206,9 +1265,62 @@ namespace MIS
             cboExpenseType.SelectedIndex = 0;
             txtExpenseAmount.Text = "0.00";
             txtExpensesRemarks.Text = "";
+            chkExpensensRemarks.Checked = false;
 
             InitDate();
 
+        }
+
+        private void btnSearchFE_Click(object sender, EventArgs e)
+        {
+            frmSearchField.iSearchType = frmSearchField.SearchType.iFE;
+            frmSearchField.sHeader = "EMPLOYEE";
+            frmSearchField.isCheckBoxes = false;
+            frmSearchField frm = new frmSearchField();
+            frm.ShowDialog();
+
+            if (frmSearchField.fSelected)
+            {
+                txtFEID.Text = clsSearch.ClassParticularID.ToString();
+                txtFEName.Text = clsSearch.ClassParticularName;
+
+                clsSearch.ClassFEID = int.Parse(dbFunction.CheckAndSetNumericValue(txtFEID.Text));
+            }
+        }
+
+        private void chkExpensensRemarks_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkExpensensRemarks.Checked)
+            {
+                txtExpensesRemarks.Text = "N/A";
+            }
+            else
+            {
+                txtExpensesRemarks.Text = "";
+                txtExpensesRemarks.Focus();
+            }
+        }
+
+        private void txtLocationFrom_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    txtLocationTo.Focus();
+                    break;
+            }
+        }
+
+        private void txtLocationTo_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    txtExpenseAmount.Text = "0.00";
+                    txtExpenseAmount.SelectAll();
+                    txtExpenseAmount.Focus();
+                    break;
+            }
         }
     }
 }
