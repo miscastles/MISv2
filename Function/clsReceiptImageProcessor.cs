@@ -227,38 +227,59 @@ namespace MIS
 
         public string ExtractTransactionDate(string pOCRText)
         {
-            string[] pTransactionDateText = GetReceiptOCRText("TransactionDate");
+            if (string.IsNullOrWhiteSpace(pOCRText))
+                return "";
+
+            string[] pTransactionDateText =
+                GetReceiptOCRText("TransactionDate");
 
             string[] pOCRLines = pOCRText.Split(
                 new string[] { "\r\n", "\n", "\r" },
                 StringSplitOptions.RemoveEmptyEntries);
 
+            // ---------------------------------------------------------
+            // 1. Search using Transaction Date keywords
+            // ---------------------------------------------------------
             foreach (string pDateText in pTransactionDateText)
             {
-                string pNormalizedDateText = NormalizeOCRSearchText(pDateText);
+                string pNormalizedDateText =
+                    NormalizeOCRSearchText(pDateText);
 
                 for (int i = 0; i < pOCRLines.Length; i++)
                 {
-                    string pNormalizedLine = NormalizeOCRSearchText(pOCRLines[i]);
+                    string pNormalizedLine =
+                        NormalizeOCRSearchText(pOCRLines[i]);
 
                     if (!pNormalizedLine.Contains(pNormalizedDateText))
                         continue;
 
+                    // Current line
                     string pTextToCheck = pOCRLines[i];
 
+                    // Next line
                     if (i + 1 < pOCRLines.Length)
                     {
                         pTextToCheck += " " + pOCRLines[i + 1];
                     }
 
-                    string pTransactionDate = ExtractFirstVisibleDate(pTextToCheck);
+                    // Next 2nd line as well
+                    if (i + 2 < pOCRLines.Length)
+                    {
+                        pTextToCheck += " " + pOCRLines[i + 2];
+                    }
+
+                    string pTransactionDate =
+                        ExtractFirstVisibleDate(pTextToCheck);
 
                     if (!string.IsNullOrWhiteSpace(pTransactionDate))
                         return pTransactionDate;
                 }
             }
 
-            // Fallback: search the complete OCR text
+            // ---------------------------------------------------------
+            // 2. Fallback
+            // ---------------------------------------------------------
+            // Only use this if no date keyword was found.
             return ExtractFirstVisibleDate(pOCRText);
         }
 
@@ -266,11 +287,10 @@ namespace MIS
         {
             try
             {
-                string pConfigPath =
-                    Path.Combine(
-                        dbFile.sOCRDataPath,
-                        "receiptOCR.json"
-                    );
+                string pConfigPath = Path.Combine(
+                    dbFile.sOCRDataPath,
+                    "receiptOCR.json"
+                );
 
                 if (!File.Exists(pConfigPath))
                 {
@@ -282,20 +302,26 @@ namespace MIS
                     return new string[0];
                 }
 
-                JObject pOCRConfig =
-                    JObject.Parse(
-                        File.ReadAllText(pConfigPath)
+                JObject pOCRConfig = JObject.Parse(
+                    File.ReadAllText(pConfigPath)
+                );
+
+                JToken pToken = pOCRConfig[pPropertyName];
+
+                if (pToken == null || pToken.Type != JTokenType.Array)
+                {
+                    Debug.WriteLine(
+                        "Receipt OCR property was not found or is not an array: " +
+                        pPropertyName
                     );
 
-                JArray pSearchText =
-                    pOCRConfig[pPropertyName] as JArray;
-
-                if (pSearchText == null)
                     return new string[0];
+                }
 
-                return pSearchText
-                    .Select(pValue => pValue.ToString())
+                return pToken
+                    .Values<string>()
                     .Where(pValue => !string.IsNullOrWhiteSpace(pValue))
+                    .Select(pValue => pValue.Trim())
                     .ToArray();
             }
             catch (Exception ex)
@@ -322,8 +348,7 @@ namespace MIS
             ).Trim();
         }
 
-        private string ExtractFirstVisibleDate(
-            string pText)
+        private string ExtractFirstVisibleDate(string pText)
         {
             if (string.IsNullOrWhiteSpace(pText))
                 return clsDefines.gNull;
@@ -353,28 +378,86 @@ namespace MIS
                 @"\s+(?:\d{2}|\d{4})" +
                 @")\b";
 
-            Match pDateMatch = Regex.Match(pText, pDatePattern, RegexOptions.IgnoreCase);
+            Match pDateMatch = Regex.Match(
+                pText,
+                pDatePattern,
+                RegexOptions.IgnoreCase
+            );
 
-            return NormalizeTransactionDate(pDateMatch.Value.Trim());
+            if (!pDateMatch.Success)
+                return clsDefines.gNull;
+
+            string pDateText = pDateMatch.Value.Trim();
+
+            Debug.WriteLine(
+                "ExtractFirstVisibleDate - OCR Date: " + pDateText
+            );
+
+            string pNormalizedDate = NormalizeTransactionDate(pDateText);
+
+            Debug.WriteLine(
+                "ExtractFirstVisibleDate - Normalized Date: " + pNormalizedDate
+            );
+
+            return pNormalizedDate;
         }
 
         private string NormalizeTransactionDate(string pReceiptDate)
         {
-            if (string.IsNullOrWhiteSpace(pReceiptDate)) return clsDefines.gNull;
+            if (string.IsNullOrWhiteSpace(pReceiptDate))
+                return "0000-00-00";
 
-            string[] pDateFormats = GetReceiptOCRText("TransactionDateFormats");
+            string[] pDateFormats =
+                GetReceiptOCRText("TransactionDateFormats");
+
+            if (pDateFormats == null || pDateFormats.Length == 0)
+                return "0000-00-00";
 
             DateTime dReceiptDate;
 
             bool fDateParsed = DateTime.TryParseExact(
-                    pReceiptDate.Trim(),
-                    pDateFormats,
-                    CultureInfo.InvariantCulture,
-                    DateTimeStyles.AllowWhiteSpaces,
-                    out dReceiptDate
+                pReceiptDate.Trim(),
+                pDateFormats,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.AllowWhiteSpaces,
+                out dReceiptDate
+            );
+
+            // ---------------------------------------------------------
+            // INVALID DATE
+            // ---------------------------------------------------------
+            if (!fDateParsed)
+            {
+                Debug.WriteLine(
+                    "Invalid receipt date: [" + pReceiptDate + "]"
                 );
 
-            return dReceiptDate.ToString(clsFunction.sValueDateFormat);
+                return "0000-00-00";
+            }
+
+            // ---------------------------------------------------------
+            // VALIDATE YEAR
+            // Prevent invalid OCR/parsing results such as 3017-07-06
+            // ---------------------------------------------------------
+            if (dReceiptDate.Year < 2000 ||
+                dReceiptDate.Year > DateTime.Now.Year + 1)
+            {
+                Debug.WriteLine(
+                    "Invalid receipt date year: [" +
+                    pReceiptDate +
+                    "] -> " +
+                    dReceiptDate.ToString("yyyy-MM-dd")
+                );
+
+                return "0000-00-00";
+            }
+
+            // ---------------------------------------------------------
+            // VALID DATE
+            // ---------------------------------------------------------
+            return dReceiptDate.ToString(
+                clsFunction.sValueDateFormat
+            );
         }
     }
 }
