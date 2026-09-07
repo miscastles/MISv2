@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using MySql.Data.MySqlClient;
@@ -58,7 +58,7 @@ namespace MIS.Controller
             if (request == null) throw new ArgumentNullException("request");
 
             string values = string.Format(CultureInfo.InvariantCulture,
-                "({0},{1},{2},{3},{4},{5},{6},{7},{8})",
+                "({0},{1},{2},{3},{4},{5},{6},{7},{8},{9})",
                 request.ServiceNo,
                 request.IRIDNo,
                 request.MerchantID,
@@ -67,7 +67,8 @@ namespace MIS.Controller
                 Quote(request.ProcessedBy),
                 Quote(request.InventoryStatus),
                 Quote(request.TerminalPrepStatus),
-                Quote(request.DispatcherStatus));
+                Quote(request.DispatcherStatus),
+                Quote(request.QRResult));
 
             api.ExecuteAPI(
                 "POST",
@@ -87,7 +88,8 @@ namespace MIS.Controller
                 !response.Data[0].LastInsertID.HasValue || response.Data[0].LastInsertID.Value <= 0)
             {
                 throw new InvalidOperationException(
-                    "The MIS API responded successfully, but no QR Delivery audit record was inserted.");
+                    "The backoffice accepted the request, but the QR Delivery row was not inserted. " +
+                    "Verify that the deployed QR Delivery Detail procedure includes the QRResult column.");
             }
         }
 
@@ -182,14 +184,26 @@ namespace MIS.Controller
             public bool IsReplacement { get { return JobType == 7; } }
             public int EffectiveTerminalID { get { return IsReplacement ? ReplaceTerminalID : TerminalID; } }
             public string EffectiveTerminalSN { get { return IsReplacement ? ReplaceTerminalSN : TerminalSN; } }
-            public string EffectiveTerminalStatus { get { return IsReplacement
+            public string EffectiveTerminalStatus
+            {
+                get
+                {
+                    return IsReplacement
                 ? First(ReplaceTerminalStatus, pReplaceTerminalStatus)
-                : First(TerminalStatus, pTerminalStatus); } }
+                : First(TerminalStatus, pTerminalStatus);
+                }
+            }
             public int EffectiveSIMID { get { return IsReplacement ? ReplaceSIMID : SIMID; } }
             public string EffectiveSIMSN { get { return IsReplacement ? ReplaceSIMSN : SIMSerialNo; } }
-            public string EffectiveSimStatus { get { return IsReplacement
+            public string EffectiveSimStatus
+            {
+                get
+                {
+                    return IsReplacement
                 ? First(ReplaceSIMStatus, pReplaceSIMStatus)
-                : First(SIMStatus, pSIMStatus); } }
+                : First(SIMStatus, pSIMStatus);
+                }
+            }
             private static string First(string first, string second)
             {
                 return string.IsNullOrWhiteSpace(first) ? second : first;

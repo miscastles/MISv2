@@ -47,10 +47,10 @@ namespace MIS
             this.lblAppsName = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.lblRemainingDays = new System.Windows.Forms.Label();
-            this.imgLogo = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblEnvironment = new System.Windows.Forms.Label();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.bunifuCards11 = new Bunifu.Framework.UI.BunifuCards();
+            this.imgLogo = new Bunifu.Framework.UI.BunifuImageButton();
             this.imgBankLogo = new Bunifu.Framework.UI.BunifuImageButton();
             this.gbOther = new System.Windows.Forms.GroupBox();
             this.btnHelp = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -349,7 +349,6 @@ namespace MIS
             this.panel16 = new System.Windows.Forms.Panel();
             this.label53 = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
-            this.btnMSP = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlSubMenuSearch = new System.Windows.Forms.Panel();
             this.btnDashboardComponentsInventoryDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnDashboardSIMInventoryDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -366,14 +365,15 @@ namespace MIS
             this.panel24 = new System.Windows.Forms.Panel();
             this.label55 = new System.Windows.Forms.Label();
             this.panel25 = new System.Windows.Forms.Panel();
+            this.btnMSP = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlHeader.SuspendLayout();
             this.pnlButtonList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.pnlMenu.SuspendLayout();
             this.bunifuCards11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgBankLogo)).BeginInit();
             this.gbOther.SuspendLayout();
             this.gbManagement.SuspendLayout();
@@ -598,23 +598,6 @@ namespace MIS
             this.lblRemainingDays.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblRemainingDays.Visible = false;
             // 
-            // imgLogo
-            // 
-            this.imgLogo.BackColor = System.Drawing.Color.Transparent;
-            this.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.imgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imgLogo.ErrorImage = null;
-            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
-            this.imgLogo.ImageActive = null;
-            this.imgLogo.InitialImage = null;
-            this.imgLogo.Location = new System.Drawing.Point(0, 0);
-            this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(229, 59);
-            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imgLogo.TabIndex = 258;
-            this.imgLogo.TabStop = false;
-            this.imgLogo.Zoom = 5;
-            // 
             // lblEnvironment
             // 
             this.lblEnvironment.BackColor = System.Drawing.Color.Transparent;
@@ -659,6 +642,23 @@ namespace MIS
             this.bunifuCards11.ShadowDepth = 20;
             this.bunifuCards11.Size = new System.Drawing.Size(229, 59);
             this.bunifuCards11.TabIndex = 475;
+            // 
+            // imgLogo
+            // 
+            this.imgLogo.BackColor = System.Drawing.Color.Transparent;
+            this.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.imgLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imgLogo.ErrorImage = null;
+            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
+            this.imgLogo.ImageActive = null;
+            this.imgLogo.InitialImage = null;
+            this.imgLogo.Location = new System.Drawing.Point(0, 0);
+            this.imgLogo.Name = "imgLogo";
+            this.imgLogo.Size = new System.Drawing.Size(229, 59);
+            this.imgLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imgLogo.TabIndex = 258;
+            this.imgLogo.TabStop = false;
+            this.imgLogo.Zoom = 5;
             // 
             // imgBankLogo
             // 
@@ -3266,7 +3266,7 @@ namespace MIS
             this.pnlSubMenuServicing.Controls.Add(this.panel17);
             this.pnlSubMenuServicing.Location = new System.Drawing.Point(994, 57);
             this.pnlSubMenuServicing.Name = "pnlSubMenuServicing";
-            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 725);
+            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 718);
             this.pnlSubMenuServicing.TabIndex = 278;
             this.pnlSubMenuServicing.Visible = false;
             this.pnlSubMenuServicing.Paint += new System.Windows.Forms.PaintEventHandler(this.panel15_Paint);
@@ -3278,7 +3278,7 @@ namespace MIS
             this.btnQrDelivery.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnQrDelivery.BorderRadius = 0;
             this.btnQrDelivery.ButtonText = "          QR Delivery";
-            this.btnQrDelivery.Cursor = System.Windows.Forms.Cursors.AppStarting;
+            this.btnQrDelivery.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnQrDelivery.DisabledColor = System.Drawing.Color.Gray;
             this.btnQrDelivery.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnQrDelivery.Iconcolor = System.Drawing.Color.Transparent;
@@ -3293,7 +3293,7 @@ namespace MIS
             this.btnQrDelivery.IconVisible = true;
             this.btnQrDelivery.IconZoom = 40D;
             this.btnQrDelivery.IsTab = true;
-            this.btnQrDelivery.Location = new System.Drawing.Point(-2, 674);
+            this.btnQrDelivery.Location = new System.Drawing.Point(1, 674);
             this.btnQrDelivery.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnQrDelivery.Name = "btnQrDelivery";
             this.btnQrDelivery.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -7212,44 +7212,6 @@ namespace MIS
             this.panel19.Size = new System.Drawing.Size(259, 2);
             this.panel19.TabIndex = 0;
             // 
-            // btnMSP
-            // 
-            this.btnMSP.Activecolor = System.Drawing.Color.Black;
-            this.btnMSP.BackColor = System.Drawing.Color.Black;
-            this.btnMSP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnMSP.BorderRadius = 0;
-            this.btnMSP.ButtonText = "     MSP";
-            this.btnMSP.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMSP.DisabledColor = System.Drawing.Color.Gray;
-            this.btnMSP.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMSP.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnMSP.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnMSP.Iconimage")));
-            this.btnMSP.Iconimage_right = null;
-            this.btnMSP.Iconimage_right_Selected = null;
-            this.btnMSP.Iconimage_Selected = null;
-            this.btnMSP.IconMarginLeft = 0;
-            this.btnMSP.IconMarginRight = 0;
-            this.btnMSP.IconRightVisible = true;
-            this.btnMSP.IconRightZoom = 0D;
-            this.btnMSP.IconVisible = true;
-            this.btnMSP.IconZoom = 40D;
-            this.btnMSP.IsTab = true;
-            this.btnMSP.Location = new System.Drawing.Point(751, 472);
-            this.btnMSP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnMSP.Name = "btnMSP";
-            this.btnMSP.Normalcolor = System.Drawing.Color.Black;
-            this.btnMSP.OnHovercolor = System.Drawing.Color.Black;
-            this.btnMSP.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.btnMSP.selected = false;
-            this.btnMSP.Size = new System.Drawing.Size(200, 28);
-            this.btnMSP.TabIndex = 286;
-            this.btnMSP.Text = "     MSP";
-            this.btnMSP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMSP.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnMSP.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnMSP.Visible = false;
-            this.btnMSP.Click += new System.EventHandler(this.btnMSP_Click);
-            // 
             // pnlSubMenuSearch
             // 
             this.pnlSubMenuSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -7559,6 +7521,44 @@ namespace MIS
             this.panel25.Size = new System.Drawing.Size(369, 2);
             this.panel25.TabIndex = 0;
             // 
+            // btnMSP
+            // 
+            this.btnMSP.Activecolor = System.Drawing.Color.Black;
+            this.btnMSP.BackColor = System.Drawing.Color.Black;
+            this.btnMSP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnMSP.BorderRadius = 0;
+            this.btnMSP.ButtonText = "     MSP";
+            this.btnMSP.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMSP.DisabledColor = System.Drawing.Color.Gray;
+            this.btnMSP.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMSP.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnMSP.Iconimage = ((System.Drawing.Image)(resources.GetObject("btnMSP.Iconimage")));
+            this.btnMSP.Iconimage_right = null;
+            this.btnMSP.Iconimage_right_Selected = null;
+            this.btnMSP.Iconimage_Selected = null;
+            this.btnMSP.IconMarginLeft = 0;
+            this.btnMSP.IconMarginRight = 0;
+            this.btnMSP.IconRightVisible = true;
+            this.btnMSP.IconRightZoom = 0D;
+            this.btnMSP.IconVisible = true;
+            this.btnMSP.IconZoom = 40D;
+            this.btnMSP.IsTab = true;
+            this.btnMSP.Location = new System.Drawing.Point(751, 472);
+            this.btnMSP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnMSP.Name = "btnMSP";
+            this.btnMSP.Normalcolor = System.Drawing.Color.Black;
+            this.btnMSP.OnHovercolor = System.Drawing.Color.Black;
+            this.btnMSP.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnMSP.selected = false;
+            this.btnMSP.Size = new System.Drawing.Size(200, 28);
+            this.btnMSP.TabIndex = 286;
+            this.btnMSP.Text = "     MSP";
+            this.btnMSP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMSP.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnMSP.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnMSP.Visible = false;
+            this.btnMSP.Click += new System.EventHandler(this.btnMSP_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -7614,9 +7614,9 @@ namespace MIS
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             this.pnlMenu.ResumeLayout(false);
             this.bunifuCards11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgBankLogo)).EndInit();
             this.gbOther.ResumeLayout(false);
             this.gbManagement.ResumeLayout(false);

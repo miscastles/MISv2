@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -82,6 +82,7 @@ namespace MIS
         public string InventoryStatus { get; set; }
         public string TerminalPrepStatus { get; set; }
         public string DispatcherStatus { get; set; }
+        public string QRResult { get; set; }
         public string ProcessedBy { get; set; }
         public DateTime CreatedDate { get; set; }
     }
@@ -102,6 +103,8 @@ namespace MIS
         public string TerminalPrepStatus { get; set; }
         [JsonProperty("DispatcherStatus")]
         public string DispatcherStatus { get; set; }
+        [JsonProperty("QRResult")]
+        public string QRResult { get; set; }
         [JsonProperty("ProcessedBy")]
         public string ProcessedBy { get; set; }
         [JsonProperty("QRDate")]
@@ -261,9 +264,9 @@ namespace MIS
         public static string DispatcherStatus(string jobTypeStatusDescription)
         {
             if (string.Equals(jobTypeStatusDescription, "PROCESSING", StringComparison.OrdinalIgnoreCase))
-                return "DISPATCH";
+                return "VALID";
             if (string.Equals(jobTypeStatusDescription, "PENDING", StringComparison.OrdinalIgnoreCase))
-                return "NOT YET DISPATCH";
+                return "INVALID";
             return "INVALID";
         }
     }

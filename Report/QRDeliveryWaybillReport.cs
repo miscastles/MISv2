@@ -5,16 +5,15 @@ using MIS.Controller;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using QRCoder;
 
 namespace MIS
 {
     internal static class QRDeliveryWaybillReport
     {
+        private const string ReportPath = @"C:\CASTLESTECH_MIS\REPORTS\";
         private const string ReportFileName = "rptQRDeliveryWaybill.rpt";
 
         public static void ShowPreview(IWin32Window owner, ServicingDetailController service,
@@ -24,17 +23,16 @@ namespace MIS
             if (string.IsNullOrWhiteSpace(internalQRContent))
                 throw new ArgumentException("The internal QR content is required.", "internalQRContent");
 
-            string reportPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                "Report", ReportFileName);
+            string reportPath = ResolveReportPath();
             if (!File.Exists(reportPath))
                 throw new FileNotFoundException("The QR Delivery waybill template was not found.", reportPath);
 
             ReportDocument report = new ReportDocument();
-            string qrImagePath = null;
             try
             {
                 report.Load(reportPath);
                 IDictionary<string, object> values = CreateValues(service);
+                AddBankReportText(values);
 
                 if (report.Database.Tables.Count > 0)
                     report.SetDataSource(CreateDataSource(values));
@@ -55,51 +53,16 @@ namespace MIS
                     report.Close();
                     report.Dispose();
                 }
-                if (!string.IsNullOrWhiteSpace(qrImagePath) && File.Exists(qrImagePath))
-                    File.Delete(qrImagePath);
             }
         }
 
-        private static string CreateQrImage(string content)
+        private static string ResolveReportPath()
         {
-            string path = Path.Combine(Path.GetTempPath(),
-                "MIS_QR_DELIVERY_" + Guid.NewGuid().ToString("N") + ".bmp");
-            using (QRCodeGenerator generator = new QRCodeGenerator())
-            using (QRCodeData data = generator.CreateQrCode(content, QRCodeGenerator.ECCLevel.Q))
-            using (QRCode qrCode = new QRCode(data))
-            using (Bitmap bitmap = qrCode.GetGraphic(12))
-                bitmap.Save(path, System.Drawing.Imaging.ImageFormat.Bmp);
-            return path;
-        }
+            string deployedPath = Path.Combine(ReportPath, ReportFileName);
+            if (File.Exists(deployedPath))
+                return deployedPath;
 
-        private static void BindQrPicture(ReportDocument report, string imagePath)
-        {
-            CrystalDecisions.ReportAppServer.Controllers.ReportObjectController controller =
-                report.ReportClientDocument.ReportDefController.ReportObjectController;
-            CrystalDecisions.ReportAppServer.ReportDefModel.ReportObjects objects =
-                controller.GetAllReportObjects();
-
-            foreach (CrystalDecisions.ReportAppServer.ReportDefModel.ISCRReportObject item in objects)
-            {
-                if (!string.Equals(item.Name, "Picture5", StringComparison.OrdinalIgnoreCase))
-                    continue;
-
-                CrystalDecisions.ReportAppServer.ReportDefModel.ISCRPictureObject picture =
-                    item as CrystalDecisions.ReportAppServer.ReportDefModel.ISCRPictureObject;
-                if (picture == null) break;
-
-                CrystalDecisions.ReportAppServer.CommonObjectModel.ByteArray imageData =
-                    new CrystalDecisions.ReportAppServer.CommonObjectModel.ByteArrayClass();
-                imageData.ByteArray = File.ReadAllBytes(imagePath);
-                picture.PictureData = imageData;
-                picture.PictureType =
-                    CrystalDecisions.ReportAppServer.ReportDefModel.CrPictureTypeEnum.crPictureTypeBitmap;
-                controller.Modify(item, picture);
-                return;
-            }
-
-            throw new InvalidOperationException(
-                "The QR picture placeholder (Picture5) was not found in the waybill report.");
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Report", ReportFileName);
         }
 
         private static IDictionary<string, object> CreateValues(
@@ -122,6 +85,43 @@ namespace MIS
             Add(values, service.ServiceNo, "ServiceNo", "JobOrderNo");
             Add(values, service.IRIDNo, "IRIDNo", "IRNo");
             return values;
+        }
+
+        private static void AddBankReportText(IDictionary<string, object> values)
+        {
+            clsBank bank = GetCurrentBankSettings();
+            if (bank == null)
+                return;
+
+            AddIfConfigured(values, bank.Hotline1, "txtHotLine1");
+            AddIfConfigured(values, bank.Hotline2, "txtHotLine2");
+            AddIfConfigured(values, bank.Hotline3, "txtHotLine3");
+            AddIfConfigured(values, bank.Warranty, "txtWarranty");
+        }
+
+        private static void AddIfConfigured(IDictionary<string, object> values, string value,
+            string reportObjectName)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+                Add(values, value, reportObjectName);
+        }
+
+        private static clsBank GetCurrentBankSettings()
+        {
+            string settingsFile = Path.Combine(new clsFile().sSettingPath,
+                clsDefines.RESP_BANKLIST_FILENAME);
+            if (!File.Exists(settingsFile))
+                return null;
+
+            IList<clsBank> banks = new clsFunction().loadBankList(settingsFile);
+            foreach (clsBank bank in banks)
+            {
+                if (string.Equals(bank.Code, clsSearch.ClassBankCode,
+                    StringComparison.OrdinalIgnoreCase))
+                    return bank;
+            }
+
+            return null;
         }
 
         private static void Add(IDictionary<string, object> values, object value,
