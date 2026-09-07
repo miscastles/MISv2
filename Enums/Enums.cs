@@ -132,4 +132,11 @@ namespace MIS.Enums
         Summary = 2
     }
 
+    public enum SyncEntity
+    {
+        Expenses_Master,
+        Expenses_Detail,
+        Inventory        
+    }
+
 }

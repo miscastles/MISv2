@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>18</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -229,6 +229,9 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="Spire.XLS, Version=15.2.6.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>packages\Spire.XLS.15.3.0\lib\net40\Spire.XLS.dll</HintPath>
     </Reference>
@@ -311,6 +314,7 @@
     <Compile Include="AppActivity\AppReports.cs" />
     <Compile Include="AppActivity\ServiceActivity.cs" />
     <Compile Include="Controller\clsSNController.cs" />
+    <Compile Include="Controller\ExpensesController.cs" />
     <Compile Include="Controller\FSRDetailController.cs" />
     <Compile Include="Controller\HelpDeskController.cs" />
     <Compile Include="Controller\ImportMasterController.cs" />
@@ -318,6 +322,7 @@
     <Compile Include="Controller\MSPDetailController.cs" />
     <Compile Include="Controller\MSPMasterController.cs" />
     <Compile Include="Controller\ParticularController.cs" />
+    <Compile Include="Controller\QRDeliveryController.cs" />
     <Compile Include="Controller\ReasonController.cs" />
     <Compile Include="Controller\ReportController.cs" />
     <Compile Include="Controller\ServiceTypeController.cs" />
@@ -325,6 +330,7 @@
     <Compile Include="Controller\TerminalController.cs" />
     <Compile Include="Controller\TypeController.cs" />
     <Compile Include="Controller\UserController.cs" />
+    <Compile Include="Controller\ZoningController.cs" />
     <Compile Include="ControlObject\ucAppsInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -662,6 +668,24 @@
     <Compile Include="Form\frmDiagSIM.Designer.cs">
       <DependentUpon>frmDiagSIM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\frmServiceExpenses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmServiceExpenses.Designer.cs">
+      <DependentUpon>frmServiceExpenses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmServiceExpensesFSR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmServiceExpensesFSR.Designer.cs">
+      <DependentUpon>frmServiceExpensesFSR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmQRDelivery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmQRDelivery.Designer.cs">
+      <DependentUpon>frmQRDelivery.cs</DependentUpon>
+    </Compile>
     <Compile Include="Function\clsComboBox.cs" />
     <Compile Include="Function\clsReceiptImageProcessor.cs" />
     <Compile Include="Function\DataGridViewHelper.cs" />
@@ -974,12 +998,6 @@
     <Compile Include="Form\frmSearchField.Designer.cs">
       <DependentUpon>frmSearchField.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\frmServiceExpenses.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\frmServiceExpenses.Designer.cs">
-      <DependentUpon>frmServiceExpenses.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form\frmServiceType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1042,16 +1060,21 @@
     </Compile>
     <Compile Include="Model\clsVendor.cs" />
     <Compile Include="Model\modelDashboard.cs" />
+    <Compile Include="Model\modelExpensesDetail.cs" />
+    <Compile Include="Model\modelExpensesMaster.cs" />
     <Compile Include="Model\modelParticular.cs" />
     <Compile Include="Model\modelPrivacyDetail.cs" />
     <Compile Include="Model\modelPrivacyMaster.cs" />
     <Compile Include="Model\modelSearch.cs" />
     <Compile Include="Model\modelStock.cs" />
     <Compile Include="Model\modelZoning.cs" />
+    <Compile Include="Model\QRDeliveryBackendService.cs" />
+    <Compile Include="Model\QRDeliveryValidation.cs" />
     <Compile Include="Model\ReportInfo.cs" />
     <Compile Include="Model\SystemInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\QRDeliveryWaybillReport.cs" />
     <Compile Include="Report\rptActiveDetailTerminal.cs">
       <DependentUpon>rptActiveDetailTerminal.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1586,6 +1609,13 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Report\rptExpensesReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptExpensesReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <EmbeddedResource Include="ControlObject\ucAttachDocument.resx">
       <DependentUpon>ucAttachDocument.cs</DependentUpon>
     </EmbeddedResource>
@@ -1739,9 +1769,6 @@
     <EmbeddedResource Include="Form\frmSearchField.resx">
       <DependentUpon>frmSearchField.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\frmServiceExpenses.resx">
-      <DependentUpon>frmServiceExpenses.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\frmServicesBilling.resx">
       <DependentUpon>frmServicesBilling.cs</DependentUpon>
     </EmbeddedResource>
@@ -1882,6 +1909,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmDiagSIM.resx">
       <DependentUpon>frmDiagSIM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmServiceExpenses.resx">
+      <DependentUpon>frmServiceExpenses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmServiceExpensesFSR.resx">
+      <DependentUpon>frmServiceExpensesFSR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmQRDelivery.resx">
+      <DependentUpon>frmQRDelivery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -2270,6 +2306,11 @@
       <LastGenOutput>rptZoningList.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\rptExpensesReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptExpensesReport.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="ControlObject\dsReport.xsc">
       <DependentUpon>dsReport.xsd</DependentUpon>
     </None>
@@ -2292,6 +2333,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Report\rptQRDeliveryWaybill.rpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

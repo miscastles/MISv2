@@ -52,6 +52,8 @@ namespace MIS
 
         private modelParticular modelParticular;
 
+        private string formName = "INSTALLATION REQUEST";
+
         public class jsonObj
         {
             public object profile_info { get; set; }
@@ -661,11 +663,13 @@ namespace MIS
             InitProcessedBy();
             InitDate();
 
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
+
             btnSave.Enabled = false;
             btnValidate.Enabled = false;
             btnUpdateListRawData.Enabled = false;
 
-            InitTab();
+            //InitTab();
             InitMessageCountLimit();
             InitTextBoxLength();
             InitListView();
@@ -2148,7 +2152,7 @@ namespace MIS
             ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
             Task.Delay(delay); // Asynchronously wait without blocking UI
 
-            InitTab();
+            //InitTab();
 
             lblSelectedRow.Text = "";
 
@@ -2156,6 +2160,8 @@ namespace MIS
 
             btnUpdateRawData.Enabled = false;
             btnUpdateListRawData.Enabled = false;
+
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
         }
 
         //private void ValidateDataGrid()
@@ -2267,7 +2273,7 @@ namespace MIS
 
         private void tabTerminal_SelectedIndexChanged(object sender, EventArgs e)
         {   
-            InitTab();            
+            //InitTab();            
         }
         
         private void tabPage1_Click_1(object sender, EventArgs e)
@@ -2350,6 +2356,8 @@ namespace MIS
             chkAll.Text = "CHECK ALL";
 
             chkDeployed.Checked = false;
+
+            lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
 
         }
 

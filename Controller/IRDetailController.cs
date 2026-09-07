@@ -58,6 +58,8 @@ namespace MIS.Controller
 
         public string DateTimeStamp { get; set; }
 
+        public int ZoneID { get; set; }
+
         private IRDetailController setInitValue()
         {
             IRDetailController model = new IRDetailController();
@@ -102,6 +104,8 @@ namespace MIS.Controller
             model.AppVersion = "";
             model.AppCRC = "";
             model.DateTimeStamp = "";
+
+            model.ZoneID = 0;
 
             return model;
         }
@@ -193,7 +197,13 @@ namespace MIS.Controller
                         model.Region = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 4);
                         model.Province = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 3);
                         model.AppVersion = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 14);
-                        model.AppCRC = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 15);                        
+                        model.AppCRC = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 15);
+
+                        model.ZoneID = int.Parse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36));
+
+                        // Client
+                        model.ClientID = int.Parse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 37));
+                        model.ClientName = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 38);
                     }
                 }
                 catch (Exception ex)

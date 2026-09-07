@@ -1,4 +1,6 @@
 ﻿using CrystalDecisions.ReportAppServer.DataDefModel;
+using MIS.Function;
+using Newtonsoft.Json.Linq;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System;
@@ -8,8 +10,8 @@ using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using Tesseract;
+using System.Linq;
 using static MIS.AppData.ConstData.Api.ReceiptOCR;
-using MIS.Function;
 
 namespace MIS
 {
@@ -221,6 +223,158 @@ namespace MIS
             if (decimal.TryParse(pAmount, NumberStyles.Number, CultureInfo.InvariantCulture, out dAmount)) return dAmount;
 
             return null;
+        }
+
+        public string ExtractTransactionDate(string pOCRText)
+        {
+            string[] pTransactionDateText = GetReceiptOCRText("TransactionDate");
+
+            string[] pOCRLines = pOCRText.Split(
+                new string[] { "\r\n", "\n", "\r" },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string pDateText in pTransactionDateText)
+            {
+                string pNormalizedDateText = NormalizeOCRSearchText(pDateText);
+
+                for (int i = 0; i < pOCRLines.Length; i++)
+                {
+                    string pNormalizedLine = NormalizeOCRSearchText(pOCRLines[i]);
+
+                    if (!pNormalizedLine.Contains(pNormalizedDateText))
+                        continue;
+
+                    string pTextToCheck = pOCRLines[i];
+
+                    if (i + 1 < pOCRLines.Length)
+                    {
+                        pTextToCheck += " " + pOCRLines[i + 1];
+                    }
+
+                    string pTransactionDate = ExtractFirstVisibleDate(pTextToCheck);
+
+                    if (!string.IsNullOrWhiteSpace(pTransactionDate))
+                        return pTransactionDate;
+                }
+            }
+
+            // Fallback: search the complete OCR text
+            return ExtractFirstVisibleDate(pOCRText);
+        }
+
+        private string[] GetReceiptOCRText(string pPropertyName)
+        {
+            try
+            {
+                string pConfigPath =
+                    Path.Combine(
+                        dbFile.sOCRDataPath,
+                        "receiptOCR.json"
+                    );
+
+                if (!File.Exists(pConfigPath))
+                {
+                    Debug.WriteLine(
+                        "Receipt OCR configuration was not found: " +
+                        pConfigPath
+                    );
+
+                    return new string[0];
+                }
+
+                JObject pOCRConfig =
+                    JObject.Parse(
+                        File.ReadAllText(pConfigPath)
+                    );
+
+                JArray pSearchText =
+                    pOCRConfig[pPropertyName] as JArray;
+
+                if (pSearchText == null)
+                    return new string[0];
+
+                return pSearchText
+                    .Select(pValue => pValue.ToString())
+                    .Where(pValue => !string.IsNullOrWhiteSpace(pValue))
+                    .ToArray();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(
+                    "Unable to read receipt OCR configuration: " +
+                    ex
+                );
+
+                return new string[0];
+            }
+        }
+
+        private string NormalizeOCRSearchText(
+            string pText)
+        {
+            if (string.IsNullOrWhiteSpace(pText))
+                return clsDefines.gNull;
+
+            return Regex.Replace(
+                pText.ToUpperInvariant(),
+                @"[^A-Z0-9]+",
+                " "
+            ).Trim();
+        }
+
+        private string ExtractFirstVisibleDate(
+            string pText)
+        {
+            if (string.IsNullOrWhiteSpace(pText))
+                return clsDefines.gNull;
+
+            string pMonthText =
+                @"(?:JAN(?:UARY)?|" +
+                @"FEB(?:RUARY)?|" +
+                @"MAR(?:CH)?|" +
+                @"APR(?:IL)?|" +
+                @"MAY|" +
+                @"JUN(?:E)?|" +
+                @"JUL(?:Y)?|" +
+                @"AUG(?:UST)?|" +
+                @"SEP(?:TEMBER)?|" +
+                @"OCT(?:OBER)?|" +
+                @"NOV(?:EMBER)?|" +
+                @"DEC(?:EMBER)?)";
+
+            string pDatePattern =
+                @"\b(?:" +
+                @"(?:19|20)\d{2}[-/.]\d{1,2}[-/.]\d{1,2}|" +
+                @"\d{1,2}[-/.]\d{1,2}[-/.](?:\d{2}|\d{4})|" +
+                pMonthText +
+                @"\s+\d{1,2},?\s+(?:\d{2}|\d{4})|" +
+                @"\d{1,2}\s+" +
+                pMonthText +
+                @"\s+(?:\d{2}|\d{4})" +
+                @")\b";
+
+            Match pDateMatch = Regex.Match(pText, pDatePattern, RegexOptions.IgnoreCase);
+
+            return NormalizeTransactionDate(pDateMatch.Value.Trim());
+        }
+
+        private string NormalizeTransactionDate(string pReceiptDate)
+        {
+            if (string.IsNullOrWhiteSpace(pReceiptDate)) return clsDefines.gNull;
+
+            string[] pDateFormats = GetReceiptOCRText("TransactionDateFormats");
+
+            DateTime dReceiptDate;
+
+            bool fDateParsed = DateTime.TryParseExact(
+                    pReceiptDate.Trim(),
+                    pDateFormats,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.AllowWhiteSpaces,
+                    out dReceiptDate
+                );
+
+            return dReceiptDate.ToString(clsFunction.sValueDateFormat);
         }
     }
 }

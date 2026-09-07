@@ -5530,6 +5530,7 @@ namespace MIS
                                                 clsArray.FSRDate = FSRDateCol.ToArray();
                                             }
 
+                                            /*
                                             else if (SearchBy.Equals("Expense List"))
                                             {
                                                 foreach (var element in Detail46.data)
@@ -5542,6 +5543,7 @@ namespace MIS
                                                 clsArray.ExpensesID = ExpensesIDCol.ToArray();
                                                 clsArray.detail_info = Detail_InfoCol.ToArray();
                                             }
+                                            */
 
                                             else if (SearchBy.Equals("Application Info List") ||
                                                 SearchBy.Equals("Diagnostic Master List") ||
@@ -5594,7 +5596,8 @@ namespace MIS
                                                 SearchBy.Equals("SIM Inventory Diagnostic Detail") ||
                                                 SearchBy.Equals("Expenses Detail") ||
                                                 SearchBy.Equals("Expenses Transaction Detail") ||
-                                                SearchBy.Equals("Expense Reference List")
+                                                SearchBy.Equals("Expense Reference List") ||
+                                                SearchBy.Equals("Expense List")
                                                 )
                                             {
                                                 foreach (var element in Detail46.data)
@@ -10424,7 +10427,10 @@ namespace MIS
                     break;
                 case "All Type":
                     sTemp = clsDefines.RESP_ALLTYPE_FILENAME;
-                    break;               
+                    break;
+                case "Expense List":
+                    sTemp = clsDefines.RESP_EXPENSES_FILENAME;
+                    break;
 
             }
 
@@ -10604,6 +10610,10 @@ namespace MIS
             control.sMessage = "Creating zoning list file.";
             control.AnimateStatus();
             dbAPI.ExecuteAPI("GET", "View", "Zoning List", "", "Advance Detail", "", "ViewAdvanceDetail");
+
+            control.sMessage = "Creating expenses list file.";
+            control.AnimateStatus();
+            dbAPI.ExecuteAPI("GET", "View", "Expense List", "", "Advance Detail", "", "ViewAdvanceDetail");
 
             Cursor.Current = Cursors.Default;
 
@@ -13180,7 +13190,7 @@ namespace MIS
 
             obj.Items.Clear();
 
-            while (clsArray.ExpensesID.Length > i)
+            while (clsArray.ID.Length > i)
             {
                 if (!fSelect)
                 {
