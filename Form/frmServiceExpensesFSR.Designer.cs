@@ -98,6 +98,8 @@
             this.lvwServiceList = new System.Windows.Forms.ListView();
             this.tabPage20 = new System.Windows.Forms.TabPage();
             this.panel26 = new System.Windows.Forms.Panel();
+            this.btnReceiptClearAll = new System.Windows.Forms.Button();
+            this.label31 = new System.Windows.Forms.Label();
             this.txtTReceiptCount = new System.Windows.Forms.TextBox();
             this.pbReceiptPreview = new System.Windows.Forms.PictureBox();
             this.btnReceiptDownload = new System.Windows.Forms.Button();
@@ -167,14 +169,12 @@
             this.panel20 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.panel21 = new System.Windows.Forms.Panel();
-            this.label31 = new System.Windows.Forms.Label();
             this.panel24 = new System.Windows.Forms.Panel();
             this.panel28 = new System.Windows.Forms.Panel();
             this.txtTotalReceptAmount = new System.Windows.Forms.TextBox();
             this.panel30 = new System.Windows.Forms.Panel();
             this.label35 = new System.Windows.Forms.Label();
             this.panel31 = new System.Windows.Forms.Panel();
-            this.btnReceiptClearAll = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
@@ -223,7 +223,7 @@
             // 
             // pnlHeader
             // 
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.pnlHeader.Controls.Add(this.txtFEID);
             this.pnlHeader.Controls.Add(this.txtExpensesNo);
             this.pnlHeader.Controls.Add(this.txtZoneID);
@@ -250,6 +250,7 @@
             this.txtFEID.Size = new System.Drawing.Size(60, 20);
             this.txtFEID.TabIndex = 348;
             this.txtFEID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtFEID.Visible = false;
             // 
             // txtExpensesNo
             // 
@@ -260,6 +261,7 @@
             this.txtExpensesNo.Size = new System.Drawing.Size(60, 20);
             this.txtExpensesNo.TabIndex = 347;
             this.txtExpensesNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtExpensesNo.Visible = false;
             // 
             // txtZoneID
             // 
@@ -270,6 +272,7 @@
             this.txtZoneID.Size = new System.Drawing.Size(60, 20);
             this.txtZoneID.TabIndex = 346;
             this.txtZoneID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtZoneID.Visible = false;
             // 
             // txtMerchantID
             // 
@@ -280,6 +283,7 @@
             this.txtMerchantID.Size = new System.Drawing.Size(60, 20);
             this.txtMerchantID.TabIndex = 345;
             this.txtMerchantID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtMerchantID.Visible = false;
             // 
             // txtIRIDNo
             // 
@@ -290,6 +294,7 @@
             this.txtIRIDNo.Size = new System.Drawing.Size(60, 20);
             this.txtIRIDNo.TabIndex = 344;
             this.txtIRIDNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtIRIDNo.Visible = false;
             // 
             // txtExpensesID
             // 
@@ -300,13 +305,14 @@
             this.txtExpensesID.Size = new System.Drawing.Size(60, 20);
             this.txtExpensesID.TabIndex = 343;
             this.txtExpensesID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtExpensesID.Visible = false;
             // 
             // btnMinimize
             // 
             this.btnMinimize.BackColor = System.Drawing.Color.Transparent;
             this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
             this.btnMinimize.ImageActive = null;
-            this.btnMinimize.Location = new System.Drawing.Point(1335, 2);
+            this.btnMinimize.Location = new System.Drawing.Point(1338, 2);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(24, 21);
             this.btnMinimize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -338,6 +344,7 @@
             this.txtLineNo.Size = new System.Drawing.Size(60, 20);
             this.txtLineNo.TabIndex = 306;
             this.txtLineNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtLineNo.Visible = false;
             // 
             // bunifuImageButton1
             // 
@@ -1039,6 +1046,33 @@
             this.panel26.Name = "panel26";
             this.panel26.Size = new System.Drawing.Size(672, 375);
             this.panel26.TabIndex = 474;
+            // 
+            // btnReceiptClearAll
+            // 
+            this.btnReceiptClearAll.AutoSize = true;
+            this.btnReceiptClearAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnReceiptClearAll.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnReceiptClearAll.FlatAppearance.BorderSize = 0;
+            this.btnReceiptClearAll.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnReceiptClearAll.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReceiptClearAll.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnReceiptClearAll.Location = new System.Drawing.Point(266, 345);
+            this.btnReceiptClearAll.Name = "btnReceiptClearAll";
+            this.btnReceiptClearAll.Size = new System.Drawing.Size(80, 26);
+            this.btnReceiptClearAll.TabIndex = 482;
+            this.btnReceiptClearAll.Text = "CLEAR ALL";
+            this.btnReceiptClearAll.UseVisualStyleBackColor = false;
+            this.btnReceiptClearAll.Click += new System.EventHandler(this.btnReceiptClearAll_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(357, 349);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(42, 14);
+            this.label31.TabIndex = 481;
+            this.label31.Text = "COUNT";
             // 
             // txtTReceiptCount
             // 
@@ -1902,16 +1936,6 @@
             this.panel21.Size = new System.Drawing.Size(502, 2);
             this.panel21.TabIndex = 0;
             // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(357, 349);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(42, 14);
-            this.label31.TabIndex = 481;
-            this.label31.Text = "COUNT";
-            // 
             // panel24
             // 
             this.panel24.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -1972,23 +1996,6 @@
             this.panel31.Name = "panel31";
             this.panel31.Size = new System.Drawing.Size(502, 2);
             this.panel31.TabIndex = 0;
-            // 
-            // btnReceiptClearAll
-            // 
-            this.btnReceiptClearAll.AutoSize = true;
-            this.btnReceiptClearAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnReceiptClearAll.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnReceiptClearAll.FlatAppearance.BorderSize = 0;
-            this.btnReceiptClearAll.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnReceiptClearAll.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReceiptClearAll.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnReceiptClearAll.Location = new System.Drawing.Point(266, 345);
-            this.btnReceiptClearAll.Name = "btnReceiptClearAll";
-            this.btnReceiptClearAll.Size = new System.Drawing.Size(80, 26);
-            this.btnReceiptClearAll.TabIndex = 482;
-            this.btnReceiptClearAll.Text = "CLEAR ALL";
-            this.btnReceiptClearAll.UseVisualStyleBackColor = false;
-            this.btnReceiptClearAll.Click += new System.EventHandler(this.btnReceiptClearAll_Click);
             // 
             // frmServiceExpensesFSR
             // 

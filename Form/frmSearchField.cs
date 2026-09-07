@@ -2992,10 +2992,34 @@ namespace MIS
             {
                 foreach (ListViewItem i in lvwSearch.Items)
                 {
+                    Debug.WriteLine("========================================");
+                    Debug.WriteLine($"Checked: {i.Checked}");
+                    Debug.WriteLine($"Text: {i.Text}");
+                    Debug.WriteLine($"SubItem Count: {i.SubItems.Count}");
+
+                    for (int x = 0; x < i.SubItems.Count; x++)
+                    {
+                        Debug.WriteLine($"SubItem[{x}] = '{i.SubItems[x].Text}'");
+                    }
+
+                    Debug.WriteLine("========================================");
+
                     if (i.Checked)
                     {
-                        IDCol.Add(i.SubItems[1].Text); // ID
-                        DescriptionCol.Add(i.SubItems[2].Text); // Description
+                        switch (iSearchType)
+                        {
+                            case SearchType.iFSR:
+
+                                Debug.WriteLine($"iFSR -> ID: '{i.SubItems[1].Text}', " +$"Description: '{i.SubItems[2].Text}'");
+
+                                IDCol.Add(i.SubItems[1].Text); // ID
+                                DescriptionCol.Add(i.SubItems[10].Text); // Description
+                                break;
+                            default:
+                                IDCol.Add(i.SubItems[1].Text); // ID
+                                DescriptionCol.Add(i.SubItems[2].Text); // Description
+                                break;
+                        }                        
 
                         isValid = true;
                     }

@@ -24,9 +24,7 @@ namespace MIS
         private string inventoryStatus;
         private string terminalPrepStatus;
         private string dispatcherStatus;
-        private Bitmap generatedQrImage;
-        private readonly List<QRDeliveryHistoryItem> sessionHistory =
-            new List<QRDeliveryHistoryItem>();
+        private Bitmap generatedQrImage;        
         private bool validationInProgress;
 
         public frmQRDelivery()
@@ -111,7 +109,7 @@ namespace MIS
                     validatedQRContent = rtbQRContent.Text.Trim();
                     inventoryStatus = "INVALID";
                     terminalPrepStatus = "INVALID";
-                    dispatcherStatus = "NO JO";
+                    dispatcherStatus = "INVALID";
                     lblQRStatus.Text = "NO JO";
                     lblQRStatus.ForeColor = Color.Red;
                     btnPrintQR.Enabled = false;
@@ -175,7 +173,7 @@ namespace MIS
                 validatedQRContent = rtbQRContent.Text.Trim();
                 inventoryStatus = "INVALID";
                 terminalPrepStatus = "INVALID";
-                dispatcherStatus = "INVALID QR";
+                dispatcherStatus = "INVALID";
                 lblQRStatus.Text = "INVALID QR";
                 lblQRStatus.ForeColor = Color.Red;
                 btnPrintQR.Enabled = false;
@@ -227,7 +225,7 @@ namespace MIS
             AddStatusRow("Dispatcher Status", lookup.JobTypeStatusDescription,
                 dispatcherStatus);
             return inventoryStatus == "VALID" && terminalPrepStatus == "VALID" &&
-                   dispatcherStatus == "DISPATCH";
+                   dispatcherStatus == "VALID";
         }
 
         private static bool IsFieldMatch(QRDeliveryValidationResult validation, string fieldName)
@@ -241,7 +239,7 @@ namespace MIS
         private void AddStatusRow(string name, string sourceValue, string result)
         {
             int row = dgvValidation.Rows.Add(name, sourceValue, string.Empty, result);
-            bool valid = result == "VALID" || result == "DISPATCH";
+            bool valid = result == "VALID";
             ApplyResultCellStyle(dgvValidation.Rows[row].Cells[3], valid);
         }
 
@@ -280,40 +278,33 @@ namespace MIS
                 InventoryStatus = inventoryStatus,
                 TerminalPrepStatus = terminalPrepStatus,
                 DispatcherStatus = dispatcherStatus,
+                QRResult = lblQRStatus.Text,
                 ProcessedBy = processedBy,
                 CreatedDate = savedAt
-            });
-
-            sessionHistory.Insert(0, new QRDeliveryHistoryItem
-            {
-                ServiceNo = selectedService == null ? 0 : selectedService.ServiceNo,
-                IRIDNo = selectedService == null ? 0 : selectedService.IRIDNo,
-                MerchantID = selectedService == null ? 0 : selectedService.MerchantID,
-                InventoryStatus = inventoryStatus,
-                TerminalPrepStatus = terminalPrepStatus,
-                DispatcherStatus = dispatcherStatus,
-                ProcessedBy = processedBy,
-                QRDate = savedAt.Date,
-                DateTimeStamp = savedAt
             });
         }
 
         private void TrySaveValidationAttempt()
         {
+            // Calculate the final QR result before creating the backoffice payload.
+            if (dgvValidation.Rows.Count > 0)
+                setOverallQRStatus();
+            else
+            {
+                lblQRStatus.Text = "NOT READY TO DISPATCH";
+                lblQRStatus.ForeColor = Color.Red;
+            }
+
             try
             {
                 SaveValidationAttempt();
-                
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("The scan result was displayed, but its audit record could not be saved.\n\n" +
                     ex.Message, "QR Delivery Audit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            // SET OVERALL QR STATUS ONLY AFTER VALIDATION RESULTS EXIST
-            if (dgvValidation.Rows.Count > 0)
-                setOverallQRStatus();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)

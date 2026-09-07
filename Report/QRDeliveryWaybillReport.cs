@@ -5,18 +5,16 @@ using MIS.Controller;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using QRCoder;
 
 namespace MIS
 {
     internal static class QRDeliveryWaybillReport
     {
         private const string ReportPath = @"C:\CASTLESTECH_MIS\REPORTS\";
-        private static readonly string ReportFileName = Path.Combine(ReportPath, "rptQRDeliveryWaybill.rpt");
+        private const string ReportFileName = "rptQRDeliveryWaybill.rpt";
 
         public static void ShowPreview(IWin32Window owner, ServicingDetailController service,
             string internalQRContent)
@@ -25,17 +23,16 @@ namespace MIS
             if (string.IsNullOrWhiteSpace(internalQRContent))
                 throw new ArgumentException("The internal QR content is required.", "internalQRContent");
 
-            string reportPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                "Report", ReportFileName);
+            string reportPath = ResolveReportPath();
             if (!File.Exists(reportPath))
                 throw new FileNotFoundException("The QR Delivery waybill template was not found.", reportPath);
 
             ReportDocument report = new ReportDocument();
-            string qrImagePath = null;
             try
             {
                 report.Load(reportPath);
                 IDictionary<string, object> values = CreateValues(service);
+                AddBankReportText(values);
 
                 if (report.Database.Tables.Count > 0)
                     report.SetDataSource(CreateDataSource(values));
@@ -56,9 +53,16 @@ namespace MIS
                     report.Close();
                     report.Dispose();
                 }
-                if (!string.IsNullOrWhiteSpace(qrImagePath) && File.Exists(qrImagePath))
-                    File.Delete(qrImagePath);
             }
+        }
+
+        private static string ResolveReportPath()
+        {
+            string deployedPath = Path.Combine(ReportPath, ReportFileName);
+            if (File.Exists(deployedPath))
+                return deployedPath;
+
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Report", ReportFileName);
         }
 
         private static IDictionary<string, object> CreateValues(
@@ -81,6 +85,43 @@ namespace MIS
             Add(values, service.ServiceNo, "ServiceNo", "JobOrderNo");
             Add(values, service.IRIDNo, "IRIDNo", "IRNo");
             return values;
+        }
+
+        private static void AddBankReportText(IDictionary<string, object> values)
+        {
+            clsBank bank = GetCurrentBankSettings();
+            if (bank == null)
+                return;
+
+            AddIfConfigured(values, bank.Hotline1, "txtHotLine1");
+            AddIfConfigured(values, bank.Hotline2, "txtHotLine2");
+            AddIfConfigured(values, bank.Hotline3, "txtHotLine3");
+            AddIfConfigured(values, bank.Warranty, "txtWarranty");
+        }
+
+        private static void AddIfConfigured(IDictionary<string, object> values, string value,
+            string reportObjectName)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+                Add(values, value, reportObjectName);
+        }
+
+        private static clsBank GetCurrentBankSettings()
+        {
+            string settingsFile = Path.Combine(new clsFile().sSettingPath,
+                clsDefines.RESP_BANKLIST_FILENAME);
+            if (!File.Exists(settingsFile))
+                return null;
+
+            IList<clsBank> banks = new clsFunction().loadBankList(settingsFile);
+            foreach (clsBank bank in banks)
+            {
+                if (string.Equals(bank.Code, clsSearch.ClassBankCode,
+                    StringComparison.OrdinalIgnoreCase))
+                    return bank;
+            }
+
+            return null;
         }
 
         private static void Add(IDictionary<string, object> values, object value,

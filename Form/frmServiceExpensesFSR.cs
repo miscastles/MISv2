@@ -553,7 +553,9 @@ namespace MIS
                         Debug.WriteLine($"ID = {clsArray.ID[i]}");
 
                         string pServiceNo = $"{clsArray.ID[i]}";
-                        string pIRIDNo = $"{clsDefines.gZero}";
+                        string pIRIDNo = $"{clsArray.Description[i]}";
+
+                        Debug.WriteLine($"pServiceNo={pServiceNo}, pIRIDNo={pIRIDNo}");
 
                         addServiceToServiceList(pServiceNo, pIRIDNo);
 
@@ -689,6 +691,17 @@ namespace MIS
 
         private void addServiceToServiceList(string pServiceNo, string pIRIDNo)
         {
+            string ServiceNo = "";
+            string JobType = "";
+            string IRIDNo = "";
+            string RequestID = "";
+            string Merchant = "";
+            string TID = "";
+            string MID = "";
+            string JobTypeDescription = "";
+            string ActionMade = "";
+            string FEName = "";
+
             Cursor.Current = Cursors.WaitCursor;
 
             try
@@ -696,23 +709,18 @@ namespace MIS
                 // -------------------------------------------------------------
                 // Fill additional info
                 // -------------------------------------------------------------
-                _mServicingDetailController =
-                    _mServicingDetailController.getServicingInfo(
-                        $"{pServiceNo}{clsDefines.gPipe}{pIRIDNo}"
-                    );
+                _mServicingDetailController = _mServicingDetailController.getServicingInfo($"{pServiceNo}{clsDefines.gPipe}{pIRIDNo}");
 
-                string ServiceNo = $"{_mServicingDetailController.ServiceNo}";
-                string JobType = $"{_mServicingDetailController.JobType}";
-                string IRIDNo = $"{_mServicingDetailController.IRIDNo}";
-                string RequestID = $"{_mServicingDetailController.IRNo}";
-                string Merchant = $"{_mServicingDetailController.MerchantName}";
-                string TID = $"{_mServicingDetailController.TID}";
-                string MID = $"{_mServicingDetailController.MID}";
-                string JobTypeDescription =
-                    $"{_mServicingDetailController.ServiceJobTypeDescription}";
-                string ActionMade =
-                    $"{_mServicingDetailController.ActionMade}".Trim();
-                string FEName = $"{_mServicingDetailController.FEName}";
+                ServiceNo = $"{_mServicingDetailController.ServiceNo}";
+                JobType = $"{_mServicingDetailController.JobType}";
+                IRIDNo = $"{_mServicingDetailController.IRIDNo}";
+                RequestID = $"{_mServicingDetailController.IRNo}";
+                Merchant = $"{_mServicingDetailController.MerchantName}";
+                TID = $"{_mServicingDetailController.TID}";
+                MID = $"{_mServicingDetailController.MID}";
+                JobTypeDescription = $"{_mServicingDetailController.ServiceJobTypeDescription}";
+                ActionMade = $"{_mServicingDetailController.ActionMade}".Trim();
+                FEName = $"{_mServicingDetailController.FEName}";
 
                 // -------------------------------------------------------------
                 // Validate Action Made
@@ -728,6 +736,51 @@ namespace MIS
                         clsFunction.IconType.iWarning
                     );
 
+                    return;
+                }
+
+                // -------------------------------------------------------------
+                // Validate Field Engineer
+                // -------------------------------------------------------------
+                if (!dbFunction.isValidDescription(FEName))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Service #{ServiceNo} cannot be added.\n\n" +
+                        "Field Engineer is not assigned to this service.",
+                        "Invalid Field Engineer",
+                        clsFunction.IconType.iWarning
+                    );
+
+                    return;
+                }
+
+                if (!dbFunction.isValidDescription(txtFEName.Text))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Service #{ServiceNo} cannot be added.\n\n" +
+                        "Please enter/select the Field Engineer.",
+                        "Invalid Field Engineer",
+                        clsFunction.IconType.iWarning
+                    );
+
+                    txtFEName.Focus();
+                    return;
+                }
+
+                if (!txtFEName.Text.Trim().Equals(
+                        FEName.Trim(),
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    dbFunction.SetMessageBox(
+                        $"Service #{ServiceNo} cannot be added.\n\n" +
+                        $"Assigned Field Engineer: {FEName}\n" +
+                        $"Selected Field Engineer: {txtFEName.Text}\n\n" +
+                        "The selected Field Engineer does not match the assigned Field Engineer.",
+                        "Invalid Field Engineer",
+                        clsFunction.IconType.iWarning
+                    );
+
+                    txtFEName.Focus();
                     return;
                 }
 
@@ -750,7 +803,6 @@ namespace MIS
                         return;
                     }
                 }
-
 
                 // -------------------------------------------------------------
                 // Add Service to ListView

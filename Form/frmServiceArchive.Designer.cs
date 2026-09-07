@@ -106,6 +106,7 @@
             this.txtArchivePath = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnOpenFolderPath = new Bunifu.Framework.UI.BunifuImageButton();
+            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
@@ -484,7 +485,8 @@
             this.columnHeader13,
             this.columnHeader14,
             this.columnHeader15,
-            this.columnHeader16});
+            this.columnHeader16,
+            this.columnHeader17});
             this.lvwList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvwList.ForeColor = System.Drawing.Color.Black;
@@ -933,6 +935,11 @@
             this.btnOpenFolderPath.Zoom = 10;
             this.btnOpenFolderPath.Click += new System.EventHandler(this.btnOpenFolderPath_Click);
             // 
+            // columnHeader17
+            // 
+            this.columnHeader17.Text = "FIELD ENGINEER";
+            this.columnHeader17.Width = 120;
+            // 
             // frmServiceArchive
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1063,5 +1070,6 @@
         private System.Windows.Forms.Panel pnlSearch;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnExportExcel;
+        private System.Windows.Forms.ColumnHeader columnHeader17;
     }
 }

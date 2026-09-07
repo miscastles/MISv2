@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MIS
 {
@@ -20,6 +18,13 @@ namespace MIS
             if (string.IsNullOrWhiteSpace(request.QRContent)) throw new InvalidOperationException("QR content is required.");
             if (request.InventoryStatus != "VALID" && request.InventoryStatus != "INVALID")
                 throw new InvalidOperationException("Inventory status must be VALID or INVALID.");
+            if (request.DispatcherStatus != "VALID" && request.DispatcherStatus != "INVALID")
+                throw new InvalidOperationException(
+                    "Dispatcher status must be VALID or INVALID.");
+            if (request.QRResult != "READY TO DISPATCH" &&
+                request.QRResult != "NOT READY TO DISPATCH")
+                throw new InvalidOperationException(
+                    "QR result must be READY TO DISPATCH or NOT READY TO DISPATCH.");
             if (string.IsNullOrWhiteSpace(request.ProcessedBy)) throw new InvalidOperationException("Processed By is required.");
             if (request.CreatedDate == DateTime.MinValue) request.CreatedDate = DateTime.Now;
 
@@ -31,41 +36,5 @@ namespace MIS
             SaveValidation(request);
         }
 
-        public IList<QRDeliveryHistoryItem> GetRecentHistory(int serviceNo, int limit)
-        {
-            if (serviceNo < 0) throw new ArgumentOutOfRangeException("serviceNo");
-            if (limit <= 0 || limit > 200) throw new ArgumentOutOfRangeException("limit");
-            return store.GetRecent(serviceNo, limit);
-        }
-    }
-
-    public sealed class InMemoryQRDeliveryHistoryStore : IQRDeliveryHistoryStore
-    {
-        private readonly List<QRDeliveryHistoryItem> items = new List<QRDeliveryHistoryItem>();
-        private int nextId = 1;
-
-        public void Save(QRDeliverySaveRequest request)
-        {
-            items.Add(new QRDeliveryHistoryItem
-            {
-                QRID = nextId++,
-                ServiceNo = request.ServiceNo,
-                IRIDNo = request.IRIDNo,
-                MerchantID = request.MerchantID,
-                InventoryStatus = request.InventoryStatus,
-                TerminalPrepStatus = request.TerminalPrepStatus,
-                DispatcherStatus = request.DispatcherStatus,
-                ProcessedBy = request.ProcessedBy,
-                QRDate = request.CreatedDate.Date,
-                DateTimeStamp = request.CreatedDate
-            });
-        }
-
-        public IList<QRDeliveryHistoryItem> GetRecent(int serviceNo, int limit)
-        {
-            IEnumerable<QRDeliveryHistoryItem> query = items;
-            if (serviceNo > 0) query = query.Where(item => item.ServiceNo == serviceNo);
-            return query.OrderByDescending(item => item.DateTimeStamp).Take(limit).ToList();
-        }
     }
 }

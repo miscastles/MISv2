@@ -256,6 +256,8 @@ namespace MIS
                 item.SubItems.Add(tatStatus);
                 item.SubItems.Add(actionMade);
 
+                item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FEName));
+
                 lvwList.Items.Add(item);
 
                 i++;

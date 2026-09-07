@@ -18,6 +18,10 @@ namespace MIS
         public string mainColor { get; set; }
         public string primaryColor { get; set; }
         public string secondaryColor { get; set; }
+        public string Hotline1 { get; set; }
+        public string Hotline2 { get; set; }
+        public string Hotline3 { get; set; }
+        public string Warranty { get; set; }
 
         public override string ToString() => DisplayName;  // for ComboBox display
     }
