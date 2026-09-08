@@ -97,6 +97,18 @@ namespace MIS
         public int IRIDNo { get; set; }
         [JsonProperty("MerchantID")]
         public int MerchantID { get; set; }
+        [JsonProperty("MerchantName")]
+        public string MerchantName { get; set; }
+        [JsonProperty("TID")]
+        public string TID { get; set; }
+        [JsonProperty("MID")]
+        public string MID { get; set; }
+        [JsonProperty("TerminalSN")]
+        public string TerminalSN { get; set; }
+        [JsonProperty("SIMSN")]
+        public string SIMSN { get; set; }
+        [JsonProperty("QRContent")]
+        public string QRContent { get; set; }
         [JsonProperty("InventoryStatus")]
         public string InventoryStatus { get; set; }
         [JsonProperty("TerminalPrepStatus")]

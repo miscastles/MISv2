@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 
@@ -17,7 +18,7 @@ namespace MIS
         private const string ReportFileName = "rptQRDeliveryWaybill.rpt";
 
         public static void ShowPreview(IWin32Window owner, ServicingDetailController service,
-            string internalQRContent)
+            string internalQRContent, DateTime qrDate)
         {
             if (service == null) throw new ArgumentNullException("service");
             if (string.IsNullOrWhiteSpace(internalQRContent))
@@ -31,16 +32,14 @@ namespace MIS
             try
             {
                 report.Load(reportPath);
-                IDictionary<string, object> values = CreateValues(service);
-                AddBankReportText(values);
+                IDictionary<string, object> values = CreateValues(service, internalQRContent);
+                AddBankReportText(values, qrDate);
 
                 if (report.Database.Tables.Count > 0)
                     report.SetDataSource(CreateDataSource(values));
 
                 BindParameters(report, values);
                 BindTextObjects(report, values);
-                // The report's current QR is an approved placeholder. The senior
-                // developer will provide the data-bound QR object in the final RPT.
 
                 QRDeliveryReportPreview preview = new QRDeliveryReportPreview(report);
                 report = null; // the preview owns and disposes the report
@@ -66,7 +65,7 @@ namespace MIS
         }
 
         private static IDictionary<string, object> CreateValues(
-            ServicingDetailController service)
+            ServicingDetailController service, string internalQRContent)
         {
             Dictionary<string, object> values = new Dictionary<string, object>(
                 StringComparer.OrdinalIgnoreCase);
@@ -84,10 +83,11 @@ namespace MIS
             Add(values, service.MID, "MID", "MerchantIDNumber", "txtMID");
             Add(values, service.ServiceNo, "ServiceNo", "JobOrderNo");
             Add(values, service.IRIDNo, "IRIDNo", "IRNo");
+            Add(values, internalQRContent, "internalqrcontent");
             return values;
         }
 
-        private static void AddBankReportText(IDictionary<string, object> values)
+        private static void AddBankReportText(IDictionary<string, object> values, DateTime qrDate)
         {
             clsBank bank = GetCurrentBankSettings();
             if (bank == null)
@@ -96,7 +96,16 @@ namespace MIS
             AddIfConfigured(values, bank.Hotline1, "txtHotLine1");
             AddIfConfigured(values, bank.Hotline2, "txtHotLine2");
             AddIfConfigured(values, bank.Hotline3, "txtHotLine3");
-            AddIfConfigured(values, bank.Warranty, "txtWarranty");
+            AddIfConfigured(values, ReplaceQRDate(bank.Warranty, qrDate), "txtWarranty");
+        }
+
+        private static string ReplaceQRDate(string template, DateTime qrDate)
+        {
+            if (string.IsNullOrWhiteSpace(template))
+                return template;
+
+            return template.Replace("<QRDate>",
+                qrDate.ToString("MMM. d, yyyy", CultureInfo.InvariantCulture));
         }
 
         private static void AddIfConfigured(IDictionary<string, object> values, string value,

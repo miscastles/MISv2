@@ -5,146 +5,80 @@ using System.Windows.Forms;
 
 namespace MIS
 {
-    public sealed class frmQRDeliveryHistory : Form
+    public sealed partial class frmQRDeliveryHistory : Form
     {
-        private readonly DataGridView dgvHistory;
-        private readonly Label lblRecordCount;
+        public frmQRDeliveryHistory()
+        {
+            InitializeComponent();
+
+            // Keep behavior in the code-behind so Designer-only changes do not
+            // remove the window controls' event wiring.
+            btnMinimize.Click += btnMinimize_Click;
+            btnExit.Click += btnExit_Click;
+        }
 
         public frmQRDeliveryHistory(IList<QRDeliveryHistoryItem> items, bool sessionOnly)
+            : this()
         {
-            Text = "QR Delivery History";
-            StartPosition = FormStartPosition.CenterParent;
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            ShowInTaskbar = false;
-            ClientSize = new Size(920, 500);
-            BackColor = Color.FromArgb(247, 247, 247);
-            Font = new Font("Courier New", 9.25F);
-
-            Panel header = new Panel
-            {
-                BackColor = Color.DodgerBlue,
-                Dock = DockStyle.Top,
-                Height = 34
-            };
-            Label title = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Century Gothic", 12F, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(12, 7),
-                Text = "QR DELIVERY HISTORY"
-            };
-            header.Controls.Add(title);
-
-            Label description = new Label
-            {
-                AutoSize = true,
-                ForeColor = Color.Black,
-                Location = new Point(15, 48),
-                Text = sessionOnly
-                    ? "RECENT VALIDATION HISTORY (CURRENT SESSION)"
-                    : "RECENT VALIDATION HISTORY"
-            };
-
-            dgvHistory = new DataGridView
-            {
-                AllowUserToAddRows = false,
-                AllowUserToDeleteRows = false,
-                AllowUserToResizeRows = false,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-                BackgroundColor = Color.White,
-                BorderStyle = BorderStyle.FixedSingle,
-                ColumnHeadersHeight = 30,
-                EnableHeadersVisualStyles = false,
-                Location = new Point(15, 72),
-                MultiSelect = false,
-                ReadOnly = true,
-                RowHeadersVisible = false,
-                RowTemplate = { Height = 25 },
-                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                Size = new Size(890, 370)
-            };
-            dgvHistory.ColumnHeadersDefaultCellStyle.BackColor = Color.DodgerBlue;
-            dgvHistory.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvHistory.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Courier New", 9.25F, FontStyle.Bold);
-            dgvHistory.ColumnHeadersDefaultCellStyle.Alignment =
-                DataGridViewContentAlignment.MiddleCenter;
-            dgvHistory.DefaultCellStyle.SelectionBackColor = Color.FromArgb(205, 225, 245);
-            dgvHistory.DefaultCellStyle.SelectionForeColor = Color.Navy;
-
-            AddColumn("DateTime", "DATE / TIME", 135);
-            AddColumn("Result", "RESULT", 95);
-            AddColumn("ServiceNo", "SERVICE NO.", 80);
-            AddColumn("IRIDNo", "IR ID NO.", 75);
-            AddColumn("MerchantID", "MERCHANT ID", 80);
-            AddColumn("InventoryStatus", "INVENTORY", 85);
-            AddColumn("TerminalPrepStatus", "TERMINAL PREP", 95);
-            AddColumn("DispatcherStatus", "DISPATCHER", 105);
-            AddColumn("ProcessedBy", "PROCESSED BY", 105);
-
-            lblRecordCount = new Label
-            {
-                AutoSize = true,
-                ForeColor = Color.Navy,
-                Location = new Point(15, 458)
-            };
-
-            Button btnClose = new Button
-            {
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
-                Font = new Font("Arial Narrow", 9.25F, FontStyle.Bold),
-                Location = new Point(805, 452),
-                Size = new Size(100, 30),
-                Text = "CLOSE",
-                UseVisualStyleBackColor = true
-            };
-            btnClose.Click += delegate { Close(); };
-            AcceptButton = btnClose;
-            CancelButton = btnClose;
-
-            Controls.Add(btnClose);
-            Controls.Add(lblRecordCount);
-            Controls.Add(dgvHistory);
-            Controls.Add(description);
-            Controls.Add(header);
+            lblDescription.Text = sessionOnly
+                ? "VALIDATION HISTORY (LOCAL AUDIT COPY)"
+                : "VALIDATION HISTORY";
 
             LoadRows(items);
         }
 
-        private void AddColumn(string name, string headerText, float fillWeight)
+        private void btnClose_Click(object sender, EventArgs e)
         {
-            dgvHistory.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = name,
-                HeaderText = headerText,
-                FillWeight = fillWeight,
-                ReadOnly = true,
-                SortMode = DataGridViewColumnSortMode.Automatic
-            });
+            Close();
+        }
+
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        // Kept for the Click event assigned to the title label in the
+        // WinForms Designer. Dragging is handled by bunifuDragControl2.
+        private void lblHeader_Click(object sender, EventArgs e)
+        {
         }
 
         private void LoadRows(IList<QRDeliveryHistoryItem> items)
         {
+            dgvHistory.Rows.Clear();
+
             if (items != null)
                 foreach (QRDeliveryHistoryItem item in items)
                 {
-                    int rowIndex = dgvHistory.Rows.Add(
-                        item.DateTimeStamp.ToString("yyyy-MM-dd HH:mm:ss"),
-                        OverallResult(item),
-                        item.ServiceNo,
-                        item.IRIDNo,
-                        item.MerchantID,
-                        item.InventoryStatus,
-                        item.TerminalPrepStatus,
-                        item.DispatcherStatus,
-                        item.ProcessedBy);
-                    ColorStatusCell(dgvHistory.Rows[rowIndex].Cells[5]);
-                    ColorStatusCell(dgvHistory.Rows[rowIndex].Cells[6]);
-                    ColorStatusCell(dgvHistory.Rows[rowIndex].Cells[7]);
-                    ColorStatusCell(dgvHistory.Rows[rowIndex].Cells[1]);
+                    // Hide legacy/unusable scans that were saved without any
+                    // service, IR, or merchant reference.
+                    if (item.ServiceNo == 0 && item.IRIDNo == 0 && item.MerchantID == 0)
+                        continue;
+
+                    int rowIndex = dgvHistory.Rows.Add();
+                    DataGridViewRow row = dgvHistory.Rows[rowIndex];
+
+                    // Assign by the Designer column names so the functionality
+                    // remains correct when the visual column order is changed.
+                    row.Cells["DateTime"].Value = item.DateTimeStamp.ToString("yyyy-MM-dd HH:mm:ss");
+                    row.Cells["Result"].Value = OverallResult(item);
+                    row.Cells["ServiceNo"].Value = item.ServiceNo;
+                    row.Cells["IRIDNo"].Value = item.IRIDNo;
+                    row.Cells["MerchantID"].Value = item.MerchantID;
+                    row.Cells["InventoryStatus"].Value = item.InventoryStatus;
+                    row.Cells["TerminalPrepStatus"].Value = item.TerminalPrepStatus;
+                    row.Cells["DispatcherStatus"].Value = item.DispatcherStatus;
+                    row.Cells["ProcessedBy"].Value = item.ProcessedBy;
+
+                    ColorStatusCell(row.Cells["InventoryStatus"]);
+                    ColorStatusCell(row.Cells["TerminalPrepStatus"]);
+                    ColorStatusCell(row.Cells["DispatcherStatus"]);
+                    ColorStatusCell(row.Cells["Result"]);
                 }
 
             lblRecordCount.Text = dgvHistory.Rows.Count == 0
@@ -161,7 +95,8 @@ namespace MIS
             if (!string.Equals(item.InventoryStatus, "VALID", StringComparison.OrdinalIgnoreCase) ||
                 !string.Equals(item.TerminalPrepStatus, "VALID", StringComparison.OrdinalIgnoreCase))
                 return "MISMATCH";
-            if (!string.Equals(item.DispatcherStatus, "DISPATCH", StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(item.DispatcherStatus, "VALID", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(item.DispatcherStatus, "DISPATCH", StringComparison.OrdinalIgnoreCase))
                 return "NOT YET DISPATCH";
             return "MATCH";
         }

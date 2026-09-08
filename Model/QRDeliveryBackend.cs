@@ -52,6 +52,7 @@ namespace MIS
                 ServiceNo = request.ServiceNo,
                 IRIDNo = request.IRIDNo,
                 MerchantID = request.MerchantID,
+                QRContent = request.QRContent,
                 InventoryStatus = request.InventoryStatus,
                 TerminalPrepStatus = request.TerminalPrepStatus,
                 DispatcherStatus = request.DispatcherStatus,

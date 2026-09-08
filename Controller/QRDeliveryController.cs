@@ -95,7 +95,7 @@ namespace MIS.Controller
 
         public IList<QRDeliveryHistoryItem> GetRecent(int serviceNo, int limit)
         {
-            if (serviceNo <= 0) throw new ArgumentOutOfRangeException("serviceNo");
+            if (serviceNo < 0) throw new ArgumentOutOfRangeException("serviceNo");
             if (limit <= 0 || limit > 50) throw new ArgumentOutOfRangeException("limit");
 
             api.ExecuteAPI(

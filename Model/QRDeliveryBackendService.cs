@@ -1,5 +1,7 @@
 ﻿using System;
 
+using System.Collections.Generic;
+
 namespace MIS
 {
     public sealed class QRDeliveryBackendService
@@ -34,6 +36,13 @@ namespace MIS
         public void SaveValidated(QRDeliverySaveRequest request)
         {
             SaveValidation(request);
+        }
+
+        public IList<QRDeliveryHistoryItem> GetRecentHistory(int serviceNo, int limit)
+        {
+            if (serviceNo < 0) throw new ArgumentOutOfRangeException("serviceNo");
+            if (limit <= 0 || limit > 200) throw new ArgumentOutOfRangeException("limit");
+            return store.GetRecent(serviceNo, limit);
         }
 
     }

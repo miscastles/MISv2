@@ -692,6 +692,12 @@
     <Compile Include="Form\frmQRDelivery.Designer.cs">
       <DependentUpon>frmQRDelivery.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\frmQRDeliveryHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmQRDeliveryHistory.Designer.cs">
+      <DependentUpon>frmQRDeliveryHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Function\clsComboBox.cs" />
     <Compile Include="Function\clsReceiptImageProcessor.cs" />
     <Compile Include="Function\DataGridViewHelper.cs" />
@@ -1075,6 +1081,7 @@
     <Compile Include="Model\modelStock.cs" />
     <Compile Include="Model\modelZoning.cs" />
     <Compile Include="Model\QRDeliveryBackendService.cs" />
+    <Compile Include="Model\QRDeliveryHistoryCache.cs" />
     <Compile Include="Model\QRDeliveryValidation.cs" />
     <Compile Include="Model\ReportInfo.cs" />
     <Compile Include="Model\SystemInfo.cs" />
@@ -1925,6 +1932,9 @@
     <EmbeddedResource Include="Form\frmQRDelivery.resx">
       <DependentUpon>frmQRDelivery.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmQRDeliveryHistory.resx">
+      <DependentUpon>frmQRDeliveryHistory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -2342,9 +2352,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Report\rptQRDeliveryWaybill.rpt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
