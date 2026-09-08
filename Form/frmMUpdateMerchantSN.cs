@@ -100,7 +100,8 @@ namespace MIS
                                                         clsFunction.sZero + clsFunction.sPipe +
                                                         _mIRDetailController.TID + clsFunction.sPipe +
                                                         clsFunction.sZero + clsFunction.sPipe +
-                                                        dbFunction.GetPageLimit();
+                                                        dbFunction.GetPageLimit() + clsFunction.sPipe +
+                                                        clsFunction.sZero;
 
                     dbAPI.FillListViewAServiceDispatch(lvwHistory, "View", "Dispatch Servicing 2", clsSearch.ClassAdvanceSearchValue);
 

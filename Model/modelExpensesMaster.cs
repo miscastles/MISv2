@@ -15,6 +15,7 @@ namespace MIS.Model
         public int MerchantID { get; set; }
         public string MerchantName { get; set; }
         public DateTime ServiceDate { get; set; }
+        public DateTime ExpensesDate { get; set; }
         public int FEID { get; set; }
         public string FEName { get; set; }
         public int ClientID { get; set; }

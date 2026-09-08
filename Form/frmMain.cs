@@ -1285,6 +1285,10 @@ namespace MIS
                     if (e.Control)
                         btnQrDelivery_Click(this, e);
                     break;
+                case Keys.A: // Service Archive
+                    if (e.Control)
+                        btnServicingArchieve_Click(this, e);
+                    break;                    
 
             }
         }
@@ -3185,6 +3189,7 @@ namespace MIS
                                     "CTRL+H > Helpdesk\n" +
                                     "CTRL+E > Expenses-FSR\n" +
                                     "CTRL+Q > QR Delivery\n" +
+                                     "CTRL+A > Service Archive\n" +
                                     "ESC    > Close Window / Form";
 
         }
@@ -3355,7 +3360,7 @@ namespace MIS
             InitMenu(0, false);
             dbAPI.ResetAdvanceSearch();            
             frmServiceArchive frm = new frmServiceArchive();
-            frm.Text = "SERVICE- ARCHIVE";
+            frm.Text = "SERVICE-ARCHIVE";
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
