@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 
@@ -108,11 +109,60 @@ namespace MIS.Controller
                 "ViewAdvanceDetail");
 
             EnsureSuccess("loading QR Delivery history");
-            QRDeliveryApiResponse response =
-                JsonConvert.DeserializeObject<QRDeliveryApiResponse>(clsGlobalVariables.strJSONResponse);
-            return response == null || response.Data == null
-                ? new List<QRDeliveryHistoryItem>()
-                : response.Data;
+            List<QRDeliveryHistoryItem> items = new List<QRDeliveryHistoryItem>();
+            if (clsArray.detail_info == null)
+                return items;
+
+            foreach (string detailInfo in clsArray.detail_info.Take(limit))
+            {
+                if (string.IsNullOrWhiteSpace(detailInfo))
+                    continue;
+
+                items.Add(new QRDeliveryHistoryItem
+                {
+                    QRID = ReadInt(detailInfo, "QRID"),
+                    ServiceNo = ReadInt(detailInfo, "ServiceNo"),
+                    IRIDNo = ReadInt(detailInfo, "IRIDNo"),
+                    MerchantID = ReadInt(detailInfo, "MerchantID"),
+                    MerchantName = ReadValue(detailInfo, "MerchantName"),
+                    TID = ReadValue(detailInfo, "TID"),
+                    MID = ReadValue(detailInfo, "MID"),
+                    TerminalSN = ReadValue(detailInfo, "TerminalSN"),
+                    SIMSN = ReadValue(detailInfo, "SIMSN"),
+                    QRContent = ReadValue(detailInfo, "QRContent"),
+                    InventoryStatus = ReadValue(detailInfo, "InventoryStatus"),
+                    TerminalPrepStatus = ReadValue(detailInfo, "TerminalPrepStatus"),
+                    DispatcherStatus = ReadValue(detailInfo, "DispatcherStatus"),
+                    QRResult = ReadValue(detailInfo, "QRResult"),
+                    ProcessedBy = ReadValue(detailInfo, "ProcessedBy"),
+                    QRDate = ReadDate(detailInfo, "QRDate"),
+                    DateTimeStamp = ReadDate(detailInfo, "DateTimeStamp")
+                });
+            }
+
+            return items;
+        }
+
+        private string ReadValue(string detailInfo, string tag)
+        {
+            string value = api.GetValueFromJSONString(detailInfo, tag);
+            return string.Equals(value, clsFunction.sNull, StringComparison.OrdinalIgnoreCase)
+                ? string.Empty
+                : value;
+        }
+
+        private int ReadInt(string detailInfo, string tag)
+        {
+            int value;
+            return int.TryParse(ReadValue(detailInfo, tag), NumberStyles.Integer,
+                CultureInfo.InvariantCulture, out value) ? value : 0;
+        }
+
+        private DateTime ReadDate(string detailInfo, string tag)
+        {
+            DateTime value;
+            return DateTime.TryParse(ReadValue(detailInfo, tag), CultureInfo.InvariantCulture,
+                DateTimeStyles.AllowWhiteSpaces, out value) ? value : DateTime.MinValue;
         }
 
         private static string Quote(string value)
@@ -128,15 +178,6 @@ namespace MIS.Controller
             {
                 throw new InvalidOperationException("MIS API failed while " + operation + ".");
             }
-        }
-
-        private sealed class QRDeliveryApiResponse
-        {
-            [JsonProperty("resp_code")]
-            public string ResponseCode { get; set; }
-
-            [JsonProperty("data")]
-            public List<QRDeliveryHistoryItem> Data { get; set; }
         }
 
         private sealed class QRDeliverySaveApiResponse

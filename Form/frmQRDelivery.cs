@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using MIS.Controller;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using QRCoder;
 
 namespace MIS
@@ -208,7 +209,8 @@ namespace MIS
         {
             bool terminalInventoryValid = lookup.Expected.TerminalID > 0 &&
                 IsFieldMatch(validation, "Terminal Serial No.");
-            bool simInventoryValid = lookup.Expected.SimID > 0 &&
+            bool hasSim = lookup.Expected.SimID > 0;
+            bool simInventoryValid = !hasSim ||
                 IsFieldMatch(validation, "SIM Serial No.");
             inventoryStatus = terminalInventoryValid && simInventoryValid && validation.IsMatch
                 ? "VALID" : "INVALID";
@@ -221,9 +223,10 @@ namespace MIS
             AddStatusRow("Inventory Terminal Status",
                 lookup.Expected.TerminalID.ToString(),
                 terminalInventoryValid ? "VALID" : "INVALID");
-            AddStatusRow("Inventory SIM Status",
-                lookup.Expected.SimID.ToString(),
-                simInventoryValid ? "VALID" : "INVALID");
+            if (hasSim)
+                AddStatusRow("Inventory SIM Status",
+                    lookup.Expected.SimID.ToString(),
+                    simInventoryValid ? "VALID" : "INVALID");
             AddStatusRow("Terminal Prep Status", lookup.Expected.TerminalID.ToString(),
                 terminalPrepStatus);
             AddStatusRow("Dispatcher Status", lookup.JobTypeStatusDescription,
@@ -628,14 +631,16 @@ namespace MIS
                 !string.IsNullOrWhiteSpace(history.TID) &&
                 !string.IsNullOrWhiteSpace(history.MID))
             {
-                historyQRContent = JsonConvert.SerializeObject(new
+                JObject content = new JObject
                 {
-                    tid = history.TID,
-                    mid = history.MID,
-                    merchantName = history.MerchantName,
-                    terminalSerialNo = history.TerminalSN,
-                    simSerialNo = history.SIMSN
-                });
+                    ["tid"] = history.TID,
+                    ["mid"] = history.MID,
+                    ["merchantName"] = history.MerchantName,
+                    ["terminalSerialNo"] = history.TerminalSN
+                };
+                if (!string.IsNullOrWhiteSpace(history.SIMSN))
+                    content["simSerialNo"] = history.SIMSN;
+                historyQRContent = content.ToString(Formatting.None);
             }
 
             if (!string.IsNullOrWhiteSpace(historyQRContent))

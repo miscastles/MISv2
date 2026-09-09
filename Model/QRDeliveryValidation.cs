@@ -151,16 +151,22 @@ namespace MIS
             AddMissing(result, "Merchant Name", Value(source, "merchantName"));
             AddMissing(result, "Terminal Serial No.",
                 FirstValue(source, "terminalSN", "terminalSerialNo"));
-            AddMissing(result, "SIM Serial No.",
-                FirstValue(source, "simSN", "simSerialNo"));
 
             AddResult(result, "TID", Value(source, "tid"), expected.TID);
             AddResult(result, "MID", Value(source, "mid"), expected.MID);
             AddResult(result, "Merchant Name", Value(source, "merchantName"), expected.MerchantName);
             AddResult(result, "Terminal Serial No.",
                 FirstValue(source, "terminalSN", "terminalSerialNo"), expected.TerminalSerialNo);
-            AddResult(result, "SIM Serial No.",
-                FirstValue(source, "simSN", "simSerialNo"), expected.SimSerialNo);
+
+            // WiFi-only terminals do not have a SIM. Only require and compare the
+            // SIM serial number when MIS has a SIM record assigned to the job.
+            if (expected.SimID > 0)
+            {
+                string scannedSimSerialNo = FirstValue(source, "simSN", "simSerialNo");
+                AddMissing(result, "SIM Serial No.", scannedSimSerialNo);
+                AddResult(result, "SIM Serial No.", scannedSimSerialNo,
+                    expected.SimSerialNo);
+            }
 
             result.IsMatch = result.MissingFields.Count == 0;
             foreach (QRDeliveryFieldResult field in result.Fields)
@@ -208,10 +214,14 @@ namespace MIS
                 ["TID"] = data.TID ?? string.Empty,
                 ["MID"] = data.MID ?? string.Empty,
                 ["TerminalID"] = data.TerminalID.ToString(),
-                ["TerminalSN"] = data.TerminalSerialNo ?? string.Empty,
-                ["SIMID"] = data.SimID.ToString(),
-                ["SIMSN"] = data.SimSerialNo ?? string.Empty
+                ["TerminalSN"] = data.TerminalSerialNo ?? string.Empty
             };
+
+            if (data.SimID > 0)
+            {
+                content["SIMID"] = data.SimID.ToString();
+                content["SIMSN"] = data.SimSerialNo ?? string.Empty;
+            }
             return content.ToString(Formatting.None);
         }
 
