@@ -79,6 +79,7 @@ namespace MIS
         public int IRIDNo { get; set; }
         public int MerchantID { get; set; }
         public string QRContent { get; set; }
+        public string InternalQRContent { get; set; }
         public string InventoryStatus { get; set; }
         public string TerminalPrepStatus { get; set; }
         public string DispatcherStatus { get; set; }

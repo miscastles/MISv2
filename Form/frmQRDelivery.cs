@@ -316,6 +316,7 @@ namespace MIS
                 IRIDNo = sessionItem.IRIDNo,
                 MerchantID = sessionItem.MerchantID,
                 QRContent = validatedQRContent,
+                InternalQRContent = internalQRContent,
                 InventoryStatus = inventoryStatus,
                 TerminalPrepStatus = terminalPrepStatus,
                 DispatcherStatus = dispatcherStatus,

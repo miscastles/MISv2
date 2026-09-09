@@ -59,12 +59,13 @@ namespace MIS.Controller
             if (request == null) throw new ArgumentNullException("request");
 
             string values = string.Format(CultureInfo.InvariantCulture,
-                "({0},{1},{2},{3},{4},{5},{6},{7},{8},{9})",
+                "({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})",
                 request.ServiceNo,
                 request.IRIDNo,
                 request.MerchantID,
                 Quote(request.CreatedDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)),
                 Quote(request.QRContent),
+                Quote(request.InternalQRContent),
                 Quote(request.ProcessedBy),
                 Quote(request.InventoryStatus),
                 Quote(request.TerminalPrepStatus),
@@ -90,7 +91,8 @@ namespace MIS.Controller
             {
                 throw new InvalidOperationException(
                     "The backoffice accepted the request, but the QR Delivery row was not inserted. " +
-                    "Verify that the deployed QR Delivery Detail procedure includes the QRResult column.");
+                    "Verify that the deployed QR Delivery Detail procedure includes the " +
+                    "InternalQRContent and QRResult columns.");
             }
         }
 
