@@ -58,6 +58,8 @@ namespace MIS.Controller
                         model.ServiceNoList = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ServiceNoList);
                         model.IRNoList = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRNoList);
                         model.ReceiptList = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ReceiptList);
+                        model.ReceiptDateList = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ReceiptDateList);
+                        model.ReceiptAmountList = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ReceiptAmountList);
 
                         model.DateTimeStamp = DateTime.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_DateTimeStamp));
 
@@ -83,14 +85,13 @@ namespace MIS.Controller
             return model;
         }
 
-        public List<modelExpensesDetail> getDetailList(string pSearchBy, string pSearchValue)
+        public List<T> getDetailList<T>(string pSearchBy, string pSearchValue) where T : new()
         {
             int i = 0;
 
-            // Create an empty list to store Expenses Detail models
-            List<modelExpensesDetail> mList = new List<modelExpensesDetail>();
+            List<T> mList = new List<T>();
 
-            dbAPI.ExecuteAPI("GET","View", pSearchBy, pSearchValue, "Advance Detail", "", "ViewAdvanceDetail");
+            dbAPI.ExecuteAPI("GET", "View", pSearchBy, pSearchValue, "Advance Detail", "", "ViewAdvanceDetail");
 
             if (!dbAPI.isNoRecordFound())
             {
@@ -98,28 +99,39 @@ namespace MIS.Controller
                 {
                     string detail_info = clsArray.detail_info[i];
 
-                    modelExpensesDetail model = new modelExpensesDetail();
-
-                    switch (pSearchBy)
+                    if (pSearchBy == "Expense Reference List" &&
+                        typeof(T) == typeof(modelExpensesDetail))
                     {
-                        case "Expense Reference List":
+                        modelExpensesDetail model = new modelExpensesDetail();
 
-                            model.DetailID = int.Parse(dbAPI.GetValueFromJSONString(detail_info,clsDefines.TAG_DetailID));
-                            model.ExpensesNo = int.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesNo));
-                            model.ExpensesID = int.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesID));
-                            model.ExpensesReferenceNo = dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesReferenceNo);
+                        model.DetailID = int.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_DetailID));
+                        model.ExpensesNo = int.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesNo));
+                        model.ExpensesID = int.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesID));
+                        model.ExpensesReferenceNo = dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesReferenceNo);
 
-                            break;
+                        mList.Add((T)(object)model);
                     }
+                    else if (pSearchBy == "Expenses Transaction Master" &&
+                             typeof(T) == typeof(modelExpensesMaster))
+                    {
+                        modelExpensesMaster model = new modelExpensesMaster();
 
-                    // Add model to list
-                    mList.Add(model);
+                        model.ExpensesNo = int.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesNo));
+                        model.FEID = int.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_FEID));
+                        model.ExpensesDate = DateTime.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_ExpensesDate));
+                        model.ReferenceNo = dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_REFERENCENO);
+                        model.FEName = dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_FEName);
+                        model.TotalAmount = decimal.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_TotalAmount));
+                        model.Remarks = dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_Remarks);
+
+                        mList.Add((T)(object)model);
+                    }
 
                     i++;
                 }
             }
 
             return mList;
-        }
+        }        
     }
 }

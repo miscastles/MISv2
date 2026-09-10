@@ -5593,11 +5593,11 @@ namespace MIS
                                                 SearchBy.Equals("Terminal Inventory Diagnostic Summary") ||
                                                 SearchBy.Equals("Terminal Inventory Diagnostic Detail") ||
                                                 SearchBy.Equals("SIM Inventory Diagnostic Summary") ||
-                                                SearchBy.Equals("SIM Inventory Diagnostic Detail") ||
-                                                SearchBy.Equals("Expenses Detail") ||
+                                                SearchBy.Equals("SIM Inventory Diagnostic Detail") ||                                                
                                                 SearchBy.Equals("Expenses Transaction Detail") ||
                                                 SearchBy.Equals("Expense Reference List") ||
-                                                SearchBy.Equals("Expense List")
+                                                SearchBy.Equals("Expense List") ||
+                                                SearchBy.Equals("Expenses Transaction Master")
                                                 )
                                             {
                                                 foreach (var element in Detail46.data)

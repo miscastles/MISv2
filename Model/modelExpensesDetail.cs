@@ -24,5 +24,9 @@ namespace MIS.Model
 
         public string LocationFrom { get; set; }
         public string LocationTo { get; set; }
+
+        public int MerchantID { get; set; }
+        public string Merchant { get; set; }
+        public string ReceiptFileName { get; set; }
     }
 }

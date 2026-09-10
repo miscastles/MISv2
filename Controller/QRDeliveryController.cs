@@ -58,7 +58,7 @@ namespace MIS.Controller
             if (request == null) throw new ArgumentNullException("request");
 
             string values = string.Format(CultureInfo.InvariantCulture,
-                "({0},{1},{2},{3},{4},{5},{6},{7},{8})",
+                "({0},{1},{2},{3},{4},{5},{6},{7},{8},{9})",
                 request.ServiceNo,
                 request.IRIDNo,
                 request.MerchantID,
@@ -67,7 +67,8 @@ namespace MIS.Controller
                 Quote(request.ProcessedBy),
                 Quote(request.InventoryStatus),
                 Quote(request.TerminalPrepStatus),
-                Quote(request.DispatcherStatus));
+                Quote(request.DispatcherStatus),
+                Quote(request.QRResult));
 
             api.ExecuteAPI(
                 "POST",
@@ -87,13 +88,14 @@ namespace MIS.Controller
                 !response.Data[0].LastInsertID.HasValue || response.Data[0].LastInsertID.Value <= 0)
             {
                 throw new InvalidOperationException(
-                    "The MIS API responded successfully, but no QR Delivery audit record was inserted.");
+                    "The backoffice accepted the request, but the QR Delivery row was not inserted. " +
+                    "Verify that the deployed QR Delivery Detail procedure includes the QRResult column.");
             }
         }
 
         public IList<QRDeliveryHistoryItem> GetRecent(int serviceNo, int limit)
         {
-            if (serviceNo < 0) throw new ArgumentOutOfRangeException("serviceNo");
+            if (serviceNo <= 0) throw new ArgumentOutOfRangeException("serviceNo");
             if (limit <= 0 || limit > 50) throw new ArgumentOutOfRangeException("limit");
 
             api.ExecuteAPI(

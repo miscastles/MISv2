@@ -1,16 +1,18 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.EMMA;
+using MIS.Controller;
+using MIS.Enums;
+using MIS.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using MIS.Controller;
 using static MIS.Function.AppUtilities;
-using MIS.Enums;
 
 namespace MIS
 {
@@ -40,6 +42,7 @@ namespace MIS
         private MSPMasterController _mMSPMasterController;
         private TypeController _mTypeController;
         private HelpDeskController _mHelpDeskController;
+        private ExpensesController _mExpensesController;
 
         public frmSearchField()
         {
@@ -52,6 +55,7 @@ namespace MIS
             _mMSPMasterController = new MSPMasterController();
             _mTypeController = new TypeController();
             _mHelpDeskController = new HelpDeskController();
+            _mExpensesController = new ExpensesController();
         }
 
         public enum SearchType
@@ -82,7 +86,8 @@ namespace MIS
             iProblem,
             iHelpDeskProblem,
             iZoning,
-            iExpense
+            iExpense,
+            iExpensesMaster            
         }
 
         private void lvwSearch_SelectedIndexChanged(object sender, EventArgs e)
@@ -322,6 +327,10 @@ namespace MIS
                             clsSearch.ClassIRIDNo = int.Parse(lvwSearch.SelectedItems[0].SubItems[5].Text);
                             clsSearch.ClassFSRNo = int.Parse(lvwSearch.SelectedItems[0].SubItems[6].Text);
                             break;
+                        case SearchType.iExpensesMaster:
+                            clsSearch.ClassExpensesNo = int.Parse(lvwSearch.SelectedItems[0].SubItems[1].Text);
+                            clsSearch.ClassFEID = int.Parse(lvwSearch.SelectedItems[0].SubItems[2].Text);
+                            break;
 
                     }                             
                 }
@@ -380,6 +389,7 @@ namespace MIS
             clsSearch.ClassServiceStatus =
             clsSearch.ClassIsReleased =
             clsSearch.ClassZoneID =
+            clsSearch.ClassExpensesNo =
             clsFunction.iZero;
 
             // Clear
@@ -392,6 +402,8 @@ namespace MIS
             clsFunction.sDash;
 
             // 
+            clsArray.ID = Array.Empty<string>();
+            clsArray.Description = Array.Empty<string>();
 
             //txtSearch.Focus();
 
@@ -418,7 +430,7 @@ namespace MIS
             int lineno = 0;
             List<MSPMasterController> mListMSPMaster = null;
             List<TypeController> mListType = null;
-            List<HelpDeskController> mListHelpDesk = null;
+            List<HelpDeskController> mListHelpDesk = null;            
 
             Debug.WriteLine("--LoadListView--");
             Debug.WriteLine("iType="+ iType);
@@ -805,6 +817,32 @@ namespace MIS
                     dbAPI.FillListViewExpenseReference(lvwSearch, clsSearch.ClassAdvanceSearchValue);
                     break;
 
+                case SearchType.iExpensesMaster:
+
+                    List<modelExpensesMaster> detailList = _mExpensesController.getDetailList<modelExpensesMaster>("Expenses Transaction Master", dbFunction.CheckAndSetStringValue(txtSearch.Text));
+                    
+                    if (detailList != null)
+                    {
+                        foreach (modelExpensesMaster _mDetail in detailList)
+                        {
+                            lineno++;
+                            ListViewItem item = new ListViewItem(lineno.ToString());
+                            item.SubItems.Add(_mDetail.ExpensesNo.ToString());
+                            item.SubItems.Add(_mDetail.FEID.ToString());
+                            item.SubItems.Add(_mDetail.ExpensesDate.ToString("MM-dd-yyyy"));
+                            item.SubItems.Add(_mDetail.ReferenceNo.ToString());
+                            item.SubItems.Add(_mDetail.FEName.ToString());
+                            item.SubItems.Add(_mDetail.TotalAmount.ToString("0.00"));
+                            item.SubItems.Add(_mDetail.Remarks.ToString());
+
+                            lvwSearch.Items.Add(item);
+                        }
+
+                        dbFunction.ListViewAlternateBackColor(lvwSearch);
+                    }                    
+
+                    break;
+
             }
             
             lblSearchStatus.Text = lvwSearch.Items.Count.ToString() + " " + "record(s) found.";
@@ -1017,6 +1055,16 @@ namespace MIS
                                    "> Merchant: " + dbFunction.GetSearchValue("Merchant") + "\n" +
                                    "> Expense Type: " + dbFunction.GetSearchValue("Type") + "\n" +
                                    "> Amount: " + dbFunction.GetSearchValue("Amount");
+
+                        isConfrim = true;
+                        break;
+                    case SearchType.iExpensesMaster:
+                        pMessage = "Are you sure to select the following expenses details below:?\n" +
+                                   clsFunction.sLineSeparator + "\n" +
+                                   "> Expenses No.: " + dbFunction.GetSearchValue("ExpensesNo") + "\n" +
+                                   "> Expenses Date: " + dbFunction.GetSearchValue("Expenses Date") + "\n" +
+                                   "> Reference No.: " + dbFunction.GetSearchValue("Reference No") + "\n" +                                   
+                                   "> Field Engineer: " + dbFunction.GetSearchValue("Field Engineer");
 
                         isConfrim = true;
                         break;
@@ -2633,6 +2681,43 @@ namespace MIS
 
                     break;
 
+                case SearchType.iExpensesMaster:
+                    lvwSearch.View = View.Details;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "LINE#", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "ExpensesNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "FEID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "ExpensesDate", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "ReferenceNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "FieldEngineer", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Amount", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "Remarks", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    break;
+
             }            
         }
 
@@ -2749,6 +2834,9 @@ namespace MIS
                 case SearchType.iExpense:
                     lblSearchString.Text = lblSearchString.Text + " EXPENSE REFERENCE NO. / SERVICE NO. / MERCHANT / TID / MID";
                     break;
+                case SearchType.iExpensesMaster:
+                    lblSearchString.Text = lblSearchString.Text + "EXPENSES NO. / REFERENCE NO. / NAME";
+                    break;
                 default:
                     lblSearchString.Text = lblSearchString.Text + " " + "DETAIL";
                     break;
@@ -2773,120 +2861,6 @@ namespace MIS
 
             txtPage.Text = iCurrentPage.ToString() + " / " + iTotalPage.ToString();
         }
-
-        //private int GetTotalPage(SearchType iType)
-        //{
-        //    Debug.WriteLine("--GetTotalPage--");
-        //    Debug.WriteLine("iType="+ iType);
-
-        //    int iCount = 0;
-        //    int totalPage = 0;
-        //    int iLimitSize = dbFunction.GetPageLimit();
-
-        //    Debug.WriteLine("iLimitSize=" + iLimitSize);
-
-        //    iCount = 0;
-        //    switch (iType)
-        //    {
-        //        case SearchType.iTerminal:
-        //            clsSearch.ClassHoldAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
-        //                                                iStatus.ToString() + clsFunction.sPipe +
-        //                                                sTerminalType;
-
-        //            dbAPI.GetViewCount("Search", "TerminalSN List", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-
-        //        case SearchType.iSIM:
-        //            clsSearch.ClassHoldAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
-        //                                                iStatus.ToString();
-
-        //            dbAPI.GetViewCount("Search", "SIMSN List", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //        case SearchType.iClient:
-        //            clsSearch.ClassHoldAdvanceSearchValue = clsGlobalVariables.iClient_Type.ToString() + clsFunction.sPipe +
-        //                                                dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
-        //                                                clsFunction.sZero;
-
-        //            dbAPI.GetViewCount("Search", "Particular List", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //        case SearchType.iMerchant:
-        //            clsSearch.ClassHoldAdvanceSearchValue = clsGlobalVariables.iMerchant_Type.ToString() + clsFunction.sPipe +
-        //                                                dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
-        //                                                clsFunction.sZero;
-
-        //            dbAPI.GetViewCount("Search", "Particular List", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //        case SearchType.iFE:
-        //            clsSearch.ClassHoldAdvanceSearchValue = clsGlobalVariables.iFE_Type.ToString() + clsFunction.sPipe +
-        //                                                dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
-        //                                                clsFunction.sZero;
-
-        //            dbAPI.GetViewCount("Search", "Particular List", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //        case SearchType.iSP:
-        //            clsSearch.ClassHoldAdvanceSearchValue = clsGlobalVariables.iSP_Type.ToString() + clsFunction.sPipe +
-        //                                                dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
-        //                                                clsFunction.sZero;
-
-        //            dbAPI.GetViewCount("Search", "Particular List", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //        case SearchType.iRegion:
-        //            clsSearch.ClassHoldAdvanceSearchValue = clsSearch.ClassAdvanceSearchValue = clsFunction.sZero + clsFunction.sPipe +
-        //                                                clsFunction.sZero + clsFunction.sPipe +
-        //                                                dbFunction.CheckAndSetNumericValue(txtSearch.Text);
-
-        //            dbAPI.GetViewCount("Search", "Region List", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //        case SearchType.iProvince:
-        //            clsSearch.ClassHoldAdvanceSearchValue = clsFunction.sZero + clsFunction.sPipe +
-        //                                                clsFunction.sZero + clsFunction.sPipe +
-        //                                                dbFunction.CheckAndSetNumericValue(txtSearch.Text);
-
-        //            dbAPI.GetViewCount("Search", "Province List", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //        case SearchType.iTerminalType:
-        //            clsSearch.ClassHoldAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
-        //                                                iStatus.ToString() + clsFunction.sPipe +
-        //                                                sTerminalType;
-
-        //            dbAPI.GetViewCount("Search", "Terminal Type", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //        case SearchType.iTerminalModel:
-        //            clsSearch.ClassHoldAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
-        //                                                iStatus.ToString() + clsFunction.sPipe +
-        //                                                sTerminalType;
-
-        //            dbAPI.GetViewCount("Search", "Terminal Model", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //        case SearchType.iTerminalBrand:
-        //            clsSearch.ClassHoldAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe +
-        //                                                iStatus.ToString() + clsFunction.sPipe +
-        //                                                sTerminalType;
-
-        //            dbAPI.GetViewCount("Search", "Terminal Brand", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //        case SearchType.iIR:
-        //            clsSearch.ClassHoldAdvanceSearchValue = clsGlobalVariables.STATUS_ALLOCATED_DESC + clsFunction.sPipe +
-        //                                                    clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC;
-
-        //            dbAPI.GetViewCount("Search", "IR Allocated List", clsSearch.ClassHoldAdvanceSearchValue, "Get Count");
-        //            break;
-        //    }
-            
-        //    if (dbAPI.isNoRecordFound() == false)
-        //        iCount = clsTerminal.ClassTerminalCount;
-
-        //    if (iCount > 0)
-        //    {
-        //        totalPage = (int)Math.Ceiling((double)iCount / iLimitSize);
-        //    }
-        //    else
-        //    {
-        //        totalPage = 0;
-        //    }
-
-        //    return totalPage;
-        //}
 
         private void ProcessPage(SearchType iType)
         {
@@ -2984,6 +2958,7 @@ namespace MIS
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            Debug.WriteLine("--Search Field Form - OK--");
             bool isValid = false;
             List<string> IDCol = new List<String>();
             List<string> DescriptionCol = new List<String>();
@@ -3010,7 +2985,7 @@ namespace MIS
                         {
                             case SearchType.iFSR:
 
-                                Debug.WriteLine($"iFSR -> ID: '{i.SubItems[1].Text}', " +$"Description: '{i.SubItems[2].Text}'");
+                                Debug.WriteLine($"iFSR -> ID: '{i.SubItems[1].Text}', " +$"Description: '{i.SubItems[10].Text}'");
 
                                 IDCol.Add(i.SubItems[1].Text); // ID
                                 DescriptionCol.Add(i.SubItems[10].Text); // Description

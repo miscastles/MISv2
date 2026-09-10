@@ -1,6 +1,9 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace MIS.Function
@@ -97,6 +100,58 @@ namespace MIS.Function
 
             grid.ResumeLayout();
             grid.Refresh();
+        }
+
+        public static DataTable ReadExcelToDataTable(FileInfo file, string sheetName)
+        {
+            DataTable tbContainer = new DataTable();
+
+            using (var package = new ExcelPackage(file))
+            {
+                var worksheet =
+                    package.Workbook.Worksheets[sheetName];
+
+                if (worksheet == null)
+                    throw new Exception(
+                        $"Sheet '{sheetName}' not found.");
+
+                if (worksheet.Dimension == null)
+                    return tbContainer;
+
+                int colCount = worksheet.Dimension.End.Column;
+                int rowCount = worksheet.Dimension.End.Row;
+
+                // Add columns
+                for (int col = 1; col <= colCount; col++)
+                {
+                    string columnName =
+                        worksheet.Cells[1, col].Text;
+
+                    if (string.IsNullOrWhiteSpace(columnName))
+                        columnName = "Column" + col;
+
+                    if (tbContainer.Columns.Contains(columnName))
+                        columnName += "_" + col;
+
+                    tbContainer.Columns.Add(columnName);
+                }
+
+                // Add rows
+                for (int row = 2; row <= rowCount; row++)
+                {
+                    DataRow dr = tbContainer.NewRow();
+
+                    for (int col = 1; col <= colCount; col++)
+                    {
+                        dr[col - 1] =
+                            worksheet.Cells[row, col].Text;
+                    }
+
+                    tbContainer.Rows.Add(dr);
+                }
+            }
+
+            return tbContainer;
         }
     }
 }

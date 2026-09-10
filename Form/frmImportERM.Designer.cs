@@ -318,7 +318,7 @@
             this.txtFileName.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.txtFileName.Location = new System.Drawing.Point(67, 55);
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(1094, 20);
+            this.txtFileName.Size = new System.Drawing.Size(1096, 20);
             this.txtFileName.TabIndex = 104;
             // 
             // label1
