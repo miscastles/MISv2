@@ -44,8 +44,8 @@ namespace MIS
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnPrintQR = new System.Windows.Forms.Button();
+            this.btnHistory = new System.Windows.Forms.Button();
             this.grpService = new System.Windows.Forms.GroupBox();
-            this.btnSearchMerchant = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblServiceNo = new System.Windows.Forms.Label();
             this.txtServiceNo = new System.Windows.Forms.TextBox();
             this.lblServiceDetails = new System.Windows.Forms.Label();
@@ -67,18 +67,19 @@ namespace MIS
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblAction = new System.Windows.Forms.Label();
+            this.btnSearchService = new Bunifu.Framework.UI.BunifuImageButton();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.pnlToolbar.SuspendLayout();
             this.grpService.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSearchMerchant)).BeginInit();
             this.grpScan.SuspendLayout();
             this.grpResult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvValidation)).BeginInit();
             this.pnlStatus.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchService)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -153,6 +154,7 @@ namespace MIS
             this.pnlToolbar.Controls.Add(this.btnSave);
             this.pnlToolbar.Controls.Add(this.btnClear);
             this.pnlToolbar.Controls.Add(this.btnPrintQR);
+            this.pnlToolbar.Controls.Add(this.btnHistory);
             this.pnlToolbar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlToolbar.Location = new System.Drawing.Point(0, 632);
             this.pnlToolbar.Name = "pnlToolbar";
@@ -222,10 +224,27 @@ namespace MIS
             this.btnPrintQR.TabIndex = 398;
             this.btnPrintQR.Text = "PRINT QR";
             this.btnPrintQR.UseVisualStyleBackColor = false;
+            this.btnPrintQR.Click += new System.EventHandler(this.btnPrintQR_Click);
+            // 
+            // btnHistory
+            // 
+            this.btnHistory.AutoSize = true;
+            this.btnHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnHistory.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnHistory.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnHistory.Font = new System.Drawing.Font("Arial Narrow", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnHistory.Location = new System.Drawing.Point(461, 11);
+            this.btnHistory.Name = "btnHistory";
+            this.btnHistory.Size = new System.Drawing.Size(81, 27);
+            this.btnHistory.TabIndex = 399;
+            this.btnHistory.Text = "HISTORY";
+            this.btnHistory.UseVisualStyleBackColor = false;
+            this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
             // 
             // grpService
             // 
-            this.grpService.Controls.Add(this.btnSearchMerchant);
+            this.grpService.Controls.Add(this.btnSearchService);
             this.grpService.Controls.Add(this.lblServiceNo);
             this.grpService.Controls.Add(this.txtServiceNo);
             this.grpService.Controls.Add(this.lblServiceDetails);
@@ -237,20 +256,6 @@ namespace MIS
             this.grpService.TabStop = false;
             this.grpService.Tag = "SERVICE INFORMATION";
             this.grpService.Paint += new System.Windows.Forms.PaintEventHandler(this.sectionGroup_Paint);
-            // 
-            // btnSearchMerchant
-            // 
-            this.btnSearchMerchant.BackColor = System.Drawing.Color.Transparent;
-            this.btnSearchMerchant.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchMerchant.Image")));
-            this.btnSearchMerchant.ImageActive = null;
-            this.btnSearchMerchant.Location = new System.Drawing.Point(351, 40);
-            this.btnSearchMerchant.Name = "btnSearchMerchant";
-            this.btnSearchMerchant.Size = new System.Drawing.Size(24, 25);
-            this.btnSearchMerchant.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnSearchMerchant.TabIndex = 163;
-            this.btnSearchMerchant.TabStop = false;
-            this.btnSearchMerchant.Zoom = 10;
-            this.btnSearchMerchant.Click += new System.EventHandler(this.btnSearchMerchant_Click);
             // 
             // lblServiceNo
             // 
@@ -466,6 +471,20 @@ namespace MIS
             this.lblAction.Text = "NEXT SCAN";
             this.lblAction.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnSearchService
+            // 
+            this.btnSearchService.BackColor = System.Drawing.Color.Transparent;
+            this.btnSearchService.Enabled = false;
+            this.btnSearchService.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchService.Image")));
+            this.btnSearchService.ImageActive = null;
+            this.btnSearchService.Location = new System.Drawing.Point(354, 40);
+            this.btnSearchService.Name = "btnSearchService";
+            this.btnSearchService.Size = new System.Drawing.Size(24, 25);
+            this.btnSearchService.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchService.TabIndex = 390;
+            this.btnSearchService.TabStop = false;
+            this.btnSearchService.Zoom = 10;
+            // 
             // frmQRDelivery
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
@@ -492,13 +511,13 @@ namespace MIS
             this.pnlToolbar.PerformLayout();
             this.grpService.ResumeLayout(false);
             this.grpService.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSearchMerchant)).EndInit();
             this.grpScan.ResumeLayout(false);
             this.grpScan.PerformLayout();
             this.grpResult.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvValidation)).EndInit();
             this.pnlStatus.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnSearchService)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -517,11 +536,12 @@ namespace MIS
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnPrintQR;
-        private Bunifu.Framework.UI.BunifuImageButton btnSearchMerchant;
+        private System.Windows.Forms.Button btnHistory;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblAction;
+        private Bunifu.Framework.UI.BunifuImageButton btnSearchService;
     }
 }

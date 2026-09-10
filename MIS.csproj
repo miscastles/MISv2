@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>21</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -469,6 +469,12 @@
     </Compile>
     <Compile Include="Form\frmPendingFailedService.Designer.cs">
       <DependentUpon>frmPendingFailedService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmQRDeliveryHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmQRDeliveryHistory.Designer.cs">
+      <DependentUpon>frmQRDeliveryHistory.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\frmServicesBilling.cs">
       <SubType>Form</SubType>
@@ -1062,6 +1068,7 @@
     <Compile Include="Model\modelDashboard.cs" />
     <Compile Include="Model\modelExpensesDetail.cs" />
     <Compile Include="Model\modelExpensesMaster.cs" />
+    <Compile Include="Model\modelExpensesReceipt.cs" />
     <Compile Include="Model\modelParticular.cs" />
     <Compile Include="Model\modelPrivacyDetail.cs" />
     <Compile Include="Model\modelPrivacyMaster.cs" />
@@ -1069,6 +1076,7 @@
     <Compile Include="Model\modelStock.cs" />
     <Compile Include="Model\modelZoning.cs" />
     <Compile Include="Model\QRDeliveryBackendService.cs" />
+    <Compile Include="Model\QRDeliveryHistoryCache.cs" />
     <Compile Include="Model\QRDeliveryValidation.cs" />
     <Compile Include="Model\ReportInfo.cs" />
     <Compile Include="Model\SystemInfo.cs" />
@@ -1616,6 +1624,13 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Report\rptExpensesReceipt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptExpensesReceipt.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <EmbeddedResource Include="ControlObject\ucAttachDocument.resx">
       <DependentUpon>ucAttachDocument.cs</DependentUpon>
     </EmbeddedResource>
@@ -1723,6 +1738,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmPRSendInvoice.resx">
       <DependentUpon>frmPRSendInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmQRDeliveryHistory.resx">
+      <DependentUpon>frmQRDeliveryHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmRegionDetail.resx">
       <DependentUpon>frmRegionDetail.cs</DependentUpon>
@@ -2309,6 +2327,11 @@
     <EmbeddedResource Include="Report\rptExpensesReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptExpensesReport.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\rptExpensesReceipt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptExpensesReceipt.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="ControlObject\dsReport.xsc">

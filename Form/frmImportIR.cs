@@ -4668,10 +4668,10 @@ namespace MIS
 
             fAutoLoadData = true;
 
-            clsSearch.ClassParticularID = int.Parse(txtMerchantID.Text);
-            clsSearch.ClassParticularName = txtMerchantName.Text;
-            clsSearch.ClassIRIDNo = int.Parse(txtIRIDNo.Text);
-            clsSearch.ClassClientID = int.Parse(txtClientID.Text);
+            modelSearch.ParticularID = int.Parse(txtMerchantID.Text);
+            modelSearch.ParticularName = txtMerchantName.Text;
+            modelSearch.IRIDNo = int.Parse(txtIRIDNo.Text);
+            modelSearch.ClientID = int.Parse(txtClientID.Text);
 
             btnMerchantSearch_Click(this, e);
 

@@ -4,6 +4,7 @@ using MIS.Controller;
 using MIS.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,9 +15,13 @@ using System.Drawing.Printing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Services.Description;
 using System.Windows.Forms;
+using System.Globalization;
 using static MIS.AppData.ConstData.Api;
 using static MIS.Function.AppUtilities;
 
@@ -83,6 +88,7 @@ namespace MIS
             dbAPI = new clsAPI();
             dbFunction = new clsFunction();
             dbReceiptImageProcessor = new clsReceiptImageProcessor();
+            dbFile = new clsFile();
 
             lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"{formName}");
 
@@ -94,9 +100,6 @@ namespace MIS
 
             fEdit = false;
             InitButton();
-
-            btnSearchService.Enabled = false;
-            dbFunction.SetButtonIconImage(btnSearchService);
 
             btnSearchExpensesReferenceNo.Enabled = true;
             dbFunction.SetButtonIconImage(btnSearchExpensesReferenceNo);
@@ -111,6 +114,8 @@ namespace MIS
             initServiceListView(lvwServiceList);
             initReceiptListView(lvwReceiptList);
 
+            initReportButton(false);
+
             Cursor.Current = Cursors.Default;
         }
 
@@ -120,7 +125,7 @@ namespace MIS
         }
 
         private void InitDate()
-        {   
+        {
             dtExpenseDate.Value = DateTime.Now.Date;
             dbFunction.SetDateFormat(dtExpenseDate, clsFunction.sStandardDateDefault);
 
@@ -128,19 +133,19 @@ namespace MIS
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            dbAPI.GenerateID(true, txtExpenseReferenceNo, txtExpensesNo, "Expenses-FSR", clsDefines.CONTROLID_PREFIX_EXPENSES);            
+            dbAPI.GenerateID(true, txtExpenseReferenceNo, txtExpensesNo, "Expenses-FSR", clsDefines.CONTROLID_PREFIX_EXPENSES);
 
             lblHeader.Text = dbFunction.getSystemEnvironmentLabel($"CREATE {formName}");
 
-            fEdit = false;            
+            fEdit = false;
             btnNew.Enabled = false;
             btnSave.Enabled = true;
 
-            btnSearchService.Enabled = true;
-            dbFunction.SetButtonIconImage(btnSearchService);
-
             btnSearchExpensesReferenceNo.Enabled = false;
             dbFunction.SetButtonIconImage(btnSearchExpensesReferenceNo);
+
+            btnSearchFieldEngineer.Enabled = true;
+            dbFunction.SetButtonIconImage(btnSearchFieldEngineer);
 
             btnSearchServiceNos.Enabled = false;
             dbFunction.SetButtonIconImage(btnSearchServiceNos);
@@ -172,13 +177,13 @@ namespace MIS
                 var master = new
                 {
                     ServiceDate = dbFunction.getCurrentDate(),
-                    ExpensesDate = dbFunction.getCurrentDate(),                    
+                    ExpensesDate = dbFunction.getCurrentDate(),
                     ReferenceNo = txtExpenseReferenceNo.Text,
-                    ServiceNo = dbFunction.CheckAndSetNumericValue(txtServiceNo.Text),
-                    IRIDNo = dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text),
-                    MerchantID = int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)),
-                    ClientID = int.Parse(dbFunction.CheckAndSetNumericValue(txtClientID.Text)),
-                    Location = txtMerchantCity.Text,
+                    ServiceNo = 0,
+                    IRIDNo = 0,
+                    MerchantID = 0,
+                    ClientID = 0,
+                    Location = "",
                     TotalAmount = decimal.Parse(txtTotalExpenses.Text),
                     CreatedBy = txtCreatedBy.Text,
                     CreatedDate = dbFunction.getCurrentDateTime(),
@@ -186,8 +191,11 @@ namespace MIS
                     UpdatedDate = dbFunction.getCurrentDateTime(),
                     ServiceNoList = txtServiceNoList.Text,
                     IRIDNoList = txtIRIDNoList.Text,
+                    MerchantIDList = txtMerchantIDList.Text,
                     IRNoList = txtIRNoList.Text,
                     ReceiptList = txtReceiptList.Text,
+                    ReceiptDateList = txtReceiptDateList.Text,
+                    ReceiptAmountList = txtReceiptAmountList.Text,
                     FEID = int.Parse(dbFunction.CheckAndSetNumericValue(txtFEID.Text)),
                     Remarks = txtRemarks.Text
                 };
@@ -215,33 +223,37 @@ namespace MIS
                     string pExpensesLocationTo = item.SubItems[5].Text;
                     string pExpensesAmount = item.SubItems[6].Text;
                     string pExpensesRemarks = item.SubItems[7].Text;
+                    string pMerchantName = item.SubItems[8].Text;
+                    string pReceiptFileName = item.SubItems[9].Text;
 
                     var detail = new
                     {
                         ExpensesNo = dbFunction.CheckAndSetNumericValue(txtExpensesNo.Text),
                         ExpensesID = int.Parse(pExpensesID),
-                        ServiceNo = dbFunction.CheckAndSetNumericValue(txtServiceNo.Text),
-                        IRIDNo = dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text),
+                        ServiceNo = 0,
+                        IRIDNo = 0,
                         ExpensesReferenceNo = txtExpenseReferenceNo.Text,
                         ExpensesDate = pExpensesDate,
                         Amount = decimal.Parse(pExpensesAmount),
                         Remarks = pExpensesRemarks,
                         LocationFrom = pExpensesLocatonFrom,
-                        LocationTo = pExpensesLocationTo
+                        LocationTo = pExpensesLocationTo,
+                        MerchantName = pMerchantName,
+                        ReceiptFileName = pReceiptFileName
                     };
-                    
+
                     sSQL = IFormat.Insert(detail);
 
                     sRowSQL += sSQL + ",";
-                    
+
                     Debug.WriteLine("--ExpensesTransDetail--");
                     dbFunction.parseDelimitedString(sSQL, clsDefines.gComma, 0);
 
                 }
 
                 // Remove extra comma at the end                
-                if (sRowSQL.EndsWith(","))                
-                    sRowSQL = sRowSQL.Substring(0, sRowSQL.Length - 1);                
+                if (sRowSQL.EndsWith(","))
+                    sRowSQL = sRowSQL.Substring(0, sRowSQL.Length - 1);
 
                 Debug.WriteLine("--ExpensesTransDetail--");
                 Debug.WriteLine($"sRowSQL={sRowSQL}");
@@ -256,7 +268,7 @@ namespace MIS
                 // -------------------------------------------------
                 pSearchBy = "Expenses Trans Master";
                 pSearchValue = $"{pSearchBy}{clsDefines.gPipe}{txtExpensesNo.Text}{clsDefines.gPipe}{dbFunction.generateSyncID(master, Enums.SyncEntity.Expenses_Master)}";
-                
+
                 Debug.WriteLine("--Update SyncID ExpensesTransMaster--");
                 dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 
@@ -265,13 +277,13 @@ namespace MIS
                 // -------------------------------------------------
                 // update syncID -> Expenses Trans Detail
                 // -------------------------------------------------               
-                List<modelExpensesDetail> detailList = _mExpensesController.getDetailList("Expense Reference List", txtExpenseReferenceNo.Text);
+                List<modelExpensesDetail> detailList = _mExpensesController.getDetailList<modelExpensesDetail>("Expense Reference List", txtExpenseReferenceNo.Text);
                 if (detailList != null)
                 {
                     foreach (modelExpensesDetail _mDetail in detailList)
                     {
                         Debug.WriteLine($"DetailID = {_mDetail.DetailID}");
-                        Debug.WriteLine($"ExpensesID = {_mDetail.ExpensesID}");                        
+                        Debug.WriteLine($"ExpensesID = {_mDetail.ExpensesID}");
 
                         pSearchBy = "Expenses Trans Detail";
                         pSearchValue = $"{pSearchBy}{clsDefines.gPipe}{_mDetail.DetailID}{clsDefines.gPipe}{dbFunction.generateSyncID(_mDetail, Enums.SyncEntity.Expenses_Detail)}";
@@ -289,10 +301,11 @@ namespace MIS
                 uploadReceiptFTP(txtExpenseReferenceNo.Text);
 
                 // Display messagebox completiion
-                if (!fEdit)
-                    dbFunction.SetMessageBox("Expenses successfully saved.", clsDefines.CONFIRMATION_MSG, clsFunction.IconType.iInformation);
-                else
+                if (fEdit)                    
                     dbFunction.SetMessageBox("Expenses successfully updated.", clsDefines.CONFIRMATION_MSG, clsFunction.IconType.iInformation);
+                else
+                    dbFunction.SetMessageBox("Expenses successfully saved.", clsDefines.CONFIRMATION_MSG, clsFunction.IconType.iInformation);
+
 
                 btnClear_Click(this, e);
 
@@ -322,9 +335,6 @@ namespace MIS
             fEdit = false;
             InitButton();
 
-            btnSearchService.Enabled = false;
-            dbFunction.SetButtonIconImage(btnSearchService);
-
             btnSearchExpensesReferenceNo.Enabled = true;
             dbFunction.SetButtonIconImage(btnSearchExpensesReferenceNo);
 
@@ -338,13 +348,16 @@ namespace MIS
 
             pbReceiptPreview.Image = null;
 
+            initReportButton(false);
+
         }
 
         private void btnSearchExpensesReferenceNo_Click(object sender, EventArgs e)
         {
-            frmSearchField.iSearchType = frmSearchField.SearchType.iExpense;
+            frmSearchField.iSearchType = frmSearchField.SearchType.iExpensesMaster;
             frmSearchField.sHeader = "EXPENSE REFERENCE";
             frmSearchField.isPreview = false;
+            frmSearchField.isCheckBoxes = false;
             frmSearchField frm = new frmSearchField();
             frm.ShowDialog();
 
@@ -352,77 +365,116 @@ namespace MIS
             {
                 try
                 {
-                    dbFunction.ClearTextBox(this);                    
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    dbFunction.ClearTextBox(this);
                     dbFunction.ClearListViewItems(lvwExpenseList);
                     dbFunction.ClearListViewItems(lvwServiceList);
                     dbFunction.ClearListViewItems(lvwReceiptList);
 
-                    txtServiceNo.Text = $"{clsSearch.ClassServiceNo}";
-                    txtIRIDNo.Text = $"{clsSearch.ClassIRIDNo}";
-                    txtMerchantID.Text = $"{clsSearch.ClassMerchantID}";
-                    txtExpenseReferenceNo.Text = $"{clsSearch.ClassExpenseReferenceNo}";
+                    // search expenses master info
+                    modelExpensesMaster model = _mExpensesController.geMastertInfo(clsSearch.ClassExpensesNo);
 
-                    FillMerchantTextBox();
-                    getZoningInfo();
+                    if (model != null)
+                    {
+                        clsSearch.ClassServiceNo = model.ServiceNo;
+                        clsSearch.ClassIRIDNo = model.IRIDNo;
+                        clsSearch.ClassMerchantID = model.MerchantID;
+                        clsSearch.ClassExpenseReferenceNo = model.ReferenceNo;
+                        clsSearch.ClassFEID = model.FEID;
+                        clsSearch.ClassFEName = model.FEName;
 
-                    getExpensesMasterInfo();
-                    FillExpenseList();
+                        txtExpensesNo.Text = $"{clsSearch.ClassExpensesNo}";                        ;
+                        txtExpenseReferenceNo.Text = $"{clsSearch.ClassExpenseReferenceNo}";
+                        txtFEID.Text = $"{clsSearch.ClassFEID}";
+                        txtFEName.Text = $"{clsSearch.ClassFEName}";
 
-                    fEdit = true;
-                    InitButton();
+                        getExpensesMasterInfo();
+                        FillExpenseList();
+
+                        // ----------------------------------------------------------------
+                        // Fill Service
+                        // ----------------------------------------------------------------
+                        dbFunction.ClearListViewItems(lvwServiceList);
+                        
+                        List<string> pServiceList = dbFunction.ParseCSVtoArray(model.ServiceNoList);
+
+                        foreach (string serviceNo in pServiceList)
+                        {
+                            string pServiceNo = serviceNo.Trim();
+                            string pIRIDNo = $"{clsDefines.gZero}";
+
+                            addServiceToServiceList(pServiceNo, pIRIDNo);
+                        }
+                        // ----------------------------------------------------------------
+                        // Fill Service
+                        // ----------------------------------------------------------------
+
+                        // ----------------------------------------------------------------
+                        // Fill Receipt
+                        // ----------------------------------------------------------------
+                        dbFunction.ClearListViewItems(lvwReceiptList);
+                        
+                        List<string> pReceiptList = dbFunction.ParseCSVtoArray(model.ReceiptList);                        
+                        List<string> pReceiptDateList = dbFunction.ParseCSVtoArray(model.ReceiptDateList);                        
+                        List<string> pReceiptAmountList = dbFunction.ParseCSVtoArray(model.ReceiptAmountList);
+
+                        for (int i = 0; i < pReceiptList.Count; i++)
+                        {
+                            string pFileName = pReceiptList[i].Trim();
+                            string pDate = pReceiptDateList[i].Trim();
+                            string pAmount = pReceiptAmountList[i].Trim();
+
+                            modelExpensesReceipt expensesReceipt = new modelExpensesReceipt();
+
+                            expensesReceipt.ExpensesFileName = pFileName;
+                            expensesReceipt.ExpensesDate = pDate;
+
+                            decimal pAmountValue = 0;
+
+                            decimal.TryParse(pReceiptAmountList[i].Trim(),out pAmountValue);
+
+                            expensesReceipt.ExpensesAmount = pAmountValue;
+
+                            addReceiptToReceiptList(expensesReceipt);
+                        }
+                        // ----------------------------------------------------------------
+                        // Fill Receipt
+                        // ----------------------------------------------------------------
+
+                        txtRemarks.Text = model.Remarks;
+
+                        txtTServiceCount.Text = $"{lvwServiceList.Items.Count}";
+                        
+                        txtTotalReceptAmount.Text = $"{ComputeTotalAmount(lvwReceiptList, 2)}";
+
+                        txtTotalExpenses.Text = $"{ComputeTotalAmount(lvwExpenseList, 6)}";
+
+                        dbFunction.RefreshCountListView(txtTReceiptCount, lvwReceiptList);
+
+                        displayList();
+
+                        fEdit = true;
+
+                        InitButton();
+
+                        initReportButton(true);
+
+                        btnSave.Enabled = false; // to be remove
+
+                        Cursor.Current = Cursors.Default;
+                    }
+
                 }
                 catch (Exception ex)
                 {
-                        dbFunction.SetMessageBox(
-                        "An error occurred while loading the expense information.\n\n" +
-                        "Error: " + ex.Message,
-                        "Loading failed",
-                        clsFunction.IconType.iError
-                    );
-                }                
-            }
-        }
-
-        private void btnSearchService_Click(object sender, EventArgs e)
-        {
-            frmSearchField.iSearchType = frmSearchField.SearchType.iMerchant;
-            frmSearchField.sHeader = "MERCHANT";
-            frmSearchField.isPreview = false;
-            frmSearchField frm = new frmSearchField();
-            frm.ShowDialog();
-
-            if (frmSearchField.fSelected)
-            {
-                btnClear_Click(this, e);
-
-                txtIRIDNo.Text = $"{clsSearch.ClassIRIDNo}";
-                txtMerchantID.Text = $"{clsSearch.ClassParticularID}";
-                txtClientID.Text = $"{clsSearch.ClassClientID}";
-
-                fEdit = false;
-                btnNew.Enabled = false;
-                btnSave.Enabled = true;
-
-                btnSearchService.Enabled = true;
-                dbFunction.SetButtonIconImage(btnSearchService);
-
-                btnSearchExpensesReferenceNo.Enabled = false;
-                dbFunction.SetButtonIconImage(btnSearchExpensesReferenceNo);
-
-                btnSearchServiceNos.Enabled = true;
-                dbFunction.SetButtonIconImage(btnSearchServiceNos);
-
-                btnSearchFieldEngineer.Enabled = true;
-                dbFunction.SetButtonIconImage(btnSearchFieldEngineer);
-
-                dbAPI.GenerateID(true, txtExpenseReferenceNo, txtExpensesNo, "Expenses-FSR", clsDefines.CONTROLID_PREFIX_EXPENSES);
-
-                txtCreatedBy.Text = txtUpdatedBy.Text = clsSearch.ClassCurrentParticularName;
-                txtCreatedDate.Text = txtUpdatedDate.Text = dbFunction.getCurrentDateTime();
-
-                FillMerchantTextBox();
-
-                getZoningInfo();
+                    dbFunction.SetMessageBox(
+                    "An error occurred while loading the expense information.\n\n" +
+                    "Error: " + ex.Message,
+                    "Loading failed",
+                    clsFunction.IconType.iError
+                );
+                }
             }
         }
 
@@ -440,51 +492,11 @@ namespace MIS
             }
         }
 
-        private void FillMerchantTextBox()
-        {
-            if (dbFunction.isValidID(txtIRIDNo.Text) && dbFunction.isValidID(txtMerchantID.Text))
-            {
-                _mIRDetailController = _mIRDetailController.getMerchantInfo($"{txtMerchantID.Text}{clsDefines.gPipe}{txtIRIDNo.Text}");
-
-                if (_mIRDetailController != null)
-                {
-                    txtClientID.Text = $"{_mIRDetailController.ClientID}";
-                    txtClientName.Text = _mIRDetailController.ClientName;
-                    txtMerchant.Text = _mIRDetailController.MerchantName;
-                    txtTID.Text = _mIRDetailController.TID;
-                    txtMID.Text = _mIRDetailController.MID;
-                    txtMerchantAddress.Text = _mIRDetailController.Address;
-                    txtMerchantCity.Text = txtLocationTo.Text = _mIRDetailController.Province;
-                    txtMerchantRegion.Text = _mIRDetailController.Region;
-                    txtZoneID.Text = $"{_mIRDetailController.ZoneID}";
-                }
-
-            }
-        }
-
-        private void getZoningInfo()
-        {
-            txtZZone.Text = txtZZone.Text = txtZRegion.Text = clsDefines.gNull;
-
-            if (dbFunction.isValidID(txtZoneID.Text))
-            {
-                modelZoning model = _mZoningController.getInfo(int.Parse(txtZoneID.Text));
-
-                if (model != null)
-                {
-                    txtZZone.Text = model.Zone;
-                    txtZRegion.Text = model.Region;
-                }                
-            }
-        }
-
         private void getExpensesMasterInfo()
         {
-            txtExpensesID.Text = "1";
-
-            if (dbFunction.isValidID(txtExpensesID.Text))
+            if (dbFunction.isValidID(txtExpensesNo.Text))
             {
-                modelExpensesMaster model = _mExpensesController.geMastertInfo(int.Parse(txtExpensesID.Text));
+                modelExpensesMaster model = _mExpensesController.geMastertInfo(int.Parse(txtExpensesNo.Text));
 
                 if (model != null)
                 {
@@ -495,7 +507,7 @@ namespace MIS
                     txtUpdatedBy.Text = $"{model.UpdatedDate}";
                     txtExpenseAmount.Text = $"{model.TotalAmount}";
 
-                    txtServiceNoList.Text = $"{model.ServiceNoList}";                    
+                    txtServiceNoList.Text = $"{model.ServiceNoList}";
                     txtIRNoList.Text = $"{model.IRNoList}";
                 }
             }
@@ -529,13 +541,13 @@ namespace MIS
                     clsSearch.ClassJobTypeDescription = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 6);
 
                 }
-            }            
+            }
             // -------------------------------------------------------------
             // -------------------------------------------------------------
 
             frmSearchField.iSearchType = frmSearchField.SearchType.iFSR;
             frmSearchField.sHeader = "SEARCH COMPLETED SERVICE";
-            frmSearchField.sSearchChar = dbFunction.CheckAndSetStringValue(txtTID.Text);
+            //frmSearchField.sSearchChar = dbFunction.CheckAndSetStringValue(txtFEName.Text);
             frmSearchField.isCheckBoxes = true;
 
             frmSearchField frm = new frmSearchField();
@@ -543,7 +555,7 @@ namespace MIS
 
             if (frmSearchField.fSelected)
             {
-                lblTServiceNos.Text = $"{clsDefines.gZero}";
+                txtTServiceCount.Text = $"{clsDefines.gZero}";
 
                 if (clsArray.ID.Length > 0)
                 {
@@ -553,7 +565,7 @@ namespace MIS
                         Debug.WriteLine($"ID = {clsArray.ID[i]}");
 
                         string pServiceNo = $"{clsArray.ID[i]}";
-                        string pIRIDNo = $"{clsArray.Description[i]}";
+                        string pIRIDNo = $"{clsDefines.gZero}";
 
                         Debug.WriteLine($"pServiceNo={pServiceNo}, pIRIDNo={pIRIDNo}");
 
@@ -563,14 +575,7 @@ namespace MIS
                     }
                 }
 
-                if (!frmSearchField.isCheckBoxes)
-                {
-                    txtServiceNo.Text = $"{clsSearch.ClassServiceNo}";
-                    txtIRIDNo.Text = $"{clsSearch.ClassIRIDNo}";
-                    txtFEID.Text = $"{clsSearch.ClassFEID}";
-                }
-
-                lblTServiceNos.Text = $"{clsArray.ID.Length}";
+                txtTServiceCount.Text = $"{clsArray.ID.Length}";
 
                 displayList();
             }
@@ -613,7 +618,13 @@ namespace MIS
             lvw.Columns.Add(outTitle, outWidth, outAlign);
 
             dbFunction.GetListViewHeaderColumnFromFile("", "ExpensesRemarks", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
-            lvw.Columns.Add(outTitle, outWidth, outAlign);            
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Merchant", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "Receipt", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
 
         }
 
@@ -639,6 +650,9 @@ namespace MIS
             lvw.Columns.Add(outTitle, outWidth, outAlign);
 
             dbFunction.GetListViewHeaderColumnFromFile("", "IRIDNo", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
+
+            dbFunction.GetListViewHeaderColumnFromFile("", "MerchantID", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
             lvw.Columns.Add(outTitle, outWidth, outAlign);
 
             dbFunction.GetListViewHeaderColumnFromFile("", "Service Type", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
@@ -686,7 +700,7 @@ namespace MIS
             lvw.Columns.Add(outTitle, outWidth, outAlign);
 
             dbFunction.GetListViewHeaderColumnFromFile("", "ReceiptDate", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
-            lvw.Columns.Add(outTitle, outWidth, outAlign);            
+            lvw.Columns.Add(outTitle, outWidth, outAlign);
         }
 
         private void addServiceToServiceList(string pServiceNo, string pIRIDNo)
@@ -701,6 +715,7 @@ namespace MIS
             string JobTypeDescription = "";
             string ActionMade = "";
             string FEName = "";
+            string MerchantID = "";
 
             Cursor.Current = Cursors.WaitCursor;
 
@@ -721,6 +736,7 @@ namespace MIS
                 JobTypeDescription = $"{_mServicingDetailController.ServiceJobTypeDescription}";
                 ActionMade = $"{_mServicingDetailController.ActionMade}".Trim();
                 FEName = $"{_mServicingDetailController.FEName}";
+                MerchantID = $"{_mServicingDetailController.MerchantID}";
 
                 // -------------------------------------------------------------
                 // Validate Action Made
@@ -814,12 +830,13 @@ namespace MIS
 
                 lvi.SubItems.Add(ServiceNo);
                 lvi.SubItems.Add(IRIDNo);
+                lvi.SubItems.Add(MerchantID);
                 lvi.SubItems.Add(JobTypeDescription);
                 lvi.SubItems.Add(RequestID);
                 lvi.SubItems.Add(Merchant);
                 lvi.SubItems.Add(TID);
                 lvi.SubItems.Add(MID);
-                lvi.SubItems.Add(FEName);
+                lvi.SubItems.Add(FEName);                
 
                 lvwServiceList.Items.Add(lvi);
             }
@@ -833,12 +850,16 @@ namespace MIS
         {
             string pServiceNos = getSelectedListView(lvwServiceList, 1);
             string pIRIDNos = getSelectedListView(lvwServiceList, 2);
-            string pIRNos = getSelectedListView(lvwServiceList, 4);
+            string pMerchantIDs = getSelectedListView(lvwServiceList, 3);
+            string pIRNos = getSelectedListView(lvwServiceList, 5);
             string pReceipts = getSelectedListView(lvwReceiptList, 1);
+            string pReceiptsAmount = getSelectedListView(lvwReceiptList, 2);
+            string pReceiptsDate = getSelectedListView(lvwReceiptList, 3);            
 
             txtServiceNoList.Text = pServiceNos;
             txtIRIDNoList.Text = pIRIDNos;
             txtIRNoList.Text = pIRNos;
+            txtMerchantIDList.Text = pMerchantIDs;
 
             // for receipt
             if (dbFunction.isValidCount(lvwReceiptList.Items.Count))
@@ -852,11 +873,7 @@ namespace MIS
                     string pExtension = Path.GetExtension(pImageSource).ToLowerInvariant();
                     string pExpenseDate = dtExpenseDate.Value.ToString("yyyyMMdd");
 
-                    string pFileName =
-                        txtExpenseReferenceNo.Text + "_" +
-                        pExpenseDate + "_" +
-                        index.ToString("00") +
-                        pExtension;
+                    string pFileName = txtExpenseReferenceNo.Text + "_" + pExpenseDate + "_" + index.ToString("00") + pExtension;
 
                     pReceiptList.Add(pFileName);
 
@@ -864,10 +881,18 @@ namespace MIS
                 }
 
                 txtReceiptList.Text = string.Join(",", pReceiptList);
+                txtReceiptDateList.Text = pReceiptsDate;
+                txtReceiptAmountList.Text = pReceiptsAmount;
             }
             else
             {
                 txtReceiptList.Clear();
+            }
+
+            cboMerchant.Items.Clear();            
+            if (dbFunction.isValidCount(lvwServiceList.Items.Count))
+            {
+                fillMerchant();
             }
         }
 
@@ -896,7 +921,7 @@ namespace MIS
             lvwExpenseList.Items.Clear();
             txtTotalExpenses.Text = "0.00";
 
-            dbAPI.ExecuteAPI("GET", "View", "Expenses Transaction Detail", txtServiceNo.Text + clsDefines.gPipe + txtIRIDNo.Text, "Advance Detail", "", "ViewAdvanceDetail");
+            dbAPI.ExecuteAPI("GET", "View", "Expenses Transaction Detail", dbFunction.CheckAndSetNumericValue(txtExpensesNo.Text), "Advance Detail", "", "ViewAdvanceDetail");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
@@ -909,11 +934,16 @@ namespace MIS
                 iLineNo++;
 
                 string pExpenseID = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesID");
-                string pExpenseReferenceNo =dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesReferenceNo");
+                
                 string pExpenseType = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpenseType");
+                string pExpenseDate = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesDate");
+                string pLocationFrom = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "LocationFrom");
+                string pLocationTo = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "LocationTo");
                 string pAmount = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesAmount");
                 string pRemarks = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesDescription");
-                string pExpenseDate = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesDate");
+                string pExpenseReferenceNo = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ExpensesReferenceNo");
+                string pMerchantName = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "MerchantName");
+                string pReceiptFileName = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], "ReceiptFileName");
 
                 decimal dExpenseAmount;
 
@@ -922,14 +952,17 @@ namespace MIS
                     dExpenseAmount = 0;
                 }
 
-                ListViewItem item = new ListViewItem(pExpenseID);
+                ListViewItem item = new ListViewItem(iLineNo.ToString());
 
-                item.SubItems.Add(iLineNo.ToString());
-                item.SubItems.Add(pExpenseReferenceNo);
+                item.SubItems.Add(pExpenseID);
                 item.SubItems.Add(pExpenseType);
-                item.SubItems.Add(dExpenseAmount.ToString());
-                item.SubItems.Add(pRemarks);
                 item.SubItems.Add(pExpenseDate);
+                item.SubItems.Add(pLocationFrom);
+                item.SubItems.Add(pLocationTo);
+                item.SubItems.Add(dExpenseAmount.ToString());
+                item.SubItems.Add(pRemarks);                
+                item.SubItems.Add(pMerchantName);
+                item.SubItems.Add(pReceiptFileName);
 
                 item.Tag = clsArray.detail_info[i];
 
@@ -938,28 +971,20 @@ namespace MIS
                 i++;
             }
 
-            dbFunction.ListViewAlternateBackColor(lvwExpenseList);
-
             txtTotalExpenses.Text = $"{ComputeTotalAmount(lvwExpenseList, 6)}";
         }
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            if (!dbFunction.isValidID(txtServiceNo.Text))
+            if (!dbFunction.fPromptConfirmation("Are you sure want to preview expenses report?"))
             {
-                dbFunction.SetMessageBox(
-                    "Please select a valid service first.",
-                    "Generate expense report",
-                    clsFunction.IconType.iWarning
-                );
-
                 return;
             }
 
-            if (clsSearch.ClassMerchantID <= 0)
+            if (!dbFunction.isValidID(txtExpensesNo.Text))
             {
                 dbFunction.SetMessageBox(
-                    "The selected service has no valid merchant.",
+                    "Please select a valid service first.",
                     "Generate expense report",
                     clsFunction.IconType.iWarning
                 );
@@ -975,7 +1000,7 @@ namespace MIS
             clsSearch.ClassStatementType = "View";
             clsSearch.ClassSearchBy = "Expenses-Report";
 
-            clsSearch.ClassSearchValue = dbFunction.CheckAndSetNumericValue(txtServiceNo.Text) +
+            clsSearch.ClassSearchValue = dbFunction.CheckAndSetNumericValue(txtExpensesNo.Text) +
                 clsDefines.gPipe +
                 dbFunction.CheckAndSetNumericValue(clsSearch.ClassMerchantID.ToString());
 
@@ -986,17 +1011,22 @@ namespace MIS
 
         private void cboExpenseType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtLocationFrom.Text = "";            
-            txtLocationFrom.Focus();            
+            txtLocationFrom.Text = txtLocationTo.Text = "";
+
+            if (dbFunction.isValidCount(lvwServiceList.Items.Count))
+            {
+                cboMerchant.SelectedIndex = 0;
+                cboMerchant.Focus();
+            }            
         }
 
         private void cboSearchServiceType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnAddExpense_Click(object sender, EventArgs e)
-        {   
+        {
             if (!dbFunction.isValidDescriptionEntry(cboExpenseType.Text, "Expenses Type" + clsDefines.MUST_NOT_BLANK_MESSAGE))
             {
                 cboExpenseType.Focus();
@@ -1006,6 +1036,12 @@ namespace MIS
             if (!dbFunction.isValidDescriptionEntry(txtExpensesRemarks.Text, "Expenses Remarks" + clsDefines.MUST_NOT_BLANK_MESSAGE))
             {
                 txtExpensesRemarks.Focus();
+                return;
+            }
+
+            if (!dbFunction.isValidDescriptionEntry(cboMerchant.Text, "Merchant" + clsDefines.MUST_NOT_BLANK_MESSAGE))
+            {
+                cboMerchant.Focus();
                 return;
             }
 
@@ -1031,6 +1067,9 @@ namespace MIS
             model.LocationFrom = txtLocationFrom.Text;
             model.LocationTo = txtLocationTo.Text;
 
+            model.Merchant = cboMerchant.Text;
+            model.ReceiptFileName = txtReceiptFileName.Text;
+
             addExpensesToExpensesList(model);
 
             txtTotalExpenses.Text = $"{ComputeTotalAmount(lvwExpenseList, 6)}";
@@ -1051,9 +1090,6 @@ namespace MIS
             // -------------------------------------------------------------
             foreach (ListViewItem item in lvwExpenseList.Items)
             {
-                if (item.SubItems.Count <= 5)
-                    continue;
-
                 string existingExpensesID = item.SubItems[1].Text.Trim();
                 string existingExpensesType = item.SubItems[2].Text.Trim();
                 string existingExpensesDate = item.SubItems[3].Text.Trim();
@@ -1061,6 +1097,8 @@ namespace MIS
                 string existingLocationTo = item.SubItems[5].Text.Trim();
                 string existingAmount = item.SubItems[6].Text.Trim();
                 string existingRemarks = item.SubItems[7].Text.Trim();
+                string existingMerchant = item.SubItems[8].Text.Trim();
+                string existingReceiptFileName = item.SubItems[9].Text.Trim();
 
                 // ---------------------------------------------------------
                 // Compare values
@@ -1095,6 +1133,18 @@ namespace MIS
                         StringComparison.OrdinalIgnoreCase
                     );
 
+                bool sameMerchant =
+                    existingMerchant.Equals(
+                        pModel.Merchant?.Trim() ?? "",
+                        StringComparison.OrdinalIgnoreCase
+                    );
+
+                bool sameReceiptFileName =
+                    existingReceiptFileName.Equals(
+                        pModel.Merchant?.Trim() ?? "",
+                        StringComparison.OrdinalIgnoreCase
+                    );
+
 
                 // ---------------------------------------------------------
                 // Exact duplicate
@@ -1102,13 +1152,17 @@ namespace MIS
                 if (sameExpensesID &&
                     sameExpensesDate &&
                     sameAmount &&
-                    sameRemarks)
+                    sameRemarks &&
+                    sameMerchant &&
+                    sameReceiptFileName)
                 {
                     dbFunction.SetMessageBox(
                         "This expense entry already exists in the list.\n\n" +
                         "Expense Type: " + pModel.ExpensesType + "\n" +
+                        "Merchant: " + pModel.Merchant + "\n" +
                         "Amount: ₱" + pModel.Amount + "\n" +
-                        "Date: " + pModel.ExpensesDate,
+                        "Date: " + pModel.ExpensesDate + "\n" +
+                        "Receipt: " + pModel.ReceiptFileName,
                         "Duplicate Expense",
                         clsFunction.IconType.iWarning
                     );
@@ -1147,6 +1201,12 @@ namespace MIS
             // Remarks
             lvi.SubItems.Add(pModel.Remarks ?? "");
 
+            // Merchant
+            lvi.SubItems.Add(pModel.Merchant ?? "");
+
+            // Receipt FileName
+            lvi.SubItems.Add(pModel.ReceiptFileName ?? "");
+
             // -------------------------------------------------------------
             // Store model for Edit / Save / Delete
             // -------------------------------------------------------------
@@ -1158,11 +1218,15 @@ namespace MIS
         private void btnServiceRemove_Click(object sender, EventArgs e)
         {
             dbFunction.removeItemListView(lvwServiceList, false);
+
+            displayList();
         }
 
         private void btnServiceClearAll_Click(object sender, EventArgs e)
         {
             dbFunction.ClearListViewItems(lvwServiceList);
+
+            displayList();
 
             txtServiceNoList.Text = txtIRIDNoList.Text = txtIRNoList.Text = "";
             btnSearchServiceNos.Focus();
@@ -1229,7 +1293,7 @@ namespace MIS
             // Service List
             if (!dbFunction.isValidCount(lvwServiceList.Items.Count))
             {
-                dbFunction.SetMessageBox("Please select at least one service.",clsDefines.FIELD_CHECK_MSG,clsFunction.IconType.iWarning);
+                dbFunction.SetMessageBox("Please select at least one service.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
 
                 isValid = false;
             }
@@ -1240,7 +1304,7 @@ namespace MIS
                 dbFunction.SetMessageBox("Please select at least one receipt.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
 
                 isValid = false;
-            }            
+            }
 
             // Expenses List
             if (!dbFunction.isValidCount(lvwExpenseList.Items.Count))
@@ -1254,22 +1318,6 @@ namespace MIS
             if (!dbFunction.isValidDescription(txtExpenseReferenceNo.Text))
             {
                 dbFunction.SetMessageBox("Reference number must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
-
-                isValid = false;
-            }
-
-            // Merchant
-            if (!dbFunction.isValidDescription(txtMerchant.Text) || !dbFunction.isValidID(txtMerchantID.Text))
-            {
-                dbFunction.SetMessageBox("Merchant must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
-
-                isValid = false;
-            }
-
-            // Client
-            if (!dbFunction.isValidDescription(txtClientName.Text) || !dbFunction.isValidID(txtClientID.Text))
-            {
-                dbFunction.SetMessageBox("Client must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
 
                 isValid = false;
             }
@@ -1355,8 +1403,6 @@ namespace MIS
 
                 Cursor.Current = Cursors.WaitCursor;
 
-                Cursor.Current = Cursors.WaitCursor;
-
                 try
                 {
                     foreach (string pSelectedReceipt in openFile.FileNames)
@@ -1398,7 +1444,17 @@ namespace MIS
                             string pReceiptDate = pOCRResult.Value<string>("ReceiptDate");
 
                             item.SubItems[2].Text = dReceiptAmount.Value.ToString();
-                            item.SubItems[3].Text = pReceiptDate;
+
+                            DateTime dReceiptDate;
+
+                            if (DateTime.TryParse(pReceiptDate, out dReceiptDate))
+                            {
+                                item.SubItems[3].Text = dReceiptDate.ToString("MM-dd-yyyy");
+                            }
+                            else
+                            {
+                                item.SubItems[3].Text = "0000-00-00";
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -1407,7 +1463,7 @@ namespace MIS
                                 fileInfo.Name + "\n" + ex
                             );
                         }
-                        
+
                         // Select the last added receipt - preview
                         lvwReceiptList.SelectedItems.Clear();
                         item.Selected = true;
@@ -1425,8 +1481,7 @@ namespace MIS
                 // Compute Amount
                 txtTotalReceptAmount.Text = $"{ComputeTotalAmount(lvwReceiptList, 2)}";
 
-                dbFunction.RefreshCountListView(txtTReceiptCount, lvwReceiptList);
-                dbFunction.ListViewAlternateBackColor(lvwReceiptList);
+                dbFunction.RefreshCountListView(txtTReceiptCount, lvwReceiptList);                
             }
 
             displayList();
@@ -1447,14 +1502,9 @@ namespace MIS
             pbReceiptPreview.Image = null;
         }
 
-        private void btnReceiptDownload_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void initExpensesEntry()
         {
-            txtLocationFrom.Text = "";
+            txtLocationFrom.Text = txtLocationTo.Text = "";
             cboExpenseType.SelectedIndex = 0;
             txtExpenseAmount.Text = "0.00";
             txtExpensesRemarks.Text = "";
@@ -1467,7 +1517,7 @@ namespace MIS
         private void btnSearchFE_Click(object sender, EventArgs e)
         {
             frmSearchField.iSearchType = frmSearchField.SearchType.iFE;
-            frmSearchField.sHeader = "EMPLOYEE";
+            frmSearchField.sHeader = "FIELD ENGINEER";
             frmSearchField.isCheckBoxes = false;
             frmSearchField frm = new frmSearchField();
             frm.ShowDialog();
@@ -1478,6 +1528,10 @@ namespace MIS
                 txtFEName.Text = clsSearch.ClassParticularName;
 
                 clsSearch.ClassFEID = int.Parse(dbFunction.CheckAndSetNumericValue(txtFEID.Text));
+
+                btnSearchServiceNos.Enabled = true;
+                dbFunction.SetButtonIconImage(btnSearchServiceNos);
+
             }
         }
 
@@ -1608,7 +1662,8 @@ namespace MIS
                     string pExtension = Path.GetExtension(pImageSource).ToLowerInvariant();
                     string pExpenseDate = dtExpenseDate.Value.ToString("yyyyMMdd");
 
-                    string pFileName = pExpensesReferenceNo + "_" + pExpenseDate + "_" + ImageCount.ToString("00") + pExtension; pReceiptList.Add(pFileName);
+                    string pFileName = pExpensesReferenceNo + "_" + pExpenseDate + "_" + ImageCount.ToString("00") + clsDefines.FILE_EXT_PNG; 
+                    pReceiptList.Add(pFileName);
 
                     Debug.WriteLine("FTP host: " + pExpenseFTPHost);
                     Debug.WriteLine("FTP filename: " + pFileName);
@@ -1653,6 +1708,14 @@ namespace MIS
             }
         }
 
+        private string genFileName(string pExpensesReferenceNo, string pExpenseDate, int pImageCount)
+        {
+            return pExpensesReferenceNo + "_" +
+                   pExpenseDate + "_" +
+                   pImageCount.ToString("00") +
+                   clsDefines.FILE_EXT_PNG;
+        }
+
         private void btnReceiptClearAll_Click(object sender, EventArgs e)
         {
             dbFunction.ClearListViewItems(lvwReceiptList);
@@ -1691,6 +1754,200 @@ namespace MIS
                     btnExpenseRemove_Click(this, e);
                     break;
             }
+        }
+
+        private void btnGenerateReceiptReport_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.fPromptConfirmation("Are you sure want to preview expenses receipt?"))
+            {
+                return;
+            }
+
+            clsReport.ClassReportDesc = "OPERATIONS RECEIPT REPORT";
+
+            clsSearch.ClassReportID = 62;
+            clsSearch.ClassReportDescription = clsReport.ClassReportDesc;
+
+            clsSearch.ClassStatementType = "View";
+            clsSearch.ClassSearchBy = "Expenses-Receipt-Report";
+
+            clsSearch.ClassSearchValue = dbFunction.CheckAndSetNumericValue(txtExpensesNo.Text);
+
+            clsSearch.ClassStoredProcedureName = "spViewReport";
+
+            if (dbFunction.isValidID(txtExpensesNo.Text))
+                dbFunction.ProcessReport(clsSearch.ClassReportID);
+        }
+
+        private void addReceiptToReceiptList(modelExpensesReceipt pModel)
+        {
+            if (pModel == null)
+                return;
+
+            int lineNo = lvwReceiptList.Items.Count + 1;
+
+            ListViewItem lvw = new ListViewItem(lineNo.ToString());
+
+            lvw.Tag = pModel.ExpensesFileName;
+
+            lvw.SubItems.Add(pModel.ExpensesFileName);
+            lvw.SubItems.Add(pModel.ExpensesAmount.ToString("0.00"));
+            lvw.SubItems.Add(pModel.ExpensesDate);
+
+            lvwReceiptList.Items.Add(lvw);
+        }
+
+        private void fillReceiptList()
+        { 
+
+        }
+
+        private void btnGenerateFSRReport_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.fPromptConfirmation("Are you sure want to download all FSR related to this expense."))
+            {
+                return;
+            }
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            int pCount = 0;
+
+            dbFile.CheckFolder(dbFile.sDownloadExpensesFSRPath);
+
+            ftp ftpClient = new ftp(clsGlobalVariables.strFTPURL +
+                "/fsr/" +
+                clsSearch.ClassBankCode,
+                clsGlobalVariables.strFTPUserName,
+                clsGlobalVariables.strFTPPassword
+            );
+
+            try
+            {
+                List<string> pServiceNoList = dbFunction.ParseCSVtoArray(txtServiceNoList.Text);
+                foreach (string pServiceNo in pServiceNoList)
+                {
+                    string pFileName = pServiceNo +
+                        clsDefines.FSR_FILENAME_PREFIX +
+                        clsDefines.FILE_EXT_PDF;
+
+                    string pLocalPath = Path.Combine(dbFile.sDownloadExpensesFSRPath, pFileName);
+
+                    ftpClient.download(pFileName, pLocalPath);
+
+                    if (File.Exists(pLocalPath) && new FileInfo(pLocalPath).Length > 0)
+                    {
+                        pCount++;
+                    }
+                    else
+                    {
+                        Debug.WriteLine(
+                            "FSR PDF not found: " +
+                            pFileName
+                        );
+                    }
+                }
+
+                dbFunction.SetMessageBox(
+                    pCount +
+                    " FSR report(s) downloaded.\n\n" +
+                    "Location: " +
+                    dbFile.sDownloadExpensesFSRPath,
+                    "Download FSR reports",
+                    clsFunction.IconType.iInformation
+                );
+            }
+            finally
+            {
+                ftpClient.disconnect();
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void initReportButton(bool isEnable)
+        {
+            btnGenerateReport.Enabled = false;
+            btnGenerateReceiptReport.Enabled = false;
+            btnGenerateFSRReport.Enabled = isEnable;
+        }
+
+        private void btnAddToExpenses_Click(object sender, EventArgs e)
+        {
+            if (lvwReceiptList.SelectedItems.Count == 0)
+            {
+                dbFunction.SetMessageBox(
+                    "Please select a receipt first.",
+                    "Receipt",
+                    clsFunction.IconType.iWarning
+                );
+
+                return;
+            }
+
+            ListViewItem item = lvwReceiptList.SelectedItems[0];
+
+            // =========================================
+            // RECEIPT DATE
+            // =========================================
+            string pDate = item.SubItems[3].Text.Trim();
+
+            DateTime dDate;
+
+            if (DateTime.TryParse(pDate, out dDate))
+            {
+                dtExpenseDate.Value = dDate;
+            }
+
+            // =========================================
+            // RECEIPT AMOUNT
+            // =========================================
+            string pAmount = item.SubItems[2].Text.Trim();
+
+            decimal dAmount;
+
+            if (decimal.TryParse(
+                pAmount,
+                NumberStyles.Number,
+                CultureInfo.InvariantCulture,
+                out dAmount))
+            {
+                txtExpenseAmount.Text = dAmount.ToString("0.00");
+            }
+            else
+            {
+                txtExpenseAmount.Text = "0.00";
+            }
+
+            // generate filename
+            int selectedIndex = lvwReceiptList.SelectedIndices[0] + 1;
+
+            txtReceiptFileName.Text = genFileName(txtExpenseReferenceNo.Text,dbFunction.getCurrentDate().Replace("-", ""),selectedIndex);
+        }
+
+        private void fillMerchant()
+        {
+            cboMerchant.Items.Clear();
+
+            // First value
+            cboMerchant.Items.Add(clsDefines.NOT_SPECIFIED);
+
+            foreach (ListViewItem item in lvwServiceList.Items)
+            {
+                if (item.SubItems.Count <= 6)
+                    continue;
+
+                string pMerchant = item.SubItems[6].Text.Trim();
+
+                if (string.IsNullOrEmpty(pMerchant))
+                    continue;
+
+                if (!cboMerchant.Items.Contains(pMerchant))
+                {
+                    cboMerchant.Items.Add(pMerchant);
+                }
+            }
+
+            cboMerchant.SelectedIndex = 0;
         }
     }
 }

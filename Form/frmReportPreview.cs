@@ -347,6 +347,10 @@ namespace MIS
                             ExpensesReport();
                             break;
 
+                        case 62:
+                            ExpensesReceiptReport();
+                            break;
+
                         // INVOICES
                         case 1001:
                             // Servicing Invoice
@@ -5165,6 +5169,149 @@ namespace MIS
             }
 
             Cursor.Current = Cursors.Default;
+        }
+
+        public void ExpensesReceiptReport()
+        {
+            string ReportPath = "";
+            string reportFullPath = "";
+            int rptImageCount = 18;
+
+            // RAIDEN: Clear expense image folder before starting report
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            string pExpenseDownloadPath = Path.Combine(dbFile.sDowloadPath, "EXPENSES");
+            dbFile.DeleteFolder(pExpenseDownloadPath);
+            dbFile.CheckFolder(pExpenseDownloadPath);
+
+            ReportPath = GetReportPath();
+            reportFullPath = Path.Combine(ReportPath, "rptExpensesReceipt.rpt");
+
+            Debug.WriteLine("reportFullPath=" + reportFullPath);
+
+            if (!File.Exists(reportFullPath))
+            {
+                MessageBox.Show("Report Path [" + reportFullPath + "]" + "\n\nFile not found!");
+                Cursor.Current = Cursors.Default;
+                return;
+            }
+
+            // RAIDEN: Prepare images before loading report
+
+            try
+            {
+                DataSet dsReport = dbConnect.GetReportWithStoredProcedure(clsSearch.ClassReportID, clsSearch.ClassStatementType, clsSearch.ClassSearchBy, clsSearch.ClassSearchValue, clsSearch.ClassStoredProcedureName, lvwList);
+                if (!isValidReportDataSet(dsReport, reportFullPath)) return;
+
+                if (!dsReport.Tables[0].Columns.Contains("ReceiptList"))
+                {
+                    MessageBox.Show(
+                        "No images found in the database",
+                        "No receipt images",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+
+                    return;
+                }
+
+                string pReceiptList = Convert.ToString(dsReport.Tables[0].Rows[0]["ReceiptList"]);
+                List<string> pReceiptFiles = dbFunction.ParseCSVtoArray(pReceiptList);
+
+                if (pReceiptFiles.Count <= 0)
+                {
+                    MessageBox.Show(
+                        "No receipt images were found.",
+                        "No receipt images",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return;
+                }
+
+                string[] pReceiptPaths = new string[rptImageCount];
+                for (int i = 0; i < rptImageCount; i++)
+                {
+                    pReceiptPaths[i] = dbFile.pNoImage;
+                }
+                ftp ftpClient = new ftp(
+                    clsGlobalVariables.strFTPURL +
+                    clsGlobalVariables.strFTPUploadPath + "/expenses/" +
+                    clsSearch.ClassBankCode,
+                    clsGlobalVariables.strFTPUserName,
+                    clsGlobalVariables.strFTPPassword
+                );
+
+                try
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    int pReceiptCount = pReceiptFiles.Count;
+                    if (pReceiptCount > rptImageCount)
+                    {
+                        pReceiptCount = rptImageCount;
+                    }
+
+                    for (int i = 0; i < pReceiptCount; i++)
+                    {
+                        string pReceiptName = pReceiptFiles[i];
+                        string pLocalFilePath = Path.Combine(pExpenseDownloadPath, pReceiptName);
+
+                        ftpClient.download(pReceiptName, pLocalFilePath);
+
+                        if (File.Exists(pLocalFilePath) && new FileInfo(pLocalFilePath).Length > 0)
+                        {
+                            pReceiptPaths[i] = pLocalFilePath;
+                        }
+                        else
+                        {
+                            Debug.WriteLine(
+                                "Receipt download failed: " +
+                                pReceiptName
+                            );
+                        }
+                    }
+
+                }
+                finally
+                {
+                    ftpClient.disconnect();
+                    Cursor.Current = Cursors.Default;
+                }
+
+                // RAIDEN: Load Report
+
+                rptExpensesReceipt rptViewer = new rptExpensesReceipt();
+                rptViewer.Load(reportFullPath);
+                rptViewer.SetDataSource(dsReport.Tables[0]);
+
+                for (int i = 0; i < rptImageCount; i++)
+                {
+                    string pReceiptParameter = "receipt" + (i + 1) + "Path";
+
+                    rptViewer.SetParameterValue(pReceiptParameter, pReceiptPaths[i]);
+                }
+
+                SetReceiptReportHeader(rptViewer);
+                SetReceiptUser(rptViewer);
+                myViewer.ReportSource = rptViewer;
+                myViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message +
+                    "\n[" + reportFullPath + "]",
+                    "Receipt report could not be created",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
 
     }
