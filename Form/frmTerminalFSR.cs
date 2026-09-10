@@ -1042,13 +1042,11 @@ namespace MIS
             //Init Search Button (Search FSR)
             btnFSRSearch.Enabled = false;
             dbFunction.SetButtonIconImage(btnFSRSearch);
-            
+
         }
 
         private void btnMSave_Click(object sender, EventArgs e)
         {
-            string pSearchValue = "";
-
             try
             {
                 // Check Application Version
@@ -1360,23 +1358,7 @@ namespace MIS
                         SaveSIMActivity();
                 }
 
-                // Save Ticket -> Update In Report
-                if (chkCloseTicket.Checked)
-                {
-                    int pBillable = dbFunction.CheckAndSetBooleanValue(chkBillable.Checked);
-                    int pTicketStatus = int.Parse(clsFunction.sOne);
-
-                    pSearchValue = dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text) + clsDefines.gPipe +
-                                   dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsDefines.gPipe +
-                                   pTicketStatus + clsDefines.gPipe +
-                                   clsSearch.ClassCurrentParticularID + clsDefines.gPipe +
-                                   dbFunction.getCurrentDateTime() + clsDefines.gPipe +
-                                   pBillable;
-
-                    dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 1);
-
-                    dbAPI.ExecuteAPI("PUT", "Update", "Ticket Status", pSearchValue, "", "", "UpdateCollectionDetail");
-                }
+                SaveTicketStatus();
 
                 dbFunction.SetMessageBox(txtServiceJobTypeDescription.Text + " service has been " + (fEdit ? "updated" : "saved") + " for" +
                    "\n\n" +
@@ -1403,8 +1385,36 @@ namespace MIS
             {
                 Debug.WriteLine($"Exceptional error message {ex.Message}");
                 dbFunction.SetMessageBox($"Exceptional error message {ex.Message}", "Save: Job Order", clsFunction.IconType.iError);
-            }           
+            }
         }
+
+        private void SaveTicketStatus()
+        {
+            int pBillable = dbFunction.CheckAndSetBooleanValue(chkBillable.Checked);
+            int pTicketStatus = int.Parse(clsFunction.sOne);
+
+            if (chkCloseTicket.Checked)
+            {
+                pTicketStatus = int.Parse(clsFunction.sOne);
+            }
+
+            if (cboSearchActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS) || cboSearchActionMade.Text.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE))
+            {
+                pTicketStatus = int.Parse(clsFunction.sNegativeOne);
+            }
+
+            string pSearchValue = dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text) + clsDefines.gPipe +
+               dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsDefines.gPipe +
+               pTicketStatus + clsDefines.gPipe +
+               clsSearch.ClassCurrentParticularID + clsDefines.gPipe +
+               dbFunction.getCurrentDateTime() + clsDefines.gPipe +
+               pBillable;
+
+            dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 1);
+
+            dbAPI.ExecuteAPI("PUT", "Update", "Ticket Status", pSearchValue, "", "", "UpdateCollectionDetail");
+        }
+
         private bool ValidateFields()
         {
             string sMTimeArrived = dbFunction.GetDateFromParse(dteMTimeArrived.Text, "h:mm:ss tt", "HH:mm:ss");

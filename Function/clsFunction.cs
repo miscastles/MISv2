@@ -45,6 +45,7 @@ namespace MIS
         public const string sComma = ",";
         public const string sZero = "0";
         public const string sOne = "1";
+        public const string sNegativeOne = "-1";
         public const string sAsterisk = "*";
         public const string sCaret = "^";
         public const string sSingleQuote = "'";
