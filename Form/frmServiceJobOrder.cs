@@ -2256,8 +2256,7 @@ namespace MIS
             return dbFunction.isValidDescription(txtEntryRequestID.Text) &&
                    dbFunction.isValidDescription(txtEntryReferenceNo.Text) &&
                    dbFunction.isValidDescription(txtDispatcher.Text) &&
-                   dbFunction.isValidID(txtRepTerminalID.Text) &&
-                   dbFunction.isValidID(txtRepSIMID.Text) &&
+                   (dbFunction.isValidID(txtRepTerminalID.Text) || dbFunction.isValidID(txtRepSIMID.Text)) &&
                    dbFunction.isValidID(txtCurTerminalID.Text) &&
                    dbFunction.isValidID(txtCurSIMID.Text);
         }
