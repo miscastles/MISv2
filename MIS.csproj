@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>20</ApplicationRevision>
+    <ApplicationRevision>21</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -469,6 +469,12 @@
     </Compile>
     <Compile Include="Form\frmPendingFailedService.Designer.cs">
       <DependentUpon>frmPendingFailedService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmQRDeliveryHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmQRDeliveryHistory.Designer.cs">
+      <DependentUpon>frmQRDeliveryHistory.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\frmServicesBilling.cs">
       <SubType>Form</SubType>
@@ -1070,6 +1076,7 @@
     <Compile Include="Model\modelStock.cs" />
     <Compile Include="Model\modelZoning.cs" />
     <Compile Include="Model\QRDeliveryBackendService.cs" />
+    <Compile Include="Model\QRDeliveryHistoryCache.cs" />
     <Compile Include="Model\QRDeliveryValidation.cs" />
     <Compile Include="Model\ReportInfo.cs" />
     <Compile Include="Model\SystemInfo.cs" />
@@ -1731,6 +1738,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmPRSendInvoice.resx">
       <DependentUpon>frmPRSendInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmQRDeliveryHistory.resx">
+      <DependentUpon>frmQRDeliveryHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmRegionDetail.resx">
       <DependentUpon>frmRegionDetail.cs</DependentUpon>
