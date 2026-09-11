@@ -2644,7 +2644,7 @@ namespace MIS
                 // Activity 2 — Terminal Prep completion
                 if (isReplacementJob)
                 {
-                    if (isReplacementActivityComplete())
+                    if (isReplacementActivityComplete() && !dbFunction.isValidID(txtFEID.Text))
                         dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                             clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
                 }
