@@ -869,11 +869,7 @@ namespace MIS
 
                 foreach (ListViewItem item in lvwReceiptList.Items)
                 {
-                    string pImageSource = item.Tag.ToString();
-                    string pExtension = Path.GetExtension(pImageSource).ToLowerInvariant();
-                    string pExpenseDate = dtExpenseDate.Value.ToString("yyyyMMdd");
-
-                    string pFileName = txtExpenseReferenceNo.Text + "_" + pExpenseDate + "_" + index.ToString("00") + pExtension;
+                    string pFileName = genFileName(txtExpenseReferenceNo.Text, dbFunction.getCurrentDate(), index);
 
                     pReceiptList.Add(pFileName);
 
@@ -976,6 +972,13 @@ namespace MIS
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            // Reference No
+            if (!dbFunction.isValidDescription(txtExpenseReferenceNo.Text))
+            {
+                dbFunction.SetMessageBox("Reference number must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
+                return;
+            }
+
             if (!dbFunction.fPromptConfirmation("Are you sure want to preview expenses report?"))
             {
                 return;
@@ -992,17 +995,15 @@ namespace MIS
                 return;
             }
 
-            clsReport.ClassReportDesc = "OPERATIONS REIMBURSEMENT REPORT";
+            clsReport.ClassReportDesc = "EXPENSES-FSR REPORT";
 
             clsSearch.ClassReportID = 61;
             clsSearch.ClassReportDescription = clsReport.ClassReportDesc;
 
             clsSearch.ClassStatementType = "View";
-            clsSearch.ClassSearchBy = "Expenses-Report";
+            clsSearch.ClassSearchBy = "Expenses-Trans-Report";
 
-            clsSearch.ClassSearchValue = dbFunction.CheckAndSetNumericValue(txtExpensesNo.Text) +
-                clsDefines.gPipe +
-                dbFunction.CheckAndSetNumericValue(clsSearch.ClassMerchantID.ToString());
+            clsSearch.ClassSearchValue = dbFunction.CheckAndSetNumericValue(txtExpensesNo.Text);
 
             clsSearch.ClassStoredProcedureName = "spViewReport";
 
@@ -1659,10 +1660,7 @@ namespace MIS
                         return;
                     }
 
-                    string pExtension = Path.GetExtension(pImageSource).ToLowerInvariant();
-                    string pExpenseDate = dtExpenseDate.Value.ToString("yyyyMMdd");
-
-                    string pFileName = pExpensesReferenceNo + "_" + pExpenseDate + "_" + ImageCount.ToString("00") + clsDefines.FILE_EXT_PNG; 
+                    string pFileName = genFileName(txtExpenseReferenceNo.Text, dbFunction.getCurrentDate(), ImageCount);
                     pReceiptList.Add(pFileName);
 
                     Debug.WriteLine("FTP host: " + pExpenseFTPHost);
@@ -1711,7 +1709,7 @@ namespace MIS
         private string genFileName(string pExpensesReferenceNo, string pExpenseDate, int pImageCount)
         {
             return pExpensesReferenceNo + "_" +
-                   pExpenseDate + "_" +
+                   pExpenseDate.Replace("-", "") + "_" +
                    pImageCount.ToString("00") +
                    clsDefines.FILE_EXT_PNG;
         }
@@ -1758,10 +1756,20 @@ namespace MIS
 
         private void btnGenerateReceiptReport_Click(object sender, EventArgs e)
         {
+            // Reference No
+            if (!dbFunction.isValidDescription(txtExpenseReferenceNo.Text))
+            {
+                dbFunction.SetMessageBox("Reference number must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
+                return;
+            }
+
             if (!dbFunction.fPromptConfirmation("Are you sure want to preview expenses receipt?"))
             {
                 return;
             }
+
+            // download receipt
+            downloadReceipt();
 
             clsReport.ClassReportDesc = "OPERATIONS RECEIPT REPORT";
 
@@ -1775,8 +1783,8 @@ namespace MIS
 
             clsSearch.ClassStoredProcedureName = "spViewReport";
 
-            if (dbFunction.isValidID(txtExpensesNo.Text))
-                dbFunction.ProcessReport(clsSearch.ClassReportID);
+            dbFunction.ProcessReport(clsSearch.ClassReportID);
+
         }
 
         private void addReceiptToReceiptList(modelExpensesReceipt pModel)
@@ -1804,6 +1812,13 @@ namespace MIS
 
         private void btnGenerateFSRReport_Click(object sender, EventArgs e)
         {
+            // Reference No
+            if (!dbFunction.isValidDescription(txtExpenseReferenceNo.Text))
+            {
+                dbFunction.SetMessageBox("Reference number must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iWarning);
+                return;
+            }
+
             if (!dbFunction.fPromptConfirmation("Are you sure want to download all FSR related to this expense."))
             {
                 return;
@@ -1813,7 +1828,9 @@ namespace MIS
 
             int pCount = 0;
 
-            dbFile.CheckFolder(dbFile.sDownloadExpensesFSRPath);
+            string pExportPath = getExportPath();
+
+            dbFile.CheckFolder(pExportPath);
 
             ftp ftpClient = new ftp(clsGlobalVariables.strFTPURL +
                 "/fsr/" +
@@ -1831,7 +1848,7 @@ namespace MIS
                         clsDefines.FSR_FILENAME_PREFIX +
                         clsDefines.FILE_EXT_PDF;
 
-                    string pLocalPath = Path.Combine(dbFile.sDownloadExpensesFSRPath, pFileName);
+                    string pLocalPath = Path.Combine(pExportPath, pFileName);
 
                     ftpClient.download(pFileName, pLocalPath);
 
@@ -1852,7 +1869,7 @@ namespace MIS
                     pCount +
                     " FSR report(s) downloaded.\n\n" +
                     "Location: " +
-                    dbFile.sDownloadExpensesFSRPath,
+                    pExportPath,
                     "Download FSR reports",
                     clsFunction.IconType.iInformation
                 );
@@ -1866,8 +1883,8 @@ namespace MIS
 
         private void initReportButton(bool isEnable)
         {
-            btnGenerateReport.Enabled = false;
-            btnGenerateReceiptReport.Enabled = false;
+            btnGenerateReport.Enabled = isEnable;
+            btnGenerateReceiptReport.Enabled = isEnable;
             btnGenerateFSRReport.Enabled = isEnable;
         }
 
@@ -1921,7 +1938,7 @@ namespace MIS
             // generate filename
             int selectedIndex = lvwReceiptList.SelectedIndices[0] + 1;
 
-            txtReceiptFileName.Text = genFileName(txtExpenseReferenceNo.Text,dbFunction.getCurrentDate().Replace("-", ""),selectedIndex);
+            txtReceiptFileName.Text = genFileName(txtExpenseReferenceNo.Text,dbFunction.getCurrentDate(),selectedIndex);
         }
 
         private void fillMerchant()
@@ -1948,6 +1965,65 @@ namespace MIS
             }
 
             cboMerchant.SelectedIndex = 0;
+        }
+
+        private string getExportPath()
+        {
+            string pExportPath = dbFile.sExportPath + "EXPENSES\\" + txtExpenseReferenceNo.Text;
+
+            return pExportPath;
+        }
+
+        private void downloadReceipt()
+        {
+            int pCount = 0;
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            string pExportPath = getExportPath();
+
+            dbFile.CheckFolder(pExportPath);
+
+            try
+            {
+                ftp ftpClient = new ftp(clsGlobalVariables.strFTPURL +
+                                    clsGlobalVariables.strFTPUploadPath + "/expenses/" +
+                                    clsSearch.ClassBankCode,
+                                    clsGlobalVariables.strFTPUserName,
+                                    clsGlobalVariables.strFTPPassword
+                                );
+
+                List<string> pReceiptList = dbFunction.ParseCSVtoArray(txtReceiptList.Text);
+                foreach (string pReceipt in pReceiptList)
+                {
+                    string pFileName = pReceipt;
+
+                    string pLocalPath = Path.Combine(pExportPath, pFileName);
+
+                    ftpClient.download(pFileName, pLocalPath);
+
+                    if (File.Exists(pLocalPath) && new FileInfo(pLocalPath).Length > 0)
+                    {
+                        pCount++;
+                    }
+                    else
+                    {
+                        Debug.WriteLine(
+                            $"Receipt [{pFileName}] not found: " +
+                            pFileName
+                        );
+                    }
+                }
+
+                ftpClient.disconnect();
+
+            }
+            catch (Exception ex)
+            {
+                dbFunction.SetExceptionMessageBox(ex);
+            }
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }

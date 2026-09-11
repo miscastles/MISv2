@@ -123,6 +123,8 @@ namespace MIS.Controller
                         model.FEName = dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_FEName);
                         model.TotalAmount = decimal.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_TotalAmount));
                         model.Remarks = dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_Remarks);
+                        model.CreatedBy = dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_CreatedBy);
+                        model.CreatedDate = DateTime.Parse(dbAPI.GetValueFromJSONString(detail_info, clsDefines.TAG_CreatedDate));
 
                         mList.Add((T)(object)model);
                     }
