@@ -860,6 +860,8 @@ namespace MIS
                             item.SubItems.Add(_mDetail.FEName.ToString());
                             item.SubItems.Add(_mDetail.TotalAmount.ToString("0.00"));
                             item.SubItems.Add(_mDetail.Remarks.ToString());
+                            item.SubItems.Add(_mDetail.CreatedBy.ToString());
+                            item.SubItems.Add(_mDetail.CreatedDate.ToString("MM-dd-yyyy"));
 
                             lvwSearch.Items.Add(item);
                         }
@@ -2745,6 +2747,14 @@ namespace MIS
                     iFormWidth += outWidth;
 
                     dbFunction.GetListViewHeaderColumnFromFile("", "Remarks", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "CreatedBy", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
+                    lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
+                    iFormWidth += outWidth;
+
+                    dbFunction.GetListViewHeaderColumnFromFile("", "CreatedAt", out outField, out outWidth, out outTitle, out outAlign, out outVisible, out outAutoWidth, out outFormat);
                     lvwSearch.Columns.Add(outTitle, outWidth, outAlign);
                     iFormWidth += outWidth;
 
