@@ -369,6 +369,7 @@ namespace MIS
 
         public static string REASON_TYPE = "REASON";
         public static string NEGATIVE_TYPE = "NEGATIVE";
+        public static string HELPDESK_NEGATIVE_TYPE = "HD-NEGATIVE";
         public static string RESOLUTION_TYPE = "RESOLUTION";
         public static string PROBLEM_TYPE = "PROBLEM";
 

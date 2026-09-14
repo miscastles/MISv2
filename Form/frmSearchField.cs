@@ -71,7 +71,7 @@ namespace MIS
         public enum SearchType
         {
             iTerminal, iSIM, iMerchant,
-            iAllReason, iReason, iNegativeReason, iResolution, iFSRAttempt,
+            iAllReason, iReason, iNegativeReason, iHelpdeskNegativeReason, iResolution, iFSRAttempt,
             iIR, iProvince, iRegion,
             iFE, iSP, iClient,
             iTerminalStatus, iSIMStatus, iDashboard,
@@ -190,6 +190,7 @@ namespace MIS
                         case SearchType.iAllReason:
                         case SearchType.iReason:
                         case SearchType.iNegativeReason:
+                        case SearchType.iHelpdeskNegativeReason: 
                         case SearchType.iResolution:
                         case SearchType.iProblem:
                             clsSearch.ClassReasonID = int.Parse(lvwSearch.SelectedItems[0].SubItems[1].Text);
@@ -511,6 +512,12 @@ namespace MIS
                     clsSearch.ClassAdvanceSearchValue = clsFunction.sPadZero + clsFunction.sPipe + dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe + clsGlobalVariables.NEGATIVE_TYPE;
                     dbAPI.FillListViewReason(lvwSearch, clsSearch.ClassAdvanceSearchValue);
                     break;
+                case SearchType.iHelpdeskNegativeReason:   // added — new case, not fall-through
+                    clsSearch.ClassAdvanceSearchValue = clsFunction.sPadZero + clsFunction.sPipe 
+                    + dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe 
+                    + clsGlobalVariables.HELPDESK_NEGATIVE_TYPE;
+                dbAPI.FillListViewReason(lvwSearch, clsSearch.ClassAdvanceSearchValue);
+                break;
                 case SearchType.iResolution:
                     clsSearch.ClassAdvanceSearchValue = clsFunction.sPadZero + clsFunction.sPipe + dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe + clsGlobalVariables.RESOLUTION_TYPE;
                     dbAPI.FillListViewReason(lvwSearch, clsSearch.ClassAdvanceSearchValue);
@@ -1713,6 +1720,7 @@ namespace MIS
                 case SearchType.iAllReason:
                 case SearchType.iReason:
                 case SearchType.iNegativeReason:
+                case SearchType.iHelpdeskNegativeReason: 
                 case SearchType.iResolution:
                 case SearchType.iProblem:
                     lvwSearch.View = View.Details;
