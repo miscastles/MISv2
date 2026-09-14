@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -100,6 +101,8 @@ namespace MIS
         public int MerchantID { get; set; }
         [JsonProperty("MerchantName")]
         public string MerchantName { get; set; }
+        [JsonProperty("MerchantAddress")]
+        public string MerchantAddress { get; set; }
         [JsonProperty("TID")]
         public string TID { get; set; }
         [JsonProperty("MID")]
@@ -147,15 +150,20 @@ namespace MIS
             }
 
             QRDeliveryValidationResult result = new QRDeliveryValidationResult();
+            string scannedMerchantAddress = FirstValue(source,
+                "merchantAddress", "address");
             AddMissing(result, "TID", Value(source, "tid"));
             AddMissing(result, "MID", Value(source, "mid"));
             AddMissing(result, "Merchant Name", Value(source, "merchantName"));
+            AddMissing(result, "Merchant Address", scannedMerchantAddress);
             AddMissing(result, "Terminal Serial No.",
                 FirstValue(source, "terminalSN", "terminalSerialNo"));
 
             AddResult(result, "TID", Value(source, "tid"), expected.TID);
             AddResult(result, "MID", Value(source, "mid"), expected.MID);
             AddResult(result, "Merchant Name", Value(source, "merchantName"), expected.MerchantName);
+            AddResult(result, "Merchant Address", scannedMerchantAddress,
+                expected.MerchantAddress);
             AddResult(result, "Terminal Serial No.",
                 FirstValue(source, "terminalSN", "terminalSerialNo"), expected.TerminalSerialNo);
 
@@ -196,9 +204,56 @@ namespace MIS
                 TID = Value(source, "tid"),
                 MID = Value(source, "mid"),
                 MerchantName = Value(source, "merchantName"),
+                MerchantAddress = FirstValue(source, "merchantAddress", "address"),
                 TerminalSerialNo = FirstValue(source, "terminalSN", "terminalSerialNo"),
                 SimSerialNo = FirstValue(source, "simSN", "simSerialNo")
             };
+        }
+
+        public string NormalizeHistoricalContent(string content)
+        {
+            if (string.IsNullOrWhiteSpace(content))
+                throw new QRDeliveryValidationException("The QR content is empty.", null);
+
+            string trimmed = content.Trim();
+            try
+            {
+                return JObject.Parse(trimmed).ToString(Formatting.None);
+            }
+            catch (JsonException ex)
+            {
+                JObject legacy = ParseLegacyHistoricalObject(trimmed);
+                if (legacy.Count == 0)
+                    throw new QRDeliveryValidationException(
+                        "The saved QR content could not be interpreted.", ex);
+                return legacy.ToString(Formatting.None);
+            }
+        }
+
+        private static JObject ParseLegacyHistoricalObject(string content)
+        {
+            string body = content.Trim();
+            if (body.StartsWith("{") && body.EndsWith("}"))
+                body = body.Substring(1, body.Length - 2);
+
+            const string fieldPattern =
+                @"(?:^|,)\s*[""']?(tid|mid|merchantName|merchantAddress|address|terminalSN|terminalSerialNo|simSN|simSerialNo)[""']?\s*:";
+            MatchCollection matches = Regex.Matches(body, fieldPattern,
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+            JObject result = new JObject();
+
+            for (int index = 0; index < matches.Count; index++)
+            {
+                Match match = matches[index];
+                int valueStart = match.Index + match.Length;
+                int valueEnd = index + 1 < matches.Count
+                    ? matches[index + 1].Index : body.Length;
+                string value = body.Substring(valueStart, valueEnd - valueStart)
+                    .Trim().Trim('"', '\'');
+                result[match.Groups[1].Value] = value;
+            }
+
+            return result;
         }
 
         public string CreateInternalContent(QRDeliveryLookupResult lookup)
@@ -212,6 +267,7 @@ namespace MIS
                 ["ServiceNo"] = lookup.ServiceNo.ToString(),
                 ["IRIDNo"] = lookup.IRIDNo.ToString(),
                 ["MerchantName"] = data.MerchantName ?? string.Empty,
+                ["MerchantAddress"] = data.MerchantAddress ?? string.Empty,
                 ["TID"] = data.TID ?? string.Empty,
                 ["MID"] = data.MID ?? string.Empty,
                 ["TerminalID"] = data.TerminalID.ToString(),

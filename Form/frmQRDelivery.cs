@@ -220,16 +220,16 @@ namespace MIS
             dispatcherStatus = QRDeliveryStatusRules.DispatcherStatus(
                 lookup.JobTypeStatusDescription);
 
-            AddStatusRow("Inventory Terminal Status",
+            AddMisStatusRow("Inventory Terminal ID",
                 lookup.Expected.TerminalID.ToString(),
                 terminalInventoryValid ? "VALID" : "INVALID");
             if (hasSim)
-                AddStatusRow("Inventory SIM Status",
+                AddMisStatusRow("Inventory SIM ID",
                     lookup.Expected.SimID.ToString(),
                     simInventoryValid ? "VALID" : "INVALID");
-            AddStatusRow("Terminal Prep Status", lookup.Expected.TerminalID.ToString(),
+            AddMisStatusRow("Terminal Prep ID", lookup.Expected.TerminalID.ToString(),
                 terminalPrepStatus);
-            AddStatusRow("Dispatcher Status", lookup.JobTypeStatusDescription,
+            AddMisStatusRow("Dispatcher Status", lookup.JobTypeStatusDescription,
                 dispatcherStatus);
             return inventoryStatus == "VALID" && terminalPrepStatus == "VALID" &&
                    dispatcherStatus == "VALID";
@@ -246,6 +246,13 @@ namespace MIS
         private void AddStatusRow(string name, string sourceValue, string result)
         {
             int row = dgvValidation.Rows.Add(name, sourceValue, string.Empty, result);
+            bool valid = result == "VALID";
+            ApplyResultCellStyle(dgvValidation.Rows[row].Cells[3], valid);
+        }
+
+        private void AddMisStatusRow(string name, string misValue, string result)
+        {
+            int row = dgvValidation.Rows.Add(name, string.Empty, misValue, result);
             bool valid = result == "VALID";
             ApplyResultCellStyle(dgvValidation.Rows[row].Cells[3], valid);
         }
@@ -386,12 +393,7 @@ namespace MIS
                 {
                     bool duplicate = false;
                     foreach (QRDeliveryHistoryItem item in merged)
-                        if (item.ServiceNo == sessionItem.ServiceNo &&
-                            item.IRIDNo == sessionItem.IRIDNo &&
-                            item.MerchantID == sessionItem.MerchantID &&
-                            string.Equals(item.QRResult, sessionItem.QRResult,
-                                StringComparison.OrdinalIgnoreCase) &&
-                            Math.Abs((item.DateTimeStamp - sessionItem.DateTimeStamp).TotalSeconds) < 2)
+                        if (IsSameHistoryAttempt(item, sessionItem))
                         {
                             duplicate = true;
                             break;
@@ -408,6 +410,51 @@ namespace MIS
             if (merged.Count > limit)
                 merged.RemoveRange(limit, merged.Count - limit);
             return merged;
+        }
+
+        private static bool IsSameHistoryAttempt(QRDeliveryHistoryItem existing,
+            QRDeliveryHistoryItem candidate)
+        {
+            if (existing == null || candidate == null)
+                return false;
+
+            // Server rows have a QRID while their local/cache shadow does not.
+            // Allow for API round-trip time when matching those two copies. Keep
+            // separate server rows so two intentional scans remain visible.
+            if (existing.QRID > 0 && candidate.QRID > 0)
+                return existing.QRID == candidate.QRID;
+
+            bool sameReference = existing.ServiceNo == candidate.ServiceNo &&
+                existing.IRIDNo == candidate.IRIDNo &&
+                existing.MerchantID == candidate.MerchantID;
+            if (!sameReference)
+                return false;
+
+            double elapsedSeconds = Math.Abs(
+                (existing.DateTimeStamp - candidate.DateTimeStamp).TotalSeconds);
+            bool hasServiceReference = existing.ServiceNo > 0 || existing.IRIDNo > 0 ||
+                existing.MerchantID > 0;
+
+            // The API normalizes some saved fields, so a linked service record and
+            // its local shadow are identified by the authoritative JO references.
+            if (hasServiceReference)
+                return elapsedSeconds <= 30;
+
+            // Failed scans have zero references; retain the payload/status checks
+            // so different invalid QR codes are never combined accidentally.
+            return string.Equals(existing.QRContent, candidate.QRContent,
+                    StringComparison.Ordinal) &&
+                string.Equals(existing.InventoryStatus, candidate.InventoryStatus,
+                    StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(existing.TerminalPrepStatus, candidate.TerminalPrepStatus,
+                    StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(existing.DispatcherStatus, candidate.DispatcherStatus,
+                    StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(existing.QRResult, candidate.QRResult,
+                    StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(existing.ProcessedBy, candidate.ProcessedBy,
+                    StringComparison.OrdinalIgnoreCase) &&
+                elapsedSeconds <= 30;
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -625,10 +672,22 @@ namespace MIS
                 history.IRIDNo, history.MerchantID, history.MerchantName,
                 history.ProcessedBy);
 
-            string historyQRContent = history.QRContent;
+            string originalHistoryQRContent = history.QRContent;
+            string historyQRContent = string.Empty;
+            if (!string.IsNullOrWhiteSpace(originalHistoryQRContent))
+            {
+                try
+                {
+                    historyQRContent =
+                        qrValidator.NormalizeHistoricalContent(originalHistoryQRContent);
+                }
+                catch (QRDeliveryValidationException)
+                {
+                    // Reconstruct from the separately stored history identity below.
+                }
+            }
+
             if (string.IsNullOrWhiteSpace(historyQRContent) &&
-                string.Equals(history.QRResult, "READY TO DISPATCH",
-                    StringComparison.OrdinalIgnoreCase) &&
                 !string.IsNullOrWhiteSpace(history.TID) &&
                 !string.IsNullOrWhiteSpace(history.MID))
             {
@@ -637,6 +696,7 @@ namespace MIS
                     ["tid"] = history.TID,
                     ["mid"] = history.MID,
                     ["merchantName"] = history.MerchantName,
+                    ["merchantAddress"] = history.MerchantAddress,
                     ["terminalSerialNo"] = history.TerminalSN
                 };
                 if (!string.IsNullOrWhiteSpace(history.SIMSN))
@@ -644,9 +704,12 @@ namespace MIS
                 historyQRContent = content.ToString(Formatting.None);
             }
 
+            rtbQRContent.Text = string.IsNullOrWhiteSpace(historyQRContent)
+                ? originalHistoryQRContent ?? string.Empty
+                : historyQRContent;
+
             if (!string.IsNullOrWhiteSpace(historyQRContent))
             {
-                rtbQRContent.Text = historyQRContent;
                 QRDeliveryData scanned = qrValidator.Parse(historyQRContent);
                 QRDeliveryLookupResult lookup = qrLookup.FindJobOrder(scanned.TID, scanned.MID);
                 if (lookup.Found && lookup.Expected != null)
@@ -688,13 +751,13 @@ namespace MIS
                 }
             }
 
-            AddStatusRow("Inventory Terminal Status", string.Empty,
+            AddMisStatusRow("Inventory Terminal ID", string.Empty,
                 NormalizeStoredStatus(history.InventoryStatus));
-            AddStatusRow("Inventory SIM Status", string.Empty,
+            AddMisStatusRow("Inventory SIM ID", string.Empty,
                 NormalizeStoredStatus(history.InventoryStatus));
-            AddStatusRow("Terminal Prep Status", string.Empty,
+            AddMisStatusRow("Terminal Prep ID", string.Empty,
                 NormalizeStoredStatus(history.TerminalPrepStatus));
-            AddStatusRow("Dispatcher Status", string.Empty,
+            AddMisStatusRow("Dispatcher Status", string.Empty,
                 NormalizeStoredStatus(history.DispatcherStatus));
             bool storedReady = string.Equals(history.QRResult, "READY TO DISPATCH",
                 StringComparison.OrdinalIgnoreCase);
