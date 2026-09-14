@@ -2725,5 +2725,12 @@ namespace MIS
             set { _SIMLocaton = value; }
 
         }
+
+        public static int _ExpensesNo;
+        public static int ClassExpensesNo
+        {
+            get { return _ExpensesNo; }
+            set { _ExpensesNo = value; }
+        }
     }
 }

@@ -33,6 +33,8 @@ namespace MIS.Model
         public string IRIDNoList { get; set; }
         public string IRNoList { get; set; }
         public string ReceiptList { get; set; }
-        
+        public string ReceiptDateList { get; set; }
+        public string ReceiptAmountList { get; set; }
+
     }
 }

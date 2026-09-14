@@ -53,6 +53,7 @@ namespace MIS
             this.btnMinimize = new Bunifu.Framework.UI.BunifuImageButton();
             this.bunifuImageButton1 = new Bunifu.Framework.UI.BunifuImageButton();
             this.txtSheetName = new System.Windows.Forms.TextBox();
+            this.btnReset = new System.Windows.Forms.Button();
             this.txtRegionID = new System.Windows.Forms.TextBox();
             this.txtTerminalBrandID = new System.Windows.Forms.TextBox();
             this.txtTerminalModelID = new System.Windows.Forms.TextBox();
@@ -99,6 +100,7 @@ namespace MIS
             this.chkOverwrite = new System.Windows.Forms.CheckBox();
             this.lblSelectedRow = new System.Windows.Forms.Label();
             this.panel37 = new System.Windows.Forms.Panel();
+            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
             this.label7 = new System.Windows.Forms.Label();
@@ -144,6 +146,7 @@ namespace MIS
             this.panel34 = new System.Windows.Forms.Panel();
             this.tabControl6 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.chkDeployed = new System.Windows.Forms.CheckBox();
             this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
             this.txtCurSIMInfo = new System.Windows.Forms.TextBox();
             this.txtCurSIMSN = new System.Windows.Forms.TextBox();
@@ -163,7 +166,6 @@ namespace MIS
             this.btnRemoveTerminal = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnSearchTerminal = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnUpdateSN = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
             this.txtIRStatudDescription = new System.Windows.Forms.TextBox();
             this.txtRepSIMSN = new System.Windows.Forms.TextBox();
             this.txtRepSIMID = new System.Windows.Forms.TextBox();
@@ -348,6 +350,7 @@ namespace MIS
             this.btnMClear = new System.Windows.Forms.Button();
             this.btnMAdd = new System.Windows.Forms.Button();
             this.btnMSave = new System.Windows.Forms.Button();
+            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
             this.txtMerchantTelNo = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtClientTelNo = new System.Windows.Forms.TextBox();
@@ -370,9 +373,6 @@ namespace MIS
             this.lvwSearch = new System.Windows.Forms.ListView();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.txtRentalFeeID = new System.Windows.Forms.TextBox();
-            this.chkDeployed = new System.Windows.Forms.CheckBox();
-            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
-            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddMerchant)).BeginInit();
@@ -472,7 +472,7 @@ namespace MIS
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel4.Location = new System.Drawing.Point(1398, 35);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(2, 771);
+            this.panel4.Size = new System.Drawing.Size(2, 765);
             this.panel4.TabIndex = 300;
             // 
             // txtID
@@ -504,7 +504,7 @@ namespace MIS
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(1, 806);
+            this.panel3.Location = new System.Drawing.Point(1, 800);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1399, 2);
             this.panel3.TabIndex = 299;
@@ -526,7 +526,7 @@ namespace MIS
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 35);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1, 773);
+            this.panel2.Size = new System.Drawing.Size(1, 767);
             this.panel2.TabIndex = 298;
             // 
             // pnlHeader
@@ -705,6 +705,24 @@ namespace MIS
             this.txtSheetName.TabIndex = 294;
             this.txtSheetName.Visible = false;
             this.txtSheetName.TextChanged += new System.EventHandler(this.txtSheetName_TextChanged);
+            // 
+            // btnReset
+            // 
+            this.btnReset.AutoSize = true;
+            this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnReset.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnReset.FlatAppearance.BorderSize = 0;
+            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnReset.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnReset.Location = new System.Drawing.Point(843, -3);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(58, 30);
+            this.btnReset.TabIndex = 475;
+            this.btnReset.Text = "RESET";
+            this.btnReset.UseVisualStyleBackColor = false;
+            this.btnReset.Visible = false;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // txtRegionID
             // 
@@ -1278,6 +1296,14 @@ namespace MIS
             this.panel37.Name = "panel37";
             this.panel37.Size = new System.Drawing.Size(465, 2);
             this.panel37.TabIndex = 0;
+            // 
+            // ucStatusDisplay
+            // 
+            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
+            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ucStatusDisplay.Name = "ucStatusDisplay";
+            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
+            this.ucStatusDisplay.TabIndex = 346;
             // 
             // txtRemarks
             // 
@@ -1907,6 +1933,17 @@ namespace MIS
             this.tabPage3.Text = "BASIC INFO";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // chkDeployed
+            // 
+            this.chkDeployed.Font = new System.Drawing.Font("Courier New", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkDeployed.ForeColor = System.Drawing.Color.Blue;
+            this.chkDeployed.Location = new System.Drawing.Point(7, 253);
+            this.chkDeployed.Name = "chkDeployed";
+            this.chkDeployed.Size = new System.Drawing.Size(238, 18);
+            this.chkDeployed.TabIndex = 507;
+            this.chkDeployed.Text = "SET INSTALLED + PRODUCTION(N)";
+            this.chkDeployed.UseVisualStyleBackColor = true;
+            // 
             // bunifuSeparator2
             // 
             this.bunifuSeparator2.BackColor = System.Drawing.Color.Transparent;
@@ -2155,24 +2192,6 @@ namespace MIS
             this.btnUpdateSN.Text = "UPDATE SN\'s ASSIGNMENT";
             this.btnUpdateSN.UseVisualStyleBackColor = false;
             this.btnUpdateSN.Click += new System.EventHandler(this.btnUpdateSN_Click);
-            // 
-            // btnReset
-            // 
-            this.btnReset.AutoSize = true;
-            this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnReset.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnReset.FlatAppearance.BorderSize = 0;
-            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnReset.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnReset.Location = new System.Drawing.Point(843, -3);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(58, 30);
-            this.btnReset.TabIndex = 475;
-            this.btnReset.Text = "RESET";
-            this.btnReset.UseVisualStyleBackColor = false;
-            this.btnReset.Visible = false;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // txtIRStatudDescription
             // 
@@ -4299,6 +4318,14 @@ namespace MIS
             this.btnMSave.UseVisualStyleBackColor = false;
             this.btnMSave.Click += new System.EventHandler(this.btnMSave_Click);
             // 
+            // ucInfoDataGridView
+            // 
+            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
+            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
+            this.ucInfoDataGridView.Size = new System.Drawing.Size(466, 333);
+            this.ucInfoDataGridView.TabIndex = 484;
+            // 
             // txtMerchantTelNo
             // 
             this.txtMerchantTelNo.BackColor = System.Drawing.Color.White;
@@ -4561,38 +4588,11 @@ namespace MIS
             this.txtRentalFeeID.Visible = false;
             this.txtRentalFeeID.WordWrap = false;
             // 
-            // chkDeployed
-            // 
-            this.chkDeployed.Font = new System.Drawing.Font("Courier New", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkDeployed.ForeColor = System.Drawing.Color.Blue;
-            this.chkDeployed.Location = new System.Drawing.Point(7, 253);
-            this.chkDeployed.Name = "chkDeployed";
-            this.chkDeployed.Size = new System.Drawing.Size(238, 18);
-            this.chkDeployed.TabIndex = 507;
-            this.chkDeployed.Text = "SET INSTALLED + PRODUCTION(N)";
-            this.chkDeployed.UseVisualStyleBackColor = true;
-            // 
-            // ucStatusDisplay
-            // 
-            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
-            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucStatusDisplay.Name = "ucStatusDisplay";
-            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
-            this.ucStatusDisplay.TabIndex = 346;
-            // 
-            // ucInfoDataGridView
-            // 
-            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
-            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
-            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
-            this.ucInfoDataGridView.Size = new System.Drawing.Size(466, 333);
-            this.ucInfoDataGridView.TabIndex = 484;
-            // 
             // frmImportIR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1400, 808);
+            this.ClientSize = new System.Drawing.Size(1400, 802);
             this.Controls.Add(this.txtRentalFeeID);
             this.Controls.Add(this.panel32);
             this.Controls.Add(this.txtMerchantTelNo);

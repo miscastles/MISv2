@@ -7569,6 +7569,49 @@ namespace MIS
             pTextBox.Refresh();
         }
 
+        // RAIDEN: this function returns string array
+        public List<string> ParseCSVtoArray(string CSVList)
+        {
+            List<string> List = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(CSVList)) return List;
+
+            string[] pFiles = CSVList.Split(',');
+
+            for (int i = 0; i < pFiles.Length; i++)
+            {
+                string pFileName = pFiles[i].Trim();
+
+                if (pFileName.Length > 0) List.Add(pFileName);
+            }
+
+            return List;
+        }
+
+        public void SetProgressBar(ProgressBar progressBar,int current,int total)
+        {
+            if (total <= 0)
+            {
+                progressBar.Value = 0;
+                return;
+            }
+
+            int percentage = (int)((current / (double)total) * 100);
+
+            percentage = Math.Max(0, Math.Min(100, percentage));
+
+            if (progressBar.InvokeRequired)
+            {
+                progressBar.Invoke(new Action(() =>
+                {
+                    progressBar.Value = percentage;
+                }));
+            }
+            else
+            {
+                progressBar.Value = percentage;
+            }
+        }
     }
 
 }

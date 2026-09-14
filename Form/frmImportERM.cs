@@ -16,6 +16,7 @@ using System.Threading;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using static MIS.Function.AppUtilities;
+using MIS.Function;
 
 namespace MIS
 {
@@ -71,7 +72,7 @@ namespace MIS
 
             btnCheck.Text = "UNCHECK ALL";
             btnCheck_Click(this, e);
-
+            
         }
 
         private void frmERMTool_Load(object sender, EventArgs e)
@@ -102,9 +103,10 @@ namespace MIS
 
             // Load Mapping
             dbAPI.ExecuteAPI("GET", "View", "Type", "ERM", "Mapping", "", "ViewMapping");
+
         }
 
-        private void btnLoadFile_Click(object sender, EventArgs e)
+        private async void btnLoadFile_Click(object sender, EventArgs e)
         {
             string sExtension = "";
             int iIndexCount = 0;
@@ -144,6 +146,12 @@ namespace MIS
                         btnLoadFile.Enabled = true;
                         return;
                     }
+
+                    ucStatusImport.iState = 3;
+                    ucStatusImport.sMessage = "PREPARING IMPORT FILE";
+                    ucStatusImport.iMin = 0;
+                    ucStatusImport.iMax = 0;
+                    ucStatusImport.AnimateStatus();
 
                     // Check execution time
                     var watch = Stopwatch.StartNew();
@@ -186,7 +194,7 @@ namespace MIS
                             ucStatusImport.AnimateStatus();
 
                             Debug.WriteLine("=>>ImportToDummyDataGrid");
-                            ImportToDummyDataGrid();
+                            await ImportToDummyDataGrid();
 
                             Debug.WriteLine("=>>SetListViewHeader");
                             SetListViewHeader(sFileName);
@@ -233,6 +241,7 @@ namespace MIS
                             ucStatusImport.AnimateStatus();
 
                             // Process ERMTempDetail
+                            Cursor.Current = Cursors.WaitCursor;
                             Debug.WriteLine("API Call ProcessERM");
                             dbAPI.ProcessERMTempDetail(clsSearch.ClassParticularID.ToString(), clsSearch.ClassParticularName);
 
@@ -314,7 +323,8 @@ namespace MIS
 
                     //clsFunction.WaitWindow(false, frmWait); // Close Wait Window     
 
-                    // upload physical file
+                    // upload physical file                    
+                    Cursor.Current = Cursors.WaitCursor;
                     string pLocalPath = $"{txtPathFileName.Text.Replace(txtFileName.Text, "")}";
                     string pRemotePath = $"{clsGlobalVariables.strFTPRemoteErmPath}{clsGlobalVariables.strAPIBank}{clsFunction.sBackSlash}";
                     string pFileName = $"{txtFileName.Text}";
@@ -324,12 +334,25 @@ namespace MIS
                     Debug.WriteLine($"pRemotePath=[{pRemotePath}]");
                     Debug.WriteLine($"pFileName=[{pFileName}]");
 
+                    ucStatusImport.iState = 3;
+                    ucStatusImport.sMessage = $"UPLOADING PHYSICAL FILE";
+                    ucStatusImport.iMin = 0;
+                    ucStatusImport.iMax = 0;
+                    ucStatusImport.AnimateStatus();
+
+
                     ftp ftpClient = new ftp(clsGlobalVariables.strFTPURL, clsGlobalVariables.strFTPUserName, clsGlobalVariables.strFTPPassword);
                     ftpClient.delete(pRemotePath + pFileName);
                     ftpClient.upload(pRemotePath + pFileName, pLocalPath + pFileName);
                     ftpClient.disconnect();
 
                     Debug.WriteLine("Uploading import erm...complete");
+
+                    ucStatusImport.iState = 3;
+                    ucStatusImport.sMessage = $"UPLOADING PHYSICAL FILE COMPLETE";
+                    ucStatusImport.iMin = 0;
+                    ucStatusImport.iMax = 0;
+                    ucStatusImport.AnimateStatus();
 
                     Cursor.Current = Cursors.Default; // Back to normal 
                    
@@ -451,7 +474,8 @@ namespace MIS
         }
         private void UploadFile(string sFileName)
         {
-            
+            Cursor.Current = Cursors.WaitCursor;
+
             Debug.WriteLine("--UploadFile--");
             Debug.WriteLine("sFileName=" + sFileName);
             Debug.WriteLine("clsGlobalVariables.strFTPURL="+ clsGlobalVariables.strFTPURL);
@@ -465,6 +489,8 @@ namespace MIS
             ftpClient.delete(clsGlobalVariables.strFTPUploadPath + sFileName);
             ftpClient.upload(clsGlobalVariables.strFTPUploadPath + sFileName, @clsGlobalVariables.strFTPLocalPath + sFileName);
             ftpClient.disconnect(); // ftp disconnect
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void InitListView()
@@ -525,7 +551,6 @@ namespace MIS
                 
             
             Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
-
             
             lvwSearch.Items.Clear();
 
@@ -574,7 +599,7 @@ namespace MIS
 
                 }
 
-                dbFunction.ListViewAlternateBackColor(lvwSearch);
+                //dbFunction.ListViewAlternateBackColor(lvwSearch);
 
                 sDateFrom = clsArray.FSRDate[0];
                 sDateTo = clsArray.FSRDate[i - 1];
@@ -820,62 +845,52 @@ namespace MIS
         }
         */
 
-        private void ImportToDummyDataGrid()
+        private async Task ImportToDummyDataGrid()
         {
             string pathName = txtPathFileName.Text;
-            DataTable tbContainer = new DataTable();
             string sheetName = sSheet;
+
+            Cursor.Current = Cursors.WaitCursor;
 
             try
             {
                 FileInfo file = new FileInfo(pathName);
+
                 if (!file.Exists)
                     throw new Exception("Error, file doesn't exist!");
 
                 if (file.Extension.ToUpper() != ".XLSX")
                     throw new Exception("Only .xlsx files are supported with EPPlus.");
 
-                // Enable ExcelPackage to read without license prompt (non-commercial use)
-                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                ExcelPackage.LicenseContext =
+                    OfficeOpenXml.LicenseContext.NonCommercial;
 
-                using (var package = new ExcelPackage(file))
+                grdTempImport.DataSource = null;
+
+                DataTable tbContainer = await Task.Run(() =>
                 {
-                    var worksheet = package.Workbook.Worksheets[sheetName];
-                    if (worksheet == null)
-                        throw new Exception($"Sheet '{sheetName}' not found.");
+                    return DataGridViewHelper.ReadExcelToDataTable(file, sheetName);
+                });
 
-                    int colCount = worksheet.Dimension.End.Column;
-                    int rowCount = worksheet.Dimension.End.Row;
-
-                    // Add columns from header row
-                    for (int col = 1; col <= colCount; col++)
-                    {
-                        tbContainer.Columns.Add(worksheet.Cells[1, col].Text);
-                    }
-
-                    // Add rows (starting from row 2, skipping header)
-                    for (int row = 2; row <= rowCount; row++)
-                    {
-                        DataRow dr = tbContainer.NewRow();
-                        for (int col = 1; col <= colCount; col++)
-                        {
-                            dr[col - 1] = worksheet.Cells[row, col].Text;
-                        }
-                        tbContainer.Rows.Add(dr);
-                    }
-                }
-
-                grdTempImport.DataSource = tbContainer;
-                //MessageBox.Show("Excel file import complete.");
+                grdTempImport.DataSource = tbContainer;                
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Exceptional error: " + ex.Message);
-                dbFunction.SetMessageBox("EPPlus Import Error\n\n" +
-                                         ex.ToString(), ex.Message, clsFunction.IconType.iError);
+
+                dbFunction.SetMessageBox(
+                    "EPPlus Import Error\n\n" +
+                    ex.ToString(),
+                    ex.Message,
+                    clsFunction.IconType.iError);
+
+                throw;
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
             }
         }
-
 
         private void SetListViewHeader(string sFileName)
         {
@@ -977,6 +992,8 @@ namespace MIS
             int iStartIndex = 0;
             int iEndIndex = 0;            
             List<string> TempArrayDataCol = new List<String>();
+
+            Cursor.Current = Cursors.WaitCursor;
 
             Debug.WriteLine("Writing as CSV File="+sFileName);
             iDataRowIndex = iHeaderRowIndex + 1;
@@ -1086,6 +1103,8 @@ namespace MIS
             }
 
             iIndexCount = iFileNameIndex;
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void chkBillable_CheckedChanged(object sender, EventArgs e)

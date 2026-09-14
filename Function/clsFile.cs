@@ -44,6 +44,10 @@ namespace MIS
         public string sSignatuPath = "C:\\CASTLESTECH_MIS\\DOWNLOAD\\IMAGE\\";
         public string sArchivePath = "C:\\CASTLESTECH_MIS\\ARCHIVE\\";
         public string sOCRDataPath = "C:\\CASTLESTECH_MIS\\OCRData\\";
+        public string sDownloadExpensesFSRPath = "C:\\CASTLESTECH_MIS\\DOWNLOAD\\EXPENSES\\";
+
+        // Images
+        public string pNoImage = "C:\\CASTLESTECH_MIS\\IMAGE\\NoImage.jpg";
 
         private clsFunction dbFunction;
         private clsAPI dbAPI;

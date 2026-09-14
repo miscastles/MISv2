@@ -205,22 +205,114 @@ namespace MIS
 
         public decimal? ExtractTransactionAmount(string pOCRText)
         {
-            if (string.IsNullOrWhiteSpace(pOCRText)) return null;
+            if (string.IsNullOrWhiteSpace(pOCRText))
+                return null;
 
+            string[] pTransactionAmountText =
+                GetReceiptOCRText("TransactionAmount");
+
+            string[] pOCRLines = pOCRText.Split(
+                new string[] { "\r\n", "\n", "\r" },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            // ---------------------------------------------------------
+            // 1. Search using Transaction Amount keywords
+            // ---------------------------------------------------------
+            foreach (string pAmountText in pTransactionAmountText)
+            {
+                if (string.IsNullOrWhiteSpace(pAmountText))
+                    continue;
+
+                string pNormalizedAmountText =
+                    NormalizeOCRSearchText(pAmountText);
+
+                for (int i = 0; i < pOCRLines.Length; i++)
+                {
+                    string pNormalizedLine =
+                        NormalizeOCRSearchText(pOCRLines[i]);
+
+                    // Prevent "TOTAL" from matching "SUBTOTAL"
+                    string[] pWords = pNormalizedLine.Split(
+                        new[] { ' ' },
+                        StringSplitOptions.RemoveEmptyEntries);
+
+                    if (!pWords.Contains(pNormalizedAmountText))
+                        continue;
+
+                    // Current line
+                    string pTextToCheck = pOCRLines[i];
+
+                    // Next line
+                    if (i + 1 < pOCRLines.Length)
+                    {
+                        pTextToCheck += " " + pOCRLines[i + 1];
+                    }
+
+                    // Next 2nd line
+                    if (i + 2 < pOCRLines.Length)
+                    {
+                        pTextToCheck += " " + pOCRLines[i + 2];
+                    }
+
+                    // Look for numeric amount
+                    Match pAmountMatch = Regex.Match(
+                        pTextToCheck,
+                        @"(?:₱|PHP|PESO(?:S)?|P)?\s*" +
+                        @"([0-9][0-9,\s]*\.\s*[0-9]{2})\b",
+                        RegexOptions.IgnoreCase);
+
+                    if (!pAmountMatch.Success)
+                        continue;
+
+                    string pAmount =
+                        pAmountMatch.Groups[1].Value
+                            .Replace(" ", "")
+                            .Replace(",", "");
+
+                    decimal dAmount;
+
+                    if (decimal.TryParse(
+                        pAmount,
+                        NumberStyles.Number,
+                        CultureInfo.InvariantCulture,
+                        out dAmount))
+                    {
+                        Debug.WriteLine(
+                            "ExtractTransactionAmount - Amount: " +
+                            dAmount.ToString("0.00"));
+
+                        return dAmount;
+                    }
+                }
+            }
+
+            // ---------------------------------------------------------
+            // 2. Fallback - Search currency amount anywhere
+            // ---------------------------------------------------------
             Match amountMatch = Regex.Match(
                 pOCRText,
                 @"(?:PHP|PESO(?:S)?|P|₱)\s*[:\-]?\s*" +
                 @"([0-9][0-9,\s]*\.\s*[0-9]{2})",
-                RegexOptions.IgnoreCase
-            );
+                RegexOptions.IgnoreCase);
 
-            if (!amountMatch.Success) return null;
+            if (amountMatch.Success)
+            {
+                string pAmount =
+                    amountMatch.Groups[1].Value
+                        .Replace(" ", "")
+                        .Replace(",", "");
 
-            string pAmount = amountMatch.Groups[1].Value.Replace(" ", "").Replace(",", "");
+                decimal dAmount;
 
-            decimal dAmount;
-
-            if (decimal.TryParse(pAmount, NumberStyles.Number, CultureInfo.InvariantCulture, out dAmount)) return dAmount;
+                if (decimal.TryParse(
+                    pAmount,
+                    NumberStyles.Number,
+                    CultureInfo.InvariantCulture,
+                    out dAmount))
+                {
+                    return dAmount;
+                }
+            }
 
             return null;
         }

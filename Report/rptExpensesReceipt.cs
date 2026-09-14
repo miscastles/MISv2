@@ -16,14 +16,14 @@ namespace MIS.Report {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class rptExpensesReport : ReportClass {
+    public class rptExpensesReceipt : ReportClass {
         
-        public rptExpensesReport() {
+        public rptExpensesReceipt() {
         }
         
         public override string ResourceName {
             get {
-                return "rptExpensesReport.rpt";
+                return "rptExpensesReceipt.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace MIS.Report {
         
         public override string FullResourceName {
             get {
-                return "MIS.Report.rptExpensesReport.rpt";
+                return "MIS.Report.rptExpensesReceipt.rpt";
             }
             set {
                 // Do nothing
@@ -114,9 +114,9 @@ namespace MIS.Report {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrptExpensesReport : Component, ICachedReport {
+    public class CachedrptExpensesReceipt : Component, ICachedReport {
         
-        public CachedrptExpensesReport() {
+        public CachedrptExpensesReceipt() {
         }
         
         [Browsable(false)]
@@ -153,7 +153,7 @@ namespace MIS.Report {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            rptExpensesReport rpt = new rptExpensesReport();
+            rptExpensesReceipt rpt = new rptExpensesReceipt();
             rpt.Site = this.Site;
             return rpt;
         }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MIS.Report {
+namespace MIS {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace MIS.Report {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class rptExpensesReport : ReportClass {
+    public class rptExpensesReceipts : ReportClass {
         
-        public rptExpensesReport() {
+        public rptExpensesReceipts() {
         }
         
         public override string ResourceName {
             get {
-                return "rptExpensesReport.rpt";
+                return "rptExpensesReceipts.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace MIS.Report {
         
         public override string FullResourceName {
             get {
-                return "MIS.Report.rptExpensesReport.rpt";
+                return "MIS.rptExpensesReceipts.rpt";
             }
             set {
                 // Do nothing
@@ -87,36 +87,12 @@ namespace MIS.Report {
                 return this.ReportDefinition.Sections[4];
             }
         }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_p_StatementType {
-            get {
-                return this.DataDefinition.ParameterFields[0];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_p_SearchBy {
-            get {
-                return this.DataDefinition.ParameterFields[1];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_p_SearchValue {
-            get {
-                return this.DataDefinition.ParameterFields[2];
-            }
-        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrptExpensesReport : Component, ICachedReport {
+    public class CachedrptExpensesReceipts : Component, ICachedReport {
         
-        public CachedrptExpensesReport() {
+        public CachedrptExpensesReceipts() {
         }
         
         [Browsable(false)]
@@ -153,7 +129,7 @@ namespace MIS.Report {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            rptExpensesReport rpt = new rptExpensesReport();
+            rptExpensesReceipts rpt = new rptExpensesReceipts();
             rpt.Site = this.Site;
             return rpt;
         }
