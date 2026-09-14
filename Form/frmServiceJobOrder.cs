@@ -2343,6 +2343,8 @@ namespace MIS
                     return;
                 }
 
+                displayRescheduleTicketClosure();
+
                 // check reschedule ticket closure
                 if (fRescheduleTicket && dbFunction.isValidDescription(gScheduleDate))
                 {
@@ -4295,11 +4297,6 @@ namespace MIS
                     tabFillUp.TabIndex = 0;
 
                     btnPreviewFSR.Enabled = btnViewDiagnostic.Enabled = btnUpdateServiceDate.Enabled = btnUpdateMerchRep.Enabled = btnUpdateServiceType.Enabled = false;
-
-                    if (!fAutoLoadData)
-                    {
-                        displayRescheduleTicketClosure();
-                    }
 
                     getZoningInfo();
 
@@ -7119,6 +7116,17 @@ namespace MIS
             gAttemptDate = "";
             fRescheduleTicket = false;
 
+            // Check required lookup values
+            if (!dbFunction.isValidID(txtServiceJobType.Text) ||
+                !dbFunction.isValidID(txtMerchantID.Text) ||
+                !dbFunction.isValidID(txtIRIDNo.Text) ||
+                !dbFunction.isValidDescription(txtEntryRequestID.Text))
+            {
+                return;
+            }
+
+            if (fEdit) return;
+
             string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtServiceJobType.Text)}{clsDefines.gPipe}" +
                                     $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
                                     $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
@@ -7151,18 +7159,6 @@ namespace MIS
                             $"Attempt Dependency: {pDependency}\n\n" +
                             $"Current Schedule Date: {pScheduleDate}\n\n" +
                             $"Remarks: {pRemarks}", "Information", clsFunction.IconType.iInformation);
-
-
-                    // set schedule date
-                    if (!string.IsNullOrWhiteSpace(pScheduleDate))
-                    {
-                        DateTime dt;
-
-                        if (DateTime.TryParse(pScheduleDate, out dt))
-                        {
-                            dteServiceReqDate.Value = dt;
-                        }
-                    }
 
                     gScheduleDate = pScheduleDate;
                     gAttemptDate = pFSRDate;
