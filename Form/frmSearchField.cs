@@ -3177,16 +3177,16 @@ namespace MIS
         private static void HydrateQRDeliveryIdentity(QRDeliveryHistoryItem item)
         {
             if (item == null || string.IsNullOrWhiteSpace(item.QRContent)) return;
-            if (!string.IsNullOrWhiteSpace(item.TID) &&
-                !string.IsNullOrWhiteSpace(item.MID) &&
-                !string.IsNullOrWhiteSpace(item.MerchantName)) return;
             try
             {
-                QRDeliveryData scanned = new QRDeliveryValidator().Parse(item.QRContent);
+                QRDeliveryValidator validator = new QRDeliveryValidator();
+                item.QRContent = validator.NormalizeHistoricalContent(item.QRContent);
+                QRDeliveryData scanned = validator.Parse(item.QRContent);
                 if (string.IsNullOrWhiteSpace(item.TID)) item.TID = scanned.TID;
                 if (string.IsNullOrWhiteSpace(item.MID)) item.MID = scanned.MID;
                 if (string.IsNullOrWhiteSpace(item.MerchantName))
                     item.MerchantName = scanned.MerchantName;
+                item.MerchantAddress = scanned.MerchantAddress;
                 if (string.IsNullOrWhiteSpace(item.TerminalSN))
                     item.TerminalSN = scanned.TerminalSerialNo;
                 if (string.IsNullOrWhiteSpace(item.SIMSN))
@@ -3194,7 +3194,8 @@ namespace MIS
             }
             catch
             {
-                // An invalid historical payload stays hidden if it has no TID/MID.
+                // Unrecognized legacy content stays selectable when its identity
+                // was supplied separately by the history API.
             }
         }
 
@@ -3309,147 +3310,5 @@ namespace MIS
             }
         }
 
-        // *********************************************************************
-        // QR Delivery
-        // *********************************************************************
-        private void ConfigureQRDeliverySearch()
-        {
-            lblHeader.Text = "SEARCH [ QR DELIVERY ]";
-            lblSearchMessage.Text = clsSearch.ClassBankDisplayName;
-            lblSearchStatus.Text = "";
-            lblSearchString.Text = " >  MERCHANT / TID / MID / QR ID / SERVICE NO / IR ID / TERMINAL SN / SIM SN / USER / RESULT";
-            chkSelect.Enabled = false;
-            chkSelect.Visible = false;
-            chkShowAll.Visible = false;
-            pnlNavigator.Visible = false;
-            btnOK.Enabled = true;
-            isCheckBoxes = false;
-
-            lvwSearch.CheckBoxes = false;
-            lvwSearch.Columns.Clear();
-            AddQRDeliveryColumn("LINE#", 55);
-            AddQRDeliveryColumn("QR ID", 70);
-            AddQRDeliveryColumn("MERCHANT", 210);
-            AddQRDeliveryColumn("TID", 100);
-            AddQRDeliveryColumn("MID", 145);
-            AddQRDeliveryColumn("SERVICE NO", 90);
-            AddQRDeliveryColumn("IR ID", 80);
-            AddQRDeliveryColumn("TERMINAL SN", 130);
-            AddQRDeliveryColumn("SIM SN", 130);
-            AddQRDeliveryColumn("RESULT", 155);
-            AddQRDeliveryColumn("PROCESSED BY", 115);
-            AddQRDeliveryColumn("DATE / TIME", 155);
-
-            txtSearch.TextChanged += delegate { LoadQRDeliveryRows(); };
-            LoadQRDeliveryRows();
-            Size = new Size(1391, 577);
-            StartPosition = FormStartPosition.CenterParent;
-            txtSearch.Focus();
-        }
-
-        private void AddQRDeliveryColumn(string title, int width)
-        {
-            lvwSearch.Columns.Add(title, width, HorizontalAlignment.Left);
-        }
-
-        private void LoadQRDeliveryRows()
-        {
-            string query = (txtSearch.Text ?? string.Empty).Trim();
-            lvwSearch.BeginUpdate();
-            lvwSearch.Items.Clear();
-            int line = 0;
-            HashSet<string> displayedScans = new HashSet<string>(
-                StringComparer.OrdinalIgnoreCase);
-            foreach (QRDeliveryHistoryItem item in qrDeliveryRecords)
-            {
-                HydrateQRDeliveryIdentity(item);
-                if (string.IsNullOrWhiteSpace(item.TID) ||
-                    string.IsNullOrWhiteSpace(item.MID))
-                    continue;
-
-                string duplicateKey = string.Join("|", new[]
-                {
-                    item.ServiceNo.ToString(), item.TID ?? "", item.MID ?? "",
-                    item.TerminalSN ?? "", item.SIMSN ?? "", item.QRResult ?? ""
-                });
-                if (!displayedScans.Add(duplicateKey)) continue;
-                if (!MatchesQRDelivery(item, query)) continue;
-                line++;
-                ListViewItem row = new ListViewItem(line.ToString());
-                row.SubItems.Add(item.QRID.ToString());
-                row.SubItems.Add(item.MerchantName ?? "");
-                row.SubItems.Add(item.TID ?? "");
-                row.SubItems.Add(item.MID ?? "");
-                row.SubItems.Add(item.ServiceNo.ToString());
-                row.SubItems.Add(item.IRIDNo.ToString());
-                row.SubItems.Add(item.TerminalSN ?? "");
-                row.SubItems.Add(item.SIMSN ?? "");
-                row.SubItems.Add(item.QRResult ?? "");
-                row.SubItems.Add(item.ProcessedBy ?? "");
-                row.SubItems.Add(item.DateTimeStamp.ToString("yyyy-MM-dd HH:mm:ss"));
-                row.ForeColor = IsSuccessfulQRDelivery(item)
-                    ? Color.FromArgb(0, 170, 70)
-                    : Color.Red;
-                row.Tag = item;
-                lvwSearch.Items.Add(row);
-            }
-            lvwSearch.EndUpdate();
-            lblSearchStatus.Text = line + " record(s) found.";
-        }
-
-        private static void HydrateQRDeliveryIdentity(QRDeliveryHistoryItem item)
-        {
-            if (item == null || string.IsNullOrWhiteSpace(item.QRContent)) return;
-            if (!string.IsNullOrWhiteSpace(item.TID) &&
-                !string.IsNullOrWhiteSpace(item.MID) &&
-                !string.IsNullOrWhiteSpace(item.MerchantName)) return;
-            try
-            {
-                QRDeliveryData scanned = new QRDeliveryValidator().Parse(item.QRContent);
-                if (string.IsNullOrWhiteSpace(item.TID)) item.TID = scanned.TID;
-                if (string.IsNullOrWhiteSpace(item.MID)) item.MID = scanned.MID;
-                if (string.IsNullOrWhiteSpace(item.MerchantName))
-                    item.MerchantName = scanned.MerchantName;
-                if (string.IsNullOrWhiteSpace(item.TerminalSN))
-                    item.TerminalSN = scanned.TerminalSerialNo;
-                if (string.IsNullOrWhiteSpace(item.SIMSN))
-                    item.SIMSN = scanned.SimSerialNo;
-            }
-            catch
-            {
-                // An invalid historical payload stays hidden if it has no TID/MID.
-            }
-        }
-
-        private void SelectQRDeliveryRecord()
-        {
-            if (lvwSearch.SelectedItems.Count == 0) return;
-            SelectedQRDeliveryRecord = lvwSearch.SelectedItems[0].Tag as QRDeliveryHistoryItem;
-            if (SelectedQRDeliveryRecord == null) return;
-            fSelected = true;
-            DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        private static bool IsSuccessfulQRDelivery(QRDeliveryHistoryItem item)
-        {
-            return string.Equals(item.QRResult, "READY TO DISPATCH", StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(item.QRResult, "SUCCESS", StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(item.QRResult, "MATCH", StringComparison.OrdinalIgnoreCase);
-        }
-
-        private static bool MatchesQRDelivery(QRDeliveryHistoryItem item, string query)
-        {
-            if (query.Length == 0) return true;
-            object[] values = { item.QRID, item.MerchantName, item.TID, item.MID,
-                item.ServiceNo, item.IRIDNo, item.MerchantID, item.TerminalSN,
-                item.SIMSN, item.ProcessedBy, item.QRResult, item.InventoryStatus,
-                item.TerminalPrepStatus, item.DispatcherStatus };
-            return values.Any(value => Convert.ToString(value).IndexOf(
-                query, StringComparison.OrdinalIgnoreCase) >= 0);
-        }
-        // *********************************************************************
-        // QR Delivery
-        // *********************************************************************
     }
 }

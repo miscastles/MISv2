@@ -60,6 +60,8 @@ namespace MIS
                     if (item.ServiceNo == 0 && item.IRIDNo == 0 && item.MerchantID == 0)
                         continue;
 
+                    HydrateMerchantAddress(item);
+
                     int rowIndex = dgvHistory.Rows.Add();
                     DataGridViewRow row = dgvHistory.Rows[rowIndex];
 
@@ -70,6 +72,7 @@ namespace MIS
                     row.Cells["ServiceNo"].Value = item.ServiceNo;
                     row.Cells["IRIDNo"].Value = item.IRIDNo;
                     row.Cells["MerchantID"].Value = item.MerchantID;
+                    row.Cells["MerchantAddress"].Value = item.MerchantAddress;
                     row.Cells["InventoryStatus"].Value = item.InventoryStatus;
                     row.Cells["TerminalPrepStatus"].Value = item.TerminalPrepStatus;
                     row.Cells["DispatcherStatus"].Value = item.DispatcherStatus;
@@ -84,6 +87,24 @@ namespace MIS
             lblRecordCount.Text = dgvHistory.Rows.Count == 0
                 ? "NO HISTORY RECORDS FOUND"
                 : string.Format("{0} RECORD(S) SHOWN", dgvHistory.Rows.Count);
+        }
+
+        private static void HydrateMerchantAddress(QRDeliveryHistoryItem item)
+        {
+            if (item == null || string.IsNullOrWhiteSpace(item.QRContent))
+                return;
+
+            try
+            {
+                // Prefer the address that was actually scanned. This keeps the
+                // history truthful when the QR address was missing or mismatched.
+                item.MerchantAddress =
+                    new QRDeliveryValidator().Parse(item.QRContent).MerchantAddress;
+            }
+            catch
+            {
+                // Legacy or malformed QR content has no reliable address to show.
+            }
         }
 
         private static string OverallResult(QRDeliveryHistoryItem item)

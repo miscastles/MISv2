@@ -19,6 +19,7 @@ namespace MIS
 {
     public class clsAPI
     {
+        internal static bool SuppressErrorPrompts { get; set; }
         private static int ResponseCode;
         private static string ResponseDescription;
 
@@ -6069,6 +6070,11 @@ namespace MIS
 
         public void PromptAPIMessage(bool iShow, string ResponseCode)
         {
+            // Logout requests are best-effort during application shutdown. Keep
+            // logging failures, but do not block exit with an API error dialog.
+            if (SuppressErrorPrompts)
+                return;
+
             string sMessage = "";        
 
             //sBeautified = GetBeautifyJSON(clsGlobalVariables.strJSONResponse);
