@@ -2396,6 +2396,8 @@ namespace MIS
                     return;
                 }
 
+                displayRescheduleTicketClosure();
+
                 // check reschedule ticket closure
                 if (fRescheduleTicket && dbFunction.isValidDescription(gScheduleDate))
                 {

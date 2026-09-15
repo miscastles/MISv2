@@ -12145,7 +12145,7 @@ namespace MIS
 
         public string[] GetReasonType()
         {
-            string[] ret = { clsFunction.sDefaultSelect, "REASON", "HARDWARE", "SOFTWARE", "RESOLUTION", "NEGATIVE" };
+            string[] ret = { clsFunction.sDefaultSelect, "REASON", "HARDWARE", "SOFTWARE", "RESOLUTION", "NEGATIVE", "HD-NEGATIVE" };
 
             return ret;
         }

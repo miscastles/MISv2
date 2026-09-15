@@ -286,7 +286,7 @@ namespace MIS
             bool isSuccess = cboSearchServiceStatus.Text.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS);
 
             SearchEntity(
-                isSuccess ? frmSearchField.SearchType.iReason : frmSearchField.SearchType.iNegativeReason,
+                isSuccess ? frmSearchField.SearchType.iReason : frmSearchField.SearchType.iHelpdeskNegativeReason,
                 (isSuccess ? "SUCCESS" : "NEGATIVE") + " REASON", () =>
                 {
                     ReasonID = clsSearch.ClassReasonID;
