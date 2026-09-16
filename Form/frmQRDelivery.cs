@@ -1,14 +1,15 @@
+using MIS.Controller;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using QRCoder;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
 using System.Text;
+using System.Web.Services.Description;
 using System.Windows.Forms;
-using MIS.Controller;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using QRCoder;
 
 namespace MIS
 {
@@ -100,6 +101,10 @@ namespace MIS
             try
             {
                 QRDeliveryData scanned = qrValidator.Parse(rtbQRContent.Text);
+
+                // display scan details
+                fillScanDetails(scanned);
+
                 if (string.IsNullOrWhiteSpace(scanned.TID) || string.IsNullOrWhiteSpace(scanned.MID))
                     throw new QRDeliveryValidationException(
                         "The QR code must contain both TID and MID before MIS lookup can run.", null);
@@ -467,6 +472,8 @@ namespace MIS
                 return;
             }
 
+            Cursor.Current = Cursors.WaitCursor;
+
             try
             {
                 if (!validatedQRDate.HasValue)
@@ -485,6 +492,8 @@ namespace MIS
                     ex.Message + "\n\nRoot cause:\n" + detail.Message,
                     "QR Delivery", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
@@ -521,6 +530,8 @@ namespace MIS
 
         private void ResetForm()
         {
+            dbFunction.ClearTextBox(this);
+
             selectedService = null;
             if (generatedQrImage != null)
             {
@@ -813,12 +824,31 @@ namespace MIS
             {
                 lblQRStatus.Text = "READY TO DISPATCH";
                 lblQRStatus.ForeColor = Color.Green;
+
+                // generate internal qrcode
+                Bitmap qrBitmap = dbFunction.GenerateQRCode("https://sit-uat.citas.com.ph:443/miscastlestech/waybill/index.html?QRID=70017&InternalQRContent=eyJUZXJtaW5hbFNOIjoiMTAwMDAwMDAwMDE0IiwiU0lNU04iOiIyMDAwMDAwMDAwMTQiLCJNZXJjaGFudE5hbWUiOiJBQkMgTUVSQ0hBTlQgMyIsIk1lcmNoYW50QWRkcmVzcyI6IkFCQyBNRVJDSEFOVCAzIEFERFJFU1MgWFlaIDExIFNJVElPIENBV0FHIFBST1BFUiBDQVdBRyBTVUJJQyBaQU1CQUxFUyJ9");
+                picQRCode.Image = qrBitmap;
             }
         }
 
-        private void btnPrintQR_Click(object sender, EventArgs e)
+        private void fillScanDetails(QRDeliveryData model)
         {
+            txtScanMerchant.Text = txtScanTID.Text = txtScanMID.Text = txtScanAddress.Text = txtScanTerminalSN.Text = txtScanSIMSN.Text = clsDefines.gNull;
 
+            if (model != null)
+            {
+                txtScanMerchant.Text = model.MerchantName;
+                txtScanTID.Text = model.TID;
+                txtScanMID.Text = model.MID;
+                txtScanAddress.Text = model.MerchantAddress;
+                txtScanTerminalSN.Text = model.TerminalSerialNo;
+                txtScanSIMSN.Text = model.SimSerialNo;
+            }            
+        }
+
+        private void btnScanClear_Click(object sender, EventArgs e)
+        {
+            btnClear_Click(this, e);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32;
 using MIS.Enums;
+using MIS.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
+using QRCoder;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -24,7 +26,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MIS.Model;
 using static MIS.Function.AppUtilities;
 
 namespace MIS
@@ -7612,6 +7613,55 @@ namespace MIS
                 progressBar.Value = percentage;
             }
         }
+
+        public Bitmap GenerateQRCode(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return null;
+
+            using (QRCodeGenerator generator = new QRCodeGenerator())
+            using (QRCodeData data = generator.CreateQrCode(
+                value,
+                QRCodeGenerator.ECCLevel.L))
+            using (QRCode qrCode = new QRCode(data))
+            {
+                return qrCode.GetGraphic(
+                    20,
+                    Color.Black,
+                    Color.White,
+                    true);
+            }
+        }
+
+        public void SaveBitmap(Bitmap bitmap, string path, string filename)
+        {
+            if (bitmap == null)
+                throw new ArgumentNullException("bitmap");
+
+            if (string.IsNullOrWhiteSpace(path))
+                throw new ArgumentException("The path is required.", "path");
+
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentException("The filename is required.", "filename");
+
+            // Ensure .png extension
+            if (!filename.EndsWith(clsDefines.FILE_EXT_PNG, StringComparison.OrdinalIgnoreCase))
+                filename += clsDefines.FILE_EXT_PNG;
+
+            // Create directory if it doesn't exist
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            string fullPath = Path.Combine(path, filename);
+
+            // Delete existing file
+            if (File.Exists(fullPath))
+                File.Delete(fullPath);
+
+            // Save as PNG
+            bitmap.Save(fullPath, ImageFormat.Png);
+        }
+
     }
 
 }
