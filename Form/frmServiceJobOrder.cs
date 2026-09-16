@@ -888,8 +888,8 @@ namespace MIS
             lblSubHeader.Text = txtRequestNo.Text;
 
             dbAPI.saveServicingActivityStart(ActivityType.JobOrders,
-                        clsUser.ClassUserID,
-                        clsUser.ClassUserFullName,
+                        clsSearch.ClassCurrentParticularID,
+                        clsSearch.ClassCurrentParticularName,
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
@@ -2208,6 +2208,16 @@ namespace MIS
             //}
         }
 
+        private bool isReplacementActivityComplete()
+        {
+            return dbFunction.isValidDescription(txtEntryRequestID.Text) &&
+                   dbFunction.isValidDescription(txtEntryReferenceNo.Text) &&
+                   dbFunction.isValidDescription(txtDispatcher.Text) &&
+                   (dbFunction.isValidID(txtRepTerminalID.Text) || dbFunction.isValidID(txtRepSIMID.Text)) &&
+                   dbFunction.isValidID(txtCurTerminalID.Text) &&
+                   dbFunction.isValidID(txtCurSIMID.Text);
+        }
+
         private void btnDispatch_Click(object sender, EventArgs e)
         {
             bool isUpdateDispatch = false;
@@ -2444,13 +2454,24 @@ namespace MIS
                 Debug.WriteLine("clsSearch.ClassStatusDescription=" + clsSearch.ClassStatusDescription);
                 Debug.WriteLine("clsSearch.ClassJobTypeStatusDescription=" + clsSearch.ClassJobTypeStatusDescription);
 
+                bool isReplacementJob = txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC);
+
                 if (!fEdit)
                 {
                     SaveServiceDetail();
 
-                    if (dbFunction.isValidDescription(txtDispatcher.Text))
-                        dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
-                            clsUser.ClassUserID, clsUser.ClassUserFullName);
+                    if (isReplacementJob)
+                    {
+                        if (isReplacementActivityComplete())
+                            dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                                clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
+                    }
+                    else
+                    {
+                        if (dbFunction.isValidDescription(txtDispatcher.Text))
+                            dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                                clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
+                    }
 
                     SaveDeploymentDetail();
 
@@ -2580,15 +2601,23 @@ namespace MIS
                 }
 
                 // Activity 2 — Terminal Prep completion
-                if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtCurSIMID.Text) && !dbFunction.isValidID(txtFEID.Text))                
-                    dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
-                        clsUser.ClassUserID, clsUser.ClassUserFullName);
-
+                if (isReplacementJob)
+                {
+                    if (isReplacementActivityComplete() && !dbFunction.isValidID(txtFEID.Text))
+                        dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                            clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
+                }
+                else
+                {
+                    if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtCurSIMID.Text) && !dbFunction.isValidID(txtFEID.Text))
+                        dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                            clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
+                }
                 // Activity 3 — Dispatcher completion
                 if (dbFunction.isValidID(txtFEID.Text) && chkDispatch.Checked)
                 {
                     dbAPI.saveServicingActivityEnd(ActivityType.Dispatcher, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
-                        clsUser.ClassUserID, clsUser.ClassUserFullName);
+                        clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
                 }
 
                 Cursor.Current = Cursors.Default;
@@ -2716,8 +2745,8 @@ namespace MIS
 
                 if (wasFEEmpty)
                     dbAPI.saveServicingActivityStart(ActivityType.Dispatcher,
-                        clsUser.ClassUserID,
-                        clsUser.ClassUserFullName,
+                        clsSearch.ClassCurrentParticularID,
+                        clsSearch.ClassCurrentParticularName,
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
@@ -3878,8 +3907,8 @@ namespace MIS
 
                 if (!wasTermPrepStarted)
                     dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep, 
-                        clsUser.ClassUserID, 
-                        clsUser.ClassUserFullName, 
+                        clsSearch.ClassCurrentParticularID,
+                        clsSearch.ClassCurrentParticularName,
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)), 
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)), 
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
@@ -3949,8 +3978,8 @@ namespace MIS
 
                 if (!wasTermPrepStarted)
                     dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep,
-                        clsUser.ClassUserID,
-                        clsUser.ClassUserFullName,
+                        clsSearch.ClassCurrentParticularID,
+                        clsSearch.ClassCurrentParticularName,
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
                         int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
@@ -3961,6 +3990,7 @@ namespace MIS
 
         private void btnSearchRepTerminal_Click(object sender, EventArgs e)
         {
+            bool wasRepPrepStarted = dbFunction.isValidID(txtRepTerminalID.Text) || dbFunction.isValidID(txtRepSIMID.Text);
             
             frmSearchField.iSearchType = frmSearchField.SearchType.iTerminal;
             frmSearchField.iStatus = clsGlobalVariables.STATUS_AVAILABLE;
@@ -4032,11 +4062,21 @@ namespace MIS
 
                 checkAndSetDispatch();
 
+                if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC) && !wasRepPrepStarted)
+                dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep,
+                    clsSearch.ClassCurrentParticularID,
+                    clsSearch.ClassCurrentParticularName,
+                    int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                    int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
+                    int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
+
             }
         }
 
         private void btnSearchRepSIM_Click(object sender, EventArgs e)
         {
+            bool wasRepPrepStarted = dbFunction.isValidID(txtRepTerminalID.Text) || dbFunction.isValidID(txtRepSIMID.Text);
+
             frmSearchField.iSearchType = frmSearchField.SearchType.iSIM;
             frmSearchField.iStatus = clsGlobalVariables.STATUS_AVAILABLE;
             frmSearchField.sHeader = "REPLACE SIM";
@@ -4092,6 +4132,14 @@ namespace MIS
                 }
 
                 checkAndSetDispatch();
+
+                if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC) && !wasRepPrepStarted)
+                dbAPI.saveServicingActivityStart(ActivityType.TerminalPrep,
+                    clsSearch.ClassCurrentParticularID,
+                    clsSearch.ClassCurrentParticularName,
+                    int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                    int.Parse(dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)),
+                    int.Parse(dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)));
 
             }
         }
