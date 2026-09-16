@@ -15,6 +15,7 @@ namespace MIS
         private System.Windows.Forms.DataGridViewTextBoxColumn ServiceNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn IRIDNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn MerchantID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MerchantAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn InventoryStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminalPrepStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn DispatcherStatus;
@@ -41,6 +42,7 @@ namespace MIS
             this.ServiceNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IRIDNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MerchantID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MerchantAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InventoryStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TerminalPrepStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DispatcherStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -108,6 +110,7 @@ namespace MIS
             this.ServiceNo,
             this.IRIDNo,
             this.MerchantID,
+            this.MerchantAddress,
             this.InventoryStatus,
             this.TerminalPrepStatus,
             this.DispatcherStatus,
@@ -165,7 +168,14 @@ namespace MIS
             this.MerchantID.HeaderText = "MERCHANT ID";
             this.MerchantID.Name = "MerchantID";
             this.MerchantID.ReadOnly = true;
-            // 
+            //
+            // MerchantAddress
+            //
+            this.MerchantAddress.FillWeight = 180F;
+            this.MerchantAddress.HeaderText = "MERCHANT ADDRESS";
+            this.MerchantAddress.Name = "MerchantAddress";
+            this.MerchantAddress.ReadOnly = true;
+            //
             // InventoryStatus
             // 
             this.InventoryStatus.FillWeight = 85F;

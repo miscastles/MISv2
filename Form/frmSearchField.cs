@@ -97,7 +97,8 @@ namespace MIS
             iHelpDeskProblem,
             iZoning,
             iExpense,
-            iExpensesMaster            
+            iExpensesMaster,
+			iHelpdeskNegativeReason            
         }
 
         private void lvwSearch_SelectedIndexChanged(object sender, EventArgs e)
@@ -190,6 +191,7 @@ namespace MIS
                         case SearchType.iAllReason:
                         case SearchType.iReason:
                         case SearchType.iNegativeReason:
+                        case SearchType.iHelpdeskNegativeReason: 
                         case SearchType.iResolution:
                         case SearchType.iProblem:
                             clsSearch.ClassReasonID = int.Parse(lvwSearch.SelectedItems[0].SubItems[1].Text);
@@ -511,6 +513,12 @@ namespace MIS
                     clsSearch.ClassAdvanceSearchValue = clsFunction.sPadZero + clsFunction.sPipe + dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe + clsGlobalVariables.NEGATIVE_TYPE;
                     dbAPI.FillListViewReason(lvwSearch, clsSearch.ClassAdvanceSearchValue);
                     break;
+                case SearchType.iHelpdeskNegativeReason:   // added — new case, not fall-through
+                    clsSearch.ClassAdvanceSearchValue = clsFunction.sPadZero + clsFunction.sPipe 
+                    + dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe 
+                    + clsGlobalVariables.HELPDESK_NEGATIVE_TYPE;
+                dbAPI.FillListViewReason(lvwSearch, clsSearch.ClassAdvanceSearchValue);
+                break;
                 case SearchType.iResolution:
                     clsSearch.ClassAdvanceSearchValue = clsFunction.sPadZero + clsFunction.sPipe + dbFunction.CheckAndSetNumericValue(txtSearch.Text) + clsFunction.sPipe + clsGlobalVariables.RESOLUTION_TYPE;
                     dbAPI.FillListViewReason(lvwSearch, clsSearch.ClassAdvanceSearchValue);
@@ -1715,6 +1723,7 @@ namespace MIS
                 case SearchType.iAllReason:
                 case SearchType.iReason:
                 case SearchType.iNegativeReason:
+                case SearchType.iHelpdeskNegativeReason: 
                 case SearchType.iResolution:
                 case SearchType.iProblem:
                     lvwSearch.View = View.Details;
@@ -3263,16 +3272,16 @@ namespace MIS
         private static void HydrateQRDeliveryIdentity(QRDeliveryHistoryItem item)
         {
             if (item == null || string.IsNullOrWhiteSpace(item.QRContent)) return;
-            if (!string.IsNullOrWhiteSpace(item.TID) &&
-                !string.IsNullOrWhiteSpace(item.MID) &&
-                !string.IsNullOrWhiteSpace(item.MerchantName)) return;
             try
             {
-                QRDeliveryData scanned = new QRDeliveryValidator().Parse(item.QRContent);
+                QRDeliveryValidator validator = new QRDeliveryValidator();
+                item.QRContent = validator.NormalizeHistoricalContent(item.QRContent);
+                QRDeliveryData scanned = validator.Parse(item.QRContent);
                 if (string.IsNullOrWhiteSpace(item.TID)) item.TID = scanned.TID;
                 if (string.IsNullOrWhiteSpace(item.MID)) item.MID = scanned.MID;
                 if (string.IsNullOrWhiteSpace(item.MerchantName))
                     item.MerchantName = scanned.MerchantName;
+                item.MerchantAddress = scanned.MerchantAddress;
                 if (string.IsNullOrWhiteSpace(item.TerminalSN))
                     item.TerminalSN = scanned.TerminalSerialNo;
                 if (string.IsNullOrWhiteSpace(item.SIMSN))
@@ -3280,7 +3289,8 @@ namespace MIS
             }
             catch
             {
-                // An invalid historical payload stays hidden if it has no TID/MID.
+                // Unrecognized legacy content stays selectable when its identity
+                // was supplied separately by the history API.
             }
         }
 

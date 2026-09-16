@@ -9,6 +9,8 @@ using System.IO;
 using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.Drawing;
 
 namespace MIS
 {
@@ -16,6 +18,10 @@ namespace MIS
     {
         private const string ReportPath = @"C:\CASTLESTECH_MIS\REPORTS\";
         private const string ReportFileName = "rptQRDeliveryWaybill.rpt";
+
+        private static clsAPI dbAPI = new clsAPI();
+        private static clsFunction dbFunction = new clsFunction();
+        private static clsFile dbFile = new clsFile();
 
         public static void ShowPreview(IWin32Window owner, ServicingDetailController service,
             string internalQRContent, DateTime qrDate)
@@ -70,20 +76,54 @@ namespace MIS
             Dictionary<string, object> values = new Dictionary<string, object>(
                 StringComparer.OrdinalIgnoreCase);
 
+            string formatTerminalSN = dbFunction.FormatSerialNumber(service.TerminalSN);
+            string formatSIMSN = dbFunction.FormatSerialNumber(service.SIMSN);
+
             Add(values, service.MerchantName,
                 "MerchantName", "Merchant", "DBAName", "txtMerchantName");
             Add(values, service.Address,
                 "MerchantAddress", "Address", "MerchantLocation", "txtAddress");
-            Add(values, service.TerminalSN,
+            Add(values, formatTerminalSN,
                 "POSSN", "POSSerialNumber", "POSSerialNo", "TerminalSerialNumber", "TerminalSerialNo",
                 "TerminalSN", "txtPOSSerialNumber", "txtTerminalSN");
-            Add(values, service.SIMSN,
+            Add(values, formatSIMSN,
                 "SIMSerialNumber", "SIMSerialNo", "SIMSN", "txtSIMSerialNumber", "txtSIMSN");
             Add(values, service.TID, "TID", "TerminalID", "txtTID");
             Add(values, service.MID, "MID", "MerchantIDNumber", "txtMID");
             Add(values, service.ServiceNo, "ServiceNo", "JobOrderNo");
             Add(values, service.IRIDNo, "IRIDNo", "IRNo");
             Add(values, internalQRContent, "internalqrcontent");
+
+            // QRUrl            
+            string url = $"{dbAPI.getAPISSLEnable()}{clsGlobalVariables.strAPIURL}{clsGlobalVariables.strAPIFolder}/waybill/index.html";
+
+            string qrJson = "{"
+                + "\"TerminalSN\":\"" + formatTerminalSN + "\","
+                + "\"SIMSN\":\"" + formatSIMSN + "\","
+                + "\"MerchantName\":\"" + service.MerchantName + "\","
+                + "\"MerchantAddress\":\"" + service.Address + "\""
+                + "}";
+
+            Debug.WriteLine($"qrJson={qrJson}");
+
+            string base64QRContent = Convert.ToBase64String(Encoding.UTF8.GetBytes(qrJson));
+
+            Debug.WriteLine($"base64QRContent={base64QRContent}");
+
+            string QRUrl = url + "?QRID=" + $"{service.ServiceNo}" + "&InternalQRContent=" + base64QRContent;
+
+            Debug.WriteLine($"QRUrl={QRUrl}");
+
+            Add(values, QRUrl, "QRUrl");
+
+            // create bitmap and save to local (QRCode)
+            Bitmap qrBitmap = dbFunction.GenerateQRCode(QRUrl);
+            string pPath = $"{dbFile.sExportPath}WAYBILL\\";
+            string pFileName = $"qrcode_{service.ServiceNo}{clsDefines.FILE_EXT_PNG}";
+            Debug.WriteLine($"pPath={pPath}");
+            Debug.WriteLine($"pFileName={pFileName}");
+            dbFunction.SaveBitmap(qrBitmap, pPath, pFileName);
+
             return values;
         }
 

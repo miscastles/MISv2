@@ -190,28 +190,6 @@
             this.panel155 = new System.Windows.Forms.Panel();
             this.panel160 = new System.Windows.Forms.Panel();
             this.btnRefreshService = new System.Windows.Forms.Button();
-            this.panel136 = new System.Windows.Forms.Panel();
-            this.txtIRStatusDescription = new System.Windows.Forms.TextBox();
-            this.label152 = new System.Windows.Forms.Label();
-            this.txtMerchantSign = new System.Windows.Forms.TextBox();
-            this.txtDiagnostic = new System.Windows.Forms.TextBox();
-            this.label145 = new System.Windows.Forms.Label();
-            this.label144 = new System.Windows.Forms.Label();
-            this.txtBillable = new System.Windows.Forms.TextBox();
-            this.label121 = new System.Windows.Forms.Label();
-            this.txtTicketStatus = new System.Windows.Forms.TextBox();
-            this.label141 = new System.Windows.Forms.Label();
-            this.txtSearchFSRServiceResult = new System.Windows.Forms.TextBox();
-            this.txtSearchFSRDesc = new System.Windows.Forms.TextBox();
-            this.txtServiceJobTypeStatusDesc = new System.Windows.Forms.TextBox();
-            this.label140 = new System.Windows.Forms.Label();
-            this.label139 = new System.Windows.Forms.Label();
-            this.label138 = new System.Windows.Forms.Label();
-            this.panel137 = new System.Windows.Forms.Panel();
-            this.label27 = new System.Windows.Forms.Label();
-            this.btnResetServiceStatus = new Bunifu.Framework.UI.BunifuImageButton();
-            this.label137 = new System.Windows.Forms.Label();
-            this.panel193 = new System.Windows.Forms.Panel();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.panel143 = new System.Windows.Forms.Panel();
@@ -272,6 +250,29 @@
             this.txtMobileVersion = new System.Windows.Forms.TextBox();
             this.label146 = new System.Windows.Forms.Label();
             this.txtMobileTerminalID = new System.Windows.Forms.TextBox();
+            this.tabPage28 = new System.Windows.Forms.TabPage();
+            this.panel136 = new System.Windows.Forms.Panel();
+            this.txtIRStatusDescription = new System.Windows.Forms.TextBox();
+            this.label152 = new System.Windows.Forms.Label();
+            this.txtMerchantSign = new System.Windows.Forms.TextBox();
+            this.txtDiagnostic = new System.Windows.Forms.TextBox();
+            this.label145 = new System.Windows.Forms.Label();
+            this.label144 = new System.Windows.Forms.Label();
+            this.txtBillable = new System.Windows.Forms.TextBox();
+            this.label121 = new System.Windows.Forms.Label();
+            this.txtTicketStatus = new System.Windows.Forms.TextBox();
+            this.label141 = new System.Windows.Forms.Label();
+            this.txtSearchFSRServiceResult = new System.Windows.Forms.TextBox();
+            this.txtSearchFSRDesc = new System.Windows.Forms.TextBox();
+            this.txtServiceJobTypeStatusDesc = new System.Windows.Forms.TextBox();
+            this.label140 = new System.Windows.Forms.Label();
+            this.label139 = new System.Windows.Forms.Label();
+            this.label138 = new System.Windows.Forms.Label();
+            this.panel137 = new System.Windows.Forms.Panel();
+            this.label27 = new System.Windows.Forms.Label();
+            this.btnResetServiceStatus = new Bunifu.Framework.UI.BunifuImageButton();
+            this.label137 = new System.Windows.Forms.Label();
+            this.panel193 = new System.Windows.Forms.Panel();
             this.panel11 = new System.Windows.Forms.Panel();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage26 = new System.Windows.Forms.TabPage();
@@ -760,6 +761,10 @@
             this.tabPage23 = new System.Windows.Forms.TabPage();
             this.lvwRaw = new System.Windows.Forms.ListView();
             this.tabPage19 = new System.Windows.Forms.TabPage();
+            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
+            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
+            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
+            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.panel168 = new System.Windows.Forms.Panel();
             this.panel196 = new System.Windows.Forms.Panel();
             this.panel208 = new System.Windows.Forms.Panel();
@@ -828,11 +833,6 @@
             this.txtSearchSTServiceJobTypeDescription = new System.Windows.Forms.TextBox();
             this.panel53 = new System.Windows.Forms.Panel();
             this.btnTASearch = new Bunifu.Framework.UI.BunifuImageButton();
-            this.tabPage28 = new System.Windows.Forms.TabPage();
-            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
-            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
-            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
-            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -849,9 +849,6 @@
             this.tabPage1.SuspendLayout();
             this.panel155.SuspendLayout();
             this.panel160.SuspendLayout();
-            this.panel136.SuspendLayout();
-            this.panel137.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnResetServiceStatus)).BeginInit();
             this.tabMain.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.panel143.SuspendLayout();
@@ -868,6 +865,10 @@
             this.panel33.SuspendLayout();
             this.panel172.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            this.tabPage28.SuspendLayout();
+            this.panel136.SuspendLayout();
+            this.panel137.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnResetServiceStatus)).BeginInit();
             this.panel11.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage26.SuspendLayout();
@@ -1052,7 +1053,6 @@
             this.panel6.SuspendLayout();
             this.panel53.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).BeginInit();
-            this.tabPage28.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -3180,291 +3180,6 @@
             this.btnRefreshService.UseVisualStyleBackColor = false;
             this.btnRefreshService.Click += new System.EventHandler(this.btnRefreshService_Click);
             // 
-            // panel136
-            // 
-            this.panel136.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel136.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel136.Controls.Add(this.txtIRStatusDescription);
-            this.panel136.Controls.Add(this.label152);
-            this.panel136.Controls.Add(this.txtMerchantSign);
-            this.panel136.Controls.Add(this.txtDiagnostic);
-            this.panel136.Controls.Add(this.label145);
-            this.panel136.Controls.Add(this.label144);
-            this.panel136.Controls.Add(this.txtBillable);
-            this.panel136.Controls.Add(this.label121);
-            this.panel136.Controls.Add(this.txtTicketStatus);
-            this.panel136.Controls.Add(this.label141);
-            this.panel136.Controls.Add(this.txtSearchFSRServiceResult);
-            this.panel136.Controls.Add(this.txtSearchFSRDesc);
-            this.panel136.Controls.Add(this.txtServiceJobTypeStatusDesc);
-            this.panel136.Controls.Add(this.label140);
-            this.panel136.Controls.Add(this.label139);
-            this.panel136.Controls.Add(this.label138);
-            this.panel136.Controls.Add(this.panel137);
-            this.panel136.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel136.Location = new System.Drawing.Point(5, 3);
-            this.panel136.Name = "panel136";
-            this.panel136.Size = new System.Drawing.Size(431, 198);
-            this.panel136.TabIndex = 474;
-            // 
-            // txtIRStatusDescription
-            // 
-            this.txtIRStatusDescription.BackColor = System.Drawing.Color.White;
-            this.txtIRStatusDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtIRStatusDescription.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtIRStatusDescription.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.txtIRStatusDescription.ForeColor = System.Drawing.Color.Black;
-            this.txtIRStatusDescription.Location = new System.Drawing.Point(322, 25);
-            this.txtIRStatusDescription.Name = "txtIRStatusDescription";
-            this.txtIRStatusDescription.ReadOnly = true;
-            this.txtIRStatusDescription.Size = new System.Drawing.Size(104, 20);
-            this.txtIRStatusDescription.TabIndex = 493;
-            this.txtIRStatusDescription.Text = "-";
-            this.txtIRStatusDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label152
-            // 
-            this.label152.AutoSize = true;
-            this.label152.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label152.Location = new System.Drawing.Point(234, 27);
-            this.label152.Name = "label152";
-            this.label152.Size = new System.Drawing.Size(77, 14);
-            this.label152.TabIndex = 492;
-            this.label152.Text = "JOB STATUS";
-            // 
-            // txtMerchantSign
-            // 
-            this.txtMerchantSign.BackColor = System.Drawing.Color.White;
-            this.txtMerchantSign.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMerchantSign.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtMerchantSign.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.txtMerchantSign.ForeColor = System.Drawing.Color.Black;
-            this.txtMerchantSign.Location = new System.Drawing.Point(322, 89);
-            this.txtMerchantSign.Name = "txtMerchantSign";
-            this.txtMerchantSign.ReadOnly = true;
-            this.txtMerchantSign.Size = new System.Drawing.Size(104, 20);
-            this.txtMerchantSign.TabIndex = 491;
-            this.txtMerchantSign.Text = "-";
-            this.txtMerchantSign.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtDiagnostic
-            // 
-            this.txtDiagnostic.BackColor = System.Drawing.Color.White;
-            this.txtDiagnostic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDiagnostic.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDiagnostic.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.txtDiagnostic.ForeColor = System.Drawing.Color.Black;
-            this.txtDiagnostic.Location = new System.Drawing.Point(322, 67);
-            this.txtDiagnostic.Name = "txtDiagnostic";
-            this.txtDiagnostic.ReadOnly = true;
-            this.txtDiagnostic.Size = new System.Drawing.Size(104, 20);
-            this.txtDiagnostic.TabIndex = 490;
-            this.txtDiagnostic.Text = "-";
-            this.txtDiagnostic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label145
-            // 
-            this.label145.AutoSize = true;
-            this.label145.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label145.Location = new System.Drawing.Point(239, 89);
-            this.label145.Name = "label145";
-            this.label145.Size = new System.Drawing.Size(56, 14);
-            this.label145.TabIndex = 489;
-            this.label145.Text = "SIGNED?";
-            // 
-            // label144
-            // 
-            this.label144.AutoSize = true;
-            this.label144.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label144.Location = new System.Drawing.Point(236, 68);
-            this.label144.Name = "label144";
-            this.label144.Size = new System.Drawing.Size(84, 14);
-            this.label144.TabIndex = 488;
-            this.label144.Text = "DIAGNOSTIC?";
-            // 
-            // txtBillable
-            // 
-            this.txtBillable.BackColor = System.Drawing.Color.White;
-            this.txtBillable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtBillable.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBillable.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.txtBillable.ForeColor = System.Drawing.Color.Black;
-            this.txtBillable.Location = new System.Drawing.Point(322, 46);
-            this.txtBillable.Name = "txtBillable";
-            this.txtBillable.ReadOnly = true;
-            this.txtBillable.Size = new System.Drawing.Size(104, 20);
-            this.txtBillable.TabIndex = 481;
-            this.txtBillable.Text = "-";
-            this.txtBillable.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label121
-            // 
-            this.label121.AutoSize = true;
-            this.label121.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label121.Location = new System.Drawing.Point(236, 49);
-            this.label121.Name = "label121";
-            this.label121.Size = new System.Drawing.Size(70, 14);
-            this.label121.TabIndex = 480;
-            this.label121.Text = "BILLABLE?";
-            // 
-            // txtTicketStatus
-            // 
-            this.txtTicketStatus.BackColor = System.Drawing.Color.White;
-            this.txtTicketStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTicketStatus.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTicketStatus.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.txtTicketStatus.ForeColor = System.Drawing.Color.Black;
-            this.txtTicketStatus.Location = new System.Drawing.Point(114, 88);
-            this.txtTicketStatus.Name = "txtTicketStatus";
-            this.txtTicketStatus.ReadOnly = true;
-            this.txtTicketStatus.Size = new System.Drawing.Size(121, 20);
-            this.txtTicketStatus.TabIndex = 479;
-            this.txtTicketStatus.Text = "-";
-            this.txtTicketStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label141
-            // 
-            this.label141.AutoSize = true;
-            this.label141.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label141.Location = new System.Drawing.Point(5, 86);
-            this.label141.Name = "label141";
-            this.label141.Size = new System.Drawing.Size(98, 14);
-            this.label141.TabIndex = 478;
-            this.label141.Text = "TICKET STATUS";
-            // 
-            // txtSearchFSRServiceResult
-            // 
-            this.txtSearchFSRServiceResult.BackColor = System.Drawing.Color.White;
-            this.txtSearchFSRServiceResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSearchFSRServiceResult.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSearchFSRServiceResult.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.txtSearchFSRServiceResult.ForeColor = System.Drawing.Color.Black;
-            this.txtSearchFSRServiceResult.Location = new System.Drawing.Point(114, 67);
-            this.txtSearchFSRServiceResult.Name = "txtSearchFSRServiceResult";
-            this.txtSearchFSRServiceResult.ReadOnly = true;
-            this.txtSearchFSRServiceResult.Size = new System.Drawing.Size(121, 20);
-            this.txtSearchFSRServiceResult.TabIndex = 390;
-            this.txtSearchFSRServiceResult.Text = "-";
-            this.txtSearchFSRServiceResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtSearchFSRDesc
-            // 
-            this.txtSearchFSRDesc.BackColor = System.Drawing.Color.White;
-            this.txtSearchFSRDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSearchFSRDesc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSearchFSRDesc.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.txtSearchFSRDesc.ForeColor = System.Drawing.Color.Black;
-            this.txtSearchFSRDesc.Location = new System.Drawing.Point(114, 25);
-            this.txtSearchFSRDesc.Name = "txtSearchFSRDesc";
-            this.txtSearchFSRDesc.ReadOnly = true;
-            this.txtSearchFSRDesc.Size = new System.Drawing.Size(120, 20);
-            this.txtSearchFSRDesc.TabIndex = 438;
-            this.txtSearchFSRDesc.Text = "-";
-            this.txtSearchFSRDesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtServiceJobTypeStatusDesc
-            // 
-            this.txtServiceJobTypeStatusDesc.BackColor = System.Drawing.Color.White;
-            this.txtServiceJobTypeStatusDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtServiceJobTypeStatusDesc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtServiceJobTypeStatusDesc.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.txtServiceJobTypeStatusDesc.ForeColor = System.Drawing.Color.Black;
-            this.txtServiceJobTypeStatusDesc.Location = new System.Drawing.Point(114, 46);
-            this.txtServiceJobTypeStatusDesc.Name = "txtServiceJobTypeStatusDesc";
-            this.txtServiceJobTypeStatusDesc.ReadOnly = true;
-            this.txtServiceJobTypeStatusDesc.Size = new System.Drawing.Size(121, 20);
-            this.txtServiceJobTypeStatusDesc.TabIndex = 392;
-            this.txtServiceJobTypeStatusDesc.Text = "-";
-            this.txtServiceJobTypeStatusDesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label140
-            // 
-            this.label140.AutoSize = true;
-            this.label140.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label140.Location = new System.Drawing.Point(3, 28);
-            this.label140.Name = "label140";
-            this.label140.Size = new System.Drawing.Size(63, 14);
-            this.label140.TabIndex = 349;
-            this.label140.Text = "FSR MODE";
-            // 
-            // label139
-            // 
-            this.label139.AutoSize = true;
-            this.label139.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label139.Location = new System.Drawing.Point(3, 66);
-            this.label139.Name = "label139";
-            this.label139.Size = new System.Drawing.Size(105, 14);
-            this.label139.TabIndex = 348;
-            this.label139.Text = "SERVICE RESULT";
-            // 
-            // label138
-            // 
-            this.label138.AutoSize = true;
-            this.label138.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label138.Location = new System.Drawing.Point(3, 46);
-            this.label138.Name = "label138";
-            this.label138.Size = new System.Drawing.Size(105, 14);
-            this.label138.TabIndex = 347;
-            this.label138.Text = "SERVICE STATUS";
-            // 
-            // panel137
-            // 
-            this.panel137.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel137.Controls.Add(this.label27);
-            this.panel137.Controls.Add(this.btnResetServiceStatus);
-            this.panel137.Controls.Add(this.label137);
-            this.panel137.Controls.Add(this.panel193);
-            this.panel137.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel137.Location = new System.Drawing.Point(0, 0);
-            this.panel137.Name = "panel137";
-            this.panel137.Size = new System.Drawing.Size(429, 24);
-            this.panel137.TabIndex = 311;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Century Gothic", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label27.Location = new System.Drawing.Point(267, 5);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(123, 15);
-            this.label27.TabIndex = 481;
-            this.label27.Text = "RESET SERVICE STATUS";
-            // 
-            // btnResetServiceStatus
-            // 
-            this.btnResetServiceStatus.BackColor = System.Drawing.Color.Transparent;
-            this.btnResetServiceStatus.Image = global::MIS.Properties.Resources.ic_reset;
-            this.btnResetServiceStatus.ImageActive = null;
-            this.btnResetServiceStatus.Location = new System.Drawing.Point(396, 1);
-            this.btnResetServiceStatus.Name = "btnResetServiceStatus";
-            this.btnResetServiceStatus.Size = new System.Drawing.Size(30, 28);
-            this.btnResetServiceStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnResetServiceStatus.TabIndex = 480;
-            this.btnResetServiceStatus.TabStop = false;
-            this.btnResetServiceStatus.Zoom = 10;
-            this.btnResetServiceStatus.Click += new System.EventHandler(this.btnResetServiceStatus_Click);
-            // 
-            // label137
-            // 
-            this.label137.AutoSize = true;
-            this.label137.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label137.ForeColor = System.Drawing.Color.Black;
-            this.label137.Location = new System.Drawing.Point(3, 4);
-            this.label137.Name = "label137";
-            this.label137.Size = new System.Drawing.Size(123, 15);
-            this.label137.TabIndex = 310;
-            this.label137.Text = "STATUS INFORMATION";
-            // 
-            // panel193
-            // 
-            this.panel193.BackColor = System.Drawing.Color.Silver;
-            this.panel193.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel193.Location = new System.Drawing.Point(0, 23);
-            this.panel193.Name = "panel193";
-            this.panel193.Size = new System.Drawing.Size(429, 1);
-            this.panel193.TabIndex = 0;
-            // 
             // tabMain
             // 
             this.tabMain.Appearance = System.Windows.Forms.TabAppearance.Buttons;
@@ -4192,6 +3907,301 @@
             this.txtMobileTerminalID.Size = new System.Drawing.Size(297, 20);
             this.txtMobileTerminalID.TabIndex = 443;
             this.txtMobileTerminalID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // tabPage28
+            // 
+            this.tabPage28.Controls.Add(this.panel136);
+            this.tabPage28.Location = new System.Drawing.Point(4, 27);
+            this.tabPage28.Name = "tabPage28";
+            this.tabPage28.Size = new System.Drawing.Size(438, 206);
+            this.tabPage28.TabIndex = 6;
+            this.tabPage28.Text = "STATUS";
+            this.tabPage28.UseVisualStyleBackColor = true;
+            // 
+            // panel136
+            // 
+            this.panel136.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel136.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel136.Controls.Add(this.txtIRStatusDescription);
+            this.panel136.Controls.Add(this.label152);
+            this.panel136.Controls.Add(this.txtMerchantSign);
+            this.panel136.Controls.Add(this.txtDiagnostic);
+            this.panel136.Controls.Add(this.label145);
+            this.panel136.Controls.Add(this.label144);
+            this.panel136.Controls.Add(this.txtBillable);
+            this.panel136.Controls.Add(this.label121);
+            this.panel136.Controls.Add(this.txtTicketStatus);
+            this.panel136.Controls.Add(this.label141);
+            this.panel136.Controls.Add(this.txtSearchFSRServiceResult);
+            this.panel136.Controls.Add(this.txtSearchFSRDesc);
+            this.panel136.Controls.Add(this.txtServiceJobTypeStatusDesc);
+            this.panel136.Controls.Add(this.label140);
+            this.panel136.Controls.Add(this.label139);
+            this.panel136.Controls.Add(this.label138);
+            this.panel136.Controls.Add(this.panel137);
+            this.panel136.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel136.Location = new System.Drawing.Point(5, 3);
+            this.panel136.Name = "panel136";
+            this.panel136.Size = new System.Drawing.Size(431, 198);
+            this.panel136.TabIndex = 474;
+            // 
+            // txtIRStatusDescription
+            // 
+            this.txtIRStatusDescription.BackColor = System.Drawing.Color.White;
+            this.txtIRStatusDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtIRStatusDescription.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtIRStatusDescription.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtIRStatusDescription.ForeColor = System.Drawing.Color.Black;
+            this.txtIRStatusDescription.Location = new System.Drawing.Point(322, 25);
+            this.txtIRStatusDescription.Name = "txtIRStatusDescription";
+            this.txtIRStatusDescription.ReadOnly = true;
+            this.txtIRStatusDescription.Size = new System.Drawing.Size(104, 20);
+            this.txtIRStatusDescription.TabIndex = 493;
+            this.txtIRStatusDescription.Text = "-";
+            this.txtIRStatusDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label152
+            // 
+            this.label152.AutoSize = true;
+            this.label152.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label152.Location = new System.Drawing.Point(234, 27);
+            this.label152.Name = "label152";
+            this.label152.Size = new System.Drawing.Size(77, 14);
+            this.label152.TabIndex = 492;
+            this.label152.Text = "JOB STATUS";
+            // 
+            // txtMerchantSign
+            // 
+            this.txtMerchantSign.BackColor = System.Drawing.Color.White;
+            this.txtMerchantSign.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMerchantSign.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtMerchantSign.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtMerchantSign.ForeColor = System.Drawing.Color.Black;
+            this.txtMerchantSign.Location = new System.Drawing.Point(322, 89);
+            this.txtMerchantSign.Name = "txtMerchantSign";
+            this.txtMerchantSign.ReadOnly = true;
+            this.txtMerchantSign.Size = new System.Drawing.Size(104, 20);
+            this.txtMerchantSign.TabIndex = 491;
+            this.txtMerchantSign.Text = "-";
+            this.txtMerchantSign.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtDiagnostic
+            // 
+            this.txtDiagnostic.BackColor = System.Drawing.Color.White;
+            this.txtDiagnostic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDiagnostic.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDiagnostic.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtDiagnostic.ForeColor = System.Drawing.Color.Black;
+            this.txtDiagnostic.Location = new System.Drawing.Point(322, 67);
+            this.txtDiagnostic.Name = "txtDiagnostic";
+            this.txtDiagnostic.ReadOnly = true;
+            this.txtDiagnostic.Size = new System.Drawing.Size(104, 20);
+            this.txtDiagnostic.TabIndex = 490;
+            this.txtDiagnostic.Text = "-";
+            this.txtDiagnostic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label145
+            // 
+            this.label145.AutoSize = true;
+            this.label145.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label145.Location = new System.Drawing.Point(239, 89);
+            this.label145.Name = "label145";
+            this.label145.Size = new System.Drawing.Size(56, 14);
+            this.label145.TabIndex = 489;
+            this.label145.Text = "SIGNED?";
+            // 
+            // label144
+            // 
+            this.label144.AutoSize = true;
+            this.label144.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label144.Location = new System.Drawing.Point(236, 68);
+            this.label144.Name = "label144";
+            this.label144.Size = new System.Drawing.Size(84, 14);
+            this.label144.TabIndex = 488;
+            this.label144.Text = "DIAGNOSTIC?";
+            // 
+            // txtBillable
+            // 
+            this.txtBillable.BackColor = System.Drawing.Color.White;
+            this.txtBillable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBillable.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtBillable.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtBillable.ForeColor = System.Drawing.Color.Black;
+            this.txtBillable.Location = new System.Drawing.Point(322, 46);
+            this.txtBillable.Name = "txtBillable";
+            this.txtBillable.ReadOnly = true;
+            this.txtBillable.Size = new System.Drawing.Size(104, 20);
+            this.txtBillable.TabIndex = 481;
+            this.txtBillable.Text = "-";
+            this.txtBillable.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label121
+            // 
+            this.label121.AutoSize = true;
+            this.label121.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label121.Location = new System.Drawing.Point(236, 49);
+            this.label121.Name = "label121";
+            this.label121.Size = new System.Drawing.Size(70, 14);
+            this.label121.TabIndex = 480;
+            this.label121.Text = "BILLABLE?";
+            // 
+            // txtTicketStatus
+            // 
+            this.txtTicketStatus.BackColor = System.Drawing.Color.White;
+            this.txtTicketStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtTicketStatus.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTicketStatus.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtTicketStatus.ForeColor = System.Drawing.Color.Black;
+            this.txtTicketStatus.Location = new System.Drawing.Point(114, 88);
+            this.txtTicketStatus.Name = "txtTicketStatus";
+            this.txtTicketStatus.ReadOnly = true;
+            this.txtTicketStatus.Size = new System.Drawing.Size(121, 20);
+            this.txtTicketStatus.TabIndex = 479;
+            this.txtTicketStatus.Text = "-";
+            this.txtTicketStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label141
+            // 
+            this.label141.AutoSize = true;
+            this.label141.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label141.Location = new System.Drawing.Point(5, 86);
+            this.label141.Name = "label141";
+            this.label141.Size = new System.Drawing.Size(98, 14);
+            this.label141.TabIndex = 478;
+            this.label141.Text = "TICKET STATUS";
+            // 
+            // txtSearchFSRServiceResult
+            // 
+            this.txtSearchFSRServiceResult.BackColor = System.Drawing.Color.White;
+            this.txtSearchFSRServiceResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearchFSRServiceResult.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSearchFSRServiceResult.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtSearchFSRServiceResult.ForeColor = System.Drawing.Color.Black;
+            this.txtSearchFSRServiceResult.Location = new System.Drawing.Point(114, 67);
+            this.txtSearchFSRServiceResult.Name = "txtSearchFSRServiceResult";
+            this.txtSearchFSRServiceResult.ReadOnly = true;
+            this.txtSearchFSRServiceResult.Size = new System.Drawing.Size(121, 20);
+            this.txtSearchFSRServiceResult.TabIndex = 390;
+            this.txtSearchFSRServiceResult.Text = "-";
+            this.txtSearchFSRServiceResult.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtSearchFSRDesc
+            // 
+            this.txtSearchFSRDesc.BackColor = System.Drawing.Color.White;
+            this.txtSearchFSRDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearchFSRDesc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSearchFSRDesc.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtSearchFSRDesc.ForeColor = System.Drawing.Color.Black;
+            this.txtSearchFSRDesc.Location = new System.Drawing.Point(114, 25);
+            this.txtSearchFSRDesc.Name = "txtSearchFSRDesc";
+            this.txtSearchFSRDesc.ReadOnly = true;
+            this.txtSearchFSRDesc.Size = new System.Drawing.Size(120, 20);
+            this.txtSearchFSRDesc.TabIndex = 438;
+            this.txtSearchFSRDesc.Text = "-";
+            this.txtSearchFSRDesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtServiceJobTypeStatusDesc
+            // 
+            this.txtServiceJobTypeStatusDesc.BackColor = System.Drawing.Color.White;
+            this.txtServiceJobTypeStatusDesc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtServiceJobTypeStatusDesc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtServiceJobTypeStatusDesc.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtServiceJobTypeStatusDesc.ForeColor = System.Drawing.Color.Black;
+            this.txtServiceJobTypeStatusDesc.Location = new System.Drawing.Point(114, 46);
+            this.txtServiceJobTypeStatusDesc.Name = "txtServiceJobTypeStatusDesc";
+            this.txtServiceJobTypeStatusDesc.ReadOnly = true;
+            this.txtServiceJobTypeStatusDesc.Size = new System.Drawing.Size(121, 20);
+            this.txtServiceJobTypeStatusDesc.TabIndex = 392;
+            this.txtServiceJobTypeStatusDesc.Text = "-";
+            this.txtServiceJobTypeStatusDesc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label140
+            // 
+            this.label140.AutoSize = true;
+            this.label140.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label140.Location = new System.Drawing.Point(3, 28);
+            this.label140.Name = "label140";
+            this.label140.Size = new System.Drawing.Size(63, 14);
+            this.label140.TabIndex = 349;
+            this.label140.Text = "FSR MODE";
+            // 
+            // label139
+            // 
+            this.label139.AutoSize = true;
+            this.label139.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label139.Location = new System.Drawing.Point(3, 66);
+            this.label139.Name = "label139";
+            this.label139.Size = new System.Drawing.Size(105, 14);
+            this.label139.TabIndex = 348;
+            this.label139.Text = "SERVICE RESULT";
+            // 
+            // label138
+            // 
+            this.label138.AutoSize = true;
+            this.label138.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label138.Location = new System.Drawing.Point(3, 46);
+            this.label138.Name = "label138";
+            this.label138.Size = new System.Drawing.Size(105, 14);
+            this.label138.TabIndex = 347;
+            this.label138.Text = "SERVICE STATUS";
+            // 
+            // panel137
+            // 
+            this.panel137.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel137.Controls.Add(this.label27);
+            this.panel137.Controls.Add(this.btnResetServiceStatus);
+            this.panel137.Controls.Add(this.label137);
+            this.panel137.Controls.Add(this.panel193);
+            this.panel137.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel137.Location = new System.Drawing.Point(0, 0);
+            this.panel137.Name = "panel137";
+            this.panel137.Size = new System.Drawing.Size(429, 24);
+            this.panel137.TabIndex = 311;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Century Gothic", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label27.Location = new System.Drawing.Point(267, 5);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(123, 15);
+            this.label27.TabIndex = 481;
+            this.label27.Text = "RESET SERVICE STATUS";
+            // 
+            // btnResetServiceStatus
+            // 
+            this.btnResetServiceStatus.BackColor = System.Drawing.Color.Transparent;
+            this.btnResetServiceStatus.Image = global::MIS.Properties.Resources.ic_reset;
+            this.btnResetServiceStatus.ImageActive = null;
+            this.btnResetServiceStatus.Location = new System.Drawing.Point(396, 1);
+            this.btnResetServiceStatus.Name = "btnResetServiceStatus";
+            this.btnResetServiceStatus.Size = new System.Drawing.Size(30, 28);
+            this.btnResetServiceStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnResetServiceStatus.TabIndex = 480;
+            this.btnResetServiceStatus.TabStop = false;
+            this.btnResetServiceStatus.Zoom = 10;
+            this.btnResetServiceStatus.Click += new System.EventHandler(this.btnResetServiceStatus_Click);
+            // 
+            // label137
+            // 
+            this.label137.AutoSize = true;
+            this.label137.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label137.ForeColor = System.Drawing.Color.Black;
+            this.label137.Location = new System.Drawing.Point(3, 4);
+            this.label137.Name = "label137";
+            this.label137.Size = new System.Drawing.Size(123, 15);
+            this.label137.TabIndex = 310;
+            this.label137.Text = "STATUS INFORMATION";
+            // 
+            // panel193
+            // 
+            this.panel193.BackColor = System.Drawing.Color.Silver;
+            this.panel193.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel193.Location = new System.Drawing.Point(0, 23);
+            this.panel193.Name = "panel193";
+            this.panel193.Size = new System.Drawing.Size(429, 1);
+            this.panel193.TabIndex = 0;
             // 
             // panel11
             // 
@@ -9762,6 +9772,49 @@
             this.tabPage19.Text = "Helpdesk Information";
             this.tabPage19.UseVisualStyleBackColor = true;
             // 
+            // ucHelpDeskEntryInfo
+            // 
+            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
+            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
+            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
+            this.ucHelpDeskEntryInfo.TabIndex = 4;
+            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
+            // 
+            // ucVendorHelpDeskTeamLeadInfo
+            // 
+            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
+            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
+            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
+            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
+            // 
+            // ucVendorHelpDeskRepInfo
+            // 
+            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
+            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
+            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
+            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
+            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskRepInfo.VendorName = "";
+            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
+            // 
+            // ucHelpDeskServiceInfo
+            // 
+            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
+            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
+            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
+            this.ucHelpDeskServiceInfo.TabIndex = 0;
+            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
+            // 
             // panel168
             // 
             this.panel168.BackColor = System.Drawing.SystemColors.Control;
@@ -10545,59 +10598,6 @@
             this.btnTASearch.TabStop = false;
             this.btnTASearch.Zoom = 10;
             // 
-            // tabPage28
-            // 
-            this.tabPage28.Controls.Add(this.panel136);
-            this.tabPage28.Location = new System.Drawing.Point(4, 27);
-            this.tabPage28.Name = "tabPage28";
-            this.tabPage28.Size = new System.Drawing.Size(438, 206);
-            this.tabPage28.TabIndex = 6;
-            this.tabPage28.Text = "STATUS";
-            this.tabPage28.UseVisualStyleBackColor = true;
-            // 
-            // ucHelpDeskEntryInfo
-            // 
-            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
-            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
-            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
-            this.ucHelpDeskEntryInfo.TabIndex = 4;
-            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
-            // 
-            // ucVendorHelpDeskTeamLeadInfo
-            // 
-            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
-            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
-            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
-            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
-            // 
-            // ucVendorHelpDeskRepInfo
-            // 
-            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
-            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
-            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
-            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
-            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskRepInfo.VendorName = "";
-            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
-            // 
-            // ucHelpDeskServiceInfo
-            // 
-            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
-            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
-            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
-            this.ucHelpDeskServiceInfo.TabIndex = 0;
-            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
-            // 
             // frmServiceJobOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10662,11 +10662,6 @@
             this.panel155.ResumeLayout(false);
             this.panel160.ResumeLayout(false);
             this.panel160.PerformLayout();
-            this.panel136.ResumeLayout(false);
-            this.panel136.PerformLayout();
-            this.panel137.ResumeLayout(false);
-            this.panel137.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnResetServiceStatus)).EndInit();
             this.tabMain.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.panel143.ResumeLayout(false);
@@ -10692,6 +10687,12 @@
             this.panel172.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
+            this.tabPage28.ResumeLayout(false);
+            this.panel136.ResumeLayout(false);
+            this.panel136.PerformLayout();
+            this.panel137.ResumeLayout(false);
+            this.panel137.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnResetServiceStatus)).EndInit();
             this.panel11.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.tabPage26.ResumeLayout(false);
@@ -10948,7 +10949,6 @@
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).EndInit();
-            this.tabPage28.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
