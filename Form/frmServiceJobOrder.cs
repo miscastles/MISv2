@@ -2646,7 +2646,7 @@ namespace MIS
                 // Activity 2 — Terminal Prep completion
                 if (isReplacementJob)
                 {
-                    if (isReplacementActivityComplete())
+                    if (isReplacementActivityComplete() && !dbFunction.isValidID(txtFEID.Text))
                         dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                             clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
                 }
@@ -7256,20 +7256,8 @@ namespace MIS
                             $"Reason: {pReason}\n" +
                             $"Attempt Date: {pFSRDate}\n" +
                             $"Attempt Dependency: {pDependency}\n\n" +
-                            $"Current Schedule Date: {pScheduleDate}\n\n" +
+                            $"Current Schedule Date: {dteServiceReqDate.Value:MM-dd-yyyy}\n\n" +
                             $"Remarks: {pRemarks}", "Information", clsFunction.IconType.iInformation);
-
-
-                    // set schedule date
-                    if (!string.IsNullOrWhiteSpace(pScheduleDate))
-                    {
-                        DateTime dt;
-
-                        if (DateTime.TryParse(pScheduleDate, out dt))
-                        {
-                            dteServiceReqDate.Value = dt;
-                        }
-                    }
 
                     gScheduleDate = pScheduleDate;
                     gAttemptDate = pFSRDate;
