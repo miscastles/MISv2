@@ -1133,104 +1133,113 @@ namespace MIS
             // =====================================================
             // Service Type: Replacement
             // =====================================================
-            if (txtSearchSTJobTypeDescription.Text.Equals(
-                clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
+            if (isDispatch)
             {
-                Debug.WriteLine($"currentTerminal=[{currentTerminal}]");
-                Debug.WriteLine($"currentSIM=[{currentSIM}]");
-                Debug.WriteLine($"replacementTerminal=[{replacementTerminal}]");
-                Debug.WriteLine($"replacementSIM=[{replacementSIM}]");
-
-                // =====================================================
-                // 1. AT LEAST ONE REPLACEMENT SERIAL NUMBER REQUIRED
-                // =====================================================
-                if (string.IsNullOrWhiteSpace(replacementTerminal) &&
-                    string.IsNullOrWhiteSpace(replacementSIM))
+                if (txtSearchSTJobTypeDescription.Text.Equals(
+                clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                 {
-                    dbFunction.SetMessageBox(
-                        "Either the Replacement Terminal Serial Number or Replacement SIM Serial Number must be filled.",
-                        cboSearchServiceType.Text,
-                        clsFunction.IconType.iExclamation);
+                    Debug.WriteLine($"currentTerminal=[{currentTerminal}]");
+                    Debug.WriteLine($"currentSIM=[{currentSIM}]");
+                    Debug.WriteLine($"replacementTerminal=[{replacementTerminal}]");
+                    Debug.WriteLine($"replacementSIM=[{replacementSIM}]");
 
-                    return false;
+                    // =====================================================
+                    // 1. AT LEAST ONE REPLACEMENT SERIAL NUMBER REQUIRED
+                    // =====================================================
+                    if (string.IsNullOrWhiteSpace(replacementTerminal) &&
+                        string.IsNullOrWhiteSpace(replacementSIM))
+                    {
+                        dbFunction.SetMessageBox(
+                            "Either the Replacement Terminal Serial Number or Replacement SIM Serial Number must be filled.",
+                            cboSearchServiceType.Text,
+                            clsFunction.IconType.iExclamation);
+
+                        return false;
+                    }
+
+                    // =====================================================
+                    // 2. REPLACEMENT TERMINAL MUST BE DIFFERENT
+                    //    FROM CURRENT TERMINAL
+                    // =====================================================
+                    if (!string.IsNullOrWhiteSpace(replacementTerminal) &&
+                        !string.IsNullOrWhiteSpace(currentTerminal) &&
+                        replacementTerminal.Equals(
+                            currentTerminal,
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        dbFunction.SetMessageBox(
+                            "Replacement Terminal Serial Number must be different from the Current Terminal Serial Number.",
+                            cboSearchServiceType.Text,
+                            clsFunction.IconType.iExclamation);
+
+                        return false;
+                    }
+
+                    // =====================================================
+                    // 3. REPLACEMENT SIM MUST BE DIFFERENT
+                    //    FROM CURRENT SIM
+                    // =====================================================
+                    if (!string.IsNullOrWhiteSpace(replacementSIM) &&
+                        !string.IsNullOrWhiteSpace(currentSIM) &&
+                        replacementSIM.Equals(
+                            currentSIM,
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        dbFunction.SetMessageBox(
+                            "Replacement SIM Serial Number must be different from the Current SIM Serial Number.",
+                            cboSearchServiceType.Text,
+                            clsFunction.IconType.iExclamation);
+
+                        return false;
+                    }
                 }
-
-                // =====================================================
-                // 2. REPLACEMENT TERMINAL MUST BE DIFFERENT
-                //    FROM CURRENT TERMINAL
-                // =====================================================
-                if (!string.IsNullOrWhiteSpace(replacementTerminal) &&
-                    !string.IsNullOrWhiteSpace(currentTerminal) &&
-                    replacementTerminal.Equals(
-                        currentTerminal,
-                        StringComparison.OrdinalIgnoreCase))
-                {
-                    dbFunction.SetMessageBox(
-                        "Replacement Terminal Serial Number must be different from the Current Terminal Serial Number.",
-                        cboSearchServiceType.Text,
-                        clsFunction.IconType.iExclamation);
-
-                    return false;
-                }
-
-                // =====================================================
-                // 3. REPLACEMENT SIM MUST BE DIFFERENT
-                //    FROM CURRENT SIM
-                // =====================================================
-                if (!string.IsNullOrWhiteSpace(replacementSIM) &&
-                    !string.IsNullOrWhiteSpace(currentSIM) &&
-                    replacementSIM.Equals(
-                        currentSIM,
-                        StringComparison.OrdinalIgnoreCase))
-                {
-                    dbFunction.SetMessageBox(
-                        "Replacement SIM Serial Number must be different from the Current SIM Serial Number.",
-                        cboSearchServiceType.Text,
-                        clsFunction.IconType.iExclamation);
-
-                    return false;
-                }
-            }
+            }            
 
             // =====================================================
             // Service Type: Installation
             // =====================================================
-            if (txtSearchSTJobTypeDescription.Text.Equals(
-                clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC))
+            if (isDispatch)
             {
-                // =====================================================
-                // 1. CURRENT TERMINAL IS REQUIRED
-                // =====================================================
-                if (string.IsNullOrWhiteSpace(currentTerminal))
+                if (txtSearchSTJobTypeDescription.Text.Equals(
+                clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC))
                 {
-                    dbFunction.SetMessageBox(
-                        "Current Terminal Serial Number is mandatory.",
-                        cboSearchServiceType.Text,
-                        clsFunction.IconType.iExclamation);
+                    // =====================================================
+                    // 1. CURRENT TERMINAL IS REQUIRED
+                    // =====================================================
+                    if (string.IsNullOrWhiteSpace(currentTerminal))
+                    {
+                        dbFunction.SetMessageBox(
+                            "Current Terminal Serial Number is mandatory.",
+                            cboSearchServiceType.Text,
+                            clsFunction.IconType.iExclamation);
 
-                    return false;
-                }                
+                        return false;
+                    }
+                }
             }
 
             // =====================================================
             // Service Type: Pullout
             // =====================================================
-            if (txtSearchSTJobTypeDescription.Text.Equals(
-                clsGlobalVariables.JOB_TYPE_PULLOUT_DESC))
+            if (isDispatch)
             {
-                // =====================================================
-                // 1. CURRENT TERMINAL IS REQUIRED
-                // =====================================================
-                if (string.IsNullOrWhiteSpace(currentTerminal))
+                if (txtSearchSTJobTypeDescription.Text.Equals(
+                clsGlobalVariables.JOB_TYPE_PULLOUT_DESC))
                 {
-                    dbFunction.SetMessageBox(
-                        "Current Terminal Serial Number is mandatory.",
-                        cboSearchServiceType.Text,
-                        clsFunction.IconType.iExclamation);
+                    // =====================================================
+                    // 1. CURRENT TERMINAL IS REQUIRED
+                    // =====================================================
+                    if (string.IsNullOrWhiteSpace(currentTerminal))
+                    {
+                        dbFunction.SetMessageBox(
+                            "Current Terminal Serial Number is mandatory.",
+                            cboSearchServiceType.Text,
+                            clsFunction.IconType.iExclamation);
 
-                    return false;
+                        return false;
+                    }
                 }
-            }
+            }            
 
             // Service Result
             if (!dbFunction.isValidComboBoxValue(cboSearchServiceType.Text))
