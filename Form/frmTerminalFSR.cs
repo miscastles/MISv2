@@ -6773,45 +6773,25 @@ namespace MIS
         private bool isValidRescheduleTicketClosure()
         {
             bool isValid = true;
-            string pMinScheduleDate = "";
-            string pMaxScheduleDate = "";
 
-            string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtJobType.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetStringValue(txtSearchIRNo.Text)}";
-
-            string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", pSearchValue);
-
-            if (dbFunction.isValidDescription(pJSONString))
-            {
-                pMinScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MinScheduleDate);
-                pMaxScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MaxScheduleDate);
-            }
-            
             if (cboSearchActionMade.Text.CompareTo(dbAPI.GetActionMade()[2]) == 0) // NEGATIVE
             {
                 int functionID = int.Parse(dbFunction.CheckAndSetNumericValue(txtReasonFunctionID.Text));
+
                 if ((functionID == (int)ReasonFuncType.Reschedule_By_Merchant_FuncId) && chkCloseTicket.Checked)
                 {
-                    if (!pMinScheduleDate.Equals(pMaxScheduleDate))
-                    {
-                        chkCloseTicket.Checked = true;
-                        isValid = true;
-                    }                        
-                    else
-                    {
-                        dbFunction.SetMessageBox($"Unable to close the ticket due to reschedulling\n\n" +
-                            $"Last Attempt Status: {cboSearchActionMade.Text}\n" +
-                            $"Reason: {txtReasonDesc.Text}\n" +
-                            $"Attempt Date: {dteMFSRDate.Value.ToString("MM-dd-yyyy")}\n" +
-                            $"Attempt Dependency: {cboDependency.Text}\n\n" +
-                            $"Current Schedule Date: {txtServiceScheduleDate.Text}", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    dbFunction.SetMessageBox($"Unable to close the ticket due to rescheduling\n\n" +
+                        $"Last Attempt Status: {cboSearchActionMade.Text}\n" +
+                        $"Reason: {txtReasonDesc.Text}\n" +
+                        $"Attempt Date: {dteMFSRDate.Value.ToString("MM-dd-yyyy")}\n" +
+                        $"Attempt Dependency: {cboDependency.Text}\n\n" +
+                        $"Current Schedule Date: {txtServiceScheduleDate.Text}",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
 
-                        chkCloseTicket.Checked = false;
+                    chkCloseTicket.Checked = false;
 
-                        isValid = false;
-                    }                        
+                    isValid = false;
                 }
             }
 
