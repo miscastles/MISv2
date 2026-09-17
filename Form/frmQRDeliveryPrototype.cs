@@ -110,7 +110,7 @@ namespace MIS
                     throw new QRDeliveryValidationException(
                         "The QR code must contain both TID and MID before MIS lookup can run.", null);
 
-                QRDeliveryLookupResult lookup = qrLookup.FindJobOrder(scanned.TID, scanned.MID);
+                QRDeliveryLookupResult lookup = qrLookup.FindJobOrder(scanned);
                 if (!lookup.Found || lookup.Expected == null)
                 {
                     selectedService = null;

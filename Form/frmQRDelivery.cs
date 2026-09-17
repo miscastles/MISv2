@@ -105,11 +105,17 @@ namespace MIS
                 // display scan details
                 fillScanDetails(scanned);
 
+                // Phase 1: show the scanned QR contents first; the MIS record
+                // column stays empty until the lookup below completes.
+                DisplayScannedFields(scanned);
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(800);
+
                 if (string.IsNullOrWhiteSpace(scanned.TID) || string.IsNullOrWhiteSpace(scanned.MID))
                     throw new QRDeliveryValidationException(
                         "The QR code must contain both TID and MID before MIS lookup can run.", null);
 
-                QRDeliveryLookupResult lookup = qrLookup.FindJobOrder(scanned.TID, scanned.MID);
+                QRDeliveryLookupResult lookup = qrLookup.FindJobOrder(scanned);
                 if (!lookup.Found || lookup.Expected == null)
                 {
                     selectedService = null;
@@ -157,8 +163,9 @@ namespace MIS
                     rtbQRContent.Text,
                     lookup.Expected);
 
-                foreach (QRDeliveryFieldResult field in result.Fields)
-                    AddResult(field);
+                // Phase 2: the MIS lookup finished; fill the MIS record and
+                // result columns against the scanned values shown earlier.
+                FillMisResults(result);
                 bool allStatusesValid = AddStatusRows(lookup, result);
 
                 validatedQRContent = rtbQRContent.Text.Trim();
@@ -200,6 +207,72 @@ namespace MIS
                 validationInProgress = false;
                 FocusQRInput();
             }
+        }
+
+        private void DisplayScannedFields(QRDeliveryData scanned)
+        {
+            // Field names must match the ones QRDeliveryValidator produces so
+            // FillMisResults can update these same rows after the lookup.
+            AddScannedRow("TID", scanned.TID);
+            AddScannedRow("MID", scanned.MID);
+            AddScannedRow("Merchant Name", scanned.MerchantName);
+            AddScannedRow("Merchant Address", scanned.MerchantAddress);
+            AddScannedRow("Terminal Serial No.", scanned.TerminalSerialNo);
+            if (!string.IsNullOrWhiteSpace(scanned.SimSerialNo))
+                AddScannedRow("SIM Serial No.", scanned.SimSerialNo);
+        }
+
+        private void AddScannedRow(string field, string scannedValue)
+        {
+            int row = dgvValidation.Rows.Add(field, scannedValue ?? string.Empty,
+                string.Empty, "PENDING");
+            DataGridViewCell resultCell = dgvValidation.Rows[row].Cells[3];
+            resultCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            resultCell.Style.BackColor = Color.LightGray;
+            resultCell.Style.ForeColor = Color.Black;
+            resultCell.Style.SelectionBackColor = Color.LightGray;
+            resultCell.Style.SelectionForeColor = Color.Black;
+        }
+
+        private void FillMisResults(QRDeliveryValidationResult result)
+        {
+            foreach (QRDeliveryFieldResult field in result.Fields)
+            {
+                DataGridViewRow row = FindFieldRow(field.Field);
+                if (row == null)
+                {
+                    int index = dgvValidation.Rows.Add(field.Field, field.ScannedValue,
+                        string.Empty, "PENDING");
+                    row = dgvValidation.Rows[index];
+                }
+
+                row.Cells[2].Value = field.ExpectedValue;
+                row.Cells[3].Value = field.IsMatch ? "MATCH" : "MISMATCH";
+                ApplyResultCellStyle(row.Cells[3], field.IsMatch);
+            }
+
+            // Scanned fields the MIS record has no counterpart for (e.g. a SIM
+            // serial on a WiFi-only job) stay visible but are not judged.
+            foreach (DataGridViewRow row in dgvValidation.Rows)
+            {
+                if (row.IsNewRow || Convert.ToString(row.Cells[3].Value) != "PENDING")
+                    continue;
+
+                row.Cells[2].Value = "-";
+                row.Cells[3].Value = "N/A";
+            }
+        }
+
+        private DataGridViewRow FindFieldRow(string field)
+        {
+            foreach (DataGridViewRow row in dgvValidation.Rows)
+            {
+                if (!row.IsNewRow &&
+                    string.Equals(Convert.ToString(row.Cells[0].Value), field,
+                        StringComparison.OrdinalIgnoreCase))
+                    return row;
+            }
+            return null;
         }
 
         private void AddResult(QRDeliveryFieldResult result)
@@ -722,7 +795,7 @@ namespace MIS
             if (!string.IsNullOrWhiteSpace(historyQRContent))
             {
                 QRDeliveryData scanned = qrValidator.Parse(historyQRContent);
-                QRDeliveryLookupResult lookup = qrLookup.FindJobOrder(scanned.TID, scanned.MID);
+                QRDeliveryLookupResult lookup = qrLookup.FindJobOrder(scanned);
                 if (lookup.Found && lookup.Expected != null)
                 {
                     selectedService = new ServicingDetailController

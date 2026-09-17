@@ -14,17 +14,38 @@ namespace MIS.Controller
     {
         private readonly clsAPI api = new clsAPI();
 
-        public QRDeliveryLookupResult FindJobOrder(string tid, string mid)
+        public QRDeliveryLookupResult FindJobOrder(QRDeliveryData scanned)
         {
-            if (string.IsNullOrWhiteSpace(tid) || string.IsNullOrWhiteSpace(mid))
+            if (scanned == null)
+                throw new ArgumentNullException("scanned");
+
+            if (string.IsNullOrWhiteSpace(scanned.TID) ||
+                string.IsNullOrWhiteSpace(scanned.MID))
                 return new QRDeliveryLookupResult { Found = false };
+
+            // Send all scanned identity fields so the API can locate the JO by
+            // stable merchant/inventory data even when TID, MID, or both are
+            // incorrect. TID and MID remain comparison fields in the result.
+            string searchValue = string.Join("|", new[]
+            {
+                NormalizeSearchValue(scanned.TID),
+                NormalizeSearchValue(scanned.MID),
+                NormalizeSearchValue(scanned.MerchantName),
+                NormalizeSearchValue(scanned.MerchantAddress),
+                NormalizeSearchValue(scanned.TerminalSerialNo),
+                NormalizeSearchValue(scanned.SimSerialNo)
+            });
 
             string json = api.getInfoDetailJSON("Search", "QR Delivery",
-                tid.Trim() + "|" + mid.Trim());
-            if (string.IsNullOrWhiteSpace(json))
-                return new QRDeliveryLookupResult { Found = false };
+                searchValue);
 
-            LookupJson data = JsonConvert.DeserializeObject<LookupJson>(json);
+            // Compatibility fallback for an older deployed API that accepts
+            // only the original TID|MID search value.
+            if (string.IsNullOrWhiteSpace(json))
+                json = api.getInfoDetailJSON("Search", "QR Delivery",
+                    scanned.TID.Trim() + "|" + scanned.MID.Trim());
+
+            LookupJson data = DeserializeLookup(json);
             if (data == null) return new QRDeliveryLookupResult { Found = false };
             return new QRDeliveryLookupResult
             {
@@ -32,6 +53,8 @@ namespace MIS.Controller
                 ServiceNo = data.ServiceNo,
                 IRIDNo = data.IRIDNo,
                 MerchantID = data.MerchantID,
+                QRID = data.QRID,
+                QRDate = data.QRDate,
                 JobType = data.JobType,
                 JobTypeDescription = string.IsNullOrWhiteSpace(data.JobTypeDescription)
                     ? data.pJobTypeDescription : data.JobTypeDescription,
@@ -52,6 +75,19 @@ namespace MIS.Controller
                     SimSerialNo = data.EffectiveSIMSN
                 }
             };
+        }
+
+        private static string NormalizeSearchValue(string value)
+        {
+            return (value ?? string.Empty).Trim().Replace("|", string.Empty);
+        }
+
+        private static LookupJson DeserializeLookup(string json)
+        {
+            if (string.IsNullOrWhiteSpace(json))
+                return null;
+
+            return JsonConvert.DeserializeObject<LookupJson>(json);
         }
 
         public void Save(QRDeliverySaveRequest request)
@@ -199,6 +235,8 @@ namespace MIS.Controller
             public int ServiceNo { get; set; }
             public int IRIDNo { get; set; }
             public int MerchantID { get; set; }
+            public int QRID { get; set; }
+            public DateTime? QRDate { get; set; }
             public int JobType { get; set; }
             public string JobTypeDescription { get; set; }
             public string pJobTypeDescription { get; set; }
