@@ -2725,7 +2725,7 @@ namespace MIS
                 }
                 else
                 {
-                    if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtCurSIMID.Text) && !dbFunction.isValidID(txtFEID.Text))
+                    if (dbFunction.isValidID(txtCurTerminalID.Text) && !dbFunction.isValidID(txtFEID.Text))
                         dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                             clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
                 }
