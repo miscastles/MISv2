@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using QRCoder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
@@ -16,6 +17,7 @@ namespace MIS
     public partial class frmQRDelivery : Form
     {
         private readonly clsFunction dbFunction;
+        private readonly clsAPI dbAPI;
         private readonly ServicingDetailController servicingController;
         private readonly QRDeliveryBackendService qrBackend;
         private readonly IQRDeliveryLookupStore qrLookup;
@@ -37,6 +39,7 @@ namespace MIS
         {
             InitializeComponent();
 
+            dbAPI = new clsAPI();
             dbFunction = new clsFunction();
             servicingController = new ServicingDetailController();
             // Lookup and save use the same authoritative MIS API.
@@ -80,12 +83,15 @@ namespace MIS
 
         private void btnValidate_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             if (validationInProgress)
                 return;
 
             validationInProgress = true;
             ClearValidation();
             selectedService = null;
+            picQRCode.Image = null;
 
             lblAction.Text = $"PROCESSING";
 
@@ -207,6 +213,8 @@ namespace MIS
                 validationInProgress = false;
                 FocusQRInput();
             }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void DisplayScannedFields(QRDeliveryData scanned)
@@ -604,6 +612,7 @@ namespace MIS
         private void ResetForm()
         {
             dbFunction.ClearTextBox(this);
+            picQRCode.Image = null;
 
             selectedService = null;
             if (generatedQrImage != null)
@@ -899,8 +908,7 @@ namespace MIS
                 lblQRStatus.ForeColor = Color.Green;
 
                 // generate internal qrcode
-                Bitmap qrBitmap = dbFunction.GenerateQRCode("https://sit-uat.citas.com.ph:443/miscastlestech/waybill/index.html?QRID=70017&InternalQRContent=eyJUZXJtaW5hbFNOIjoiMTAwMDAwMDAwMDE0IiwiU0lNU04iOiIyMDAwMDAwMDAwMTQiLCJNZXJjaGFudE5hbWUiOiJBQkMgTUVSQ0hBTlQgMyIsIk1lcmNoYW50QWRkcmVzcyI6IkFCQyBNRVJDSEFOVCAzIEFERFJFU1MgWFlaIDExIFNJVElPIENBV0FHIFBST1BFUiBDQVdBRyBTVUJJQyBaQU1CQUxFUyJ9");
-                picQRCode.Image = qrBitmap;
+                generateQRCode();
             }
         }
 
@@ -922,6 +930,36 @@ namespace MIS
         private void btnScanClear_Click(object sender, EventArgs e)
         {
             btnClear_Click(this, e);
+        }
+
+        private void generateQRCode()
+        {
+            string formatTerminalSN = dbFunction.FormatSerialNumber(txtScanTerminalSN.Text);
+            string formatSIMSN = dbFunction.FormatSerialNumber(txtScanSIMSN.Text);
+
+            // QRUrl            
+            string url = $"{dbAPI.getAPISSLEnable()}{clsGlobalVariables.strAPIURL}{clsGlobalVariables.strAPIFolder}/waybill/index.html";
+
+            string qrJson = "{"
+        + "\"TerminalSN\":\"" + formatTerminalSN + "\","
+        + "\"SIMSN\":\"" + formatSIMSN + "\","
+        + "\"MerchantName\":\"" + txtScanMerchant.Text + "\","
+        + "\"MerchantAddress\":\"" + txtScanAddress.Text + "\""
+        + "}";
+
+            Debug.WriteLine($"qrJson={qrJson}");
+
+            string base64QRContent = Convert.ToBase64String(Encoding.UTF8.GetBytes(qrJson));
+
+            Debug.WriteLine($"base64QRContent={base64QRContent}");
+
+            string QRUrl = url + "?QRID=" + $"{txtServiceNo.Text}" + "&InternalQRContent=" + base64QRContent;
+
+            Debug.WriteLine($"QRUrl={QRUrl}");
+
+            Bitmap qrBitmap = dbFunction.GenerateQRCode(QRUrl);
+            picQRCode.Image = qrBitmap;
+
         }
     }
 }

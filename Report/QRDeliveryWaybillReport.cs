@@ -80,14 +80,17 @@ namespace MIS
             Dictionary<string, object> values = new Dictionary<string, object>(
                 StringComparer.OrdinalIgnoreCase);
 
+            string formatTerminalSN = dbFunction.FormatSerialNumber(service.TerminalSN);
+            string formatSIMSN = dbFunction.FormatSerialNumber(service.SIMSN);
+
             Add(values, service.MerchantName,
                 "MerchantName", "Merchant", "DBAName", "txtMerchantName");
             Add(values, service.Address,
                 "MerchantAddress", "Address", "MerchantLocation", "txtAddress");
-            Add(values, service.TerminalSN,
+            Add(values, formatTerminalSN,
                 "POSSN", "POSSerialNumber", "POSSerialNo", "TerminalSerialNumber", "TerminalSerialNo",
                 "TerminalSN", "txtPOSSerialNumber", "txtTerminalSN");
-            Add(values, service.SIMSN,
+            Add(values, formatSIMSN,
                 "SIMSerialNumber", "SIMSerialNo", "SIMSN", "txtSIMSerialNumber", "txtSIMSN");
             Add(values, service.TID, "TID", "TerminalID", "txtTID");
             Add(values, service.MID, "MID", "MerchantIDNumber", "txtMID");
@@ -99,8 +102,8 @@ namespace MIS
             string url = $"{dbAPI.getAPISSLEnable()}{clsGlobalVariables.strAPIURL}{clsGlobalVariables.strAPIFolder}/waybill/index.html";
 
             string qrJson = "{"
-                + "\"TerminalSN\":\"" + service.TerminalSN + "\","
-                + "\"SIMSN\":\"" + service.SIMSN + "\","
+                + "\"TerminalSN\":\"" + formatTerminalSN + "\","
+                + "\"SIMSN\":\"" + formatSIMSN + "\","
                 + "\"MerchantName\":\"" + service.MerchantName + "\","
                 + "\"MerchantAddress\":\"" + service.Address + "\""
                 + "}";
