@@ -2732,5 +2732,12 @@ namespace MIS
             get { return _ExpensesNo; }
             set { _ExpensesNo = value; }
         }
+
+        public static string _BankKey;
+        public static string ClassBankKey
+        {
+            get { return _BankKey; }
+            set { _BankKey = value; }
+        }
     }
 }

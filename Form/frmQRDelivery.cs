@@ -66,7 +66,7 @@ namespace MIS
             btnClear.Click += btnClear_Click;
             btnPrintQR.Click += btnPrint_Click;            
             printDocument.PrintPage += printDocument_PrintPage;
-            rtbQRContent.KeyDown += rtbQRContent_KeyDown;
+            rtbQRContent.KeyDown += rtbQRContent_KeyDown;            
             txtServiceNo.ReadOnly = true;
             btnSearchService.Enabled = true;
             btnSearchService.Click += btnSearchService_Click;
@@ -114,8 +114,8 @@ namespace MIS
                 // Phase 1: show the scanned QR contents first; the MIS record
                 // column stays empty until the lookup below completes.
                 DisplayScannedFields(scanned);
-                Application.DoEvents();
-                System.Threading.Thread.Sleep(800);
+                //Application.DoEvents();
+                //System.Threading.Thread.Sleep(800);
 
                 if (string.IsNullOrWhiteSpace(scanned.TID) || string.IsNullOrWhiteSpace(scanned.MID))
                     throw new QRDeliveryValidationException(
@@ -883,6 +883,7 @@ namespace MIS
                 bool invalidResult =
                     result == "NOT MATCH" ||
                     result == "NOT YET DISPATCH" ||
+                    result == "PENDING" ||
                     result == "INVALID";
 
                 // Check result cell color
@@ -953,13 +954,13 @@ namespace MIS
 
             Debug.WriteLine($"base64QRContent={base64QRContent}");
 
-            string QRUrl = url + "?QRID=" + $"{txtServiceNo.Text}" + "&InternalQRContent=" + base64QRContent;
+            string QRUrl = url + "?QRID=" + $"{txtServiceNo.Text}" + "?bank=" + $"{clsSearch.ClassBankCode}" + "&key=" + $"{clsSearch.ClassBankKey}" + "&InternalQRContent=" + base64QRContent;
 
             Debug.WriteLine($"QRUrl={QRUrl}");
 
             Bitmap qrBitmap = dbFunction.GenerateQRCode(QRUrl);
             picQRCode.Image = qrBitmap;
 
-        }
+        }        
     }
 }

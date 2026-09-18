@@ -114,7 +114,7 @@ namespace MIS
 
             Debug.WriteLine($"base64QRContent={base64QRContent}");
 
-            string QRUrl = url + "?QRID=" + $"{service.ServiceNo}" + "&InternalQRContent=" + base64QRContent;
+            string QRUrl = url + "?QRID=" + $"{service.ServiceNo}" + "&bank=" + $"{clsSearch.ClassBankCode}" + "&key=" + $"{clsSearch.ClassBankKey}" + "&InternalQRContent=" + base64QRContent;
 
             Debug.WriteLine($"QRUrl={QRUrl}");
 

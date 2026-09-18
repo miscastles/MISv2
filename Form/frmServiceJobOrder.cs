@@ -2589,8 +2589,6 @@ namespace MIS
                                 clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
                     }
 
-                    SaveDeploymentDetail();
-
                     // ---------------------------------------------------------------------------------------------
                     // Batch Update
                     // ---------------------------------------------------------------------------------------------     
@@ -7286,11 +7284,6 @@ namespace MIS
                 frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
                 frm.ShowDialog();
             }
-        }
-
-        private void SaveDeploymentDetail()
-        {
-            
         }
 
         private void displayRescheduleTicketClosure()
