@@ -11,7 +11,6 @@ namespace MIS
         private System.Windows.Forms.TextBox txtServiceNo;
         private System.Windows.Forms.Label lblServiceDetails;
         private System.Windows.Forms.GroupBox grpScan;
-        private System.Windows.Forms.Label lblScanHelp;
         private System.Windows.Forms.RichTextBox rtbQRContent;
         private System.Windows.Forms.Button btnValidate;
         private System.Windows.Forms.GroupBox grpResult;
@@ -51,7 +50,7 @@ namespace MIS
             this.txtServiceNo = new System.Windows.Forms.TextBox();
             this.lblServiceDetails = new System.Windows.Forms.Label();
             this.grpScan = new System.Windows.Forms.GroupBox();
-            this.lblScanHelp = new System.Windows.Forms.Label();
+            this.btnScanClear = new System.Windows.Forms.Button();
             this.rtbQRContent = new System.Windows.Forms.RichTextBox();
             this.btnValidate = new System.Windows.Forms.Button();
             this.grpResult = new System.Windows.Forms.GroupBox();
@@ -77,20 +76,19 @@ namespace MIS
             this.picQRCode = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtScanTID = new System.Windows.Forms.TextBox();
-            this.txtScanMID = new System.Windows.Forms.TextBox();
-            this.txtScanAddress = new System.Windows.Forms.TextBox();
-            this.txtScanTerminalSN = new System.Windows.Forms.TextBox();
-            this.txtScanSIMSN = new System.Windows.Forms.TextBox();
             this.txtScanMerchant = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.btnScanClear = new System.Windows.Forms.Button();
+            this.txtScanSIMSN = new System.Windows.Forms.TextBox();
+            this.txtScanTerminalSN = new System.Windows.Forms.TextBox();
+            this.txtScanAddress = new System.Windows.Forms.TextBox();
+            this.txtScanMID = new System.Windows.Forms.TextBox();
+            this.txtScanTID = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
@@ -130,11 +128,11 @@ namespace MIS
             // bunifuImageButton1
             // 
             this.bunifuImageButton1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuImageButton1.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.Image")));
+            this.bunifuImageButton1.Image = global::MIS.Properties.Resources.ic_save;
             this.bunifuImageButton1.ImageActive = null;
-            this.bunifuImageButton1.Location = new System.Drawing.Point(3, 0);
+            this.bunifuImageButton1.Location = new System.Drawing.Point(3, 3);
             this.bunifuImageButton1.Name = "bunifuImageButton1";
-            this.bunifuImageButton1.Size = new System.Drawing.Size(28, 30);
+            this.bunifuImageButton1.Size = new System.Drawing.Size(25, 22);
             this.bunifuImageButton1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.bunifuImageButton1.TabIndex = 412;
             this.bunifuImageButton1.TabStop = false;
@@ -336,37 +334,40 @@ namespace MIS
             // grpScan
             // 
             this.grpScan.Controls.Add(this.btnScanClear);
-            this.grpScan.Controls.Add(this.lblScanHelp);
             this.grpScan.Controls.Add(this.rtbQRContent);
             this.grpScan.Controls.Add(this.btnValidate);
-            this.grpScan.ForeColor = System.Drawing.Color.Navy;
+            this.grpScan.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpScan.ForeColor = System.Drawing.Color.Black;
             this.grpScan.Location = new System.Drawing.Point(14, 135);
             this.grpScan.Name = "grpScan";
-            this.grpScan.Size = new System.Drawing.Size(669, 226);
+            this.grpScan.Size = new System.Drawing.Size(719, 226);
             this.grpScan.TabIndex = 2;
             this.grpScan.TabStop = false;
             this.grpScan.Tag = "TERMINAL QR SCAN";
+            this.grpScan.Text = "TERMINAL QR SCAN";
             this.grpScan.Paint += new System.Windows.Forms.PaintEventHandler(this.sectionGroup_Paint);
             // 
-            // lblScanHelp
+            // btnScanClear
             // 
-            this.lblScanHelp.AutoSize = true;
-            this.lblScanHelp.ForeColor = System.Drawing.Color.Black;
-            this.lblScanHelp.Location = new System.Drawing.Point(15, 17);
-            this.lblScanHelp.Name = "lblScanHelp";
-            this.lblScanHelp.Size = new System.Drawing.Size(103, 16);
-            this.lblScanHelp.TabIndex = 0;
-            this.lblScanHelp.Text = "SCAN QR CODE";
+            this.btnScanClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnScanClear.ForeColor = System.Drawing.Color.White;
+            this.btnScanClear.Location = new System.Drawing.Point(155, 185);
+            this.btnScanClear.Name = "btnScanClear";
+            this.btnScanClear.Size = new System.Drawing.Size(134, 38);
+            this.btnScanClear.TabIndex = 3;
+            this.btnScanClear.Text = "CLEAR";
+            this.btnScanClear.UseVisualStyleBackColor = false;
+            this.btnScanClear.Click += new System.EventHandler(this.btnScanClear_Click);
             // 
             // rtbQRContent
             // 
             this.rtbQRContent.BackColor = System.Drawing.Color.White;
             this.rtbQRContent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtbQRContent.Font = new System.Drawing.Font("Courier New", 10F);
+            this.rtbQRContent.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbQRContent.ForeColor = System.Drawing.Color.Black;
-            this.rtbQRContent.Location = new System.Drawing.Point(15, 36);
+            this.rtbQRContent.Location = new System.Drawing.Point(15, 20);
             this.rtbQRContent.Name = "rtbQRContent";
-            this.rtbQRContent.Size = new System.Drawing.Size(513, 181);
+            this.rtbQRContent.Size = new System.Drawing.Size(698, 162);
             this.rtbQRContent.TabIndex = 1;
             this.rtbQRContent.Text = "";
             this.rtbQRContent.TextChanged += new System.EventHandler(this.rtbQRContent_TextChanged);
@@ -375,9 +376,9 @@ namespace MIS
             // 
             this.btnValidate.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnValidate.ForeColor = System.Drawing.Color.White;
-            this.btnValidate.Location = new System.Drawing.Point(533, 36);
+            this.btnValidate.Location = new System.Drawing.Point(15, 185);
             this.btnValidate.Name = "btnValidate";
-            this.btnValidate.Size = new System.Drawing.Size(134, 44);
+            this.btnValidate.Size = new System.Drawing.Size(134, 38);
             this.btnValidate.TabIndex = 2;
             this.btnValidate.Text = "VALIDATE";
             this.btnValidate.UseVisualStyleBackColor = false;
@@ -561,7 +562,7 @@ namespace MIS
             this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage20.Size = new System.Drawing.Size(268, 221);
             this.tabPage20.TabIndex = 2;
-            this.tabPage20.Text = "INTERNAL";
+            this.tabPage20.Text = "INTERNAL QRCODE";
             this.tabPage20.UseVisualStyleBackColor = true;
             // 
             // panel26
@@ -621,119 +622,12 @@ namespace MIS
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(689, 135);
+            this.groupBox1.Location = new System.Drawing.Point(739, 135);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(415, 227);
+            this.groupBox1.Size = new System.Drawing.Size(364, 227);
             this.groupBox1.TabIndex = 497;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "SCAN DETAILS";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(6, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 16);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "TID";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(6, 77);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 16);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "MID";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(6, 175);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 16);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "TERMINAL SN";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(6, 201);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 16);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "SIM SN";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(6, 107);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 16);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "ADDRESS";
-            // 
-            // txtScanTID
-            // 
-            this.txtScanTID.BackColor = System.Drawing.Color.White;
-            this.txtScanTID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtScanTID.Font = new System.Drawing.Font("Courier New", 10F);
-            this.txtScanTID.ForeColor = System.Drawing.Color.Black;
-            this.txtScanTID.Location = new System.Drawing.Point(108, 50);
-            this.txtScanTID.Name = "txtScanTID";
-            this.txtScanTID.Size = new System.Drawing.Size(303, 23);
-            this.txtScanTID.TabIndex = 6;
-            // 
-            // txtScanMID
-            // 
-            this.txtScanMID.BackColor = System.Drawing.Color.White;
-            this.txtScanMID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtScanMID.Font = new System.Drawing.Font("Courier New", 10F);
-            this.txtScanMID.ForeColor = System.Drawing.Color.Black;
-            this.txtScanMID.Location = new System.Drawing.Point(108, 75);
-            this.txtScanMID.Name = "txtScanMID";
-            this.txtScanMID.Size = new System.Drawing.Size(303, 23);
-            this.txtScanMID.TabIndex = 7;
-            // 
-            // txtScanAddress
-            // 
-            this.txtScanAddress.BackColor = System.Drawing.Color.White;
-            this.txtScanAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtScanAddress.Font = new System.Drawing.Font("Courier New", 10F);
-            this.txtScanAddress.ForeColor = System.Drawing.Color.Black;
-            this.txtScanAddress.Location = new System.Drawing.Point(108, 100);
-            this.txtScanAddress.Multiline = true;
-            this.txtScanAddress.Name = "txtScanAddress";
-            this.txtScanAddress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtScanAddress.Size = new System.Drawing.Size(303, 66);
-            this.txtScanAddress.TabIndex = 8;
-            // 
-            // txtScanTerminalSN
-            // 
-            this.txtScanTerminalSN.BackColor = System.Drawing.Color.White;
-            this.txtScanTerminalSN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtScanTerminalSN.Font = new System.Drawing.Font("Courier New", 10F);
-            this.txtScanTerminalSN.ForeColor = System.Drawing.Color.Black;
-            this.txtScanTerminalSN.Location = new System.Drawing.Point(108, 169);
-            this.txtScanTerminalSN.Name = "txtScanTerminalSN";
-            this.txtScanTerminalSN.Size = new System.Drawing.Size(303, 23);
-            this.txtScanTerminalSN.TabIndex = 9;
-            // 
-            // txtScanSIMSN
-            // 
-            this.txtScanSIMSN.BackColor = System.Drawing.Color.White;
-            this.txtScanSIMSN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtScanSIMSN.Font = new System.Drawing.Font("Courier New", 10F);
-            this.txtScanSIMSN.ForeColor = System.Drawing.Color.Black;
-            this.txtScanSIMSN.Location = new System.Drawing.Point(108, 194);
-            this.txtScanSIMSN.Name = "txtScanSIMSN";
-            this.txtScanSIMSN.Size = new System.Drawing.Size(303, 23);
-            this.txtScanSIMSN.TabIndex = 10;
             // 
             // txtScanMerchant
             // 
@@ -741,9 +635,9 @@ namespace MIS
             this.txtScanMerchant.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtScanMerchant.Font = new System.Drawing.Font("Courier New", 10F);
             this.txtScanMerchant.ForeColor = System.Drawing.Color.Black;
-            this.txtScanMerchant.Location = new System.Drawing.Point(108, 25);
+            this.txtScanMerchant.Location = new System.Drawing.Point(114, 27);
             this.txtScanMerchant.Name = "txtScanMerchant";
-            this.txtScanMerchant.Size = new System.Drawing.Size(303, 23);
+            this.txtScanMerchant.Size = new System.Drawing.Size(246, 23);
             this.txtScanMerchant.TabIndex = 12;
             // 
             // label8
@@ -756,17 +650,112 @@ namespace MIS
             this.label8.TabIndex = 11;
             this.label8.Text = "MERCHANT";
             // 
-            // btnScanClear
+            // txtScanSIMSN
             // 
-            this.btnScanClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnScanClear.ForeColor = System.Drawing.Color.White;
-            this.btnScanClear.Location = new System.Drawing.Point(533, 87);
-            this.btnScanClear.Name = "btnScanClear";
-            this.btnScanClear.Size = new System.Drawing.Size(134, 44);
-            this.btnScanClear.TabIndex = 3;
-            this.btnScanClear.Text = "CLEAR";
-            this.btnScanClear.UseVisualStyleBackColor = false;
-            this.btnScanClear.Click += new System.EventHandler(this.btnScanClear_Click);
+            this.txtScanSIMSN.BackColor = System.Drawing.Color.White;
+            this.txtScanSIMSN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtScanSIMSN.Font = new System.Drawing.Font("Courier New", 10F);
+            this.txtScanSIMSN.ForeColor = System.Drawing.Color.Black;
+            this.txtScanSIMSN.Location = new System.Drawing.Point(114, 196);
+            this.txtScanSIMSN.Name = "txtScanSIMSN";
+            this.txtScanSIMSN.Size = new System.Drawing.Size(246, 23);
+            this.txtScanSIMSN.TabIndex = 10;
+            // 
+            // txtScanTerminalSN
+            // 
+            this.txtScanTerminalSN.BackColor = System.Drawing.Color.White;
+            this.txtScanTerminalSN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtScanTerminalSN.Font = new System.Drawing.Font("Courier New", 10F);
+            this.txtScanTerminalSN.ForeColor = System.Drawing.Color.Black;
+            this.txtScanTerminalSN.Location = new System.Drawing.Point(114, 171);
+            this.txtScanTerminalSN.Name = "txtScanTerminalSN";
+            this.txtScanTerminalSN.Size = new System.Drawing.Size(246, 23);
+            this.txtScanTerminalSN.TabIndex = 9;
+            // 
+            // txtScanAddress
+            // 
+            this.txtScanAddress.BackColor = System.Drawing.Color.White;
+            this.txtScanAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtScanAddress.Font = new System.Drawing.Font("Courier New", 10F);
+            this.txtScanAddress.ForeColor = System.Drawing.Color.Black;
+            this.txtScanAddress.Location = new System.Drawing.Point(114, 102);
+            this.txtScanAddress.Multiline = true;
+            this.txtScanAddress.Name = "txtScanAddress";
+            this.txtScanAddress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtScanAddress.Size = new System.Drawing.Size(246, 66);
+            this.txtScanAddress.TabIndex = 8;
+            // 
+            // txtScanMID
+            // 
+            this.txtScanMID.BackColor = System.Drawing.Color.White;
+            this.txtScanMID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtScanMID.Font = new System.Drawing.Font("Courier New", 10F);
+            this.txtScanMID.ForeColor = System.Drawing.Color.Black;
+            this.txtScanMID.Location = new System.Drawing.Point(114, 77);
+            this.txtScanMID.Name = "txtScanMID";
+            this.txtScanMID.Size = new System.Drawing.Size(246, 23);
+            this.txtScanMID.TabIndex = 7;
+            // 
+            // txtScanTID
+            // 
+            this.txtScanTID.BackColor = System.Drawing.Color.White;
+            this.txtScanTID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtScanTID.Font = new System.Drawing.Font("Courier New", 10F);
+            this.txtScanTID.ForeColor = System.Drawing.Color.Black;
+            this.txtScanTID.Location = new System.Drawing.Point(114, 52);
+            this.txtScanTID.Name = "txtScanTID";
+            this.txtScanTID.Size = new System.Drawing.Size(246, 23);
+            this.txtScanTID.TabIndex = 6;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(6, 107);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(63, 16);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "ADDRESS";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(6, 201);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 16);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "SIM SN";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(6, 175);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(95, 16);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "TERMINAL SN";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(6, 77);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 16);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "MID";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(6, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(31, 16);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "TID";
             // 
             // frmQRDelivery
             // 
@@ -782,6 +771,7 @@ namespace MIS
             this.Controls.Add(this.pnlHeader);
             this.Font = new System.Drawing.Font("Courier New", 9.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "frmQRDelivery";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -797,7 +787,6 @@ namespace MIS
             this.grpService.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearchService)).EndInit();
             this.grpScan.ResumeLayout(false);
-            this.grpScan.PerformLayout();
             this.grpResult.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvValidation)).EndInit();
             this.pnlStatus.ResumeLayout(false);

@@ -14,6 +14,8 @@ namespace MIS
         public int IsBillType { get; set; }
         public string Code { get; set; }
         public string Bank { get; set; }
+
+        public string Key { get; set; }
         public string DisplayName { get; set; }
         public string mainColor { get; set; }
         public string primaryColor { get; set; }

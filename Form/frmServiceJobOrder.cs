@@ -1124,14 +1124,30 @@ namespace MIS
             
             string sReqTime = dbFunction.GetDateFromParse(dteReqTime.Text, "h:mm:ss tt", "HH:mm:ss");
 
-            // checking SN's if dispatch
+            string replacementTerminal = txtRepTerminalSN.Text.Trim();
+            string replacementSIM = txtRepSIMSN.Text.Trim();
+
+            string currentTerminal = txtCurTerminalSN.Text.Trim();
+            string currentSIM = txtCurSIMSN.Text.Trim();
+
+            // =====================================================
+            // Service Type: Replacement
+            // =====================================================
             if (isDispatch)
             {
-                if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
+                if (txtSearchSTJobTypeDescription.Text.Equals(
+                clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                 {
-                    // Replacement Terminal/SIM (at least one is required)
-                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalID, txtRepTerminalID.Text) &&
-                        !dbFunction.isValidEntry(clsFunction.CheckType.iSIMID, txtRepSIMID.Text))
+                    Debug.WriteLine($"currentTerminal=[{currentTerminal}]");
+                    Debug.WriteLine($"currentSIM=[{currentSIM}]");
+                    Debug.WriteLine($"replacementTerminal=[{replacementTerminal}]");
+                    Debug.WriteLine($"replacementSIM=[{replacementSIM}]");
+
+                    // =====================================================
+                    // 1. AT LEAST ONE REPLACEMENT SERIAL NUMBER REQUIRED
+                    // =====================================================
+                    if (string.IsNullOrWhiteSpace(replacementTerminal) &&
+                        string.IsNullOrWhiteSpace(replacementSIM))
                     {
                         dbFunction.SetMessageBox(
                             "Either the Replacement Terminal Serial Number or Replacement SIM Serial Number must be filled.",
@@ -1139,12 +1155,58 @@ namespace MIS
                             clsFunction.IconType.iExclamation);
 
                         return false;
-                    }                    
+                    }
+
+                    // =====================================================
+                    // 2. REPLACEMENT TERMINAL MUST BE DIFFERENT
+                    //    FROM CURRENT TERMINAL
+                    // =====================================================
+                    if (!string.IsNullOrWhiteSpace(replacementTerminal) &&
+                        !string.IsNullOrWhiteSpace(currentTerminal) &&
+                        replacementTerminal.Equals(
+                            currentTerminal,
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        dbFunction.SetMessageBox(
+                            "Replacement Terminal Serial Number must be different from the Current Terminal Serial Number.",
+                            cboSearchServiceType.Text,
+                            clsFunction.IconType.iExclamation);
+
+                        return false;
+                    }
+
+                    // =====================================================
+                    // 3. REPLACEMENT SIM MUST BE DIFFERENT
+                    //    FROM CURRENT SIM
+                    // =====================================================
+                    if (!string.IsNullOrWhiteSpace(replacementSIM) &&
+                        !string.IsNullOrWhiteSpace(currentSIM) &&
+                        replacementSIM.Equals(
+                            currentSIM,
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        dbFunction.SetMessageBox(
+                            "Replacement SIM Serial Number must be different from the Current SIM Serial Number.",
+                            cboSearchServiceType.Text,
+                            clsFunction.IconType.iExclamation);
+
+                        return false;
+                    }
                 }
-                else
-                { 
-                    // Current Terminal (mandatory)
-                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalID, txtCurTerminalID.Text))
+            }            
+
+            // =====================================================
+            // Service Type: Installation
+            // =====================================================
+            if (isDispatch)
+            {
+                if (txtSearchSTJobTypeDescription.Text.Equals(
+                clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC))
+                {
+                    // =====================================================
+                    // 1. CURRENT TERMINAL IS REQUIRED
+                    // =====================================================
+                    if (string.IsNullOrWhiteSpace(currentTerminal))
                     {
                         dbFunction.SetMessageBox(
                             "Current Terminal Serial Number is mandatory.",
@@ -1153,20 +1215,31 @@ namespace MIS
 
                         return false;
                     }
+                }
+            }
 
-                    // Current Terminal or SIM (optional only if this business rule is still needed)
-                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalID, txtCurTerminalID.Text) ||
-                        !dbFunction.isValidEntry(clsFunction.CheckType.iSIMID, txtCurSIMID.Text))
+            // =====================================================
+            // Service Type: Pullout
+            // =====================================================
+            if (isDispatch)
+            {
+                if (txtSearchSTJobTypeDescription.Text.Equals(
+                clsGlobalVariables.JOB_TYPE_PULLOUT_DESC))
+                {
+                    // =====================================================
+                    // 1. CURRENT TERMINAL IS REQUIRED
+                    // =====================================================
+                    if (string.IsNullOrWhiteSpace(currentTerminal))
                     {
                         dbFunction.SetMessageBox(
-                            "Either the Current Terminal Serial Number or Current SIM Serial Number must be filled.",
+                            "Current Terminal Serial Number is mandatory.",
                             cboSearchServiceType.Text,
                             clsFunction.IconType.iExclamation);
 
                         return false;
                     }
                 }
-            }
+            }            
 
             // Service Result
             if (!dbFunction.isValidComboBoxValue(cboSearchServiceType.Text))
@@ -2516,8 +2589,6 @@ namespace MIS
                                 clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
                     }
 
-                    SaveDeploymentDetail();
-
                     // ---------------------------------------------------------------------------------------------
                     // Batch Update
                     // ---------------------------------------------------------------------------------------------     
@@ -2652,7 +2723,7 @@ namespace MIS
                 }
                 else
                 {
-                    if (dbFunction.isValidID(txtCurTerminalID.Text) && dbFunction.isValidID(txtCurSIMID.Text) && !dbFunction.isValidID(txtFEID.Text))
+                    if (dbFunction.isValidID(txtCurTerminalID.Text) && !dbFunction.isValidID(txtFEID.Text))
                         dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                             clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
                 }
@@ -7213,11 +7284,6 @@ namespace MIS
                 frmPopUpInfo frm = new frmPopUpInfo(jsonResult);
                 frm.ShowDialog();
             }
-        }
-
-        private void SaveDeploymentDetail()
-        {
-            
         }
 
         private void displayRescheduleTicketClosure()
