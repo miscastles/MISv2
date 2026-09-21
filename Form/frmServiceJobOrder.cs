@@ -34,6 +34,7 @@ namespace MIS
         // Controller
         private ServicingDetailController _mServicingDetailController;
         private HelpDeskController _mHelpDeskController;
+        private IDController _mIDController;
 
         private bool fEdit = false;
         public static string sHeader = "";
@@ -85,6 +86,7 @@ namespace MIS
             // Initialize the controller object
             _mServicingDetailController = new ServicingDetailController();
             _mHelpDeskController = new HelpDeskController();
+            _mIDController = new IDController();
         }
 
         private void frmServicing_Load(object sender, EventArgs e)
@@ -2338,6 +2340,13 @@ namespace MIS
         {
             bool isUpdateDispatch = false;
             bool isValid = false;
+            int currentTerminalID = 0;
+            int currentSIMID = 0;
+            int replaceTerminalID = 0;
+            int replaceSIMID = 0;
+            int oldTerminalID = 0;
+            int oldSIMID = 0;
+
             Debug.WriteLine("--btnDispatch_Click--");
             Debug.WriteLine("fEdit="+fEdit);
 
@@ -2589,29 +2598,72 @@ namespace MIS
                                 clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
                     }
 
+                    // --------------------------------------------------------------------------------------------
+                    // Checking SN ID 
+                    // --------------------------------------------------------------------------------------------
+                    if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
+                    {
+                        currentTerminalID = 0;
+                        currentSIMID = 0;
+
+                        if (dbFunction.isValidID(txtRepTerminalID.Text))
+                        {
+                            replaceTerminalID = int.Parse(txtRepTerminalID.Text);
+                        }
+
+                        if (dbFunction.isValidID(txtRepSIMID.Text))
+                        {
+                            replaceSIMID = int.Parse(txtRepSIMID.Text);
+                        }
+                    }                    
+                    else
+                    {
+                        if (dbFunction.isValidID(txtCurTerminalID.Text))
+                        {
+                            currentTerminalID = int.Parse(txtCurTerminalID.Text);
+                        }
+
+                        if (dbFunction.isValidID(txtCurSIMID.Text))
+                        {
+                            currentSIMID = int.Parse(txtCurSIMID.Text);
+                        }
+                    }
+
+                    Debug.WriteLine($"Saving...");
+                    Debug.WriteLine($"Service Type=[{txtSearchSTJobTypeDescription.Text}]");
+                    Debug.WriteLine($"currentTerminalID=[{currentTerminalID}]");
+                    Debug.WriteLine($"currentSIMID=[{currentSIMID}]");
+                    Debug.WriteLine($"replaceTerminalID=[{replaceTerminalID}]");
+                    Debug.WriteLine($"replaceSIMID=[{replaceSIMID}]");
+                    Debug.WriteLine($"status=[{clsSearch.ClassStatus}]");
+                    Debug.WriteLine($"status description=[{clsSearch.ClassStatusDescription}]");
+                    // --------------------------------------------------------------------------------------------
+                    // Checking SN ID 
+                    // --------------------------------------------------------------------------------------------
+
                     // ---------------------------------------------------------------------------------------------
                     // Batch Update
-                    // ---------------------------------------------------------------------------------------------     
+                    // ---------------------------------------------------------------------------------------------                         
                     clsSearch.ClassAdvanceSearchValue = txtSearchSTJobTypeDescription.Text + clsFunction.sPipe +
-                                                        txtSearchServiceNo.Text + clsFunction.sPipe +
-                                                        txtRequestNo.Text + clsFunction.sPipe +
-                                                        clsSearch.ClassStatus + clsFunction.sPipe +
-                                                        clsSearch.ClassStatusDescription + clsFunction.sPipe +
-                                                        txtIRIDNo.Text + clsFunction.sPipe +
-                                                        dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsFunction.sPipe +
-                                                        dbFunction.CheckAndSetNumericValue(txtFEID.Text) + clsFunction.sPipe +
-                                                        dbFunction.CheckAndSetStringValue(txtFEName.Text) + clsFunction.sPipe +
-                                                        dbFunction.CheckAndSetNumericValue(txtCurTerminalID.Text) + clsFunction.sPipe +
-                                                        dbFunction.CheckAndSetNumericValue(txtCurSIMID.Text) + clsFunction.sPipe +
-                                                        dbFunction.CheckAndSetNumericValue(txtRepTerminalID.Text) + clsFunction.sPipe +
-                                                        dbFunction.CheckAndSetNumericValue(txtRepSIMID.Text) + clsFunction.sPipe +
-                                                        txtSearchSTCode.Text + clsFunction.sPipe;
+                                                            txtSearchServiceNo.Text + clsFunction.sPipe +
+                                                            txtRequestNo.Text + clsFunction.sPipe +
+                                                            clsSearch.ClassStatus + clsFunction.sPipe +
+                                                            clsSearch.ClassStatusDescription + clsFunction.sPipe +
+                                                            txtIRIDNo.Text + clsFunction.sPipe +
+                                                            dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text) + clsFunction.sPipe +
+                                                            dbFunction.CheckAndSetNumericValue(txtFEID.Text) + clsFunction.sPipe +
+                                                            dbFunction.CheckAndSetStringValue(txtFEName.Text) + clsFunction.sPipe +
+                                                            currentTerminalID.ToString() + clsFunction.sPipe +
+                                                            currentSIMID.ToString() + clsFunction.sPipe +
+                                                            replaceTerminalID.ToString() + clsFunction.sPipe +
+                                                            replaceSIMID.ToString() + clsFunction.sPipe +
+                                                            txtSearchSTCode.Text + clsFunction.sPipe;
 
                     Debug.WriteLine("Multiple Update->Value=" + clsSearch.ClassAdvanceSearchValue);
 
                     dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
 
-                    if (clsGlobalVariables.isAPIResponseOK)
+                    if (dbFunction.isValidDescription(clsSearch.ClassAdvanceSearchValue))
                         dbAPI.ExecuteAPI("PUT", "Update", "Multiple Save Service", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
 
                 }
@@ -2631,6 +2683,68 @@ namespace MIS
 
                     dbFunction.GetModifiedByAndDateTime(); // Get modifiedby and datetime
 
+                    // --------------------------------------------------------------------------------------------
+                    // Checking SN ID 
+                    // --------------------------------------------------------------------------------------------
+                    if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
+                    {
+                        currentTerminalID = 0;
+                        currentSIMID = 0;
+
+                        if (dbFunction.isValidID(txtRepTerminalID.Text))
+                        {
+                            replaceTerminalID = int.Parse(txtRepTerminalID.Text);
+                        }
+
+                        if (dbFunction.isValidID(txtRepSIMID.Text))
+                        {
+                            replaceSIMID = int.Parse(txtRepSIMID.Text);
+                        }
+
+
+                    }                    
+                    else
+                    {
+                        if (dbFunction.isValidID(txtCurTerminalID.Text))
+                        {
+                            currentTerminalID = int.Parse(txtCurTerminalID.Text);
+                        }
+
+                        if (dbFunction.isValidID(txtCurSIMID.Text))
+                        {
+                            currentSIMID = int.Parse(txtCurSIMID.Text);
+                        }
+
+                        // previous
+                        if (dbFunction.isValidID(txtOldTerminalID.Text))
+                        {
+                            oldTerminalID = int.Parse(txtOldTerminalID.Text);
+                        }
+
+                        if (dbFunction.isValidID(txtOldSIMID.Text))
+                        {
+                            oldSIMID = int.Parse(txtOldSIMID.Text);
+                        }
+
+                    }
+
+                    Debug.WriteLine($"Updating...");
+                    Debug.WriteLine($"Service Type=[{txtSearchSTJobTypeDescription.Text}]");
+                    Debug.WriteLine($"currentTerminalID=[{currentTerminalID}]");
+                    Debug.WriteLine($"currentSIMID=[{currentSIMID}]");
+                    Debug.WriteLine($"replaceTerminalID=[{replaceTerminalID}]");
+                    Debug.WriteLine($"replaceSIMID=[{replaceSIMID}]");
+                    Debug.WriteLine($"oldTerminalID=[{oldTerminalID}]");
+                    Debug.WriteLine($"oldSIMID=[{oldSIMID}]");
+                    Debug.WriteLine($"status=[{clsSearch.ClassStatus}]");
+                    Debug.WriteLine($"status description=[{clsSearch.ClassStatusDescription}]");
+                    // --------------------------------------------------------------------------------------------
+                    // Checking SN ID 
+                    // --------------------------------------------------------------------------------------------
+
+                    // ---------------------------------------------------------------------------------------------
+                    // Batch Update
+                    // ---------------------------------------------------------------------------------------------
                     clsSearch.ClassAdvanceSearchValue = txtSearchSTJobTypeDescription.Text + clsFunction.sPipe +
                                                         txtSearchServiceNo.Text + clsFunction.sPipe +
                                                         dbFunction.CheckAndSetStringValue(pReqInstallationDate) + clsFunction.sPipe +
@@ -2653,38 +2767,39 @@ namespace MIS
 
                     if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC))
                     {
-                        sTemp = dbFunction.CheckAndSetNumericValue(txtCurTerminalID.Text) + clsFunction.sPipe +
-                                dbFunction.CheckAndSetNumericValue(txtOldTerminalID.Text) + clsFunction.sPipe +
+                        sTemp = currentTerminalID.ToString() + clsFunction.sPipe +
+                                oldTerminalID.ToString() + clsFunction.sPipe +
                                 clsSearch.ClassStatus + clsFunction.sPipe +
-                                dbFunction.CheckAndSetNumericValue(txtCurSIMID.Text) + clsFunction.sPipe +
-                                dbFunction.CheckAndSetNumericValue(txtOldSIMID.Text) + clsFunction.sPipe +
+                                currentSIMID.ToString() + clsFunction.sPipe +
+                                oldSIMID.ToString() + clsFunction.sPipe +
                                 clsSearch.ClassStatus + clsFunction.sPipe;
                     }
 
                     if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                     {
-                        sTemp = dbFunction.CheckAndSetNumericValue(txtRepTerminalID.Text) + clsFunction.sPipe +
-                                dbFunction.CheckAndSetNumericValue(txtOldTerminalID.Text) + clsFunction.sPipe +
+                        sTemp = replaceTerminalID.ToString() + clsFunction.sPipe +
+                                oldTerminalID.ToString() + clsFunction.sPipe +
                                 clsSearch.ClassStatus + clsFunction.sPipe +
-                                dbFunction.CheckAndSetNumericValue(txtRepSIMID.Text) + clsFunction.sPipe +
-                                dbFunction.CheckAndSetNumericValue(txtOldSIMID.Text) + clsFunction.sPipe +
+                                replaceSIMID.ToString() + clsFunction.sPipe +
+                                oldSIMID.ToString() + clsFunction.sPipe +
                                 clsSearch.ClassStatus + clsFunction.sPipe;
                     }
                     else
                     {
-                        sTemp = dbFunction.CheckAndSetNumericValue(txtCurTerminalID.Text) + clsFunction.sPipe +
-                                dbFunction.CheckAndSetNumericValue(txtOldTerminalID.Text) + clsFunction.sPipe +
+                        sTemp = currentTerminalID.ToString() + clsFunction.sPipe +
+                                oldTerminalID.ToString() + clsFunction.sPipe +
                                 clsSearch.ClassStatus + clsFunction.sPipe +
-                                dbFunction.CheckAndSetNumericValue(txtCurSIMID.Text) + clsFunction.sPipe +
-                                dbFunction.CheckAndSetNumericValue(txtOldSIMID.Text) + clsFunction.sPipe +
+                                currentSIMID.ToString() + clsFunction.sPipe +
+                                oldSIMID.ToString() + clsFunction.sPipe +
                                 clsSearch.ClassStatus + clsFunction.sPipe;
                     }
 
                     sTemp = sTemp + dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text);
 
                     Debug.WriteLine("sTemp=" + sTemp);
-                    Debug.WriteLine("clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
-                    Debug.WriteLine("clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
+                    dbFunction.parseDelimitedString(sTemp, clsDefines.gPipe, 1);
+
+                    Debug.WriteLine("clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);                    
 
                     clsSearch.ClassAdvanceSearchValue =
                         clsSearch.ClassAdvanceSearchValue + sTemp + clsFunction.sPipe +
@@ -2710,7 +2825,8 @@ namespace MIS
 
                     dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
 
-                    dbAPI.ExecuteAPI("PUT", "Update", "Multiple Update Service", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                    if (dbFunction.isValidDescription(clsSearch.ClassAdvanceSearchValue))
+                        dbAPI.ExecuteAPI("PUT", "Update", "Multiple Update Service", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
 
                 }
 
@@ -2723,9 +2839,20 @@ namespace MIS
                 }
                 else
                 {
-                    if (dbFunction.isValidID(txtCurTerminalID.Text) && !dbFunction.isValidID(txtFEID.Text))
-                        dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                    if (dbFunction.isValidID(txtAssistNo.Text) && dbFunction.isValidDescription(txtProcessedBy.Text))
+                    {
+                        getProcessedByInfo();
+
+                        dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
                             clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
+
+                    }
+                    else
+                    {
+                        if (dbFunction.isValidID(txtCurTerminalID.Text) && !dbFunction.isValidID(txtFEID.Text))
+                            dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
+                                clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
+                    }                    
                 }
 
                 // Activity 3 — Dispatcher completion
@@ -2765,10 +2892,17 @@ namespace MIS
                 // check if already dispatch
                 if (!txtDispatchBy.Text.Equals(clsSearch.ClassCurrentParticularName) && dbFunction.isValidDescription(txtDispatchBy.Text) && fEdit)
                 {
-                    if (!dbFunction.fPromptConfirmation("You are about to update dispatcher " + dbFunction.AddBracketStartEnd(txtDispatchBy.Text) + "." + "\n" +
-                                                         "Do you want to overwrite?"))
+                    string message =
+                                    "Current Processed By: " +
+                                    dbFunction.AddBracketStartEnd(clsSearch.ClassCurrentParticularName) +
+                                    "\n\n" +
+                                    "New Dispatcher: " +
+                                    dbFunction.AddBracketStartEnd(txtDispatchBy.Text) +
+                                    "\n\n" +
+                                    "Do you want to overwrite?";
+
+                    if (!dbFunction.fPromptConfirmation(message))
                     {
-                        // do nothing
                         isUpdateDispatch = false;
                     }
                     else
@@ -7737,6 +7871,19 @@ namespace MIS
 
             frmImportIR frm = new frmImportIR();
             dbFunction.handleForm(frm);
+        }
+
+        private void getProcessedByInfo()
+        {
+            if (dbFunction.isValidDescription(txtProcessedBy.Text))
+            {
+                modelID model = _mIDController.getInfo(clsDefines.SearchBy_Particular, txtProcessedBy.Text);
+                if (model != null)
+                {
+                    clsSearch.ClassCurrentParticularID = model.UniqueID;
+                    clsSearch.ClassCurrentParticularName = txtProcessedBy.Text;
+                }
+            }
         }
 
     }

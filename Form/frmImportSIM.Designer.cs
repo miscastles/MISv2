@@ -66,6 +66,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.tabSIM = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             this.btnCopyClipboard = new System.Windows.Forms.Button();
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
@@ -320,7 +321,6 @@
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.tmrSerialNo = new System.Windows.Forms.Timer(this.components);
             this.txtTIID = new System.Windows.Forms.TextBox();
-            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -470,9 +470,9 @@
             // 
             this.lblSelectedHeader.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSelectedHeader.ForeColor = System.Drawing.Color.Yellow;
-            this.lblSelectedHeader.Location = new System.Drawing.Point(364, 6);
+            this.lblSelectedHeader.Location = new System.Drawing.Point(743, 6);
             this.lblSelectedHeader.Name = "lblSelectedHeader";
-            this.lblSelectedHeader.Size = new System.Drawing.Size(842, 16);
+            this.lblSelectedHeader.Size = new System.Drawing.Size(463, 16);
             this.lblSelectedHeader.TabIndex = 416;
             this.lblSelectedHeader.Text = "-";
             this.lblSelectedHeader.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -814,6 +814,14 @@
             this.tabPage1.Size = new System.Drawing.Size(1257, 565);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Import File";
+            // 
+            // ucStatusDisplay
+            // 
+            this.ucStatusDisplay.Location = new System.Drawing.Point(0, 538);
+            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.ucStatusDisplay.Name = "ucStatusDisplay";
+            this.ucStatusDisplay.Size = new System.Drawing.Size(821, 28);
+            this.ucStatusDisplay.TabIndex = 538;
             // 
             // btnCopyClipboard
             // 
@@ -3885,14 +3893,6 @@
             this.txtTIID.Name = "txtTIID";
             this.txtTIID.Size = new System.Drawing.Size(40, 21);
             this.txtTIID.TabIndex = 364;
-            // 
-            // ucStatusDisplay
-            // 
-            this.ucStatusDisplay.Location = new System.Drawing.Point(0, 538);
-            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.ucStatusDisplay.Name = "ucStatusDisplay";
-            this.ucStatusDisplay.Size = new System.Drawing.Size(821, 28);
-            this.ucStatusDisplay.TabIndex = 538;
             // 
             // frmImportSIM
             // 

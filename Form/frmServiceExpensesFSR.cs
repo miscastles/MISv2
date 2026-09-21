@@ -1490,7 +1490,10 @@ namespace MIS
 
         private void btnReceiptEdit_Click(object sender, EventArgs e)
         {
-
+            if (dbFunction.isValidCount(lvwReceiptList.Items.Count))
+            {
+                EditReceipt(lvwReceiptList);
+            }
         }
 
         private void btnReceiptDelete_Click(object sender, EventArgs e)
@@ -2024,6 +2027,57 @@ namespace MIS
             }
 
             Cursor.Current = Cursors.Default;
+        }
+
+        private void EditReceipt(ListView listView)
+        {
+            if (listView.SelectedItems.Count == 0)
+            {
+                MessageBox.Show(
+                    "Please select a receipt to edit.",
+                    "Receipt",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                return;
+            }
+
+            ListViewItem item = listView.SelectedItems[0];
+
+            DateTime receiptDate;
+            decimal receiptAmount;
+
+            Debug.WriteLine($"Receipt Amount: [{item.SubItems[2].Text}]");
+            Debug.WriteLine($"Receipt Date: [{item.SubItems[3].Text}]");
+
+            if (!DateTime.TryParse(item.SubItems[3].Text, out receiptDate))
+            {
+                receiptDate = DateTime.Today;
+            }
+
+            decimal.TryParse(
+                item.SubItems[2].Text.Replace(",", ""),
+                out receiptAmount);
+
+            using (frmGenericInput frm =
+                new frmGenericInput(receiptDate, receiptAmount))
+            {
+                frm.DialogTitle = "Edit Receipt";
+                frm.DateLabel = "Receipt Date";
+                frm.AmountLabel = "Receipt Amount";
+
+                if (frm.ShowDialog(this) == DialogResult.OK)
+                {
+                    // Update selected ListView row
+                    item.SubItems[2].Text =
+                        frm.AmountValue.ToString("###0.00");
+                    
+                    item.SubItems[3].Text =
+                        frm.DateValue.ToString("MM/dd/yyyy");
+
+                    
+                }
+            }
         }
     }
 }
