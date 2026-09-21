@@ -1264,6 +1264,8 @@ namespace MIS
                     //if (!dbFunction.isValidEntry(clsFunction.CheckType.iPadLen, txtPadLength.Text)) return false;
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iStartIndex, txtIndexStart.Text)) return false;
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iEndIndex, txtIndexEnd.Text)) return false;
+
+                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalStatus, cboAStatus.Text)) return false;
                     break;
                 case 2: // manual entry
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalStatus, txtTerminalStatus.Text)) return false;
@@ -1290,6 +1292,8 @@ namespace MIS
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iBatchNo, txtTransNo.Text)) return false;
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iFromLocation, txtLocationIDFrom.Text)) return false;
                     if (!dbFunction.isValidEntry(clsFunction.CheckType.iToLocation, txtLocationIDTo.Text)) return false;
+
+                    if (!dbFunction.isValidEntry(clsFunction.CheckType.iTerminalStatus, cboRStatus.Text)) return false;
                     break;
             }
             
