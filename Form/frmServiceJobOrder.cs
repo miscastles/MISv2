@@ -2390,7 +2390,8 @@ namespace MIS
                     return;
                 }
 
-                displayRescheduleTicketClosure();
+
+                getLastServiceAttempt(); // RAIDEN: getLastServiceAttempt is called here to populate global data used below.
 
                 // check reschedule ticket closure
                 if (fRescheduleTicket && dbFunction.isValidDescription(gScheduleDate))
@@ -4505,6 +4506,11 @@ namespace MIS
                     tabFillUp.TabIndex = 0;
 
                     btnPreviewFSR.Enabled = btnViewDiagnostic.Enabled = btnUpdateServiceDate.Enabled = btnUpdateMerchRep.Enabled = btnUpdateServiceType.Enabled = false;
+
+                    if (!fAutoLoadData)
+                    {
+                        displayRescheduleTicketClosure();
+                    }
 
                     getZoningInfo();
 
@@ -7315,27 +7321,7 @@ namespace MIS
 
         private void displayRescheduleTicketClosure()
         {
-            gScheduleDate = "";
-            gAttemptDate = "";
-            fRescheduleTicket = false;
-
-            // Check required lookup values
-            if (!dbFunction.isValidID(txtServiceJobType.Text) ||
-                !dbFunction.isValidID(txtMerchantID.Text) ||
-                !dbFunction.isValidID(txtIRIDNo.Text) ||
-                !dbFunction.isValidDescription(txtEntryRequestID.Text))
-            {
-                return;
-            }
-
-            if (fEdit) return;
-
-            string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtServiceJobType.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetStringValue(txtEntryRequestID.Text)}";
-
-            string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", pSearchValue);
+            string pJSONString = getLastServiceAttempt();
 
             if (dbFunction.isValidDescription(pJSONString))
             {
@@ -7343,12 +7329,12 @@ namespace MIS
                 string pRequestID = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRNO);
                 string pActionMade = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ActionMade);
                 string pReason = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Reason);
-                string pFSRDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate);
                 string pRequestDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_RequestDate);
                 string pScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ScheduleDate);
                 string pDependency = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Dependency);
                 string pStatusReason = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_StatusReason);
                 string pRemarks = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Remarks);
+                string pFSRDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate);
                 int pFunctionID = int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FunctionID));
 
                 if (pFunctionID.Equals((int)ReasonFuncType.Reschedule_By_Merchant_FuncId) && pActionMade.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE))
@@ -7360,13 +7346,9 @@ namespace MIS
                             $"Reason: {pReason}\n" +
                             $"Attempt Date: {pFSRDate}\n" +
                             $"Attempt Dependency: {pDependency}\n\n" +
-                            $"Current Schedule Date: {pScheduleDate}\n\n" +
+                            $"Current Schedule Date: {dteServiceReqDate.Value:MM-dd-yyyy}\n\n" +
                             $"Remarks: {pRemarks}", "Information", clsFunction.IconType.iInformation);
-
-                    gScheduleDate = pScheduleDate;
-                    gAttemptDate = pFSRDate;
-                    fRescheduleTicket = true;
-                }                
+                }
             }
         }
 
@@ -7766,6 +7748,39 @@ namespace MIS
                     clsSearch.ClassCurrentParticularID = model.UniqueID;
                     clsSearch.ClassCurrentParticularName = txtProcessedBy.Text;
                 }
+            }
+        }
+
+        private string getLastServiceAttempt()
+        {
+            gScheduleDate = "";
+            gAttemptDate = "";
+            fRescheduleTicket = false;
+
+            {
+                string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtServiceJobType.Text)}{clsDefines.gPipe}" +
+                            $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
+                            $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
+                            $"{dbFunction.CheckAndSetStringValue(txtEntryRequestID.Text)}";
+
+                string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", pSearchValue);
+
+                if (dbFunction.isValidDescription(pJSONString))
+                {
+                    string pScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ScheduleDate);
+                    string pFSRDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate);
+                    string pActionMade = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ActionMade);
+                    int pFunctionID = int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FunctionID));
+
+                    if (pFunctionID.Equals((int)ReasonFuncType.Reschedule_By_Merchant_FuncId) && pActionMade.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE))
+                    {
+                        gScheduleDate = pScheduleDate;
+                        gAttemptDate = pFSRDate;
+                        fRescheduleTicket = true;
+                    }
+                }
+
+                return pJSONString;
             }
         }
     }
