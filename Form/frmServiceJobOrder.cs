@@ -2528,6 +2528,17 @@ namespace MIS
                         {
                             replaceSIMID = int.Parse(txtRepSIMID.Text);
                         }
+
+                        // previous
+                        if (dbFunction.isValidID(txtOldTerminalID.Text))
+                        {
+                            oldTerminalID = int.Parse(txtOldTerminalID.Text);
+                        }
+
+                        if (dbFunction.isValidID(txtOldSIMID.Text))
+                        {
+                            oldSIMID = int.Parse(txtOldSIMID.Text);
+                        }
                     }
                     else
                     {
@@ -2539,6 +2550,17 @@ namespace MIS
                         if (dbFunction.isValidID(txtCurSIMID.Text))
                         {
                             currentSIMID = int.Parse(txtCurSIMID.Text);
+                        }
+
+                        // previous
+                        if (dbFunction.isValidID(txtOldTerminalID.Text))
+                        {
+                            oldTerminalID = int.Parse(txtOldTerminalID.Text);
+                        }
+
+                        if (dbFunction.isValidID(txtOldSIMID.Text))
+                        {
+                            oldSIMID = int.Parse(txtOldSIMID.Text);
                         }
                     }
 
@@ -2614,7 +2636,16 @@ namespace MIS
                             replaceSIMID = int.Parse(txtRepSIMID.Text);
                         }
 
+                        // previous
+                        if (dbFunction.isValidID(txtOldTerminalID.Text))
+                        {
+                            oldTerminalID = int.Parse(txtOldTerminalID.Text);
+                        }
 
+                        if (dbFunction.isValidID(txtOldSIMID.Text))
+                        {
+                            oldSIMID = int.Parse(txtOldSIMID.Text);
+                        }
                     }
                     else
                     {
@@ -2627,7 +2658,6 @@ namespace MIS
                         {
                             currentSIMID = int.Parse(txtCurSIMID.Text);
                         }
-
                         // previous
                         if (dbFunction.isValidID(txtOldTerminalID.Text))
                         {
