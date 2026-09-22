@@ -479,6 +479,8 @@ namespace MIS
                 clsSearch.ClassBankPrimaryColor = selectedBank.primaryColor;
                 clsSearch.ClassBankSecondaryColor = selectedBank.secondaryColor;
 
+                clsSearch.ClassBankKey = selectedBank.Key;
+
             }
         }
 

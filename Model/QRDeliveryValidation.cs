@@ -57,7 +57,7 @@ namespace MIS
 
     public interface IQRDeliveryLookupStore
     {
-        QRDeliveryLookupResult FindJobOrder(string tid, string mid);
+        QRDeliveryLookupResult FindJobOrder(QRDeliveryData scanned);
     }
 
     public sealed class QRDeliveryLookupResult
@@ -66,6 +66,8 @@ namespace MIS
         public int ServiceNo { get; set; }
         public int IRIDNo { get; set; }
         public int MerchantID { get; set; }
+        public int QRID { get; set; }
+        public DateTime? QRDate { get; set; }
         public int JobType { get; set; }
         public string JobTypeDescription { get; set; }
         public string JobTypeStatusDescription { get; set; }

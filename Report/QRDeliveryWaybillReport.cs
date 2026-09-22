@@ -63,11 +63,15 @@ namespace MIS
 
         private static string ResolveReportPath()
         {
-            string deployedPath = Path.Combine(ReportPath, ReportFileName);
-            if (File.Exists(deployedPath))
-                return deployedPath;
+            string localReportPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Report",
+                ReportFileName);
 
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Report", ReportFileName);
+            if (File.Exists(localReportPath))
+                return localReportPath;
+
+            return Path.Combine(ReportPath, ReportFileName);
         }
 
         private static IDictionary<string, object> CreateValues(
@@ -110,7 +114,7 @@ namespace MIS
 
             Debug.WriteLine($"base64QRContent={base64QRContent}");
 
-            string QRUrl = url + "?QRID=" + $"{service.ServiceNo}" + "&InternalQRContent=" + base64QRContent;
+            string QRUrl = url + "?QRID=" + $"{service.ServiceNo}" + "&bank=" + $"{clsSearch.ClassBankCode}" + "&key=" + $"{clsSearch.ClassBankKey}" + "&InternalQRContent=" + base64QRContent;
 
             Debug.WriteLine($"QRUrl={QRUrl}");
 

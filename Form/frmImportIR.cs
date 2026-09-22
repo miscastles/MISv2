@@ -3709,6 +3709,8 @@ namespace MIS
             //Debug.WriteLine($"clsSearch.ClassRawDataInfo=[{clsSearch.ClassRawDataInfo}]");
             //Debug.WriteLine($"clsSearch.ClassProfileDataInfo=[{clsSearch.ClassProfileDataInfo}]");
 
+            Cursor.Current = Cursors.WaitCursor;
+
             try
             {
                 if (dbFunction.isValidDescription(clsSearch.ClassRawDataInfo) && dbFunction.isValidDescription(clsSearch.ClassProfileDataInfo))
@@ -3841,7 +3843,9 @@ namespace MIS
             catch (Exception ex)
             {
                 Debug.WriteLine($"updateRawData, error={ex.Message}");
-            }            
+            }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void cboRequestType_SelectedIndexChanged(object sender, EventArgs e)
