@@ -2701,7 +2701,16 @@ namespace MIS
                             replaceSIMID = int.Parse(txtRepSIMID.Text);
                         }
 
+                        // previous
+                        if (dbFunction.isValidID(txtOldTerminalID.Text))
+                        {
+                            oldTerminalID = int.Parse(txtOldTerminalID.Text);
+                        }
 
+                        if (dbFunction.isValidID(txtOldSIMID.Text))
+                        {
+                            oldSIMID = int.Parse(txtOldSIMID.Text);
+                        }
                     }                    
                     else
                     {
