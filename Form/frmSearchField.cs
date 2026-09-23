@@ -46,6 +46,8 @@ namespace MIS
 
         private bool isQRDeliverySearch;
         private IList<QRDeliveryHistoryItem> qrDeliveryRecords;
+        private const int QRDeliverySearchLimit = 100;
+        private bool qrDeliveryRowsLoading;
         public QRDeliveryHistoryItem SelectedQRDeliveryRecord { get; private set; }
 
         public frmSearchField()
@@ -3126,6 +3128,12 @@ namespace MIS
             AddQRDeliveryColumn("PROCESSED BY", 115);
             AddQRDeliveryColumn("DATE / TIME", 155);
 
+            // Parse legacy/saved QR payloads once. Repeating this on every
+            // keystroke made the search feel slow and occasionally left the
+            // ListView in an updating state when a malformed row was found.
+            foreach (QRDeliveryHistoryItem item in qrDeliveryRecords)
+                HydrateQRDeliveryIdentity(item);
+
             txtSearch.TextChanged += delegate { LoadQRDeliveryRows(); };
             LoadQRDeliveryRows();
             Size = new Size(1391, 577);
@@ -3140,47 +3148,58 @@ namespace MIS
 
         private void LoadQRDeliveryRows()
         {
-            string query = (txtSearch.Text ?? string.Empty).Trim();
-            lvwSearch.BeginUpdate();
-            lvwSearch.Items.Clear();
-            int line = 0;
-            HashSet<string> displayedScans = new HashSet<string>(
-                StringComparer.OrdinalIgnoreCase);
-            foreach (QRDeliveryHistoryItem item in qrDeliveryRecords)
-            {
-                HydrateQRDeliveryIdentity(item);
-                if (string.IsNullOrWhiteSpace(item.TID) ||
-                    string.IsNullOrWhiteSpace(item.MID))
-                    continue;
+            if (qrDeliveryRowsLoading) return;
 
-                string duplicateKey = string.Join("|", new[]
+            string query = (txtSearch.Text ?? string.Empty).Trim();
+            int line = 0;
+            qrDeliveryRowsLoading = true;
+            lvwSearch.BeginUpdate();
+            try
+            {
+                lvwSearch.Items.Clear();
+                foreach (QRDeliveryHistoryItem item in qrDeliveryRecords)
                 {
-                    item.ServiceNo.ToString(), item.TID ?? "", item.MID ?? "",
-                    item.TerminalSN ?? "", item.SIMSN ?? "", item.QRResult ?? ""
-                });
-                if (!displayedScans.Add(duplicateKey)) continue;
-                if (!MatchesQRDelivery(item, query)) continue;
-                line++;
-                ListViewItem row = new ListViewItem(line.ToString());
-                row.SubItems.Add(item.QRID.ToString());
-                row.SubItems.Add(item.MerchantName ?? "");
-                row.SubItems.Add(item.TID ?? "");
-                row.SubItems.Add(item.MID ?? "");
-                row.SubItems.Add(item.ServiceNo.ToString());
-                row.SubItems.Add(item.IRIDNo.ToString());
-                row.SubItems.Add(item.TerminalSN ?? "");
-                row.SubItems.Add(item.SIMSN ?? "");
-                row.SubItems.Add(item.QRResult ?? "");
-                row.SubItems.Add(item.ProcessedBy ?? "");
-                row.SubItems.Add(item.DateTimeStamp.ToString("yyyy-MM-dd HH:mm:ss"));
-                row.ForeColor = IsSuccessfulQRDelivery(item)
-                    ? Color.FromArgb(0, 170, 70)
-                    : Color.Red;
-                row.Tag = item;
-                lvwSearch.Items.Add(row);
+                    if (item == null || item.QRID <= 0 ||
+                       string.IsNullOrWhiteSpace(item.TID) ||
+                       string.IsNullOrWhiteSpace(item.MID))
+                        continue;
+                    if (!MatchesQRDelivery(item, query)) continue;
+                    if (line >= QRDeliverySearchLimit) break;
+
+                    line++;
+                    ListViewItem row = new ListViewItem(line.ToString());
+                    row.SubItems.Add(item.QRID.ToString());
+                    row.SubItems.Add(item.MerchantName ?? "");
+                    row.SubItems.Add(item.TID ?? "");
+                    row.SubItems.Add(item.MID ?? "");
+                    row.SubItems.Add(DisplayQRDeliveryId(item.ServiceNo));
+                    row.SubItems.Add(DisplayQRDeliveryId(item.IRIDNo));
+                    row.SubItems.Add(item.TerminalSN ?? "");
+                    row.SubItems.Add(item.SIMSN ?? "");
+                    row.SubItems.Add(item.QRResult ?? "");
+                    row.SubItems.Add(item.ProcessedBy ?? "");
+                    row.SubItems.Add(item.DateTimeStamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                    row.ForeColor = IsSuccessfulQRDelivery(item)
+                        ? Color.FromArgb(0, 170, 70)
+                        : Color.Red;
+                    row.Tag = item;
+                    lvwSearch.Items.Add(row);
+                }
             }
-            lvwSearch.EndUpdate();
-            lblSearchStatus.Text = line + " record(s) found.";
+            finally
+            {
+                lvwSearch.EndUpdate();
+                qrDeliveryRowsLoading = false;
+            }
+
+            lblSearchStatus.Text = line == QRDeliverySearchLimit
+                ? line + " record(s) shown (maximum)."
+                : line + " record(s) found.";
+        }
+
+        private static string DisplayQRDeliveryId(int value)
+        {
+            return value > 0 ? value.ToString() : "-";
         }
 
         private static void HydrateQRDeliveryIdentity(QRDeliveryHistoryItem item)

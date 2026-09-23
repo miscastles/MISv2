@@ -33,15 +33,17 @@ namespace MIS.Controller
                 NormalizeSearchValue(scanned.MerchantName),
                 NormalizeSearchValue(scanned.MerchantAddress),
                 NormalizeSearchValue(scanned.TerminalSerialNo),
-                NormalizeSearchValue(scanned.SimSerialNo)
+                NormalizeSearchValue(scanned.SimSerialNo),
+                scanned.ServiceNo.ToString(CultureInfo.InvariantCulture)
             });
 
-            string json = api.getInfoDetailJSON("Search", "QR Delivery",
+            string json = api.getInfoDetailJSON("Search", "QR Delivery", //call getInfoDetail
                 searchValue);
 
             // Compatibility fallback for an older deployed API that accepts
             // only the original TID|MID search value.
-            if (string.IsNullOrWhiteSpace(json))
+            if (string.IsNullOrWhiteSpace(json) &&
+                scanned.ServiceNo <= 0)
                 json = api.getInfoDetailJSON("Search", "QR Delivery",
                     scanned.TID.Trim() + "|" + scanned.MID.Trim());
 
@@ -135,7 +137,7 @@ namespace MIS.Controller
         public IList<QRDeliveryHistoryItem> GetRecent(int serviceNo, int limit)
         {
             if (serviceNo < 0) throw new ArgumentOutOfRangeException("serviceNo");
-            if (limit <= 0 || limit > 50) throw new ArgumentOutOfRangeException("limit");
+            if (limit <= 0 || limit > 100) throw new ArgumentOutOfRangeException("limit");
 
             api.ExecuteAPI(
                 "GET",
