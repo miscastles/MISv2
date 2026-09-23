@@ -7879,25 +7879,31 @@ namespace MIS
             gAttemptDate = "";
             fRescheduleTicket = false;
 
-            string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtServiceJobType.Text)}{clsDefines.gPipe}" +
-                        $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
-                        $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
-                        $"{dbFunction.CheckAndSetStringValue(txtEntryRequestID.Text)}";
-
-            string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", pSearchValue);
-
-            if (dbFunction.isValidDescription(pJSONString))
             {
-                string pScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ScheduleDate);
-                string pFSRDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate);
+                string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtServiceJobType.Text)}{clsDefines.gPipe}" +
+                            $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
+                            $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
+                            $"{dbFunction.CheckAndSetStringValue(txtEntryRequestID.Text)}";
 
-                gScheduleDate = pScheduleDate;
-                gAttemptDate = pFSRDate;
-                fRescheduleTicket = true;
+                string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", pSearchValue);
+
+                if (dbFunction.isValidDescription(pJSONString))
+                {
+                    string pScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ScheduleDate);
+                    string pFSRDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate);
+                    string pActionMade = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ActionMade);
+                    int pFunctionID = int.Parse(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FunctionID));
+
+                    if (pFunctionID.Equals((int)ReasonFuncType.Reschedule_By_Merchant_FuncId) && pActionMade.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE))
+                    {
+                        gScheduleDate = pScheduleDate;
+                        gAttemptDate = pFSRDate;
+                        fRescheduleTicket = true;
+                    }
+                }
+
+                return pJSONString;
             }
-
-            return pJSONString;
         }
-
     }
 }
