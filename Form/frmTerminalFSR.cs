@@ -6546,7 +6546,10 @@ namespace MIS
             if (dbFunction.isValidID(txtSearchFSRNo.Text) && dbFunction.isValidID(txtSearchServiceNo.Text) && dbFunction.isValidID(txtMerchantID.Text) && dbFunction.isValidID(txtIRIDNo.Text))
             {
                 // check close ticket
-                if (!isValidRescheduleTicketClosure()) return;
+                if (!checkFSRSuccessorJO())
+                {
+                    if (!isValidRescheduleTicketClosure()) return;
+                }
 
                 if (!dbFunction.CheckTimeFromTo(dteMTimeStart, dteMTimeEnd, "Time Start/End", true)) return;
 
@@ -6753,45 +6756,25 @@ namespace MIS
         private bool isValidRescheduleTicketClosure()
         {
             bool isValid = true;
-            string pMinScheduleDate = "";
-            string pMaxScheduleDate = "";
 
-            string pSearchValue = $"{dbFunction.CheckAndSetNumericValue(txtJobType.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
-                                    $"{dbFunction.CheckAndSetStringValue(txtSearchIRNo.Text)}";
-
-            string pJSONString = dbAPI.getInfoDetailJSON("Search", "Last Service Attempt", pSearchValue);
-
-            if (dbFunction.isValidDescription(pJSONString))
-            {
-                pMinScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MinScheduleDate);
-                pMaxScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_MaxScheduleDate);
-            }
-            
             if (cboSearchActionMade.Text.CompareTo(dbAPI.GetActionMade()[2]) == 0) // NEGATIVE
             {
                 int functionID = int.Parse(dbFunction.CheckAndSetNumericValue(txtReasonFunctionID.Text));
+
                 if ((functionID == (int)ReasonFuncType.Reschedule_By_Merchant_FuncId) && chkCloseTicket.Checked)
                 {
-                    if (!pMinScheduleDate.Equals(pMaxScheduleDate))
-                    {
-                        chkCloseTicket.Checked = true;
-                        isValid = true;
-                    }                        
-                    else
-                    {
-                        dbFunction.SetMessageBox($"Unable to close the ticket due to reschedulling\n\n" +
-                            $"Last Attempt Status: {cboSearchActionMade.Text}\n" +
-                            $"Reason: {txtReasonDesc.Text}\n" +
-                            $"Attempt Date: {dteMFSRDate.Value.ToString("MM-dd-yyyy")}\n" +
-                            $"Attempt Dependency: {cboDependency.Text}\n\n" +
-                            $"Current Schedule Date: {txtServiceScheduleDate.Text}", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    dbFunction.SetMessageBox($"Unable to close the ticket due to rescheduling\n\n" +
+                        $"Last Attempt Status: {cboSearchActionMade.Text}\n" +
+                        $"Reason: {txtReasonDesc.Text}\n" +
+                        $"Attempt Date: {dteMFSRDate.Value.ToString("MM-dd-yyyy")}\n" +
+                        $"Attempt Dependency: {cboDependency.Text}\n\n" +
+                        $"Current Schedule Date: {txtServiceScheduleDate.Text}",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
 
-                        chkCloseTicket.Checked = false;
+                    chkCloseTicket.Checked = false;
 
-                        isValid = false;
-                    }                        
+                    isValid = false;
                 }
             }
 
@@ -6846,75 +6829,91 @@ namespace MIS
             }
         }
 
-        private void checkFSRSuccessorJO()
+
+        private bool checkFSRSuccessorJO()
         {
             int functionID;
 
-            if (int.TryParse(dbFunction.CheckAndSetNumericValue(txtReasonFunctionID.Text), out functionID))
+            if (!int.TryParse(dbFunction.CheckAndSetNumericValue(txtReasonFunctionID.Text), out functionID))
             {
-                if (txtTicketStatus.Text.Equals(clsDefines.OPEN_TICKET))
-                {
-                    if (functionID == (int)ReasonFuncType.Reschedule_By_Merchant_FuncId)
-                    {
-                        string pSearchValue =
-                            $"{dbFunction.CheckAndSetNumericValue(txtJobType.Text)}{clsDefines.gPipe}" +
-                            $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
-                            $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
-                            $"{dbFunction.CheckAndSetStringValue(txtRequestID.Text)}{clsDefines.gPipe}" +
-                            $"{dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)}";
-
-                        string pJSONString = dbAPI.getInfoDetailJSON("Search", "Successor JO", pSearchValue);
-
-                        if (dbFunction.isValidDescription(pJSONString))
-                        {
-                            string pNewJO = dbAPI.GetValueFromJSONString(pJSONString, "newJO");
-
-                            if (pNewJO.Equals(clsFunction.sOne))
-                            {
-                                string pNewJOServiceNo = dbAPI.GetValueFromJSONString(pJSONString, "newJOServiceNo");
-
-                                if (dbFunction.fPromptConfirmation(
-                                        "Rescheduled Ticket Closure\n\n" +
-                                        $"FSR No.: {txtSearchFSRNo.Text}\n" +
-                                        $"Current Service No.: {txtSearchServiceNo.Text}\n" +
-                                        $"Request ID: {txtRequestID.Text}\n" +
-                                        $"Reason: {txtReasonDesc.Text}\n" +
-                                        $"Succeeding Service No.: {pNewJOServiceNo}\n\n" +
-                                        "A succeeding Job Order was found.\n\n" +
-                                        "Do you want to set this ticket to CLOSED?"))
-                                {
-                                    string pSearchValueUpdate =
-                                        $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
-                                        $"{dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)}";
-
-                                    dbAPI.ExecuteAPI("PUT", "Update", "Close Rescheduled Ticket", pSearchValueUpdate, "", "", "UpdateCollectionDetail");
-
-                                    if (clsGlobalVariables.isAPIResponseOK)
-                                    {
-                                        chkCloseTicket.Checked = true;
-                                        setTicketStatus(1);
-                                        getServiceAuditInfo();
-
-                                        dbFunction.SetMessageBox(
-                                            "The previous rescheduled ticket was successfully set to CLOSED.",
-                                            clsDefines.FIELD_CHECK_MSG,
-                                            clsFunction.IconType.iInformation);
-                                    }
-                                    else
-                                    {
-                                        chkCloseTicket.Checked = false;
-
-                                        dbFunction.SetMessageBox(
-                                            "Unable to close the previous rescheduled ticket.",
-                                            clsDefines.FIELD_CHECK_MSG,
-                                            clsFunction.IconType.iError);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                return false;
             }
+
+            // Successor checking does not apply to other reasons.
+            if (functionID != (int)ReasonFuncType.Reschedule_By_Merchant_FuncId)
+            {
+                return true;
+            }
+
+            string pSearchValue =
+                $"{dbFunction.CheckAndSetNumericValue(txtJobType.Text)}{clsDefines.gPipe}" +
+                $"{dbFunction.CheckAndSetNumericValue(txtMerchantID.Text)}{clsDefines.gPipe}" +
+                $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
+                $"{dbFunction.CheckAndSetStringValue(txtRequestID.Text)}{clsDefines.gPipe}" +
+                $"{dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)}";
+
+            string pJSONString = dbAPI.getInfoDetailJSON("Search", "Successor JO", pSearchValue);
+
+            // check sp return
+            if (!dbFunction.isValidDescription(pJSONString))
+            {
+                return false;
+            }
+
+            if (dbAPI.GetValueFromJSONString(pJSONString, "ticketStatus").Equals(clsFunction.sOne))
+            {
+                return true;
+            }
+
+            if (!dbAPI.GetValueFromJSONString(pJSONString, "newJO").Equals(clsFunction.sOne))
+            {
+                return false;
+            }
+
+            string pNewJOServiceNo = dbAPI.GetValueFromJSONString(pJSONString, "newJOServiceNo");
+
+            if (!dbFunction.fPromptConfirmation(
+                    "Rescheduled Ticket Closure\n\n" +
+                    $"FSR No.: {txtSearchFSRNo.Text}\n" +
+                    $"Current Service No.: {txtSearchServiceNo.Text}\n" +
+                    $"Request ID: {txtRequestID.Text}\n" +
+                    $"Reason: {txtReasonDesc.Text}\n" +
+                    $"Succeeding Service No.: {pNewJOServiceNo}\n\n" +
+                    "A succeeding Job Order was found.\n\n" +
+                    "Do you want to set this ticket to CLOSED?"))
+            {
+                return false;
+            }
+
+            string pSearchValueUpdate =
+                $"{dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text)}{clsDefines.gPipe}" +
+                $"{dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)}";
+
+            dbAPI.ExecuteAPI("PUT", "Update", "Close Rescheduled Ticket", pSearchValueUpdate, "", "", "UpdateCollectionDetail");
+
+            if (!clsGlobalVariables.isAPIResponseOK)
+            {
+                chkCloseTicket.Checked = false;
+                setTicketStatus(0);
+
+                dbFunction.SetMessageBox(
+                    "Unable to close the previous rescheduled ticket.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            chkCloseTicket.Checked = true;
+            setTicketStatus(1);
+            getServiceAuditInfo();
+
+            dbFunction.SetMessageBox(
+                "The previous rescheduled ticket was successfully set to CLOSED.",
+                clsDefines.FIELD_CHECK_MSG,
+                clsFunction.IconType.iInformation);
+
+            return true;
         }
 
         private void btnAddZoning_Click(object sender, EventArgs e)
