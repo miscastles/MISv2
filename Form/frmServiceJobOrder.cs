@@ -43,6 +43,7 @@ namespace MIS
         public static clsFunction.CheckType iCheckType;
 
         private static bool isDispatch;
+
         private static int iStatus;
         private static string sStatusDesc;
 
@@ -55,8 +56,6 @@ namespace MIS
         private bool fRescheduleTicket = false;
         private string gScheduleDate = "";
         private string gAttemptDate = "";
-        private string gLastAttemptTATStatus = "";
-        private string gNewScheduleTATStatus = "";
 
         private string formName = "JOB ORDER";
 
@@ -1809,7 +1808,7 @@ namespace MIS
             clsSearch.ClassJobTypeSubDescription = txtSearchSTDescription.Text;
 
             //sDateTime = SCDateTime.ToString("yyyy-MM-dd H:mm:ss");
-            
+
             // Create Group Details - ROCKY BANTOLO
             var data = new
             {
@@ -2167,7 +2166,7 @@ namespace MIS
                     // App Version/CRC
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_AppVersion));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_AppCRC));
-
+                    
                     lvwList.Items.Add(item);
 
                     i++;
@@ -2808,7 +2807,7 @@ namespace MIS
                     Debug.WriteLine("sTemp=" + sTemp);
                     dbFunction.parseDelimitedString(sTemp, clsDefines.gPipe, 1);
 
-                    Debug.WriteLine("clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);                    
+                    Debug.WriteLine("clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
 
                     clsSearch.ClassAdvanceSearchValue =
                         clsSearch.ClassAdvanceSearchValue + sTemp + clsFunction.sPipe +
@@ -5231,7 +5230,6 @@ namespace MIS
                     // Helpdesk
                     txtAssistNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 45);
                     txtProblemNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 46);
-
                 }
 
                 // fill additional info
@@ -7548,9 +7546,10 @@ namespace MIS
         {
             int pFunctionID;
 
-            if (fEdit) return true;
-
             if (!fRescheduleTicket) return true;
+
+            string lastAttemptTATStatus = "";
+            string newScheduleTATStatus = "";
 
             string pSearchValue =
                 $"{dbFunction.CheckAndSetNumericValue(txtServiceJobType.Text)}{clsDefines.gPipe}" +
@@ -7604,19 +7603,17 @@ namespace MIS
                 return false;
             }
 
-            gLastAttemptTATStatus = dbAPI.GetValueFromJSONString(pJSONString, "LastAttemptTATStatus");
+            lastAttemptTATStatus = dbAPI.GetValueFromJSONString(pJSONString, "LastAttemptTATStatus");
 
-            if (gLastAttemptTATStatus.Equals(clsDefines.BEYOND_TAT, StringComparison.OrdinalIgnoreCase))
+            if (lastAttemptTATStatus.Equals(clsDefines.BEYOND_TAT, StringComparison.OrdinalIgnoreCase))
             {
                 string pFSRDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate);
-
                 string pLastScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, "LastScheduleDate");
 
                 DateTime lastAttemptDate;
                 DateTime lastScheduleDate;
 
-                if (!DateTime.TryParse(pFSRDate, out lastAttemptDate) ||
-                    !DateTime.TryParse(pLastScheduleDate, out lastScheduleDate))
+                if (!DateTime.TryParse(pFSRDate, out lastAttemptDate) || !DateTime.TryParse(pLastScheduleDate, out lastScheduleDate))
                 {
                     dbFunction.SetMessageBox(
                         "Unable to validate the previous service attempt dates.",
@@ -7626,13 +7623,8 @@ namespace MIS
                     return false;
                 }
 
-                DateTime newScheduleDate = dteServiceReqDate.Value.Date;
-
-                bool scheduleWasNotChanged = newScheduleDate == lastScheduleDate.Date;
-
-                bool scheduleIsNotAfterAttempt = newScheduleDate <= lastAttemptDate.Date;
-
-                if (scheduleWasNotChanged || scheduleIsNotAfterAttempt)
+                // checks if new scheduled date is not before last attempt date
+                if (dteServiceReqDate.Value.Date <= lastAttemptDate.Date)
                 {
                     dbFunction.SetMessageBox(
                         "The previous service attempt is already BEYOND TAT.\n\n" +
@@ -7645,9 +7637,7 @@ namespace MIS
                     return false;
                 }
             }
-            else if (!gLastAttemptTATStatus.Equals(
-                         clsDefines.WITHIN_TAT,
-                         StringComparison.OrdinalIgnoreCase))
+            else if (!lastAttemptTATStatus.Equals(clsDefines.WITHIN_TAT, StringComparison.OrdinalIgnoreCase))
             {
                 dbFunction.SetMessageBox(
                     "Unable to determine the previous service attempt's TAT status.",
@@ -7657,14 +7647,13 @@ namespace MIS
                 return false;
             }
 
-            gNewScheduleTATStatus = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TATStatus);
-
-            if (gNewScheduleTATStatus.Equals(clsDefines.WITHIN_TAT, StringComparison.OrdinalIgnoreCase))
+            newScheduleTATStatus = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TATStatus);
+            if (newScheduleTATStatus.Equals(clsDefines.WITHIN_TAT, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            if (gNewScheduleTATStatus.Equals(clsDefines.BEYOND_TAT, StringComparison.OrdinalIgnoreCase))
+            if (newScheduleTATStatus.Equals(clsDefines.BEYOND_TAT, StringComparison.OrdinalIgnoreCase))
             {
                 string pRequestDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_RequestDate);
                 string pTATDueDate = dbAPI.GetValueFromJSONString(pJSONString, "TATDueDate");
