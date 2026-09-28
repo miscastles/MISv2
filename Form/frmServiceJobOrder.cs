@@ -2297,11 +2297,7 @@ namespace MIS
 
                     //if (!CheckDateFromTo(dteRequest, dteSchedule)) return;
 
-                    if (!dbFunction.checkDateFromTo(DateTime.Parse(dteReqInstallationDate.Value.ToShortDateString()), DateTime.Parse(dteServiceReqDate.Value.ToShortDateString())))
-                    {
-                        dbFunction.SetMessageBox("Request date must not greater than Schedule date", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                        return;
-                    }
+                    if (!validateRequestScheduleDate(dteReqInstallationDate.Value.Date, dteServiceReqDate.Value.Date)) return;
 
                     // eFSR Date Compare
                     //if (dteReqInstallationDate.Value > dteServiceReqDate.Value)
@@ -7181,14 +7177,10 @@ namespace MIS
 
             if (dbFunction.isValidID(txtSearchServiceNo.Text) && dbFunction.isValidID(txtMerchantID.Text) && dbFunction.isValidID(txtIRIDNo.Text))
             {
-                if (!dbFunction.checkDateFromTo(DateTime.Parse(dteReqInstallationDate.Value.ToShortDateString()), DateTime.Parse(dteServiceReqDate.Value.ToShortDateString())))
-                {
-                    dbFunction.SetMessageBox("Request date must not greater than Schedule date", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                    return;
-                }
-
                 // Admin Login requirement
                 if (!dbAPI.isPromptAdminLogIn()) return;
+
+                if (!validateRequestScheduleDate(dteReqInstallationDate.Value.Date, dteServiceReqDate.Value.Date)) return;
 
                 // Update
                 if (!dbFunction.fPromptConfirmation("Job Order date update information:" +
@@ -7811,6 +7803,37 @@ namespace MIS
 
                 return pJSONString;
             }
+
+
+        }
+
+        private bool validateRequestScheduleDate(DateTime requestDate, DateTime scheduledDate)
+        {
+            bool isValid = true;
+
+            // Request date must not be greater than schedule date
+            if (!dbFunction.checkDateFromTo(requestDate, scheduledDate))
+            {
+                dbFunction.SetMessageBox(
+                    "Request date must not greater than Schedule date",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                isValid = false;
+            }
+
+            // Request date and scheduled date timeframe must be reasonable | checks if selected timerange has a 6 month gap
+            if (scheduledDate > requestDate.AddMonths(6))
+            {
+                dbFunction.SetMessageBox(
+                    $"Request Date and Scheduled Date are too far apart.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                isValid = false;
+            }
+
+            return isValid;
         }
     }
 }
