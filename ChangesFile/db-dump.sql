@@ -43,7 +43,7 @@ CREATE TABLE `event_log_message_update_sn` (
   `Message` varchar(255) DEFAULT NULL,
   `EventTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=24083 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=24095 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `event_status_update_sn` */
 
@@ -398,7 +398,7 @@ CREATE TABLE `tblcity` (
   `CityID` int NOT NULL AUTO_INCREMENT,
   `City` varchar(255) NOT NULL,
   PRIMARY KEY (`CityID`)
-) ENGINE=InnoDB AUTO_INCREMENT=23516 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=23520 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblcountry` */
 
@@ -965,7 +965,7 @@ CREATE TABLE `tblduplicatedetail` (
   PRIMARY KEY (`ID`,`ControlNo`),
   KEY `ControlNo` (`ControlNo`),
   KEY `DupID` (`DupID`)
-) ENGINE=InnoDB AUTO_INCREMENT=110460 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=110491 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblemploymenttype` */
 
@@ -1348,7 +1348,7 @@ CREATE TABLE `tblfsrdetail` (
   KEY `FEID` (`FEID`),
   KEY `isActive` (`isActive`),
   KEY `ActionMade` (`ActionMade`)
-) ENGINE=InnoDB AUTO_INCREMENT=64753 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=64755 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblfsrdetaildummy` */
 
@@ -1772,7 +1772,7 @@ CREATE TABLE `tblinstallationrequestdetail` (
   `Reserved62` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   PRIMARY KEY (`IRIDNo`),
   KEY `IRIDNo` (`IRIDNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=26500 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=26504 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblinstallationrequestmaster` */
 
@@ -1788,7 +1788,7 @@ CREATE TABLE `tblinstallationrequestmaster` (
   `ProcessedBy` varchar(255) DEFAULT NULL,
   `ModifiedBy` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IRID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1385 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1389 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblinstallationsummary` */
 
@@ -1885,7 +1885,7 @@ CREATE TABLE `tblirdetail` (
   KEY `IRDate` (`IRDate`),
   KEY `MID` (`MID`),
   KEY `IRNo` (`IRNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=53367 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=53371 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblirdetail_temp` */
 
@@ -2226,7 +2226,7 @@ CREATE TABLE `tbllogservicelocation` (
   PRIMARY KEY (`ID`),
   KEY `UserID` (`UserID`),
   KEY `ParticularID` (`ParticularID`)
-) ENGINE=InnoDB AUTO_INCREMENT=578069 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=578077 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblmapping` */
 
@@ -2579,7 +2579,7 @@ CREATE TABLE `tblparticular` (
   KEY `CountryID` (`CountryID`),
   KEY `isActive` (`isActive`),
   KEY `Name` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=547369 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=547370 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblposition` */
 
@@ -2701,7 +2701,7 @@ CREATE TABLE `tblprovince` (
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY (`ProvinceID`,`Name`),
   KEY `ProvinceID` (`ProvinceID`)
-) ENGINE=InnoDB AUTO_INCREMENT=23763 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=23767 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblrate` */
 
@@ -2749,7 +2749,7 @@ CREATE TABLE `tblregion` (
   UNIQUE KEY `Region` (`Region`),
   KEY `RegionID` (`RegionID`),
   KEY `isActive` (`isActive`)
-) ENGINE=InnoDB AUTO_INCREMENT=504 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=508 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblregion_temp` */
 
@@ -2780,7 +2780,7 @@ CREATE TABLE `tblregiondetail` (
   UNIQUE KEY `Province` (`Province`),
   KEY `RegionID` (`RegionID`),
   KEY `RegionType` (`RegionType`)
-) ENGINE=InnoDB AUTO_INCREMENT=1672 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1676 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblregionzoning` */
 
@@ -2848,7 +2848,7 @@ CREATE TABLE `tblreportdatastorage` (
   `isActive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`ID`),
   KEY `StorageType` (`StorageType`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblreportstatus` */
 
@@ -2866,7 +2866,7 @@ CREATE TABLE `tblreportstatus` (
   `DateTimeStamp` datetime DEFAULT CURRENT_TIMESTAMP,
   `isActive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1358 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1359 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblselection` */
 
@@ -3014,7 +3014,7 @@ CREATE TABLE `tblservicingactivitydetail` (
   `EndDateTime` datetime DEFAULT NULL,
   `DateTimeStamp` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=710 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=720 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblservicingdetail` */
 
@@ -4260,7 +4260,7 @@ CREATE TABLE `tbluserlog` (
   `LogOutDate` datetime DEFAULT NULL,
   `PublishVersion` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   PRIMARY KEY (`LogID`,`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=49262 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=49278 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tbluserpermission` */
 
@@ -7383,15 +7383,21 @@ DECLARE temp_date DATE;
 			
 		ELSEIF (p_SearchBy = 'Service Ticket Status')
 		THEN
-			SET @Value = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|' ,1)) AS SIGNED INTEGER);
-			
-			IF (@Value = 1) THEN
-				SET @Value = 'CLOSED';
-			ELSE
-				SET @Value = 'OPEN';
-			END IF;
-			
-			SET v_Return = @Value;
+		    SET @TicketStatus = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|', 1)) AS SIGNED INTEGER);
+		    SET @ServiceStatus = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|', 2)) AS SIGNED INTEGER);
+		    SET @ActionMade = TRIM(SPLIT_STRING(p_SearchValue, '|', 3));
+
+		    IF (@ServiceStatus = 2) THEN
+			SET @Value = 'OPEN';
+		    ELSEIF (@TicketStatus = 0 AND UPPER(@ActionMade) IN ('SUCCESS', 'NEGATIVE')) THEN
+			SET @Value = 'FOR VERIFICATION';
+		    ELSEIF (@TicketStatus = 1) THEN
+			SET @Value = 'CLOSED';
+		    ELSE
+			SET @Value = 'OPEN';
+		    END IF;
+
+		    SET v_Return = @Value;
 			
 		ELSEIF (p_SearchBy = 'ZoneName')
 		THEN
@@ -77549,9 +77555,17 @@ BEGIN
 					) AS Month_,
 
 					funcGetDesc(
-						"Search","Service Ticket Status",d.TicketStatus
+						"Search",
+						"Service Ticket Status",
+						CONCAT(
+							d.TicketStatus,
+							"|",
+							d.ServiceStatus,
+							"|",
+							IFNULL(a.ActionMade, "")
+						)
 					) AS Ticket_Status_,
-
+					
 					IFNULL_FORMAT_DATE(d.TicketDateTime) AS Date_Closed_,
 
 					funcGetDesc(
