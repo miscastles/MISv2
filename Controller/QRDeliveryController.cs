@@ -165,6 +165,7 @@ namespace MIS.Controller
                     IRIDNo = ReadInt(detailInfo, "IRIDNo"),
                     MerchantID = ReadInt(detailInfo, "MerchantID"),
                     MerchantName = ReadValue(detailInfo, "MerchantName"),
+                    MerchantAddress = ReadValue(detailInfo, "MerchantAddress"),
                     TID = ReadValue(detailInfo, "TID"),
                     MID = ReadValue(detailInfo, "MID"),
                     TerminalSN = ReadValue(detailInfo, "TerminalSN"),

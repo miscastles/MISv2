@@ -376,6 +376,7 @@ namespace MIS
                 IRIDNo = selectedService == null ? 0 : selectedService.IRIDNo,
                 MerchantID = selectedService == null ? 0 : selectedService.MerchantID,
                 MerchantName = selectedService == null ? string.Empty : selectedService.MerchantName,
+                MerchantAddress = selectedService == null ? string.Empty : selectedService.Address,
                 TID = selectedService == null ? string.Empty : selectedService.TID,
                 MID = selectedService == null ? string.Empty : selectedService.MID,
                 TerminalSN = selectedService == null ? string.Empty : selectedService.TerminalSN,

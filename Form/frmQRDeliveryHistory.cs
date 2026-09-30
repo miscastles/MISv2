@@ -72,6 +72,7 @@ namespace MIS
                     row.Cells["ServiceNo"].Value = item.ServiceNo;
                     row.Cells["IRIDNo"].Value = item.IRIDNo;
                     row.Cells["MerchantID"].Value = item.MerchantID;
+                    row.Cells["MerchantName"].Value = item.MerchantName;
                     row.Cells["MerchantAddress"].Value = item.MerchantAddress;
                     row.Cells["InventoryStatus"].Value = item.InventoryStatus;
                     row.Cells["TerminalPrepStatus"].Value = item.TerminalPrepStatus;
