@@ -43,7 +43,7 @@ CREATE TABLE `event_log_message_update_sn` (
   `Message` varchar(255) DEFAULT NULL,
   `EventTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=24095 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=24189 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `event_status_update_sn` */
 
@@ -398,7 +398,7 @@ CREATE TABLE `tblcity` (
   `CityID` int NOT NULL AUTO_INCREMENT,
   `City` varchar(255) NOT NULL,
   PRIMARY KEY (`CityID`)
-) ENGINE=InnoDB AUTO_INCREMENT=23520 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=23537 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblcountry` */
 
@@ -965,7 +965,7 @@ CREATE TABLE `tblduplicatedetail` (
   PRIMARY KEY (`ID`,`ControlNo`),
   KEY `ControlNo` (`ControlNo`),
   KEY `DupID` (`DupID`)
-) ENGINE=InnoDB AUTO_INCREMENT=110491 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=110523 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblemploymenttype` */
 
@@ -1348,7 +1348,7 @@ CREATE TABLE `tblfsrdetail` (
   KEY `FEID` (`FEID`),
   KEY `isActive` (`isActive`),
   KEY `ActionMade` (`ActionMade`)
-) ENGINE=InnoDB AUTO_INCREMENT=64755 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=64763 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblfsrdetaildummy` */
 
@@ -1486,7 +1486,7 @@ CREATE TABLE `tblfsrmaster` (
   `ProcessedBy` varchar(255) DEFAULT NULL,
   `ModifiedBy` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`FSRID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22911 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=22918 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblhddetail` */
 
@@ -1539,7 +1539,7 @@ CREATE TABLE `tblhddetail` (
   KEY `Index_ID` (`RequestID`,`HelpdeskID`,`TeamLeadID`,`ReasonID`,`TerminalID`,`SIMID`,`SourceID`,`CategoryID`,`SubCategoryID`,`CreatedID`,`AssistNo`),
   KEY `DependencyID` (`DependencyID`),
   KEY `StatusReasonID` (`StatusReasonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5758 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5760 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblhdmaster` */
 
@@ -1559,7 +1559,7 @@ CREATE TABLE `tblhdmaster` (
   `isActive` int DEFAULT '1',
   PRIMARY KEY (`AssistNo`),
   KEY `Index_ID` (`IRIDNo`,`CreatedID`,`JobType`)
-) ENGINE=InnoDB AUTO_INCREMENT=5667 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5669 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblheader` */
 
@@ -1772,7 +1772,7 @@ CREATE TABLE `tblinstallationrequestdetail` (
   `Reserved62` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   PRIMARY KEY (`IRIDNo`),
   KEY `IRIDNo` (`IRIDNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=26504 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=26521 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblinstallationrequestmaster` */
 
@@ -1788,7 +1788,7 @@ CREATE TABLE `tblinstallationrequestmaster` (
   `ProcessedBy` varchar(255) DEFAULT NULL,
   `ModifiedBy` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`IRID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1389 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1394 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblinstallationsummary` */
 
@@ -1885,7 +1885,7 @@ CREATE TABLE `tblirdetail` (
   KEY `IRDate` (`IRDate`),
   KEY `MID` (`MID`),
   KEY `IRNo` (`IRNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=53371 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=53388 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblirdetail_temp` */
 
@@ -2226,7 +2226,7 @@ CREATE TABLE `tbllogservicelocation` (
   PRIMARY KEY (`ID`),
   KEY `UserID` (`UserID`),
   KEY `ParticularID` (`ParticularID`)
-) ENGINE=InnoDB AUTO_INCREMENT=578077 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=578294 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblmapping` */
 
@@ -2579,7 +2579,7 @@ CREATE TABLE `tblparticular` (
   KEY `CountryID` (`CountryID`),
   KEY `isActive` (`isActive`),
   KEY `Name` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=547370 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=547381 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblposition` */
 
@@ -2701,7 +2701,7 @@ CREATE TABLE `tblprovince` (
   `Name` varchar(100) NOT NULL,
   PRIMARY KEY (`ProvinceID`,`Name`),
   KEY `ProvinceID` (`ProvinceID`)
-) ENGINE=InnoDB AUTO_INCREMENT=23767 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=23784 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblrate` */
 
@@ -2749,7 +2749,7 @@ CREATE TABLE `tblregion` (
   UNIQUE KEY `Region` (`Region`),
   KEY `RegionID` (`RegionID`),
   KEY `isActive` (`isActive`)
-) ENGINE=InnoDB AUTO_INCREMENT=508 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=513 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblregion_temp` */
 
@@ -2780,7 +2780,7 @@ CREATE TABLE `tblregiondetail` (
   UNIQUE KEY `Province` (`Province`),
   KEY `RegionID` (`RegionID`),
   KEY `RegionType` (`RegionType`)
-) ENGINE=InnoDB AUTO_INCREMENT=1676 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1681 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblregionzoning` */
 
@@ -2866,7 +2866,7 @@ CREATE TABLE `tblreportstatus` (
   `DateTimeStamp` datetime DEFAULT CURRENT_TIMESTAMP,
   `isActive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1359 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1361 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblselection` */
 
@@ -3014,7 +3014,7 @@ CREATE TABLE `tblservicingactivitydetail` (
   `EndDateTime` datetime DEFAULT NULL,
   `DateTimeStamp` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=720 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=771 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblservicingdetail` */
 
@@ -3153,7 +3153,7 @@ CREATE TABLE `tblservicingdetail` (
   KEY `IRNo` (`IRNo`),
   KEY `isActive` (`isActive`),
   KEY `BillingTypeID` (`BillingTypeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=70175 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=70184 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblservicingdetailtemp` */
 
@@ -3243,7 +3243,7 @@ CREATE TABLE `tblservicingqrdetail` (
   KEY `QRDate` (`QRDate`),
   KEY `IRIDNo` (`IRIDNo`),
   KEY `MerchantID` (`MerchantID`)
-) ENGINE=InnoDB AUTO_INCREMENT=505 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=509 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblsimactivity` */
 
@@ -3269,7 +3269,7 @@ CREATE TABLE `tblsimactivity` (
   `ServiceNo` int NOT NULL DEFAULT '0',
   `IRNo` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`RecID`,`SIMID`,`ParticularID`,`ServiceNo`,`IRNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=39647 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=39648 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblsimdetail` */
 
@@ -3727,7 +3727,7 @@ CREATE TABLE `tblterminalactivity` (
   `ServiceNo` int DEFAULT '0',
   `IRNo` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`RecID`,`TerminalID`,`TerminalSN`,`ParticularID`,`Status`,`IRNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=44110 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=44117 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblterminalallocation` */
 
@@ -4260,7 +4260,7 @@ CREATE TABLE `tbluserlog` (
   `LogOutDate` datetime DEFAULT NULL,
   `PublishVersion` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   PRIMARY KEY (`LogID`,`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=49278 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=49319 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tbluserpermission` */
 
@@ -13670,27 +13670,38 @@ DECLARE p_INSERT LONGTEXT;
 			((SELECT MAX(a.ServiceNo) FROm tblfsrdetail a WHERE a.IRIDNo = v_IRIDNo and a.JobType = v_JobType AND a.ActionMade = 'SUCCESS') >  0);
 			
 		ELSEIF (p_SearchBy = 'Service RequestID')
-		THEN					
-											
-			SET v_IRIDNo = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|' ,1)) AS UNSIGNED INTEGER);
-			SET v_JobType = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|' ,2)) AS UNSIGNED INTEGER);
-			SET v_IRNo = TRIM(SPLIT_STRING(p_SearchValue, '|' ,3));
-			
-			SELECT 
-			    COUNT(*) INTO v_Count
-			FROM (
-			    SELECT a.IRNo
-			    FROM tblfsrdetail a
-			    WHERE a.IRNo = v_IRNo 
-			      AND UPPER(IFNULL(a.ActionMade, '')) <> 'NEGATIVE'
+		THEN
 
-			    UNION ALL
+		    SET v_IRIDNo = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|', 1)) AS UNSIGNED INTEGER);
+		    SET v_JobType = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|', 2)) AS UNSIGNED INTEGER);
+		    SET v_IRNo = TRIM(SPLIT_STRING(p_SearchValue, '|', 3));
 
-			    SELECT b.IRNo
-			    FROM tblservicingdetail b
-			    WHERE b.IRNo = v_IRNo 
-			      AND UPPER(IFNULL(b.JobTypeStatusDescription, '')) NOT IN ('COMPLETED', 'NEGATIVE')
-			) tmp;
+		    SELECT COUNT(*)
+		    INTO v_Count
+		    FROM
+		    (
+			SELECT
+			    s.ServiceNo,
+			    s.JobType,
+			    UPPER(IFNULL(f.ActionMade, '')) AS ActionMade
+			FROM tblservicingdetail s
+			LEFT JOIN tblfsrdetail f
+			    ON f.ServiceNo = s.ServiceNo
+			   AND f.IRIDNo = s.IRIDNo
+			   AND f.IRNo = s.IRNo
+			   AND f.JobType = s.JobType
+			WHERE s.IRIDNo = v_IRIDNo
+			  AND s.IRNo = v_IRNo
+			  AND s.isActive > 0
+			  AND s.isCancelled = 0
+
+			ORDER BY s.ServiceNo DESC
+			LIMIT 1
+		    ) latest_service
+		    WHERE NOT (
+			latest_service.JobType = v_JobType
+			AND latest_service.ActionMade = 'NEGATIVE'
+		    );
 			
 		ELSEIF (p_SearchBy = 'Region')
 
@@ -23594,7 +23605,12 @@ THEN
 	
 	LOWER(funcGetDesc("Search", "Recipient Email", a.FEID)), "|",
 	
-	LOWER(funcGetDesc("Search", "Recipient Email", a.MerchantID)), "|",
+	IF(
+	    TRIM(IFNULL_STRING_ONLY2(a.MerchantRepresentativeEmail)) = '-',
+	    LOWER(funcGetDesc("Search", "Recipient Email", a.MerchantID)),
+	    LOWER(IFNULL_STRING_ONLY2(a.MerchantRepresentativeEmail))
+	),
+	"|",
 	
 	LOWER(funcGetDesc("Search", "Recipient Email", b.DispatchID)), "|",
 	
@@ -50713,7 +50729,8 @@ BEGIN
               'ServiceNo', q.ServiceNo,
               'IRIDNo', q.IRIDNo,
               'MerchantID', q.MerchantID,
-              'MerchantName', IFNULL_STRING_NORMAL(ir.MerchantName),
+              'MerchantName', IFNULL_STRING_NORMAL(mer.Name),
+              'MerchantAddress', IFNULL_STRING_NORMAL(mer.Address),
               'TID', IFNULL_STRING_NORMAL(ir.TID),
               'MID', IFNULL_STRING_NORMAL(ir.MID),
 
@@ -50746,6 +50763,8 @@ BEGIN
      FROM tblservicingqrdetail q
      LEFT JOIN tblirdetail ir
          ON q.IRIDNo = ir.IRIDNo
+     LEFT JOIN tblparticular mer
+         ON q.MerchantID = mer.ParticularID
      LEFT JOIN tblservicingdetail svc
          ON q.ServiceNo = svc.ServiceNo
 
@@ -50837,7 +50856,7 @@ BEGIN
 	LEFT JOIN tblservicingdetail b ON qs.ServiceNo = b.ServiceNo
 	WHERE qs.rn = 1
 	AND ir.TID IS NOT NULL AND ir.TID <> ''
-	ORDER BY qs.ServiceNo DESC;
+	ORDER BY qs.DateTimeStamp DESC;
 		
 	ELSEIF (p_SearchBy = 'QR Delivery Received')
 	THEN
@@ -50851,7 +50870,7 @@ BEGIN
 			'ServiceNo', qs.ServiceNo,
 			'RequestDate', IFNULL_FORMAT_DATE2(b.ServiceDate),
 			'ProcessedDate', IFNULL_FORMAT_DATETIME_AMPM(qs.DateTimeStamp),
-			'ProcessedBy', IFNULL_STRING_NORMAL(qs.ProcessedBy),
+			'ProcessedBy', IFNULL_STRING_NORMAL(COALESCE(pu.FullName, qs.ProcessedBy)),
 			'Name', IFNULL_STRING_NORMAL(ir.MerchantName),
 			'TID', IFNULL_STRING_NORMAL(ir.TID),
 			'MID', IFNULL_STRING_NORMAL(ir.MID),
@@ -50881,9 +50900,9 @@ BEGIN
 	) qs
 	LEFT JOIN tblirdetail ir ON qs.IRIDNo = ir.IRIDNo
 	LEFT JOIN tblservicingdetail b ON qs.ServiceNo = b.ServiceNo
+	LEFT JOIN tbluser pu ON UPPER(pu.UserName) = UPPER(qs.ProcessedBy)
 	WHERE qs.rn = 1
-	ORDER BY qs.ServiceNo DESC;
-	
+	ORDER BY qs.DateTimeStamp DESC;
 	
 	-- RAIDEN WAYBILL INFO      
 	ELSEIF (p_SearchBy = 'Waybill Information')
@@ -88209,6 +88228,50 @@ DROP TABLE IF EXISTS `vw_service_info2`;
  `ptActive` bigint 
 )*/;
 
+/*Table structure for table `vw_servicing_billing` */
+
+DROP TABLE IF EXISTS `vw_servicing_billing`;
+
+/*!50001 DROP VIEW IF EXISTS `vw_servicing_billing` */;
+/*!50001 DROP TABLE IF EXISTS `vw_servicing_billing` */;
+
+/*!50001 CREATE TABLE  `vw_servicing_billing`(
+ `SERVICE_NO` int ,
+ `VALIDATION_ID` int ,
+ `VALIDATION_STATUS` varchar(12) ,
+ `VALIDATION_REASON` binary(0) ,
+ `CITAS_REMARKS` varchar(12) ,
+ `CITAS_REASON` longtext ,
+ `VENDOR` varchar(45) ,
+ `PERIOD_MONTH` varchar(70) ,
+ `SERVICE_TYPE` varchar(7) ,
+ `Category_ID` int ,
+ `CATEGORY` varchar(255) ,
+ `SUB_CATEGORY` varchar(255) ,
+ `TOTAL_ATTEMPTS` int ,
+ `PROJECTED_CHARGE` varchar(50) ,
+ `ACTUAL_CHARGE` double ,
+ `MB_REFERENCE` varchar(45) ,
+ `REQUEST_DATE` varchar(10) ,
+ `MERCHANT_NAME` varchar(255) ,
+ `TID` varchar(45) ,
+ `MID` varchar(45) ,
+ `MB_REMARKS_INSTRUCTIONS` longtext ,
+ `LOCATION` varchar(4) ,
+ `STATUS` longtext ,
+ `SERVICE_DATE` varchar(10) ,
+ `ACTIVITY_REMARKS` mediumtext ,
+ `REASON` varchar(255) ,
+ `1ST_REASON` longtext ,
+ `1ST_DATE` varchar(10) ,
+ `2ND_REASON` longtext ,
+ `2ND_DATE` varchar(10) ,
+ `3RD_REASON` longtext ,
+ `3RD_DATE` varchar(10) ,
+ `4TH_REASON` longtext ,
+ `4TH_DATE` varchar(10) 
+)*/;
+
 /*Table structure for table `vw_servicing_fee` */
 
 DROP TABLE IF EXISTS `vw_servicing_fee`;
@@ -88318,50 +88381,6 @@ DROP TABLE IF EXISTS `vw_terminal_info`;
  `isActive` tinyint(1) 
 )*/;
 
-/*Table structure for table `vw_servicing_billing` */
-
-DROP TABLE IF EXISTS `vw_servicing_billing`;
-
-/*!50001 DROP VIEW IF EXISTS `vw_servicing_billing` */;
-/*!50001 DROP TABLE IF EXISTS `vw_servicing_billing` */;
-
-/*!50001 CREATE TABLE  `vw_servicing_billing`(
- `SERVICE_NO` int ,
- `VALIDATION_ID` int ,
- `VALIDATION_STATUS` varchar(12) ,
- `VALIDATION_REASON` binary(0) ,
- `CITAS_REMARKS` varchar(12) ,
- `CITAS_REASON` longtext ,
- `VENDOR` varchar(45) ,
- `PERIOD_MONTH` varchar(70) ,
- `SERVICE_TYPE` varchar(7) ,
- `Category_ID` int ,
- `CATEGORY` varchar(255) ,
- `SUB_CATEGORY` varchar(255) ,
- `TOTAL_ATTEMPTS` int ,
- `PROJECTED_CHARGE` varchar(50) ,
- `ACTUAL_CHARGE` double ,
- `MB_REFERENCE` varchar(45) ,
- `REQUEST_DATE` varchar(10) ,
- `MERCHANT_NAME` varchar(255) ,
- `TID` varchar(45) ,
- `MID` varchar(45) ,
- `MB_REMARKS_INSTRUCTIONS` longtext ,
- `LOCATION` varchar(4) ,
- `STATUS` longtext ,
- `SERVICE_DATE` varchar(10) ,
- `ACTIVITY_REMARKS` mediumtext ,
- `REASON` varchar(255) ,
- `1ST_REASON` longtext ,
- `1ST_DATE` varchar(10) ,
- `2ND_REASON` longtext ,
- `2ND_DATE` varchar(10) ,
- `3RD_REASON` longtext ,
- `3RD_DATE` varchar(10) ,
- `4TH_REASON` longtext ,
- `4TH_DATE` varchar(10) 
-)*/;
-
 /*View structure for view vw_installation_info */
 
 /*!50001 DROP TABLE IF EXISTS `vw_installation_info` */;
@@ -88432,6 +88451,13 @@ DROP TABLE IF EXISTS `vw_servicing_billing`;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_service_info2` AS select `svc`.`ServiceNo` AS `Job_ID`,`svc`.`JobType` AS `JobType`,if((`svc`.`JobType` = '1'),`ir`.`IRDate`,`svc`.`ServiceReqDate`) AS `Created_Date`,if((`svc`.`JobType` = '1'),`ir`.`InstallationDate`,`svc`.`ServiceReqDate`) AS `Target_Date`,if((`svc`.`ServiceStatus` = '2'),'WAITING',coalesce(`fsr`.`FSRDate`,'PENDING FSR')) AS `Service_Date`,`svc`.`ReqInstallationDate` AS `Request_Date`,`fsr`.`FSRDate` AS `FSRDate`,timestampdiff(DAY,`svc`.`ProcessedDateTime`,now()) AS `Days`,`svc`.`IRIDNo` AS `Request_ID`,`svc`.`IRNo` AS `Request_No`,`svc`.`JobTypeSubDescription` AS `Request`,`svc`.`JobTypeStatusDescription` AS `Request_Status`,`svc`.`ServiceStatusDescription` AS `Service_Status`,if((`svc`.`ServiceStatus` = '2'),'WAITING',coalesce(`fsr`.`ActionMade`,'PENDING FSR')) AS `Service_Result`,`mc`.`Merchant_ID` AS `Merchant_ID`,`mc`.`Merchant_Name` AS `Merchant_Name`,`mc`.`Region_ID` AS `Reg_ID`,`mc`.`Region` AS `Region`,`mc`.`Province_ID` AS `Prov_ID`,`mc`.`Province` AS `Province`,`mc`.`Charge` AS `Charge`,`ir`.`MID` AS `MID`,`ir`.`TID` AS `TID`,`td`.`Terminal_ID` AS `Curr_TID`,`svc`.`TerminalSN` AS `Curr_TN`,`sd`.`Sim_ID` AS `Curr_SID`,`svc`.`SIMSerialNo` AS `Curr_SN`,if((`svc`.`ReplaceTerminalID` in ('0','-','',NULL)),`td`.`Terminal_ID`,`svc`.`ReplaceTerminalID`) AS `Terminal_ID`,if((`svc`.`ReplaceTerminalSN` in ('0','-','',NULL)),`svc`.`TerminalSN`,`svc`.`ReplaceTerminalSN`) AS `Terminal_SN`,`td`.`Model` AS `Model`,`td`.`Type` AS `Type`,`td`.`Brand` AS `Brand`,`td`.`App_Version` AS `AppVersion`,`td`.`App_Crc` AS `AppCRC`,`td`.`Location` AS `Terminal_Loc`,`sd`.`Carrier` AS `Carrier`,if((`svc`.`ReplaceSIMID` in ('0','-','',NULL)),`sd`.`Sim_ID`,`svc`.`ReplaceSIMID`) AS `Sim_ID`,if((`svc`.`ReplaceSIMSN` in ('0','-','',NULL)),`svc`.`SIMSerialNo`,`svc`.`ReplaceSIMSN`) AS `Sim_SN`,`sd`.`Location` AS `Sim_Loc`,`svc`.`FEName` AS `FE_Name`,`svc`.`ProcessedBy` AS `Processed_By`,`svc`.`ProcessedDateTime` AS `Processed_Date_Time`,if((`svc`.`DispatchBy` in ('','-',NULL)),'WAITING',`svc`.`DispatchBy`) AS `Dispatch_By`,if((`svc`.`DispatchDateTime` in ('','-',NULL)),'WAITING',`svc`.`DispatchDateTime`) AS `Dispatch_Date_Time`,`svc`.`ModifiedBy` AS `Modified_By`,`svc`.`ModifiedDateTime` AS `Modified_Date_Time`,if((`svc`.`isBillable` = '1'),'YES','NO') AS `Billable`,`svc`.`ClientName` AS `ClientName`,`st`.`ServiceJobTypeDescription` AS `ServiceJobTypeDescription`,`ir`.`IRStatus` AS `IRStatus`,`ir`.`IRDate` AS `IRDate`,`svc`.`ClientID` AS `ClientID`,`svc`.`ServiceStatus` AS `ServiceStatus`,`funcGetDesc`('Search','Description By Service Status',`svc`.`ServiceStatus`) AS `ServiceStatusDescription`,`ir`.`IRActive` AS `irActive`,`svc`.`isActive` AS `svcActive`,`fsr`.`isActive` AS `fsrActive`,`mc`.`isActive` AS `ptActive` from (((((((`tblservicingdetail` `svc` left join `tblservicetype` `st` on((`st`.`JobType` = `svc`.`JobType`))) left join `vw_terminal_info` `td` on((`td`.`Terminal_ID` = `svc`.`TerminalID`))) left join `vw_merchant_info` `mc` on((`mc`.`Merchant_ID` = `svc`.`MerchantID`))) left join `vw_sim_info` `sd` on((`sd`.`Sim_ID` = `svc`.`SIMID`))) left join (select `tblirdetail`.`MID` AS `MID`,`tblirdetail`.`TID` AS `TID`,`tblirdetail`.`IRIDNo` AS `IRIDNo`,`tblirdetail`.`ClientID` AS `ClientID`,`tblirdetail`.`IRDate` AS `IRDate`,`tblirdetail`.`InstallationDate` AS `InstallationDate`,`tblirdetail`.`IRStatus` AS `IRStatus`,`tblirdetail`.`IRActive` AS `IRActive` from `tblirdetail`) `ir` on((`ir`.`IRIDNo` = `svc`.`IRIDNo`))) left join (select `tblfsrdetail`.`FSRDate` AS `FSRDate`,`tblfsrdetail`.`ActionMade` AS `ActionMade`,`tblfsrdetail`.`ServiceNo` AS `ServiceNo`,`tblfsrdetail`.`isActive` AS `isActive` from `tblfsrdetail`) `fsr` on((`fsr`.`ServiceNo` = `svc`.`ServiceNo`))) left join `tblterminalpricing` `tp` on(((`tp`.`Model_ID` = `td`.`Model_ID`) and (`fsr`.`FSRDate` between `tp`.`Start_Date` and `tp`.`End_Date`)))) */;
 
+/*View structure for view vw_servicing_billing */
+
+/*!50001 DROP TABLE IF EXISTS `vw_servicing_billing` */;
+/*!50001 DROP VIEW IF EXISTS `vw_servicing_billing` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_servicing_billing` AS select `svc`.`ServiceNo` AS `SERVICE_NO`,`svc`.`isBillable` AS `VALIDATION_ID`,if((`svc`.`isBillable` = 1),'BILLABLE','NON BILLABLE') AS `VALIDATION_STATUS`,NULL AS `VALIDATION_REASON`,if((`svc`.`isBillable` = 1),'BILLABLE','NON BILLABLE') AS `CITAS_REMARKS`,if((`svc`.`isBillable` = 1),`fa`.`AttemptBase`,NULL) AS `CITAS_REASON`,`svc`.`Vendor` AS `VENDOR`,concat('\'',date_format(`fsr`.`FSRDate`,'%M %Y')) AS `PERIOD_MONTH`,'Expense' AS `SERVICE_TYPE`,`svc`.`JobType` AS `Category_ID`,(case when ((`pt`.`Name` like '%EXH%') or (`pt`.`Name` like '%EXHIBIT%')) then 'EXHIBIT' when (`svc`.`JobType` = 6) then 'MAINTENANCE' when (`svc`.`JobType` = 1) then 'NEW INSTALLATION' else trim(replace(`svc`.`JobTypeSubDescription`,'FOR','')) end) AS `CATEGORY`,(case when ((`pt`.`Name` like '%EXH%') or (`pt`.`Name` like '%EXHIBIT%')) then 'EXHIBIT' when (`svc`.`JobType` = 6) then 'TECHNICAL ASSISTANCE' else trim(replace(`svc`.`JobTypeSubDescription`,'FOR','')) end) AS `SUB_CATEGORY`,if((`fa`.`AttemptBase` is null),1,NULL) AS `TOTAL_ATTEMPTS`,if((`svc`.`isBillable` = 1),`rg`.`Charge`,0) AS `PROJECTED_CHARGE`,if((`svc`.`isBillable` = 1),coalesce(`sc`.`Total_Charge`,0),0) AS `ACTUAL_CHARGE`,`svc`.`IRNo` AS `MB_REFERENCE`,date_format(`svc`.`ReqInstallationDate`,'%m-%d-%Y') AS `REQUEST_DATE`,`pt`.`Name` AS `MERCHANT_NAME`,`ir`.`TID` AS `TID`,`ir`.`MID` AS `MID`,(case when (`svc`.`JobType` = 1) then `svc`.`RMInstruction` else convert(`fa`.`ActionTaken` using utf8mb3) end) AS `MB_REMARKS_INSTRUCTIONS`,(case when (`rg`.`RegionID` = 4) then 'MM' when (`rg`.`RegionID` = 5) then 'PROV' else NULL end) AS `LOCATION`,(case when (`fa`.`ActionMade` = 'SUCCESS') then 'RESOLVED' else `fa`.`ActionMade` end) AS `STATUS`,date_format(`fa`.`FSRDate`,'%m-%d-%Y') AS `SERVICE_DATE`,concat('TID: ',`ir`.`TID`,char(10),'MID: ',`ir`.`MID`,char(10),'Problem Reported: ',`fa`.`ProblemReported`,char(10),'Problem Found: ',`fa`.`ActualProblemReported`,char(10),'Action Taken: ',`fa`.`ActionTaken`) AS `ACTIVITY_REMARKS`,`fa`.`Reason` AS `REASON`,`fa`.`Reason1` AS `1ST_REASON`,date_format(`fa`.`FSRDate1`,'%m-%d-%Y') AS `1ST_DATE`,`fa`.`Reason2` AS `2ND_REASON`,date_format(`fa`.`FSRDate2`,'%m-%d-%Y') AS `2ND_DATE`,`fa`.`Reason3` AS `3RD_REASON`,date_format(`fa`.`FSRDate3`,'%m-%d-%Y') AS `3RD_DATE`,`fa`.`Reason4` AS `4TH_REASON`,date_format(`fa`.`FSRDate4`,'%m-%d-%Y') AS `4TH_DATE` from ((((((((`tblservicingdetail` `svc` left join `tblparticular` `pt` on((`pt`.`ParticularID` = `svc`.`MerchantID`))) left join `tblterminaldetail` `td` on((`td`.`TerminalID` = `svc`.`TerminalID`))) left join `tblfsrdetail` `fsr` on((`fsr`.`ServiceNo` = `svc`.`ServiceNo`))) left join `tblsimdetail` `sd` on((`sd`.`SIMID` = `svc`.`SIMID`))) left join `tblirdetail` `ir` on((`ir`.`IRIDNo` = `svc`.`IRIDNo`))) left join `tblregion` `rg` on((`rg`.`RegionID` = `pt`.`RegionType`))) left join (select `f`.`IRIDNo` AS `IRIDNo`,`f`.`JobType` AS `JobType`,`f`.`IRNo` AS `IRNo`,`f`.`Reason` AS `Reason`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,'') AS `AttemptBase`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,''),'ActionTaken') AS `ActionTaken`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,''),'ActionMade') AS `ActionMade`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,''),'ActualProblemReported') AS `ActualProblemReported`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,''),'ProblemReported') AS `ProblemReported`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,1,'Reason') AS `Reason1`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,1,'FSRDate') AS `FSRDate1`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,2,'Reason') AS `Reason2`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,2,'FSRDate') AS `FSRDate2`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,3,'Reason') AS `Reason3`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,3,'FSRDate') AS `FSRDate3`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,4,'Reason') AS `Reason4`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,4,'FSRDate') AS `FSRDate4`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,''),'FSRDate') AS `FSRDate` from `tblfsrdetail` `f`) `fa` on(((`fa`.`IRIDNo` = `fsr`.`IRIDNo`) and (`fa`.`JobType` = `fsr`.`JobType`) and (`fa`.`IRNo` = `fsr`.`IRNo`)))) left join (select `s`.`ServiceNo` AS `ServiceNo`,(case when (`rg`.`RegionID` = 7) then (case when (`s`.`BillingTypeID` = 147) then (1200 + `fsr`.`TExpenses`) else (`rg`.`Charge` + `fsr`.`TExpenses`) end) when (`rg`.`RegionID` = 5) then (case when (`s`.`BillingTypeID` = 147) then (950 + `fsr`.`TExpenses`) else (`rg`.`Charge` + `fsr`.`TExpenses`) end) when (`rg`.`RegionID` = 4) then (case when (`s`.`BillingTypeID` = 147) then (450 + `fsr`.`TExpenses`) else (`rg`.`Charge` + `fsr`.`TExpenses`) end) else (`rg`.`Charge` + `fsr`.`TExpenses`) end) AS `Total_Charge` from (((`tblservicingdetail` `s` left join `tblparticular` `pt` on((`pt`.`ParticularID` = `s`.`MerchantID`))) left join `tblfsrdetail` `fsr` on((`fsr`.`ServiceNo` = `s`.`ServiceNo`))) left join `tblregion` `rg` on((`rg`.`RegionID` = `pt`.`RegionType`))) where (`s`.`JobTypeStatusDescription` = 'COMPLETED')) `sc` on((`sc`.`ServiceNo` = `svc`.`ServiceNo`))) where (`svc`.`JobTypeStatusDescription` = 'COMPLETED') */;
+
 /*View structure for view vw_servicing_fee */
 
 /*!50001 DROP TABLE IF EXISTS `vw_servicing_fee` */;
@@ -88452,13 +88478,6 @@ DROP TABLE IF EXISTS `vw_servicing_billing`;
 /*!50001 DROP VIEW IF EXISTS `vw_terminal_info` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_terminal_info` AS select `td`.`TerminalModelID` AS `Model_ID`,`tm`.`Description` AS `Model`,`td`.`TerminalID` AS `Terminal_ID`,`td`.`TerminalSN` AS `Terminal_SN`,`td`.`TerminalStatus` AS `Status_ID`,`td`.`TerminalStatusDescription` AS `Status`,`lc`.`LocationID` AS `Loc_ID`,`lc`.`Description` AS `Location`,`tm`.`TerminalTypeID` AS `Type_ID`,`td`.`Type` AS `Type`,`tm`.`Code` AS `Code`,`td`.`Brand` AS `Brand`,`tm`.`AppVersion` AS `App_Version`,`tm`.`AppCRC` AS `App_Crc`,`td`.`AssetType` AS `Asset`,`td`.`Allocation` AS `Allocation`,`td`.`PONo` AS `PO_No`,`td`.`InvNo` AS `Inv_No`,`td`.`PartNo` AS `Part_No`,nullif(`td`.`DeliveryDate`,'-') AS `Delivery_Date`,nullif(`td`.`ReceiveDate`,'-') AS `Receive_Date`,nullif(`td`.`ReleasedDateTime`,'-') AS `Released_Date`,nullif(`td`.`InstalledDate`,'-') AS `Installed_Date`,`td`.`ClientID` AS `Client_ID`,`p`.`Name` AS `Client_Name`,`td`.`isActive` AS `isActive` from (((`tblterminaldetail` `td` left join `tbllocation` `lc` on((`lc`.`LocationID` = `td`.`LocationID`))) left join `tblterminalmodel` `tm` on((`tm`.`TerminalModelID` = `td`.`TerminalModelID`))) left join `tblparticular` `p` on((`p`.`ParticularID` = `td`.`ClientID`))) */;
-
-/*View structure for view vw_servicing_billing */
-
-/*!50001 DROP TABLE IF EXISTS `vw_servicing_billing` */;
-/*!50001 DROP VIEW IF EXISTS `vw_servicing_billing` */;
-
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_servicing_billing` AS select `svc`.`ServiceNo` AS `SERVICE_NO`,`svc`.`isBillable` AS `VALIDATION_ID`,if((`svc`.`isBillable` = 1),'BILLABLE','NON BILLABLE') AS `VALIDATION_STATUS`,NULL AS `VALIDATION_REASON`,if((`svc`.`isBillable` = 1),'BILLABLE','NON BILLABLE') AS `CITAS_REMARKS`,if((`svc`.`isBillable` = 1),`fa`.`AttemptBase`,NULL) AS `CITAS_REASON`,`svc`.`Vendor` AS `VENDOR`,concat('\'',date_format(`fsr`.`FSRDate`,'%M %Y')) AS `PERIOD_MONTH`,'Expense' AS `SERVICE_TYPE`,`svc`.`JobType` AS `Category_ID`,(case when ((`pt`.`Name` like '%EXH%') or (`pt`.`Name` like '%EXHIBIT%')) then 'EXHIBIT' when (`svc`.`JobType` = 6) then 'MAINTENANCE' when (`svc`.`JobType` = 1) then 'NEW INSTALLATION' else trim(replace(`svc`.`JobTypeSubDescription`,'FOR','')) end) AS `CATEGORY`,(case when ((`pt`.`Name` like '%EXH%') or (`pt`.`Name` like '%EXHIBIT%')) then 'EXHIBIT' when (`svc`.`JobType` = 6) then 'TECHNICAL ASSISTANCE' else trim(replace(`svc`.`JobTypeSubDescription`,'FOR','')) end) AS `SUB_CATEGORY`,if((`fa`.`AttemptBase` is null),1,NULL) AS `TOTAL_ATTEMPTS`,if((`svc`.`isBillable` = 1),`rg`.`Charge`,0) AS `PROJECTED_CHARGE`,if((`svc`.`isBillable` = 1),coalesce(`sc`.`Total_Charge`,0),0) AS `ACTUAL_CHARGE`,`svc`.`IRNo` AS `MB_REFERENCE`,date_format(`svc`.`ReqInstallationDate`,'%m-%d-%Y') AS `REQUEST_DATE`,`pt`.`Name` AS `MERCHANT_NAME`,`ir`.`TID` AS `TID`,`ir`.`MID` AS `MID`,(case when (`svc`.`JobType` = 1) then `svc`.`RMInstruction` else convert(`fa`.`ActionTaken` using utf8mb3) end) AS `MB_REMARKS_INSTRUCTIONS`,(case when (`rg`.`RegionID` = 4) then 'MM' when (`rg`.`RegionID` = 5) then 'PROV' else NULL end) AS `LOCATION`,(case when (`fa`.`ActionMade` = 'SUCCESS') then 'RESOLVED' else `fa`.`ActionMade` end) AS `STATUS`,date_format(`fa`.`FSRDate`,'%m-%d-%Y') AS `SERVICE_DATE`,concat('TID: ',`ir`.`TID`,char(10),'MID: ',`ir`.`MID`,char(10),'Problem Reported: ',`fa`.`ProblemReported`,char(10),'Problem Found: ',`fa`.`ActualProblemReported`,char(10),'Action Taken: ',`fa`.`ActionTaken`) AS `ACTIVITY_REMARKS`,`fa`.`Reason` AS `REASON`,`fa`.`Reason1` AS `1ST_REASON`,date_format(`fa`.`FSRDate1`,'%m-%d-%Y') AS `1ST_DATE`,`fa`.`Reason2` AS `2ND_REASON`,date_format(`fa`.`FSRDate2`,'%m-%d-%Y') AS `2ND_DATE`,`fa`.`Reason3` AS `3RD_REASON`,date_format(`fa`.`FSRDate3`,'%m-%d-%Y') AS `3RD_DATE`,`fa`.`Reason4` AS `4TH_REASON`,date_format(`fa`.`FSRDate4`,'%m-%d-%Y') AS `4TH_DATE` from ((((((((`tblservicingdetail` `svc` left join `tblparticular` `pt` on((`pt`.`ParticularID` = `svc`.`MerchantID`))) left join `tblterminaldetail` `td` on((`td`.`TerminalID` = `svc`.`TerminalID`))) left join `tblfsrdetail` `fsr` on((`fsr`.`ServiceNo` = `svc`.`ServiceNo`))) left join `tblsimdetail` `sd` on((`sd`.`SIMID` = `svc`.`SIMID`))) left join `tblirdetail` `ir` on((`ir`.`IRIDNo` = `svc`.`IRIDNo`))) left join `tblregion` `rg` on((`rg`.`RegionID` = `pt`.`RegionType`))) left join (select `f`.`IRIDNo` AS `IRIDNo`,`f`.`JobType` AS `JobType`,`f`.`IRNo` AS `IRNo`,`f`.`Reason` AS `Reason`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,'') AS `AttemptBase`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,''),'ActionTaken') AS `ActionTaken`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,''),'ActionMade') AS `ActionMade`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,''),'ActualProblemReported') AS `ActualProblemReported`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,''),'ProblemReported') AS `ProblemReported`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,1,'Reason') AS `Reason1`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,1,'FSRDate') AS `FSRDate1`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,2,'Reason') AS `Reason2`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,2,'FSRDate') AS `FSRDate2`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,3,'Reason') AS `Reason3`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,3,'FSRDate') AS `FSRDate3`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,4,'Reason') AS `Reason4`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,4,'FSRDate') AS `FSRDate4`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,`fnGetAttempts`(`f`.`IRIDNo`,`f`.`JobType`,`f`.`IRNo`,0,''),'FSRDate') AS `FSRDate` from `tblfsrdetail` `f`) `fa` on(((`fa`.`IRIDNo` = `fsr`.`IRIDNo`) and (`fa`.`JobType` = `fsr`.`JobType`) and (`fa`.`IRNo` = `fsr`.`IRNo`)))) left join (select `s`.`ServiceNo` AS `ServiceNo`,(case when (`rg`.`RegionID` = 7) then (case when (`s`.`BillingTypeID` = 147) then (1200 + `fsr`.`TExpenses`) else (`rg`.`Charge` + `fsr`.`TExpenses`) end) when (`rg`.`RegionID` = 5) then (case when (`s`.`BillingTypeID` = 147) then (950 + `fsr`.`TExpenses`) else (`rg`.`Charge` + `fsr`.`TExpenses`) end) when (`rg`.`RegionID` = 4) then (case when (`s`.`BillingTypeID` = 147) then (450 + `fsr`.`TExpenses`) else (`rg`.`Charge` + `fsr`.`TExpenses`) end) else (`rg`.`Charge` + `fsr`.`TExpenses`) end) AS `Total_Charge` from (((`tblservicingdetail` `s` left join `tblparticular` `pt` on((`pt`.`ParticularID` = `s`.`MerchantID`))) left join `tblfsrdetail` `fsr` on((`fsr`.`ServiceNo` = `s`.`ServiceNo`))) left join `tblregion` `rg` on((`rg`.`RegionID` = `pt`.`RegionType`))) where (`s`.`JobTypeStatusDescription` = 'COMPLETED')) `sc` on((`sc`.`ServiceNo` = `svc`.`ServiceNo`))) where (`svc`.`JobTypeStatusDescription` = 'COMPLETED') */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

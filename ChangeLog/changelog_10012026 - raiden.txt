@@ -1,0 +1,54 @@
+﻿CHANGELOG
+Date: October 01, 2026
+Developer: Raiden K. Fernando
+
+====================================================================================
+CHANGES
+====================================================================================
+
+1. Issue Modules
+
+	- Added Request ID reuse condition validation.
+
+		Request ID reuse is allowed when:
+		NEGATIVE + SAME SERVICE TYPE = ALLOW
+
+		Request ID reuse is not allowed when:
+		SUCCESS + SAME SERVICE TYPE = NOT ALLOW
+		NEGATIVE + DIFFERENT SERVICE TYPE = NOT ALLOW
+		SUCCESS + DIFFERENT SERVICE TYPE = NOT ALLOW
+
+	- Added functionality for auto-generated and manually entered Request IDs
+	  in frmHelpDesk.cs.
+
+	- Added functionality for auto-generated and manually entered Request IDs
+	  in frmServiceJobOrder.cs.
+
+	- Added functionality for Request ID reuse through frmMUpdateRequestID.cs.
+
+2. Database ( MCC )
+
+	- Updated spCheckRecordExist under the "Service RequestID" search condition.
+
+	- Added validation using the corresponding FSR ActionMade status.
+
+	- Request ID reuse is allowed only when the latest service has the same
+	  service type and NEGATIVE status.
+
+	- Request ID reuse is blocked when the latest service has SUCCESS status
+	  or belongs to a different service type.
+
+====================================================================================
+FILES / MODULES AFFECTED
+====================================================================================
+
+- frmHelpDesk.cs
+- frmServiceJobOrder.cs
+- frmMUpdateRequestID.cs
+- spCheckRecordExist
+
+====================================================================================
+STATUS
+====================================================================================
+
+Completed / For Testing
