@@ -1,5 +1,5 @@
 /*
-SQLyog Community v13.3.1 (64 bit)
+SQLyog Community v13.1.5  (64 bit)
 MySQL - 8.0.40 : Database - miscastlesdb
 *********************************************************************
 */
@@ -43,7 +43,7 @@ CREATE TABLE `event_log_message_update_sn` (
   `Message` varchar(255) DEFAULT NULL,
   `EventTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=24189 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=24191 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `event_status_update_sn` */
 
@@ -4260,7 +4260,7 @@ CREATE TABLE `tbluserlog` (
   `LogOutDate` datetime DEFAULT NULL,
   `PublishVersion` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   PRIMARY KEY (`LogID`,`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=49319 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=49320 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tbluserpermission` */
 
