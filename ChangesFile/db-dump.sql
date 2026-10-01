@@ -43,7 +43,7 @@ CREATE TABLE `event_log_message_update_sn` (
   `Message` varchar(255) DEFAULT NULL,
   `EventTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=24133 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=24189 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `event_status_update_sn` */
 
@@ -1348,7 +1348,7 @@ CREATE TABLE `tblfsrdetail` (
   KEY `FEID` (`FEID`),
   KEY `isActive` (`isActive`),
   KEY `ActionMade` (`ActionMade`)
-) ENGINE=InnoDB AUTO_INCREMENT=64756 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=64763 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblfsrdetaildummy` */
 
@@ -1486,7 +1486,7 @@ CREATE TABLE `tblfsrmaster` (
   `ProcessedBy` varchar(255) DEFAULT NULL,
   `ModifiedBy` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`FSRID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22911 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=22918 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblhddetail` */
 
@@ -1539,7 +1539,7 @@ CREATE TABLE `tblhddetail` (
   KEY `Index_ID` (`RequestID`,`HelpdeskID`,`TeamLeadID`,`ReasonID`,`TerminalID`,`SIMID`,`SourceID`,`CategoryID`,`SubCategoryID`,`CreatedID`,`AssistNo`),
   KEY `DependencyID` (`DependencyID`),
   KEY `StatusReasonID` (`StatusReasonID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5758 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5760 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblhdmaster` */
 
@@ -1559,7 +1559,7 @@ CREATE TABLE `tblhdmaster` (
   `isActive` int DEFAULT '1',
   PRIMARY KEY (`AssistNo`),
   KEY `Index_ID` (`IRIDNo`,`CreatedID`,`JobType`)
-) ENGINE=InnoDB AUTO_INCREMENT=5667 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5669 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblheader` */
 
@@ -2226,7 +2226,7 @@ CREATE TABLE `tbllogservicelocation` (
   PRIMARY KEY (`ID`),
   KEY `UserID` (`UserID`),
   KEY `ParticularID` (`ParticularID`)
-) ENGINE=InnoDB AUTO_INCREMENT=578106 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=578294 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblmapping` */
 
@@ -2866,7 +2866,7 @@ CREATE TABLE `tblreportstatus` (
   `DateTimeStamp` datetime DEFAULT CURRENT_TIMESTAMP,
   `isActive` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1359 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1361 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblselection` */
 
@@ -3014,7 +3014,7 @@ CREATE TABLE `tblservicingactivitydetail` (
   `EndDateTime` datetime DEFAULT NULL,
   `DateTimeStamp` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=734 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=771 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblservicingdetail` */
 
@@ -3153,7 +3153,7 @@ CREATE TABLE `tblservicingdetail` (
   KEY `IRNo` (`IRNo`),
   KEY `isActive` (`isActive`),
   KEY `BillingTypeID` (`BillingTypeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=70176 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=70184 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblservicingdetailtemp` */
 
@@ -3269,7 +3269,7 @@ CREATE TABLE `tblsimactivity` (
   `ServiceNo` int NOT NULL DEFAULT '0',
   `IRNo` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`RecID`,`SIMID`,`ParticularID`,`ServiceNo`,`IRNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=39647 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=39648 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblsimdetail` */
 
@@ -3727,7 +3727,7 @@ CREATE TABLE `tblterminalactivity` (
   `ServiceNo` int DEFAULT '0',
   `IRNo` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`RecID`,`TerminalID`,`TerminalSN`,`ParticularID`,`Status`,`IRNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=44110 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=44117 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tblterminalallocation` */
 
@@ -4260,7 +4260,7 @@ CREATE TABLE `tbluserlog` (
   `LogOutDate` datetime DEFAULT NULL,
   `PublishVersion` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   PRIMARY KEY (`LogID`,`UserID`)
-) ENGINE=InnoDB AUTO_INCREMENT=49290 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=49319 DEFAULT CHARSET=utf8mb3;
 
 /*Table structure for table `tbluserpermission` */
 
@@ -13670,27 +13670,38 @@ DECLARE p_INSERT LONGTEXT;
 			((SELECT MAX(a.ServiceNo) FROm tblfsrdetail a WHERE a.IRIDNo = v_IRIDNo and a.JobType = v_JobType AND a.ActionMade = 'SUCCESS') >  0);
 			
 		ELSEIF (p_SearchBy = 'Service RequestID')
-		THEN					
-											
-			SET v_IRIDNo = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|' ,1)) AS UNSIGNED INTEGER);
-			SET v_JobType = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|' ,2)) AS UNSIGNED INTEGER);
-			SET v_IRNo = TRIM(SPLIT_STRING(p_SearchValue, '|' ,3));
-			
-			SELECT 
-			    COUNT(*) INTO v_Count
-			FROM (
-			    SELECT a.IRNo
-			    FROM tblfsrdetail a
-			    WHERE a.IRNo = v_IRNo 
-			      AND UPPER(IFNULL(a.ActionMade, '')) <> 'NEGATIVE'
+		THEN
 
-			    UNION ALL
+		    SET v_IRIDNo = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|', 1)) AS UNSIGNED INTEGER);
+		    SET v_JobType = CAST(TRIM(SPLIT_STRING(p_SearchValue, '|', 2)) AS UNSIGNED INTEGER);
+		    SET v_IRNo = TRIM(SPLIT_STRING(p_SearchValue, '|', 3));
 
-			    SELECT b.IRNo
-			    FROM tblservicingdetail b
-			    WHERE b.IRNo = v_IRNo 
-			      AND UPPER(IFNULL(b.JobTypeStatusDescription, '')) NOT IN ('COMPLETED', 'NEGATIVE')
-			) tmp;
+		    SELECT COUNT(*)
+		    INTO v_Count
+		    FROM
+		    (
+			SELECT
+			    s.ServiceNo,
+			    s.JobType,
+			    UPPER(IFNULL(f.ActionMade, '')) AS ActionMade
+			FROM tblservicingdetail s
+			LEFT JOIN tblfsrdetail f
+			    ON f.ServiceNo = s.ServiceNo
+			   AND f.IRIDNo = s.IRIDNo
+			   AND f.IRNo = s.IRNo
+			   AND f.JobType = s.JobType
+			WHERE s.IRIDNo = v_IRIDNo
+			  AND s.IRNo = v_IRNo
+			  AND s.isActive > 0
+			  AND s.isCancelled = 0
+
+			ORDER BY s.ServiceNo DESC
+			LIMIT 1
+		    ) latest_service
+		    WHERE NOT (
+			latest_service.JobType = v_JobType
+			AND latest_service.ActionMade = 'NEGATIVE'
+		    );
 			
 		ELSEIF (p_SearchBy = 'Region')
 
@@ -50845,7 +50856,7 @@ BEGIN
 	LEFT JOIN tblservicingdetail b ON qs.ServiceNo = b.ServiceNo
 	WHERE qs.rn = 1
 	AND ir.TID IS NOT NULL AND ir.TID <> ''
-	ORDER BY qs.ServiceNo DESC;
+	ORDER BY qs.DateTimeStamp DESC;
 		
 	ELSEIF (p_SearchBy = 'QR Delivery Received')
 	THEN
@@ -50891,7 +50902,7 @@ BEGIN
 	LEFT JOIN tblservicingdetail b ON qs.ServiceNo = b.ServiceNo
 	LEFT JOIN tbluser pu ON UPPER(pu.UserName) = UPPER(qs.ProcessedBy)
 	WHERE qs.rn = 1
-	ORDER BY qs.ServiceNo DESC;
+	ORDER BY qs.DateTimeStamp DESC;
 	
 	-- RAIDEN WAYBILL INFO      
 	ELSEIF (p_SearchBy = 'Waybill Information')
