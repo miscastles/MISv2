@@ -24,6 +24,7 @@ using System.Web;
 using System.Web.Profile;
 using System.Windows.Forms;
 using static MIS.Function.AppUtilities;
+using OfficeOpenXml; //Nikko
 
 namespace MIS
 {
@@ -53,6 +54,13 @@ namespace MIS
         private modelParticular modelParticular;
 
         private string formName = "INSTALLATION REQUEST";
+
+        private const string BankDataWorksheetName = "__MIS_BANK_DATA"; //Nikko
+
+        private readonly Dictionary<string, string>
+            bankDataInfoByRequestId = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase); //Nikko
+
+        private bool isConvertedImport = false; //Nikko
 
         public class jsonObj
         {
@@ -129,6 +137,8 @@ namespace MIS
                     ucStatusDisplay.SetStatus("Preparing import file" , Enums.StatusType.Processing);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
 
+                    LoadBankDataMetadata(txtPathFileName.Text); //Nikko
+
                     InitImportDate();
                     InitProcessedBy();
 
@@ -179,6 +189,9 @@ namespace MIS
                     if (!isValidHeader()) return; // Check Header                    
                     
                     if (!ImportToDataGrid()) return;
+
+                    if (!ValidateBankDataMetadataAgainstGrid()) //Nikko
+                        return;
 
                     // Pupulate grdBulk
                     populateBulkDataGrid(grdList, grdBulk);
@@ -234,6 +247,310 @@ namespace MIS
                 sWorkSheetName = "Sheet1";
 
             return sWorkSheetName;
+        }
+
+        //NIKKO - Identify bank environments.
+        private bool IsBank()
+        {
+            string bankCode =
+                (clsSearch.ClassBankCode ?? string.Empty).Trim();
+
+            return string.Equals(
+                       bankCode,
+                       "clg",
+                       StringComparison.OrdinalIgnoreCase)
+                || string.Equals(
+                       bankCode,
+                       "tbg",
+                       StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void LoadBankDataMetadata(string filePath) //Nikko
+        {
+            bankDataInfoByRequestId.Clear();
+            isConvertedImport = false;
+
+            string extension = Path.GetExtension(filePath);
+
+            if (!string.Equals(extension, ".xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                if (IsBank())
+                {
+                    throw new InvalidDataException("Bank installation requests must use the converted XLSX file.");
+                }
+
+                return;
+            }
+
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial; //Nikko
+
+            using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
+            {
+                ExcelWorksheet worksheet =
+                    package.Workbook.Worksheets[
+                        BankDataWorksheetName];
+
+                
+                if (worksheet == null)
+                {
+                    if (IsBank())
+                    {
+                        throw new InvalidDataException("The metadata sheet is missing. "
+                            + "Please import the XLSX file produced by the "
+                            + "Bank Template Generator.");
+                    }
+
+                    return;
+                }
+
+                if (!IsBank())
+                {
+                    throw new InvalidDataException("This is a converted installation request. "
+                        + "Please switch to the appropriate bank before importing.");
+                }
+
+                isConvertedImport = true;
+
+                string[] requiredHeaders =
+                {
+            "SchemaVersion",
+            "SourceBank",
+            "RequestID",
+            "SourceFileName",
+            "BankDataInfo"
+        };
+
+                if (worksheet.Dimension == null)
+                {
+                    throw new InvalidDataException(
+                        "The metadata sheet is empty.");
+                }
+
+                for (int column = 1;
+                     column <= requiredHeaders.Length;
+                     column++)
+                {
+                    string actualHeader =
+                        worksheet.Cells[1, column]
+                            .Text
+                            .Trim();
+
+                    if (!string.Equals(
+                            actualHeader,
+                            requiredHeaders[column - 1],
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException(
+                            "Invalid metadata column. "
+                            + "Expected column "
+                            + column
+                            + " to be '"
+                            + requiredHeaders[column - 1]
+                            + "'.");
+                    }
+                }
+
+                if (worksheet.Dimension.End.Row < 2)
+                {
+                    throw new InvalidDataException(
+                        "The metadata sheet contains no records.");
+                }
+
+                for (int row = 2;
+                     row <= worksheet.Dimension.End.Row;
+                     row++)
+                {
+                    string schemaVersion =
+                        worksheet.Cells[row, 1].Text.Trim();
+
+                    string sourceBank =
+                        worksheet.Cells[row, 2].Text.Trim();
+
+                    string requestId =
+                        worksheet.Cells[row, 3].Text.Trim();
+
+                    string sourceFileName =
+                        worksheet.Cells[row, 4].Text.Trim();
+
+                    string bankDataInfo =
+                        worksheet.Cells[row, 5].Text.Trim();
+
+                    if (string.IsNullOrWhiteSpace(schemaVersion) ||
+                        string.IsNullOrWhiteSpace(sourceBank) ||
+                        string.IsNullOrWhiteSpace(requestId) ||
+                        string.IsNullOrWhiteSpace(sourceFileName) ||
+                        string.IsNullOrWhiteSpace(bankDataInfo))
+                    {
+                        throw new InvalidDataException(
+                            "Mandatory metadata is missing "
+                            + "at metadata row "
+                            + row
+                            + ".");
+                    }
+
+                    if (schemaVersion != "1")
+                    {
+                        throw new InvalidDataException(
+                            "Unsupported metadata schema version "
+                            + schemaVersion
+                            + " at metadata row "
+                            + row
+                            + ".");
+                    }
+
+                    if (!string.Equals(sourceBank,"BDO",StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException(
+                            "Invalid source bank at metadata row "
+                            + row
+                            + ".");
+                    }
+
+                    JObject bankDataObject;
+
+                    try
+                    {
+                        bankDataObject = JObject.Parse(bankDataInfo);
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        throw new InvalidDataException(
+                            "Invalid bank data JSON for Request ID "
+                            + requestId
+                            + ".",
+                            ex);
+                    }
+
+                    string jsonSourceBank = Convert.ToString(bankDataObject["SourceBank"]);
+                    string jsonSourceFileName = Convert.ToString(bankDataObject["SourceFileName"]);
+
+                    if (!string.Equals(jsonSourceBank,sourceBank,StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException(
+                            "Source bank mismatch for Request ID "
+                            + requestId
+                            + ".");
+                    }
+
+                    if (!string.Equals(jsonSourceFileName,sourceFileName,StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException(
+                            "Original filename mismatch for Request ID "
+                            + requestId
+                            + ".");
+                    }
+
+                    if (bankDataObject["Values"] == null || bankDataObject["Values"].Type != JTokenType.Object)
+                    {
+                        throw new InvalidDataException(
+                            "Values object is missing for Request ID "
+                            + requestId
+                            + ".");
+                    }
+
+                    if (bankDataInfoByRequestId.ContainsKey(requestId))
+                    {
+                        throw new InvalidDataException("Duplicate metadata Request ID: " + requestId);
+                    }
+
+                    bankDataInfoByRequestId.Add(requestId, bankDataInfo);
+                }
+
+                Debug.WriteLine(
+                    "metadata loaded: "
+                    + bankDataInfoByRequestId.Count
+                    + " record(s).");
+            }
+        }
+
+        private bool ValidateBankDataMetadataAgainstGrid()  //Nikko
+        {
+     
+            if (!isConvertedImport) return true;
+
+            int requestIdColumnIndex = dbFunction.GetMapColumnIndex(
+                    clsDefines.IR_REQUEST_ID);
+
+            if (requestIdColumnIndex < 0 || requestIdColumnIndex >= grdList.Columns.Count)
+            {
+                dbFunction.SetMessageBox("The Request ID column could not be found.",
+                    "metadata validation",
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            HashSet<string> visibleRequestIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                string requestId = Convert.ToString(row.Cells[requestIdColumnIndex].Value).Trim();
+
+                if (string.IsNullOrWhiteSpace(requestId))
+                {
+                    dbFunction.SetMessageBox("Request ID is mandatory at import row "
+                        + (row.Index + 1) + ".", "metadata validation", clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (!visibleRequestIds.Add(requestId))
+                {
+                    dbFunction.SetMessageBox("Duplicate Request ID found in the import sheet: "
+                        + requestId, "metadata validation", clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (!bankDataInfoByRequestId.ContainsKey(requestId))
+                {
+                    dbFunction.SetMessageBox("Bank data information is missing for Request ID "
+                        + requestId+ ".", "metadata validation", clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(bankDataInfoByRequestId[requestId]))
+                {
+                    dbFunction.SetMessageBox("Bank data JSON is blank for Request ID "
+                        + requestId + ".", "metadata validation",clsFunction.IconType.iError);
+
+                    return false;
+                }
+            }
+
+            foreach (string metadataRequestId
+                in bankDataInfoByRequestId.Keys)
+            {
+                if (!visibleRequestIds.Contains(
+                        metadataRequestId))
+                {
+                    dbFunction.SetMessageBox(
+                        "The hidden metadata contains Request ID "
+                        + metadataRequestId
+                        + ", but it is missing from Sheet1.",
+                        "metadata validation",
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+            }
+
+            if (visibleRequestIds.Count !=
+                bankDataInfoByRequestId.Count)
+            {
+                dbFunction.SetMessageBox(
+                    "The number of MCC rows does not match "
+                    + "the number of metadata records.",
+                    "metadata validation",
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            return true;
         }
 
         bool fContinueConfirm()
@@ -753,6 +1070,9 @@ namespace MIS
 
             InitImportDate();
             InitProcessedBy();
+
+            // Recheck metadata before saving.
+            if (!ValidateBankDataMetadataAgainstGrid())return; //Nikko
 
             // check for mandatory fields
             ucStatusDisplay.SetStatus($"Checking mandatory fields...", Enums.StatusType.Processing);
@@ -3739,6 +4059,11 @@ namespace MIS
 
                         clsSearch.ClassIRIDNo = int.Parse(dbFunction.CheckAndSetNumericValue(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRIDNo)));
 
+                        //NIKKO - Preserve the exact IR record before later API calls
+                        //modify the shared clsSearch values.
+                        int bankTargetIRIDNo = clsSearch.ClassIRIDNo;
+                        string bankTargetIRNo = clsSearch.ClassIRNo;
+
                         Debug.WriteLine("--Existing [pProfile_Info]--");
                         dbFunction.parseDelimitedString(pProfile_Info, clsDefines.gComma, 0);
 
@@ -3808,6 +4133,45 @@ namespace MIS
                             dbAPI.ExecuteAPI("PUT", "Update", "Update Profile Config Info", $"{clsSearch.ClassMerchantID}{clsDefines.gPipe}{txtProfileConfigInfo.Text}", "", "", "UpdateCollectionDetail");
                         }
 
+                        //Nikko
+                        
+                        if(IsBank() && isConvertedImport)
+                        {
+                            string bankDataInfo;
+
+                            if (!bankDataInfoByRequestId.TryGetValue(bankTargetIRNo,out bankDataInfo))
+                            {
+                                throw new InvalidDataException(
+                                    "Bank data JSON was not found for Request ID "
+                                    + bankTargetIRNo
+                                    + ".");
+                            }
+
+                            if (bankTargetIRIDNo <= 0)
+                            {
+                                throw new InvalidDataException(
+                                    "A valid IRIDNo was not found for Request ID "
+                                    + bankTargetIRNo
+                                    + ".");
+                            }
+
+                            ucStatusDisplay.SetStatus("Saving bank data for Request ID [" + bankTargetIRNo + "]",
+                                Enums.StatusType.Processing);
+
+                            dbAPI.UpdateIRBankDataInfo(bankTargetIRIDNo.ToString(),bankDataInfo);
+
+                            if (!clsGlobalVariables.isAPIResponseOK)
+                            {
+                                throw new InvalidOperationException("Unable to save bank data for Request ID " + bankTargetIRNo + ".");
+                            }
+
+                            Debug.WriteLine("Saved bankdata_info: IRIDNo=["
+                                + bankTargetIRIDNo
+                                + "], Request ID=["
+                                + bankTargetIRNo
+                                + "]");
+                        }
+
                         if (isPrompt)
                             dbFunction.SetMessageBox("JSON data update complete.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
 
@@ -3844,6 +4208,9 @@ namespace MIS
             catch (Exception ex)
             {
                 Debug.WriteLine($"updateRawData, error={ex.Message}");
+
+                if (isConvertedImport)
+                    throw;
             }
 
             Cursor.Current = Cursors.Default;

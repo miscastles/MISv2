@@ -9406,6 +9406,37 @@ namespace MIS
             }
         }
 
+        public void UpdateIRBankDataInfo(string sIRIDNo, string bankDataInfo)
+        {
+            int iIRIDNo;
+
+            if (!int.TryParse(sIRIDNo, out iIRIDNo) || iIRIDNo <=0)
+            {
+                throw new ArgumentException("A valid IRIDNo is required.", "sIRIDNo");
+            }
+
+            if (string.IsNullOrWhiteSpace(bankDataInfo))
+            {
+                throw new ArgumentException("Bank data JSON must not be blank.", "bankDataInfo");
+            }
+
+            string encodedBankData = Convert.ToBase64String(Encoding.UTF8.GetBytes(bankDataInfo));
+
+            string pSearchValue = iIRIDNo.ToString()
+            +clsFunction.sPipe
+            + encodedBankData;
+
+            ExecuteAPI(
+                "PUT",
+                "Update",
+                "Update Bank Data Info",
+                pSearchValue,
+                "",
+                "",
+                "UpdateCollectionDetail");
+
+        }
+
         public void UpdateIRDetailActive(string sIRIDNo, int iActive)
         {
             int iIRIDNo = int.Parse((sIRIDNo.Length > 0 ? sIRIDNo : clsFunction.sZero));

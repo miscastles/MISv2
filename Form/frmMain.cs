@@ -3696,6 +3696,17 @@ namespace MIS
 
             RegisterForm(frm);
             frm.Show();
-        }        
+        }
+
+        private void btnBankTemplateGen_Click(object sender, EventArgs e)
+        {
+            InitMenu(0, false);
+            frmBankTemplateGen frm = new frmBankTemplateGen();
+            frm.Text = "BANK TEMPLATE GEN";
+            frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
+            frm.Show();
+        }
     }
 }

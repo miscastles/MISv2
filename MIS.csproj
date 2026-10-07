@@ -459,6 +459,12 @@
       <DependentUpon>ucVendorRepInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Form\frmBankTemplateGen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmBankTemplateGen.Designer.cs">
+      <DependentUpon>frmBankTemplateGen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\frmExpenseFSR.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -705,13 +711,20 @@
     <Compile Include="Form\frmQRDeliveryHistory.Designer.cs">
       <DependentUpon>frmQRDeliveryHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Function\BankTemplateFieldRules.cs" />
+    <Compile Include="Function\BankTemplateExcelExporter.cs" />
+    <Compile Include="Function\BankTemplateJsonBuilder.cs" />
+    <Compile Include="Function\BankTemplateReader.cs" />
     <Compile Include="Function\clsComboBox.cs" />
     <Compile Include="Function\clsReceiptImageProcessor.cs" />
     <Compile Include="Function\DataGridViewHelper.cs" />
+    <Compile Include="Function\DataGridViewDatePickerColumn.cs" />
     <Compile Include="Function\clsErrorHelper.cs" />
     <Compile Include="Function\clsExcelOpenXmlExporter.cs" />
     <Compile Include="Global\clsIcons.cs" />
     <Compile Include="Model\AppSession.cs" />
+    <Compile Include="Model\BankTemplateRow.cs" />
+    <Compile Include="Model\IrImportRow.cs" />
     <Compile Include="Model\clsAttachment.cs" />
     <Compile Include="Form\frmChangePassword.cs">
       <SubType>Form</SubType>
@@ -1699,6 +1712,9 @@
     <EmbeddedResource Include="ControlObject\ucVendorRepInfo.resx">
       <DependentUpon>ucVendorRepInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmBankTemplateGen.resx">
+      <DependentUpon>frmBankTemplateGen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\frmChangePassword.resx">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
     </EmbeddedResource>
@@ -2376,6 +2392,9 @@
     <None Include="Report\rptQRDeliveryWaybill.rpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Templates\MIS_BLANK_TEMPLATE.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
