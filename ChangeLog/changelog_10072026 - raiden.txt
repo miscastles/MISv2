@@ -1,0 +1,26 @@
+﻿﻿CHANGELOG
+Date: October 07, 2026
+Developer: Raiden K. Fernando
+
+========================================================
+CHANGES
+========================================================
+
+1. Issue Modules
+	
+	- Enhanced frmMUpdateRequestID.cs checking behaviour to not allow saving of mismatch FSR and JO RequestIDs 
+
+	- Added new Checking behvaiour for frmServiceJobOrder to not allow speficially rescheduled by merchant successor JOs to pick scheduled date before 
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmServiceJobOrder.cs
+- frmMUpdateRequestID.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

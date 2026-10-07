@@ -211,7 +211,7 @@ namespace MIS
         {
             this.Close();
         }
-        
+
         private void FillMerchantTextBox()
         {
             string profile_info = "";
@@ -219,8 +219,8 @@ namespace MIS
             string profile_config_info = "";
 
             Debug.WriteLine("--FillMerchantTextBox--");
-            Debug.WriteLine("fEdit="+ fEdit);
-            Debug.WriteLine("txtMerchantID.Text="+ txtMerchantID.Text);
+            Debug.WriteLine("fEdit=" + fEdit);
+            Debug.WriteLine("txtMerchantID.Text=" + txtMerchantID.Text);
             Debug.WriteLine("txtIRIDNo.Text=" + txtIRIDNo.Text);
             Debug.WriteLine("txtSearchServiceNo.Text=" + txtSearchServiceNo.Text);
 
@@ -249,7 +249,7 @@ namespace MIS
             txtFUAppVersion.Text =
             txtFUAppCRC.Text =
             txtCustomerContactNo.Text =
-            txtCustomerEmail.Text = 
+            txtCustomerEmail.Text =
             txtIRStatusDescription.Text =
             txtRequestor.Text =
             clsFunction.sNull;
@@ -302,8 +302,8 @@ namespace MIS
                     txtIRInstallationDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 19);
 
                     //txtRMInstruction.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 21);
-                    
-                    txtCustomerName.Text = txtMerchantContactPerson.Text;                  
+
+                    txtCustomerName.Text = txtMerchantContactPerson.Text;
                     txtCustomerContactNo.Text = txtMerchantMobileNo.Text;
                     txtCustomerEmail.Text = txtMerchantEmail.Text;
 
@@ -413,8 +413,9 @@ namespace MIS
 
                 }
             }
-          
+
         }
+
         private void FillClientTextBox()
         {
             Debug.WriteLine("--FillClientTextBox--");
@@ -7598,14 +7599,38 @@ namespace MIS
 
             lastAttemptTATStatus = dbAPI.GetValueFromJSONString(pJSONString, "LastAttemptTATStatus");
 
+            string pFSRDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate);
+            string pLastScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, "LastScheduleDate");
+
+            DateTime lastAttemptDate;
+            DateTime lastScheduleDate;
+
+            if (!DateTime.TryParse(pFSRDate, out lastAttemptDate) || !DateTime.TryParse(pLastScheduleDate, out lastScheduleDate))
+            {
+                dbFunction.SetMessageBox(
+                    "Unable to validate the previous service attempt dates.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            // checks if new scheduled date is not before last attempt date
+            if (dteServiceReqDate.Value.Date < lastAttemptDate.Date)
+            {
+                dbFunction.SetMessageBox(
+                    "The previous service attempt is already BEYOND TAT.\n\n" +
+                    $"Last Attempt Date: {lastAttemptDate:MM-dd-yyyy}\n" +
+                    $"Previous Schedule Date: {lastScheduleDate:MM-dd-yyyy}\n\n" +
+                    "Please select a new schedule date after the last attempt date.",
+                    clsDefines.FIELD_CHECK_MSG,
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
             if (lastAttemptTATStatus.Equals(clsDefines.BEYOND_TAT, StringComparison.OrdinalIgnoreCase))
             {
-                string pFSRDate = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_FSRDate);
-                string pLastScheduleDate = dbAPI.GetValueFromJSONString(pJSONString, "LastScheduleDate");
-
-                DateTime lastAttemptDate;
-                DateTime lastScheduleDate;
-
                 if (!DateTime.TryParse(pFSRDate, out lastAttemptDate) || !DateTime.TryParse(pLastScheduleDate, out lastScheduleDate))
                 {
                     dbFunction.SetMessageBox(
@@ -7615,21 +7640,8 @@ namespace MIS
 
                     return false;
                 }
-
-                // checks if new scheduled date is not before last attempt date
-                if (dteServiceReqDate.Value.Date < lastAttemptDate.Date)
-                {
-                    dbFunction.SetMessageBox(
-                        "The previous service attempt is already BEYOND TAT.\n\n" +
-                        $"Last Attempt Date: {lastAttemptDate:MM-dd-yyyy}\n" +
-                        $"Previous Schedule Date: {lastScheduleDate:MM-dd-yyyy}\n\n" +
-                        "Please select a new schedule date after the last attempt date.",
-                        clsDefines.FIELD_CHECK_MSG,
-                        clsFunction.IconType.iError);
-
-                    return false;
-                }
             }
+
             else if (!lastAttemptTATStatus.Equals(clsDefines.WITHIN_TAT, StringComparison.OrdinalIgnoreCase))
             {
                 dbFunction.SetMessageBox(
@@ -7921,6 +7933,23 @@ namespace MIS
                     clsFunction.IconType.iError);
 
                 isValid = false;
+            }
+
+            // RAIDEN: merchant-rescheduled follow-up JO must not be scheduled before today
+            if (fRescheduleTicket)
+            {
+                if (scheduledDate.Date < DateTime.Today)
+                {
+                    dbFunction.SetMessageBox(
+                        "Invalid schedule date for a Rescheduled by Merchant Job Order.\n\n" +
+                        $"Selected Schedule Date: {scheduledDate:MM-dd-yyyy}\n" +
+                        $"Today: {DateTime.Today:MM-dd-yyyy}\n\n" +
+                        "The new schedule date must be today or later.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    isValid = false;
+                }
             }
 
             return isValid;
