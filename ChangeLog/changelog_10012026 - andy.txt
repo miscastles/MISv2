@@ -1,0 +1,42 @@
+﻿﻿CHANGELOG
+Date: October 01, 2026
+Developer: Andrew John C. Lim
+
+========================================================
+CHANGES
+========================================================
+
+1. Login Module
+   - Replaced hardcoded admin/admin login with real authentication against tbluser per bank.
+   - Added matching password encryption to align with the existing MIS login scheme.
+   - Added auto-uppercase on username and password fields to prevent case-mismatch login failures.
+
+2. Dashboard (Monitoring)
+   - Fixed Processed By not displaying in the Dashboard table.
+   - Processed By now displays the user's Full Name instead of the raw username.
+   - Fixed Inventory status not showing "Allocated" for Wi-Fi Only and Wi-Fi + SIM terminals with a blank SIM Serial Number.
+   - Fixed Dashboard rows not sorting by the latest Processed Date; rows now sort by most recently processed first.
+
+3. Database
+   - Updated spViewAdvanceDetail (QR Delivery Dashboard branch) to include ProcessedBy and POS Connection Type.
+   - Updated spViewAdvanceDetail (QR Delivery Dashboard and QR Delivery Received branches) to join tbluser and resolve ProcessedBy to Full Name.
+   - Updated sort order in both branches from ServiceNo to DateTimeStamp (Processed Date), descending.
+
+4. Bug Fixes
+   - Fixed login failure caused by password case sensitivity.
+   - Fixed Dashboard not reflecting Wi-Fi only terminals as Allocated.
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- login.html
+- login.php
+- qr.html
+- spViewAdvanceDetail (MCC, TBG, CLG)
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

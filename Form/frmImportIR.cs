@@ -1676,6 +1676,7 @@ namespace MIS
                         sRowSQL + sRowSQL + "" + clsGlobalVariables.iMerchant_Type + "," +
                         sRowSQL + sRowSQL + "'" + clsGlobalVariables.sMerchant_Type + "'," +
                         sRowSQL + sRowSQL + "'" + clsParticular.ClassContactPerson + "'," +
+                        sRowSQL + sRowSQL + "'" + clsParticular.ClassContactNumber + "'," +
                         sRowSQL + sRowSQL + "'" + clsParticular.ClassTelNo + "'," +
                         sRowSQL + sRowSQL + "'" + clsParticular.ClassMobile + "'," +
                         sRowSQL + sRowSQL + "'" + clsParticular.ClassFax + "'," +
