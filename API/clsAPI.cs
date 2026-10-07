@@ -694,7 +694,22 @@ namespace MIS
                     }
                     else
                     {
-                        string message = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
+                        string message = ex.Message;
+
+                        if (ex.Response != null)
+                        {
+                            using (Stream responseStream = ex.Response.GetResponseStream())
+                            {
+                                if (responseStream != null)
+                                {
+                                    using (StreamReader responseReader = new StreamReader(responseStream))
+                                    {
+                                        message = responseReader.ReadToEnd();
+                                    }
+                                }
+                            }
+                        }
+
                         MessageBox.Show(message, "APIPOSTRequest: API Response" + "\nError Message:\n" + p_outErrorMessage, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     

@@ -352,6 +352,60 @@ namespace MIS
             this.grdBankFields.Size = new System.Drawing.Size(1359, 545);
             this.grdBankFields.TabIndex = 3;
             // 
+            // pnlFooter
+            // 
+            this.pnlFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlFooter.Controls.Add(this.btnGenerate);
+            this.pnlFooter.Controls.Add(this.btnClose);
+            this.pnlFooter.Controls.Add(this.btnReset);
+            this.pnlFooter.Controls.Add(this.lblStatus);
+            this.pnlFooter.Location = new System.Drawing.Point(7, 676);
+            this.pnlFooter.Name = "pnlFooter";
+            this.pnlFooter.Size = new System.Drawing.Size(1360, 36);
+            this.pnlFooter.TabIndex = 4;
+            // 
+            // btnGenerate
+            // 
+            this.btnGenerate.Enabled = false;
+            this.btnGenerate.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnGenerate.Location = new System.Drawing.Point(1137, 5);
+            this.btnGenerate.Name = "btnGenerate";
+            this.btnGenerate.Size = new System.Drawing.Size(214, 25);
+            this.btnGenerate.TabIndex = 3;
+            this.btnGenerate.Text = "GENERATE IR IMPORT TEMPLATE";
+            this.btnGenerate.UseVisualStyleBackColor = true;
+            // 
+            // btnClose
+            // 
+            this.btnClose.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnClose.Location = new System.Drawing.Point(1039, 5);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(92, 25);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "CLOSE";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold);
+            this.btnReset.Location = new System.Drawing.Point(941, 5);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(92, 25);
+            this.btnReset.TabIndex = 1;
+            this.btnReset.Text = "RESET";
+            this.btnReset.UseVisualStyleBackColor = true;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblStatus.Location = new System.Drawing.Point(7, 10);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(210, 14);
+            this.lblStatus.TabIndex = 0;
+            this.lblStatus.Text = "NO INSTALLATION REQUEST LOADED";
+            // 
             // pnlBorderLeft
             // 
             this.pnlBorderLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
