@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using MIS.Controller;
+using System.Runtime.CompilerServices;
 
 namespace MIS
 {
@@ -113,18 +114,6 @@ namespace MIS
                 return;
             }
 
-            if (!dbFunction.fPromptConfirmation("Are you sure to update the following below: " + "\n\n"  +
-                         "[Merchant Information]" + "\n" +
-                         " > Name: " + _mServicingDetailController.MerchantName + "\n" +
-                         " > TID: " + _mServicingDetailController.TID + "\n" +
-                         " > MID: " + _mServicingDetailController.MID + "\n" +
-                         "[Service Information]" + "\n" +
-                         " > Job Type: " + txtJobTypeDesc.Text + "\n" +
-                         " > Current Request ID: " + txtCurrentRequestID.Text + "\n" +
-                         "[Update Information]" + "\n" +
-                         " > New Request ID: " + txtNewRequestID.Text                       
-                         )) return;
-
             // update
             clsSearch.ClassAdvanceSearchValue = dbFunction.CheckAndSetNumericValue(txtServiceNo.Text) + clsFunction.sPipe +
                 dbFunction.CheckAndSetNumericValue(txtIRIDNo.Text) + clsFunction.sPipe +
@@ -132,12 +121,40 @@ namespace MIS
 
             dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
 
+            // checks if request id of fsr and jo is 
+            if (dbFunction.isValidID(txtFSRNo.Text))
+            {
+                if (!_mServicingDetailController.IRNo.Equals(_mServicingDetailController.IRNo_fsr))
+                {
+                    dbFunction.SetMessageBox(
+                        "Request ID mismatch detected." + "\n\n" +
+                        "Job Order Request ID: " + _mServicingDetailController.IRNo + "\n\n" +
+                        "FSR Request ID: " + _mServicingDetailController.IRNo_fsr + "\n\n" +
+                        "Please check before updating the Request ID.",
+                        "Request ID mismatch",
+                        clsFunction.IconType.iError);
+
+                    return;
+                }
+            }
+
+            if (!dbFunction.fPromptConfirmation("Are you sure to update the following below: " + "\n\n" +
+             "[Merchant Information]" + "\n" +
+             " > Name: " + _mServicingDetailController.MerchantName + "\n" +
+             " > TID: " + _mServicingDetailController.TID + "\n" +
+             " > MID: " + _mServicingDetailController.MID + "\n" +
+             "[Service Information]" + "\n" +
+             " > Job Type: " + txtJobTypeDesc.Text + "\n" +
+             " > Current Request ID: " + txtCurrentRequestID.Text + "\n" +
+             "[Update Information]" + "\n" +
+             " > New Request ID: " + txtNewRequestID.Text
+             )) return;
+
             dbAPI.ExecuteAPI("PUT", "Update", "Update Service RequestID", clsSearch.ClassAdvanceSearchValue , "", "", "UpdateCollectionDetail");
 
             dbFunction.SetMessageBox("Request ID update completed", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
 
             btnClear_Click(this, e);
-
         }
 
         private void btnSearchMerchant_Click(object sender, EventArgs e)
@@ -189,7 +206,16 @@ namespace MIS
                     txtNewRequestID.ReadOnly = false;
                     txtNewRequestID.BackColor = Color.White;
 
-                    dbFunction.isValidRequestID(_mServicingDetailController.IRNo, _mServicingDetailController.IRNo_fsr);
+                    // checks if jo has a an fsr
+                    if (!dbFunction.isValidID(txtFSRNo.Text))
+                    {
+                        dbFunction.SetMessageBox(
+                            "This Job Order has no FSR yet." + "\n\n" +
+                            "Service No.: " + _mServicingDetailController.ServiceNo.ToString() + "\n" +
+                            "Request ID: " + txtSearchIRNo.Text,
+                            "No FSR",
+                            clsFunction.IconType.iInformation);
+                    }
 
                     getIRInfo();
 

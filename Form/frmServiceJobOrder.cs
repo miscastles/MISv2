@@ -250,8 +250,8 @@ namespace MIS
             txtRequestor.Text =
             clsFunction.sNull;
 
-            if (dbFunction.isValidID(txtMerchantID.Text))
-            {
+            if (dbFunction.isValidID  (txtMerchantID.Text))
+            
                 if (!fEdit)
                     dbAPI.ExecuteAPI("GET", "Search", "Merchant Info", txtMerchantID.Text + clsFunction.sPipe + txtIRIDNo.Text, "Get Info Detail", "", "GetInfoDetail");
                 else
@@ -260,14 +260,14 @@ namespace MIS
                 // parse delimited
                 dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
 
-                if (dbAPI.isNoRecordFound() == false)
+            if (dbAPI.isNoRecordFound() == false)
                 {
                     txtMerchantID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 0);
                     txtMerchantName.Text = txtSearchMerchantName.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 1);
                     txtMerchantAddress.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 2);
                     txtMerchantProvince.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 3);
                     txtMerchantRegion.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 4);
-                    txtMerchantCity.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 3);
+                    txtMerchantCity.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 5);
                     txtMerchantContactPerson.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 6);
                     txtMerchantTelNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 7);
                     txtMerchantMobileNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 8);
@@ -375,7 +375,6 @@ namespace MIS
                 }
             }
           
-        }
         private void FillClientTextBox()
         {
             Debug.WriteLine("--FillClientTextBox--");
@@ -7831,6 +7830,23 @@ namespace MIS
                     clsFunction.IconType.iError);
 
                 isValid = false;
+            }
+
+            // RAIDEN: merchant-rescheduled follow-up JO must not be scheduled before today
+            if (fRescheduleTicket)
+            {
+                if (scheduledDate.Date < DateTime.Today)
+                {
+                    dbFunction.SetMessageBox(
+                        "Invalid schedule date for a Rescheduled by Merchant Job Order.\n\n" +
+                        $"Selected Schedule Date: {scheduledDate:MM-dd-yyyy}\n" +
+                        $"Today: {DateTime.Today:MM-dd-yyyy}\n\n" +
+                        "The new schedule date must be today or later.",
+                        clsDefines.FIELD_CHECK_MSG,
+                        clsFunction.IconType.iError);
+
+                    isValid = false;
+                }
             }
 
             return isValid;
