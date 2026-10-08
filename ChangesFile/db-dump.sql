@@ -3235,6 +3235,13 @@ CREATE TABLE `tblservicingqrdetail` (
   `ProcessedBy` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `InternalQRContent` text,
   `QRResult` varchar(45) NOT NULL DEFAULT '',
+  `MerchantName` varchar(255) NOT NULL DEFAULT '',
+  `MerchantAddress` text,
+  `TID` varchar(100) NOT NULL DEFAULT '',
+  `MID` varchar(100) NOT NULL DEFAULT '',
+  `TerminalSN` varchar(100) NOT NULL DEFAULT '',
+  `SIMSN` varchar(100) NOT NULL DEFAULT '',
+  `JobType` int NOT NULL DEFAULT '0',
   `isReceived` tinyint DEFAULT '0',
   `ReceivedDate` datetime DEFAULT NULL,
   `Remarks` text,
@@ -27557,6 +27564,13 @@ THEN
                 SET @QUERY = CONCAT('INSERT INTO tblservicingqrdetail(ServiceNo, IRIDNo, MerchantID, QRDate, QRContent, InternalQRContent, ProcessedBy, InventoryStatus, TerminalPrepStatus, DispatcherStatus, QRResult)
          VALUES ', p_SQL);
 
+	# Immutable QR DELIVERY audit snapshot. Keep the original branch above
+	# during rollout so older MIS clients can continue saving validations.
+        ELSEIF (p_MaintenanceType = 'QR Delivery Detail Snapshot')
+        THEN
+                SET @QUERY = CONCAT('INSERT INTO tblservicingqrdetail(ServiceNo, IRIDNo, MerchantID, QRDate, QRContent, InternalQRContent, ProcessedBy, InventoryStatus, TerminalPrepStatus, DispatcherStatus, QRResult, MerchantName, MerchantAddress, TID, MID, TerminalSN, SIMSN, JobType)
+         VALUES ', p_SQL);
+
 	ELSEIF (p_MaintenanceType = 'HelpDesk-Master')
 	THEN
 		SET @QUERY = CONCAT('INSERT INTO tblhdmaster(IRIDNo, ReferenceNo, RequestDate, Requestor, CreatedID, CreatedAt, JobType, Status)
@@ -50729,26 +50743,26 @@ BEGIN
               'ServiceNo', q.ServiceNo,
               'IRIDNo', q.IRIDNo,
               'MerchantID', q.MerchantID,
-              'MerchantName', IFNULL_STRING_NORMAL(mer.Name),
-              'MerchantAddress', IFNULL_STRING_NORMAL(mer.Address),
-              'TID', IFNULL_STRING_NORMAL(ir.TID),
-              'MID', IFNULL_STRING_NORMAL(ir.MID),
+              'MerchantName', IFNULL_STRING_NORMAL(COALESCE(NULLIF(q.MerchantName, ''), mer.Name)),
+              'MerchantAddress', IFNULL_STRING_NORMAL(COALESCE(NULLIF(q.MerchantAddress, ''), mer.Address)),
+              'TID', IFNULL_STRING_NORMAL(COALESCE(NULLIF(q.TID, ''), ir.TID)),
+              'MID', IFNULL_STRING_NORMAL(COALESCE(NULLIF(q.MID, ''), ir.MID)),
 
-              'TerminalSN', IFNULL_STRING_NORMAL(
+              'TerminalSN', IFNULL_STRING_NORMAL(COALESCE(
+                  NULLIF(q.TerminalSN, ''),
                   CASE
-                      WHEN svc.JobType = 7
-                         THEN svc.ReplaceTerminalSN
+                      WHEN svc.JobType = 7 THEN svc.ReplaceTerminalSN
                       ELSE svc.TerminalSN
                   END
-              ),
+              )),
 
-              'SIMSN', IFNULL_STRING_NORMAL(
+              'SIMSN', IFNULL_STRING_NORMAL(COALESCE(
+                  NULLIF(q.SIMSN, ''),
                   CASE
-                      WHEN svc.JobType = 7
-                         THEN svc.ReplaceSIMSN
+                      WHEN svc.JobType = 7 THEN svc.ReplaceSIMSN
                       ELSE svc.SIMSerialNo
                   END
-              ),
+              )),
 
               'QRContent', IFNULL_STRING_NORMAL(q.QRContent),
               'InventoryStatus', IFNULL_STRING_NORMAL(q.InventoryStatus),
@@ -50772,7 +50786,7 @@ BEGIN
          OR q.ServiceNo = CAST(p_SearchValue AS UNSIGNED)
  
      ORDER BY q.DateTimeStamp DESC, q.QRID DESC
-     LIMIT 50;
+     LIMIT 100;
 
        ELSEIF (p_SearchBy = 'QR Delivery By ID')
        

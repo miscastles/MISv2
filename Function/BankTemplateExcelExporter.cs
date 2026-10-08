@@ -107,36 +107,27 @@ namespace MIS.Function
             "Contact Person",
             "Contact Number"
         };
-
         private static ExcelPackage OpenTemplatePackage()
         {
             string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,TemplateFolderName, TemplateFileName);
 
             if (!File.Exists(templatePath))
             {
-                throw new FileNotFoundException(
-                    "The MCC blank template was not found. Expected location:"
-                    + Environment.NewLine
-                    + templatePath, templatePath);
+                throw new FileNotFoundException("The MCC blank template was not found. Expected location:" + Environment.NewLine + templatePath, templatePath);
             }
-
             return new ExcelPackage(new FileInfo(templatePath));
         }
 
         private static ExcelWorksheet GetTemplateWorksheet(ExcelPackage package)
         {
             ExcelWorksheet worksheet = package.Workbook.Worksheets[TemplateWorksheetName];
-
             if (worksheet == null)
             {
                 throw new InvalidDataException("Worksheet '" + TemplateWorksheetName + "' was not found in the MCC blank template.");
             }
-
             ValidateTemplateHeaders(worksheet);
-
             return worksheet;
         }
-
         private static void ValidateTemplateHeaders(ExcelWorksheet worksheet)
         {
             for (int column = 1; column <= TargetHeaders.Length; column++)
@@ -147,23 +138,14 @@ namespace MIS.Function
 
                 if (!string.Equals(expectedHeader, actualHeader, StringComparison.OrdinalIgnoreCase))
                 {
-                    throw new InvalidDataException("Invalid MCC Template header at Column "
-                        + column
-                        + ". Expected: '"
-                        + expectedHeader
-                        + "'. Actual: '"
-                        + actualHeader
-                        + "'.");
+                    throw new InvalidDataException("Invalid MCC Template header at Column " + column + ". Expected: '" + expectedHeader + "'. Actual: '" + actualHeader + "'.");
                 }
             }
-
         }
         
         private static string NormalizeHeader(string value)
         {
-            return (value ?? string.Empty)
-                .Replace("\r\n", "\n")
-                .Trim();
+            return (value ?? string.Empty).Replace("\r\n", "\n").Trim();
         }
 
         public IList<string> Export( string outputPath, IList<BankTemplateRow> rows, IDictionary<string, string> additionalValues)
@@ -190,42 +172,33 @@ namespace MIS.Function
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
             using(ExcelPackage package = OpenTemplatePackage())
-{
+            {
                 ExcelWorksheet worksheet = GetTemplateWorksheet(package);
-
                 WriteDataRow(worksheet, values);
-
                 package.SaveAs(new FileInfo(outputPath));
             }
-
-            return RequiredHeaders
-                .Where(header => !values.ContainsKey(header) || string.IsNullOrWhiteSpace(values[header]))
-                .ToList();
+            return RequiredHeaders.Where(header => !values.ContainsKey(header) || string.IsNullOrWhiteSpace(values[header])).ToList();
         }
 
         public void Export(string outputPath, IList<IrImportRow> rows)
         {
             if (string.IsNullOrWhiteSpace(outputPath)) throw new ArgumentException("Please select an output file.");
-
             if (rows.Count == 0 || rows == null)
             {
                 throw new InvalidOperationException ("There are no Installation Request rows to export.");
             }
 
             string directory = Path.GetDirectoryName(outputPath);
-
             if (!string.IsNullOrWhiteSpace(directory) && !Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
             }
 
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            using(ExcelPackage package = OpenTemplatePackage())
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; using(ExcelPackage package = OpenTemplatePackage())
             {
                 ExcelWorksheet worksheet =GetTemplateWorksheet(package);
                 WriteDataRows(worksheet, rows);
                 WriteBankDataMetadata(package, rows);
-
                 package.SaveAs(new FileInfo(outputPath));
             }
         }
@@ -233,17 +206,11 @@ namespace MIS.Function
         private static void WriteBankDataMetadata(ExcelPackage package, IList<IrImportRow> rows)
         {
             if (package == null) throw new ArgumentNullException("package");
-
             if (rows == null) throw new ArgumentNullException("rows");
-
             ExcelWorksheet existingWorksheet = package.Workbook.Worksheets[BankDataWorksheetName];
-
             if (existingWorksheet != null)
             {
-                throw new InvalidDataException(
-                    "The MCC template contains the reserved worksheet '"
-                    + BankDataWorksheetName
-                    + "'.");
+                throw new InvalidDataException("The MCC template contains the reserved worksheet '" + BankDataWorksheetName + "'.");
             }
 
             HashSet<string> requestIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -256,47 +223,34 @@ namespace MIS.Function
 
                 if (row == null)
                 {
-                    throw new InvalidDataException(
-                        "IR row "
-                        + displayRowNumber
-                        + " is invalid.");
+                    throw new InvalidDataException("IR row " + displayRowNumber + " is invalid.");
                 }
 
                 string requestId = Clean(row.RequestId);
 
                 if (string.IsNullOrWhiteSpace(requestId))
                 {
-                    throw new InvalidDataException("Request ID is required for IR row "
-                        + displayRowNumber
-                        + ".");
+                    throw new InvalidDataException("Request ID is required for IR row " + displayRowNumber + ".");
                 }
 
                 if (!requestIds.Add(requestId))
                 {
-                    throw new InvalidDataException("Duplicate Request ID detected: "
-                        + requestId);
+                    throw new InvalidDataException("Duplicate Request ID detected: " + requestId);
                 }
 
                 if (string.IsNullOrWhiteSpace(row.SourceFileName))
                 {
-                    throw new InvalidDataException("Original filename is missing for Request ID "
-                        + requestId
-                        + ".");
+                    throw new InvalidDataException("Original filename is missing for Request ID " + requestId + ".");
                 }
 
                 if (string.IsNullOrWhiteSpace(row.BankDataInfo))
                 {
-                    throw new InvalidDataException("Bank data JSON is missing for Request ID "
-                        + requestId
-                        + ".");
+                    throw new InvalidDataException("Bank data JSON is missing for Request ID " + requestId + ".");
                 }
 
                 if (row.BankDataInfo.Length > ExcelCellCharacterLimit)
                 {
-                    throw new InvalidDataException("Bank data JSON exceeds the Excel cell limit for "
-                        + "Request ID "
-                        + requestId
-                        + ".");
+                    throw new InvalidDataException("Bank data JSON exceeds the Excel cell limit for " + "Request ID " + requestId + ".");
                 }
             }
 
@@ -320,9 +274,7 @@ namespace MIS.Function
                 metadataWorksheet.Cells[excelRow, 4].Value = Path.GetFileName(row.SourceFileName);
                 metadataWorksheet.Cells[excelRow, 5].Value = row.BankDataInfo;
             }
-
             metadataWorksheet.Hidden = eWorkSheetHidden.VeryHidden;
-
             package.Workbook.Worksheets.MoveBefore(BankDataWorksheetName, TemplateWorksheetName);
         }
 
@@ -343,13 +295,11 @@ namespace MIS.Function
                     {
                         worksheet.Cells[excelRow, column].Value = value;
                     }
-
                     worksheet.Cells[excelRow, column].Style.Font.Name = "Calibri";
                     worksheet.Cells[excelRow, column].Style.Font.Size = 10;
                     worksheet.Cells[excelRow, column].Style.Numberformat.Format = "@";
                 }
             }
-
             ApplyThinBorder(worksheet.Cells[2, 1, rows.Count + 1, TargetHeaders.Length]);
         }
 
@@ -380,7 +330,6 @@ namespace MIS.Function
                 ["Contact Number"] = Clean(row.ContactNumber)
             };
         }
-
         private static string Clean(string value)
         {
             return (value ?? string.Empty).Trim();
@@ -428,9 +377,7 @@ namespace MIS.Function
 
                 values[targetHeader] = (value ?? string.Empty).Trim();
             }
-
             values["Vendor"] = DefaultVendor;
-
             return values;
         }
 

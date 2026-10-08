@@ -7,25 +7,17 @@ using Newtonsoft.Json;
 
 namespace MIS.Controller
 {
-    /// <summary>
-    /// MIS API adapter for QR Delivery lookups, saves, and history retrieval.
-    /// </summary>
+    /// for QR Delivery lookups, saves, and history.
+
     public sealed class QRDeliveryController : IQRDeliveryHistoryStore, IQRDeliveryLookupStore
     {
         private readonly clsAPI api = new clsAPI();
-
         public QRDeliveryLookupResult FindJobOrder(QRDeliveryData scanned)
         {
-            if (scanned == null)
-                throw new ArgumentNullException("scanned");
+            if (scanned == null) throw new ArgumentNullException("scanned");
 
-            if (string.IsNullOrWhiteSpace(scanned.TID) ||
-                string.IsNullOrWhiteSpace(scanned.MID))
-                return new QRDeliveryLookupResult { Found = false };
+            if (string.IsNullOrWhiteSpace(scanned.TID) || string.IsNullOrWhiteSpace(scanned.MID)) return new QRDeliveryLookupResult { Found = false };
 
-            // Send all scanned identity fields so the API can locate the JO by
-            // stable merchant/inventory data even when TID, MID, or both are
-            // incorrect. TID and MID remain comparison fields in the result.
             string searchValue = string.Join("|", new[]
             {
                 NormalizeSearchValue(scanned.TID),
@@ -37,15 +29,10 @@ namespace MIS.Controller
                 scanned.ServiceNo.ToString(CultureInfo.InvariantCulture)
             });
 
-            string json = api.getInfoDetailJSON("Search", "QR Delivery", //call getInfoDetail
-                searchValue);
+            string json = api.getInfoDetailJSON("Search", "QR Delivery", searchValue); //call getInfoDetail
 
-            // Compatibility fallback for an older deployed API that accepts
-            // only the original TID|MID search value.
-            if (string.IsNullOrWhiteSpace(json) &&
-                scanned.ServiceNo <= 0)
-                json = api.getInfoDetailJSON("Search", "QR Delivery",
-                    scanned.TID.Trim() + "|" + scanned.MID.Trim());
+            if (string.IsNullOrWhiteSpace(json) && scanned.ServiceNo <= 0)
+               json = api.getInfoDetailJSON("Search", "QR Delivery", scanned.TID.Trim() + "|" + scanned.MID.Trim());
 
             LookupJson data = DeserializeLookup(json);
             if (data == null) return new QRDeliveryLookupResult { Found = false };
@@ -58,8 +45,7 @@ namespace MIS.Controller
                 QRID = data.QRID,
                 QRDate = data.QRDate,
                 JobType = data.JobType,
-                JobTypeDescription = string.IsNullOrWhiteSpace(data.JobTypeDescription)
-                    ? data.pJobTypeDescription : data.JobTypeDescription,
+                JobTypeDescription = string.IsNullOrWhiteSpace(data.JobTypeDescription) ? data.pJobTypeDescription : data.JobTypeDescription,
                 JobTypeStatusDescription = data.JobTypeStatusDescription,
                 TerminalInventoryStatus = data.EffectiveTerminalStatus,
                 SimInventoryStatus = data.EffectiveSimStatus,
@@ -83,21 +69,18 @@ namespace MIS.Controller
         {
             return (value ?? string.Empty).Trim().Replace("|", string.Empty);
         }
-
         private static LookupJson DeserializeLookup(string json)
         {
             if (string.IsNullOrWhiteSpace(json))
                 return null;
-
             return JsonConvert.DeserializeObject<LookupJson>(json);
         }
 
         public void Save(QRDeliverySaveRequest request)
         {
             if (request == null) throw new ArgumentNullException("request");
-
             string values = string.Format(CultureInfo.InvariantCulture,
-                "({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10})",
+                "({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17})",
                 request.ServiceNo,
                 request.IRIDNo,
                 request.MerchantID,
@@ -108,29 +91,23 @@ namespace MIS.Controller
                 Quote(request.InventoryStatus),
                 Quote(request.TerminalPrepStatus),
                 Quote(request.DispatcherStatus),
-                Quote(request.QRResult));
+                Quote(request.QRResult),
+                Quote(request.MerchantName),
+                Quote(request.MerchantAddress),
+                Quote(request.TID),
+                Quote(request.MID),
+                Quote(request.TerminalSN),
+                Quote(request.SIMSN),
+                request.JobType);
 
-            api.ExecuteAPI(
-                "POST",
-                "Insert",
-                "",
-                "",
-                "QR Delivery Detail",
-                values,
-                "InsertCollectionDetail");
-
+            api.ExecuteAPI("POST", "Insert", "", "", "QR Delivery Detail Snapshot", values, "InsertCollectionDetail");
             EnsureSuccess("saving the QR Delivery record");
 
-            QRDeliverySaveApiResponse response =
-                JsonConvert.DeserializeObject<QRDeliverySaveApiResponse>(
-                    clsGlobalVariables.strJSONResponse);
-            if (response == null || response.Data == null || response.Data.Count == 0 ||
-                !response.Data[0].LastInsertID.HasValue || response.Data[0].LastInsertID.Value <= 0)
+            QRDeliverySaveApiResponse response = JsonConvert.DeserializeObject<QRDeliverySaveApiResponse>(clsGlobalVariables.strJSONResponse);
+            if (response == null || response.Data == null || response.Data.Count == 0 || !response.Data[0].LastInsertID.HasValue || response.Data[0].LastInsertID.Value <= 0)
             {
-                throw new InvalidOperationException(
-                    "The backoffice accepted the request, but the QR Delivery row was not inserted. " +
-                    "Verify that the deployed QR Delivery Detail procedure includes the " +
-                    "InternalQRContent and QRResult columns.");
+                throw new InvalidOperationException("The backoffice accepted the request, but the QR Delivery row was not inserted. " + "Verify that the deployed QR Delivery Detail Snapshot procedure and " +
+                "snapshot columns have been installed.");
             }
         }
 
@@ -139,24 +116,15 @@ namespace MIS.Controller
             if (serviceNo < 0) throw new ArgumentOutOfRangeException("serviceNo");
             if (limit <= 0 || limit > 100) throw new ArgumentOutOfRangeException("limit");
 
-            api.ExecuteAPI(
-                "GET",
-                "View",
-                "QR Delivery History",
-                serviceNo.ToString(CultureInfo.InvariantCulture),
-                "Advance Detail",
-                "",
-                "ViewAdvanceDetail");
+            api.ExecuteAPI("GET", "View", "QR Delivery History", serviceNo.ToString(CultureInfo.InvariantCulture), "Advance Detail", "", "ViewAdvanceDetail");
 
             EnsureSuccess("loading QR Delivery history");
             List<QRDeliveryHistoryItem> items = new List<QRDeliveryHistoryItem>();
-            if (clsArray.detail_info == null)
-                return items;
+            if (clsArray.detail_info == null) return items;
 
             foreach (string detailInfo in clsArray.detail_info.Take(limit))
             {
-                if (string.IsNullOrWhiteSpace(detailInfo))
-                    continue;
+                if (string.IsNullOrWhiteSpace(detailInfo)) continue;
 
                 items.Add(new QRDeliveryHistoryItem
                 {
@@ -183,27 +151,22 @@ namespace MIS.Controller
 
             return items;
         }
-
         private string ReadValue(string detailInfo, string tag)
         {
             string value = api.GetValueFromJSONString(detailInfo, tag);
-            return string.Equals(value, clsFunction.sNull, StringComparison.OrdinalIgnoreCase)
-                ? string.Empty
-                : value;
+            return string.Equals(value, clsFunction.sNull, StringComparison.OrdinalIgnoreCase)? string.Empty: value;
         }
 
         private int ReadInt(string detailInfo, string tag)
         {
             int value;
-            return int.TryParse(ReadValue(detailInfo, tag), NumberStyles.Integer,
-                CultureInfo.InvariantCulture, out value) ? value : 0;
+            return int.TryParse(ReadValue(detailInfo, tag), NumberStyles.Integer, CultureInfo.InvariantCulture, out value) ? value : 0;
         }
 
         private DateTime ReadDate(string detailInfo, string tag)
         {
             DateTime value;
-            return DateTime.TryParse(ReadValue(detailInfo, tag), CultureInfo.InvariantCulture,
-                DateTimeStyles.AllowWhiteSpaces, out value) ? value : DateTime.MinValue;
+            return DateTime.TryParse(ReadValue(detailInfo, tag), CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out value) ? value : DateTime.MinValue;
         }
 
         private static string Quote(string value)
@@ -213,9 +176,7 @@ namespace MIS.Controller
 
         private static void EnsureSuccess(string operation)
         {
-            if (!clsGlobalVariables.isAPIResponseOK ||
-                !string.Equals(clsGlobalVariables.sAPIResponseCode,
-                    clsGlobalVariables.SUCCESS_RESPONSE, StringComparison.Ordinal))
+            if (!clsGlobalVariables.isAPIResponseOK || !string.Equals(clsGlobalVariables.sAPIResponseCode, clsGlobalVariables.SUCCESS_RESPONSE, StringComparison.Ordinal))
             {
                 throw new InvalidOperationException("MIS API failed while " + operation + ".");
             }

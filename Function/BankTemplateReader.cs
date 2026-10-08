@@ -21,8 +21,7 @@ namespace MIS.Function
 
     internal sealed class BankTemplateReader
     {
-        private const string PreviousInformationSection =
-            "Previous Merchant Information (Sheet2)";
+        private const string PreviousInformationSection = "Previous Merchant Information (Sheet2)";
 
         public BankTemplateReadResult Read(string filePath)
         {
@@ -31,65 +30,51 @@ namespace MIS.Function
 
         public BankTemplateReadResult Read(string filePath, string workbookPassword)
         {
-            if (string.IsNullOrWhiteSpace(filePath))
-                throw new ArgumentException("Please select a template.");
+            if (string.IsNullOrWhiteSpace(filePath)) throw new ArgumentException("Please select a template.");
 
-            if (!File.Exists(filePath))
-                throw new FileNotFoundException("The selected template was not found.", filePath);
+            if (!File.Exists(filePath)) throw new FileNotFoundException("The selected template was not found.", filePath);
 
             if (!string.Equals(Path.GetExtension(filePath), ".xlsx", StringComparison.OrdinalIgnoreCase))
             {
                 throw new NotSupportedException("Only .xlsx templates are supported.");
             }
 
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            using(ExcelPackage package = OpenPackage(filePath, workbookPassword))
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; using(ExcelPackage package = OpenPackage(filePath, workbookPassword))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets["POS Form"];
 
                 if (worksheet == null)
                 {
-                    throw new InvalidDataException(
-                        "The workbook does not contain the expected " +
+                    throw new InvalidDataException("The workbook does not contain the expected " +
                         "'POS Form' worksheet.");
                 }
-
                 if (worksheet.Dimension == null)
                 {
                     throw new InvalidDataException("The 'POS Form' worksheet is empty.");
                 } 
-
                 if (!ContainsTidIssuanceTitle(worksheet))
                 {
-                    throw new InvalidDataException(
-                        "The selected file is not a supported " +
+                    throw new InvalidDataException("The selected file is not a supported " +
                         "TID Issuance Form.");
                 }
 
                 IList<BankTemplateRow> rows = ReadRows(worksheet);
                 ExcelWorksheet previousInformationWorksheet = package.Workbook.Worksheets["Sheet2"];
 
-                bool isAdditionalTerminal = AppendPreviousMerchantInformation(
-                        previousInformationWorksheet,rows);
+                bool isAdditionalTerminal = AppendPreviousMerchantInformation(previousInformationWorksheet,rows);
 
                 return new BankTemplateReadResult
                 {
-                    Rows = rows,
-                    IsAdditionalTerminal = isAdditionalTerminal
+                    Rows = rows, IsAdditionalTerminal = isAdditionalTerminal
                 };
             }
         }
 
-        private static bool ContainsTidIssuanceTitle(
-            ExcelWorksheet worksheet)
+        private static bool ContainsTidIssuanceTitle(ExcelWorksheet worksheet)
         {
-            int maximumRow = Math.Min(
-                worksheet.Dimension.End.Row,
-                10);
+            int maximumRow = Math.Min(worksheet.Dimension.End.Row,10);
 
-            int maximumColumn = Math.Min(
-                worksheet.Dimension.End.Column,
-                10);
+            int maximumColumn = Math.Min(worksheet.Dimension.End.Column,10);
 
             for (int row = 1; row <= maximumRow; row++)
             {
@@ -97,53 +82,36 @@ namespace MIS.Function
                      column <= maximumColumn;
                      column++)
                 {
-                    string value = GetCellText(
-                        worksheet,
-                        row,
-                        column);
+                    string value = GetCellText(worksheet, row, column);
 
-                    if (value.IndexOf(
-                            "TID Issuance Form",
-                            StringComparison.OrdinalIgnoreCase) >= 0)
+                    if (value.IndexOf("TID Issuance Form", StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         return true;
                     }
                 }
             }
-
             return false;
         }
 
-        private static bool AppendPreviousMerchantInformation(
-            ExcelWorksheet worksheet,
-            IList<BankTemplateRow> rows)
+        private static bool AppendPreviousMerchantInformation(ExcelWorksheet worksheet, IList<BankTemplateRow> rows)
         {
-            if (worksheet == null || worksheet.Dimension == null)
-                return false;
+            if (worksheet == null || worksheet.Dimension == null) return false;
 
             int midColumn = FindHeaderColumn(worksheet, "MID");
             int tidColumn = FindHeaderColumn(worksheet, "TID");
 
-            if (midColumn <= 0 || tidColumn <= 0)
-                return false;
+            if (midColumn <= 0 || tidColumn <= 0) return false;
 
-            int dataRow = FindPreviousInformationDataRow(
-                worksheet,
-                midColumn,
-                tidColumn);
+            int dataRow = FindPreviousInformationDataRow(worksheet, midColumn, tidColumn);
 
-            if (dataRow <= 0)
-                return false;
+            if (dataRow <= 0) return false;
 
-            for (int column = 1;
-                 column <= worksheet.Dimension.End.Column;
-                 column++)
+            for (int column = 1; column <= worksheet.Dimension.End.Column; column++)
             {
                 string header = GetCellText(worksheet, 1, column);
                 string value = GetCellText(worksheet, dataRow, column);
 
-                if (string.IsNullOrWhiteSpace(header) ||
-                    string.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrWhiteSpace(header) || string.IsNullOrWhiteSpace(value))
                 {
                     continue;
                 }
@@ -159,49 +127,33 @@ namespace MIS.Function
                     IsSelected = false
                 });
             }
-
             return true;
         }
 
-        private static int FindHeaderColumn(
-            ExcelWorksheet worksheet,
-            string expectedHeader)
+        private static int FindHeaderColumn(ExcelWorksheet worksheet, string expectedHeader)
         {
-            for (int column = 1;
-                 column <= worksheet.Dimension.End.Column;
-                 column++)
+            for (int column = 1; column <= worksheet.Dimension.End.Column; column++)
             {
-                if (string.Equals(
-                        GetCellText(worksheet, 1, column),
-                        expectedHeader,
-                        StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(GetCellText(worksheet, 1, column), expectedHeader, StringComparison.OrdinalIgnoreCase))
                 {
                     return column;
                 }
             }
-
             return -1;
         }
 
-        private static int FindPreviousInformationDataRow(
-            ExcelWorksheet worksheet,
-            int midColumn,
-            int tidColumn)
+        private static int FindPreviousInformationDataRow(ExcelWorksheet worksheet, int midColumn, int tidColumn)
         {
-            for (int row = 2;
-                 row <= worksheet.Dimension.End.Row;
-                 row++)
+            for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
             {
                 string mid = GetCellText(worksheet, row, midColumn);
                 string tid = GetCellText(worksheet, row, tidColumn);
 
-                if (!string.IsNullOrWhiteSpace(mid) &&
-                    !string.IsNullOrWhiteSpace(tid))
+                if (!string.IsNullOrWhiteSpace(mid) && !string.IsNullOrWhiteSpace(tid))
                 {
                     return row;
                 }
             }
-
             return -1;
         }
 
@@ -209,24 +161,18 @@ namespace MIS.Function
         {
             FileInfo file = new FileInfo(filePath);
 
-            if (string.IsNullOrEmpty(workbookPassword))
-                return new ExcelPackage(file);
-
+            if (string.IsNullOrEmpty(workbookPassword)) return new ExcelPackage(file);
             return new ExcelPackage(file, workbookPassword);
         }
 
-        private static IList<BankTemplateRow> ReadRows(
-            ExcelWorksheet worksheet)
+        private static IList<BankTemplateRow> ReadRows(ExcelWorksheet worksheet)
         {
-            List<BankTemplateRow> result =
-                new List<BankTemplateRow>();
+            List<BankTemplateRow> result = new List<BankTemplateRow>();
 
             string currentSection = string.Empty;
             bool insideMandatorySection = false;
 
-            for (int row = 1;
-                 row <= worksheet.Dimension.End.Row;
-                 row++)
+            for (int row = 1; row <= worksheet.Dimension.End.Row; row++)
             {
                 string columnA = GetCellText(worksheet, row, 1);
                 string columnB = GetCellText(worksheet, row, 2);
@@ -238,55 +184,24 @@ namespace MIS.Function
                     currentSection = columnB;
                     insideMandatorySection = false;
 
-                    result.Add(CreateDisplayRow(
-                        row,
-                        currentSection,
-                        string.Empty,
-                        columnB));
-
+                    result.Add(CreateDisplayRow(row, currentSection, string.Empty, columnB));
                     continue;
                 }
 
-                if (string.Equals(
-                        columnB,
-                        "MANDATORY FIELDS",
-                        StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(columnB, "MANDATORY FIELDS", StringComparison.OrdinalIgnoreCase))
                 {
                     insideMandatorySection = true;
-
-                    result.Add(CreateDisplayRow(
-                        row,
-                        currentSection,
-                        string.Empty,
-                        columnB));
-
+                    result.Add(CreateDisplayRow(row, currentSection, string.Empty, columnB));
                     continue;
                 }
 
                 if (IsApprovalHeader(columnB, columnC))
                 {
-                    string preparedValue =
-                        GetCellText(worksheet, row + 1, 2);
+                    string preparedValue = GetCellText(worksheet, row + 1, 2);
+                    string approvedValue = GetCellText(worksheet, row + 1, 3);
 
-                    string approvedValue =
-                        GetCellText(worksheet, row + 1, 3);
-
-                    result.Add(CreateValueRow(
-                        row,
-                        currentSection,
-                        "Prepared by:",
-                        preparedValue,
-                        string.Empty,
-                        true));
-
-                    result.Add(CreateValueRow(
-                        row,
-                        currentSection,
-                        "Checked & Approved by>",
-                        approvedValue,
-                        string.Empty,
-                        true));
-
+                    result.Add(CreateValueRow(row, currentSection, "Prepared by:", preparedValue, string.Empty, true));
+                    result.Add(CreateValueRow(row, currentSection, "Checked & Approved by>", approvedValue, string.Empty, true));
                     row++;
                     continue;
                 }
@@ -297,8 +212,7 @@ namespace MIS.Function
                 string displayedTag = columnB;
 
                 // Captures titles such as "TID Issuance Form" from column A.
-                if (string.IsNullOrWhiteSpace(displayedTag) &&
-                    !string.IsNullOrWhiteSpace(columnA))
+                if (string.IsNullOrWhiteSpace(displayedTag) && !string.IsNullOrWhiteSpace(columnA))
                 {
                     displayedTag = columnA;
                 }
@@ -307,28 +221,19 @@ namespace MIS.Function
                 {
                     ExcelRowNumber = row,
                     Section = currentSection,
-                    SourceRowNumber = IsRowNumber(columnA)
-                        ? columnA
-                        : string.Empty,
+                    SourceRowNumber = IsRowNumber(columnA) ? columnA : string.Empty,
                     Tag = displayedTag,
                     Value = columnC,
                     MccColumn = columnE,
-                    IsMandatory = insideMandatorySection &&
-                                  hasTag &&
-                                  hasValue,
+                    IsMandatory = insideMandatorySection && hasTag &&hasValue,
                     IsSelectable = hasTag && hasValue,
                     IsSelected = false
                 });
             }
-
             return result;
         }
 
-        private static BankTemplateRow CreateDisplayRow(
-            int excelRow,
-            string section,
-            string sourceRowNumber,
-            string text)
+        private static BankTemplateRow CreateDisplayRow(int excelRow, string section, string sourceRowNumber, string text)
         {
             return new BankTemplateRow
             {
@@ -341,13 +246,7 @@ namespace MIS.Function
             };
         }
 
-        private static BankTemplateRow CreateValueRow(
-            int excelRow,
-            string section,
-            string tag,
-            string value,
-            string mccColumn,
-            bool isMandatory)
+        private static BankTemplateRow CreateValueRow(int excelRow, string section, string tag, string value, string mccColumn, bool isMandatory)
         {
             return new BankTemplateRow
             {
@@ -362,27 +261,15 @@ namespace MIS.Function
             };
         }
 
-        private static bool IsSectionRow(
-            string columnA,
-            string columnB)
+        private static bool IsSectionRow(string columnA, string columnB)
         {
-            return string.Equals(
-                       columnA,
-                       "ROW",
-                       StringComparison.OrdinalIgnoreCase) &&
-                   !string.IsNullOrWhiteSpace(columnB);
+            return string.Equals(columnA, "ROW", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrWhiteSpace(columnB);
         }
 
-        private static bool IsApprovalHeader(
-            string columnB,
-            string columnC)
+        private static bool IsApprovalHeader(string columnB, string columnC)
         {
-            return columnB.IndexOf(
-                       "Prepared by",
-                       StringComparison.OrdinalIgnoreCase) >= 0 &&
-                   columnC.IndexOf(
-                       "Approved by",
-                       StringComparison.OrdinalIgnoreCase) >= 0;
+            return columnB.IndexOf("Prepared by", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                   columnC.IndexOf("Approved by", StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         private static bool IsRowNumber(string value)
@@ -391,16 +278,11 @@ namespace MIS.Function
             return int.TryParse(value, out rowNumber);
         }
 
-        private static string GetCellText(
-            ExcelWorksheet worksheet,
-            int row,
-            int column)
+        private static string GetCellText(ExcelWorksheet worksheet, int row, int column)
         {
-            if (row > worksheet.Dimension.End.Row)
-                return string.Empty;
+            if (row > worksheet.Dimension.End.Row) return string.Empty;
 
-            return (worksheet.Cells[row, column].Text ??
-                    string.Empty).Trim();
+            return (worksheet.Cells[row, column].Text ?? string.Empty).Trim();
         }
     }
 }

@@ -19,7 +19,6 @@ namespace MIS.Function
         {
             if (rows == null) throw new ArgumentNullException("rows");
 
-
             JObject values = new JObject();
             HashSet<string> usedKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -27,13 +26,11 @@ namespace MIS.Function
 
             foreach (BankTemplateRow row in rows)
             {
-                if (!row.IsSelectable || !row.IsSelected)
-                    continue;
+                if (!row.IsSelectable || !row.IsSelected) continue;
 
                 string baseKey = BankTemplateFieldRules.NormalizeJsonKey(row.Tag);
 
-                if (string.IsNullOrWhiteSpace(baseKey))
-                    continue;
+                if (string.IsNullOrWhiteSpace(baseKey)) continue;
 
                 string uniqueKey = GetUniqueKey(baseKey, usedKeys);
 
@@ -42,7 +39,6 @@ namespace MIS.Function
 
                 selectedCount++;
             }
-
             if (selectedCount == 0)
             {
                 throw new InvalidOperationException("No fields are selected.");
@@ -55,9 +51,7 @@ namespace MIS.Function
                 root["SourceBank"] = "BDO";
                 root["SourceFileName"] = Path.GetFileName(sourceFileName);
             }
-
             root["Values"] = values;
-
             return root.ToString(Formatting.Indented);
         }
 

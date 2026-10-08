@@ -1,0 +1,41 @@
+CHANGELOG
+Date: October 08, 2026
+Developer: Nikko
+
+========================================================
+CHANGES
+========================================================
+
+1. Bank Template Generator
+    - Cleaned up obsolete controls, mappings, and unused code from the Bank Template Generator.
+    - Preserved source workbook password support, bank-template parsing, validation, and MCC Installation Request export.
+    - Preserved the hidden __MIS_BANK_DATA worksheet used by the Installation Request importer.
+    - Restored and retained the Generate, Reset, and Close footer actions.
+
+2. QR Delivery
+    - Updated frmQRDelivery.cs, QRDeliveryController.cs, and QRDeliveryValidation.cs to save merchant, TID/MID, terminal, SIM, address, and job type snapshots with each validation.
+    - Updated QR Delivery history and search to use saved snapshot values first and live records only as fallback.
+    - Preserved QR Delivery history after related merchant, Installation Request, or servicing source records are deleted.
+
+3. Database
+    - Updated tblservicingqrdetail to store MerchantName, MerchantAddress, TID, MID, TerminalSN, SIMSN, and JobType snapshots.
+    - Added QR Delivery Detail Snapshot handling to spInsertCollectionDetail.
+    - Updated the QR Delivery History condition in spViewAdvanceDetail to use saved snapshot values first.
+    - Added the QR Delivery history migration and backfill SQL.
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- Bank Template Generator
+- QR Delivery
+- QR Delivery Validation
+- QR Delivery Controller
+- Database
+- QR Delivery Migration / Backfill
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing
