@@ -43,9 +43,9 @@ namespace MIS
 
     public sealed class QRDeliveryValidationException : Exception
     {
-        public QRDeliveryValidationException(string message, Exception innerException)
-            : base(message, innerException)
+        public QRDeliveryValidationException(string message, Exception innerException) : base(message, innerException)
         {
+
         }
     }
 
@@ -81,6 +81,13 @@ namespace MIS
         public int ServiceNo { get; set; }
         public int IRIDNo { get; set; }
         public int MerchantID { get; set; }
+        public string MerchantName { get; set; }
+        public string MerchantAddress { get; set; }
+        public string TID { get; set; }
+        public string MID { get; set; }
+        public string TerminalSN { get; set; }
+        public string SIMSN { get; set; }
+        public int JobType { get; set; }
         public string QRContent { get; set; }
         public string InternalQRContent { get; set; }
         public string InventoryStatus { get; set; }
@@ -135,10 +142,8 @@ namespace MIS
     {
         public QRDeliveryValidationResult Validate(string json, QRDeliveryData expected)
         {
-            if (string.IsNullOrWhiteSpace(json))
-                throw new QRDeliveryValidationException("The QR content is empty.", null);
-            if (expected == null)
-                throw new ArgumentNullException("expected");
+            if (string.IsNullOrWhiteSpace(json)) throw new QRDeliveryValidationException("The QR content is empty.", null);
+            if (expected == null) throw new ArgumentNullException("expected");
 
             JObject source;
             try
@@ -147,27 +152,21 @@ namespace MIS
             }
             catch (JsonException ex)
             {
-                throw new QRDeliveryValidationException(
-                    "The scanned QR content is not valid JSON. Please scan the terminal QR code again.", ex);
+                throw new QRDeliveryValidationException("The scanned QR content is not valid JSON. Please scan the terminal QR code again.", ex);
             }
 
             QRDeliveryValidationResult result = new QRDeliveryValidationResult();
-            string scannedMerchantAddress = FirstValue(source,
-                "merchantAddress", "address");
+            string scannedMerchantAddress = FirstValue(source, "merchantAddress", "address");
             AddMissing(result, "TID", Value(source, "tid"));
             AddMissing(result, "MID", Value(source, "mid"));
             AddMissing(result, "Merchant Name", Value(source, "merchantName"));
             AddMissing(result, "Merchant Address", scannedMerchantAddress);
-            AddMissing(result, "Terminal Serial No.",
-                FirstValue(source, "terminalSN", "terminalSerialNo"));
-
+            AddMissing(result, "Terminal Serial No.", FirstValue(source, "terminalSN", "terminalSerialNo"));
             AddResult(result, "TID", Value(source, "tid"), expected.TID);
             AddResult(result, "MID", Value(source, "mid"), expected.MID);
             AddResult(result, "Merchant Name", Value(source, "merchantName"), expected.MerchantName);
-            AddResult(result, "Merchant Address", scannedMerchantAddress,
-                expected.MerchantAddress);
-            AddResult(result, "Terminal Serial No.",
-                FirstValue(source, "terminalSN", "terminalSerialNo"), expected.TerminalSerialNo);
+            AddResult(result, "Merchant Address", scannedMerchantAddress, expected.MerchantAddress);
+            AddResult(result, "Terminal Serial No.", FirstValue(source, "terminalSN", "terminalSerialNo"), expected.TerminalSerialNo);
 
             // WiFi-only terminals do not have a SIM. Only require and compare the
             // SIM serial number when MIS has a SIM record assigned to the job.
@@ -176,7 +175,7 @@ namespace MIS
                 string scannedSimSerialNo = FirstValue(source, "simSN", "simSerialNo");
                 AddMissing(result, "SIM Serial No.", scannedSimSerialNo);
                 AddResult(result, "SIM Serial No.", scannedSimSerialNo,
-                    expected.SimSerialNo);
+                expected.SimSerialNo);
             }
 
             result.IsMatch = result.MissingFields.Count == 0;
@@ -187,8 +186,7 @@ namespace MIS
 
         public QRDeliveryData Parse(string json)
         {
-            if (string.IsNullOrWhiteSpace(json))
-                throw new QRDeliveryValidationException("The QR content is empty.", null);
+            if (string.IsNullOrWhiteSpace(json)) throw new QRDeliveryValidationException("The QR content is empty.", null);
 
             JObject source;
             try
@@ -197,8 +195,7 @@ namespace MIS
             }
             catch (JsonException ex)
             {
-                throw new QRDeliveryValidationException(
-                    "The scanned QR content is not valid JSON. Please scan the terminal QR code again.", ex);
+                throw new QRDeliveryValidationException("The scanned QR content is not valid JSON. Please scan the terminal QR code again.", ex);
             }
 
             return new QRDeliveryData
@@ -214,8 +211,7 @@ namespace MIS
 
         public string NormalizeHistoricalContent(string content)
         {
-            if (string.IsNullOrWhiteSpace(content))
-                throw new QRDeliveryValidationException("The QR content is empty.", null);
+            if (string.IsNullOrWhiteSpace(content)) throw new QRDeliveryValidationException("The QR content is empty.", null);
 
             string trimmed = content.Trim();
             try
@@ -225,9 +221,7 @@ namespace MIS
             catch (JsonException ex)
             {
                 JObject legacy = ParseLegacyHistoricalObject(trimmed);
-                if (legacy.Count == 0)
-                    throw new QRDeliveryValidationException(
-                        "The saved QR content could not be interpreted.", ex);
+                if (legacy.Count == 0) throw new QRDeliveryValidationException("The saved QR content could not be interpreted.", ex);
                 return legacy.ToString(Formatting.None);
             }
         }
@@ -235,23 +229,18 @@ namespace MIS
         private static JObject ParseLegacyHistoricalObject(string content)
         {
             string body = content.Trim();
-            if (body.StartsWith("{") && body.EndsWith("}"))
-                body = body.Substring(1, body.Length - 2);
+            if (body.StartsWith("{") && body.EndsWith("}")) body = body.Substring(1, body.Length - 2);
 
-            const string fieldPattern =
-                @"(?:^|,)\s*[""']?(tid|mid|merchantName|merchantAddress|address|terminalSN|terminalSerialNo|simSN|simSerialNo)[""']?\s*:";
-            MatchCollection matches = Regex.Matches(body, fieldPattern,
-                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+            const string fieldPattern = @"(?:^|,)\s*[""']?(tid|mid|merchantName|merchantAddress|address|terminalSN|terminalSerialNo|simSN|simSerialNo)[""']?\s*:";
+            MatchCollection matches = Regex.Matches(body, fieldPattern, RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
             JObject result = new JObject();
 
             for (int index = 0; index < matches.Count; index++)
             {
                 Match match = matches[index];
                 int valueStart = match.Index + match.Length;
-                int valueEnd = index + 1 < matches.Count
-                    ? matches[index + 1].Index : body.Length;
-                string value = body.Substring(valueStart, valueEnd - valueStart)
-                    .Trim().Trim('"', '\'');
+                int valueEnd = index + 1 < matches.Count ? matches[index + 1].Index : body.Length;
+                string value = body.Substring(valueStart, valueEnd - valueStart).Trim().Trim('"', '\'');
                 result[match.Groups[1].Value] = value;
             }
 
@@ -260,8 +249,7 @@ namespace MIS
 
         public string CreateInternalContent(QRDeliveryLookupResult lookup)
         {
-            if (lookup == null || lookup.Expected == null)
-                throw new ArgumentNullException("lookup");
+            if (lookup == null || lookup.Expected == null) throw new ArgumentNullException("lookup");
 
             QRDeliveryData data = lookup.Expected;
             JObject content = new JObject
@@ -284,8 +272,7 @@ namespace MIS
             return content.ToString(Formatting.None);
         }
 
-        private static void AddResult(QRDeliveryValidationResult result, string field,
-            string scanned, string expected)
+        private static void AddResult(QRDeliveryValidationResult result, string field, string scanned, string expected)
         {
             scanned = Normalize(scanned);
             expected = Normalize(expected);
@@ -337,17 +324,13 @@ namespace MIS
 
         public static string TerminalPrepStatus(QRDeliveryData data)
         {
-            return data != null && data.TerminalID > 0 &&
-                   !string.IsNullOrWhiteSpace(data.TerminalSerialNo)
-                ? "VALID" : "INVALID";
+            return data != null && data.TerminalID > 0 && !string.IsNullOrWhiteSpace(data.TerminalSerialNo) ? "VALID" : "INVALID";
         }
 
         public static string DispatcherStatus(string jobTypeStatusDescription)
         {
-            if (string.Equals(jobTypeStatusDescription, "PROCESSING", StringComparison.OrdinalIgnoreCase))
-                return "VALID";
-            if (string.Equals(jobTypeStatusDescription, "PENDING", StringComparison.OrdinalIgnoreCase))
-                return "INVALID";
+            if (string.Equals(jobTypeStatusDescription, "PROCESSING", StringComparison.OrdinalIgnoreCase)) return "VALID";
+            if (string.Equals(jobTypeStatusDescription, "PENDING", StringComparison.OrdinalIgnoreCase)) return "INVALID";
             return "INVALID";
         }
     }

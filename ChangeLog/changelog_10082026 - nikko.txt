@@ -1,0 +1,70 @@
+﻿CHANGELOG
+Date: October 08, 2026
+Developer: Nikko
+
+========================================================
+CHANGES
+
+=====================================================
+
+1. Bank Template Generator
+- Added conversion of supported bank TID Issuance Forms into the MIS Installation Request template.
+    - Added support for single and multiple Excel source files.
+    - Added support for password-protected workbooks using one password for all selected files.
+    - Added mapping for new and additional-terminal request formats.
+    - Added MID, TID, and Bancnet TID mapping.
+    - Added validation for workbook format, dd u7y77required fields, and duplicate Request IDs.
+    - Added hidden bank metadata worksheet generation.
+    - Added Bank Template Generator access from the MIS main menu.
+
+    Installation Request
+    - Added validation for converted XLSX import files.
+    - Added matching of bank metadata using Request ID.
+    - Added saving of bank metadata JSON after successful Installation Request creation.
+    - Preserved regular MCC imports without bank metadata.
+
+    QR DELIVERY
+     - Enhanced History and Search Function. This keeps History and Search records complete even when the related
+        merchant, IR, or servicing test data is deleted.
+
+Database
+(Bank Template Gen)
+     - Added the nullable bankdata_info JSON column to tblirdetail.
+     - Added Update Bank Data Info handling to spUpdateCollectionDetail.
+
+     (QR Delivery)
+     - Updated tblservicingqrdetail to store the new snapshot fields.
+     - Updated spInsertCollectionDetail by adding: ELSEIF (p_MaintenanceType = 'QR Delivery Detail Snapshot')
+     - Updated the existing spViewAdvanceDetail condition: ELSEIF (p_SearchBy = 'QR Delivery History') 
+       to use saved snapshot values first and live records only as fallback.
+     - Added the QR Delivery history migration/backfill SQL.
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmBankTemplateGen.cs
+- frmBankTemplateGen.resx
+- frmBankTemplateGen.Designer
+- BankTemplateExcelExporter.cs
+- BankTemplateFieldRules.cs
+- BankTemplateJsonBuilder.cs
+- BankTemplateReader.cs
+- BankTemplateRow.cs
+- clsAPI.cs
+- frmImportIR.cs
+- IrImportRow.cs
+- frmMain.Designer.cs
+- frmMain.cs
+- DataGridViewDataPickerColumn.cs
+- MIS.csproj
+- QRDeliveryController.cs
+- QRDeliveryValidation.cs
+- frmQRDelivery.cs
+- MIS_BLANK_TEMPLATE.xlsx
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

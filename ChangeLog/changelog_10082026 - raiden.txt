@@ -27,6 +27,10 @@ CHANGES
 	- Service Type value is passed to the report search value for reports
 	  53, 54 and 55 (preview and export).
 
+	- Added a fix to manually imported sim and terminal to prevent untrimmed insertations
+
+	- Corrected spelling for minimized forms Doub Click -> Double Click
+
 2. Database ( MCC )
 
 	- Updated spViewReport -> "Service Attempt" block.

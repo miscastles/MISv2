@@ -45,7 +45,7 @@ namespace MIS
 
         private bool fWebServerConn = false;
         private bool fFtpServerConn = false;
-        
+
         private int iPaddedLength = 5;
         private string sPaddedCount = "00000";
         string sInput = "";
@@ -62,14 +62,14 @@ namespace MIS
             new Dictionary<string, Form>();
 
         protected override CreateParams CreateParams
-                {
-                    get
-                    {
-                        CreateParams cp = base.CreateParams;
-                        cp.ExStyle |= 0x02000000;
-                        return cp;
-                    }
-                }
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
 
         public frmMain()
         {
@@ -91,19 +91,19 @@ namespace MIS
         {
             bool fLogOut = true;
 
-            iMenu = 13;            
+            iMenu = 13;
             InitMenu(iMenu, true);
 
             if (MessageBox.Show(clsSearch.ClassCurrentParticularName + "\n\n" +
-                                " Are you sure you want to logout " + clsSystemSetting.ClassApplicationName + "." +                                 
+                                " Are you sure you want to logout " + clsSystemSetting.ClassApplicationName + "." +
                                 "\n\n",
                                 "Confirm?", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == DialogResult.No)
             {
                 fLogOut = false;
             }
-            
+
             if (fLogOut)
-            {                
+            {
                 clsSearch.ClassStatus = clsGlobalVariables.LOGOUT_STATUS;
                 clsSearch.ClassStatusDescription = clsGlobalVariables.LOGOUT_STATUS_DESC;
 
@@ -126,8 +126,8 @@ namespace MIS
                     Application.Restart();
                 }).Start();
 
-                Application.Exit(); 
-                
+                Application.Exit();
+
             }
         }
 
@@ -138,7 +138,7 @@ namespace MIS
         private bool fCloseFormConfirm()
         {
             bool fClose = true;
-            
+
             if (MessageBox.Show(clsSearch.ClassCurrentParticularName + "\n\n" +
                                 "Are you sure you want to exit " + clsSystemSetting.ClassApplicationName + "." +
                                     "\n\n",
@@ -155,7 +155,7 @@ namespace MIS
                 dbAPI.UpdateStatus("Update", "UserID", clsSearch.ClassCurrentUserID.ToString(), "User Log");
 
                 dbAPI.SaveUserLog(clsAPI.UserActionType.iLogOut, lblPublishVersion.Text);
-                
+
                 Application.Exit();
             }
 
@@ -216,8 +216,8 @@ namespace MIS
 
             // Skin Color
             InitSkinColor();
-            
-            InitCurrentTimer();            
+
+            InitCurrentTimer();
 
             dbFunction.GetPublishVersion(lblPublishVersion);
             dbFunction.GetEnvironment(lblEnvironment);
@@ -228,11 +228,11 @@ namespace MIS
 
             lblServer.Text = $"WebServer Ip/Port: {clsGlobalVariables.strAPIURL} | FTP Ip/Port: {clsGlobalVariables.strFTPURL}:{clsGlobalVariables.strFTPPORT}";
             dbFunction.applyOuterColorOverlay(lblServer, Color.Cyan, 1);
-            
+
             lblWhoIsOnline.Text = "";
             lblWhoIsOnlineFSR.Text = "";
             lblInstallationReqDaysPending.Text = "";
-            lblInstallationReqDaysPending.Text = " -:- " + clsSystemSetting.ClassSystemNoOfDayPending.ToString() + clsFunction.sPadSpace + "DAY(S) PENDING";            
+            lblInstallationReqDaysPending.Text = " -:- " + clsSystemSetting.ClassSystemNoOfDayPending.ToString() + clsFunction.sPadSpace + "DAY(S) PENDING";
 
             InitMenu(0, false);
             InitCount();
@@ -252,7 +252,7 @@ namespace MIS
             InitPulse(true);
             InitPulseTimer();
 
-            InitPanelMenuList();            
+            InitPanelMenuList();
 
             GetCurrentDateTime();
             lblUser.Text = "USER:" + clsUser.ClassUserFullName + Environment.NewLine +
@@ -271,13 +271,13 @@ namespace MIS
             loadWhosOnlineFSR();
 
             loadWhosOnlineDashboard();
-            
+
             loadUnclosedTicketList();
 
             lblFailedService.ForeColor = lblPendingFSR.ForeColor = lblTInstallation.ForeColor = lblTReprogramming.ForeColor = lblTServicing.ForeColor = lblTReplacement.ForeColor = lblTPullout.ForeColor = Color.Gray;
-            
+
             // bank name
-            lblBank.Text = clsSearch.ClassBankDisplayName;          
+            lblBank.Text = clsSearch.ClassBankDisplayName;
             dbFunction.applyOuterColorOverlay(lblBank, Color.FromArgb(0, 153, 255), 4);
 
             dbFunction.InitBankLogo(imgBankLogo);
@@ -292,7 +292,7 @@ namespace MIS
 
         private void btnMaintenance_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnTerminal_Click(object sender, EventArgs e)
@@ -315,7 +315,7 @@ namespace MIS
 
         private void btnInstallation_Click(object sender, EventArgs e)
         {
-            iMenu = 3;            
+            iMenu = 3;
             InitMenu(iMenu, true);
         }
 
@@ -332,13 +332,13 @@ namespace MIS
         {
             this.WindowState = FormWindowState.Minimized;
         }
-        
+
         private void btnReports_Click(object sender, EventArgs e)
         {
             // Check Application Version
             if (!dbAPI.isValidSystemVersion()) return;
 
-            iMenu = 6;            
+            iMenu = 6;
             InitMenu(iMenu, true);
         }
 
@@ -352,7 +352,7 @@ namespace MIS
 
             //dbFunction.SetMessageBox("Ongoing development...", "Oooops", clsFunction.IconType.iInformation);
             return;
-            
+
             //iMenu = 12;
             //InitMenu(iMenu, true);
             //frmFindField frm = new frmFindField();
@@ -389,7 +389,7 @@ namespace MIS
             if (!dbAPI.isValidSystemVersion()) return;
 
             iMenu = 10;
-            InitMenu(0, false);            
+            InitMenu(0, false);
             frmSetting.iType = 1;
             frmSetting frm = new frmSetting();
             frm.Text = "SETTING";
@@ -412,7 +412,7 @@ namespace MIS
         }
 
         private void btnMaximize_Click(object sender, EventArgs e)
-        {           
+        {
             Form frm = frmMain.ActiveForm;
             MaximizeMain();
         }
@@ -421,7 +421,7 @@ namespace MIS
         {
             switch (this.WindowState)
             {
-                case FormWindowState.Maximized:                    
+                case FormWindowState.Maximized:
                     this.WindowState = FormWindowState.Normal;
                     break;
                 case FormWindowState.Normal:
@@ -430,7 +430,7 @@ namespace MIS
                     {
                         this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
                     }
-                        
+
                     this.WindowState = FormWindowState.Maximized;
                     break;
             }
@@ -463,10 +463,10 @@ namespace MIS
             pnlSubMenuAdministrative.Visible = false;
             pnlSubMenuFinance.Visible = false;
             pnlSubMenuInventoryEntry.Visible = false;
-            pnlSubMenuInventoryEntry.Visible = false;            
+            pnlSubMenuInventoryEntry.Visible = false;
             pnlSubMenuEnrollment.Visible = false;
             pnlSubMenuAccount.Visible = false;
-            pnlSubMenuReports.Visible = false;            
+            pnlSubMenuReports.Visible = false;
             pnlSubMenuServicing.Visible = false;
             pnlSubMenuLog.Visible = false;
             pnlSubMenuCustomerService.Visible = false;
@@ -493,7 +493,7 @@ namespace MIS
                 case 4: // FSR                    
                     pnlSubMenuServicing.Visible = fVisible;
                     pnlSubMenuServicing.Left = pnlMenu.Width - btnServicing.Left + iLeft;
-                    pnlSubMenuServicing.Top =  gbOperationLocation.Y + yAxis;
+                    pnlSubMenuServicing.Top = gbOperationLocation.Y + yAxis;
                     break;
                 case 5: // Search   
                     pnlSubMenuSearch.Visible = fVisible;
@@ -530,7 +530,7 @@ namespace MIS
                 case 12: // Help                    
                     break;
                 case 13: // LogOff
-                    break; 
+                    break;
                 case 14: // Exit
                     break;
                 case 15: // Enrollment - Particular                                        
@@ -541,7 +541,7 @@ namespace MIS
                     break;
                 case 18: // Enrollment - Others                    
                     break;
-                case 19:                    
+                case 19:
                     break;
                 case 20:
                     pnlSubMenuFinance.Visible = fVisible;
@@ -567,18 +567,18 @@ namespace MIS
                     pnlSubMenuSwitchBank.Visible = fVisible;
                     pnlSubMenuSwitchBank.Left = pnlMenu.Width - btnSwitchBankCode.Left + iLeft;
                     pnlSubMenuSwitchBank.Top = gbManagementLocation.Y + yAxis;
-                    break;                
+                    break;
                 default:
                     break;
             }
         }
-        
+
         private void btnAdministrative_Click(object sender, EventArgs e)
         {
             // Check Application Version
             if (!dbAPI.isValidSystemVersion()) return;
 
-            iMenu = 1;            
+            iMenu = 1;
             InitMenu(iMenu, true);
         }
 
@@ -614,15 +614,15 @@ namespace MIS
             iMenu = 18;
             InitMenu(iMenu, true);
         }
-        
+
         private void pnlMenuList_Paint(object sender, PaintEventArgs e)
         {
-            
+
         }
 
         private void pnlMenuList_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnImportExport_Click(object sender, EventArgs e)
@@ -630,13 +630,13 @@ namespace MIS
             // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 31)) return;
 
-            InitMenu(0, false);            
+            InitMenu(0, false);
             frmImportTerminal.iTab = 0;
             frmImportTerminal.iTabSub = 0;
             frmImportTerminal frm = new frmImportTerminal();
             frm.Text = "INVENTORY-TERMINAL";
             frm.WindowState = FormWindowState.Normal;
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnAutoGenerate_Click(object sender, EventArgs e)
@@ -647,9 +647,9 @@ namespace MIS
             frmImportTerminal frm = new frmImportTerminal();
             frm.Text = "INVENTORY-TERMINAL";
             frm.WindowState = FormWindowState.Normal;
-            frm.Show();            
-        }       
-        
+            frm.Show();
+        }
+
         private void btnMerchant_Click(object sender, EventArgs e)
         {
             // Check User Access Rights
@@ -677,7 +677,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnFE_Click(object sender, EventArgs e)
@@ -692,7 +692,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnSupplier_Click(object sender, EventArgs e)
@@ -703,8 +703,8 @@ namespace MIS
             frm.Text = "ENROLLMENT-SUPPLIER";
             frm.WindowState = FormWindowState.Normal;
 
-            frm.Show();            
-        }   
+            frm.Show();
+        }
 
         private void btnTerminalType_Click(object sender, EventArgs e)
         {
@@ -717,7 +717,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnTerminalModel_Click(object sender, EventArgs e)
@@ -731,7 +731,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnTerminalBrand_Click(object sender, EventArgs e)
@@ -742,7 +742,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnTerminalStatus_Click(object sender, EventArgs e)
@@ -753,7 +753,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnSP_Click(object sender, EventArgs e)
@@ -765,7 +765,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnServiceType_Click(object sender, EventArgs e)
@@ -776,7 +776,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnOtherServiceType_Click(object sender, EventArgs e)
@@ -787,7 +787,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnProvince_Click(object sender, EventArgs e)
@@ -801,7 +801,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void btnCity_Click(object sender, EventArgs e)
@@ -815,7 +815,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
 
             RegisterForm(frm);
-            frm.Show();            
+            frm.Show();
         }
 
         private void frmMain_Click(object sender, EventArgs e)
@@ -829,12 +829,12 @@ namespace MIS
 
         private void frmMain_Resize(object sender, EventArgs e)
         {
-            
+
         }
 
         private void frmMain_Leave(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnSIM_Click(object sender, EventArgs e)
@@ -842,12 +842,12 @@ namespace MIS
             // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 34)) return;
 
-            InitMenu(0, false);            
+            InitMenu(0, false);
             frmImportSIM.iTab = 0;
             frmImportSIM frm = new frmImportSIM();
             frm.Text = "INVENTORY-SIM";
             frm.WindowState = FormWindowState.Normal;
-            frm.Show();            
+            frm.Show();
         }
 
         private void pnlHeader_DoubleClick(object sender, EventArgs e)
@@ -858,8 +858,8 @@ namespace MIS
         private void pnlMenuList_Paint_1(object sender, PaintEventArgs e)
         {
 
-        }       
-        
+        }
+
         private void frmMain_Deactivate(object sender, EventArgs e)
         {
             Debug.WriteLine("Deactivate");
@@ -886,7 +886,7 @@ namespace MIS
 
             //dbFunction.SetMessageBox("Ongoing development...", "Oooops", clsFunction.IconType.iInformation);
             //return;
-            
+
             //dbAPI.ResetAdvanceSearch();
             //frmSearchField.iSearchType = frmSearchField.SearchType.iDashboard;
             //frmSearchField.sHeader = "CLIENT FOR DASHBOARD";
@@ -937,7 +937,7 @@ namespace MIS
             RegisterForm(frm);
             frm.Show();
         }
-       
+
         private void pnlSubMenuTerminal_Paint(object sender, PaintEventArgs e)
         {
 
@@ -948,7 +948,7 @@ namespace MIS
             // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 32)) return;
 
-            InitMenu(0, false);            
+            InitMenu(0, false);
             frmImportTerminal.iTab = 1;
             frmImportTerminal.iTabSub = 0;
             frmImportTerminal frm = new frmImportTerminal();
@@ -962,7 +962,7 @@ namespace MIS
             // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 33)) return;
 
-            InitMenu(0, false);            
+            InitMenu(0, false);
             frmImportTerminal.iTab = 2;
             frmImportTerminal.iTabSub = 0;
             frmImportTerminal frm = new frmImportTerminal();
@@ -976,7 +976,7 @@ namespace MIS
             // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 35)) return;
 
-            InitMenu(0, false);            
+            InitMenu(0, false);
             frmImportSIM.iTab = 1;
             frmImportSIM frm = new frmImportSIM();
             frm.Text = "INVENTORY-SIM";
@@ -989,27 +989,27 @@ namespace MIS
             // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 36)) return;
 
-            InitMenu(0, false);           
+            InitMenu(0, false);
             frmImportSIM.iTab = 2;
             frmImportSIM frm = new frmImportSIM();
             frm.Text = "INVENTORY-SIM";
             frm.WindowState = FormWindowState.Normal;
             frm.Show();
         }
-       
+
         private void btnInventoryEntryTerminal_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnInventoryEntrySIM_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnInventoryEntryOther_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnFinance_Click(object sender, EventArgs e)
@@ -1051,7 +1051,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
             frm.Show();
         }
- 
+
         private void btnServicingManualEntryFSR_Click(object sender, EventArgs e)
         {
             // Check User Access Rights
@@ -1066,11 +1066,11 @@ namespace MIS
 
             RegisterForm(frm);
             frm.Show();
-            
+
         }
 
-        
-        
+
+
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -1091,7 +1091,7 @@ namespace MIS
             pnlMenuList.Width = 447;
             pnlMenuList.Height = 727;
         }
-      
+
         private void lvwSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -1125,7 +1125,7 @@ namespace MIS
             // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 30)) return;
 
-            InitMenu(0, false);            
+            InitMenu(0, false);
             frmUser frm = new frmUser();
             frm.Text = "USER";
             frm.WindowState = FormWindowState.Normal;
@@ -1133,19 +1133,19 @@ namespace MIS
             RegisterForm(frm);
             frm.Show();
         }
-        
+
         private void OpenWebDashboard(modelDashboard model)
-        {   
-            string sURL = dbAPI.getAPISSLEnable() + model.IP + clsFunction.sColon + model.Port + model.Folder + clsFunction.sBackSlash + "service_detail.php" + clsFunction.sQuestionMark + 
+        {
+            string sURL = dbAPI.getAPISSLEnable() + model.IP + clsFunction.sColon + model.Port + model.Folder + clsFunction.sBackSlash + "service_detail.php" + clsFunction.sQuestionMark +
                         "username=" + "eFSR Management Solution" + clsFunction.sAnd +
                         "searchby=" + model.SearchBy + clsFunction.sAnd +
-                        "searchvalue=" + "UNCLOSED TICKET|0|0000-00-00|0000-00-00|[NOT%20SPECIFIED]|SUCCESS|RANGE|"+model.ClientID+"|0|0|"+model.DispatchID+"|[NOT SPECIFIED]|[NOT SPECIFIED]|0|[NOT SPECIFIED]&department=[NOT SPECIFIED]&jobtype=Unclosed Ticket&category=COMPLETED&title=Dispatcher&tcount=" + model.TCount + clsFunction.sAnd +
-                        "userkey="+model.UserKey + clsFunction.sAnd +
-                        "client="+model.ClientName + clsFunction.sAnd +
-                        "bank="+model.ClientName + clsFunction.sAnd +
-                        "searchmode="+clsFunction.sNull;
+                        "searchvalue=" + "UNCLOSED TICKET|0|0000-00-00|0000-00-00|[NOT%20SPECIFIED]|SUCCESS|RANGE|" + model.ClientID + "|0|0|" + model.DispatchID + "|[NOT SPECIFIED]|[NOT SPECIFIED]|0|[NOT SPECIFIED]&department=[NOT SPECIFIED]&jobtype=Unclosed Ticket&category=COMPLETED&title=Dispatcher&tcount=" + model.TCount + clsFunction.sAnd +
+                        "userkey=" + model.UserKey + clsFunction.sAnd +
+                        "client=" + model.ClientName + clsFunction.sAnd +
+                        "bank=" + model.ClientName + clsFunction.sAnd +
+                        "searchmode=" + clsFunction.sNull;
 
-            Debug.WriteLine("sURL="+ sURL);
+            Debug.WriteLine("sURL=" + sURL);
 
             Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
 
@@ -1161,7 +1161,7 @@ namespace MIS
             Cursor.Current = Cursors.Default; // Back to normal
 
         }
-        
+
         private void btnImportOthers_Click(object sender, EventArgs e)
         {
             // Check User Access Rights
@@ -1203,7 +1203,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
             frm.Show();
         }
-        
+
         private void btnCustomerServiceReceiveCall_Click(object sender, EventArgs e)
         {
             InitMenu(0, false);
@@ -1220,7 +1220,7 @@ namespace MIS
         {
 
         }
-        
+
         private void btnCustomerServiceCallHistory_Click(object sender, EventArgs e)
         {
             dbFunction.SetMessageBox("It's under construction.", "Oops", clsFunction.IconType.iInformation);
@@ -1258,8 +1258,8 @@ namespace MIS
                         btnJobOrderService_Click(this, e);
                     break;
                 case Keys.M: // Manual FSR
-                    if (e.Control)                   
-                        btnServicingManualEntryFSR_Click(this, e);                    
+                    if (e.Control)
+                        btnServicingManualEntryFSR_Click(this, e);
                     break;
                 case Keys.L: // Close Ticket
                     if (e.Control)
@@ -1288,7 +1288,7 @@ namespace MIS
                 case Keys.A: // Service Archive
                     if (e.Control)
                         btnServicingArchieve_Click(this, e);
-                    break;                    
+                    break;
 
             }
         }
@@ -1297,7 +1297,7 @@ namespace MIS
         {
             if (clsSystemSetting.ClassSystemAutoPulse > 0)
             {
-                iDecrement = iSecondPulse;                
+                iDecrement = iSecondPulse;
 
                 if (!fVisible)
                     tmrPulse.Enabled = false;
@@ -1305,9 +1305,9 @@ namespace MIS
                     tmrPulse.Enabled = true;
             }
             else
-            {                
+            {
                 tmrPulse.Enabled = false;
-            }            
+            }
         }
         private void InitPulseTimer()
         {
@@ -1333,7 +1333,7 @@ namespace MIS
         private void GetWaitingForAssignmentCount()
         {
             // New Installation Request
-            clsSearch.ClassAdvanceSearchValue = clsGlobalVariables.STATUS_AVAILABLE + clsFunction.sPipe + clsGlobalVariables.STATUS_AVAILABLE_DESC;            
+            clsSearch.ClassAdvanceSearchValue = clsGlobalVariables.STATUS_AVAILABLE + clsFunction.sPipe + clsGlobalVariables.STATUS_AVAILABLE_DESC;
             dbAPI.GetViewCount("Search", "IR Status Count", clsSearch.ClassAdvanceSearchValue, "Get Count");
             iCount = 0;
             if (dbAPI.isNoRecordFound() == false)
@@ -1365,7 +1365,7 @@ namespace MIS
         }
 
         private void ServiceRequestForDispatch()
-        {            
+        {
             // Installation
             clsSearch.ClassAdvanceSearchValue = clsGlobalVariables.STATUS_ALLOCATED + clsFunction.sPipe + clsGlobalVariables.STATUS_ALLOCATED_DESC + clsFunction.sPipe + clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC;
             dbAPI.GetViewCount("Search", "IR Status Count", clsSearch.ClassAdvanceSearchValue, "Get Count");
@@ -1587,7 +1587,7 @@ namespace MIS
                     iDecrement = iSecondPulse;
                     return;
                 }
-                    
+
                 iCountPulse++;
                 iDecrement--;
 
@@ -1600,7 +1600,7 @@ namespace MIS
                     GetWaitingForAssignmentCount();
 
                     ServiceRequestForDispatch();
-                    
+
                     ServiceRequestForFSR();
 
                     ServiceRequestCompleted();
@@ -1608,7 +1608,7 @@ namespace MIS
                     NegativeServicing();
 
                     CheckPulse();
-                    
+
                     lblPulse.Text = "Complete";
                     //Cursor.Current = Cursors.Default; // Back to normal
 
@@ -1630,7 +1630,7 @@ namespace MIS
                 if (iCountConn > iSecondConn)
                 {
                     lblConn.Text = "Please wait...";
-                    ServerConnStatus();                    
+                    ServerConnStatus();
                     lblConn.Text = "Complete";
 
                     iCountConn = 0;
@@ -1638,7 +1638,7 @@ namespace MIS
                 }
 
                 lblConn.Text = "Connection: checking in " + iDecrementConn.ToString() + " " + "second(s)";
-            }                
+            }
         }
 
         private void ServerConnStatus()
@@ -1699,18 +1699,18 @@ namespace MIS
                 if (!dbInternet.CheckInternetConnection(clsSystemSetting.ClassSystemNetLink))
                 {
                     lblInternetServer.Text = "OFFLINE";
-                    lblInternetServer.ForeColor = Color.Red;                    
+                    lblInternetServer.ForeColor = Color.Red;
                 }
                 else
                 {
                     lblInternetServer.Text = "ONLINE";
-                    lblInternetServer.ForeColor = Color.Lime;                 
+                    lblInternetServer.ForeColor = Color.Lime;
                 }
             }
             else
             {
                 lblInternetServer.Text = "DISABLED";
-                lblInternetServer.ForeColor = Color.Gray;             
+                lblInternetServer.ForeColor = Color.Gray;
             }
         }
 
@@ -1772,7 +1772,7 @@ namespace MIS
             if (lblTNegativeServicingCount.Text.CompareTo(sPaddedCount) != 0) lblTNegativeServicingCount.Enabled = true;
             if (lblTNegativePulloutCount.Text.CompareTo(sPaddedCount) != 0) lblTNegativePulloutCount.Enabled = true;
             if (lblTNegativeReplacementCount.Text.CompareTo(sPaddedCount) != 0) lblTNegativeReplacementCount.Enabled = true;
-            if (lblTNegativeReprogrammingCount.Text.CompareTo(sPaddedCount) != 0) lblTNegativeReprogrammingCount.Enabled = true;            
+            if (lblTNegativeReprogrammingCount.Text.CompareTo(sPaddedCount) != 0) lblTNegativeReprogrammingCount.Enabled = true;
 
             if (lblCOResolvedByPhone.Text.CompareTo(sPaddedCount) != 0) lblCOResolvedByPhone.Enabled = true;
             if (lblCOForServicing.Text.CompareTo(sPaddedCount) != 0) lblCOForServicing.Enabled = true;
@@ -1791,7 +1791,7 @@ namespace MIS
             if (lblTServiceCountComplete.Text.CompareTo(sPaddedCount) != 0) lblTServiceCountComplete.Enabled = true;
             if (lblTCancelledCountComplete.Text.CompareTo(sPaddedCount) != 0) lblTCancelledCountComplete.Enabled = true;
         }
-        
+
         private void InitSkinColor()
         {
             try
@@ -1824,7 +1824,7 @@ namespace MIS
                 gbAdministrative.BackColor = gbOperation.BackColor = gbHelpdesk.BackColor = gbManagement.BackColor = gbOther.BackColor = Color.Black;
             }
         }
-        
+
         private void btnExpenses_Click(object sender, EventArgs e)
         {
             // Check User Access Rights
@@ -1837,7 +1837,7 @@ namespace MIS
 
         private void btnToolsERMBilling_Click(object sender, EventArgs e)
         {
-            InitMenu(0, false);            
+            InitMenu(0, false);
             frmImportERM frmERM = new frmImportERM();
             frmERM.ShowDialog();
 
@@ -1994,7 +1994,7 @@ namespace MIS
         {
             if (!ShowMenuInputBox()) return;
 
-            Debug.WriteLine("sInput" + sInput);            
+            Debug.WriteLine("sInput" + sInput);
 
             ParseAndWriteToRegistryExpiryParameter(sInput);
         }
@@ -2124,7 +2124,7 @@ namespace MIS
         {
             //imgLogo_Click(this, e);
         }
-        
+
         private void btnResolution_Click(object sender, EventArgs e)
         {
             // Check User Access Rights
@@ -2143,7 +2143,7 @@ namespace MIS
             gbAdministrative.Visible = isVisible;
             gbOperation.Visible = isVisible;
             gbHelpdesk.Visible = isVisible;
-            gbManagement.Visible = isVisible;            
+            gbManagement.Visible = isVisible;
         }
 
         private void btnEmployee_Click(object sender, EventArgs e)
@@ -2155,7 +2155,7 @@ namespace MIS
             frm.WindowState = FormWindowState.Normal;
             frm.Show();
         }
-        
+
         private void btnToolsLeave_Click(object sender, EventArgs e)
         {
             InitMenu(0, false);
@@ -2247,7 +2247,7 @@ namespace MIS
             frm.Show();
         }
 
-        
+
         private void bunifuFlatButton34_Click(object sender, EventArgs e)
         {
 
@@ -2255,7 +2255,7 @@ namespace MIS
 
         private void btnViewTimeSheet_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void pnlSubMenuAdministrative_Paint(object sender, PaintEventArgs e)
@@ -2339,7 +2339,7 @@ namespace MIS
             RegisterForm(frm);
             frm.Show();
         }
-        
+
         private void btnViewReport_Click(object sender, EventArgs e)
         {
             // Check User Access Rights
@@ -2402,10 +2402,10 @@ namespace MIS
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 25)) return;
 
             InitMenu(0, false);
-            dbAPI.ResetAdvanceSearch();     
+            dbAPI.ResetAdvanceSearch();
             frmServiceJobOrder.sHeader = "JOB ORDER";
             frmServiceJobOrder.fAutoLoadData = false;
-            frmServiceJobOrder.fModify = false;    
+            frmServiceJobOrder.fModify = false;
             frmServiceJobOrder frm = new frmServiceJobOrder();
             frm.Text = "JOB ORDER";
             frm.WindowState = FormWindowState.Normal;
@@ -2435,7 +2435,7 @@ namespace MIS
             // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 31)) return;
 
-            InitMenu(0, false);           
+            InitMenu(0, false);
             frmImportTerminal frm = new frmImportTerminal();
             frm.Text = "INVENTORY-TERMINAL";
             frm.WindowState = FormWindowState.Normal;
@@ -2472,10 +2472,10 @@ namespace MIS
             RegisterForm(frm);
             frm.Show();
         }
-        
+
         private void btnPOSRentalCreateInvoice_Click(object sender, EventArgs e)
         {
-            InitMenu(0, false);          
+            InitMenu(0, false);
             frmPRCreateInvoice frm = new frmPRCreateInvoice();
             frm.Text = "POS RENTAL - CREATE INVOICE";
             frm.WindowState = FormWindowState.Normal;
@@ -2583,13 +2583,13 @@ namespace MIS
                     iLineNo++;
                     string pTemp = dbFunction.AddBracketStartEnd(iLineNo.ToString()) + dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_FullName) + clsDefines.gPipe +
                                    dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_PublishVersion) + Environment.NewLine; // + clsDefines.gPipe +
-                                   //dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_LogTime) + Environment.NewLine;
-                    
+                                                                                                                                               //dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_LogTime) + Environment.NewLine;
+
                     lblWhoIsOnline.Text += pTemp;
-                    
+
                     i++;
                 }
-                
+
             }
 
             Cursor.Current = Cursors.Default;
@@ -2622,7 +2622,7 @@ namespace MIS
                     iLineNo++;
                     string pTemp = dbFunction.AddBracketStartEnd(iLineNo.ToString()) + dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_FullName) + clsDefines.gPipe +
                                    dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_MobileVersion) + Environment.NewLine; // + clsDefines.gPipe +
-                                   //dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_FSRTime) + Environment.NewLine;
+                                                                                                                                              //dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_FSRTime) + Environment.NewLine;
 
                     lblWhoIsOnlineFSR.Text += pTemp;
 
@@ -2724,7 +2724,7 @@ namespace MIS
 
         private void btnAutomate_Click(object sender, EventArgs e)
         {
-                                 
+
         }
 
         private void TimerDashboardElapsed(object sender, ElapsedEventArgs e)
@@ -2738,11 +2738,11 @@ namespace MIS
             if (_timer.Enabled)
             {
                 // get count pending fsr
-                UpdateLabel(lblPendingFSR, clsFunction.sZero);                
-                dbAPI.GetViewCount("Search", "Generate FSR Count", "", "Get Count");                
+                UpdateLabel(lblPendingFSR, clsFunction.sZero);
+                dbAPI.GetViewCount("Search", "Generate FSR Count", "", "Get Count");
                 if (dbAPI.isNoRecordFound() == false)
                     UpdateLabel(lblPendingFSR, clsTerminal.ClassTerminalCount.ToString());
-                
+
                 // get count failed service
                 UpdateLabel(lblFailedService, clsFunction.sZero);
                 dbAPI.GetViewCount("Search", "Failed Service Count", "", "Get Count");
@@ -2761,8 +2761,8 @@ namespace MIS
                 UpdateLabel(lblTServicing, TServicing);
                 UpdateLabel(lblTReplacement, TReplacement);
                 UpdateLabel(lblTPullout, TPullout);
-                
-            }            
+
+            }
         }
 
         private void UpdateLabel(Label lbl, string message)
@@ -2777,17 +2777,17 @@ namespace MIS
                 // Direct update if already on the UI thread
                 lbl.Text = message;
             }
-           
+
         }
 
         private void loadRegionSummary(ref string TInstallation, ref string TReprogramming, ref string TServicing, ref string TReplacement, ref string TPullout)
         {
-            int i  = 0;
+            int i = 0;
             string firstdate = "";
             string lastdate = "";
 
-            dbFunction.getCurrentFirstAndLastDate(ref firstdate, ref lastdate);            
-            dbAPI.ExecuteAPI("GET", "View", "Region Service Summary",  clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC + clsFunction.sPipe + firstdate + clsFunction.sPipe + lastdate, "Advance Detail", "", "ViewAdvanceDetail");
+            dbFunction.getCurrentFirstAndLastDate(ref firstdate, ref lastdate);
+            dbAPI.ExecuteAPI("GET", "View", "Region Service Summary", clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC + clsFunction.sPipe + firstdate + clsFunction.sPipe + lastdate, "Advance Detail", "", "ViewAdvanceDetail");
             if (!clsGlobalVariables.isAPIResponseOK) return;
             if (dbAPI.isNoRecordFound() == false)
             {
@@ -2802,7 +2802,7 @@ namespace MIS
 
                     i++;
 
-                }                
+                }
             }
         }
 
@@ -2898,7 +2898,7 @@ namespace MIS
         private void loadUnclosedTicketList()
         {
             int lineno = 0;
-            
+
             lvwList.Items.Clear();
 
             mList = _mServicingDetailController.getDetailList("Unclosed Ticket List", "");
@@ -3000,7 +3000,7 @@ namespace MIS
 
                     OpenWebDashboard(model);
                 }
-            }            
+            }
         }
 
         private void btnServiceMaintenance_Click(object sender, EventArgs e)
@@ -3009,7 +3009,7 @@ namespace MIS
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 48)) return;
 
             InitMenu(0, false);
-            dbAPI.ResetAdvanceSearch();            
+            dbAPI.ResetAdvanceSearch();
             frmHelpDesk frm = new frmHelpDesk();
             frm.Text = "HELPDESK";
             frm.WindowState = FormWindowState.Normal;
@@ -3045,7 +3045,7 @@ namespace MIS
             RegisterForm(frm);
             frm.Show();
         }
-        
+
         private void loadWhosOnlineDashboard()
         {
             int iLineNo = 0;
@@ -3066,8 +3066,8 @@ namespace MIS
                 {
                     // Add to List
                     iLineNo++;
-                    string pTemp = dbFunction.AddBracketStartEnd(iLineNo.ToString()) + dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_FullName) + Environment.NewLine; 
-                               
+                    string pTemp = dbFunction.AddBracketStartEnd(iLineNo.ToString()) + dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_FullName) + Environment.NewLine;
+
                     lblWhoIsOnlineDashboard.Text += pTemp;
 
                     i++;
@@ -3116,7 +3116,7 @@ namespace MIS
             foreach (Form form in openForms)
             {
                 Debug.WriteLine($"Open: {form.Name}, Visible: {form.Visible}, Disposed: {form.IsDisposed}");
-                
+
                 if (!excludeSet.Contains(form))
                 {
                     if (form.InvokeRequired)
@@ -3173,7 +3173,7 @@ namespace MIS
                 Debug.WriteLine($"Error closing form {form.Name}: {ex.Message}");
             }
         }
-        
+
         private void initShortCutKeyboard()
         {
             lblShortCutKeyboard.Text =
@@ -3189,11 +3189,11 @@ namespace MIS
                                     "CTRL+H > Helpdesk\n" +
                                     "CTRL+E > Expenses-FSR\n" +
                                     "CTRL+Q > QR Delivery\n" +
-                                    "CTRL+A > Service Archive\n" +
+                                     "CTRL+A > Service Archive\n" +
                                     "ESC    > Close Window / Form";
 
         }
-        
+
         private void btnSwitchBankCode_Click(object sender, EventArgs e)
         {
             // Check Application Version
@@ -3238,9 +3238,9 @@ namespace MIS
 
                         lineNo++;
                     }
-                }                                
+                }
             }
-            
+
         }
 
         private void lvwBank_DoubleClick(object sender, EventArgs e)
@@ -3358,7 +3358,7 @@ namespace MIS
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 55)) return;
 
             InitMenu(0, false);
-            dbAPI.ResetAdvanceSearch();            
+            dbAPI.ResetAdvanceSearch();
             frmServiceArchive frm = new frmServiceArchive();
             frm.Text = "SERVICE-ARCHIVE";
             frm.WindowState = FormWindowState.Normal;
@@ -3414,7 +3414,7 @@ namespace MIS
             // Check User Access Rights
             //if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 48)) return;
 
-            InitMenu(0, false);            
+            InitMenu(0, false);
             frmDiagService frm = new frmDiagService();
             frm.Text = "SERVICE DIAGNOSTIC";
             frm.WindowState = FormWindowState.Normal;
@@ -3462,7 +3462,7 @@ namespace MIS
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 57)) return;
 
             InitMenu(0, false);
-            frmServiceExpensesFSR frm = new frmServiceExpensesFSR();            
+            frmServiceExpensesFSR frm = new frmServiceExpensesFSR();
             frm.Text = "EXPENSES - FSR";
             frm.WindowState = FormWindowState.Normal;
 
@@ -3474,7 +3474,7 @@ namespace MIS
         private void InitializeMinimizedFormsPanel()
         {
             lvwFormMinimized.View = View.Details;
-            lvwFormMinimized.FullRowSelect = true;            
+            lvwFormMinimized.FullRowSelect = true;
             lvwFormMinimized.MultiSelect = false;
 
             // Background
@@ -3696,6 +3696,18 @@ namespace MIS
 
             RegisterForm(frm);
             frm.Show();
-        }        
+        }
+
+        // Opens the Bank Template Generator from the MIS servicing menu.
+        private void btnBankTemplateGen_Click(object sender, EventArgs e)
+        {
+            InitMenu(0, false);
+            frmBankTemplateGen frm = new frmBankTemplateGen();
+            frm.Text = "BANK TEMPLATE GEN";
+            frm.WindowState = FormWindowState.Normal;
+
+            RegisterForm(frm);
+            frm.Show();
+        }
     }
 }

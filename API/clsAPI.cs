@@ -25,10 +25,10 @@ namespace MIS
 
         private clsINI dbINIAPI;
         private clsINI dbINISystem;
-        private clsAPI dbAPI;        
+        private clsAPI dbAPI;
         private clsFile dbDump;
-        private clsFunction dbFunction;    
-        
+        private clsFunction dbFunction;
+
         private int iAPIResponseCounter;
 
         // Controller
@@ -43,13 +43,13 @@ namespace MIS
         public enum JobTypeStatus
         {
             iPending, iReProcessing, iReadyToProcess, iProcessing, iCompleted
-        }        
+        }
 
         public enum ServiceType
         {
             iInstalled, iNegative, iReprogrammed, iPullOut, iDiagnostic, iReplacement, iServicing
         }
-        
+
         public enum ParticularSearchType
         {
             iMerchant, iFE, iSP, iClient, iSupplier
@@ -148,7 +148,7 @@ namespace MIS
                 isHasOutput = true;
                 p_outResult = "@p_outID";
             }
-            
+
             //Debug.WriteLine("isHasOutput=" + isHasOutput);
 
             Debug.WriteLine("--Stored Procedure--");
@@ -157,7 +157,7 @@ namespace MIS
 
             if (isHasOutput)
                 Debug.WriteLine("SELECT " + p_outResult + ";");
-        
+
             dbDump.WriteAPILog(0, "Stored Procedure: " + spString);
 
             try
@@ -168,10 +168,10 @@ namespace MIS
                 switch (Action)
                 {
                     case "ViewAdvanceFSR":
-                        apiPath = sAPIPath + "?api_key=" + api_key + 
-                                  "&p_StatementType=" + clsSearch.ClassStatementType + 
-                                  "&p_SearchBy=" + clsSearch.ClassSearchBy + 
-                                  "&p_SearchValue=" + clsSearch.ClassSearchValue +                                  
+                        apiPath = sAPIPath + "?api_key=" + api_key +
+                                  "&p_StatementType=" + clsSearch.ClassStatementType +
+                                  "&p_SearchBy=" + clsSearch.ClassSearchBy +
+                                  "&p_SearchValue=" + clsSearch.ClassSearchValue +
                                   "&action=" + Action;
                         break;
                     case "ViewAdvanceTerminal":
@@ -182,7 +182,7 @@ namespace MIS
                             apiPath = sAPIPath + "?api_key=" + api_key +
                                   "&p_StatementType=" + clsSearch.ClassStatementType +
                                   "&p_SearchBy=" + clsSearch.ClassSearchBy +
-                                  "&p_SearchValue=" + clsSearch.ClassSearchValue +                                  
+                                  "&p_SearchValue=" + clsSearch.ClassSearchValue +
                                   "&action=" + Action;
                         }
                         else
@@ -198,7 +198,7 @@ namespace MIS
                                   "&p_TerminalStatus=" + clsSearch.ClassTerminalStatusType +
                                   "&action=" + Action;
                         }
-                        
+
                         break;
                     case "ViewAdvanceParticular":
 
@@ -212,7 +212,7 @@ namespace MIS
                             apiPath = sAPIPath + "?api_key=" + api_key +
                                   "&p_StatementType=" + clsSearch.ClassStatementType +
                                   "&p_SearchBy=" + clsSearch.ClassSearchBy +
-                                  "&p_SearchValue=" + clsSearch.ClassSearchValue +                                  
+                                  "&p_SearchValue=" + clsSearch.ClassSearchValue +
                                   "&action=" + Action;
                         }
                         else
@@ -224,13 +224,13 @@ namespace MIS
                                   "&p_ParticularName=" + clsSearch.ClassParticularName +
                                   "&action=" + Action;
                         }
-                        
+
                         break;
                     case "ViewAdvanceIR":
                         apiPath = sAPIPath + "?api_key=" + api_key +
                                   "&p_StatementType=" + clsSearch.ClassStatementType +
                                   "&p_SearchBy=" + clsSearch.ClassSearchBy +
-                                  "&p_SearchValue=" + clsSearch.ClassSearchValue +                                  
+                                  "&p_SearchValue=" + clsSearch.ClassSearchValue +
                                   "&action=" + Action;
                         break;
                     case "ViewAdvanceTA":
@@ -241,21 +241,21 @@ namespace MIS
                                   "&action=" + Action;
                         break;
                     default:
-                        apiPath = sAPIPath + "?api_key=" + api_key + 
-                                  "&p_StatementType=" + clsSearch.ClassStatementType + 
-                                  "&p_SearchBy=" + clsSearch.ClassSearchBy + 
-                                  "&p_SearchValue=" + clsSearch.ClassSearchValue + 
-                                  "&action=" + Action;                        
+                        apiPath = sAPIPath + "?api_key=" + api_key +
+                                  "&p_StatementType=" + clsSearch.ClassStatementType +
+                                  "&p_SearchBy=" + clsSearch.ClassSearchBy +
+                                  "&p_SearchValue=" + clsSearch.ClassSearchValue +
+                                  "&action=" + Action;
                         break;
                 }
-                
+
                 sAPI = baseAddress + apiPath;
 
                 //Debug.WriteLine("sAPI=" + sAPI);
                 //Debug.WriteLine(sAPI);
                 Debug.WriteLine("----------------------------------------------------------------");
                 Debug.WriteLine("[APIGETRequest]");
-                Debug.WriteLine("EndPoint=" + sAPI);              
+                Debug.WriteLine("EndPoint=" + sAPI);
                 Debug.WriteLine("----------------------------------------------------------------");
 
                 clsGlobalVariables.strJSONRequest = sAPI;
@@ -264,7 +264,7 @@ namespace MIS
 
                 if (clsSystemSetting.ClassSystemPromptAPIRequest > 0)
                     MessageBox.Show(clsGlobalVariables.strJSONRequest, "APIGETRequest: API Request", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(sAPI);
                 request.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(sAPIAuthUser + ":" + sAPIAuthPassword));
                 request.Method = sMethod;
@@ -282,7 +282,7 @@ namespace MIS
 
                 // Dump Request Log
                 dbDump.WriteAPILog(0, clsGlobalVariables.strJSONRequest);
-                
+
             }
             catch (Exception ex)
             {
@@ -312,7 +312,7 @@ namespace MIS
                     }
                 }
             }
-                                    
+
             //Debug.WriteLine("--APIGETRequest==>End--");
         }
 
@@ -332,7 +332,7 @@ namespace MIS
             string sContentBody = "";
             string sRequest = "";
             string sResponse = "";
-            
+
             //Debug.WriteLine("--APIPUTRequest==>Start--");
 
             //Debug.WriteLine("sMethod="+ sMethod);
@@ -345,7 +345,7 @@ namespace MIS
 
             dbDump = new clsFile();
             dbDump.WriteAPILog(0, "Stored Procedure: " + spString);
-            
+
             try
             {
                 baseAddress = getAPISSLEnable() + sAPIURL;
@@ -412,14 +412,14 @@ namespace MIS
                 sRequest = "Method : " + sMethod + "\n" +
                            "StatementType : " + StatementType + "\n" +
                            "Action : " + Action + "\n\n" +
-                           "Content: " + sContentBody + "\n" + 
+                           "Content: " + sContentBody + "\n" +
                            "API " + "[" + sAPI + "]" + "\n";
 
                 Debug.WriteLine("sRequest=" + sRequest);
 
                 Debug.WriteLine("----------------------------------------------------------------");
                 Debug.WriteLine("[APIPUTRequest]");
-                Debug.WriteLine("EndPoint="+sAPI);
+                Debug.WriteLine("EndPoint=" + sAPI);
                 Debug.WriteLine("Content=" + sContentBody);
                 Debug.WriteLine("----------------------------------------------------------------");
 
@@ -442,13 +442,13 @@ namespace MIS
                 request.KeepAlive = true;
 
                 // Include Content
-                ASCIIEncoding encoding = new ASCIIEncoding();                
+                ASCIIEncoding encoding = new ASCIIEncoding();
                 Byte[] bytes = encoding.GetBytes(sContentBody);
 
                 Stream newStream = request.GetRequestStream();
                 newStream.Write(bytes, 0, bytes.Length);
                 newStream.Close();
-                
+
                 WebResponse webResponse = request.GetResponse();
                 Stream webStream = webResponse.GetResponseStream();
                 StreamReader responseReader = new StreamReader(webStream);
@@ -492,7 +492,7 @@ namespace MIS
             string sContentBody = "";
             string sRequest = "";
             string sResponse = "";
-            
+
             //Debug.WriteLine("--APIDELETERequest==>Start--");
 
             //Debug.WriteLine("sMethod="+ sMethod);
@@ -505,7 +505,7 @@ namespace MIS
 
             dbDump = new clsFile();
             dbDump.WriteAPILog(0, "Stored Procedure: " + spString);
-            
+
             try
             {
                 baseAddress = getAPISSLEnable() + sAPIURL;
@@ -515,7 +515,7 @@ namespace MIS
 
                 // Set Content Type
                 switch (Action)
-                {                    
+                {
                     case "DeleteCollectionDetail":
                         sContentBody = clsContent.SetDeleteCollectionDetailContentData(clsSearch.ClassStatementType, clsSearch.ClassSearchBy, clsSearch.ClassSearchValue, clsSearch.ClassMaintenanceType);
                         break;
@@ -618,7 +618,7 @@ namespace MIS
             Debug.WriteLine("--Stored Procedure--");
 
             if (SearchBy.Equals("TimeSheet"))
-                spString = "CALL sp" + Action + "(" + "\"" + dbFunction.CheckAndSetStringValue(StatementType) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(SearchBy) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(SearchValue) + "\""  + "," + "\"" + dbFunction.CheckAndSetStringValue(MaintenanceType) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(SQL) + "\"" + "," + p_outErrorMessage + "," + p_outLastInsertID + ")" + ";";
+                spString = "CALL sp" + Action + "(" + "\"" + dbFunction.CheckAndSetStringValue(StatementType) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(SearchBy) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(SearchValue) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(MaintenanceType) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(SQL) + "\"" + "," + p_outErrorMessage + "," + p_outLastInsertID + ")" + ";";
             else
                 spString = "CALL sp" + Action + "(" + "\"" + dbFunction.CheckAndSetStringValue(StatementType) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(SearchBy) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(SearchValue) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(MaintenanceType) + "\"" + "," + "\"" + dbFunction.CheckAndSetStringValue(SQL) + ")" + ";";
 
@@ -627,7 +627,7 @@ namespace MIS
 
             dbDump = new clsFile();
             dbDump.WriteAPILog(0, "Stored Procedure: " + spString);
-            
+
             try
             {
                 baseAddress = getAPISSLEnable() + sAPIURL;
@@ -678,7 +678,7 @@ namespace MIS
                 Stream newStream = request.GetRequestStream();
                 newStream.Write(bytes, 0, bytes.Length);
                 newStream.Close();
-                
+
                 try
                 {
                     WebResponse webResponse = request.GetResponse();
@@ -689,15 +689,30 @@ namespace MIS
                 catch (WebException ex)
                 {
                     if (ex.Status == WebExceptionStatus.Timeout)
-                    {                        
+                    {
                         MessageBox.Show("API Response Timeout.", "APIPOSTRequest: API Response", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        string message = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
+                        string message = ex.Message;
+
+                        if (ex.Response != null)
+                        {
+                            using (Stream responseStream = ex.Response.GetResponseStream())
+                            {
+                                if (responseStream != null)
+                                {
+                                    using (StreamReader responseReader = new StreamReader(responseStream))
+                                    {
+                                        message = responseReader.ReadToEnd();
+                                    }
+                                }
+                            }
+                        }
+
                         MessageBox.Show(message, "APIPOSTRequest: API Response" + "\nError Message:\n" + p_outErrorMessage, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    
+
                 }
 
             }
@@ -733,7 +748,7 @@ namespace MIS
         {
             clsInternet dbInternet = new clsInternet();
             string pParseDelimetedString = "";
-            
+
             // Check internet connection
             if (clsSystemSetting.ClassSystemCheckNetLink > 0)
             {
@@ -758,7 +773,7 @@ namespace MIS
             dbAPI = new clsAPI();
 
             dbDump = new clsFile();
-            
+
             clsGlobalVariables.sAPIResponseCode = "";
             clsGlobalVariables.isAPIResponseOK = false;
             clsGlobalVariables.strJSONRequest = "";
@@ -772,8 +787,8 @@ namespace MIS
             clsSearch.ClassSearchValue = SearchValue;
             clsSearch.ClassSQL = SQL;
             clsSearch.ClassAction = Action;
-            
-            string sLog =   "\n" +
+
+            string sLog = "\n" +
                             clsFunction.sLineSeparator + "\n" +
                             "--ExecuteAPI--" + "\n" +
                             clsFunction.sLineSeparator + "\n" +
@@ -804,10 +819,10 @@ namespace MIS
             dbDump.WriteAPILog(0, "ExecuteAPI Log" + sLog);
 
             dbFunction.GetRequestTime("Method=" + dbFunction.AddBracketStartEnd(APIMethod) +
-                                                                    ",Action="+dbFunction.AddBracketStartEnd(Action) +
+                                                                    ",Action=" + dbFunction.AddBracketStartEnd(Action) +
                                                                     ",StatementType=" + dbFunction.AddBracketStartEnd(StatementType) +
-                                                                    ",SearchBy=" +dbFunction.AddBracketStartEnd(SearchBy) + 
-                                                                    ",MaintenanceType="+dbFunction.AddBracketStartEnd(MaintenanceType));
+                                                                    ",SearchBy=" + dbFunction.AddBracketStartEnd(SearchBy) +
+                                                                    ",MaintenanceType=" + dbFunction.AddBracketStartEnd(MaintenanceType));
             try
             {
                 // GET - Search / View
@@ -871,7 +886,7 @@ namespace MIS
                 clsGlobalVariables.strException = ex.ToString();
                 PromptAPIMessage(true, clsGlobalVariables.API_RESPONSE_ERROR);
             }
-            
+
             ValidateResponse Response = new ValidateResponse();
 
             dbFunction.GetResponseTime("Method=" + dbFunction.AddBracketStartEnd(APIMethod) +
@@ -902,7 +917,7 @@ namespace MIS
             }
 
             try
-            {             
+            {
                 // Validate Response
                 Response = JsonConvert.DeserializeObject<ValidateResponse>(clsGlobalVariables.strJSONResponse);
 
@@ -913,21 +928,21 @@ namespace MIS
                     dbDump.WriteAPILog(2, "ExecuteAPI Log Response 1->" + clsGlobalVariables.strJSONResponse);
 
                     clsGlobalVariables.sAPIResponseCode = clsGlobalVariables.API_RESPONSE_ERROR;
-                    PromptAPIMessage(true, clsGlobalVariables.API_RESPONSE_ERROR);                    
+                    PromptAPIMessage(true, clsGlobalVariables.API_RESPONSE_ERROR);
 
                     iAPIResponseCounter++;
-                    
+
                     return;
                 }
-                
+
             }
             catch (Exception ex)
             {
                 dbDump.WriteSysytemLog($"API FAILED...Message[{ex.Message}]"); // add log
 
                 dbDump.WriteAPILog(2, "ExecuteAPI Log Excetion 1->" + ex.Message);
-                
-                Debug.WriteLine("[1]ExecuteAPI encountered error "+ex.Message);
+
+                Debug.WriteLine("[1]ExecuteAPI encountered error " + ex.Message);
                 clsGlobalVariables.isAPIResponseOK = false;
                 clsGlobalVariables.ExceptionMessage = ex.Message;
                 clsGlobalVariables.sAPIResponseCode = clsGlobalVariables.UNDEFINED_ERROR;
@@ -962,22 +977,22 @@ namespace MIS
             {
                 dbDump.WriteAPILog(1, "ExecuteAPI Log Response->" + clsGlobalVariables.strJSONResponse);
 
-                PromptAPIMessage(true, clsGlobalVariables.sAPIResponseCode);               
+                PromptAPIMessage(true, clsGlobalVariables.sAPIResponseCode);
 
                 if (clsGlobalVariables.sAPIResponseCode.CompareTo(clsGlobalVariables.SUCCESS_RESPONSE) != 0)
                     return;
             }
             else
             {
-                PromptAPIMessage(true, clsGlobalVariables.sAPIResponseCode);                
+                PromptAPIMessage(true, clsGlobalVariables.sAPIResponseCode);
                 return;
             }
 
             try
-            {                
+            {
                 if (Response.resp_code.CompareTo(clsGlobalVariables.SUCCESS_RESPONSE) != 0)
                 {
-                    clsGlobalVariables.isAPIResponseOK = false;                   
+                    clsGlobalVariables.isAPIResponseOK = false;
 
                     //MessageBox.Show(Response.message);
                 }
@@ -5586,7 +5601,7 @@ namespace MIS
                                                 SearchBy.Equals("Zoning Lookup") ||
                                                 SearchBy.Equals("Zoning List") ||
                                                 SearchBy.Equals("Location List") ||
-                                                SearchBy.Equals("Incentives Service Detail") || 
+                                                SearchBy.Equals("Incentives Service Detail") ||
                                                 SearchBy.Equals("Zoning Alias List") ||
                                                 SearchBy.Equals("Merchant Service Summary") ||
                                                 SearchBy.Equals("Service Diagnostic Summary") ||
@@ -5594,7 +5609,7 @@ namespace MIS
                                                 SearchBy.Equals("Terminal Inventory Diagnostic Summary") ||
                                                 SearchBy.Equals("Terminal Inventory Diagnostic Detail") ||
                                                 SearchBy.Equals("SIM Inventory Diagnostic Summary") ||
-                                                SearchBy.Equals("SIM Inventory Diagnostic Detail") ||                                                
+                                                SearchBy.Equals("SIM Inventory Diagnostic Detail") ||
                                                 SearchBy.Equals("Expenses Transaction Detail") ||
                                                 SearchBy.Equals("Expense Reference List") ||
                                                 SearchBy.Equals("Expense List") ||
@@ -5682,7 +5697,7 @@ namespace MIS
                         clsGlobalVariables.sAPIResponseCode = clsGlobalVariables.API_RESPONSE_ERROR;
                         clsGlobalVariables.strException = ex.ToString();
                         PromptAPIMessage(true, clsGlobalVariables.API_RESPONSE_ERROR);
-                    }                
+                    }
                 }
             }
             catch (Exception ex)
@@ -5735,14 +5750,14 @@ namespace MIS
                 clsSearch.ClassDockID = clsTerminal.ClassTerminalID;
                 clsSearch.ClassDockSN = clsTerminal.ClassTerminalSN;
 
-            }                
+            }
             else
                 clsTerminal.RecordFound = false;
 
         }
 
         public void GetMerchantInfo(string StatementType, string SearchBy, string SearchValue)
-        {           
+        {
             clsSearch.ClassStatementType = StatementType;
             clsSearch.ClassSearchBy = SearchBy;
             clsSearch.ClassSearchValue = SearchValue;
@@ -5750,12 +5765,12 @@ namespace MIS
             ExecuteAPI("GET", StatementType, SearchBy, SearchValue, "Particular", "", "ViewAdvanceParticular");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
-            
+
         }
 
         public void GetIRInfo(string StatementType, string SearchBy, string SearchValue)
         {
-          
+
             clsSearch.ClassStatementType = StatementType;
             clsSearch.ClassSearchBy = SearchBy;
             clsSearch.ClassSearchValue = SearchValue;
@@ -5763,17 +5778,17 @@ namespace MIS
             ExecuteAPI("GET", StatementType, SearchBy, SearchValue, "IR", "", "ViewAdvanceIR");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
-            
+
         }
 
         public void GetTAInfo()
         {
             Debug.WriteLine("--GetTAInfo--");
-            Debug.WriteLine("clsSearch.ClassSearchValue="+ clsSearch.ClassSearchValue);
+            Debug.WriteLine("clsSearch.ClassSearchValue=" + clsSearch.ClassSearchValue);
 
-            int i = 0;            
-            
-            ExecuteAPI("GET", "View", "Advance TA", clsSearch.ClassSearchValue, "TA", "", "ViewAdvanceTA");            
+            int i = 0;
+
+            ExecuteAPI("GET", "View", "Advance TA", clsSearch.ClassSearchValue, "TA", "", "ViewAdvanceTA");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
@@ -5839,12 +5854,12 @@ namespace MIS
 
                     i++;
 
-                }               
-            }            
+                }
+            }
         }
 
         public void GetServiceTypeInfo()
-        {            
+        {
             ExecuteAPI("GET", "Search", "Info", clsSearch.ClassAdvanceSearchValue, "Service Type", "", "ViewServiceType");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
@@ -5855,12 +5870,12 @@ namespace MIS
                 clsSearch.ClassServiceTypeDescription = clsServiceType.ClassDescription;
                 clsSearch.ClassServiceTypeCode = clsServiceType.ClassCode;
                 clsSearch.ClassServiceTypeStatus = clsServiceType.ClassServiceStatus;
-                clsSearch.ClassServiceTypeStatusDescription = clsServiceType.ClassStatusDescription;                
+                clsSearch.ClassServiceTypeStatusDescription = clsServiceType.ClassStatusDescription;
             }
 
         }
         public void GetOtherServiceTypeInfo(string StatementType, string SearchBy, string SearchValue)
-        {            
+        {
             clsSearch.ClassStatementType = StatementType;
             clsSearch.ClassSearchBy = SearchBy;
             clsSearch.ClassSearchValue = SearchValue;
@@ -5872,7 +5887,7 @@ namespace MIS
         }
 
         public void GetSIMInfo(string sSIMID, string sSIMSN)
-        {            
+        {
             clsSearch.ClassAdvanceSearchValue = sSIMID + clsFunction.sPipe + sSIMSN;
 
             Debug.WriteLine("GetSIMInfo::" + "clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
@@ -5884,7 +5899,7 @@ namespace MIS
             if (isNoRecordFound() == false)
                 clsSIM.RecordFound = true;
             else
-                clsSIM.RecordFound = false;            
+                clsSIM.RecordFound = false;
         }
 
         public void GetServicingInfo(string sServiceNo)
@@ -5893,7 +5908,7 @@ namespace MIS
 
             clsSearch.ClassAdvanceSearchValue = sServiceNo + clsFunction.sPipe +
                 clsFunction.sZero + clsFunction.sPipe +
-                clsSearch.ClassServiceStatus.ToString() + clsFunction.sPipe + 
+                clsSearch.ClassServiceStatus.ToString() + clsFunction.sPipe +
                 clsSearch.ClassServiceStatusDescription + clsFunction.sPipe +
                 clsFunction.sZero + clsFunction.sPipe +
                 clsFunction.sZero + clsFunction.sPipe +
@@ -5908,7 +5923,7 @@ namespace MIS
             {
                 while (clsArray.ServiceNo.Length > i)
                 {
-                 
+
                     clsServicingDetail.ClassServiceNo = int.Parse(clsArray.ServiceNo[i].ToString());
                     clsServicingDetail.ClassServiceDateTime = clsArray.ServiceDateTime[i];
                     clsServicingDetail.ClassCounterNo = clsArray.CounterNo[i];
@@ -5934,7 +5949,7 @@ namespace MIS
 
                     i++;
 
-                }             
+                }
             }
         }
 
@@ -6005,7 +6020,7 @@ namespace MIS
                     clsServicingDetail.ClassDockSN = clsArray.DockSN[i];
                     clsServicingDetail.ClassRepTerminalSNStatus = int.Parse(clsArray.RepTerminalSNStatus[i].ToString());
                     clsServicingDetail.ClassRepSIMSNStatus = int.Parse(clsArray.RepSIMSNStatus[i].ToString());
-                    clsServicingDetail.ClassRepDockSNStatus = int.Parse(clsArray.RepDockSNStatus[i].ToString());                    
+                    clsServicingDetail.ClassRepDockSNStatus = int.Parse(clsArray.RepDockSNStatus[i].ToString());
 
                     i++;
 
@@ -6041,7 +6056,7 @@ namespace MIS
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
             if (isNoRecordFound()) return;
-            
+
             while (clsArray.SysID.Length > i)
             {
                 clsSystemSetting.ClassSystemID = int.Parse(clsArray.SysID[i]);
@@ -6051,13 +6066,13 @@ namespace MIS
                 i++;
             }
 
-            Debug.WriteLine("ClassSystemID="+ clsSystemSetting.ClassSystemID);
+            Debug.WriteLine("ClassSystemID=" + clsSystemSetting.ClassSystemID);
             Debug.WriteLine("ClassSystemPublishDate=" + clsSystemSetting.ClassSystemPublishDate);
             Debug.WriteLine("ClassSystemPublishVersion=" + clsSystemSetting.ClassSystemPublishVersion);
 
         }
 
-      
+
         public bool isNoRecordFound()
         {
             bool fFound = false;
@@ -6066,7 +6081,7 @@ namespace MIS
                 fFound = true;
 
             return fFound;
-        }        
+        }
 
         public void PromptAPIMessage(bool iShow, string ResponseCode)
         {
@@ -6075,7 +6090,7 @@ namespace MIS
             if (SuppressErrorPrompts)
                 return;
 
-            string sMessage = "";        
+            string sMessage = "";
 
             //sBeautified = GetBeautifyJSON(clsGlobalVariables.strJSONResponse);
 
@@ -6138,7 +6153,7 @@ namespace MIS
             {
                 clsAPI.ClassResponseCode = int.Parse(clsGlobalVariables.API_RESPONSE_ERROR);
                 sMessage = "API_RESPONSE_ERROR" +
-                            "\n" +                            
+                            "\n" +
                             clsFunction.sLineSeparator + "\n" +
                             "[EXCEPTIONS]" + "\n" +
                             clsFunction.sLineSeparator + "\n" +
@@ -6150,7 +6165,7 @@ namespace MIS
                             ">StatementType=" + dbFunction.AddBracketStartEnd(clsSearch.ClassStatementType) + "\n" +
                             ">SearchBy=" + dbFunction.AddBracketStartEnd(clsSearch.ClassSearchBy) + "\n" +
                             ">SearchValue=" + dbFunction.AddBracketStartEnd(clsSearch.ClassSearchValue) + "\n" +
-                            ">MaintenanceType=" + dbFunction.AddBracketStartEnd(clsSearch.ClassMaintenanceType) + "\n" +                            
+                            ">MaintenanceType=" + dbFunction.AddBracketStartEnd(clsSearch.ClassMaintenanceType) + "\n" +
                             clsFunction.sLineSeparator + "\n" +
                             "[RESPONSE]" + "\n" +
                             clsFunction.sLineSeparator + "\n" +
@@ -6161,7 +6176,7 @@ namespace MIS
 
                 iShow = true;
             }
-                
+
 
             else
             {
@@ -6203,7 +6218,7 @@ namespace MIS
             {
                 dbDump.WriteAPILog(2, "API Error " + "\n\n" + dbFunction.AddBracketStartEnd(sMessage));
             }
-            
+
             Debug.WriteLine(sMessage);
 
             if (iShow)
@@ -6212,7 +6227,7 @@ namespace MIS
 
                 dbFunction.CopyToClipboard(sMessage); // copy message to clipboard
             }
-                
+
         }
 
         public bool isImportFileName(string StatementType, string SearchBy, string SearchValue)
@@ -6246,7 +6261,7 @@ namespace MIS
         public void SaveUserLog(UserActionType iType, string sPublishVersion)
         {
             DateTime LogDateTime = DateTime.Now;
-            string sLogDateTime = "";                        
+            string sLogDateTime = "";
             string sRowSQL = "";
             string sSQL = "";
             string sAction = "";
@@ -6291,11 +6306,11 @@ namespace MIS
                                                         sLogDateTime + clsFunction.sPipe +
                                                         iSessionStatus.ToString() + clsFunction.sPipe +
                                                         sSessionStatusDescription + clsFunction.sPipe +
-                                                        sPublishVersion.ToUpper(); 
+                                                        sPublishVersion.ToUpper();
 
                     dbAPI.ExecuteAPI("PUT", "Update", "User LogOut", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
 
-                    break;               
+                    break;
             }
 
 
@@ -6353,7 +6368,7 @@ namespace MIS
 
             return isExist;
         }
-        
+
         public void GetParticularList(string StatementType, string SearchBy, string SearchValue, string MaintenaceType)
         {
             ExecuteAPI("GET", StatementType, SearchBy, SearchValue, MaintenaceType, "", "ViewAdvanceParticular");
@@ -6431,7 +6446,7 @@ namespace MIS
                 Debug.WriteLine(ex.ToString());
                 iID = 0;
             }
-            
+
             return iID;
         }
 
@@ -6470,7 +6485,7 @@ namespace MIS
                 Debug.WriteLine(ex.ToString());
                 iID = 0;
             }
-           
+
 
             return iID;
         }
@@ -6507,7 +6522,7 @@ namespace MIS
         }
         // City
         public void GetCityList(string StatementType, string SearchBy, string SearchValue, string MaintenaceType)
-        {            
+        {
             ExecuteAPI("GET", StatementType, SearchBy, SearchValue, MaintenaceType, "", "ViewCity");
         }
 
@@ -6575,7 +6590,7 @@ namespace MIS
                 Debug.WriteLine(ex.ToString());
                 iID = 0;
             }
-            
+
 
             return iID;
         }
@@ -6613,7 +6628,7 @@ namespace MIS
                 Debug.WriteLine(ex.ToString());
                 iID = 0;
             }
-            
+
             return iID;
         }
         public void FillComboBoxRegion(ComboBox obj, string StatementType, string SearchBy, string SearchValue, string MaintenaceType)
@@ -6683,7 +6698,7 @@ namespace MIS
         {
             ExecuteAPI("GET", StatementType, SearchBy, SearchValue, MaintenaceType, "", "ViewAdvanceTerminal");
         }
-        
+
         // Terminal
         public int GetTerminalFromList(string sSerialNo)
         {
@@ -6758,7 +6773,7 @@ namespace MIS
                 Debug.WriteLine(ex.ToString());
                 iID = 0;
             }
-            
+
             return iID;
         }
 
@@ -6795,7 +6810,7 @@ namespace MIS
                 Debug.WriteLine(ex.ToString());
                 iID = 0;
             }
-            
+
             return iID;
         }
 
@@ -6832,7 +6847,7 @@ namespace MIS
                 Debug.WriteLine(ex.ToString());
                 iID = 0;
             }
-           
+
             return iID;
         }
 
@@ -6849,8 +6864,8 @@ namespace MIS
             int iID = 0;
 
             Debug.WriteLine("--GetTerminalStatusFromList--");
-            Debug.WriteLine("sType="+ sType);
-            Debug.WriteLine("Length="+ clsArray.TerminalStatusID.Length);
+            Debug.WriteLine("sType=" + sType);
+            Debug.WriteLine("Length=" + clsArray.TerminalStatusID.Length);
 
             try
             {
@@ -6860,7 +6875,7 @@ namespace MIS
                     clsTerminalStatus.ClassDescription = clsArray.TerminalStatusDescription[i];
                     clsTerminalStatus.ClassTerminalStatusType = int.Parse(clsArray.TerminalStatusType[i]);
 
-                    Debug.WriteLine("i="+i.ToString()+"|TerminalStatusID="+ clsArray.TerminalStatusID[i]+ "|TerminalStatusDescription="+clsArray.TerminalStatusDescription[i]+ "|TerminalStatusType="+ clsArray.TerminalStatusType[i]);
+                    Debug.WriteLine("i=" + i.ToString() + "|TerminalStatusID=" + clsArray.TerminalStatusID[i] + "|TerminalStatusDescription=" + clsArray.TerminalStatusDescription[i] + "|TerminalStatusType=" + clsArray.TerminalStatusType[i]);
 
                     if (sType.Equals(clsTerminalStatus.ClassDescription))
                     {
@@ -6878,7 +6893,7 @@ namespace MIS
             }
 
             Debug.WriteLine("GetTerminalStatusFromList, iID=" + iID);
-            
+
             return iID;
         }
 
@@ -6898,7 +6913,7 @@ namespace MIS
 
             clsArray.FSRStatus = FSRStatusCol.ToArray();
             clsArray.FSRStatusDescription = FSRStatusDescrptionCol.ToArray();
-            
+
             while (clsArray.FSRStatus.Length > i)
             {
                 if (sFSRStatus.CompareTo(clsArray.FSRStatusDescription[i]) == 0)
@@ -6906,7 +6921,7 @@ namespace MIS
                     iID = int.Parse(clsArray.FSRStatus[i]);
                     break;
                 }
-                
+
                 i++;
             }
 
@@ -6925,7 +6940,7 @@ namespace MIS
         {
             int i = 0;
             int iID = 0;
-            
+
             try
             {
                 while (clsArray.ServiceTypeID.Length > i)
@@ -6944,7 +6959,7 @@ namespace MIS
 
                     i++;
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -6982,7 +6997,7 @@ namespace MIS
                 Debug.WriteLine(ex.ToString());
                 iID = 0;
             }
-            
+
             return iID;
         }
 
@@ -7001,17 +7016,17 @@ namespace MIS
             Debug.WriteLine("--GetCarrier--");
 
             string[] ret = { clsFunction.sDefaultSelect };
-      
+
             ExecuteAPI("GET", "View", "Carrier", "", "Advance Detail", "", "ViewAdvanceDetail");
 
             if (clsGlobalVariables.isAPIResponseOK)
             {
-                ret = clsArray.Description;             
+                ret = clsArray.Description;
             }
-           
+
             return ret;
         }
-        
+
         public string[] GetFSRStatus()
         {
             string[] ret = { clsFunction.sDefaultSelect, "VALID FSR", "INVALID FSR" };
@@ -7020,15 +7035,15 @@ namespace MIS
         }
 
         public void GetFSRStatusList()
-        {         
+        {
             clsSearch.ClassFSRStatusList = "";
             for (int i = 0; i < GetFSRStatus().Length; i++)
             {
                 clsSearch.ClassFSRStatusList = clsSearch.ClassFSRStatusList + GetFSRStatus()[i].ToString() + Environment.NewLine;
             }
         }
-        
-        
+
+
         public string[] GetJobTypeDescription()
         {
             string[] ret = { clsFunction.sDefaultSelect, "SVC REQ INSTALLATION", "SVC REQ SERVICING", "SVC REQ PULL-OUT", "SVC REQ REPLACEMENT", "SVC REQ REPROGRAMMING", "SVC REQ DIAGNOSTIC", "SVC REQ DISPATCH" };
@@ -7048,11 +7063,11 @@ namespace MIS
         public void FillComboBoxJobTypeDescription(ComboBox obj)
         {
             int i = 0;
-            
+
             obj.Items.Clear();
             while (GetJobTypeDescription().Length > i)
             {
-                obj.Items.Add(GetJobTypeDescription()[i]);               
+                obj.Items.Add(GetJobTypeDescription()[i]);
 
                 i++;
             }
@@ -7061,8 +7076,8 @@ namespace MIS
                 obj.SelectedIndex = 0;
 
         }
-        
-        
+
+
         public string[] GetJobTypeStatusDescription()
         {
             string[] ret = { clsFunction.sDefaultSelect, "PENDING", "PROCESSING", "COMPLETED", "FAILED" };
@@ -7122,7 +7137,7 @@ namespace MIS
                 Debug.WriteLine(ex.ToString());
                 iID = 0;
             }
-            
+
             return iID;
         }
 
@@ -7236,7 +7251,7 @@ namespace MIS
             if (i > 0)
                 obj.SelectedIndex = 0;
         }
-        
+
         public void FillComboBoxClient(ComboBox obj)
         {
             int i = 0;
@@ -7251,7 +7266,7 @@ namespace MIS
 
             obj.Items.Clear();
             while (clsArray.ParticularID.Length > i)
-            {                
+            {
                 if (!fSelect)
                 {
                     obj.Items.Add(clsFunction.sDefaultSelect);
@@ -7270,7 +7285,7 @@ namespace MIS
         {
             int i = 0;
             bool fSelect = false;
-            
+
             clsSearch.ClassAdvanceSearchValue = clsGlobalVariables.iSP_Type.ToString() + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero;
             ExecuteAPI("GET", "View", "Particular List", clsSearch.ClassAdvanceSearchValue, "Particular", "", "ViewAdvanceParticular");
 
@@ -7280,7 +7295,7 @@ namespace MIS
 
             obj.Items.Clear();
             while (clsArray.ParticularID.Length > i)
-            {                
+            {
                 if (!fSelect)
                 {
                     obj.Items.Add(clsFunction.sDefaultSelect);
@@ -7299,7 +7314,7 @@ namespace MIS
         {
             int i = 0;
             bool fSelect = false;
-            
+
             clsSearch.ClassAdvanceSearchValue = clsGlobalVariables.iFE_Type.ToString() + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero + clsFunction.sPipe + clsFunction.sZero;
             ExecuteAPI("GET", "View", "Particular List", clsSearch.ClassAdvanceSearchValue, "Particular", "", "ViewAdvanceParticular");
 
@@ -7309,7 +7324,7 @@ namespace MIS
 
             obj.Items.Clear();
             while (clsArray.ParticularID.Length > i)
-            {                
+            {
                 if (!fSelect)
                 {
                     obj.Items.Add(clsFunction.sDefaultSelect);
@@ -7325,7 +7340,7 @@ namespace MIS
                 obj.SelectedIndex = 0;
 
         }
-        
+
         public void FillComboBoxTerminalType(ComboBox obj)
         {
             int i = 0;
@@ -7518,7 +7533,7 @@ namespace MIS
         {
             int i = 0;
             bool fSelect = false;
-            
+
             GetTerminalStatusList(StatementType, SearchBy, SearchValue, "Terminal Status");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
@@ -7559,7 +7574,7 @@ namespace MIS
 
                     i++;
                 }
-                
+
             }
 
             if (i > 0)
@@ -7575,7 +7590,7 @@ namespace MIS
         public void FillComboBoxSCStatus(ComboBox obj)
         {
             int i = 0;
-           
+
             obj.Items.Clear();
 
             while (GetSCStatus().Length > i)
@@ -7632,13 +7647,13 @@ namespace MIS
 
             GetTerminalSNList("View", "TerminalSN List", SearchValue, "Terminal");
 
-            if (!clsGlobalVariables.isAPIResponseOK) return;            
+            if (!clsGlobalVariables.isAPIResponseOK) return;
 
             if (isNoRecordFound() == false)
             {
                 obj.Items.Clear();
                 while (clsArray.TerminalID.Length > i)
-                {                    
+                {
                     // Add to List
                     iLineNo++;
                     ListViewItem item = new ListViewItem(iLineNo.ToString());
@@ -7671,7 +7686,7 @@ namespace MIS
 
                 dbFunction.ListViewAlternateBackColor(obj);
             }
-            
+
         }
 
         public void FillListViewSIMSN(ListView obj, string SearchValue)
@@ -7691,7 +7706,7 @@ namespace MIS
             {
                 obj.Items.Clear();
                 while (clsArray.SIMID.Length > i)
-                {                    
+                {
                     // Add to List
                     iLineNo++;
                     ListViewItem item = new ListViewItem(iLineNo.ToString());
@@ -7728,7 +7743,7 @@ namespace MIS
         {
             int i = 0;
             int iLineNo = 0;
-            
+
             dbFunction = new clsFunction();
 
             obj.Items.Clear();
@@ -7736,7 +7751,7 @@ namespace MIS
             GetParticularList("View", "Particular List", SearchValue, "Particular");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
-            
+
             if (isNoRecordFound() == false)
             {
                 obj.Items.Clear();
@@ -7752,7 +7767,7 @@ namespace MIS
                     item.SubItems.Add(clsArray.Address[i]);
                     item.SubItems.Add(clsArray.MobileNo[i]);
                     item.SubItems.Add(clsArray.TelNo[i]);
-                    
+
                     obj.Items.Add(item);
 
                     i++;
@@ -7799,7 +7814,7 @@ namespace MIS
         {
             int i = 0;
             int iLineNo = 0;
-            
+
             dbFunction = new clsFunction();
 
             obj.Items.Clear();
@@ -7865,7 +7880,7 @@ namespace MIS
                     item.SubItems.Add(clsArray.FSRTime[i].ToString());
                     item.SubItems.Add(clsArray.FSRServiceStatus[i].ToString());
                     item.SubItems.Add(clsArray.FSRServiceStatusDescription[i].ToString());
-                    item.SubItems.Add(clsArray.FSRRemarks[i].ToString());                    
+                    item.SubItems.Add(clsArray.FSRRemarks[i].ToString());
 
                     obj.Items.Add(item);
 
@@ -7879,7 +7894,7 @@ namespace MIS
         {
             int i = 0;
             int iLineNo = 0;
-            
+
             dbFunction = new clsFunction();
 
             obj.Items.Clear();
@@ -7985,13 +8000,13 @@ namespace MIS
             int iLineNo = 0;
 
             Debug.WriteLine("--FillParticularListView--");
-            Debug.WriteLine("SearchBy="+ SearchBy);
+            Debug.WriteLine("SearchBy=" + SearchBy);
             Debug.WriteLine("SearchValue=" + SearchValue);
 
             dbFunction = new clsFunction();
 
             obj.Items.Clear();
-            
+
             GetParticularList("View", "Particular List", SearchValue, "Particular");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
@@ -8007,7 +8022,7 @@ namespace MIS
 
                     if (!SearchBy.Equals(clsGlobalVariables.sMerchant_Type_List))
                         item.ForeColor = dbFunction.GetColorByStatus(int.Parse(clsArray.IRStatus[i]), clsArray.IRStatusDescription[i]); // set forecolor per status
-                    
+
                     item.SubItems.Add(clsArray.ParticularID[i].ToString());
                     item.SubItems.Add(clsArray.ParticularName[i]);
 
@@ -8021,7 +8036,7 @@ namespace MIS
                         item.SubItems.Add(clsArray.TID[i]);
                         item.SubItems.Add(clsArray.MID[i]);
                     }
-                   
+
                     item.SubItems.Add(clsArray.Address[i]);
                     item.SubItems.Add(clsArray.ContactPerson[i]);
                     item.SubItems.Add(clsArray.MobileNo[i]);
@@ -8137,7 +8152,7 @@ namespace MIS
                     // Add to List
                     iLineNo++;
                     ListViewItem item = new ListViewItem(iLineNo.ToString());
-                    item.SubItems.Add(clsArray.TerminalStatusID[i].ToString());                    
+                    item.SubItems.Add(clsArray.TerminalStatusID[i].ToString());
                     item.SubItems.Add(clsArray.TerminalStatusType[i]);
                     item.SubItems.Add(clsArray.TerminalStatusDescription[i]);
 
@@ -8159,7 +8174,7 @@ namespace MIS
             dbFunction = new clsFunction();
 
             obj.Items.Clear();
-            
+
             ExecuteAPI("GET", "View", "", SearchValue, "Terminal Type", "", "ViewTerminalType");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
@@ -8173,7 +8188,7 @@ namespace MIS
                     iLineNo++;
                     ListViewItem item = new ListViewItem(iLineNo.ToString());
                     item.SubItems.Add(clsArray.TerminalTypeID[i].ToString());
-                    item.SubItems.Add(clsArray.Description[i]);                    
+                    item.SubItems.Add(clsArray.Description[i]);
 
                     obj.Items.Add(item);
 
@@ -8279,7 +8294,7 @@ namespace MIS
                     item.SubItems.Add(clsArray.LeaveTypeCode[i]);
                     item.SubItems.Add(clsArray.LeaveTypeDesc[i]);
                     item.SubItems.Add(clsArray.DateFrom[i]);
-                    item.SubItems.Add(clsArray.DateTo[i]);                    
+                    item.SubItems.Add(clsArray.DateTo[i]);
                     item.SubItems.Add(double.Parse(clsArray.Duration[i]).ToString("N"));
                     item.SubItems.Add(clsArray.DateType[i]);
                     item.SubItems.Add(clsArray.ReasonID[i].ToString()); ;
@@ -8358,7 +8373,7 @@ namespace MIS
                     // Add to List
                     iLineNo++;
                     ListViewItem item = new ListViewItem(iLineNo.ToString());
-                    
+
                     item.Checked = (int.Parse(clsArray.isChecked[i]) > 0 ? true : false); // Set checkbox
                     item.SubItems.Add(clsArray.PrivacyID[i].ToString());
                     item.SubItems.Add(clsArray.Description[i]);
@@ -8369,7 +8384,7 @@ namespace MIS
                     item.SubItems.Add((isClear ? clsFunction.sNo : dbFunction.setIntegerToYesNo(int.Parse(clsArray.isUpdate[i]))));
                     item.SubItems.Add((isClear ? clsFunction.sNo : dbFunction.setIntegerToYesNo(int.Parse(clsArray.isDelete[i]))));
                     item.SubItems.Add((isClear ? clsFunction.sNo : dbFunction.setIntegerToYesNo(int.Parse(clsArray.isPrint[i]))));
-                    
+
                     obj.Items.Add(item);
 
                     i++;
@@ -8415,7 +8430,7 @@ namespace MIS
                     {
                         item.SubItems.Add(clsArray.Description[i]);
                     }
-                    
+
 
                     obj.Items.Add(item);
 
@@ -8480,7 +8495,7 @@ namespace MIS
                     item.SubItems.Add(clsArray.ActionMade[i]);
                     item.SubItems.Add(clsArray.ReferenceNo[i]);
                     item.SubItems.Add(clsArray.FSRDate[i]);
-                    
+
                     item.SubItems.Add(!isFailed ? clsArray.ServiceStatusDescription[i] : "FAILED");
                     item.SubItems.Add(!isFailed ? clsArray.ActionMade[i] : clsFunction.sDash);
 
@@ -8492,7 +8507,7 @@ namespace MIS
                     item.SubItems.Add(clsArray.ReplaceSIMSN[i]);
                     item.SubItems.Add(clsArray.ServiceDate[i]);
                     item.SubItems.Add(clsArray.FSRDate[i]);
-                    
+
                     obj.Items.Add(item);
 
                     i++;
@@ -8599,7 +8614,7 @@ namespace MIS
             {
                 Debug.WriteLine("Exceptional error " + ex.Message);
             }
-            
+
         }
 
         public void FillListViewTerminalDetail(ListView obj, string SearchValue)
@@ -8823,12 +8838,12 @@ namespace MIS
                     Debug.WriteLine("pFieldType=" + pFieldType);
                     Debug.WriteLine("pFieldNestedObj=" + pFieldNestedObj);
                     Debug.WriteLine("pFieldKeyValue=" + pFieldKeyValue);
-                    Debug.WriteLine("pTemp="+ pTemp);
+                    Debug.WriteLine("pTemp=" + pTemp);
 
                     pOutValue = "";
-                   
+
                     switch (pFieldType)
-                    {   
+                    {
                         case (int)OptionType.Others:      // 3
                             pOutValue = pTemp;
                             break;
@@ -8912,9 +8927,9 @@ namespace MIS
                                                      dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TerminalModel) + " " + clsFunction.sPipe +
                                                      dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_SerialNo) + Environment.NewLine;
                     }
-                    
+
                     i++;
-                    
+
                 }
 
                 dbFunction.ListViewAlternateBackColor(obj);
@@ -8988,7 +9003,7 @@ namespace MIS
 
             return isExist;
         }
-        
+
         public void GetJobTypeDetails(JobType iJobType)
         {
             switch (iJobType)
@@ -9051,7 +9066,7 @@ namespace MIS
                     break;
             }
         }
-        
+
         public void GetServiceTypeDetail(ServiceType iServiceType)
         {
             switch (iServiceType)
@@ -9105,7 +9120,7 @@ namespace MIS
             Debug.WriteLine("--ResetAdvanceSearch--");
 
             clsSearch.ClassStatementType = clsFunction.sNull;
-            clsSearch.ClassSearchBy = clsFunction.sNull;            
+            clsSearch.ClassSearchBy = clsFunction.sNull;
             clsSearch.ClassSearchValue = clsFunction.sNull;
             clsSearch.ClassAdvanceSearchValue = clsFunction.sNull;
             clsSearch.ClassHoldAdvanceSearchValue = clsFunction.sNull;
@@ -9130,7 +9145,7 @@ namespace MIS
             clsSearch.ClassRegionType = clsFunction.iZero;
             clsSearch.ClassRegion = clsFunction.sNull;
             clsSearch.ClassProvinceID = clsFunction.iZero;
-            clsSearch.ClassProvince = clsFunction.sNull;            
+            clsSearch.ClassProvince = clsFunction.sNull;
             clsSearch.ClassTerminalStatusType = clsFunction.iZero;
             clsSearch.ClassReqDateFrom = clsFunction.sDateFormat;
             clsSearch.ClassReqDateTo = clsFunction.sDateFormat;
@@ -9229,7 +9244,7 @@ namespace MIS
         public void FillComboBoxActionMade(ComboBox obj)
         {
             int i = 0;
-            
+
             obj.Items.Clear();
             while (GetActionMade().Length > i)
             {
@@ -9278,8 +9293,8 @@ namespace MIS
             {
                 clsSearch.ClassStatus = clsGlobalVariables.STATUS_NEGATIVE;
                 clsSearch.ClassStatusCode = clsGlobalVariables.TA_STATUS_NEGATIVE_CODE;
-                clsSearch.ClassStatusDescription = clsGlobalVariables.TA_STATUS_NEGATIVE_DESC;                
-            }            
+                clsSearch.ClassStatusDescription = clsGlobalVariables.TA_STATUS_NEGATIVE_DESC;
+            }
         }
 
         //public void GetFSRServiceTypeStatus(string sJobTypeDescription)
@@ -9362,7 +9377,7 @@ namespace MIS
         */
 
         public void UpdateTerminalDetailStatus(string sTerminalID, int iStatusID, string sStatusDescription)
-        {            
+        {
             int iTerminalID = int.Parse((sTerminalID.Length > 0 ? sTerminalID : clsFunction.sZero));
             if (iTerminalID > 0)
             {
@@ -9377,7 +9392,7 @@ namespace MIS
         }
 
         public void UpdateSIMDetailStatus(string sSIMID, int iStatusID, string sStatusDescription)
-        {            
+        {
             int iSIMID = int.Parse((sSIMID.Length > 0 ? sSIMID : clsFunction.sZero));
             if (iSIMID > 0)
             {
@@ -9406,6 +9421,38 @@ namespace MIS
             }
         }
 
+        // Persists converted bank-template metadata after a successful Installation Request import.
+        public void UpdateIRBankDataInfo(string sIRIDNo, string bankDataInfo)
+        {
+            int iIRIDNo;
+
+            if (!int.TryParse(sIRIDNo, out iIRIDNo) || iIRIDNo <= 0)
+            {
+                throw new ArgumentException("A valid IRIDNo is required.", "sIRIDNo");
+            }
+
+            if (string.IsNullOrWhiteSpace(bankDataInfo))
+            {
+                throw new ArgumentException("Bank data JSON must not be blank.", "bankDataInfo");
+            }
+
+            string encodedBankData = Convert.ToBase64String(Encoding.UTF8.GetBytes(bankDataInfo));
+
+            string pSearchValue = iIRIDNo.ToString()
+            + clsFunction.sPipe
+            + encodedBankData;
+
+            ExecuteAPI(
+                "PUT",
+                "Update",
+                "Update Bank Data Info",
+                pSearchValue,
+                "",
+                "",
+                "UpdateCollectionDetail");
+
+        }
+
         public void UpdateIRDetailActive(string sIRIDNo, int iActive)
         {
             int iIRIDNo = int.Parse((sIRIDNo.Length > 0 ? sIRIDNo : clsFunction.sZero));
@@ -9421,7 +9468,7 @@ namespace MIS
         }
 
         public void UpdateTADetailStatus(string sTAIDNo, int iStatusID, string sStatusDescription)
-        {            
+        {
             int iTAIDNo = int.Parse((sTAIDNo.Length > 0 ? sTAIDNo : clsFunction.sZero));
             if (iTAIDNo > 0)
             {
@@ -9540,7 +9587,7 @@ namespace MIS
         }
 
         public void UpdateServicingActionMade(string sServiceNo, string sRequestNo, string sActionMade)
-        {            
+        {
             clsSearch.ClassAdvanceSearchValue = sServiceNo + clsFunction.sPipe +
                                                 sRequestNo + clsFunction.sPipe +
                                                 sActionMade;
@@ -9618,7 +9665,7 @@ namespace MIS
             if (sRequestNo.Length > 0)
             {
                 clsSearch.ClassAdvanceSearchValue = sServiceNo + clsFunction.sPipe +
-                    sRequestNo + clsFunction.sPipe +                    
+                    sRequestNo + clsFunction.sPipe +
                     clsSearch.ClassRepTerminalSNStatus + clsFunction.sPipe + clsSearch.ClassRepTerminalSNStatusDescription + clsFunction.sPipe +
                     clsSearch.ClassRepSIMSNStatus + clsFunction.sPipe + clsSearch.ClassRepSIMSNStatusDescription + clsFunction.sPipe +
                     clsSearch.ClassRepDockSNStatus + clsFunction.sPipe + clsSearch.ClassRepDockSNStatusDescription;
@@ -9629,8 +9676,8 @@ namespace MIS
             }
         }
 
-        public void UpdateTAReplacement(string sTAIDNo, string sTerminalID, string sSIMID, string sDockID, 
-                                        string sTerminalTypeID, string sTerminalModelID, string sTerminalBrandID, 
+        public void UpdateTAReplacement(string sTAIDNo, string sTerminalID, string sSIMID, string sDockID,
+                                        string sTerminalTypeID, string sTerminalModelID, string sTerminalBrandID,
                                         string sTerminalSN, string sSIMSerialNo, string sDockSN)
         {
 
@@ -9668,7 +9715,7 @@ namespace MIS
         public void UpdateServiceRemarks(string sServiceNo, string sRemarks)
         {
             int iServiceNo = int.Parse((sServiceNo.Length > 0 ? sServiceNo : clsFunction.sZero));
-            if (iServiceNo > 0 )
+            if (iServiceNo > 0)
             {
                 clsSearch.ClassAdvanceSearchValue = sServiceNo + clsFunction.sPipe +
                                                     sRemarks;
@@ -9802,7 +9849,7 @@ namespace MIS
                 ExecuteAPI("POST", "Process", "Client", clsSearch.ClassAdvanceSearchValue, "ERM Temp Detail", "", "ProcessERMDetail");
             }
 
-                
+
         }
 
         //public void UpdateServicingDetailStatus(JobType iJobType, string sServiceNo, string sRequestNo, string sIRIDNo)
@@ -9930,7 +9977,7 @@ namespace MIS
                 else if (sDescription.CompareTo(clsGlobalVariables.STATUS_INSTALLATION_DESC) == 0)
                     iStatus = clsGlobalVariables.STATUS_INSTALLATION;
                 else if (sDescription.CompareTo(clsGlobalVariables.STATUS_CANCELLED_DESC) == 0)
-                    iStatus = clsGlobalVariables.STATUS_CANCELLED;                
+                    iStatus = clsGlobalVariables.STATUS_CANCELLED;
             }
             else
             {
@@ -9945,44 +9992,44 @@ namespace MIS
 
             if (iStatus > 0)
             {
-                if (iStatus == clsGlobalVariables.STATUS_AVAILABLE)                
-                    sDescription = clsGlobalVariables.STATUS_AVAILABLE_DESC;               
-                else if (iStatus == clsGlobalVariables.STATUS_ALLOCATED)                
-                    sDescription = clsGlobalVariables.STATUS_ALLOCATED_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_REPAIR)                
-                    sDescription = clsGlobalVariables.STATUS_REPAIR_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_DAMAGE)                
-                    sDescription = clsGlobalVariables.STATUS_DAMAGE_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_LOSS)                
-                    sDescription = clsGlobalVariables.STATUS_LOSS_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_BORROWED)                
-                    sDescription = clsGlobalVariables.STATUS_BORROWED_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_INSTALLED)                
-                    sDescription = clsGlobalVariables.STATUS_INSTALLED_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_DISPATCH)                
-                    sDescription = clsGlobalVariables.STATUS_DISPATCH_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_NEGATIVE)                
-                    sDescription = clsGlobalVariables.STATUS_NEGATIVE_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_REPROGRAMMED)                
-                    sDescription = clsGlobalVariables.STATUS_REPROGRAMMED_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_PULLED_OUT)                
-                    sDescription = clsGlobalVariables.STATUS_PULLED_OUT_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_DIAGNOSTIC)                
-                    sDescription = clsGlobalVariables.STATUS_DIAGNOSTIC_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_REPLACEMENT)                
-                    sDescription = clsGlobalVariables.STATUS_REPLACEMENT_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_SERVICING)                
-                    sDescription = clsGlobalVariables.STATUS_SERVICING_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_INSTALLATION)                
-                    sDescription = clsGlobalVariables.STATUS_INSTALLATION_DESC;                
-                else if (iStatus == clsGlobalVariables.STATUS_CANCELLED)                
-                    sDescription = clsGlobalVariables.STATUS_CANCELLED_DESC;                
+                if (iStatus == clsGlobalVariables.STATUS_AVAILABLE)
+                    sDescription = clsGlobalVariables.STATUS_AVAILABLE_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_ALLOCATED)
+                    sDescription = clsGlobalVariables.STATUS_ALLOCATED_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_REPAIR)
+                    sDescription = clsGlobalVariables.STATUS_REPAIR_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_DAMAGE)
+                    sDescription = clsGlobalVariables.STATUS_DAMAGE_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_LOSS)
+                    sDescription = clsGlobalVariables.STATUS_LOSS_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_BORROWED)
+                    sDescription = clsGlobalVariables.STATUS_BORROWED_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_INSTALLED)
+                    sDescription = clsGlobalVariables.STATUS_INSTALLED_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_DISPATCH)
+                    sDescription = clsGlobalVariables.STATUS_DISPATCH_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_NEGATIVE)
+                    sDescription = clsGlobalVariables.STATUS_NEGATIVE_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_REPROGRAMMED)
+                    sDescription = clsGlobalVariables.STATUS_REPROGRAMMED_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_PULLED_OUT)
+                    sDescription = clsGlobalVariables.STATUS_PULLED_OUT_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_DIAGNOSTIC)
+                    sDescription = clsGlobalVariables.STATUS_DIAGNOSTIC_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_REPLACEMENT)
+                    sDescription = clsGlobalVariables.STATUS_REPLACEMENT_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_SERVICING)
+                    sDescription = clsGlobalVariables.STATUS_SERVICING_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_INSTALLATION)
+                    sDescription = clsGlobalVariables.STATUS_INSTALLATION_DESC;
+                else if (iStatus == clsGlobalVariables.STATUS_CANCELLED)
+                    sDescription = clsGlobalVariables.STATUS_CANCELLED_DESC;
             }
             else
             {
                 sDescription = clsFunction.sUndefineStatus;
             }
-            
+
 
             return sDescription;
         }
@@ -10020,9 +10067,9 @@ namespace MIS
                 sServiceCode = clsGlobalVariables.TA_STATUS_NEGATIVE_CODE;
             }
             else
-            {                
+            {
                 if (sServiceDescription.CompareTo(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC) == 0)
-                    sServiceCode = clsGlobalVariables.TA_STATUS_INSTALLED_CODE;                
+                    sServiceCode = clsGlobalVariables.TA_STATUS_INSTALLED_CODE;
                 else if (sServiceDescription.CompareTo(clsGlobalVariables.JOB_TYPE_REPROGRAMMING_DESC) == 0)
                     sServiceCode = clsGlobalVariables.TA_STATUS_REPROGRAMMED_CODE;
                 else if (sServiceDescription.CompareTo(clsGlobalVariables.JOB_TYPE_PULLOUT_DESC) == 0)
@@ -10036,10 +10083,10 @@ namespace MIS
                 else if (sServiceDescription.CompareTo(clsGlobalVariables.JOB_TYPE_DISPATCH_DESC) == 0)
                     sServiceCode = clsGlobalVariables.TA_STATUS_DISPATCH_CODE;
             }
-            
+
             return sServiceCode;
         }
-        
+
         public string GetImmportReasonDescription(ImportReasonType iImportReasonType)
         {
             string sDescription = "";
@@ -10111,7 +10158,7 @@ namespace MIS
             else
                 clsServicingDetail.RecordFound = false;
         }
-        
+
         /*
         public void GetJobTypeDescriptionByServiceCode(string sServiceCode, ref string sJobTypeDescription, ref string sJobTypeSubDescription)
         {            
@@ -10266,7 +10313,7 @@ namespace MIS
                     clsFSR.ClassProblemReported = clsArray.ActualProblemReported[i];
                     clsFSR.ClassActionTaken = clsArray.ActionTaken[i];
                     clsFSR.ClassServiceTypeDescription = clsArray.ServiceTypeDescription[i];
-                    
+
                     i++;
 
                 }
@@ -10337,7 +10384,7 @@ namespace MIS
                     break;
                 case "RegionDetail":
                     sTemp = clsDefines.RESP_REGIONDETAILLIST_FILENAME;
-                    break;                
+                    break;
                 case "Merchant":
                     sTemp = clsDefines.RESP_MERCHANTLIST_FILENAME;
                     break;
@@ -10369,7 +10416,7 @@ namespace MIS
                     if (SearchValue.Equals("2|0|0|0|0"))
                         sTemp = clsDefines.RESP_CLIENTLIST_FILENAME; // Client
 
-                    if (SearchValue.Equals("5|0|0|0|0")) 
+                    if (SearchValue.Equals("5|0|0|0|0"))
                         sTemp = clsDefines.RESP_SPLIST_FILENAME; // SP
 
                     if (SearchValue.Equals("1|0|0|0|0"))
@@ -10384,7 +10431,7 @@ namespace MIS
                     break;
                 case "Reason":
                     //if (SearchValue.Equals("0|0|REASON"))
-                        sTemp = clsDefines.RESP_REASON_FILENAME;
+                    sTemp = clsDefines.RESP_REASON_FILENAME;
 
                     //if (SearchValue.Equals("0|0|RESOLUTION"))
                     //    sTemp = clsDefines.RESP_RESOLUTION_FILENAME;
@@ -10445,7 +10492,7 @@ namespace MIS
             {
                 clsSearch.ClassResponseFileName = sTemp;
                 Debug.WriteLine("GetReponseFileName, clsSearch.ClassResponseFileName=" + clsSearch.ClassResponseFileName);
-            }            
+            }
         }
 
         public void GetServiceInfo()
@@ -10492,7 +10539,7 @@ namespace MIS
 
             Cursor.Current = Cursors.WaitCursor;
 
-            control.iState = 3;           
+            control.iState = 3;
 
             control.sMessage = "Creating service type.";
             control.AnimateStatus();
@@ -10588,7 +10635,7 @@ namespace MIS
             control.sMessage = "Creating setup file.";
             control.AnimateStatus();
             dbAPI.ExecuteAPI("GET", "View", "Setup", "", "Advance Detail", "", "ViewAdvanceDetail");
-            
+
             control.sMessage = "Creating type list file.";
             control.AnimateStatus();
             dbAPI.ExecuteAPI("GET", "View", "Type List", "", "Type", "", "ViewType");
@@ -10632,7 +10679,7 @@ namespace MIS
         public void PreviewFSR(string pIRNo, string pRequestNo, string pMerchantName, string pTID, string pMID, string pServiceType, int pServiceNo, int pFSRNo, int pIRIDNo, bool isConfrm)
         {
             Debug.WriteLine("--PreviewFSR--");
-            Debug.WriteLine("pIRNo="+ pIRNo);
+            Debug.WriteLine("pIRNo=" + pIRNo);
             Debug.WriteLine("pRequestNo=" + pRequestNo);
             Debug.WriteLine("pMerchantName=" + pMerchantName);
             Debug.WriteLine("pTID=" + pTID);
@@ -10654,7 +10701,7 @@ namespace MIS
                 "\n\n" + "Preview report?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button1) == DialogResult.No)
                     return;
             }
-            
+
 
             dbFunction.PreviewTA(pIRNo, pServiceNo, pFSRNo, pIRIDNo, pRequestNo);
         }
@@ -10858,7 +10905,7 @@ namespace MIS
                     break;
             }
 
-            Debug.WriteLine("sJobTypeDesc="+ sJobTypeDesc);
+            Debug.WriteLine("sJobTypeDesc=" + sJobTypeDesc);
 
             return sJobTypeDesc;
         }
@@ -10866,7 +10913,7 @@ namespace MIS
         public void UpdateLastSNAllocated(string pSearchBy, string pID, string pParticluarID, string pIRIDNo, string pClientID)
         {
             Debug.WriteLine("--UpdateLastSNAllocated--");
-            Debug.WriteLine("pID="+ pID);
+            Debug.WriteLine("pID=" + pID);
             Debug.WriteLine("pParticluarID=" + pParticluarID);
             Debug.WriteLine("pIRIDNo=" + pIRIDNo);
             Debug.WriteLine("pClientID=" + pClientID);
@@ -10896,7 +10943,7 @@ namespace MIS
             Debug.WriteLine("ProcessTimeSheet::clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
 
             ExecuteAPI("POST", "Process", "TimeSheet", clsSearch.ClassAdvanceSearchValue, "TimeSheet", "", "ProcessTimeSheet");
-            
+
         }
 
         public void GenerateTerminalSummary()
@@ -10974,8 +11021,8 @@ namespace MIS
         public bool isValidUserAccess(UserFunctionType userFunctionType, int pUserID, int pFunctionID)
         {
             Debug.WriteLine("--isValidUserAccess--");
-            Debug.WriteLine("userFunctionType="+ userFunctionType);
-            Debug.WriteLine("pUserID=" + pUserID + ",ClassCurrentUserID="+ clsSearch.ClassCurrentUserID);
+            Debug.WriteLine("userFunctionType=" + userFunctionType);
+            Debug.WriteLine("pUserID=" + pUserID + ",ClassCurrentUserID=" + clsSearch.ClassCurrentUserID);
             Debug.WriteLine("pFunctionID=" + pFunctionID);
 
             bool isValid = false;
@@ -10988,7 +11035,7 @@ namespace MIS
             switch (userFunctionType)
             {
                 case UserFunctionType.isAdd:
-                    sTemp = "Add/New";                                     
+                    sTemp = "Add/New";
                     break;
                 case UserFunctionType.isDelete:
                     sTemp = "Delete";
@@ -11078,7 +11125,7 @@ namespace MIS
                     i++;
                 }
             }
-            
+
             if (i > 0)
                 obj.SelectedIndex = 0;
 
@@ -11205,7 +11252,7 @@ namespace MIS
                     i++;
                 }
             }
-            
+
             if (i > 0)
                 obj.SelectedIndex = 0;
 
@@ -11220,7 +11267,7 @@ namespace MIS
             string[] ret = { clsFunction.sDefaultSelect };
 
             ExecuteAPI("GET", "View", "Service Result Location", pSearchValue, "Advance Detail", "", "ViewAdvanceDetail");
-            
+
             if (clsArray.ID.Length > 0)
             {
                 while (clsArray.ID.Length > i)
@@ -11240,7 +11287,7 @@ namespace MIS
         {
             int i = 0;
             bool fSelect = false;
-           
+
 
             ExecuteAPI("GET", "View", "Type", groupType.ToString(), "Type", "", "ViewType");
 
@@ -11285,7 +11332,7 @@ namespace MIS
             objID.Text = iControlNo.ToString();
             objID.Text = dbFunction.GenerateControlNo(iControlNo, pPrefix, true);
         }
-        
+
         public JobType GetJobType(string pJobTypeDescription)
         {
             JobType jobType = JobType.iServicing;
@@ -11328,7 +11375,7 @@ namespace MIS
 
         public void GenerateInstallationSummary()
         {
-            
+
             Debug.WriteLine("ProcessTerminalInventorySummary::clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
 
             ExecuteAPI("POST", "Generate", "Installation Request Summary", clsSearch.ClassAdvanceSearchValue, "Installation Request, Summary", "", "GenerateInstallationSummary");
@@ -11355,7 +11402,7 @@ namespace MIS
                         $"Searh By: [{clsSearch.ClassSearchBy}]\n" +
                         $"Search Value: [{clsSearch.ClassSearchValue}]\nA" +
                         $"dvance Search Value: [{clsSearch.ClassAdvanceSearchValue}]\n" +
-                        $"===================================\n"+
+                        $"===================================\n" +
                         $"JSON Field: [{fieldTag}] was not found.\n" +
                         $"-----------------------------------\n" +
                         $"JSON Date: [{jsonString}]";
@@ -11412,7 +11459,7 @@ namespace MIS
             {
                 Debug.WriteLine("Unable to beautify JSON string....");
             }
-          
+
             return pReturn;
 
         }
@@ -11474,8 +11521,8 @@ namespace MIS
             int pValue = 0;
 
             Debug.WriteLine("--getServiceJobType--");
-            Debug.WriteLine("pJobTypeDescription="+ pJobTypeDescription);
-            
+            Debug.WriteLine("pJobTypeDescription=" + pJobTypeDescription);
+
             if (pJobTypeDescription.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC))
             {
                 pValue = clsGlobalVariables.JOB_TYPE_INSTALLATION;
@@ -11550,7 +11597,7 @@ namespace MIS
             if (i > 0)
                 obj.SelectedIndex = 0;
         }
-        
+
         public void FillComboBoxSurvey(ComboBox obj)
         {
             int i = 0;
@@ -11569,7 +11616,7 @@ namespace MIS
 
         public string getInfoDetailJSON(string pStatementType, string pSearchBy, string pSearchValue)
         {
-            string pOutput = "";           
+            string pOutput = "";
             ExecuteAPI("GET", pStatementType, pSearchBy, pSearchValue, "Get Info Detail", "", "GetInfoDetail");
             //Debug.WriteLine("clsSearch.ClassOutParamValue=" + clsSearch.ClassOutParamValue);
             if (clsSearch.ClassOutParamValue.Length > 0)
@@ -11638,7 +11685,7 @@ namespace MIS
                     obj.Items.Add(clsFunction.sDefaultSelect);
                     fSelect = true;
                 }
-                
+
                 obj.Items.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_FullName));
 
                 i++;
@@ -11649,7 +11696,7 @@ namespace MIS
         }
 
         public string[] getFSRModeSelection()
-        {     
+        {
             string[] ret = { clsFunction.sDefaultSelect, "DIGITAL FSR", "MANUAL FSR" };
 
             return ret;
@@ -11686,7 +11733,7 @@ namespace MIS
                 clsSearch.ClassDaysWeekends = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_DaysWeekends);
 
             }
-            
+
         }
 
         public void saveResponseToFile(string pRequest, string pResponse, string pContentBody)
@@ -11744,7 +11791,7 @@ namespace MIS
             string pTemp = "";
 
             dbFunction = new clsFunction();
-            
+
             if (dbFunction.isValidID(pID.ToString()))
             {
                 ExecuteAPI("GET", "View", "Duplicate SN Merchant List", pID + clsFunction.sPipe + pIRIDNo + clsFunction.sPipe + pSearch, "Advance Detail", "", "ViewAdvanceDetail");
@@ -11762,7 +11809,7 @@ namespace MIS
                         pTemp += "Line# : " + iLineNo.ToString() + Environment.NewLine +
                                  "Name : " + GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_MERCHANTNAME) + Environment.NewLine +
                                  "TID : " + GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_TID) + Environment.NewLine +
-                                 "MID : " + GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_MID) + Environment.NewLine + 
+                                 "MID : " + GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_MID) + Environment.NewLine +
                                  dbFunction.Separator(true) + Environment.NewLine;
 
                         i++;
@@ -11817,7 +11864,7 @@ namespace MIS
                     item.SubItems.Add(clsArray.FSRDate[i].ToString());
                     item.SubItems.Add(clsArray.MerchantEmail[i].ToString());
                     item.SubItems.Add(clsArray.FEEmail[i].ToString());
-                    
+
                     // Diagnostic
                     if (isRecordExist("Search", "Diagnostic Detail", clsArray.ServiceNo[i] + clsDefines.gPipe + clsArray.FSRNo[i]))
                         isDiagnostic = true;
@@ -11825,7 +11872,7 @@ namespace MIS
                         isDiagnostic = false;
 
                     item.SubItems.Add(dbFunction.setIntegerToYesNoString(isDiagnostic ? 1 : 0));
-                    
+
                     // Merchant Signature
                     pFileName = clsArray.ServiceNo[i] + "_" + dbFunction.padLeftChar(clsDefines.MERCHANT_SIGNATURE_INDEX.ToString(), "0", 2) + clsDefines.FILE_EXT_PNG;
                     if (isFileExist("Search", "Check Upload File", pFileName))
@@ -11849,7 +11896,7 @@ namespace MIS
         {
             int i = 0;
             int iLineNo = 0;
-            
+
             dbFunction = new clsFunction();
 
             obj.Items.Clear();
@@ -11865,7 +11912,7 @@ namespace MIS
                 {
                     // Add to List
                     iLineNo++;
-                    ListViewItem item = new ListViewItem(iLineNo.ToString());                    
+                    ListViewItem item = new ListViewItem(iLineNo.ToString());
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_SERVICENO));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_IRIDNO));
                     item.SubItems.Add(dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_MerchantID));
@@ -11913,7 +11960,7 @@ namespace MIS
             GetSystemInfo();
 
             isValid = dbFunction.isValidVersion();
-            
+
             return isValid;
         }
 
@@ -11981,7 +12028,7 @@ namespace MIS
             string pRemarks = "-";
 
             Debug.WriteLine("--BulkUpdateStockMovementDetail--");
-            
+
             if (lvw.Items.Count > 0)
             {
                 foreach (ListViewItem i in lvw.Items)
@@ -12034,7 +12081,7 @@ namespace MIS
                     dbAPI.ExecuteAPI("PUT", "Update", "Multiple Stock Movement Detail", sSQL, "", "", "UpdateBulkCollectionDetail");
                 }
             }
-            
+
         }
 
         public string getStockkMovementDetail(string SearchBy, string SearchValue)
@@ -12042,26 +12089,26 @@ namespace MIS
             int i = 0;
             int iLineNo = 0;
             string pOutput = "";
-            
+
             ExecuteAPI("GET", "View", SearchBy, SearchValue, "Advance Detail", "", "ViewAdvanceDetail");
 
             if (!clsGlobalVariables.isAPIResponseOK) return pOutput;
 
             if (isNoRecordFound() == false)
-            {   
+            {
                 while (clsArray.ID.Length > i)
                 {
                     // Add to List
-                    iLineNo++;                    
+                    iLineNo++;
                     pOutput += dbFunction.padLeftChar(iLineNo.ToString(), "0", 2) + "." +
                                                  dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_TerminalModel) + " " + clsFunction.sPipe +
                                                  dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_SerialNo) + clsDefines.gComma;
 
                     i++;
 
-                }                
+                }
             }
-            
+
             return pOutput;
         }
 
@@ -12105,9 +12152,9 @@ namespace MIS
                         string pMID = dbAPI.GetValueFromJSONString(pJSONString, "MM_MID_" + lineNo);
                         string pTID = dbAPI.GetValueFromJSONString(pJSONString, "MM_TID_" + lineNo);
                         item.SubItems.Add(pName.Equals("NULL") || pName.Equals("-") ? "-" : pName.Trim());
-                        item.SubItems.Add(pTID.Equals("NULL") || pTID.Equals("-")  ? "-" : dbFunction.padLeftChar(pTID, clsFunction.sZero, clsFunction.TID_LENGTH));
-                        item.SubItems.Add(pMID.Equals("NULL") || pMID.Equals("-")  ? "-" : dbFunction.padLeftChar(pMID, clsFunction.sZero, clsFunction.MID_LENGTH));
-                        
+                        item.SubItems.Add(pTID.Equals("NULL") || pTID.Equals("-") ? "-" : dbFunction.padLeftChar(pTID, clsFunction.sZero, clsFunction.TID_LENGTH));
+                        item.SubItems.Add(pMID.Equals("NULL") || pMID.Equals("-") ? "-" : dbFunction.padLeftChar(pMID, clsFunction.sZero, clsFunction.MID_LENGTH));
+
                         obj.Items.Add(item);
                         i++;
 
@@ -12122,7 +12169,7 @@ namespace MIS
 
         public string[] GetGroupType()
         {
-            string[] ret = { clsFunction.sDefaultSelect, "SIM TYPE", "POS TYPE", "BILLING TYPE", "APPS TYPE", "ASSET TYPE", "POS SETUP TYPE", "PLAN TYPE", "TERM TYPE", "BILL TYPE", "SOURCE TYPE", "CATEGORY TYPE", "SUB CATEGORY TYPE" , "MSP-CATEGORY", "MSP-NATURE OF BUSINESS", "MSP-BUSINESS TYPE", "MSP-REFERRAL TYPE", "MSP-SCHEME", "MSP-STATUS", "MSP-ACQUIRER", "MSP-MDR CREDIT", "MSP-MDR DEBIT", "MSP-MDR INST", "MSP-RESULT", "DEPEDENCY", "STATUS REASON"};
+            string[] ret = { clsFunction.sDefaultSelect, "SIM TYPE", "POS TYPE", "BILLING TYPE", "APPS TYPE", "ASSET TYPE", "POS SETUP TYPE", "PLAN TYPE", "TERM TYPE", "BILL TYPE", "SOURCE TYPE", "CATEGORY TYPE", "SUB CATEGORY TYPE", "MSP-CATEGORY", "MSP-NATURE OF BUSINESS", "MSP-BUSINESS TYPE", "MSP-REFERRAL TYPE", "MSP-SCHEME", "MSP-STATUS", "MSP-ACQUIRER", "MSP-MDR CREDIT", "MSP-MDR DEBIT", "MSP-MDR INST", "MSP-RESULT", "DEPEDENCY", "STATUS REASON" };
 
             return ret;
         }
@@ -12296,7 +12343,7 @@ namespace MIS
         public void insertReportStatus(string pReportDesc, int processType, string pStatus, string pProcesseedAt, string pProcessedBy)
         {
             string sSQL = "";
-            
+
             var data = new
             {
                 ReportDesc = pReportDesc,
@@ -12376,7 +12423,7 @@ namespace MIS
                 { "0", "[NOT SPECIFIED]" },
                 { "1", "AVAILABLE" },
                 { "4", "DEFECTIVE" },
-                { "5", "LOST" },                
+                { "5", "LOST" },
                 { "6", "LOAN/BORROW" },
                 { "3", "FOR REPAIR" }
             };
@@ -12402,7 +12449,7 @@ namespace MIS
             int iLineNo = 0;
 
             dbFunction = new clsFunction();
-            
+
             lvw.Items.Clear();
 
             if (dbFunction.isValidID(pID))
@@ -12466,7 +12513,7 @@ namespace MIS
             int iLineNo = 0;
 
             dbFunction = new clsFunction();
-            
+
             lvw.Items.Clear();
 
             if (dbFunction.isValidID(pID))
@@ -12529,7 +12576,7 @@ namespace MIS
         {
             bool isEnable = false;
             string output = "";
-            
+
             isEnable = isSSLEnable();
 
             if (isEnable)
@@ -12568,7 +12615,7 @@ namespace MIS
         public string deleteFileInfo(string StatementType, string SearchBy, string SearchValue)
         {
             string pOutput = "";
-            ExecuteAPI("GET", StatementType, SearchBy, SearchValue, "DeleteFileInfo", "", "DeleteFileInfo");           
+            ExecuteAPI("GET", StatementType, SearchBy, SearchValue, "DeleteFileInfo", "", "DeleteFileInfo");
             if (clsSearch.ClassOutParamValue.Length > 0)
             {
                 jsonObj obj = JsonConvert.DeserializeObject<jsonObj>(clsSearch.ClassOutParamValue);
@@ -12637,7 +12684,7 @@ namespace MIS
                     clsDefines.FIELD_CHECK_MSG,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
-                ); 
+                );
             }
 
             return fFound;
@@ -12704,7 +12751,7 @@ namespace MIS
                     string pRegion = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Region);
                     string pArea = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_Area);
                     string pCityMunicipal = dbAPI.GetValueFromJSONString(clsArray.detail_info[i], clsDefines.TAG_CityMunicipal);
-                    
+
                     item.SubItems.Add(pZoneID);
                     item.SubItems.Add(pCluster);
                     item.SubItems.Add(pZone);
@@ -13275,10 +13322,10 @@ namespace MIS
             int i = 0;
 
             // [NOT SPECIFIED] = all, SD = No Request ID, HD = Helpdesk
-            string[] ret = { 
-                clsFunction.sDefaultSelect, 
-                clsDefines.CONTROLID_PREFIX_NO_REQUESTID, 
-                clsDefines.CONTROLID_PREFIX_HELPDESK, 
+            string[] ret = {
+                clsFunction.sDefaultSelect,
+                clsDefines.CONTROLID_PREFIX_NO_REQUESTID,
+                clsDefines.CONTROLID_PREFIX_HELPDESK,
                 "ALL AUTOGENERATED"};
 
 

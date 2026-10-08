@@ -24,6 +24,7 @@ using System.Web;
 using System.Web.Profile;
 using System.Windows.Forms;
 using static MIS.Function.AppUtilities;
+using OfficeOpenXml; //Nikko
 
 namespace MIS
 {
@@ -42,7 +43,7 @@ namespace MIS
         private static string ExcelFilePath = @"";
         private string sExcelFileName = "";
         private string sSheet = "";
-        bool fEdit = false;        
+        bool fEdit = false;
         int iLimit = 255;
         bool fAddTerminal = false;
 
@@ -53,6 +54,14 @@ namespace MIS
         private modelParticular modelParticular;
 
         private string formName = "INSTALLATION REQUEST";
+
+        // Hidden worksheet produced by the Bank Template Generator.
+        private const string BankDataWorksheetName = "__MIS_BANK_DATA"; //Nikko
+
+        private readonly Dictionary<string, string>
+            bankDataInfoByRequestId = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase); //Nikko
+
+        private bool isConvertedImport = false; //Nikko
 
         public class jsonObj
         {
@@ -78,7 +87,7 @@ namespace MIS
 
             dbFunction = new clsFunction();
             dbFunction.setDoubleBuffer(lvwDetail, true);
-            dbFunction.setDoubleBuffer(lvwMerchant, true);            
+            dbFunction.setDoubleBuffer(lvwMerchant, true);
             dbFunction.setDoubleBuffer(lvwSearch, true);
             dbFunction.setDoubleBuffer(lvwServiceSummary, true);
             dbFunction.setDoubleBuffer(lvwList, true);
@@ -108,7 +117,7 @@ namespace MIS
                 //txtPathFileName.Click -= btnImport_Click;
                 btnLoadFile.Enabled = false;
                 sExcelFileName = Path.GetFileName(txtPathFileName.Text);
-                
+
                 if (clsSystemSetting.ClassSystemImportCheck > 0)
                 {
 
@@ -126,8 +135,10 @@ namespace MIS
                 {
                     Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
 
-                    ucStatusDisplay.SetStatus("Preparing import file" , Enums.StatusType.Processing);
+                    ucStatusDisplay.SetStatus("Preparing import file", Enums.StatusType.Processing);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
+
+                    LoadBankDataMetadata(txtPathFileName.Text); //Nikko
 
                     InitImportDate();
                     InitProcessedBy();
@@ -135,7 +146,7 @@ namespace MIS
                     sSheet = dbFunction.getSheetName(txtPathFileName.Text);
 
                     if (!dbFunction.isValidSheetName(sSheet)) return;
-                    
+
                     txtSheetName.Text = "`" + sSheet + "$" + "`";
                     txtFileName.Text = sExcelFileName;
 
@@ -177,8 +188,11 @@ namespace MIS
                     btnUpdateListRawData.Enabled = false;
 
                     if (!isValidHeader()) return; // Check Header                    
-                    
+
                     if (!ImportToDataGrid()) return;
+
+                    if (!ValidateBankDataMetadataAgainstGrid()) //Nikko
+                        return;
 
                     // Pupulate grdBulk
                     populateBulkDataGrid(grdList, grdBulk);
@@ -234,6 +248,310 @@ namespace MIS
                 sWorkSheetName = "Sheet1";
 
             return sWorkSheetName;
+        }
+
+        //NIKKO - Identify bank environments.
+        private bool IsBank()
+        {
+            string bankCode =
+                (clsSearch.ClassBankCode ?? string.Empty).Trim();
+
+            return string.Equals(
+                       bankCode,
+                       "clg",
+                       StringComparison.OrdinalIgnoreCase)
+                || string.Equals(
+                       bankCode,
+                       "tbg",
+                       StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void LoadBankDataMetadata(string filePath) //Nikko
+        {
+            bankDataInfoByRequestId.Clear();
+            isConvertedImport = false;
+
+            string extension = Path.GetExtension(filePath);
+
+            if (!string.Equals(extension, ".xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                if (IsBank())
+                {
+                    throw new InvalidDataException("Bank installation requests must use the converted XLSX file.");
+                }
+
+                return;
+            }
+
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial; //Nikko
+
+            using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
+            {
+                ExcelWorksheet worksheet =
+                    package.Workbook.Worksheets[
+                        BankDataWorksheetName];
+
+
+                if (worksheet == null)
+                {
+                    if (IsBank())
+                    {
+                        throw new InvalidDataException("The metadata sheet is missing. "
+                            + "Please import the XLSX file produced by the "
+                            + "Bank Template Generator.");
+                    }
+
+                    return;
+                }
+
+                if (!IsBank())
+                {
+                    throw new InvalidDataException("This is a converted installation request. "
+                        + "Please switch to the appropriate bank before importing.");
+                }
+
+                isConvertedImport = true;
+
+                string[] requiredHeaders =
+                {
+            "SchemaVersion",
+            "SourceBank",
+            "RequestID",
+            "SourceFileName",
+            "BankDataInfo"
+        };
+
+                if (worksheet.Dimension == null)
+                {
+                    throw new InvalidDataException(
+                        "The metadata sheet is empty.");
+                }
+
+                for (int column = 1;
+                     column <= requiredHeaders.Length;
+                     column++)
+                {
+                    string actualHeader =
+                        worksheet.Cells[1, column]
+                            .Text
+                            .Trim();
+
+                    if (!string.Equals(
+                            actualHeader,
+                            requiredHeaders[column - 1],
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException(
+                            "Invalid metadata column. "
+                            + "Expected column "
+                            + column
+                            + " to be '"
+                            + requiredHeaders[column - 1]
+                            + "'.");
+                    }
+                }
+
+                if (worksheet.Dimension.End.Row < 2)
+                {
+                    throw new InvalidDataException(
+                        "The metadata sheet contains no records.");
+                }
+
+                for (int row = 2;
+                     row <= worksheet.Dimension.End.Row;
+                     row++)
+                {
+                    string schemaVersion =
+                        worksheet.Cells[row, 1].Text.Trim();
+
+                    string sourceBank =
+                        worksheet.Cells[row, 2].Text.Trim();
+
+                    string requestId =
+                        worksheet.Cells[row, 3].Text.Trim();
+
+                    string sourceFileName =
+                        worksheet.Cells[row, 4].Text.Trim();
+
+                    string bankDataInfo =
+                        worksheet.Cells[row, 5].Text.Trim();
+
+                    if (string.IsNullOrWhiteSpace(schemaVersion) ||
+                        string.IsNullOrWhiteSpace(sourceBank) ||
+                        string.IsNullOrWhiteSpace(requestId) ||
+                        string.IsNullOrWhiteSpace(sourceFileName) ||
+                        string.IsNullOrWhiteSpace(bankDataInfo))
+                    {
+                        throw new InvalidDataException(
+                            "Mandatory metadata is missing "
+                            + "at metadata row "
+                            + row
+                            + ".");
+                    }
+
+                    if (schemaVersion != "1")
+                    {
+                        throw new InvalidDataException(
+                            "Unsupported metadata schema version "
+                            + schemaVersion
+                            + " at metadata row "
+                            + row
+                            + ".");
+                    }
+
+                    if (!string.Equals(sourceBank, "BDO", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException(
+                            "Invalid source bank at metadata row "
+                            + row
+                            + ".");
+                    }
+
+                    JObject bankDataObject;
+
+                    try
+                    {
+                        bankDataObject = JObject.Parse(bankDataInfo);
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        throw new InvalidDataException(
+                            "Invalid bank data JSON for Request ID "
+                            + requestId
+                            + ".",
+                            ex);
+                    }
+
+                    string jsonSourceBank = Convert.ToString(bankDataObject["SourceBank"]);
+                    string jsonSourceFileName = Convert.ToString(bankDataObject["SourceFileName"]);
+
+                    if (!string.Equals(jsonSourceBank, sourceBank, StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException(
+                            "Source bank mismatch for Request ID "
+                            + requestId
+                            + ".");
+                    }
+
+                    if (!string.Equals(jsonSourceFileName, sourceFileName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException(
+                            "Original filename mismatch for Request ID "
+                            + requestId
+                            + ".");
+                    }
+
+                    if (bankDataObject["Values"] == null || bankDataObject["Values"].Type != JTokenType.Object)
+                    {
+                        throw new InvalidDataException(
+                            "Values object is missing for Request ID "
+                            + requestId
+                            + ".");
+                    }
+
+                    if (bankDataInfoByRequestId.ContainsKey(requestId))
+                    {
+                        throw new InvalidDataException("Duplicate metadata Request ID: " + requestId);
+                    }
+
+                    bankDataInfoByRequestId.Add(requestId, bankDataInfo);
+                }
+
+                Debug.WriteLine(
+                    "metadata loaded: "
+                    + bankDataInfoByRequestId.Count
+                    + " record(s).");
+            }
+        }
+
+        private bool ValidateBankDataMetadataAgainstGrid()  //Nikko
+        {
+
+            if (!isConvertedImport) return true;
+
+            int requestIdColumnIndex = dbFunction.GetMapColumnIndex(
+                    clsDefines.IR_REQUEST_ID);
+
+            if (requestIdColumnIndex < 0 || requestIdColumnIndex >= grdList.Columns.Count)
+            {
+                dbFunction.SetMessageBox("The Request ID column could not be found.",
+                    "metadata validation",
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            HashSet<string> visibleRequestIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                string requestId = Convert.ToString(row.Cells[requestIdColumnIndex].Value).Trim();
+
+                if (string.IsNullOrWhiteSpace(requestId))
+                {
+                    dbFunction.SetMessageBox("Request ID is mandatory at import row "
+                        + (row.Index + 1) + ".", "metadata validation", clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (!visibleRequestIds.Add(requestId))
+                {
+                    dbFunction.SetMessageBox("Duplicate Request ID found in the import sheet: "
+                        + requestId, "metadata validation", clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (!bankDataInfoByRequestId.ContainsKey(requestId))
+                {
+                    dbFunction.SetMessageBox("Bank data information is missing for Request ID "
+                        + requestId + ".", "metadata validation", clsFunction.IconType.iError);
+
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(bankDataInfoByRequestId[requestId]))
+                {
+                    dbFunction.SetMessageBox("Bank data JSON is blank for Request ID "
+                        + requestId + ".", "metadata validation", clsFunction.IconType.iError);
+
+                    return false;
+                }
+            }
+
+            foreach (string metadataRequestId
+                in bankDataInfoByRequestId.Keys)
+            {
+                if (!visibleRequestIds.Contains(
+                        metadataRequestId))
+                {
+                    dbFunction.SetMessageBox(
+                        "The hidden metadata contains Request ID "
+                        + metadataRequestId
+                        + ", but it is missing from Sheet1.",
+                        "metadata validation",
+                        clsFunction.IconType.iError);
+
+                    return false;
+                }
+            }
+
+            if (visibleRequestIds.Count !=
+                bankDataInfoByRequestId.Count)
+            {
+                dbFunction.SetMessageBox(
+                    "The number of MCC rows does not match "
+                    + "the number of metadata records.",
+                    "metadata validation",
+                    clsFunction.IconType.iError);
+
+                return false;
+            }
+
+            return true;
         }
 
         bool fContinueConfirm()
@@ -353,7 +671,7 @@ namespace MIS
                 for (int x = 0; x < iColCount; x++)
                 {
                     string sCellValue = StrClean(grdDummy.Rows[i].Cells[x].Value?.ToString().Trim() ?? "");
-                    
+
                     // Apply transformations only if necessary
                     if (x == iPRIME_TID_01 && !string.IsNullOrEmpty(sCellValue))
                         sCellValue = dbFunction.padLeftChar(sTID, clsFunction.sPadZero, 8);
@@ -407,7 +725,7 @@ namespace MIS
                 {
                     Invoke((MethodInvoker)(() =>
                     {
-                        ucStatusDisplay.SetStatus($"Group# {i+1} of {iRowCount} to gridview.", Enums.StatusType.Processing);
+                        ucStatusDisplay.SetStatus($"Group# {i + 1} of {iRowCount} to gridview.", Enums.StatusType.Processing);
                         Task.Delay(delay); // Asynchronously wait without blocking UI
 
                     }));
@@ -424,7 +742,7 @@ namespace MIS
 
             return isValid;
         }
-        
+
         /*
         private bool ImportToDataGrid()
         {
@@ -605,9 +923,9 @@ namespace MIS
                 if (int.Parse(dataIndexNo) >= 0)
                 {
                     int pLineNo = int.Parse(dataIndexNo);
-                    lblSelectedRow.Text = $"Selected line# {pLineNo+1}/{grdList.Rows.Count}";
+                    lblSelectedRow.Text = $"Selected line# {pLineNo + 1}/{grdList.Rows.Count}";
 
-                    string rawdata_info = dbFunction.genJSONFormat(grdList, pLineNo, "", clsDefines.NESTED_OBJECT_VALUES);                    
+                    string rawdata_info = dbFunction.genJSONFormat(grdList, pLineNo, "", clsDefines.NESTED_OBJECT_VALUES);
                     dbFunction.populateListViewFromJsonString(dgvRaw, rawdata_info, "", clsDefines.NESTED_OBJECT_VALUES);
 
                     string profile_info = getProfile_InfoFromJson(rawdata_info, "", clsDefines.NESTED_OBJECT_VALUES);
@@ -652,7 +970,7 @@ namespace MIS
 
             dbAPI.FillComboBoxTypeByGroup(cboRequestType, (int)GroupType.RequestType);
             dbAPI.FillComboBoxPOSType(cboPOSType);
-            
+
             dbFunction.ClearDataGrid(grdDummy);
             dbFunction.ClearDataGrid(grdList);
             dbFunction.ClearDataGrid(dgvProfile);
@@ -753,6 +1071,9 @@ namespace MIS
 
             InitImportDate();
             InitProcessedBy();
+
+            // Recheck metadata before saving.
+            if (!ValidateBankDataMetadataAgainstGrid()) return; //Nikko
 
             // check for mandatory fields
             ucStatusDisplay.SetStatus($"Checking mandatory fields...", Enums.StatusType.Processing);
@@ -875,7 +1196,7 @@ namespace MIS
                 dbFunction.SetMessageBox("Import installation request successfully saved.", "Saved", clsFunction.IconType.iInformation);
 
                 btnCancel_Click(this, e);
-                
+
                 Cursor.Current = Cursors.Default;
 
             }
@@ -883,7 +1204,7 @@ namespace MIS
             {
                 dbFunction.SetMessageBox("Message " + ex.Message, "IR import failed", clsFunction.IconType.iError);
             }
-            
+
             Cursor.Current = Cursors.Default;
 
         }
@@ -917,7 +1238,7 @@ namespace MIS
                 }
             }
         }
-        
+
         private void SaveImportIRMaster()
         {
             string sRowSQL = "";
@@ -1094,7 +1415,7 @@ namespace MIS
                             // Write To File
                             iFileNameIndex++;
                             string sNewFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iIRImportDetail, iFileNameIndex);
-                            
+
                             ucStatusDisplay.SetStatus($"Creating CSV file of {sNewFileName}", Enums.StatusType.Create);
                             Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1130,7 +1451,7 @@ namespace MIS
                     // Write To File
                     iFileNameIndex++;
                     string sNewFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iIRImportDetail, iFileNameIndex);
-                    
+
                     ucStatusDisplay.SetStatus($"Creating CSV file of {sNewFileName}", Enums.StatusType.Create);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1142,7 +1463,7 @@ namespace MIS
                 for (i = 1; i <= iFileNameIndex; i++)
                 {
                     string sImportFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iIRImportDetail, i);
-                    
+
                     ucStatusDisplay.SetStatus($"Uploading CSV file of {sImportFileName}", Enums.StatusType.Upload);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1168,7 +1489,7 @@ namespace MIS
         {
             Debug.WriteLine("--SaveIRDetail--");
 
-            string sSQL = "";            
+            string sSQL = "";
             int iRowCount = 0;
             int iColCount = 0;
             int i = 0;
@@ -1207,13 +1528,13 @@ namespace MIS
 
             bool isExist = false;
 
-            
+
             dbFunction.GetCurrentDateTime();
 
             if (iRowCount > 0)
             {
                 Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
-                
+
                 for (i = 0; i < iRowCount; i++)
                 {
                     ii++;
@@ -1223,7 +1544,7 @@ namespace MIS
                     string sPRIME_MID_01 = GetColumnValue(i, iPRIME_MID_01, grdList);
                     string sRequestDate = GetColumnValue(i, iRequestDate, grdList);
                     string sInstDate = GetColumnValue(i, iInstDate, grdList);
-                    
+
                     int iIRStatus = clsGlobalVariables.STATUS_AVAILABLE;
                     string sIRStatusDescription = clsGlobalVariables.STATUS_AVAILABLE_DESC;
 
@@ -1406,7 +1727,7 @@ namespace MIS
                             iFileNameIndex++;
                             string sNewFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iIRDetail, iFileNameIndex);
                             Debug.WriteLine("IR->sNewFileName=" + sNewFileName);
-                            
+
                             ucStatusDisplay.SetStatus($"Creating CSV file of {sNewFileName}", Enums.StatusType.Create);
                             Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1445,7 +1766,7 @@ namespace MIS
                     iFileNameIndex++;
                     string sNewFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iIRDetail, iFileNameIndex);
                     Debug.WriteLine("IR->sNewFileName=" + sNewFileName);
-                    
+
                     ucStatusDisplay.SetStatus($"Creating CSV file of {sNewFileName}", Enums.StatusType.Create);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1475,7 +1796,7 @@ namespace MIS
 
                     }
                 }
-                
+
                 dbFunction.GetResponseTime("Import IRDetail");
 
                 Cursor.Current = Cursors.Default; // Back to normal
@@ -1698,7 +2019,7 @@ namespace MIS
                         //sRowCSV = sRowCSV.Replace("&", "AND");
                         //sCSV = sCSV + sRowCSV + "\n";
 
-                        
+
 
                         Debug.WriteLine("ii=" + ii.ToString() + "-" + "sRowCSV=" + sRowCSV);
 
@@ -1707,7 +2028,7 @@ namespace MIS
                             TempArrayDataCol.Add(sRowCSV);
                         }
                     }
-                    
+
                     ucStatusDisplay.SetStatus($"Processing merchant [{ii}/{iRowCount}] [{sMerchName}]", Enums.StatusType.Success);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
                 }
@@ -1741,7 +2062,7 @@ namespace MIS
                             // Write To File
                             iFileNameIndex++;
                             string sNewFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iMerchant, iFileNameIndex);
-                            
+
                             ucStatusDisplay.SetStatus($"Creating CSV file of {sNewFileName}", Enums.StatusType.Create);
                             Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1779,7 +2100,7 @@ namespace MIS
                     // Write To File
                     iFileNameIndex++;
                     string sNewFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iMerchant, iFileNameIndex);
-                    
+
                     ucStatusDisplay.SetStatus($"Creating CSV file of {sNewFileName}", Enums.StatusType.Create);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1791,7 +2112,7 @@ namespace MIS
                 for (i = 1; i <= iFileNameIndex; i++)
                 {
                     string sImportFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iMerchant, i);
-                    
+
                     ucStatusDisplay.SetStatus($"Uploading CSV file of {sImportFileName}", Enums.StatusType.Upload);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1827,7 +2148,7 @@ namespace MIS
 
 
             int iMerchRegionColIndex = GetHeaderColumnIndex("Area 1 (Metro Manila / Provincial)");
-            
+
             if (iRowCount > 0)
             {
                 Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
@@ -1869,7 +2190,7 @@ namespace MIS
                     ucStatusDisplay.SetStatus($"Processing region [{ii}/{iRowCount}] [{sMerchRegion}]", Enums.StatusType.Processing);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
                 }
-                
+
                 ucStatusDisplay.SetStatus($"Uploading physical file of {sFileName}", Enums.StatusType.Upload);
                 Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1907,7 +2228,7 @@ namespace MIS
                 // Delete File            
                 string sFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iCity, 0);
                 dbFile.DeleteCSV(sFileName);
-                
+
                 ucStatusDisplay.SetStatus($"Creating CSV file of {sFileName}", Enums.StatusType.Create);
                 Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1936,12 +2257,12 @@ namespace MIS
                         if (sRowCSV.Length > 0)
                             dbFile.WriteCSV(sFileName, sRowCSV);
                     }
-                    
+
                     ucStatusDisplay.SetStatus($"Processing city [{ii}/{iRowCount}] [{sMerchCity}]", Enums.StatusType.Processing);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
 
                 }
-                
+
                 ucStatusDisplay.SetStatus($"Uploading physical file of {sFileName}", Enums.StatusType.Upload);
                 Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -1972,7 +2293,7 @@ namespace MIS
 
 
             int iMerchProvinceColIndex = GetHeaderColumnIndex("Area 1 (Metro Manila / Provincial)");
-            
+
             if (iRowCount > 0)
             {
                 Cursor.Current = Cursors.WaitCursor; // Waiting / Hour Glass
@@ -1980,7 +2301,7 @@ namespace MIS
                 // Create File
                 string sFileName = dbFunction.GetImportFileName(clsFunction.ImportType.iProvince, 0);
                 dbFile.DeleteCSV(sFileName);
-                
+
                 ucStatusDisplay.SetStatus($"Uploading physical file of {sFileName}", Enums.StatusType.Upload);
                 Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -2009,11 +2330,11 @@ namespace MIS
                         if (sRowCSV.Length > 0)
                             dbFile.WriteCSV(sFileName, sRowCSV);
                     }
-                    
+
                     ucStatusDisplay.SetStatus($"Processing province [{ii}/{iRowCount}] [{sMerchProvince}]", Enums.StatusType.Processing);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
                 }
-                
+
                 ucStatusDisplay.SetStatus($"Uploading physical file of {sFileName}", Enums.StatusType.Upload);
                 Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -2071,12 +2392,12 @@ namespace MIS
                        (sMerchProvince.Length > 0 && sMerchProvince.CompareTo(clsFunction.sDash) != 0))
                     {
                         dbFunction.GetIDFromFile("Region", sMerchRegion);
-                        int RegionType  = clsSearch.ClassOutFileID;
-                        
+                        int RegionType = clsSearch.ClassOutFileID;
+
                         sSQL = "";
                         sRowSQL = "";
                         sRowSQL = "('" +
-                        sRowSQL + sRowSQL + "'" + RegionType.ToString() + "'," +                        
+                        sRowSQL + sRowSQL + "'" + RegionType.ToString() + "'," +
                         sRowSQL + sRowSQL + "'" + sMerchProvince + "')";
 
                         if (sSQL.Length > 0)
@@ -2099,7 +2420,7 @@ namespace MIS
                     ucStatusDisplay.SetStatus($"Processing region/province [{ii}/{iRowCount}] [{sMerchRegion}][{sMerchProvince}]", Enums.StatusType.Processing);
                     Task.Delay(delay); // Asynchronously wait without blocking UI
                 }
-                
+
                 ucStatusDisplay.SetStatus($"Uploading physical file of {sFileName}", Enums.StatusType.Upload);
                 Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -2145,11 +2466,11 @@ namespace MIS
             dbFunction.ClearDataGrid(dgvProfile);
             dbFunction.ClearDataGrid(dgvRaw);
             dbFunction.ClearDataGrid(grdBulk);
-            
+
             btnLoadFile.Enabled = true;
             btnSave.Enabled = false;
             btnValidate.Enabled = false;
-            
+
             ucStatusDisplay.SetStatus("", Enums.StatusType.Init);
             Task.Delay(delay); // Asynchronously wait without blocking UI
 
@@ -2258,25 +2579,25 @@ namespace MIS
             }
         }
         private void InitTab()
-        {   
+        {
             switch (tabTerminal.SelectedIndex)
             {
-                case 0:                    
-                    lblHeader.Text = "INSTALLATION REQUEST" + " " + "[ " + "IMPORT" + " ]";                    
+                case 0:
+                    lblHeader.Text = "INSTALLATION REQUEST" + " " + "[ " + "IMPORT" + " ]";
                     break;
                 case 1:
                     lblSelectedRow.Text = "";
                     btnUpdateRawData.Enabled = false;
-                    lblHeader.Text = "INSTALLATION REQUEST" + " " + "[ " + "MANUAL ENTRY" + " ]";                    
+                    lblHeader.Text = "INSTALLATION REQUEST" + " " + "[ " + "MANUAL ENTRY" + " ]";
                     break;
             }
         }
 
         private void tabTerminal_SelectedIndexChanged(object sender, EventArgs e)
-        {   
+        {
             //InitTab();            
         }
-        
+
         private void tabPage1_Click_1(object sender, EventArgs e)
         {
 
@@ -2300,7 +2621,7 @@ namespace MIS
             fEdit = false;
             fAddTerminal = false;
             dbFunction.ClearTextBox(this);
-          
+
             dbFunction.ClearListView(lvwSearch);
             dbFunction.ClearListView(lvwDetail);
             dbFunction.ClearListViewItems(lvwMerchant);
@@ -2335,7 +2656,7 @@ namespace MIS
             lblSubHeader.Text = clsFunction.sDash;
 
             cboSearchClient.Text = cboRequestType.Text = cboPOSType.Text = clsFunction.sDefaultSelect;
-            
+
             isUpdate = true;
 
             btnMerchantSearch.Enabled = true;
@@ -2430,7 +2751,7 @@ namespace MIS
                 frmSearchField frm = new frmSearchField();
                 frm.ShowDialog();
             }
-            
+
             if (frmSearchField.fSelected)
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -2494,7 +2815,7 @@ namespace MIS
                 SetMKTextBoxBackColor();
 
                 SetPKTextBoxBackColor();
-                
+
                 dbAPI.FillListViewMultiMerchantInfo(lvwMerchant, txtMerchantID.Text);
 
                 FillProfile_Info();
@@ -2504,7 +2825,7 @@ namespace MIS
                 cboRequestType_SelectedIndexChanged(this, e);
 
                 cboPOSType_SelectedIndexChanged(this, e);
-                
+
                 btnMerchantSearch.Enabled = true;
 
                 btnClientSearch.Enabled = true;
@@ -2543,17 +2864,17 @@ namespace MIS
                                             $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalStatus)} {clsDefines.gPipe} " +
                                             $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalLocation)}";
 
-                    string pSIMInfo = $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMCarrier)} {clsDefines.gPipe} " +                                            
+                    string pSIMInfo = $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMCarrier)} {clsDefines.gPipe} " +
                                             $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMStatus)} {clsDefines.gPipe} " +
                                             $"{dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMLocation)}";
 
                     txtTCount.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_ServiceCount);
                     txtIRStatudDescription.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_IRStatusDescription);
                     txtStatusID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_IRStatus);
-                    
+
                     txtCurTerminalID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalID);
                     txtCurTerminalSN.Text = clsSearch.ClassHoldTerminalSN = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_TerminalSN);
-                    txtCurTerminalInfo.Text = pTerminalInfo;                    
+                    txtCurTerminalInfo.Text = pTerminalInfo;
 
                     txtCurSIMID.Text = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMID);
                     txtCurSIMSN.Text = clsSearch.ClassHoldSIMSN = dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_SIMSN);
@@ -2562,7 +2883,7 @@ namespace MIS
             }
 
         }
-        
+
         private void btnAddClient_Click(object sender, EventArgs e)
         {
             frmParticular.iParticularType = clsGlobalVariables.iClient_Type;
@@ -2666,7 +2987,7 @@ namespace MIS
                 }
 
                 SaveMIRDetail();
-                
+
             }
             else
             {
@@ -2711,7 +3032,7 @@ namespace MIS
         private bool ValidateFields(int checkIndex)
         {
             Debug.WriteLine("--ValidateFields--");
-            Debug.WriteLine("checkIndex="+ checkIndex);
+            Debug.WriteLine("checkIndex=" + checkIndex);
 
             switch (checkIndex)
             {
@@ -2758,7 +3079,7 @@ namespace MIS
                     break;
             }
 
-            
+
 
             return true;
         }
@@ -2810,11 +3131,11 @@ namespace MIS
         {
             lblCountComments.Text = txtMComments.Text.Length.ToString() + "/" + iLimit.ToString();
         }
-        
+
         private void txtIRNo_Click(object sender, EventArgs e)
         {
             btnMerchantSearch_Click(this, e);
-        } 
+        }
 
         private void txtMerchantName_Click(object sender, EventArgs e)
         {
@@ -2890,7 +3211,7 @@ namespace MIS
                     ListViewItem item = new ListViewItem(iLineNo.ToString());
                     item.SubItems.Add(clsArray.TAIDNo[i].ToString());
                     item.SubItems.Add(clsArray.IRIDNo[i].ToString());
-                    item.SubItems.Add(clsArray.IRNo[i].ToString());                    
+                    item.SubItems.Add(clsArray.IRNo[i].ToString());
                     item.SubItems.Add(clsArray.TID[i].ToString());
                     item.SubItems.Add(clsArray.MID[i].ToString());
                     item.SubItems.Add(clsArray.ClientID[i].ToString());
@@ -2901,9 +3222,9 @@ namespace MIS
                     item.SubItems.Add(clsArray.JobTypeStatusDescription[i].ToString());
 
                     lvwSearch.Items.Add(item);
-                    
+
                     i++;
-                    
+
                 }
 
                 dbFunction.ListViewAlternateBackColor(lvwSearch);
@@ -2915,7 +3236,7 @@ namespace MIS
                 //dbFunction.SetMessageBox("No record found.", "Find IR", clsFunction.IconType.iExclamation);                
             }
 
-            dbFunction.GetResponseTime("Find IR");            
+            dbFunction.GetResponseTime("Find IR");
 
             // Focus first item
             if (lvwSearch.Items.Count > 0)
@@ -2923,7 +3244,7 @@ namespace MIS
                 lvwSearch.FocusedItem = lvwSearch.Items[0];
                 lvwSearch.Items[0].Selected = true;
                 lvwSearch.Select();
-            }            
+            }
         }
 
         private void InitTextBoxLength()
@@ -2978,14 +3299,14 @@ namespace MIS
                 txtClientName.Text = clsSearch.ClassParticularName;
 
                 FillClientTextBox();
-                
+
                 //dbAPI.GenerateID(txtIRNo, "IR Detail", "IR");
 
                 txtMSetup.Focus();
             }
         }
 
-        
+
 
         private void txtIRTID_TextChanged(object sender, EventArgs e)
         {
@@ -3006,7 +3327,7 @@ namespace MIS
         {
             txtIRMID.Text = dbFunction.padLeftChar(txtIRMID.Text, clsFunction.sZero, clsFunction.MID_LENGTH);
         }
-        
+
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
@@ -3016,8 +3337,8 @@ namespace MIS
         {
             if (dbFunction.isValidID(txtMerchantID.Text))
             {
-                clsParticular.ClassParticularID = clsSearch.ClassParticularID;                
-                LoadIR("View", "", "");                
+                clsParticular.ClassParticularID = clsSearch.ClassParticularID;
+                LoadIR("View", "", "");
             }
         }
 
@@ -3050,7 +3371,7 @@ namespace MIS
             else
             {
                 dbFunction.SetMessageBox("No installation request selected. Please chose item on the list.", "Installation Request", clsFunction.IconType.iError);
-            }            
+            }
         }
 
         private void InitListView()
@@ -3067,15 +3388,15 @@ namespace MIS
             lvwSearch.Columns.Add("SERVICENO", dbFunction.ID_Width(), HorizontalAlignment.Left);
             lvwSearch.Columns.Add("SERVICE ID", 140, HorizontalAlignment.Left);
             lvwSearch.Columns.Add("JOB TYPE DESC", 140, HorizontalAlignment.Left);
-            lvwSearch.Columns.Add("JOB TYPE STATUS", 140, HorizontalAlignment.Left);            
+            lvwSearch.Columns.Add("JOB TYPE STATUS", 140, HorizontalAlignment.Left);
         }
 
         public bool fDetailConfirm()
         {
-            bool fConfirm = true;                      
+            bool fConfirm = true;
 
             string sTemp =
-                           clsFunction.sLineSeparator + "\n" +                           
+                           clsFunction.sLineSeparator + "\n" +
                            "Request ID: " + clsSearch.ClassIRNo + "\n" +
                            clsFunction.sLineSeparator + "\n" +
                            "Merchant Name: " + txtMerchantName.Text + "\n" +
@@ -3124,7 +3445,7 @@ namespace MIS
         }
 
         private void btnAddMerchantImport_Click(object sender, EventArgs e)
-        {            
+        {
             frmParticular.iParticularType = clsGlobalVariables.iClient_Type;
             frmParticular frm = new frmParticular();
             frm.ShowDialog();
@@ -3152,7 +3473,7 @@ namespace MIS
 
         private void SetMKTextBoxBackColor()
         {
-            txtMerchantName.BackColor = txtClientName.BackColor = clsFunction.MKBackColor;            
+            txtMerchantName.BackColor = txtClientName.BackColor = clsFunction.MKBackColor;
         }
 
         private void SetPKTextBoxBackColor()
@@ -3166,10 +3487,10 @@ namespace MIS
             string rawdata_info;
             string profile_config_info;
 
-            txtMerchantName.Text =          
+            txtMerchantName.Text =
             txtMerchantAddress.Text =
             txtMerchantProvince.Text =
-            txtMerchantRegion.Text =       
+            txtMerchantRegion.Text =
             txtMerchantContactPerson.Text =
             txtMerchantTelNo.Text =
             txtMerchantMobile.Text =
@@ -3205,7 +3526,7 @@ namespace MIS
                         dbFunction.parseDelimitedString(profile_config_info, clsDefines.gComma, 0);
 
                         txtProfile_Info.Text = profile_info;
-                       
+
                         txtMerchantID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 0);
                         txtMerchantName.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 1);
                         txtMerchantAddress.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 2);
@@ -3329,12 +3650,12 @@ namespace MIS
                 if (dbFunction.isValidID(txtIRIDNo.Text))
                 {
                     lblMainStatus.BackColor = Color.DarkGreen;
-                    lblMainStatus.Text = "UPDATE";                    
+                    lblMainStatus.Text = "UPDATE";
                 }
                 else
                 {
                     lblMainStatus.BackColor = Color.DarkBlue;
-                    lblMainStatus.Text = "NEW";                   
+                    lblMainStatus.Text = "NEW";
                 }
             }
 
@@ -3350,11 +3671,11 @@ namespace MIS
 
             fAddTerminal = true;
             txtIRTID.Text = clsFunction.sNull;
-            txtIRTID.BackColor = txtIRMID.BackColor = clsFunction.EntryBackColor;        
+            txtIRTID.BackColor = txtIRMID.BackColor = clsFunction.EntryBackColor;
             txtIRTID.ReadOnly = txtIRMID.ReadOnly = false;
             txtIRTID.Focus();
         }
-        
+
         private void GetHeaderList()
         {
             Debug.WriteLine("--GetHeaderList--");
@@ -3420,7 +3741,7 @@ namespace MIS
                 }
 
             }
-            
+
         }
 
         private void grdList_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -3433,7 +3754,7 @@ namespace MIS
             if (grdList.RowCount > 0)
             {
                 grdList.Rows[0].Selected = false;
-                
+
                 ucStatusDisplay.SetStatus($"{grdList.RowCount} total record to import.", Enums.StatusType.Success);
                 Task.Delay(delay); // Asynchronously wait without blocking UI
             }
@@ -3448,13 +3769,13 @@ namespace MIS
         {
             GetHeaderList();
         }
-        
+
         private void FillProfile_Info()
         {
             Debug.WriteLine("--FillProfile_Info");
 
             string pProfile_Info = txtProfile_Info.Text;
-            Debug.WriteLine("pProfile_info="+ pProfile_Info);
+            Debug.WriteLine("pProfile_info=" + pProfile_Info);
 
             txtProfileECRIntegration.Text =
             txtProfileInstallment.Text =
@@ -3494,9 +3815,9 @@ namespace MIS
             {
                 Debug.WriteLine("Exceptional error " + ex.Message);
             }
-            
+
         }
-        
+
         private void saveProfileInfo()
         {
             Debug.WriteLine("--saveProfileInfo--");
@@ -3522,14 +3843,14 @@ namespace MIS
 
                 dbAPI.ExecuteAPI("PUT", "Update", "Update Profile Info", txtIRIDNo.Text + clsDefines.gPipe + jsonString, "", "", "UpdateCollectionDetail");
             }
-            
+
         }
 
         private class DataGridViewRowData
         {
             public Dictionary<string, object> Values { get; set; }
         }
-        
+
         private void btnGenerate_Click(object sender, EventArgs e)
         {
             if (!dbFunction.fPromptConfirmation("Are you sure to let the system generate REQUEST ID?")) return;
@@ -3554,9 +3875,9 @@ namespace MIS
                     dbFunction.SetMessageBox("Merchant " + txtMerchantName.Text + " reset service successfully.", "IR", clsFunction.IconType.iInformation);
                 }
             }
-            
+
         }
-        
+
         private void btnUpdateProfile_Click(object sender, EventArgs e)
         {
             if (!dbFunction.fPromptConfirmation("Are you sure to update merchant tenure?")) return;
@@ -3589,10 +3910,10 @@ namespace MIS
 
                 dbFunction.ClearTextBox(this);
                 dbFunction.TextBoxUnLock(true, this);
-                
+
                 txtMerchantID.Text = clsSearch.ClassParticularID.ToString();
                 txtMerchantName.Text = clsSearch.ClassParticularName;
-                
+
                 modelParticular = modelParticular.setParticularInfo(int.Parse(txtMerchantID.Text));
                 txtMerchantName.Text = modelParticular.Name;
                 txtMerchantAddress.Text = modelParticular.Address;
@@ -3601,7 +3922,7 @@ namespace MIS
                 txtMerchantRegion.Text = modelParticular.Region;
                 txtMerchantProvince.Text = modelParticular.Province;
                 txtMerchantEmail.Text = modelParticular.Email;
-                
+
                 dbAPI.FillListViewMultiMerchantInfo(lvwMerchant, txtMerchantID.Text);
 
                 btnClientSearch.Enabled = true;
@@ -3611,7 +3932,7 @@ namespace MIS
                 btnMSave.Enabled = true;
 
                 btnAddTerminal.Enabled = true;
-                
+
                 Cursor.Current = Cursors.WaitCursor;
             }
         }
@@ -3662,8 +3983,8 @@ namespace MIS
             Debug.WriteLine("--getProfile_InfoFromJson--");
             Debug.WriteLine("token=" + token);
             Debug.WriteLine("nestedObject=" + nestedObject);
-            Debug.WriteLine("rawdata_info="+ rawdata_info);
-            
+            Debug.WriteLine("rawdata_info=" + rawdata_info);
+
             var tagValueMap = new Dictionary<string, string>
             {
                 { clsDefines.IR_DCC_PROFILE_INFO, dbFunction.getJSONTagValue(rawdata_info, clsDefines.IR_DCC_PROFILE_INFO, token, nestedObject) },
@@ -3685,7 +4006,7 @@ namespace MIS
 
             return output;
         }
-        
+
         private void btnUpdateRawData_Click(object sender, EventArgs e)
         {
             if (!dbFunction.isValidDescriptionEntry(cboSearchClient.Text, "Client" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return;
@@ -3738,6 +4059,11 @@ namespace MIS
                         string pRawData_Info = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_RawData_Info);
 
                         clsSearch.ClassIRIDNo = int.Parse(dbFunction.CheckAndSetNumericValue(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_IRIDNo)));
+
+                        //NIKKO - Preserve the exact IR record before later API calls
+                        //modify the shared clsSearch values.
+                        int bankTargetIRIDNo = clsSearch.ClassIRIDNo;
+                        string bankTargetIRNo = clsSearch.ClassIRNo;
 
                         Debug.WriteLine("--Existing [pProfile_Info]--");
                         dbFunction.parseDelimitedString(pProfile_Info, clsDefines.gComma, 0);
@@ -3808,6 +4134,45 @@ namespace MIS
                             dbAPI.ExecuteAPI("PUT", "Update", "Update Profile Config Info", $"{clsSearch.ClassMerchantID}{clsDefines.gPipe}{txtProfileConfigInfo.Text}", "", "", "UpdateCollectionDetail");
                         }
 
+                        //Nikko
+
+                        if (IsBank() && isConvertedImport)
+                        {
+                            string bankDataInfo;
+
+                            if (!bankDataInfoByRequestId.TryGetValue(bankTargetIRNo, out bankDataInfo))
+                            {
+                                throw new InvalidDataException(
+                                    "Bank data JSON was not found for Request ID "
+                                    + bankTargetIRNo
+                                    + ".");
+                            }
+
+                            if (bankTargetIRIDNo <= 0)
+                            {
+                                throw new InvalidDataException(
+                                    "A valid IRIDNo was not found for Request ID "
+                                    + bankTargetIRNo
+                                    + ".");
+                            }
+
+                            ucStatusDisplay.SetStatus("Saving bank data for Request ID [" + bankTargetIRNo + "]",
+                                Enums.StatusType.Processing);
+
+                            dbAPI.UpdateIRBankDataInfo(bankTargetIRIDNo.ToString(), bankDataInfo);
+
+                            if (!clsGlobalVariables.isAPIResponseOK)
+                            {
+                                throw new InvalidOperationException("Unable to save bank data for Request ID " + bankTargetIRNo + ".");
+                            }
+
+                            Debug.WriteLine("Saved bankdata_info: IRIDNo=["
+                                + bankTargetIRIDNo
+                                + "], Request ID=["
+                                + bankTargetIRNo
+                                + "]");
+                        }
+
                         if (isPrompt)
                             dbFunction.SetMessageBox("JSON data update complete.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
 
@@ -3844,6 +4209,9 @@ namespace MIS
             catch (Exception ex)
             {
                 Debug.WriteLine($"updateRawData, error={ex.Message}");
+
+                if (isConvertedImport)
+                    throw;
             }
 
             Cursor.Current = Cursors.Default;
@@ -3857,7 +4225,7 @@ namespace MIS
                 clsSearch.ClassRequestTypeID = dbFunction.getFileID(cboRequestType, "All Type");
                 clsSearch.ClassRequestTypeID = clsSearch.ClassOutFileID;
                 Debug.WriteLine("clsSearch.ClassRequestTypeID=" + clsSearch.ClassRequestTypeID);
-                
+
             }
         }
 
@@ -3937,7 +4305,7 @@ namespace MIS
                 if (row.IsNewRow) continue;
 
                 var requestId = row.Cells[0].Value?.ToString(); // Request ID
-                var mid = dbFunction.formattedMID( row.Cells[12].Value?.ToString()); // MID
+                var mid = dbFunction.formattedMID(row.Cells[12].Value?.ToString()); // MID
                 var tid = dbFunction.formattedTID(row.Cells[13].Value?.ToString()); // TID                
                 if (string.IsNullOrWhiteSpace(requestId)) continue;
 
@@ -4247,9 +4615,9 @@ namespace MIS
                     return;
             }
 
-            string terminalSNStatus = txtRepTerminalSN.Text.Equals(clsSearch.ClassHoldTerminalSN)? "UNCHANGED": "CHANGED";
+            string terminalSNStatus = txtRepTerminalSN.Text.Equals(clsSearch.ClassHoldTerminalSN) ? "UNCHANGED" : "CHANGED";
 
-            string simSNStatus = txtRepSIMSN.Text.Equals(clsSearch.ClassHoldSIMSN)? "UNCHANGED": "CHANGED";
+            string simSNStatus = txtRepSIMSN.Text.Equals(clsSearch.ClassHoldSIMSN) ? "UNCHANGED" : "CHANGED";
 
             if (!dbFunction.fPromptConfirmation($@"
             Are you sure you want to update the merchant-assigned serial numbers?
@@ -4278,7 +4646,7 @@ namespace MIS
                                     $"{txtRepTerminalSN.Text}{clsDefines.gPipe}" +
                                     $"{dbFunction.CheckAndSetNumericValue(txtRepSIMID.Text)}{clsDefines.gPipe}" +
                                     $"{txtRepSIMSN.Text}{clsDefines.gPipe}" +
-                                    $"{pServiceNos}{clsDefines.gPipe}{dbFunction.CheckAndSetBooleanValue(chkDeployed.Checked)}";            
+                                    $"{pServiceNos}{clsDefines.gPipe}{dbFunction.CheckAndSetBooleanValue(chkDeployed.Checked)}";
 
             Debug.WriteLine("--pServiceNos--");
             dbFunction.parseDelimitedString(pServiceNos, clsDefines.gComma, 1);
@@ -4322,15 +4690,15 @@ namespace MIS
                 txtRepTerminalSN.Text = $"{clsSearch.ClassTerminalSN}";
 
                 txtRepTerminalInfo.Text = $"{clsSearch.ClassTerminalType} {clsDefines.gPipe} {clsSearch.ClassTerminalModel} {clsDefines.gPipe} {clsSearch.ClassTerminalStatusDescription} {clsDefines.gPipe} {clsSearch.ClassTerminalLocaton}";
-                
+
             }
         }
 
         private void btnRemoveTerminal_Click(object sender, EventArgs e)
         {
             txtRepTerminalID.Text =
-            txtRepTerminalSN.Text = 
-            txtRepTerminalInfo.Text =            
+            txtRepTerminalSN.Text =
+            txtRepTerminalInfo.Text =
             clsFunction.sNull;
         }
 
@@ -4358,7 +4726,7 @@ namespace MIS
         private void btnRemoveSIM_Click(object sender, EventArgs e)
         {
             txtRepSIMID.Text =
-            txtRepSIMSN.Text = 
+            txtRepSIMSN.Text =
             txtRepSIMInfo.Text =
             clsFunction.sNull;
         }
@@ -4417,24 +4785,24 @@ namespace MIS
                 string contactperson = Convert.ToString(row.Cells[20].Value).Trim();
                 string contactnumber = Convert.ToString(row.Cells[21].Value).Trim();
 
-                Debug.WriteLine($"requestid=[{requestid}]"); 
-                Debug.WriteLine($"vendor=[{vendor}]"); 
-                Debug.WriteLine($"requestdate=[{requestdate}]"); 
-                Debug.WriteLine($"requestor=[{requestor}]"); 
-                Debug.WriteLine($"requesttype=[{requesttype}]"); 
-                Debug.WriteLine($"requestprio=[{requestprio}]"); 
-                Debug.WriteLine($"possetup=[{possetup}]"); 
-                Debug.WriteLine($"postype=[{postype}]"); 
-                Debug.WriteLine($"posconnectiontype=[{posconnectiontype}]"); 
-                Debug.WriteLine($"targetinstdate=[{targetinstdate}]"); 
-                Debug.WriteLine($"mid=[{mid}]"); 
-                Debug.WriteLine($"tid=[{tid}]"); 
-                Debug.WriteLine($"merchantname=[{merchantname}]"); 
-                Debug.WriteLine($"address=[{address}]"); 
-                Debug.WriteLine($"city=[{city}]"); 
-                Debug.WriteLine($"area1=[{area1}]"); 
-                Debug.WriteLine($"area2=[{area2}]"); 
-                Debug.WriteLine($"contactperson=[{contactperson}]"); 
+                Debug.WriteLine($"requestid=[{requestid}]");
+                Debug.WriteLine($"vendor=[{vendor}]");
+                Debug.WriteLine($"requestdate=[{requestdate}]");
+                Debug.WriteLine($"requestor=[{requestor}]");
+                Debug.WriteLine($"requesttype=[{requesttype}]");
+                Debug.WriteLine($"requestprio=[{requestprio}]");
+                Debug.WriteLine($"possetup=[{possetup}]");
+                Debug.WriteLine($"postype=[{postype}]");
+                Debug.WriteLine($"posconnectiontype=[{posconnectiontype}]");
+                Debug.WriteLine($"targetinstdate=[{targetinstdate}]");
+                Debug.WriteLine($"mid=[{mid}]");
+                Debug.WriteLine($"tid=[{tid}]");
+                Debug.WriteLine($"merchantname=[{merchantname}]");
+                Debug.WriteLine($"address=[{address}]");
+                Debug.WriteLine($"city=[{city}]");
+                Debug.WriteLine($"area1=[{area1}]");
+                Debug.WriteLine($"area2=[{area2}]");
+                Debug.WriteLine($"contactperson=[{contactperson}]");
                 Debug.WriteLine($"contactnumber=[{contactnumber}]");
 
                 // Required Fields
@@ -4645,8 +5013,8 @@ namespace MIS
                     dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 
                     dbAPI.ExecuteAPI("PUT", "Update", "Merchant-ZoneID", pSearchValue, "", "", "UpdateCollectionDetail");
-                    
-                }                
+
+                }
             }
         }
 
@@ -4690,7 +5058,7 @@ namespace MIS
             {
                 string pSelectedRow = dbFunction.GetListViewSelectedRow(lvwList, 0);
 
-                string jsonResult = dbFunction.genJSONFormat(lvwList,lvwList.SelectedIndices[0],"","");
+                string jsonResult = dbFunction.genJSONFormat(lvwList, lvwList.SelectedIndices[0], "", "");
 
                 ucInfoDataGridView.ClearData();
 
@@ -4705,7 +5073,7 @@ namespace MIS
 
             // init values
             modelSearch.TerminalID = int.Parse(txtRepTerminalID.Text);
-            modelSearch.TerminalSN = txtRepTerminalSN.Text;            
+            modelSearch.TerminalSN = txtRepTerminalSN.Text;
             modelSearch.DebugSearch();
 
             frmImportTerminal.fAutoLoadData = true;

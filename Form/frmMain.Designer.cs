@@ -160,6 +160,7 @@ namespace MIS
             this.lblConn = new System.Windows.Forms.Label();
             this.lblPulse = new System.Windows.Forms.Label();
             this.pnlSubMenuServicing = new System.Windows.Forms.Panel();
+            this.btnBankTemplateGen = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnQrDelivery = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnServicingArchieve = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnMaintenanceUpdateMerchantSN = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -3238,6 +3239,7 @@ namespace MIS
             // 
             this.pnlSubMenuServicing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pnlSubMenuServicing.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSubMenuServicing.Controls.Add(this.btnBankTemplateGen);
             this.pnlSubMenuServicing.Controls.Add(this.btnQrDelivery);
             this.pnlSubMenuServicing.Controls.Add(this.btnServicingArchieve);
             this.pnlSubMenuServicing.Controls.Add(this.btnMaintenanceUpdateMerchantSN);
@@ -3266,10 +3268,47 @@ namespace MIS
             this.pnlSubMenuServicing.Controls.Add(this.panel17);
             this.pnlSubMenuServicing.Location = new System.Drawing.Point(994, 57);
             this.pnlSubMenuServicing.Name = "pnlSubMenuServicing";
-            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 718);
+            this.pnlSubMenuServicing.Size = new System.Drawing.Size(231, 745);
             this.pnlSubMenuServicing.TabIndex = 278;
             this.pnlSubMenuServicing.Visible = false;
             this.pnlSubMenuServicing.Paint += new System.Windows.Forms.PaintEventHandler(this.panel15_Paint);
+            // 
+            // btnBankTemplateGen
+            // 
+            this.btnBankTemplateGen.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnBankTemplateGen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnBankTemplateGen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBankTemplateGen.BorderRadius = 0;
+            this.btnBankTemplateGen.ButtonText = "          Bank Template Gen";
+            this.btnBankTemplateGen.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBankTemplateGen.DisabledColor = System.Drawing.Color.Gray;
+            this.btnBankTemplateGen.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBankTemplateGen.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnBankTemplateGen.Iconimage = null;
+            this.btnBankTemplateGen.Iconimage_right = null;
+            this.btnBankTemplateGen.Iconimage_right_Selected = null;
+            this.btnBankTemplateGen.Iconimage_Selected = null;
+            this.btnBankTemplateGen.IconMarginLeft = 0;
+            this.btnBankTemplateGen.IconMarginRight = 0;
+            this.btnBankTemplateGen.IconRightVisible = true;
+            this.btnBankTemplateGen.IconRightZoom = 0D;
+            this.btnBankTemplateGen.IconVisible = true;
+            this.btnBankTemplateGen.IconZoom = 40D;
+            this.btnBankTemplateGen.IsTab = true;
+            this.btnBankTemplateGen.Location = new System.Drawing.Point(2, 702);
+            this.btnBankTemplateGen.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnBankTemplateGen.Name = "btnBankTemplateGen";
+            this.btnBankTemplateGen.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnBankTemplateGen.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnBankTemplateGen.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnBankTemplateGen.selected = false;
+            this.btnBankTemplateGen.Size = new System.Drawing.Size(225, 28);
+            this.btnBankTemplateGen.TabIndex = 310;
+            this.btnBankTemplateGen.Text = "          Bank Template Gen";
+            this.btnBankTemplateGen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBankTemplateGen.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnBankTemplateGen.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnBankTemplateGen.Click += new System.EventHandler(this.btnBankTemplateGen_Click);
             // 
             // btnQrDelivery
             // 
@@ -7454,9 +7493,9 @@ namespace MIS
             this.label42.ForeColor = System.Drawing.Color.Black;
             this.label42.Location = new System.Drawing.Point(0, 1);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(154, 14);
+            this.label42.Size = new System.Drawing.Size(168, 14);
             this.label42.TabIndex = 0;
-            this.label42.Text = "Doub click to Restore";
+            this.label42.Text = "Double click to Restore";
             // 
             // lvwFormMinimized
             // 
@@ -8024,6 +8063,6 @@ namespace MIS
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Panel panel25;
         private BunifuFlatButton btnQrDelivery;
+        private BunifuFlatButton btnBankTemplateGen;
     }
 }
-
