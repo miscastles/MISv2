@@ -182,6 +182,9 @@
             this.cboSearchBillable = new System.Windows.Forms.ComboBox();
             this.cboSearchActionMade = new System.Windows.Forms.ComboBox();
             this.label30 = new System.Windows.Forms.Label();
+            this.gbServicePrefix = new System.Windows.Forms.GroupBox();
+            this.cboServicePrefix = new System.Windows.Forms.ComboBox();
+            this.label41 = new System.Windows.Forms.Label();
             this.gbSetup = new System.Windows.Forms.GroupBox();
             this.btnSearchSetup = new Bunifu.Framework.UI.BunifuImageButton();
             this.txtSearchSetup = new System.Windows.Forms.TextBox();
@@ -228,6 +231,7 @@
             this.gbLocation.SuspendLayout();
             this.gbDateFlag.SuspendLayout();
             this.gbServiceResult.SuspendLayout();
+            this.gbServicePrefix.SuspendLayout();
             this.gbSetup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearchSetup)).BeginInit();
             this.gbStatus.SuspendLayout();
@@ -251,7 +255,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1035, 0);
+            this.panel4.Location = new System.Drawing.Point(1036, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(2, 845);
             this.panel4.TabIndex = 305;
@@ -473,7 +477,7 @@
             this.cboSearchServiceType.FormattingEnabled = true;
             this.cboSearchServiceType.Location = new System.Drawing.Point(114, 9);
             this.cboSearchServiceType.Name = "cboSearchServiceType";
-            this.cboSearchServiceType.Size = new System.Drawing.Size(483, 22);
+            this.cboSearchServiceType.Size = new System.Drawing.Size(215, 22);
             this.cboSearchServiceType.TabIndex = 310;
             this.cboSearchServiceType.SelectedIndexChanged += new System.EventHandler(this.cboSearchServiceType_SelectedIndexChanged);
             // 
@@ -907,7 +911,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel8.Location = new System.Drawing.Point(1, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1034, 2);
+            this.panel8.Size = new System.Drawing.Size(1035, 2);
             this.panel8.TabIndex = 388;
             // 
             // panel7
@@ -1001,7 +1005,7 @@
             this.gbServiceType.ForeColor = System.Drawing.Color.Black;
             this.gbServiceType.Location = new System.Drawing.Point(3, 457);
             this.gbServiceType.Name = "gbServiceType";
-            this.gbServiceType.Size = new System.Drawing.Size(600, 34);
+            this.gbServiceType.Size = new System.Drawing.Size(331, 34);
             this.gbServiceType.TabIndex = 403;
             this.gbServiceType.TabStop = false;
             this.gbServiceType.Text = "SERVICE TYPE:";
@@ -1407,6 +1411,7 @@
             this.bunifuCards2.BorderRadius = 5;
             this.bunifuCards2.BottomSahddow = true;
             this.bunifuCards2.color = System.Drawing.Color.Gray;
+            this.bunifuCards2.Controls.Add(this.gbServicePrefix);
             this.bunifuCards2.Controls.Add(this.gbReportStatus);
             this.bunifuCards2.Controls.Add(this.gbInventoryStatus);
             this.bunifuCards2.Controls.Add(this.gbDetailDateFilter);
@@ -1431,7 +1436,7 @@
             this.bunifuCards2.Name = "bunifuCards2";
             this.bunifuCards2.RightSahddow = true;
             this.bunifuCards2.ShadowDepth = 20;
-            this.bunifuCards2.Size = new System.Drawing.Size(606, 811);
+            this.bunifuCards2.Size = new System.Drawing.Size(609, 811);
             this.bunifuCards2.TabIndex = 413;
             this.bunifuCards2.Paint += new System.Windows.Forms.PaintEventHandler(this.bunifuCards2_Paint);
             // 
@@ -2065,6 +2070,42 @@
             this.label30.TabIndex = 336;
             this.label30.Text = "SERVICE RESULT";
             // 
+            // gbServicePrefix
+            // 
+            this.gbServicePrefix.Controls.Add(this.cboServicePrefix);
+            this.gbServicePrefix.Controls.Add(this.label41);
+            this.gbServicePrefix.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbServicePrefix.ForeColor = System.Drawing.Color.Black;
+            this.gbServicePrefix.Location = new System.Drawing.Point(338, 457);
+            this.gbServicePrefix.Name = "gbServicePrefix";
+            this.gbServicePrefix.Size = new System.Drawing.Size(265, 34);
+            this.gbServicePrefix.TabIndex = 442;
+            this.gbServicePrefix.TabStop = false;
+            this.gbServicePrefix.Text = "SERVICE TYPE:";
+            // 
+            // cboServicePrefix
+            // 
+            this.cboServicePrefix.BackColor = System.Drawing.Color.White;
+            this.cboServicePrefix.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboServicePrefix.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboServicePrefix.FormattingEnabled = true;
+            this.cboServicePrefix.Location = new System.Drawing.Point(113, 9);
+            this.cboServicePrefix.Name = "cboServicePrefix";
+            this.cboServicePrefix.Size = new System.Drawing.Size(152, 22);
+            this.cboServicePrefix.TabIndex = 310;
+            this.cboServicePrefix.SelectedIndexChanged += new System.EventHandler(this.cboServicePrefix_SelectedIndexChanged);
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.ForeColor = System.Drawing.Color.Black;
+            this.label41.Location = new System.Drawing.Point(6, 14);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(40, 15);
+            this.label41.TabIndex = 311;
+            this.label41.Text = "PREFIX";
+            // 
             // gbSetup
             // 
             this.gbSetup.Controls.Add(this.btnSearchSetup);
@@ -2236,7 +2277,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1037, 845);
+            this.ClientSize = new System.Drawing.Size(1038, 845);
             this.Controls.Add(this.txtReasonID);
             this.Controls.Add(this.txtDispatcherID);
             this.Controls.Add(this.txtMobileID);
@@ -2326,6 +2367,8 @@
             this.gbDateFlag.PerformLayout();
             this.gbServiceResult.ResumeLayout(false);
             this.gbServiceResult.PerformLayout();
+            this.gbServicePrefix.ResumeLayout(false);
+            this.gbServicePrefix.PerformLayout();
             this.gbSetup.ResumeLayout(false);
             this.gbSetup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearchSetup)).EndInit();
@@ -2504,5 +2547,8 @@
         private System.Windows.Forms.ComboBox cboSearchReportStatus;
         private System.Windows.Forms.Label label40;
         private Bunifu.Framework.UI.BunifuImageButton btnMinimize;
+        private System.Windows.Forms.GroupBox gbServicePrefix;
+        private System.Windows.Forms.ComboBox cboServicePrefix;
+        private System.Windows.Forms.Label label41;
     }
 }

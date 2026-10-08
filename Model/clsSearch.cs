@@ -2739,5 +2739,12 @@ namespace MIS
             get { return _BankKey; }
             set { _BankKey = value; }
         }
+
+        public static string _ServiceTag;
+        public static string ClassServiceTag
+        {
+            get { return _ServiceTag; }
+            set { _ServiceTag = value; }
+        }
     }
 }

@@ -4425,7 +4425,8 @@ namespace MIS
                                         $"{clsSearch.ClassIsExcludePending}{clsFunction.sPipe}" +
                                         $"{clsSearch.ClassReasonID}{clsFunction.sPipe}" +
                                         $"{clsSearch.ClassReportStatus}{clsFunction.sPipe}" +
-                                        $"{(int)Enums.ReportType.Daily}";
+                                        $"{(int)Enums.ReportType.Daily}{clsFunction.sPipe}" +
+                                        $"{clsSearch.ClassServiceTag}";
 
                         // parse delimited
                         Debug.WriteLine("Daily Parsed...");
@@ -4454,7 +4455,8 @@ namespace MIS
                                             $"{clsSearch.ClassIsExcludePending}{clsFunction.sPipe}" +
                                             $"{clsSearch.ClassReasonID}{clsFunction.sPipe}" +
                                             $"{clsSearch.ClassReportStatus}{clsFunction.sPipe}" +
-                                            $"{(int)Enums.ReportType.Summary}";
+                                            $"{(int)Enums.ReportType.Summary}{clsFunction.sPipe}" +
+                                            $"{clsSearch.ClassServiceTag}";
 
                             // parse delimited
                             Debug.WriteLine("Detail Service Attempt Parsed...");
@@ -5204,7 +5206,6 @@ namespace MIS
 
                 //SetReceiptReportHeader(rptViewer);
                 //SetReceiptUser(rptViewer);
-
                 myViewer.ReportSource = rptViewer;
                 myViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             }
