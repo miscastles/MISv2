@@ -1,0 +1,32 @@
+CHANGELOG
+Date: October 08, 2026
+Developer: Nikko
+
+========================================================
+CHANGES
+========================================================
+
+1. Bank Template Generator Follow-up
+    - Included the supporting BankTemplateRow and IrImportRow models.
+    - Included the DataGridView date-picker column used by the generator preview.
+    - Included the Installation Request metadata reader and API persistence method.
+    - Included the MIS main-menu entry and project references for the generator.
+    - Included the blank MCC Installation Request Excel export template.
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- Bank Template Generator Models
+- Bank Template Generator Date Editor
+- Installation Request Import
+- MIS Main Menu
+- API
+- MIS Project File
+- MIS Blank Import Template
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

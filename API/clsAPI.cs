@@ -9421,6 +9421,7 @@ namespace MIS
             }
         }
 
+        // Persists converted bank-template metadata after a successful Installation Request import.
         public void UpdateIRBankDataInfo(string sIRIDNo, string bankDataInfo)
         {
             int iIRIDNo;

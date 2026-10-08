@@ -3698,6 +3698,7 @@ namespace MIS
             frm.Show();
         }
 
+        // Opens the Bank Template Generator from the MIS servicing menu.
         private void btnBankTemplateGen_Click(object sender, EventArgs e)
         {
             InitMenu(0, false);

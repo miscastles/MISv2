@@ -718,6 +718,7 @@
     <Compile Include="Function\clsComboBox.cs" />
     <Compile Include="Function\clsReceiptImageProcessor.cs" />
     <Compile Include="Function\DataGridViewHelper.cs" />
+    <!-- Bank Template Generator supporting classes -->
     <Compile Include="Function\DataGridViewDatePickerColumn.cs" />
     <Compile Include="Function\clsErrorHelper.cs" />
     <Compile Include="Function\clsExcelOpenXmlExporter.cs" />
@@ -2392,6 +2393,7 @@
     <None Include="Report\rptQRDeliveryWaybill.rpt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <!-- Bank Template Generator export template -->
     <Content Include="Templates\MIS_BLANK_TEMPLATE.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

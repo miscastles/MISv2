@@ -55,6 +55,7 @@ namespace MIS
 
         private string formName = "INSTALLATION REQUEST";
 
+        // Hidden worksheet produced by the Bank Template Generator.
         private const string BankDataWorksheetName = "__MIS_BANK_DATA"; //Nikko
 
         private readonly Dictionary<string, string>

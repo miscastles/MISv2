@@ -3273,7 +3273,7 @@ namespace MIS
             this.pnlSubMenuServicing.Visible = false;
             this.pnlSubMenuServicing.Paint += new System.Windows.Forms.PaintEventHandler(this.panel15_Paint);
             // 
-            // btnBankTemplateGen
+            // btnBankTemplateGen - Bank Template Generator menu entry
             // 
             this.btnBankTemplateGen.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnBankTemplateGen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));

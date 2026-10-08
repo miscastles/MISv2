@@ -7,6 +7,7 @@ using Org.BouncyCastle.Ocsp;
 
 namespace MIS.Model
 {
+    // Generated Installation Request row used by the Bank Template Generator preview and export.
     internal sealed class IrImportRow
     {
        public IrImportRow()

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 namespace MIS.Function
 {
+    // Date editor used by the Bank Template Generator request-date column.
     internal sealed class DataGridViewDatePickerColumn : DataGridViewTextBoxColumn
     {
         public DataGridViewDatePickerColumn()
