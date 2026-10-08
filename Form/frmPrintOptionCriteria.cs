@@ -374,6 +374,7 @@ namespace MIS
             cboSearchTerminalStatus.Text = clsFunction.sDefaultSelect;
 
             cboSearchReportStatus.Text = clsFunction.sDefaultSelect;
+            cboServicePrefix.Text = clsFunction.sDefaultSelect;
         }
 
            
@@ -778,6 +779,7 @@ namespace MIS
             dbAPI.FillComboBoxTerminalStatus(cboSearchTerminalStatus);
 
             dbAPI.FillComboBoxReportStatus(cboSearchReportStatus);
+            dbAPI.FillComboBoxServiceTag(cboServicePrefix);
 
             DefaultSelectedComboBoxValue();
 
@@ -1128,17 +1130,19 @@ namespace MIS
                     clsSearch.ClassAdvanceSearchValue = clsSearch.ClassClientID.ToString() + clsFunction.sPipe + clsSearch.ClassServiceResultDesc + clsFunction.sPipe + clsSearch.ClassIncludeBillable + clsFunction.sPipe + clsSearch.ClassFSRMode;
                     break;
 
-                case 53: // SERVICE INSTALLATION REPORT                    
+                // RAIDEN
+                case 53: // SERVICE INSTALLATION REPORT / SERVICE INSTALLATION & REPROGRAMMING REPORT      
                     clsSearch.ClassJobTypeList = $"{clsGlobalVariables.JOB_TYPE_INSTALLATION}{clsFunction.sComma}{clsGlobalVariables.JOB_TYPE_REPROGRAMMING}";
                     clsSearch.ClassAdvanceSearchValue = clsSearch.ClassClientID + clsFunction.sPipe +
                                                         clsSearch.ClassJobTypeList + clsFunction.sPipe +
-                                                        clsSearch.ClassIRIDNo + clsFunction.sPipe + 
+                                                        clsSearch.ClassIRIDNo + clsFunction.sPipe +
                                                         clsFunction.sZero + clsFunction.sPipe +
                                                         clsSearch.ClassDateFrom + clsFunction.sPipe +
                                                         clsSearch.ClassDateTo + clsFunction.sPipe +
                                                         clsSearch.ClassIsExcludePending + clsFunction.sPipe +
                                                         clsSearch.ClassReasonID + clsFunction.sPipe +
-                                                        clsSearch.ClassReportStatus;
+                                                        clsSearch.ClassReportStatus + clsFunction.sPipe +
+                                                        clsSearch.ClassServiceTag;
                     break;
                 case 54: // SERVICE MAINTENANCE REPORT
                     clsSearch.ClassJobTypeList = $"{clsGlobalVariables.JOB_TYPE_SERVICING}{clsFunction.sComma}{clsGlobalVariables.JOB_TYPE_REPLACEMENT}";
@@ -1150,7 +1154,8 @@ namespace MIS
                                                         clsSearch.ClassDateTo + clsFunction.sPipe +
                                                         clsSearch.ClassIsExcludePending + clsFunction.sPipe +
                                                         clsSearch.ClassReasonID + clsFunction.sPipe +
-                                                        clsSearch.ClassReportStatus;
+                                                        clsSearch.ClassReportStatus + clsFunction.sPipe +
+                                                        clsSearch.ClassServiceTag;
                     break;
                 case 55: // SERVICE PULLOUT REPORT
                     clsSearch.ClassJobTypeList = $"{clsGlobalVariables.JOB_TYPE_PULLOUT}";
@@ -1162,7 +1167,8 @@ namespace MIS
                                                         clsSearch.ClassDateTo + clsFunction.sPipe +
                                                         clsSearch.ClassIsExcludePending + clsFunction.sPipe +
                                                         clsSearch.ClassReasonID + clsFunction.sPipe +
-                                                        clsSearch.ClassReportStatus;
+                                                        clsSearch.ClassReportStatus + clsFunction.sPipe +
+                                                        clsSearch.ClassServiceTag;
                     break;
                 case 56: // UNCLOSED TICKET REPORT
                     clsSearch.ClassAdvanceSearchValue = clsSearch.ClassClientID + clsFunction.sPipe +
@@ -1377,6 +1383,7 @@ namespace MIS
             clsSearch.ClassIncludeDetailTab = (chkDetailTab.Checked ? 0 : 1);
 
             clsSearch.ClassReportStatus = cboSearchReportStatus.Text;
+            clsSearch.ClassServiceTag = cboServicePrefix.Text;
 
             Debug.WriteLine("clsSearch.ClassReportID=" + clsSearch.ClassReportID);
             Debug.WriteLine("clsSearch.ClassReportDescription=" + clsSearch.ClassReportDescription);
@@ -1454,6 +1461,8 @@ namespace MIS
             Debug.WriteLine("clsSearch.ClassIncludeDetailTab=" + clsSearch.ClassIncludeDetailTab);
 
             Debug.WriteLine("clsSearch.ClassReportStatus=" + clsSearch.ClassReportStatus);
+
+            Debug.WriteLine("clsSearch.ClassServiceTag=" + clsSearch.ClassServiceTag);
 
             ComposeSearchValue(ReportID);
 
@@ -2609,6 +2618,11 @@ namespace MIS
             {
                 gbDetailDateFilter.Enabled = true;
             }
+
+        }
+
+        private void cboServicePrefix_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
