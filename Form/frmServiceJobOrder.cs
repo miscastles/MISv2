@@ -874,7 +874,7 @@ namespace MIS
             InitCreatedDateTime();
             InitCount();
 
-            initDispatch(false);
+            dbFunction.SetCheckboxesValue(false, chkDispatch, chkProject);
 
             btnSendEmail.Enabled = false;
             
@@ -1855,7 +1855,7 @@ namespace MIS
                 ReferenceNo = dbFunction.CheckAndSetStringValue(txtEntryReferenceNo.Text),
                 RegionID = dbFunction.CheckAndSetNumericValue(txtRegionID.Text),
                 RegionType = dbFunction.CheckAndSetNumericValue(txtRegionType.Text),
-                Billable = dbFunction.CheckAndSetNumericValue(chkBillable.Checked ? "1" : "0"),
+                Billable = dbFunction.ParseCheckboxValue(chkBillable.Checked),
                 Primary = dbFunction.CheckAndSetNumericValue(lvwList.Items.Count > 0 ? "0" : "1"),
                 AppVersion = dbFunction.CheckAndSetStringValue(txtFUAppVersion.Text),
                 AppCRC = dbFunction.CheckAndSetStringValue(txtFUAppCRC.Text),
@@ -1877,6 +1877,7 @@ namespace MIS
                 Vendor = dbFunction.CheckAndSetStringValue(txtVendor.Text),
                 Requestor = dbFunction.CheckAndSetStringValue(txtRequestor.Text),
                 BillimgTypeID = clsSearch.ClassBillingTypeID,
+                Project = dbFunction.ParseCheckboxValue(chkProject.Checked)
             };
 
             sSQL = IFormat.Insert(data);
@@ -2822,7 +2823,8 @@ namespace MIS
                         dbFunction.CheckAndSetStringValue(txtDispatcher.Text) + clsFunction.sPipe +
                         dbFunction.CheckAndSetStringValue(txtVendor.Text + clsFunction.sPipe +
                         dbFunction.CheckAndSetStringValue(txtRequestor.Text)) + clsFunction.sPipe +
-                        clsSearch.ClassBillingTypeID;
+                        clsSearch.ClassBillingTypeID + clsFunction.sPipe +
+                        dbFunction.ParseCheckboxValue(chkProject.Checked);
 
                     Debug.WriteLine("Final ->clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
 
@@ -5227,6 +5229,15 @@ namespace MIS
                     // Helpdesk
                     txtAssistNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 45);
                     txtProblemNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 46);
+
+                    if (dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 48) == "1")
+                    {
+                        chkProject.Checked = true;
+                    }
+                    else
+                    {
+                        chkProject.Checked = false;
+                    }
                 }
 
                 // fill additional info
@@ -7016,7 +7027,9 @@ namespace MIS
                 chkDispatch.Checked = false;
 
                 if (dbFunction.isValidID(txtSearchFSRNo.Text))
-                    initDispatch(false);
+                {
+                    dbFunction.SetCheckboxesValue(false, chkDispatch);
+                }
 
             }
         }

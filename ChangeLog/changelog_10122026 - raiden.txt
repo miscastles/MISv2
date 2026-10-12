@@ -1,0 +1,48 @@
+﻿CHANGELOG
+Date: October 08, 2026
+Developer: Raiden K. Fernando
+
+====================================================================================
+CHANGES
+====================================================================================
+
+1. Changes
+
+	- Added new option in frmPrintOptionCriteria Service Prefix -> Fetches only services tagged with isProject = 1
+	- Added isProject tagging in frmHelpdesk module 
+	- Added isProject tagging in frmServiceJobOrder
+
+2. Database ( TBG )
+
+spUpdateCollectionDetail
+	
+	- Helpdesk-Details
+	- Update Service Tag
+	- Multiple Update Service
+
+spInsertCollectionDetail
+	
+	- Helpdesk-Details
+	- Servicing Detail
+
+spGetInfoDetail
+
+	- Helpdesk-Details
+	- Servicing Info
+
+====================================================================================
+FILES / MODULES AFFECTED
+====================================================================================
+
+- frmHelpDesk.cs
+- frmHelpDesk.Designer.cs
+- frmServiceJobOrder.cs
+- frmServiceJobOrder.Designer.cs
+- clsDefines.cs
+- frmPrintOptionCriteria
+
+====================================================================================
+STATUS
+====================================================================================
+
+Completed / For Testing

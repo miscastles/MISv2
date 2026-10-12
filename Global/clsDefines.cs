@@ -605,6 +605,7 @@ namespace MIS
         public const string TAG_HD_RequestDate = "RequestDate";
         public const string TAG_HD_Requestor = "Requestor";
         public const string TAG_HD_JobType = "JobType";
+        public const string TAG_HD_Project = "isProject";
 
         // Helpdesk Status
         public const string TAG_HD_Resolved = "RESOLVED";

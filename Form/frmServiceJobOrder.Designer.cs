@@ -833,6 +833,9 @@
             this.txtSearchSTServiceJobTypeDescription = new System.Windows.Forms.TextBox();
             this.panel53 = new System.Windows.Forms.Panel();
             this.btnTASearch = new Bunifu.Framework.UI.BunifuImageButton();
+            this.panel194 = new System.Windows.Forms.Panel();
+            this.chkProject = new System.Windows.Forms.CheckBox();
+            this.label186 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -1053,6 +1056,7 @@
             this.panel6.SuspendLayout();
             this.panel53.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).BeginInit();
+            this.panel194.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -3005,7 +3009,7 @@
             this.btnCancelJO.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancelJO.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelJO.ForeColor = System.Drawing.Color.White;
-            this.btnCancelJO.Location = new System.Drawing.Point(630, 852);
+            this.btnCancelJO.Location = new System.Drawing.Point(528, 852);
             this.btnCancelJO.Name = "btnCancelJO";
             this.btnCancelJO.Size = new System.Drawing.Size(107, 26);
             this.btnCancelJO.TabIndex = 429;
@@ -3075,6 +3079,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.panel194);
             this.tabPage1.Controls.Add(this.btnOverrideUpdate);
             this.tabPage1.Controls.Add(this.btnUpdateServiceType);
             this.tabPage1.Controls.Add(this.panel155);
@@ -3113,7 +3118,7 @@
             this.btnOverrideUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnOverrideUpdate.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOverrideUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnOverrideUpdate.Location = new System.Drawing.Point(306, 852);
+            this.btnOverrideUpdate.Location = new System.Drawing.Point(261, 853);
             this.btnOverrideUpdate.Name = "btnOverrideUpdate";
             this.btnOverrideUpdate.Size = new System.Drawing.Size(126, 26);
             this.btnOverrideUpdate.TabIndex = 505;
@@ -3131,7 +3136,7 @@
             this.btnUpdateServiceType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnUpdateServiceType.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdateServiceType.ForeColor = System.Drawing.Color.White;
-            this.btnUpdateServiceType.Location = new System.Drawing.Point(503, 852);
+            this.btnUpdateServiceType.Location = new System.Drawing.Point(401, 852);
             this.btnUpdateServiceType.Name = "btnUpdateServiceType";
             this.btnUpdateServiceType.Size = new System.Drawing.Size(125, 26);
             this.btnUpdateServiceType.TabIndex = 504;
@@ -3172,7 +3177,7 @@
             this.btnRefreshService.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnRefreshService.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefreshService.ForeColor = System.Drawing.Color.White;
-            this.btnRefreshService.Location = new System.Drawing.Point(739, 852);
+            this.btnRefreshService.Location = new System.Drawing.Point(637, 852);
             this.btnRefreshService.Name = "btnRefreshService";
             this.btnRefreshService.Size = new System.Drawing.Size(110, 26);
             this.btnRefreshService.TabIndex = 494;
@@ -10598,6 +10603,38 @@
             this.btnTASearch.TabStop = false;
             this.btnTASearch.Zoom = 10;
             // 
+            // panel194
+            // 
+            this.panel194.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panel194.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel194.Controls.Add(this.chkProject);
+            this.panel194.Controls.Add(this.label186);
+            this.panel194.Location = new System.Drawing.Point(749, 852);
+            this.panel194.Name = "panel194";
+            this.panel194.Size = new System.Drawing.Size(103, 27);
+            this.panel194.TabIndex = 506;
+            // 
+            // chkProject
+            // 
+            this.chkProject.AutoSize = true;
+            this.chkProject.Location = new System.Drawing.Point(82, 6);
+            this.chkProject.Name = "chkProject";
+            this.chkProject.Size = new System.Drawing.Size(15, 14);
+            this.chkProject.TabIndex = 437;
+            this.chkProject.UseVisualStyleBackColor = true;
+            // 
+            // label186
+            // 
+            this.label186.AutoSize = true;
+            this.label186.BackColor = System.Drawing.Color.Transparent;
+            this.label186.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label186.ForeColor = System.Drawing.Color.White;
+            this.label186.Location = new System.Drawing.Point(7, 6);
+            this.label186.Name = "label186";
+            this.label186.Size = new System.Drawing.Size(66, 14);
+            this.label186.TabIndex = 436;
+            this.label186.Text = "PROJECT?:";
+            // 
             // frmServiceJobOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10949,6 +10986,8 @@
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).EndInit();
+            this.panel194.ResumeLayout(false);
+            this.panel194.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11759,5 +11798,8 @@
         private System.Windows.Forms.Button btnOverrideUpdate;
         private Bunifu.Framework.UI.BunifuImageButton btnOpenIR;
         private System.Windows.Forms.TabPage tabPage28;
+        private System.Windows.Forms.Panel panel194;
+        private System.Windows.Forms.CheckBox chkProject;
+        private System.Windows.Forms.Label label186;
     }
 }
