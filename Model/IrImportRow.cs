@@ -10,7 +10,7 @@ namespace MIS.Model
     // Generated Installation Request row used by the Bank Template Generator preview and export.
     internal sealed class IrImportRow
     {
-       public IrImportRow()
+        public IrImportRow()
         {
             SourceFilePath = string.Empty;
             SourceFileName = string.Empty;
@@ -64,7 +64,7 @@ namespace MIS.Model
 
         public string TargetInstallationDate { get; set; }
 
-        public string Remarks { get; set; }
+        public string Remarks { get; set; }  
 
         public string Mid { get; set; }
 

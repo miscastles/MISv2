@@ -43,7 +43,7 @@ namespace MIS
 
     public sealed class QRDeliveryValidationException : Exception
     {
-        public QRDeliveryValidationException(string message, Exception innerException): base(message, innerException)
+        public QRDeliveryValidationException(string message, Exception innerException) : base(message, innerException)
         {
 
         }
@@ -180,7 +180,7 @@ namespace MIS
 
             result.IsMatch = result.MissingFields.Count == 0;
             foreach (QRDeliveryFieldResult field in result.Fields)
-            result.IsMatch &= field.IsMatch;
+                result.IsMatch &= field.IsMatch;
             return result;
         }
 
@@ -239,7 +239,7 @@ namespace MIS
             {
                 Match match = matches[index];
                 int valueStart = match.Index + match.Length;
-                int valueEnd = index + 1 < matches.Count? matches[index + 1].Index : body.Length;
+                int valueEnd = index + 1 < matches.Count ? matches[index + 1].Index : body.Length;
                 string value = body.Substring(valueStart, valueEnd - valueStart).Trim().Trim('"', '\'');
                 result[match.Groups[1].Value] = value;
             }
@@ -324,7 +324,7 @@ namespace MIS
 
         public static string TerminalPrepStatus(QRDeliveryData data)
         {
-            return data != null && data.TerminalID > 0 && !string.IsNullOrWhiteSpace(data.TerminalSerialNo)? "VALID" : "INVALID";
+            return data != null && data.TerminalID > 0 && !string.IsNullOrWhiteSpace(data.TerminalSerialNo) ? "VALID" : "INVALID";
         }
 
         public static string DispatcherStatus(string jobTypeStatusDescription)

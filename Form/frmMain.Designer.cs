@@ -3273,7 +3273,7 @@ namespace MIS
             this.pnlSubMenuServicing.Visible = false;
             this.pnlSubMenuServicing.Paint += new System.Windows.Forms.PaintEventHandler(this.panel15_Paint);
             // 
-            // btnBankTemplateGen - Bank Template Generator menu entry
+            // btnBankTemplateGen
             // 
             this.btnBankTemplateGen.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnBankTemplateGen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -7493,9 +7493,9 @@ namespace MIS
             this.label42.ForeColor = System.Drawing.Color.Black;
             this.label42.Location = new System.Drawing.Point(0, 1);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(154, 14);
+            this.label42.Size = new System.Drawing.Size(168, 14);
             this.label42.TabIndex = 0;
-            this.label42.Text = "Doub click to Restore";
+            this.label42.Text = "Double click to Restore";
             // 
             // lvwFormMinimized
             // 
@@ -8066,4 +8066,3 @@ namespace MIS
         private BunifuFlatButton btnBankTemplateGen;
     }
 }
-

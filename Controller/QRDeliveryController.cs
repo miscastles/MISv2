@@ -32,7 +32,7 @@ namespace MIS.Controller
             string json = api.getInfoDetailJSON("Search", "QR Delivery", searchValue); //call getInfoDetail
 
             if (string.IsNullOrWhiteSpace(json) && scanned.ServiceNo <= 0)
-               json = api.getInfoDetailJSON("Search", "QR Delivery", scanned.TID.Trim() + "|" + scanned.MID.Trim());
+                json = api.getInfoDetailJSON("Search", "QR Delivery", scanned.TID.Trim() + "|" + scanned.MID.Trim());
 
             LookupJson data = DeserializeLookup(json);
             if (data == null) return new QRDeliveryLookupResult { Found = false };
@@ -154,7 +154,7 @@ namespace MIS.Controller
         private string ReadValue(string detailInfo, string tag)
         {
             string value = api.GetValueFromJSONString(detailInfo, tag);
-            return string.Equals(value, clsFunction.sNull, StringComparison.OrdinalIgnoreCase)? string.Empty: value;
+            return string.Equals(value, clsFunction.sNull, StringComparison.OrdinalIgnoreCase) ? string.Empty : value;
         }
 
         private int ReadInt(string detailInfo, string tag)

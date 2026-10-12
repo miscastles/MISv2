@@ -1,6 +1,5 @@
 ﻿namespace MIS.Model
 {
-    // Source-field model used by the Bank Template Generator pipeline.
     internal sealed class BankTemplateRow
     {
         public BankTemplateRow()

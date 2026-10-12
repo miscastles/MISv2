@@ -145,20 +145,20 @@ namespace MIS
             int columnIndex = originalColumn.Index;
 
             DataGridViewDatePickerColumn dateColumn = new DataGridViewDatePickerColumn
-                {
-                    Name = originalColumn.Name,
-                    HeaderText = originalColumn.HeaderText,
-                    DataPropertyName = originalColumn.DataPropertyName,
-                    Width = originalColumn.Width,
-                    MinimumWidth = originalColumn.MinimumWidth,
-                    AutoSizeMode = originalColumn.AutoSizeMode,
-                    FillWeight = originalColumn.FillWeight,
-                    Frozen = originalColumn.Frozen,
-                    ReadOnly = originalColumn.ReadOnly,
-                    Visible = originalColumn.Visible,
-                    HeaderCell = (DataGridViewColumnHeaderCell) originalColumn.HeaderCell.Clone(),
-                    DefaultCellStyle = originalColumn.DefaultCellStyle.Clone()
-                };
+            {
+                Name = originalColumn.Name,
+                HeaderText = originalColumn.HeaderText,
+                DataPropertyName = originalColumn.DataPropertyName,
+                Width = originalColumn.Width,
+                MinimumWidth = originalColumn.MinimumWidth,
+                AutoSizeMode = originalColumn.AutoSizeMode,
+                FillWeight = originalColumn.FillWeight,
+                Frozen = originalColumn.Frozen,
+                ReadOnly = originalColumn.ReadOnly,
+                Visible = originalColumn.Visible,
+                HeaderCell = (DataGridViewColumnHeaderCell) originalColumn.HeaderCell.Clone(),
+                DefaultCellStyle = originalColumn.DefaultCellStyle.Clone()
+            };
             grdBankFields.Columns.Remove(originalColumn);
             grdBankFields.Columns.Insert(columnIndex, dateColumn);
             originalColumn = dateColumn;

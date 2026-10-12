@@ -1408,8 +1408,8 @@ namespace MIS
                     sRowSQL = "";
                     sRowSQL = "('" + (txtFEID.Text.Length > 0 ? txtFEID.Text : "0") + "'," +
                     sRowSQL + sRowSQL + "'" + (txtMBatchNo.Text.Length > 0 ? txtMBatchNo.Text : "0") + "'," +
-                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(txtSIMSN.Text)) + "'," +
-                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(txtSIMSN.Text)) + "'," +
+                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(txtSIMSN.Text)).Trim() + "'," +
+                    sRowSQL + sRowSQL + "'" + StrClean(dbFunction.CheckAndSetStringValue(txtSIMSN.Text)).Trim() + "'," +
                     sRowSQL + sRowSQL + "'" + clsSearch.ClassCarrierID + "'," +
                     sRowSQL + sRowSQL + "'" + cboMCarrier.Text + "'," +
                     sRowSQL + sRowSQL + "'" + cboMAllocation.Text + "'," +

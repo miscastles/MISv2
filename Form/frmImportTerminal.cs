@@ -2524,7 +2524,7 @@ namespace MIS
             else
             {
                 // check SN already exist
-                if (dbAPI.isRecordExist("Search", "SerialNo Check", dbFunction.CheckAndSetStringValue(txtTerminalSN.Text)))
+                if (dbAPI.isRecordExist("Search", "SerialNo Check", dbFunction.CheckAndSetStringValue(txtTerminalSN.Text.Trim())))
                 {
                     dbFunction.SetMessageBox($"Serial Number [{txtTerminalSN.Text}] already exists.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                     return;
@@ -2589,7 +2589,7 @@ namespace MIS
                     clsSearch.ClassAdvanceSearchValue =
                                                     dbFunction.CheckAndSetNumericValue(txtTerminalID.Text) + clsFunction.sPipe +
                                                     dbFunction.CheckAndSetNumericValue(txtTIID.Text) + clsFunction.sPipe +
-                                                    StrClean(txtTerminalSN.Text) + clsFunction.sPipe +
+                                                    StrClean(txtTerminalSN.Text).Trim() + clsFunction.sPipe +
                                                     cboMType.Text + clsFunction.sPipe +
                                                     cboMModel.Text + clsFunction.sPipe +
                                                     cboMBrand.Text + clsFunction.sPipe +

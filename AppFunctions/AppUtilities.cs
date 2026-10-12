@@ -578,7 +578,7 @@ namespace MIS.Function
                 { "  ", " " }  // double space → single
             };
 
-            string Result = RemoveChars(str, replacements).ToUpper();
+            string Result = RemoveChars(str, replacements).ToUpper().Trim();
 
             if (!string.IsNullOrWhiteSpace(Result))
             {
