@@ -16,6 +16,7 @@ namespace MIS
         private readonly BindingList<IrImportRow> _irRows = new BindingList<IrImportRow>();
         private readonly List<string> _sourceFiles = new List<string>();
         private clsAPI dbAPI;
+        private readonly clsFile dbFile = new clsFile();
 
         public frmBankTemplateGen()
         {
@@ -199,6 +200,10 @@ namespace MIS
 
                 dialog.Multiselect = true; // allows multiple excel files. 
 
+                dbFile.CheckFolder(dbFile.sImportPath);
+                dialog.InitialDirectory = dbFile.sImportPath;
+                dialog.RestoreDirectory = true;
+
                 if (dialog.ShowDialog() != DialogResult.OK) return;
 
                 LoadTemplates(dialog.FileNames);
@@ -212,6 +217,7 @@ namespace MIS
             using (Form passwordDialog = new Form())
             using (Label instructionLabel = new Label())
             using (TextBox passwordTextBox = new TextBox())
+            using (CheckBox showPasswordCheckBox = new CheckBox())
             using (Button unlockButton = new Button())
             using (Button cancelButton = new Button())
             {
@@ -221,7 +227,7 @@ namespace MIS
                 passwordDialog.MinimizeBox = false;
                 passwordDialog.MaximizeBox = false;
                 passwordDialog.ShowInTaskbar = false;
-                passwordDialog.ClientSize = new Size(410, 145);
+                passwordDialog.ClientSize = new Size(410, 170);
 
                 instructionLabel.AutoSize = false;
                 instructionLabel.Location = new Point(15, 15);
@@ -231,18 +237,28 @@ namespace MIS
                 passwordTextBox.Size = new Size(380, 23);
                 passwordTextBox.UseSystemPasswordChar = true;
 
+                showPasswordCheckBox.Text = "Show";
+                showPasswordCheckBox.AutoSize = true;
+                showPasswordCheckBox.Location = new Point(15, 90);
+                showPasswordCheckBox.Checked = false;
+                showPasswordCheckBox.CheckedChanged += delegate
+                {
+                    passwordTextBox.UseSystemPasswordChar = !showPasswordCheckBox.Checked;
+                };
+
                 unlockButton.Text = "UNLOCK";
-                unlockButton.Location = new Point(215, 100);
+                unlockButton.Location = new Point(215, 125);
                 unlockButton.Size = new Size(85, 28);
                 unlockButton.DialogResult = DialogResult.OK;
 
                 cancelButton.Text = "CANCEL";
-                cancelButton.Location = new Point(310, 100);
+                cancelButton.Location = new Point(310, 125);
                 cancelButton.Size = new Size(85, 28);
                 cancelButton.DialogResult = DialogResult.Cancel;
 
                 passwordDialog.Controls.Add(instructionLabel);
                 passwordDialog.Controls.Add(passwordTextBox);
+                passwordDialog.Controls.Add(showPasswordCheckBox);
                 passwordDialog.Controls.Add(unlockButton);
                 passwordDialog.Controls.Add(cancelButton);
                 passwordDialog.AcceptButton = unlockButton;
@@ -510,13 +526,11 @@ namespace MIS
                 dialog.DefaultExt = "xlsx";
                 dialog.AddExtension = true;
                 dialog.OverwritePrompt = true;
-                dialog.FileName = BuildDefaultOutputFileName();
 
-                string sourceDirectory = _sourceFiles.Count > 0 ? Path.GetDirectoryName(_sourceFiles[0]) : string.Empty;
-                if (!string.IsNullOrWhiteSpace(sourceDirectory) && Directory.Exists(sourceDirectory))
-                {
-                    dialog.InitialDirectory = sourceDirectory;
-                }
+                dbFile.CheckFolder(dbFile.sImportPath);
+                dialog.InitialDirectory = dbFile.sImportPath;
+                dialog.FileName = Path.Combine(dbFile.sImportPath, BuildDefaultOutputFileName());
+                dialog.RestoreDirectory = true;
 
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 try
@@ -594,28 +608,16 @@ namespace MIS
 
         private string BuildDefaultOutputFileName()
         {
-            string sourceName;
+            string bankCode = (clsSearch.ClassBankCode ?? string.Empty).Trim().ToLowerInvariant();
 
-            if (_sourceFiles.Count == 1)
-            {
-                sourceName = Path.GetFileNameWithoutExtension(_sourceFiles[0]);
-            }
-            else if (_sourceFiles.Count > 1)
-            {
-                sourceName =_sourceFiles.Count + "_REQUESTS";
-            }
-            else
-            {
-                sourceName = "REQUEST";
-            }
-
-            if (string.IsNullOrWhiteSpace(sourceName)) sourceName = "REQUEST";
+            if (string.IsNullOrWhiteSpace(bankCode)) bankCode = "bank";
 
             foreach (char invalidCharacter in Path.GetInvalidFileNameChars())
             {
-                sourceName = sourceName.Replace(invalidCharacter,'_');
+                bankCode = bankCode.Replace(invalidCharacter, '_');
             }
-            return "IR_IMPORT_" + sourceName + ".xlsx";
+
+            return "ir_" + bankCode + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".xlsx";
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)
