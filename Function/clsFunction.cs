@@ -7662,6 +7662,61 @@ namespace MIS
             bitmap.Save(fullPath, ImageFormat.Png);
         }
 
-    }
+        public string ParseCheckboxValue(bool isChecked)
+        {
+            return CheckAndSetNumericValue(isChecked ? sOne : sZero);
+        }
 
+        public void SetCheckboxesValue(bool isChecked, params CheckBox[] checkBoxes)
+        {
+            Debug.WriteLine("--SetCheckBox--");
+            Debug.WriteLine("isChecked=" + isChecked);
+
+            if (checkBoxes == null || checkBoxes.Length == 0)
+            {
+                Debug.WriteLine("No checkbox passed.");
+                return;
+            }
+
+            foreach (CheckBox chk in checkBoxes)
+            {
+                if (chk != null)
+                {
+                    if (isChecked)
+                    {
+                        chk.Checked = true;
+                    }
+                    else
+                    {
+                        chk.Checked = false;
+                    }
+
+                    Debug.WriteLine(chk.Name + ".Checked=" + chk.Checked);
+                }
+            }
+        }
+
+        public void SetCheckboxesState(bool isEnable, params CheckBox[] checkBoxes)
+        {
+            Debug.WriteLine("--SetCheckboxesState--");
+            Debug.WriteLine("isEnable=" + isEnable);
+
+            if (checkBoxes == null || checkBoxes.Length == 0)
+            {
+                Debug.WriteLine("No checkbox passed.");
+                return;
+            }
+
+            foreach (CheckBox chk in checkBoxes)
+            {
+                if (chk != null)
+                {
+                    chk.Enabled = isEnable;
+                    chk.Checked = isEnable;
+
+                    Debug.WriteLine(chk.Name + ".Enabled=" + chk.Enabled + ", " + chk.Name + ".Checked=" + chk.Checked);
+                }
+            }
+        }
+    }
 }

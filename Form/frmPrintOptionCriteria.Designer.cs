@@ -2093,7 +2093,6 @@
             this.cboServicePrefix.Name = "cboServicePrefix";
             this.cboServicePrefix.Size = new System.Drawing.Size(152, 22);
             this.cboServicePrefix.TabIndex = 310;
-            this.cboServicePrefix.SelectedIndexChanged += new System.EventHandler(this.cboServicePrefix_SelectedIndexChanged);
             // 
             // label41
             // 

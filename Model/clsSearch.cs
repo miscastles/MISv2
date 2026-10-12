@@ -2746,5 +2746,12 @@ namespace MIS
             get { return _ServiceTag; }
             set { _ServiceTag = value; }
         }
+
+        public static bool _Project;
+        public static bool ClassProject
+        {
+            get { return _Project; }
+            set { _Project = value; }
+        }
     }
 }

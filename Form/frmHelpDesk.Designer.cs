@@ -403,6 +403,9 @@
             this.panel108 = new System.Windows.Forms.Panel();
             this.label42 = new System.Windows.Forms.Label();
             this.panel109 = new System.Windows.Forms.Panel();
+            this.panel194 = new System.Windows.Forms.Panel();
+            this.chkProject = new System.Windows.Forms.CheckBox();
+            this.label186 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -513,6 +516,7 @@
             this.panel106.SuspendLayout();
             this.panel107.SuspendLayout();
             this.panel108.SuspendLayout();
+            this.panel194.SuspendLayout();
             this.SuspendLayout();
             // 
             // bunifuElipse1
@@ -4673,7 +4677,7 @@
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCancel.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(832, 893);
+            this.btnCancel.Location = new System.Drawing.Point(674, 893);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(139, 26);
             this.btnCancel.TabIndex = 503;
@@ -4779,12 +4783,45 @@
             this.panel109.Size = new System.Drawing.Size(408, 1);
             this.panel109.TabIndex = 0;
             // 
+            // panel194
+            // 
+            this.panel194.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panel194.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel194.Controls.Add(this.chkProject);
+            this.panel194.Controls.Add(this.label186);
+            this.panel194.Location = new System.Drawing.Point(869, 892);
+            this.panel194.Name = "panel194";
+            this.panel194.Size = new System.Drawing.Size(103, 27);
+            this.panel194.TabIndex = 507;
+            // 
+            // chkProject
+            // 
+            this.chkProject.AutoSize = true;
+            this.chkProject.Location = new System.Drawing.Point(82, 6);
+            this.chkProject.Name = "chkProject";
+            this.chkProject.Size = new System.Drawing.Size(15, 14);
+            this.chkProject.TabIndex = 437;
+            this.chkProject.UseVisualStyleBackColor = true;
+            // 
+            // label186
+            // 
+            this.label186.AutoSize = true;
+            this.label186.BackColor = System.Drawing.Color.Transparent;
+            this.label186.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label186.ForeColor = System.Drawing.Color.White;
+            this.label186.Location = new System.Drawing.Point(7, 6);
+            this.label186.Name = "label186";
+            this.label186.Size = new System.Drawing.Size(66, 14);
+            this.label186.TabIndex = 436;
+            this.label186.Text = "PROJECT?:";
+            // 
             // frmHelpDesk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1388, 924);
+            this.Controls.Add(this.panel194);
             this.Controls.Add(this.panel106);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.panel103);
@@ -4969,6 +5006,8 @@
             this.panel107.PerformLayout();
             this.panel108.ResumeLayout(false);
             this.panel108.PerformLayout();
+            this.panel194.ResumeLayout(false);
+            this.panel194.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5349,5 +5388,8 @@
         private System.Windows.Forms.ComboBox cboIssueCategory;
         private System.Windows.Forms.Panel panel190;
         private System.Windows.Forms.Label label94;
+        private System.Windows.Forms.Panel panel194;
+        private System.Windows.Forms.CheckBox chkProject;
+        private System.Windows.Forms.Label label186;
     }
 }

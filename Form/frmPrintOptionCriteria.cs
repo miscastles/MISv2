@@ -2620,10 +2620,5 @@ namespace MIS
             }
 
         }
-
-        private void cboServicePrefix_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

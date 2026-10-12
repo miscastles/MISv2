@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>37</ApplicationRevision>
+    <ApplicationRevision>38</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -715,17 +715,17 @@
     <Compile Include="Function\BankTemplateExcelExporter.cs" />
     <Compile Include="Function\BankTemplateJsonBuilder.cs" />
     <Compile Include="Function\BankTemplateReader.cs" />
+    <Compile Include="Function\clsBankTemplate.cs" />
     <Compile Include="Function\clsComboBox.cs" />
     <Compile Include="Function\clsReceiptImageProcessor.cs" />
+    <Compile Include="Function\DataGridViewDatePickerColumn.cs" />
     <Compile Include="Function\DataGridViewHelper.cs" />
     <!-- Bank Template Generator supporting classes -->
-    <Compile Include="Function\DataGridViewDatePickerColumn.cs" />
     <Compile Include="Function\clsErrorHelper.cs" />
     <Compile Include="Function\clsExcelOpenXmlExporter.cs" />
     <Compile Include="Global\clsIcons.cs" />
     <Compile Include="Model\AppSession.cs" />
     <Compile Include="Model\BankTemplateRow.cs" />
-    <Compile Include="Model\IrImportRow.cs" />
     <Compile Include="Model\clsAttachment.cs" />
     <Compile Include="Form\frmChangePassword.cs">
       <SubType>Form</SubType>
@@ -1092,11 +1092,13 @@
       <DependentUpon>frmUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\clsVendor.cs" />
+    <Compile Include="Model\IrImportRow.cs" />
     <Compile Include="Model\modelDashboard.cs" />
     <Compile Include="Model\modelExpensesDetail.cs" />
     <Compile Include="Model\modelExpensesMaster.cs" />
     <Compile Include="Model\modelExpensesReceipt.cs" />
     <Compile Include="Model\modelID.cs" />
+    <Compile Include="Model\modelLastServiceAttempt.cs" />
     <Compile Include="Model\modelParticular.cs" />
     <Compile Include="Model\modelPrivacyDetail.cs" />
     <Compile Include="Model\modelPrivacyMaster.cs" />
