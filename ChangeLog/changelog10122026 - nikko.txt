@@ -1,0 +1,33 @@
+CHANGELOG
+Date: October 12, 2026
+Developer: Nikko Delos Reyes
+
+========================================================
+CHANGES
+
+=====================================================
+
+1. Bank Template Generator
+- Fix the proper look up of MIS_BANK_TEMPLATE, now its in C:\CASTLESTECH_MIS\TEMPLATE
+- added Privacy so that Bank Template Gen will only be available for users that is in BDO bank.
+
+Database
+1. changes in tblprivacydetail and tblprivacymaster
+- Registered FunctionID 58 across all bank databases
+- Enabled the function for TBG and CLG
+- Granted View access to active TBG and CLG users
+- Marked the function inactive for other banks
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- BankTemplateExcelExporter.cs
+- clsAPI.cs
+- frmMain.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

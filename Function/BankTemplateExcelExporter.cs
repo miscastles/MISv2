@@ -13,7 +13,6 @@ namespace MIS.Function
     internal sealed class BankTemplateExcelExporter
     {
         private const string DefaultVendor = "CITAS";
-        private const string TemplateFolderName = "Templates";
         private const string TemplateFileName = "MIS_BLANK_TEMPLATE.xlsx";
         private const string TemplateWorksheetName = "Sheet1";
         private const string BankDataWorksheetName = "__MIS_BANK_DATA";
@@ -109,7 +108,7 @@ namespace MIS.Function
         };
         private static ExcelPackage OpenTemplatePackage()
         {
-            string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,TemplateFolderName, TemplateFileName);
+            string templatePath = Path.Combine(new clsFile().sTemplatePath, TemplateFileName);
 
             if (!File.Exists(templatePath))
             {

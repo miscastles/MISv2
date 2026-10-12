@@ -31,6 +31,7 @@ namespace MIS
         private clsReportFunc dbReportFunc;
         private clsFile dbFile;
         private int iMenu = 0;
+        private const int BankTemplateGeneratorFunctionId = 58; //Nikko
 
         // Count
         private int iSecondPulse = 20;
@@ -195,6 +196,14 @@ namespace MIS
             // Update UI labels safely
             UpdateLabelSafe(lblDate, dateDisplay);
             UpdateLabelSafe(lblTime, strTime);
+        }
+
+        private bool IsBankTemplateGeneratorBank() //Nikko
+        {
+            string bankCode = (clsSearch.ClassBankCode ?? string.Empty).Trim();
+
+            return string.Equals(bankCode, "tbg", StringComparison.OrdinalIgnoreCase) ||
+                   string.Equals(bankCode, "clg", StringComparison.OrdinalIgnoreCase);
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -3698,10 +3707,16 @@ namespace MIS
             frm.Show();
         }
 
-        // Opens the Bank Template Generator from the MIS servicing menu.
+        // For Bank Template Generator 
         private void btnBankTemplateGen_Click(object sender, EventArgs e)
         {
+            if (!IsBankTemplateGeneratorBank()) return;
+
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, BankTemplateGeneratorFunctionId, false))
+                return;
+
             InitMenu(0, false);
+
             frmBankTemplateGen frm = new frmBankTemplateGen();
             frm.Text = "BANK TEMPLATE GEN";
             frm.WindowState = FormWindowState.Normal;

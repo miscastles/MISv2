@@ -890,10 +890,10 @@ namespace MIS
             ValidateResponse Response = new ValidateResponse();
 
             dbFunction.GetResponseTime("Method=" + dbFunction.AddBracketStartEnd(APIMethod) +
-                                                                    ",Action=" + dbFunction.AddBracketStartEnd(Action) +
-                                                                    ",StatementType=" + dbFunction.AddBracketStartEnd(StatementType) +
-                                                                    ",SearchBy=" + dbFunction.AddBracketStartEnd(SearchBy) +
-                                                                    ",MaintenanceType=" + dbFunction.AddBracketStartEnd(MaintenanceType));
+                ",Action=" + dbFunction.AddBracketStartEnd(Action) +
+                ",StatementType=" + dbFunction.AddBracketStartEnd(StatementType) +
+                ",SearchBy=" + dbFunction.AddBracketStartEnd(SearchBy) +
+                ",MaintenanceType=" + dbFunction.AddBracketStartEnd(MaintenanceType));
 
             if (Response != null)
             {
@@ -11018,7 +11018,7 @@ namespace MIS
                 obj.SelectedIndex = 0;
         }
 
-        public bool isValidUserAccess(UserFunctionType userFunctionType, int pUserID, int pFunctionID)
+        public bool isValidUserAccess(UserFunctionType userFunctionType, int pUserID, int pFunctionID, bool showAccessDeniedMessage = true) //nikko - showAccessDeniedMessage
         {
             Debug.WriteLine("--isValidUserAccess--");
             Debug.WriteLine("userFunctionType=" + userFunctionType);
@@ -11058,7 +11058,7 @@ namespace MIS
             else
                 isValid = true;
 
-            if (!isValid)
+            if (!isValid && showAccessDeniedMessage) //Nkko - showAccessDeniedMessage
             {
                 // Privacy info
                 dbAPI.ExecuteAPI("GET", "Search", "Privacy Info", pFunctionID.ToString(), "Get Info Detail", "", "GetInfoDetail");
