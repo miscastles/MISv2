@@ -3701,6 +3701,8 @@ namespace MIS
         // Opens the Bank Template Generator from the MIS servicing menu.
         private void btnBankTemplateGen_Click(object sender, EventArgs e)
         {
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 58)) return;
+
             InitMenu(0, false);
             frmBankTemplateGen frm = new frmBankTemplateGen();
             frm.Text = "BANK TEMPLATE GEN";

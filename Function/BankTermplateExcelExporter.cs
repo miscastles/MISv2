@@ -109,7 +109,7 @@ namespace MIS.Function
         };
         private static ExcelPackage OpenTemplatePackage()
         {
-            string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TemplateFolderName, TemplateFileName);
+            string templatePath = Path.Combine(new clsFile().sTemplatePath, TemplateFileName);
 
             if (!File.Exists(templatePath))
             {
