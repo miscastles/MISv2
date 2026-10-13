@@ -4,12 +4,15 @@ using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Microsoft.Office.Core;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using Org.BouncyCastle.Ocsp;
+using System;
 
 namespace MIS.Model
 {
     // Generated Installation Request row used by the Bank Template Generator preview and export.
     internal sealed class IrImportRow
     {
+        public const string DefaultBancnetMid = "000000000000000";
+
         public IrImportRow()
         {
             SourceFilePath = string.Empty;
@@ -29,6 +32,7 @@ namespace MIS.Model
             Mid = string.Empty;
             Tid = string.Empty;
             BancnetTid = string.Empty;
+            BancnetMid = DefaultBancnetMid;
             MerchantLocation = string.Empty;
             Address = string.Empty;
             City = string.Empty;
@@ -36,6 +40,38 @@ namespace MIS.Model
             Area2 = string.Empty;
             ContactPerson = string.Empty;
             ContactNumber = string.Empty;
+        }
+
+        public IrImportRow(IrImportRow source)
+            : this()
+        {
+            if (source == null) throw new ArgumentNullException("source");
+
+            SourceFilePath = source.SourceFilePath;
+            SourceFileName = source.SourceFileName;
+            BankDataInfo = source.BankDataInfo;
+            RequestId = source.RequestId;
+            Vendor = source.Vendor;
+            RequestDate = source.RequestDate;
+            Requestor = source.Requestor;
+            RequestType = source.RequestType;
+            RequestPrioritization = source.RequestPrioritization;
+            PosSetup = source.PosSetup;
+            PosType = source.PosType;
+            PosConnectionType = source.PosConnectionType;
+            TargetInstallationDate = source.TargetInstallationDate;
+            Remarks = source.Remarks;
+            Mid = source.Mid;
+            Tid = source.Tid;
+            BancnetTid = source.BancnetTid;
+            BancnetMid = source.BancnetMid;
+            MerchantLocation = source.MerchantLocation;
+            Address = source.Address;
+            City = source.City;
+            Area1 = source.Area1;
+            Area2 = source.Area2;
+            ContactPerson = source.ContactPerson;
+            ContactNumber = source.ContactNumber;
         }
 
         public string SourceFilePath { get; set; }
@@ -64,13 +100,15 @@ namespace MIS.Model
 
         public string TargetInstallationDate { get; set; }
 
-        public string Remarks { get; set; }  
+        public string Remarks { get; set; }
 
         public string Mid { get; set; }
 
         public string Tid { get; set; }
 
         public string BancnetTid { get; set; }
+
+        public string BancnetMid { get; set; }
 
         public string MerchantLocation { get; set; }
 

@@ -21,7 +21,7 @@ namespace MIS.Function
 
     internal sealed class BankTemplateReader
     {
-        private const string PreviousInformationSection = "Previous Merchant Information (Sheet2)";
+        private const string PreviousInformationSectionPrefix = "Previous Merchant Information (";
 
         public BankTemplateReadResult Read(string filePath)
         {
@@ -39,42 +39,38 @@ namespace MIS.Function
                 throw new NotSupportedException("Only .xlsx templates are supported.");
             }
 
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; using(ExcelPackage package = OpenPackage(filePath, workbookPassword))
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; using (ExcelPackage package = OpenPackage(filePath, workbookPassword))
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets["POS Form"];
+                ExcelWorksheet worksheet = FindTidIssuanceWorksheet(package.Workbook);
 
                 if (worksheet == null)
                 {
-                    throw new InvalidDataException("The workbook does not contain the expected " +
-                        "'POS Form' worksheet.");
+                    throw new InvalidDataException("The workbook does not contain a supported " +
+                        "'TID Issuance Form' worksheet.");
                 }
                 if (worksheet.Dimension == null)
                 {
-                    throw new InvalidDataException("The 'POS Form' worksheet is empty.");
-                } 
-                if (!ContainsTidIssuanceTitle(worksheet))
-                {
-                    throw new InvalidDataException("The selected file is not a supported " +
-                        "TID Issuance Form.");
+                    throw new InvalidDataException("The 'TID Issuance Form' worksheet is empty.");
                 }
 
                 IList<BankTemplateRow> rows = ReadRows(worksheet);
-                ExcelWorksheet previousInformationWorksheet = package.Workbook.Worksheets["Sheet2"];
+                ExcelWorksheet previousInformationWorksheet = FindPreviousInformationWorksheet(package.Workbook, worksheet);
 
-                bool isAdditionalTerminal = AppendPreviousMerchantInformation(previousInformationWorksheet,rows);
+                bool isAdditionalTerminal = AppendPreviousMerchantInformation(previousInformationWorksheet, rows);
 
                 return new BankTemplateReadResult
                 {
-                    Rows = rows, IsAdditionalTerminal = isAdditionalTerminal
+                    Rows = rows,
+                    IsAdditionalTerminal = isAdditionalTerminal
                 };
             }
         }
 
         private static bool ContainsTidIssuanceTitle(ExcelWorksheet worksheet)
         {
-            int maximumRow = Math.Min(worksheet.Dimension.End.Row,10);
+            int maximumRow = Math.Min(worksheet.Dimension.End.Row, 10);
 
-            int maximumColumn = Math.Min(worksheet.Dimension.End.Column,10);
+            int maximumColumn = Math.Min(worksheet.Dimension.End.Column, 10);
 
             for (int row = 1; row <= maximumRow; row++)
             {
@@ -93,16 +89,28 @@ namespace MIS.Function
             return false;
         }
 
+        private static ExcelWorksheet FindTidIssuanceWorksheet(ExcelWorkbook workbook)
+        {
+            foreach (ExcelWorksheet worksheet in workbook.Worksheets)
+            {
+                if (worksheet.Dimension != null && ContainsTidIssuanceTitle(worksheet))
+                {
+                    return worksheet;
+                }
+            }
+
+            return null;
+        }
+
         private static bool AppendPreviousMerchantInformation(ExcelWorksheet worksheet, IList<BankTemplateRow> rows)
         {
             if (worksheet == null || worksheet.Dimension == null) return false;
 
             int midColumn = FindHeaderColumn(worksheet, "MID");
-            int tidColumn = FindHeaderColumn(worksheet, "TID");
 
-            if (midColumn <= 0 || tidColumn <= 0) return false;
+            if (midColumn <= 0) return false;
 
-            int dataRow = FindPreviousInformationDataRow(worksheet, midColumn, tidColumn);
+            int dataRow = FindPreviousInformationDataRow(worksheet, midColumn);
 
             if (dataRow <= 0) return false;
 
@@ -119,8 +127,8 @@ namespace MIS.Function
                 rows.Add(new BankTemplateRow
                 {
                     ExcelRowNumber = dataRow,
-                    Section = PreviousInformationSection,
-                    Tag = "Sheet2 - " + header,
+                    Section = PreviousInformationSectionPrefix + worksheet.Name + ")",
+                    Tag = worksheet.Name + " - " + header,
                     Value = value,
                     IsMandatory = false,
                     IsSelectable = true,
@@ -128,6 +136,26 @@ namespace MIS.Function
                 });
             }
             return true;
+        }
+
+        private static ExcelWorksheet FindPreviousInformationWorksheet(ExcelWorkbook workbook, ExcelWorksheet posFormWorksheet)
+        {
+            foreach (ExcelWorksheet worksheet in workbook.Worksheets)
+            {
+                if (worksheet == posFormWorksheet || worksheet.Dimension == null)
+                {
+                    continue;
+                }
+
+                int midColumn = FindHeaderColumn(worksheet, "MID");
+
+                if (midColumn > 0 && FindPreviousInformationDataRow(worksheet, midColumn) > 0)
+                {
+                    return worksheet;
+                }
+            }
+
+            return null;
         }
 
         private static int FindHeaderColumn(ExcelWorksheet worksheet, string expectedHeader)
@@ -142,14 +170,13 @@ namespace MIS.Function
             return -1;
         }
 
-        private static int FindPreviousInformationDataRow(ExcelWorksheet worksheet, int midColumn, int tidColumn)
+        private static int FindPreviousInformationDataRow(ExcelWorksheet worksheet, int midColumn)
         {
             for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
             {
                 string mid = GetCellText(worksheet, row, midColumn);
-                string tid = GetCellText(worksheet, row, tidColumn);
 
-                if (!string.IsNullOrWhiteSpace(mid) && !string.IsNullOrWhiteSpace(tid))
+                if (!string.IsNullOrWhiteSpace(mid))
                 {
                     return row;
                 }
@@ -225,7 +252,7 @@ namespace MIS.Function
                     Tag = displayedTag,
                     Value = columnC,
                     MccColumn = columnE,
-                    IsMandatory = insideMandatorySection && hasTag &&hasValue,
+                    IsMandatory = insideMandatorySection && hasTag && hasValue,
                     IsSelectable = hasTag && hasValue,
                     IsSelected = false
                 });

@@ -2345,7 +2345,7 @@ namespace MIS
             int currentSIMID = 0;
             int replaceTerminalID = 0;
             int replaceSIMID = 0;
-            int oldTerminalID = 0;
+            int oldTerminalID = 0; 
             int oldSIMID = 0;
 
             Debug.WriteLine("--btnDispatch_Click--");
