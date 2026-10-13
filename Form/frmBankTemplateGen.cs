@@ -16,6 +16,7 @@ namespace MIS
         private readonly BindingList<IrImportRow> _irRows = new BindingList<IrImportRow>();
         private readonly List<string> _sourceFiles = new List<string>();
         private clsAPI dbAPI;
+        private readonly clsFile dbFile = new clsFile();
 
         public frmBankTemplateGen()
         {
@@ -100,12 +101,12 @@ namespace MIS
             ReplaceWithDatePickerColumn(ref colIrTargetInstallationDate);
 
             DataGridViewTextBoxColumn bancnetTidColumn = new DataGridViewTextBoxColumn
-                {
-                    Name = "colIrBancnetTid",
-                    HeaderText = "Bancnet TID",
-                    DataPropertyName = "BancnetTid",
-                    Width = 140
-                };
+            {
+                Name = "colIrBancnetTid",
+                HeaderText = "Bancnet TID",
+                DataPropertyName = "BancnetTid",
+                Width = 140
+            };
 
             grdBankFields.Columns.Insert(colIrTid.Index + 1, bancnetTidColumn);
         }
@@ -132,7 +133,7 @@ namespace MIS
             SetHeaderColor(colIrRequestPrioritization, brightGreen);
         }
 
-        private static void SetHeaderColor(DataGridViewColumn column,Color backColor)
+        private static void SetHeaderColor(DataGridViewColumn column, Color backColor)
         {
             column.HeaderCell.Style.BackColor = backColor;
             column.HeaderCell.Style.ForeColor = Color.White;
@@ -156,7 +157,7 @@ namespace MIS
                 Frozen = originalColumn.Frozen,
                 ReadOnly = originalColumn.ReadOnly,
                 Visible = originalColumn.Visible,
-                HeaderCell = (DataGridViewColumnHeaderCell) originalColumn.HeaderCell.Clone(),
+                HeaderCell = (DataGridViewColumnHeaderCell)originalColumn.HeaderCell.Clone(),
                 DefaultCellStyle = originalColumn.DefaultCellStyle.Clone()
             };
             grdBankFields.Columns.Remove(originalColumn);
@@ -199,6 +200,10 @@ namespace MIS
 
                 dialog.Multiselect = true; // allows multiple excel files. 
 
+                dbFile.CheckFolder(dbFile.sImportPath);
+                dialog.InitialDirectory = dbFile.sImportPath;
+                dialog.RestoreDirectory = true;
+
                 if (dialog.ShowDialog() != DialogResult.OK) return;
 
                 LoadTemplates(dialog.FileNames);
@@ -212,6 +217,7 @@ namespace MIS
             using (Form passwordDialog = new Form())
             using (Label instructionLabel = new Label())
             using (TextBox passwordTextBox = new TextBox())
+            using (CheckBox showPasswordCheckBox = new CheckBox())
             using (Button unlockButton = new Button())
             using (Button cancelButton = new Button())
             {
@@ -221,7 +227,7 @@ namespace MIS
                 passwordDialog.MinimizeBox = false;
                 passwordDialog.MaximizeBox = false;
                 passwordDialog.ShowInTaskbar = false;
-                passwordDialog.ClientSize = new Size(410, 145);
+                passwordDialog.ClientSize = new Size(410, 170);
 
                 instructionLabel.AutoSize = false;
                 instructionLabel.Location = new Point(15, 15);
@@ -231,18 +237,28 @@ namespace MIS
                 passwordTextBox.Size = new Size(380, 23);
                 passwordTextBox.UseSystemPasswordChar = true;
 
+                showPasswordCheckBox.Text = "Show";
+                showPasswordCheckBox.AutoSize = true;
+                showPasswordCheckBox.Location = new Point(15, 90);
+                showPasswordCheckBox.Checked = false;
+                showPasswordCheckBox.CheckedChanged += delegate
+                {
+                    passwordTextBox.UseSystemPasswordChar = !showPasswordCheckBox.Checked;
+                };
+
                 unlockButton.Text = "UNLOCK";
-                unlockButton.Location = new Point(215, 100);
+                unlockButton.Location = new Point(215, 125);
                 unlockButton.Size = new Size(85, 28);
                 unlockButton.DialogResult = DialogResult.OK;
 
                 cancelButton.Text = "CANCEL";
-                cancelButton.Location = new Point(310, 100);
+                cancelButton.Location = new Point(310, 125);
                 cancelButton.Size = new Size(85, 28);
                 cancelButton.DialogResult = DialogResult.Cancel;
 
                 passwordDialog.Controls.Add(instructionLabel);
                 passwordDialog.Controls.Add(passwordTextBox);
+                passwordDialog.Controls.Add(showPasswordCheckBox);
                 passwordDialog.Controls.Add(unlockButton);
                 passwordDialog.Controls.Add(cancelButton);
                 passwordDialog.AcceptButton = unlockButton;
@@ -299,7 +315,7 @@ namespace MIS
 
         private void LoadTemplates(IEnumerable<string> filePaths)
         {
-            List<string> selectedFiles = filePaths.Where(filePath => !string.IsNullOrWhiteSpace(filePath)) .Distinct(StringComparer.OrdinalIgnoreCase) .ToList();
+            List<string> selectedFiles = filePaths.Where(filePath => !string.IsNullOrWhiteSpace(filePath)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
             if (selectedFiles.Count == 0) return;
             List<string> errors = new List<string>();
 
@@ -307,7 +323,7 @@ namespace MIS
             {
                 Cursor = Cursors.WaitCursor;
                 int nextIrControlNo;
-                if (!TryGetFirstIrControlNo (out nextIrControlNo))
+                if (!TryGetFirstIrControlNo(out nextIrControlNo))
                 {
                     MessageBox.Show("Unable to generate Installation Request IDs. " + "The MIS API did not return a valid control number.",
                         "Request ID Generation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
@@ -333,7 +349,7 @@ namespace MIS
                         }
                         else
                         {
-                            errors.Add( Path.GetFileName(filePath) +": " + ex.GetBaseException().Message);
+                            errors.Add(Path.GetFileName(filePath) + ": " + ex.GetBaseException().Message);
                         }
                     }
                 }
@@ -432,18 +448,18 @@ namespace MIS
         }
         private static string GetMappedValue(IEnumerable<BankTemplateRow> sourceRows, string mccColumn)
         {
-            IEnumerable<BankTemplateRow> mappedRows = sourceRows .Where(row => row.IsSelectable && row.IsSelected && string.Equals(row.MccColumn, mccColumn, StringComparison.OrdinalIgnoreCase));
-            if (string.Equals(mccColumn,"Terminal ID (TID)", StringComparison.OrdinalIgnoreCase))
+            IEnumerable<BankTemplateRow> mappedRows = sourceRows.Where(row => row.IsSelectable && row.IsSelected && string.Equals(row.MccColumn, mccColumn, StringComparison.OrdinalIgnoreCase));
+            if (string.Equals(mccColumn, "Terminal ID (TID)", StringComparison.OrdinalIgnoreCase))
             {
-                mappedRows = mappedRows.OrderBy(row => row.Tag.StartsWith("Sheet2 - ", StringComparison.OrdinalIgnoreCase)? 0: 1);
+                mappedRows = mappedRows.OrderBy(row => row.Tag.StartsWith("Sheet2 - ", StringComparison.OrdinalIgnoreCase) ? 0 : 1);
             }
-            IEnumerable<string> mappedValues = mappedRows.Select(row => !string.IsNullOrWhiteSpace(row.MccValue) ? row.MccValue.Trim(): (row.Value ?? string.Empty).Trim())
+            IEnumerable<string> mappedValues = mappedRows.Select(row => !string.IsNullOrWhiteSpace(row.MccValue) ? row.MccValue.Trim() : (row.Value ?? string.Empty).Trim())
                 .Where(value => !string.IsNullOrWhiteSpace(value));
 
             bool isIdentifierColumn =
-                string.Equals(mccColumn,"Merchant ID (MID)",StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(mccColumn,"Terminal ID (TID)",StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(mccColumn,"Bancnet TID",StringComparison.OrdinalIgnoreCase);
+                string.Equals(mccColumn, "Merchant ID (MID)", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(mccColumn, "Terminal ID (TID)", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(mccColumn, "Bancnet TID", StringComparison.OrdinalIgnoreCase);
 
             if (isIdentifierColumn)
             {
@@ -496,7 +512,7 @@ namespace MIS
 
             if (missingFields.Count > 0)
             {
-                string validationMessage = "Unable to generate the IR Import Template because " +"the following mandatory fields are missing:\n\n" +
+                string validationMessage = "Unable to generate the IR Import Template because " + "the following mandatory fields are missing:\n\n" +
                 string.Join("\n", missingFields) + "\n\nComplete all required fields in every row " + "before generating the template.";
 
                 MessageBox.Show(validationMessage, "Incomplete Installation Request Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -510,13 +526,11 @@ namespace MIS
                 dialog.DefaultExt = "xlsx";
                 dialog.AddExtension = true;
                 dialog.OverwritePrompt = true;
-                dialog.FileName = BuildDefaultOutputFileName();
 
-                string sourceDirectory = _sourceFiles.Count > 0 ? Path.GetDirectoryName(_sourceFiles[0]) : string.Empty;
-                if (!string.IsNullOrWhiteSpace(sourceDirectory) && Directory.Exists(sourceDirectory))
-                {
-                    dialog.InitialDirectory = sourceDirectory;
-                }
+                dbFile.CheckFolder(dbFile.sImportPath);
+                dialog.InitialDirectory = dbFile.sImportPath;
+                dialog.FileName = Path.Combine(dbFile.sImportPath, BuildDefaultOutputFileName());
+                dialog.RestoreDirectory = true;
 
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 try
@@ -529,7 +543,7 @@ namespace MIS
                     exporter.Export(dialog.FileName, _irRows.ToList());
                     lblStatus.Text = "IR IMPORT TEMPLATE GENERATED";
                     string message = _irRows.Count + " Installation Request row(s) were exported successfully.\n\n" + "Saved to:\n" + dialog.FileName;
-                    MessageBox.Show( message, "IR Import Template", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(message, "IR Import Template", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -562,10 +576,10 @@ namespace MIS
                 AddMissingField(missing, "POS Setup", row.PosSetup);
                 AddMissingField(missing, "POS Type", row.PosType);
                 AddMissingField(missing, "POS Connection Type", row.PosConnectionType);
-                AddMissingField(missing, "Target Installation Date",row.TargetInstallationDate);
+                AddMissingField(missing, "Target Installation Date", row.TargetInstallationDate);
                 AddMissingField(missing, "Merchant ID (MID)", row.Mid);
                 AddMissingField(missing, "Terminal ID (TID)", row.Tid);
-                AddMissingField(missing, "Merchant Location/DBA Name",row.MerchantLocation);
+                AddMissingField(missing, "Merchant Location/DBA Name", row.MerchantLocation);
                 AddMissingField(missing, "Address", row.Address);
                 AddMissingField(missing, "City", row.City);
                 AddMissingField(missing, "Area 1", row.Area1);
@@ -594,28 +608,16 @@ namespace MIS
 
         private string BuildDefaultOutputFileName()
         {
-            string sourceName;
+            string bankCode = (clsSearch.ClassBankCode ?? string.Empty).Trim().ToLowerInvariant();
 
-            if (_sourceFiles.Count == 1)
-            {
-                sourceName = Path.GetFileNameWithoutExtension(_sourceFiles[0]);
-            }
-            else if (_sourceFiles.Count > 1)
-            {
-                sourceName =_sourceFiles.Count + "_REQUESTS";
-            }
-            else
-            {
-                sourceName = "REQUEST";
-            }
-
-            if (string.IsNullOrWhiteSpace(sourceName)) sourceName = "REQUEST";
+            if (string.IsNullOrWhiteSpace(bankCode)) bankCode = "bank";
 
             foreach (char invalidCharacter in Path.GetInvalidFileNameChars())
             {
-                sourceName = sourceName.Replace(invalidCharacter,'_');
+                bankCode = bankCode.Replace(invalidCharacter, '_');
             }
-            return "IR_IMPORT_" + sourceName + ".xlsx";
+
+            return "ir_" + bankCode + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".xlsx";
         }
 
         private void btnMinimize_Click(object sender, EventArgs e)
@@ -628,7 +630,7 @@ namespace MIS
             this.Close();
         }
 
-        private void frmBankTemplateGen_Load( object sender, EventArgs e)
+        private void frmBankTemplateGen_Load(object sender, EventArgs e)
         {
             LoadPosTypes();
         }
