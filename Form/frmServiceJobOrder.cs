@@ -2698,13 +2698,13 @@ namespace MIS
                             replaceSIMID = int.Parse(txtRepSIMID.Text);
                         }
 
-                        // previous
-                        if (dbFunction.isValidID(txtOldTerminalID.Text))
+                        // previous (only a previous REPLACE SN; never the merchant's current SN)
+                        if (dbFunction.isValidID(txtOldTerminalID.Text) && !txtOldTerminalID.Text.Equals(txtCurTerminalID.Text))
                         {
                             oldTerminalID = int.Parse(txtOldTerminalID.Text);
                         }
 
-                        if (dbFunction.isValidID(txtOldSIMID.Text))
+                        if (dbFunction.isValidID(txtOldSIMID.Text) && !txtOldSIMID.Text.Equals(txtCurSIMID.Text))
                         {
                             oldSIMID = int.Parse(txtOldSIMID.Text);
                         }
