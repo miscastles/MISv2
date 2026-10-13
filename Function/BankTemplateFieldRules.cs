@@ -88,7 +88,7 @@ namespace MIS.Function
                     row.IsSelected = row.IsSelectable;
                     continue;
                 }
-                row.IsSelected = row.IsSelectable && (JsonOnlyTags.Contains(tag) || tag.StartsWith("Sheet2 - ",StringComparison.OrdinalIgnoreCase));
+                row.IsSelected = row.IsSelectable && (JsonOnlyTags.Contains(tag) || IsPreviousInformationRow(row));
             }
         }
 
@@ -96,41 +96,46 @@ namespace MIS.Function
         {
             mccColumn = string.Empty;
 
-            if (isAdditionalTerminal)
-            {
-                if (string.Equals(tag,"Sheet2 - MID",StringComparison.OrdinalIgnoreCase))
-                {
-                    mccColumn = "Merchant ID (MID)";
-                    return true;
-                }
-
-                if (string.Equals(tag,"Sheet2 - TID",StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(tag,"Credit TID",StringComparison.OrdinalIgnoreCase))
-                {
-                    mccColumn = "Terminal ID (TID)";
-                    return true;
-                }
-
-                if (string.Equals(tag,"Debit TID",StringComparison.OrdinalIgnoreCase))
-                {
-                    mccColumn = "Bancnet TID";
-                    return true;
-                }
-                return false;
-            }
-
-            if (string.Equals(tag,"Debit TID",StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(tag, "VMJACD (catch-all) PHP", StringComparison.OrdinalIgnoreCase))
             {
                 mccColumn = "Merchant ID (MID)";
                 return true;
             }
 
-            if (string.Equals(tag,"Credit TID",StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(tag, "Debit TID", StringComparison.OrdinalIgnoreCase))
+            {
+                mccColumn = "Bancnet TID";
+                return true;
+            }
+
+            if (string.Equals(tag, "Credit TID", StringComparison.OrdinalIgnoreCase))
             {
                 mccColumn = "Terminal ID (TID)";
                 return true;
             }
+
+            if (isAdditionalTerminal)
+            {
+                if (IsPreviousInformationIdentifier(tag, "MID"))
+                {
+                    mccColumn = "Merchant ID (MID)";
+                    return true;
+                }
+
+                return false;
+            }
             return false;
+        }
+
+        private static bool IsPreviousInformationRow(BankTemplateRow row)
+        {
+            return row != null && (row.Section ?? string.Empty).StartsWith(
+                "Previous Merchant Information (", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsPreviousInformationIdentifier(string tag, string identifier)
+        {
+            return (tag ?? string.Empty).EndsWith(" - " + identifier, StringComparison.OrdinalIgnoreCase);
         }
 
         public static string NormalizeIdentifierList(string sourceValue)

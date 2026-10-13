@@ -111,6 +111,17 @@ namespace MIS
             };
 
             grdBankFields.Columns.Insert(colIrTid.Index + 1, bancnetTidColumn);
+
+            DataGridViewTextBoxColumn bancnetMidColumn = new DataGridViewTextBoxColumn
+                {
+                    Name = "colIrBancnetMid",
+                    HeaderText = "Bancnet MID",
+                    DataPropertyName = "BancnetMid",
+                    ReadOnly = true,
+                    Width = 150
+                };
+
+            grdBankFields.Columns.Insert(bancnetTidColumn.Index + 1, bancnetMidColumn);
         }
 
         private void ApplyMccHeaderColors()
@@ -270,28 +281,83 @@ namespace MIS
                     passwordTextBox.Focus();
                 };
 
-                if (passwordDialog.ShowDialog(this) != DialogResult.OK)
+                while (true)
                 {
-                    return false;
-                }
+                    if (passwordDialog.ShowDialog(this) != DialogResult.OK)
+                    {
+                        return false;
+                    }
 
-                if (string.IsNullOrEmpty(passwordTextBox.Text))
-                {
+                    if (!string.IsNullOrEmpty(passwordTextBox.Text))
+                    {
+                        workbookPassword = passwordTextBox.Text;
+                        return true;
+                    }
+
                     MessageBox.Show("Please enter the Excel file password.", "Excel Password", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
+                    passwordTextBox.Clear();
+                    passwordTextBox.Focus();
                 }
-                workbookPassword = passwordTextBox.Text;
-                return true;
             }
         }
 
         private void AddTemplate(string filePath, string workbookPassword, clsFunction requestIdFormatter, ref int nextIrControlNo)
         {
-            IrImportRow irRow = BuildIrImportRow(filePath, workbookPassword);
-            irRow.RequestId = requestIdFormatter.GenerateControlNo(nextIrControlNo, clsDefines.CONTROLID_PREFIX_IR, true);
-            _irRows.Add(irRow);
+            IList<IrImportRow> irRows = ExpandIdentifierPairs(BuildIrImportRow(filePath, workbookPassword));
+
+            foreach (IrImportRow irRow in irRows)
+            {
+                irRow.RequestId = requestIdFormatter.GenerateControlNo(nextIrControlNo, clsDefines.CONTROLID_PREFIX_IR, true);
+                _irRows.Add(irRow);
+                nextIrControlNo++;
+            }
+
             _sourceFiles.Add(filePath);
-            nextIrControlNo++;
+        }
+
+        private static IList<IrImportRow> ExpandIdentifierPairs(IrImportRow sourceRow)
+        {
+            if (sourceRow == null) throw new ArgumentNullException("sourceRow");
+
+            List<string> terminalIds = SplitIdentifierValues(sourceRow.Tid);
+            List<string> bancnetTerminalIds = SplitIdentifierValues(sourceRow.BancnetTid);
+
+            if (terminalIds.Count != bancnetTerminalIds.Count)
+            {
+                throw new InvalidDataException(
+                    "Terminal ID and Bancnet TID counts do not match. " +
+                    "Terminal ID count: " + terminalIds.Count + "; " +
+                    "Bancnet TID count: " + bancnetTerminalIds.Count + ".");
+            }
+
+            if (terminalIds.Count == 0)
+            {
+                return new List<IrImportRow> { sourceRow };
+            }
+
+            List<IrImportRow> expandedRows = new List<IrImportRow>(terminalIds.Count);
+
+            for (int index = 0; index < terminalIds.Count; index++)
+            {
+                IrImportRow expandedRow = new IrImportRow(sourceRow)
+                {
+                    Tid = terminalIds[index],
+                    BancnetTid = bancnetTerminalIds[index]
+                };
+
+                expandedRows.Add(expandedRow);
+            }
+
+            return expandedRows;
+        }
+
+        private static List<string> SplitIdentifierValues(string value)
+        {
+            return (value ?? string.Empty)
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(identifier => identifier.Trim())
+                .Where(identifier => !string.IsNullOrWhiteSpace(identifier))
+                .ToList();
         }
 
         private static bool MayRequiredWorkbookPassword(Exception exception)
@@ -302,6 +368,33 @@ namespace MIS
                 message.IndexOf("encrypted", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 message.IndexOf("password", StringComparison.OrdinalIgnoreCase) >= 0 ||
                 message.IndexOf("valid Package file", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private static bool IsWorkbookOpen(string filePath)
+        {
+            try
+            {
+                string directory = Path.GetDirectoryName(filePath);
+                string lockFilePath = Path.Combine(directory ?? string.Empty, "~$" + Path.GetFileName(filePath));
+
+                if (File.Exists(lockFilePath))
+                {
+                    return true;
+                }
+
+                using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    return false;
+                }
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return false;
+            }
         }
 
         private bool TryGetFirstIrControlNo(out int controlNo)
@@ -418,10 +511,22 @@ namespace MIS
 
                 if (encryptedFiles.Count > 0)
                 {
-                    string batchPassword;
-
-                    if (TryRequestBatchPassword(encryptedFiles.Count, out batchPassword))
+                    while (true)
                     {
+                        string batchPassword;
+
+                        if (!TryRequestBatchPassword(encryptedFiles.Count, out batchPassword))
+                        {
+                            break;
+                        }
+
+                        int rowsBeforeAttempt = _irRows.Count;
+                        int sourceFilesBeforeAttempt = _sourceFiles.Count;
+                        int errorsBeforeAttempt = errors.Count;
+                        int controlNoBeforeAttempt = nextIrControlNo;
+                        string retryMessage = string.Empty;
+                        string retryTitle = "Excel Password";
+
                         foreach (string filePath in encryptedFiles)
                         {
                             try
@@ -430,18 +535,53 @@ namespace MIS
                             }
                             catch (Exception ex)
                             {
-                                errors.Add(Path.GetFileName(filePath) + ": Unable to unlock or read the file. " + ex.GetBaseException().Message);
+                                if (IsWorkbookOpen(filePath))
+                                {
+                                    retryTitle = "Excel File Is Open";
+                                    retryMessage = "The Excel file \"" + Path.GetFileName(filePath) + "\" appears to be open in Excel. " +
+                                        "Close the workbook first, then enter the password again. This does not necessarily mean that the password is incorrect.";
+                                    break;
+                                }
+
+                                if (MayRequiredWorkbookPassword(ex))
+                                {
+                                    retryMessage = "Incorrect Excel file password. Please try again, or close the password window to cancel.";
+                                    break;
+                                }
+
+                                errors.Add(Path.GetFileName(filePath) + ": Unable to read the file. " + ex.GetBaseException().Message);
                             }
                         }
+
                         // Do not retain the password after processing.
                         batchPassword = string.Empty;
-                    }
-                    else
-                    {
-                        foreach (string filePath in encryptedFiles)
+
+                        if (string.IsNullOrEmpty(retryMessage))
                         {
-                            errors.Add(Path.GetFileName(filePath) + ": Password entry was cancelled.");
+                            break;
                         }
+
+                        if (_irRows.Count > rowsBeforeAttempt)
+                        {
+                            while (_irRows.Count > rowsBeforeAttempt)
+                            {
+                                _irRows.RemoveAt(_irRows.Count - 1);
+                            }
+                        }
+
+                        if (_sourceFiles.Count > sourceFilesBeforeAttempt)
+                        {
+                            _sourceFiles.RemoveRange(sourceFilesBeforeAttempt, _sourceFiles.Count - sourceFilesBeforeAttempt);
+                        }
+
+                        if (errors.Count > errorsBeforeAttempt)
+                        {
+                            errors.RemoveRange(errorsBeforeAttempt, errors.Count - errorsBeforeAttempt);
+                        }
+
+                        nextIrControlNo = controlNoBeforeAttempt;
+
+                        MessageBox.Show(retryMessage, retryTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
 
@@ -497,7 +637,7 @@ namespace MIS
                 PosConnectionType = string.Empty,
                 TargetInstallationDate = string.Empty,
                 Remarks = GetMappedValue(sourceRows, "RM Instruction / Remarks"),
-                Mid = GetMappedValue(sourceRows, "Merchant ID (MID)"),
+                Mid = GetMerchantMid(sourceRows),
                 Tid = GetMappedValue(sourceRows, "Terminal ID (TID)"),
                 BancnetTid = GetMappedValue(sourceRows, "Bancnet TID"),
                 MerchantLocation = GetMappedValue(sourceRows, "Merchant Location/DBA Name"),
@@ -512,10 +652,6 @@ namespace MIS
         private static string GetMappedValue(IEnumerable<BankTemplateRow> sourceRows, string mccColumn)
         {
             IEnumerable<BankTemplateRow> mappedRows = sourceRows.Where(row => row.IsSelectable && row.IsSelected && string.Equals(row.MccColumn, mccColumn, StringComparison.OrdinalIgnoreCase));
-            if (string.Equals(mccColumn, "Terminal ID (TID)", StringComparison.OrdinalIgnoreCase))
-            {
-                mappedRows = mappedRows.OrderBy(row => row.Tag.StartsWith("Sheet2 - ", StringComparison.OrdinalIgnoreCase) ? 0 : 1);
-            }
             IEnumerable<string> mappedValues = mappedRows.Select(row => !string.IsNullOrWhiteSpace(row.MccValue) ? row.MccValue.Trim() : (row.Value ?? string.Empty).Trim())
                 .Where(value => !string.IsNullOrWhiteSpace(value));
 
@@ -530,6 +666,26 @@ namespace MIS
             }
             List<string> values = mappedValues.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
             return string.Join(", ", values);
+        }
+
+        private static string GetMerchantMid(IEnumerable<BankTemplateRow> sourceRows)
+        {
+            List<BankTemplateRow> rows = sourceRows.ToList();
+            string primaryMid = GetMappedValue(
+                rows.Where(row => !IsSecondaryIdentifierTag(row.Tag, "MID")), "Merchant ID (MID)");
+
+            if (!string.IsNullOrWhiteSpace(primaryMid))
+            {
+                return primaryMid;
+            }
+
+            return GetMappedValue(
+                rows.Where(row => IsSecondaryIdentifierTag(row.Tag, "MID")), "Merchant ID (MID)");
+        }
+
+        private static bool IsSecondaryIdentifierTag(string tag, string identifier)
+        {
+            return (tag ?? string.Empty).EndsWith(" - " + identifier, StringComparison.OrdinalIgnoreCase);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -708,15 +864,21 @@ namespace MIS
                 Cursor = Cursors.WaitCursor;
                 dbAPI = new clsAPI();
 
-                ComboBox temporaryComboBox = new ComboBox();
-
-                dbAPI.FillComboBoxTerminalModel(temporaryComboBox);
+                dbAPI.ExecuteAPI("GET", "View", "Application Info List", "", "Advance Detail", "", "ViewAdvanceDetail");
 
                 colIrPosType.Items.Clear();
 
-                foreach (object item in temporaryComboBox.Items)
+                if (!clsGlobalVariables.isAPIResponseOK || dbAPI.isNoRecordFound())
                 {
-                    string description = Convert.ToString(item);
+                    MessageBox.Show("No active POS Type records were returned by the database.", "POS Type", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                colIrPosType.Items.Add(clsFunction.sDefaultSelect);
+
+                foreach (string detailInfo in clsArray.detail_info)
+                {
+                    string description = dbAPI.GetValueFromJSONString(detailInfo, clsDefines.TAG_TerminalModel);
 
                     if (!string.IsNullOrWhiteSpace(description))
                     {
@@ -724,9 +886,9 @@ namespace MIS
                     }
                 }
 
-                if (colIrPosType.Items.Count == 0)
+                if (colIrPosType.Items.Count == 1)
                 {
-                    MessageBox.Show("No POS Type records were returned by the database.", "POS Type", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No active POS Type records were returned by the database.", "POS Type", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
