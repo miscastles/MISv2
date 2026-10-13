@@ -1,0 +1,30 @@
+﻿CHANGELOG
+Date: October 13, 2026
+Developer: Raiden K. Fernando
+
+====================================================================================
+CHANGES
+====================================================================================
+
+1. Issue Modules
+
+	- Redesigned Bank IR Template Generator UI
+	- Fixed metadata tagging for converted IR and ImportIR not accepting non metadata tagged IR Import
+	- Added listview for imported files
+	- Added doubleclicking and a button for quick folder access for imported files
+
+2. Database ( NONE )
+
+====================================================================================
+FILES / MODULES AFFECTED
+====================================================================================
+
+- frmBankTemplateGen.cs
+- frmBankTemplateGet.Designer.cs
+- frmImportIR
+
+====================================================================================
+STATUS
+====================================================================================
+
+Completed / For Testing
