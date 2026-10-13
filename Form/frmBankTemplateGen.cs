@@ -32,6 +32,8 @@ namespace MIS
             btnGenerate.Click += btnGenerate_Click;
             btnReset.Click += btnReset_Click;
 
+            btnLoadFile.Click += btnLoadFile_Click;
+
             grdBankFields.CurrentCellDirtyStateChanged += grdBankFields_CurrentCellDirtyStateChanged;
 
             grdBankFields.RowsAdded += grdBankFields_RowsAdded;
@@ -313,11 +315,71 @@ namespace MIS
             return clsGlobalVariables.isAPIResponseOK && controlNo > 0;
         }
 
+        private void PopulateExcelTemplateList(IList<string> filePaths)
+        {
+            lvwExcelTemplate.BeginUpdate();
+            try
+            {
+                lvwExcelTemplate.Items.Clear();
+
+                int count = 1;
+                foreach (string filePath in filePaths)
+                {
+                    ListViewItem item = new ListViewItem(count.ToString());
+                    item.SubItems.Add(Path.GetFileName(filePath));
+                    item.SubItems.Add(filePath);
+                    item.Tag = filePath;
+                    item.ToolTipText = filePath;
+                    lvwExcelTemplate.Items.Add(item);
+                    count++;
+                }
+            }
+            finally
+            {
+                lvwExcelTemplate.EndUpdate();
+            }
+        }
+
+        private void lvwExcelTemplate_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvwExcelTemplate.SelectedItems.Count == 0) return;
+
+            string filePath = lvwExcelTemplate.SelectedItems[0].Tag as string;
+            if (string.IsNullOrWhiteSpace(filePath)) return;
+
+            txtSourcePath.Text = filePath;
+        }
+
+        private void btnLoadFile_Click(object sender, EventArgs e)
+        {
+            string filePath = (txtSourcePath.Text ?? string.Empty).Trim();
+
+            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+            {
+                MessageBox.Show("Double-click a file in the list first to select its path.",
+                    "Locate File", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            try
+            {
+                // Opens Explorer with the file highlighted
+                System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + filePath + "\"");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open the file location.\n\n" + ex.Message,
+                    "Locate File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void LoadTemplates(IEnumerable<string> filePaths)
         {
             List<string> selectedFiles = filePaths.Where(filePath => !string.IsNullOrWhiteSpace(filePath)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
             if (selectedFiles.Count == 0) return;
             List<string> errors = new List<string>();
+
+            PopulateExcelTemplateList(selectedFiles);
 
             try
             {
@@ -383,7 +445,8 @@ namespace MIS
                     }
                 }
 
-                txtSourcePath.Text = _sourceFiles.Count + "FILE(S) SELECTED";
+                txtSourcePath.Clear();
+                lblTotal.Text = _irRows.Count.ToString();
 
                 if (_irRows.Count > 0)
                 {
@@ -491,6 +554,9 @@ namespace MIS
 
             btnGenerate.Enabled = false;
             btnBrowse.Focus();
+
+            lvwExcelTemplate.Items.Clear();
+            lblTotal.Text = "0";
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)

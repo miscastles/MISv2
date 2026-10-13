@@ -10,6 +10,8 @@ CHANGES
 
 	- Redesigned Bank IR Template Generator UI
 	- Fixed metadata tagging for converted IR and ImportIR not accepting non metadata tagged IR Import
+	- Added listview for imported files
+	- Added doubleclicking and a button for quick folder access for imported files
 
 2. Database ( NONE )
 
