@@ -8,7 +8,7 @@ namespace MIS
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null)) components.Dispose();
-                base.Dispose(disposing);
+            base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
@@ -45,14 +45,18 @@ namespace MIS
             this.lblFieldsHeader = new System.Windows.Forms.Label();
             this.lblPath = new System.Windows.Forms.Label();
             this.pnlSourceHeader = new System.Windows.Forms.Panel();
+            this.lblBulkEditHint = new System.Windows.Forms.Label();
             this.lblSourceHeader = new System.Windows.Forms.Label();
             this.grdBankFields = new System.Windows.Forms.DataGridView();
+            this.colIrSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colIrRequestPrioritization = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colIrPosSetup = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colIrPosType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colIrPosConnectionType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colIrArea1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.pnlFooter = new System.Windows.Forms.Panel();
+            this.btnApplyToSelected = new System.Windows.Forms.Button();
+            this.lblSelectedRows = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
@@ -361,12 +365,25 @@ namespace MIS
             // pnlSourceHeader
             // 
             this.pnlSourceHeader.BackColor = System.Drawing.Color.Gainsboro;
+            this.pnlSourceHeader.Controls.Add(this.lblBulkEditHint);
             this.pnlSourceHeader.Controls.Add(this.lblSourceHeader);
             this.pnlSourceHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSourceHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlSourceHeader.Name = "pnlSourceHeader";
             this.pnlSourceHeader.Size = new System.Drawing.Size(935, 25);
             this.pnlSourceHeader.TabIndex = 0;
+            // 
+            // lblBulkEditHint
+            // 
+            this.lblBulkEditHint.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblBulkEditHint.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblBulkEditHint.ForeColor = System.Drawing.Color.Navy;
+            this.lblBulkEditHint.Location = new System.Drawing.Point(485, 0);
+            this.lblBulkEditHint.Name = "lblBulkEditHint";
+            this.lblBulkEditHint.Size = new System.Drawing.Size(450, 25);
+            this.lblBulkEditHint.TabIndex = 1;
+            this.lblBulkEditHint.Text = "BULK EDIT: APPLY ONE FIELD AT A TIME";
+            this.lblBulkEditHint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblSourceHeader
             // 
@@ -399,6 +416,7 @@ namespace MIS
             this.grdBankFields.ColumnHeadersHeight = 64;
             this.grdBankFields.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.grdBankFields.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colIrSelected,
             this.colIrRequestId,
             this.colIrVendor,
             this.colIrRequestDate,
@@ -438,6 +456,18 @@ namespace MIS
             this.grdBankFields.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.grdBankFields.Size = new System.Drawing.Size(937, 593);
             this.grdBankFields.TabIndex = 3;
+            // 
+            // colIrSelected
+            // 
+            this.colIrSelected.DataPropertyName = "IsSelected";
+            this.colIrSelected.FalseValue = false;
+            this.colIrSelected.Frozen = true;
+            this.colIrSelected.HeaderText = "ALL";
+            this.colIrSelected.Name = "colIrSelected";
+            this.colIrSelected.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colIrSelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colIrSelected.TrueValue = true;
+            this.colIrSelected.Width = 45;
             // 
             // colIrRequestPrioritization
             // 
@@ -506,6 +536,8 @@ namespace MIS
             // pnlFooter
             // 
             this.pnlFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlFooter.Controls.Add(this.btnApplyToSelected);
+            this.pnlFooter.Controls.Add(this.lblSelectedRows);
             this.pnlFooter.Controls.Add(this.btnClose);
             this.pnlFooter.Controls.Add(this.btnGenerate);
             this.pnlFooter.Controls.Add(this.btnReset);
@@ -514,6 +546,28 @@ namespace MIS
             this.pnlFooter.Name = "pnlFooter";
             this.pnlFooter.Size = new System.Drawing.Size(1369, 36);
             this.pnlFooter.TabIndex = 4;
+            // 
+            // btnApplyToSelected
+            // 
+            this.btnApplyToSelected.Enabled = false;
+            this.btnApplyToSelected.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnApplyToSelected.Location = new System.Drawing.Point(910, 5);
+            this.btnApplyToSelected.Name = "btnApplyToSelected";
+            this.btnApplyToSelected.Size = new System.Drawing.Size(234, 25);
+            this.btnApplyToSelected.TabIndex = 4;
+            this.btnApplyToSelected.Text = "APPLY CELL TO SELECTED";
+            this.btnApplyToSelected.UseVisualStyleBackColor = true;
+            // 
+            // lblSelectedRows
+            // 
+            this.lblSelectedRows.AutoSize = true;
+            this.lblSelectedRows.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblSelectedRows.ForeColor = System.Drawing.Color.Navy;
+            this.lblSelectedRows.Location = new System.Drawing.Point(690, 10);
+            this.lblSelectedRows.Name = "lblSelectedRows";
+            this.lblSelectedRows.Size = new System.Drawing.Size(119, 14);
+            this.lblSelectedRows.TabIndex = 5;
+            this.lblSelectedRows.Text = "0 ROW(S) SELECTED";
             // 
             // btnClose
             // 
@@ -863,10 +917,14 @@ namespace MIS
         private System.Windows.Forms.TextBox txtSourcePath;
         private System.Windows.Forms.Label lblPath;
         private System.Windows.Forms.Panel pnlSourceHeader;
+        private System.Windows.Forms.Label lblBulkEditHint;
         private System.Windows.Forms.Label lblSourceHeader;
         private System.Windows.Forms.Label lblFieldsHeader;
         private System.Windows.Forms.DataGridView grdBankFields;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colIrSelected;
         private System.Windows.Forms.Panel pnlFooter;
+        private System.Windows.Forms.Button btnApplyToSelected;
+        private System.Windows.Forms.Label lblSelectedRows;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Panel pnlBorderLeft;

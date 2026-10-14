@@ -321,6 +321,8 @@ namespace MIS.Function
                 ["Terminal ID (TID)"] = Clean(row.Tid),
                 ["Bancnet TID"] = Clean(row.BancnetTid),
                 ["Bancnet MID"] = IrImportRow.DefaultBancnetMid,
+                ["Alipay TID"] = Clean(row.AlipayTid),
+                ["Alipay MID"] = Clean(row.AlipayMid),
                 ["Merchant Location/DBA Name"] = Clean(row.MerchantLocation),
                 ["Address"] = Clean(row.Address),
                 ["City"] = Clean(row.City),

@@ -1183,16 +1183,14 @@ using System.Web.Services.Description;
 
                         }
 
-                    //Prompt.Info("New Helpdesk Request", $"Request has been added");
+                    Prompt.Info("New Helpdesk Request", $"Request has been added");
 
-                    /*
                     if (getFlag().Equals(0))
                         ClearAllFields();
                     else
                         ClearCurrentFields();
                         btnSearchService.Enabled = true;
                         setFlag(0);
-                    */
                 }
                 catch (Exception ex)
                     {

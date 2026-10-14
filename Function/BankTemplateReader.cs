@@ -2,6 +2,7 @@
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Packaging;
 
@@ -117,6 +118,7 @@ namespace MIS.Function
             for (int column = 1; column <= worksheet.Dimension.End.Column; column++)
             {
                 string header = GetCellText(worksheet, 1, column);
+                string subHeader = dataRow > 2 ? GetCellText(worksheet, 2, column) : string.Empty;
                 string value = GetCellText(worksheet, dataRow, column);
 
                 if (string.IsNullOrWhiteSpace(header) || string.IsNullOrWhiteSpace(value))
@@ -128,7 +130,7 @@ namespace MIS.Function
                 {
                     ExcelRowNumber = dataRow,
                     Section = PreviousInformationSectionPrefix + worksheet.Name + ")",
-                    Tag = worksheet.Name + " - " + header,
+                    Tag = worksheet.Name + " - " + GetPreviousInformationTag(header, subHeader),
                     Value = value,
                     IsMandatory = false,
                     IsSelectable = true,
@@ -136,6 +138,27 @@ namespace MIS.Function
                 });
             }
             return true;
+        }
+
+        private static string GetPreviousInformationTag(string header, string subHeader)
+        {
+            string combinedHeader = ((header ?? string.Empty) + " " + (subHeader ?? string.Empty)).Trim();
+
+            if (combinedHeader.IndexOf("ALIPAY", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                if (combinedHeader.IndexOf("SWIFTPASS", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    combinedHeader.IndexOf("SIGNKEY", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return "Alipay TID";
+                }
+
+                if (combinedHeader.IndexOf("MID", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return "Alipay MID";
+                }
+            }
+
+            return header;
         }
 
         private static ExcelWorksheet FindPreviousInformationWorksheet(ExcelWorkbook workbook, ExcelWorksheet posFormWorksheet)
@@ -309,7 +332,24 @@ namespace MIS.Function
         {
             if (row > worksheet.Dimension.End.Row) return string.Empty;
 
-            return (worksheet.Cells[row, column].Text ?? string.Empty).Trim();
+            ExcelRange cell = worksheet.Cells[row, column];
+            string displayedText = (cell.Text ?? string.Empty).Trim();
+
+            // Excel's General format displays long numeric identifiers in scientific notation.
+            // Preserve the complete whole-number value for MID/TID fields and similar IDs.
+            if (displayedText.IndexOf('E') >= 0 && cell.Value != null)
+            {
+                double numericValue;
+
+                if (double.TryParse(Convert.ToString(cell.Value, CultureInfo.InvariantCulture),
+                    NumberStyles.Float, CultureInfo.InvariantCulture, out numericValue) &&
+                    numericValue == Math.Truncate(numericValue))
+                {
+                    return numericValue.ToString("0", CultureInfo.InvariantCulture);
+                }
+            }
+
+            return displayedText;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace MIS.Model
 
         public IrImportRow()
         {
+            IsSelected = false;
             SourceFilePath = string.Empty;
             SourceFileName = string.Empty;
             BankDataInfo = string.Empty;
@@ -33,6 +34,8 @@ namespace MIS.Model
             Tid = string.Empty;
             BancnetTid = string.Empty;
             BancnetMid = DefaultBancnetMid;
+            AlipayTid = string.Empty;
+            AlipayMid = string.Empty;
             MerchantLocation = string.Empty;
             Address = string.Empty;
             City = string.Empty;
@@ -65,6 +68,8 @@ namespace MIS.Model
             Tid = source.Tid;
             BancnetTid = source.BancnetTid;
             BancnetMid = source.BancnetMid;
+            AlipayTid = source.AlipayTid;
+            AlipayMid = source.AlipayMid;
             MerchantLocation = source.MerchantLocation;
             Address = source.Address;
             City = source.City;
@@ -75,6 +80,9 @@ namespace MIS.Model
         }
 
         public string SourceFilePath { get; set; }
+
+        // for bulk editor
+        public bool IsSelected { get; set; }
 
         public string SourceFileName { get; set; }
 
@@ -109,6 +117,10 @@ namespace MIS.Model
         public string BancnetTid { get; set; }
 
         public string BancnetMid { get; set; }
+
+        public string AlipayTid { get; set; }
+
+        public string AlipayMid { get; set; }
 
         public string MerchantLocation { get; set; }
 
