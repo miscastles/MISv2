@@ -1,0 +1,34 @@
+CHANGELOG
+Date: October 14, 2026
+Developer: Raiden K. Fernando
+
+========================================================
+CHANGES
+========================================================
+
+1. frmServiceJobOrder
+   - Fixed logged-in user changing after saving a helpdesk-sourced Job Order; the Processed By lookup no longer overwrites the current user session values.
+   - Job Order activity completion is still logged under the original processor (rehydrated from Processed By), with fallback to the logged-in user.
+   - Removed getProcessedByInfo(); the lookup is now inlined in the save routine using local variables.
+   - Fixed Dispatcher showing "-" after loading a Job Order; the display value from Servicing Info is no longer written back into DispatchBy on update.
+
+2. frmHelpdesk
+   - NEGATIVE tickets now create the Job Order with FE empty (FEID = 0, name blank) for proper assignment in Job Order; the Dispatcher (team lead) is retained per Operations.
+   - SUCCESS tickets keep the previous behavior (helpdesk representative as FE, team lead as dispatcher) to match the auto-generated FSR.
+  
+3. frmServiceConfirmation
+   - Made confirmation popup readonly old behaviour lets users edit them but doesnt affect the result
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmServiceJobOrder.cs
+- frmHelpDesk.cs
+- 
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

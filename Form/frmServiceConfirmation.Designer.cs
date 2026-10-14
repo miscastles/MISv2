@@ -184,6 +184,7 @@
             this.txtServiceType.ForeColor = System.Drawing.Color.Green;
             this.txtServiceType.Location = new System.Drawing.Point(101, 40);
             this.txtServiceType.Name = "txtServiceType";
+            this.txtServiceType.ReadOnly = true;
             this.txtServiceType.Size = new System.Drawing.Size(379, 27);
             this.txtServiceType.TabIndex = 317;
             this.txtServiceType.Text = "-";
@@ -197,6 +198,7 @@
             this.txtMerchant.ForeColor = System.Drawing.Color.Black;
             this.txtMerchant.Location = new System.Drawing.Point(100, 187);
             this.txtMerchant.Name = "txtMerchant";
+            this.txtMerchant.ReadOnly = true;
             this.txtMerchant.Size = new System.Drawing.Size(379, 19);
             this.txtMerchant.TabIndex = 319;
             this.txtMerchant.Text = "-";
@@ -222,6 +224,7 @@
             this.txtTID.ForeColor = System.Drawing.Color.Black;
             this.txtTID.Location = new System.Drawing.Point(100, 212);
             this.txtTID.Name = "txtTID";
+            this.txtTID.ReadOnly = true;
             this.txtTID.Size = new System.Drawing.Size(379, 19);
             this.txtTID.TabIndex = 321;
             this.txtTID.Text = "-";
@@ -247,6 +250,7 @@
             this.txtMID.ForeColor = System.Drawing.Color.Black;
             this.txtMID.Location = new System.Drawing.Point(100, 242);
             this.txtMID.Name = "txtMID";
+            this.txtMID.ReadOnly = true;
             this.txtMID.Size = new System.Drawing.Size(379, 19);
             this.txtMID.TabIndex = 323;
             this.txtMID.Text = "-";
@@ -285,6 +289,7 @@
             this.txtTerminalSN.ForeColor = System.Drawing.Color.Green;
             this.txtTerminalSN.Location = new System.Drawing.Point(134, 514);
             this.txtTerminalSN.Name = "txtTerminalSN";
+            this.txtTerminalSN.ReadOnly = true;
             this.txtTerminalSN.Size = new System.Drawing.Size(345, 19);
             this.txtTerminalSN.TabIndex = 326;
             this.txtTerminalSN.Text = "-";
@@ -310,6 +315,7 @@
             this.txtSIMSN.ForeColor = System.Drawing.Color.Green;
             this.txtSIMSN.Location = new System.Drawing.Point(134, 543);
             this.txtSIMSN.Name = "txtSIMSN";
+            this.txtSIMSN.ReadOnly = true;
             this.txtSIMSN.Size = new System.Drawing.Size(345, 19);
             this.txtSIMSN.TabIndex = 328;
             this.txtSIMSN.Text = "-";
@@ -348,6 +354,7 @@
             this.txtRepSIMSN.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.txtRepSIMSN.Location = new System.Drawing.Point(166, 613);
             this.txtRepSIMSN.Name = "txtRepSIMSN";
+            this.txtRepSIMSN.ReadOnly = true;
             this.txtRepSIMSN.Size = new System.Drawing.Size(315, 19);
             this.txtRepSIMSN.TabIndex = 333;
             this.txtRepSIMSN.Text = "-";
@@ -373,6 +380,7 @@
             this.txtRepTerminalSN.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.txtRepTerminalSN.Location = new System.Drawing.Point(188, 584);
             this.txtRepTerminalSN.Name = "txtRepTerminalSN";
+            this.txtRepTerminalSN.ReadOnly = true;
             this.txtRepTerminalSN.Size = new System.Drawing.Size(293, 19);
             this.txtRepTerminalSN.TabIndex = 331;
             this.txtRepTerminalSN.Text = "-";
@@ -443,6 +451,7 @@
             this.txtVendorRep.ForeColor = System.Drawing.Color.Blue;
             this.txtVendorRep.Location = new System.Drawing.Point(122, 277);
             this.txtVendorRep.Name = "txtVendorRep";
+            this.txtVendorRep.ReadOnly = true;
             this.txtVendorRep.Size = new System.Drawing.Size(357, 19);
             this.txtVendorRep.TabIndex = 434;
             this.txtVendorRep.Text = "-";
@@ -480,6 +489,7 @@
             this.txtDispatch.ForeColor = System.Drawing.Color.Blue;
             this.txtDispatch.Location = new System.Drawing.Point(101, 359);
             this.txtDispatch.Name = "txtDispatch";
+            this.txtDispatch.ReadOnly = true;
             this.txtDispatch.Size = new System.Drawing.Size(377, 19);
             this.txtDispatch.TabIndex = 436;
             this.txtDispatch.Text = "-";
@@ -528,6 +538,7 @@
             this.txtRequestID.ForeColor = System.Drawing.Color.Blue;
             this.txtRequestID.Location = new System.Drawing.Point(101, 73);
             this.txtRequestID.Name = "txtRequestID";
+            this.txtRequestID.ReadOnly = true;
             this.txtRequestID.Size = new System.Drawing.Size(379, 19);
             this.txtRequestID.TabIndex = 441;
             this.txtRequestID.Text = "-";
@@ -561,6 +572,7 @@
             this.txtComponents.Location = new System.Drawing.Point(12, 668);
             this.txtComponents.Multiline = true;
             this.txtComponents.Name = "txtComponents";
+            this.txtComponents.ReadOnly = true;
             this.txtComponents.Size = new System.Drawing.Size(231, 52);
             this.txtComponents.TabIndex = 442;
             this.txtComponents.Text = "-";
@@ -611,6 +623,7 @@
             this.txtRepComponents.Location = new System.Drawing.Point(251, 668);
             this.txtRepComponents.Multiline = true;
             this.txtRepComponents.Name = "txtRepComponents";
+            this.txtRepComponents.ReadOnly = true;
             this.txtRepComponents.Size = new System.Drawing.Size(231, 53);
             this.txtRepComponents.TabIndex = 445;
             this.txtRepComponents.Text = "-";
@@ -623,6 +636,7 @@
             this.txtBillable.ForeColor = System.Drawing.Color.Blue;
             this.txtBillable.Location = new System.Drawing.Point(101, 387);
             this.txtBillable.Name = "txtBillable";
+            this.txtBillable.ReadOnly = true;
             this.txtBillable.Size = new System.Drawing.Size(377, 19);
             this.txtBillable.TabIndex = 448;
             this.txtBillable.Text = "-";
@@ -648,6 +662,7 @@
             this.txtVendorDispatcher.ForeColor = System.Drawing.Color.Blue;
             this.txtVendorDispatcher.Location = new System.Drawing.Point(121, 304);
             this.txtVendorDispatcher.Name = "txtVendorDispatcher";
+            this.txtVendorDispatcher.ReadOnly = true;
             this.txtVendorDispatcher.Size = new System.Drawing.Size(357, 19);
             this.txtVendorDispatcher.TabIndex = 450;
             this.txtVendorDispatcher.Text = "-";
@@ -686,6 +701,7 @@
             this.txtRequestor.ForeColor = System.Drawing.Color.Blue;
             this.txtRequestor.Location = new System.Drawing.Point(121, 332);
             this.txtRequestor.Name = "txtRequestor";
+            this.txtRequestor.ReadOnly = true;
             this.txtRequestor.Size = new System.Drawing.Size(357, 19);
             this.txtRequestor.TabIndex = 453;
             this.txtRequestor.Text = "-";
@@ -711,6 +727,7 @@
             this.txtDependency.ForeColor = System.Drawing.Color.Blue;
             this.txtDependency.Location = new System.Drawing.Point(120, 423);
             this.txtDependency.Name = "txtDependency";
+            this.txtDependency.ReadOnly = true;
             this.txtDependency.Size = new System.Drawing.Size(357, 19);
             this.txtDependency.TabIndex = 455;
             this.txtDependency.Text = "-";
@@ -736,6 +753,7 @@
             this.txtStatusReason.ForeColor = System.Drawing.Color.Blue;
             this.txtStatusReason.Location = new System.Drawing.Point(120, 449);
             this.txtStatusReason.Name = "txtStatusReason";
+            this.txtStatusReason.ReadOnly = true;
             this.txtStatusReason.Size = new System.Drawing.Size(357, 19);
             this.txtStatusReason.TabIndex = 457;
             this.txtStatusReason.Text = "-";
@@ -774,6 +792,7 @@
             this.txtRequestDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.txtRequestDate.Location = new System.Drawing.Point(143, 98);
             this.txtRequestDate.Name = "txtRequestDate";
+            this.txtRequestDate.ReadOnly = true;
             this.txtRequestDate.Size = new System.Drawing.Size(336, 19);
             this.txtRequestDate.TabIndex = 460;
             this.txtRequestDate.Text = "-";
@@ -799,6 +818,7 @@
             this.txtScheduleDate.ForeColor = System.Drawing.Color.Red;
             this.txtScheduleDate.Location = new System.Drawing.Point(143, 123);
             this.txtScheduleDate.Name = "txtScheduleDate";
+            this.txtScheduleDate.ReadOnly = true;
             this.txtScheduleDate.Size = new System.Drawing.Size(336, 19);
             this.txtScheduleDate.TabIndex = 462;
             this.txtScheduleDate.Text = "-";
@@ -824,6 +844,7 @@
             this.txtServicedDate.ForeColor = System.Drawing.Color.Green;
             this.txtServicedDate.Location = new System.Drawing.Point(143, 148);
             this.txtServicedDate.Name = "txtServicedDate";
+            this.txtServicedDate.ReadOnly = true;
             this.txtServicedDate.Size = new System.Drawing.Size(336, 19);
             this.txtServicedDate.TabIndex = 464;
             this.txtServicedDate.Text = "-";
@@ -862,6 +883,7 @@
             this.txtIssueCategory.ForeColor = System.Drawing.Color.Blue;
             this.txtIssueCategory.Location = new System.Drawing.Point(121, 474);
             this.txtIssueCategory.Name = "txtIssueCategory";
+            this.txtIssueCategory.ReadOnly = true;
             this.txtIssueCategory.Size = new System.Drawing.Size(357, 19);
             this.txtIssueCategory.TabIndex = 467;
             this.txtIssueCategory.Text = "-";
