@@ -17,6 +17,8 @@ namespace MIS
         private readonly List<string> _sourceFiles = new List<string>();
         private clsAPI dbAPI;
         private readonly clsFile dbFile = new clsFile();
+        private int _lastSelectionRowIndex = -1;
+        private bool _isUpdatingRowSelection;
 
         public frmBankTemplateGen()
         {
@@ -31,10 +33,11 @@ namespace MIS
             btnBrowse.Click += btnBrowse_Click;
             btnGenerate.Click += btnGenerate_Click;
             btnReset.Click += btnReset_Click;
-
-            btnLoadFile.Click += btnLoadFile_Click;
+            btnApplyToSelected.Click += btnApplyToSelected_Click;
 
             grdBankFields.CurrentCellDirtyStateChanged += grdBankFields_CurrentCellDirtyStateChanged;
+            grdBankFields.CellValueChanged += grdBankFields_CellValueChanged;
+            grdBankFields.ColumnHeaderMouseClick += grdBankFields_ColumnHeaderMouseClick;
 
             grdBankFields.RowsAdded += grdBankFields_RowsAdded;
             grdBankFields.RowsRemoved += grdBankFields_RowsRemoved;
@@ -99,6 +102,7 @@ namespace MIS
             grdBankFields.TopLeftHeaderCell.Value = "#";
             grdBankFields.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             colIrRequestId.ReadOnly = true;
+            colIrSelected.HeaderCell.ToolTipText = "Click to select or clear all rows. Shift-click a row checkbox to select a range.";
             ReplaceWithDatePickerColumn(ref colIrRequestDate);
             ReplaceWithDatePickerColumn(ref colIrTargetInstallationDate);
 
@@ -122,6 +126,26 @@ namespace MIS
             };
 
             grdBankFields.Columns.Insert(bancnetTidColumn.Index + 1, bancnetMidColumn);
+
+            DataGridViewTextBoxColumn alipayTidColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "colIrAlipayTid",
+                HeaderText = "Alipay TID",
+                DataPropertyName = "AlipayTid",
+                Width = 180
+            };
+
+            grdBankFields.Columns.Insert(bancnetMidColumn.Index + 1, alipayTidColumn);
+
+            DataGridViewTextBoxColumn alipayMidColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "colIrAlipayMid",
+                HeaderText = "Alipay MID",
+                DataPropertyName = "AlipayMid",
+                Width = 150
+            };
+
+            grdBankFields.Columns.Insert(alipayTidColumn.Index + 1, alipayMidColumn);
         }
 
         private void ApplyMccHeaderColors()
@@ -199,6 +223,148 @@ namespace MIS
             {
                 grdBankFields.Rows[rowIndex].HeaderCell.Value = (rowIndex + 1).ToString();
             }
+
+            UpdateBulkEditControls();
+        }
+
+        private void UpdateBulkEditControls()
+        {
+            int selectedCount = _irRows.Count(row => row.IsSelected);
+            lblSelectedRows.Text = selectedCount + " ROW(S) SELECTED";
+            btnApplyToSelected.Enabled = selectedCount > 1;
+        }
+
+        private void grdBankFields_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (_isUpdatingRowSelection || e.RowIndex < 0 || e.ColumnIndex != colIrSelected.Index)
+            {
+                return;
+            }
+
+            bool isSelected = Convert.ToBoolean(grdBankFields.Rows[e.RowIndex].Cells[e.ColumnIndex].Value ?? false);
+
+            if ((ModifierKeys & Keys.Shift) == Keys.Shift && _lastSelectionRowIndex >= 0)
+            {
+                int firstRow = Math.Min(_lastSelectionRowIndex, e.RowIndex);
+                int lastRow = Math.Max(_lastSelectionRowIndex, e.RowIndex);
+
+                _isUpdatingRowSelection = true;
+                try
+                {
+                    for (int rowIndex = firstRow; rowIndex <= lastRow; rowIndex++)
+                    {
+                        grdBankFields.Rows[rowIndex].Cells[colIrSelected.Index].Value = isSelected;
+                    }
+                }
+                finally
+                {
+                    _isUpdatingRowSelection = false;
+                }
+            }
+
+            _lastSelectionRowIndex = e.RowIndex;
+            UpdateBulkEditControls();
+        }
+
+        private void grdBankFields_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex != colIrSelected.Index || grdBankFields.Rows.Count == 0)
+            {
+                return;
+            }
+
+            bool selectAll = _irRows.Any(row => !row.IsSelected);
+            _isUpdatingRowSelection = true;
+            try
+            {
+                foreach (DataGridViewRow gridRow in grdBankFields.Rows)
+                {
+                    gridRow.Cells[colIrSelected.Index].Value = selectAll;
+                }
+            }
+            finally
+            {
+                _isUpdatingRowSelection = false;
+            }
+
+            _lastSelectionRowIndex = -1;
+            UpdateBulkEditControls();
+        }
+
+        private void btnApplyToSelected_Click(object sender, EventArgs e)
+        {
+            DataGridViewCell sourceCell = grdBankFields.CurrentCell;
+            if (sourceCell == null || sourceCell.RowIndex < 0)
+            {
+                MessageBox.Show("Edit a cell in one of the selected rows first.",
+                    "Bulk Edit", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            grdBankFields.EndEdit();
+            CurrencyManager currencyManager = BindingContext[_irRows] as CurrencyManager;
+            if (currencyManager != null) currencyManager.EndCurrentEdit();
+
+            DataGridViewColumn sourceColumn = grdBankFields.Columns[sourceCell.ColumnIndex];
+            string dataPropertyName = sourceColumn.DataPropertyName;
+
+            if (sourceCell.ReadOnly || sourceColumn.ReadOnly || sourceColumn == colIrSelected ||
+                string.IsNullOrWhiteSpace(dataPropertyName) || IsUniqueIdentifierField(dataPropertyName))
+            {
+                MessageBox.Show("The " + sourceColumn.HeaderText + " column cannot be applied in bulk. " +
+                    "Choose an editable, non-identifier field.","Bulk Edit", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            IrImportRow sourceRow = grdBankFields.Rows[sourceCell.RowIndex].DataBoundItem as IrImportRow;
+            List<DataGridViewRow> selectedRows = grdBankFields.Rows.Cast<DataGridViewRow>()
+                .Where(row => row.DataBoundItem is IrImportRow && ((IrImportRow)row.DataBoundItem).IsSelected)
+                .ToList();
+
+            if (sourceRow == null || !sourceRow.IsSelected)
+            {
+                MessageBox.Show("The row containing the value to copy must also be checked.",
+                    "Bulk Edit", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (selectedRows.Count < 2)
+            {
+                MessageBox.Show("Select at least two rows before applying a bulk edit.",
+                    "Bulk Edit", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            object sourceValue = sourceCell.Value;
+            string displayValue = Convert.ToString(sourceValue);
+            if (string.IsNullOrEmpty(displayValue)) displayValue = "(blank)";
+
+            DialogResult confirmation = MessageBox.Show("Apply " + sourceColumn.HeaderText + " = " + displayValue +
+                " to " + selectedRows.Count + " selected rows?", "Confirm Bulk Edit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirmation != DialogResult.Yes) return;
+
+            foreach (DataGridViewRow targetRow in selectedRows)
+            {
+                targetRow.Cells[sourceCell.ColumnIndex].Value = sourceValue;
+            }
+
+            grdBankFields.EndEdit();
+            if (currencyManager != null) currencyManager.EndCurrentEdit();
+            _irRows.ResetBindings();
+            lblStatus.Text = sourceColumn.HeaderText.ToUpperInvariant() + " APPLIED TO " + selectedRows.Count + " SELECTED ROW(S)";
+        }
+
+        private static bool IsUniqueIdentifierField(string dataPropertyName)
+        {
+            return string.Equals(dataPropertyName, "RequestId", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(dataPropertyName, "Mid", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(dataPropertyName, "Tid", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(dataPropertyName, "BancnetTid", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(dataPropertyName, "BancnetMid", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(dataPropertyName, "AlipayTid", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(dataPropertyName, "AlipayMid", StringComparison.OrdinalIgnoreCase);
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -223,55 +389,73 @@ namespace MIS
             }
         }
 
-        private bool TryRequestBatchPassword(int encryptedFileCount, out string workbookPassword)
+        private bool TryRequestBatchPassword(IList<string> encryptedFiles, out string workbookPassword)
         {
             workbookPassword = string.Empty;
 
             using (Form passwordDialog = new Form())
             using (Label instructionLabel = new Label())
+            using (ToolTip instructionToolTip = new ToolTip())
+            using (Label passwordLabel = new Label())
             using (TextBox passwordTextBox = new TextBox())
-            using (CheckBox showPasswordCheckBox = new CheckBox())
+            using (CheckBox hidePasswordCheckBox = new CheckBox())
             using (Button unlockButton = new Button())
             using (Button cancelButton = new Button())
             {
-                passwordDialog.Text = "Unlock Excel Files";
+                int encryptedFileCount = encryptedFiles == null ? 0 : encryptedFiles.Count;
+                string instructionText = encryptedFileCount == 1
+                    ? "'" + Path.GetFileName(encryptedFiles[0]) + "' is protected."
+                    : encryptedFileCount + " encrypted Excel files are protected.";
+
+                passwordDialog.Text = "Password";
                 passwordDialog.StartPosition = FormStartPosition.CenterParent;
                 passwordDialog.FormBorderStyle = FormBorderStyle.FixedDialog;
                 passwordDialog.MinimizeBox = false;
                 passwordDialog.MaximizeBox = false;
                 passwordDialog.ShowInTaskbar = false;
-                passwordDialog.ClientSize = new Size(410, 170);
+                passwordDialog.ClientSize = new Size(300, 120);
 
                 instructionLabel.AutoSize = false;
-                instructionLabel.Location = new Point(15, 15);
-                instructionLabel.Text = encryptedFileCount + " encrypted Excel file(s) detected." + Environment.NewLine + "Enter the batch password to unlock them.";
+                instructionLabel.AutoEllipsis = true;
+                instructionLabel.Location = new Point(8, 11);
+                instructionLabel.Size = new Size(284, 18);
+                instructionLabel.Text = instructionText;
+                instructionToolTip.SetToolTip(instructionLabel, instructionText);
 
-                passwordTextBox.Location = new Point(15, 60);
-                passwordTextBox.Size = new Size(380, 23);
+                passwordLabel.AutoSize = true;
+                passwordLabel.Location = new Point(8, 43);
+                passwordLabel.Text = "Password:";
+
+                passwordTextBox.Location = new Point(72, 39);
+                passwordTextBox.Size = new Size(220, 23);
                 passwordTextBox.UseSystemPasswordChar = true;
 
-                showPasswordCheckBox.Text = "Show";
-                showPasswordCheckBox.AutoSize = true;
-                showPasswordCheckBox.Location = new Point(15, 90);
-                showPasswordCheckBox.Checked = false;
-                showPasswordCheckBox.CheckedChanged += delegate
+                hidePasswordCheckBox.Text = "Show";
+                hidePasswordCheckBox.AutoSize = true;
+                hidePasswordCheckBox.Location = new Point(72, 76);
+                hidePasswordCheckBox.Checked = false;
+                hidePasswordCheckBox.CheckedChanged += delegate
                 {
-                    passwordTextBox.UseSystemPasswordChar = !showPasswordCheckBox.Checked;
+                    passwordTextBox.UseSystemPasswordChar = !hidePasswordCheckBox.Checked;
+                    hidePasswordCheckBox.Text = hidePasswordCheckBox.Checked ? "Hide" : "Show";
+                    passwordTextBox.Focus();
+                    passwordTextBox.SelectionStart = passwordTextBox.TextLength;
                 };
 
-                unlockButton.Text = "UNLOCK";
-                unlockButton.Location = new Point(215, 125);
-                unlockButton.Size = new Size(85, 28);
+                unlockButton.Text = "OK";
+                unlockButton.Location = new Point(136, 73);
+                unlockButton.Size = new Size(75, 28);
                 unlockButton.DialogResult = DialogResult.OK;
 
-                cancelButton.Text = "CANCEL";
-                cancelButton.Location = new Point(310, 125);
-                cancelButton.Size = new Size(85, 28);
+                cancelButton.Text = "Cancel";
+                cancelButton.Location = new Point(217, 73);
+                cancelButton.Size = new Size(75, 28);
                 cancelButton.DialogResult = DialogResult.Cancel;
 
                 passwordDialog.Controls.Add(instructionLabel);
+                passwordDialog.Controls.Add(passwordLabel);
                 passwordDialog.Controls.Add(passwordTextBox);
-                passwordDialog.Controls.Add(showPasswordCheckBox);
+                passwordDialog.Controls.Add(hidePasswordCheckBox);
                 passwordDialog.Controls.Add(unlockButton);
                 passwordDialog.Controls.Add(cancelButton);
                 passwordDialog.AcceptButton = unlockButton;
@@ -515,7 +699,7 @@ namespace MIS
                     {
                         string batchPassword;
 
-                        if (!TryRequestBatchPassword(encryptedFiles.Count, out batchPassword))
+                        if (!TryRequestBatchPassword(encryptedFiles, out batchPassword))
                         {
                             break;
                         }
@@ -640,6 +824,8 @@ namespace MIS
                 Mid = GetMerchantMid(sourceRows),
                 Tid = GetMappedValue(sourceRows, "Terminal ID (TID)"),
                 BancnetTid = GetMappedValue(sourceRows, "Bancnet TID"),
+                AlipayTid = GetPreferredMappedValue(sourceRows, "Alipay TID"),
+                AlipayMid = GetPreferredMappedValue(sourceRows, "Alipay MID"),
                 MerchantLocation = GetMappedValue(sourceRows, "Merchant Location/DBA Name"),
                 Address = GetMappedValue(sourceRows, "Address"),
                 City = GetMappedValue(sourceRows, "City"),
@@ -668,11 +854,28 @@ namespace MIS
             return string.Join(", ", values);
         }
 
+        private static string GetPreferredMappedValue(IEnumerable<BankTemplateRow> sourceRows, string mccColumn)
+        {
+            List<BankTemplateRow> rows = sourceRows.ToList();
+            string primaryValue = GetMappedValue(rows.Where(row => !IsPreviousInformationRow(row)), mccColumn);
+
+            if (!string.IsNullOrWhiteSpace(primaryValue))
+            {
+                return primaryValue;
+            }
+
+            return GetMappedValue(rows.Where(IsPreviousInformationRow), mccColumn);
+        }
+
+        private static bool IsPreviousInformationRow(BankTemplateRow row)
+        {
+            return row != null && (row.Section ?? string.Empty).StartsWith("Previous Merchant Information (", StringComparison.OrdinalIgnoreCase);
+        }
+
         private static string GetMerchantMid(IEnumerable<BankTemplateRow> sourceRows)
         {
             List<BankTemplateRow> rows = sourceRows.ToList();
-            string primaryMid = GetMappedValue(
-                rows.Where(row => !IsSecondaryIdentifierTag(row.Tag, "MID")), "Merchant ID (MID)");
+            string primaryMid = GetMappedValue(rows.Where(row => !IsSecondaryIdentifierTag(row.Tag, "MID")), "Merchant ID (MID)");
 
             if (!string.IsNullOrWhiteSpace(primaryMid))
             {
@@ -702,6 +905,8 @@ namespace MIS
             grdBankFields.ClearSelection();
             grdBankFields.CurrentCell = null;
             grdBankFields.HorizontalScrollingOffset = 0;
+            _lastSelectionRowIndex = -1;
+            UpdateBulkEditControls();
 
             txtSourcePath.Clear();
             lblValidation.Text = "NO FILES SELECTED";

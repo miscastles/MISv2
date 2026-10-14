@@ -1,0 +1,36 @@
+CHANGELOG
+Date: October 14, 2026
+Developer: Nikko Delos Reyes
+
+========================================================
+CHANGES
+
+=====================================================
+
+1. Bank Template Generator
+- Fixed the issue where browsing for source files opened two File Explorer windows.
+- Fixed repeated Locate File validation messages when the dialog was closed.
+- Added row selection checkboxes for bulk editing.
+- Added Select All and Shift-click range selection support.
+- Added Apply Cell to Selected functionality for applying one edited field to multiple selected rows.
+- Added selected-row count, confirmation prompt, and bulk-edit instruction message.
+- Added Alipay TID and Alipay MID fields to the template preview and generated IR import template.
+- Improved the Show/Hide checkbox for the password.
+=====================================
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmBankTemplateGen.cs
+- frmBankTemplateGen.Designer.cs
+- BankTemplateReader.cs
+- BankTemplateFieldRules.cs
+- BankTemplateExcelExporter.cs
+- IrImportRow.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing
