@@ -39,7 +39,7 @@ namespace MIS.Function
                 throw new NotSupportedException("Only .xlsx templates are supported.");
             }
 
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; using(ExcelPackage package = OpenPackage(filePath, workbookPassword))
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; using (ExcelPackage package = OpenPackage(filePath, workbookPassword))
             {
                 ExcelWorksheet worksheet = FindTidIssuanceWorksheet(package.Workbook);
 
@@ -56,20 +56,21 @@ namespace MIS.Function
                 IList<BankTemplateRow> rows = ReadRows(worksheet);
                 ExcelWorksheet previousInformationWorksheet = FindPreviousInformationWorksheet(package.Workbook, worksheet);
 
-                bool isAdditionalTerminal = AppendPreviousMerchantInformation(previousInformationWorksheet,rows);
+                bool isAdditionalTerminal = AppendPreviousMerchantInformation(previousInformationWorksheet, rows);
 
                 return new BankTemplateReadResult
                 {
-                    Rows = rows, IsAdditionalTerminal = isAdditionalTerminal
+                    Rows = rows,
+                    IsAdditionalTerminal = isAdditionalTerminal
                 };
             }
         }
 
         private static bool ContainsTidIssuanceTitle(ExcelWorksheet worksheet)
         {
-            int maximumRow = Math.Min(worksheet.Dimension.End.Row,10);
+            int maximumRow = Math.Min(worksheet.Dimension.End.Row, 10);
 
-            int maximumColumn = Math.Min(worksheet.Dimension.End.Column,10);
+            int maximumColumn = Math.Min(worksheet.Dimension.End.Column, 10);
 
             for (int row = 1; row <= maximumRow; row++)
             {
@@ -251,7 +252,7 @@ namespace MIS.Function
                     Tag = displayedTag,
                     Value = columnC,
                     MccColumn = columnE,
-                    IsMandatory = insideMandatorySection && hasTag &&hasValue,
+                    IsMandatory = insideMandatorySection && hasTag && hasValue,
                     IsSelectable = hasTag && hasValue,
                     IsSelected = false
                 });

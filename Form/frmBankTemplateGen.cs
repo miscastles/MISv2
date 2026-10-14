@@ -113,13 +113,13 @@ namespace MIS
             grdBankFields.Columns.Insert(colIrTid.Index + 1, bancnetTidColumn);
 
             DataGridViewTextBoxColumn bancnetMidColumn = new DataGridViewTextBoxColumn
-                {
-                    Name = "colIrBancnetMid",
-                    HeaderText = "Bancnet MID",
-                    DataPropertyName = "BancnetMid",
-                    ReadOnly = true,
-                    Width = 150
-                };
+            {
+                Name = "colIrBancnetMid",
+                HeaderText = "Bancnet MID",
+                DataPropertyName = "BancnetMid",
+                ReadOnly = true,
+                Width = 150
+            };
 
             grdBankFields.Columns.Insert(bancnetTidColumn.Index + 1, bancnetMidColumn);
         }

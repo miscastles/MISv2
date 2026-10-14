@@ -1,0 +1,34 @@
+﻿CHANGELOG
+Date: October 13, 2026
+Developer: Nikko Delos Reyes
+
+========================================================
+CHANGES
+
+=====================================================
+
+1. Bank Template Generator
+- Corrected Merchant ID, Terminal ID, and Bancnet TID mappings.
+- Added Bancnet MID with a default value of 15 zeroes.
+- Added separate rows for multiple Terminal ID and Bancnet TID pairs.
+- Added Merchant ID fallback lookup from another Excel worksheet.
+- Updated worksheet detection using the TID Issuance Form title.
+- Added password retry and open-Excel-file validation.
+- Updated the POS Type dropdown to display active terminal models only.
+=====================================
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmBankTemplateGen.cs
+- BankTemplateReader.cs
+- BankTemplateFieldRules.cs
+- BankTemplateExcelExporter.cs
+- IrImportRow.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

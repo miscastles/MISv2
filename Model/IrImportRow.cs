@@ -100,7 +100,7 @@ namespace MIS.Model
 
         public string TargetInstallationDate { get; set; }
 
-        public string Remarks { get; set; }  
+        public string Remarks { get; set; }
 
         public string Mid { get; set; }
 

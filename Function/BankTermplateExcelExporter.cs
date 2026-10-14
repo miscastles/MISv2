@@ -13,7 +13,6 @@ namespace MIS.Function
     internal sealed class BankTemplateExcelExporter
     {
         private const string DefaultVendor = "CITAS";
-        private const string TemplateFolderName = "Templates";
         private const string TemplateFileName = "MIS_BLANK_TEMPLATE.xlsx";
         private const string TemplateWorksheetName = "Sheet1";
         private const string BankDataWorksheetName = "__MIS_BANK_DATA";
@@ -321,6 +320,7 @@ namespace MIS.Function
                 ["Merchant ID (MID)"] = Clean(row.Mid),
                 ["Terminal ID (TID)"] = Clean(row.Tid),
                 ["Bancnet TID"] = Clean(row.BancnetTid),
+                ["Bancnet MID"] = IrImportRow.DefaultBancnetMid,
                 ["Merchant Location/DBA Name"] = Clean(row.MerchantLocation),
                 ["Address"] = Clean(row.Address),
                 ["City"] = Clean(row.City),
@@ -378,6 +378,7 @@ namespace MIS.Function
                 values[targetHeader] = (value ?? string.Empty).Trim();
             }
             values["Vendor"] = DefaultVendor;
+            values["Bancnet MID"] = IrImportRow.DefaultBancnetMid;
             return values;
         }
 
