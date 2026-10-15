@@ -83,7 +83,6 @@ namespace MIS
             lblHeader.Text = gHeader;
 
             dbFunction.ClearTextBox(this);
-            dbFunction.TextBoxUnLock(true, this);
 
             setServiceInfo();
 

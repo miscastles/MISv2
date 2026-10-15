@@ -312,7 +312,7 @@ namespace MIS
                 string.IsNullOrWhiteSpace(dataPropertyName) || IsUniqueIdentifierField(dataPropertyName))
             {
                 MessageBox.Show("The " + sourceColumn.HeaderText + " column cannot be applied in bulk. " +
-                    "Choose an editable, non-identifier field.","Bulk Edit", 
+                    "Choose an editable, non-identifier field.", "Bulk Edit",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }

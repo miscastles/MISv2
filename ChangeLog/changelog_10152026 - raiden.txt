@@ -1,0 +1,31 @@
+﻿CHANGELOG
+Date: October 01, 2026
+Developer: Raiden K. Fernando
+
+====================================================================================
+CHANGES
+====================================================================================
+
+1. frmImportIR.CS
+
+	- Optimized frmImportIR.cs by reducing 4 api calls into a single api call that checks all 4 fields
+
+2. rpEFSRv2.rpt
+	
+	- Changed Installation Date -> Scheduled Date
+	- Used servicing scheduled date value insteaed of ir installation date
+	- Used service Request date value instead of ir request date
+
+====================================================================================
+FILES / MODULES AFFECTED
+====================================================================================
+
+rptEFSRv2.rpt
+frmImportIR.cs
+spCheckRecordExists -> IR Import Row Check ( new condition block )
+
+====================================================================================
+STATUS
+====================================================================================
+
+Completed / For Testing

@@ -76,7 +76,9 @@ namespace MIS.Function
                 if (TryGetIdentifierMccColumn(tag, isAdditionalTerminal, out mccColumn))
                 {
                     row.MccColumn = mccColumn;
-                    row.MccValue = NormalizeIdentifierList(row.Value);
+                    row.MccValue = IsAlipayIdentifierColumn(mccColumn)
+                        ? (row.Value ?? string.Empty).Trim()
+                        : NormalizeIdentifierList(row.Value);
                     row.IsSelected = row.IsSelectable;
                     continue;
                 }
@@ -114,6 +116,18 @@ namespace MIS.Function
                 return true;
             }
 
+            if (IsAlipayTidTag(tag))
+            {
+                mccColumn = "Alipay TID";
+                return true;
+            }
+
+            if (IsAlipayMidTag(tag))
+            {
+                mccColumn = "Alipay MID";
+                return true;
+            }
+
             if (isAdditionalTerminal)
             {
                 if (IsPreviousInformationIdentifier(tag, "MID"))
@@ -125,6 +139,33 @@ namespace MIS.Function
                 return false;
             }
             return false;
+        }
+
+        private static bool IsAlipayIdentifierColumn(string mccColumn)
+        {
+            return string.Equals(mccColumn, "Alipay TID", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(mccColumn, "Alipay MID", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsAlipayTidTag(string tag)
+        {
+            string normalizedTag = NormalizeMatchingTag(tag);
+
+            return normalizedTag == "SWIFTPASSCHECKOUTSIGNKEY" ||
+                normalizedTag.EndsWith("ALIPAYTID", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsAlipayMidTag(string tag)
+        {
+            string normalizedTag = NormalizeMatchingTag(tag);
+
+            return normalizedTag == "QRPHPLUSSWIFTPASSCHECKOUTMID" ||
+                normalizedTag.EndsWith("ALIPAYMID", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string NormalizeMatchingTag(string tag)
+        {
+            return Regex.Replace(tag ?? string.Empty, @"[^A-Za-z0-9]+", string.Empty).ToUpperInvariant();
         }
 
         private static bool IsPreviousInformationRow(BankTemplateRow row)

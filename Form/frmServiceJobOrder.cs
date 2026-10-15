@@ -2846,12 +2846,14 @@ namespace MIS
                 }
                 else
                 {
+                    // if helpdesk
                     if (dbFunction.isValidID(txtAssistNo.Text) && dbFunction.isValidDescription(txtProcessedBy.Text))
                     {
-                        getProcessedByInfo();
+                        int pParticularID = clsSearch.ClassCurrentParticularID;
+                        string pParticularName = clsSearch.ClassCurrentParticularName;
 
                         dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
-                            clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
+                            pParticularID, pParticularName);
 
                     }
                     else
@@ -7874,19 +7876,6 @@ namespace MIS
 
             frmImportIR frm = new frmImportIR();
             dbFunction.handleForm(frm);
-        }
-
-        private void getProcessedByInfo()
-        {
-            if (dbFunction.isValidDescription(txtProcessedBy.Text))
-            {
-                modelID model = _mIDController.getInfo(clsDefines.SearchBy_Particular, txtProcessedBy.Text);
-                if (model != null)
-                {
-                    clsSearch.ClassCurrentParticularID = model.UniqueID;
-                    clsSearch.ClassCurrentParticularName = txtProcessedBy.Text;
-                }
-            }
         }
 
         private string getLastServiceAttempt()
