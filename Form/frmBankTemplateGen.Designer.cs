@@ -17,22 +17,22 @@ namespace MIS
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBankTemplateGen));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.bunifuImageButton1 = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnMinimize = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnExit = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblHeader = new System.Windows.Forms.Label();
             this.pnlContent = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblTotalImported = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.lvwExcelTemplate = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,15 +49,29 @@ namespace MIS
             this.lblSourceHeader = new System.Windows.Forms.Label();
             this.grdBankFields = new System.Windows.Forms.DataGridView();
             this.colIrSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colIrRequestId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrVendor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrRequestDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrRequestor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrRequestType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colIrRequestPrioritization = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colIrPosSetup = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colIrPosType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colIrPosConnectionType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colIrTargetInstallationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrRemarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrMid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrTid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrMerchantLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrCity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colIrArea1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colIrArea2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrContactPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIrContactNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.btnApplyToSelected = new System.Windows.Forms.Button();
             this.lblSelectedRows = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
@@ -82,29 +96,14 @@ namespace MIS
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrRequestId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrVendor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrRequestDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrRequestor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrRequestType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrTargetInstallationDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrRemarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrMid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrTid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrMerchantLocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrCity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrArea2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrContactPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIrContactNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.pnlContent.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.pnlSource.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnLoadFile)).BeginInit();
             this.pnlSourceHeader.SuspendLayout();
@@ -180,6 +179,7 @@ namespace MIS
             // pnlContent
             // 
             this.pnlContent.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlContent.Controls.Add(this.panel2);
             this.pnlContent.Controls.Add(this.panel1);
             this.pnlContent.Controls.Add(this.lblValidation);
             this.pnlContent.Controls.Add(this.pnlSource);
@@ -190,31 +190,13 @@ namespace MIS
             this.pnlContent.Size = new System.Drawing.Size(1382, 751);
             this.pnlContent.TabIndex = 1;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.panel3);
-            this.panel1.Location = new System.Drawing.Point(946, 5);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(433, 393);
-            this.panel1.TabIndex = 7;
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.panel2);
-            this.panel3.Controls.Add(this.lvwExcelTemplate);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(433, 393);
-            this.panel3.TabIndex = 9;
-            // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.lblTotal);
+            this.panel2.Controls.Add(this.lblSelectedRows);
             this.panel2.Controls.Add(this.lblTotalImported);
-            this.panel2.Location = new System.Drawing.Point(-1, 357);
+            this.panel2.Location = new System.Drawing.Point(943, 647);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(433, 35);
             this.panel2.TabIndex = 8;
@@ -239,6 +221,24 @@ namespace MIS
             this.lblTotalImported.TabIndex = 2;
             this.lblTotalImported.Text = "TOTAL: ";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Location = new System.Drawing.Point(946, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(433, 649);
+            this.panel1.TabIndex = 7;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.lvwExcelTemplate);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(433, 649);
+            this.panel3.TabIndex = 9;
+            // 
             // lvwExcelTemplate
             // 
             this.lvwExcelTemplate.BackColor = System.Drawing.Color.GhostWhite;
@@ -247,13 +247,14 @@ namespace MIS
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
+            this.lvwExcelTemplate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvwExcelTemplate.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvwExcelTemplate.ForeColor = System.Drawing.Color.Black;
             this.lvwExcelTemplate.FullRowSelect = true;
             this.lvwExcelTemplate.HideSelection = false;
-            this.lvwExcelTemplate.Location = new System.Drawing.Point(-1, -1);
+            this.lvwExcelTemplate.Location = new System.Drawing.Point(0, 0);
             this.lvwExcelTemplate.Name = "lvwExcelTemplate";
-            this.lvwExcelTemplate.Size = new System.Drawing.Size(433, 359);
+            this.lvwExcelTemplate.Size = new System.Drawing.Size(431, 647);
             this.lvwExcelTemplate.TabIndex = 314;
             this.lvwExcelTemplate.UseCompatibleStateImageBehavior = false;
             this.lvwExcelTemplate.View = System.Windows.Forms.View.Details;
@@ -400,19 +401,19 @@ namespace MIS
             this.grdBankFields.AllowUserToAddRows = false;
             this.grdBankFields.AllowUserToDeleteRows = false;
             this.grdBankFields.AllowUserToResizeRows = false;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black;
-            this.grdBankFields.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.grdBankFields.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.grdBankFields.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             this.grdBankFields.BackgroundColor = System.Drawing.Color.GhostWhite;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdBankFields.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdBankFields.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.grdBankFields.ColumnHeadersHeight = 64;
             this.grdBankFields.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.grdBankFields.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -437,14 +438,14 @@ namespace MIS
             this.colIrArea2,
             this.colIrContactPerson,
             this.colIrContactNumber});
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdBankFields.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdBankFields.DefaultCellStyle = dataGridViewCellStyle4;
             this.grdBankFields.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.grdBankFields.EnableHeadersVisualStyles = false;
             this.grdBankFields.GridColor = System.Drawing.Color.Silver;
@@ -465,19 +466,52 @@ namespace MIS
             this.colIrSelected.HeaderText = "ALL";
             this.colIrSelected.Name = "colIrSelected";
             this.colIrSelected.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colIrSelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.colIrSelected.TrueValue = true;
             this.colIrSelected.Width = 45;
+            // 
+            // colIrRequestId
+            // 
+            this.colIrRequestId.DataPropertyName = "RequestId";
+            this.colIrRequestId.HeaderText = "Request ID";
+            this.colIrRequestId.Name = "colIrRequestId";
+            this.colIrRequestId.Width = 170;
+            // 
+            // colIrVendor
+            // 
+            this.colIrVendor.DataPropertyName = "Vendor";
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.colIrVendor.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colIrVendor.HeaderText = "Vendor";
+            this.colIrVendor.Name = "colIrVendor";
+            this.colIrVendor.ReadOnly = true;
+            this.colIrVendor.Width = 95;
+            // 
+            // colIrRequestDate
+            // 
+            this.colIrRequestDate.DataPropertyName = "RequestDate";
+            this.colIrRequestDate.HeaderText = "Request Date";
+            this.colIrRequestDate.Name = "colIrRequestDate";
+            this.colIrRequestDate.Width = 145;
+            // 
+            // colIrRequestor
+            // 
+            this.colIrRequestor.DataPropertyName = "Requestor";
+            this.colIrRequestor.HeaderText = "Requestor";
+            this.colIrRequestor.Name = "colIrRequestor";
+            this.colIrRequestor.Width = 210;
+            // 
+            // colIrRequestType
+            // 
+            this.colIrRequestType.DataPropertyName = "RequestType";
+            this.colIrRequestType.HeaderText = "Request Type";
+            this.colIrRequestType.Name = "colIrRequestType";
+            this.colIrRequestType.Width = 210;
             // 
             // colIrRequestPrioritization
             // 
             this.colIrRequestPrioritization.DataPropertyName = "RequestPrioritization";
             this.colIrRequestPrioritization.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.colIrRequestPrioritization.HeaderText = "Request Prioritization";
-            this.colIrRequestPrioritization.Items.AddRange(new object[] {
-            "REGULAR",
-            "RUSH",
-            "SCHEDULED"});
             this.colIrRequestPrioritization.Name = "colIrRequestPrioritization";
             this.colIrRequestPrioritization.Width = 180;
             // 
@@ -486,12 +520,6 @@ namespace MIS
             this.colIrPosSetup.DataPropertyName = "PosSetup";
             this.colIrPosSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.colIrPosSetup.HeaderText = "POS Setup";
-            this.colIrPosSetup.Items.AddRange(new object[] {
-            "BANCNET ONLY",
-            "CASHOUT",
-            "RETAIL SETUP",
-            "RETAIL WITH INSTALLMENT",
-            "HOTEL SETUP"});
             this.colIrPosSetup.Name = "colIrPosSetup";
             this.colIrPosSetup.Width = 150;
             // 
@@ -500,13 +528,6 @@ namespace MIS
             this.colIrPosType.DataPropertyName = "PosType";
             this.colIrPosType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.colIrPosType.HeaderText = "POS Type";
-            this.colIrPosType.Items.AddRange(new object[] {
-            "[NOT SPECIFIED]",
-            "S1F1",
-            "S1F2",
-            "S1F2-A",
-            "S1F3",
-            "S1E MINI2"});
             this.colIrPosType.Name = "colIrPosType";
             this.colIrPosType.Width = 180;
             // 
@@ -515,30 +536,91 @@ namespace MIS
             this.colIrPosConnectionType.DataPropertyName = "PosConnectionType";
             this.colIrPosConnectionType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.colIrPosConnectionType.HeaderText = "POS Connection Type";
-            this.colIrPosConnectionType.Items.AddRange(new object[] {
-            "WIFI AND SIM based",
-            "WIFI ONLY",
-            "SIM based"});
             this.colIrPosConnectionType.Name = "colIrPosConnectionType";
             this.colIrPosConnectionType.Width = 180;
+            // 
+            // colIrTargetInstallationDate
+            // 
+            this.colIrTargetInstallationDate.DataPropertyName = "TargetInstallationDate";
+            this.colIrTargetInstallationDate.HeaderText = "Target Installation date";
+            this.colIrTargetInstallationDate.Name = "colIrTargetInstallationDate";
+            this.colIrTargetInstallationDate.Width = 165;
+            // 
+            // colIrRemarks
+            // 
+            this.colIrRemarks.DataPropertyName = "Remarks";
+            this.colIrRemarks.HeaderText = "RM Instruction / Remarks";
+            this.colIrRemarks.Name = "colIrRemarks";
+            this.colIrRemarks.Width = 260;
+            // 
+            // colIrMid
+            // 
+            this.colIrMid.DataPropertyName = "Mid";
+            this.colIrMid.HeaderText = "Merchant ID (MID)";
+            this.colIrMid.Name = "colIrMid";
+            this.colIrMid.Width = 165;
+            // 
+            // colIrTid
+            // 
+            this.colIrTid.DataPropertyName = "Tid";
+            this.colIrTid.HeaderText = "Terminal ID (TID)";
+            this.colIrTid.Name = "colIrTid";
+            this.colIrTid.Width = 155;
+            // 
+            // colIrMerchantLocation
+            // 
+            this.colIrMerchantLocation.DataPropertyName = "MerchantLocation";
+            this.colIrMerchantLocation.HeaderText = "Merchant Location/DBA Name";
+            this.colIrMerchantLocation.Name = "colIrMerchantLocation";
+            this.colIrMerchantLocation.Width = 240;
+            // 
+            // colIrAddress
+            // 
+            this.colIrAddress.DataPropertyName = "Address";
+            this.colIrAddress.HeaderText = "Address";
+            this.colIrAddress.Name = "colIrAddress";
+            this.colIrAddress.Width = 300;
+            // 
+            // colIrCity
+            // 
+            this.colIrCity.DataPropertyName = "City";
+            this.colIrCity.HeaderText = "City";
+            this.colIrCity.Name = "colIrCity";
+            this.colIrCity.Width = 145;
             // 
             // colIrArea1
             // 
             this.colIrArea1.DataPropertyName = "Area1";
             this.colIrArea1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.colIrArea1.HeaderText = "Area 1 (Metro Manila / Provincial)";
-            this.colIrArea1.Items.AddRange(new object[] {
-            "METRO MANILA",
-            "PROVINCIAL"});
             this.colIrArea1.Name = "colIrArea1";
             this.colIrArea1.Width = 230;
+            // 
+            // colIrArea2
+            // 
+            this.colIrArea2.DataPropertyName = "Area2";
+            this.colIrArea2.HeaderText = "Area 2 (Region/Zone/Area code)";
+            this.colIrArea2.Name = "colIrArea2";
+            this.colIrArea2.Width = 225;
+            // 
+            // colIrContactPerson
+            // 
+            this.colIrContactPerson.DataPropertyName = "ContactPerson";
+            this.colIrContactPerson.HeaderText = "Contact Person";
+            this.colIrContactPerson.Name = "colIrContactPerson";
+            this.colIrContactPerson.Width = 190;
+            // 
+            // colIrContactNumber
+            // 
+            this.colIrContactNumber.DataPropertyName = "ContactNumber";
+            this.colIrContactNumber.HeaderText = "Contact Number";
+            this.colIrContactNumber.Name = "colIrContactNumber";
+            this.colIrContactNumber.Width = 165;
             // 
             // pnlFooter
             // 
             this.pnlFooter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlFooter.Controls.Add(this.btnApplyToSelected);
-            this.pnlFooter.Controls.Add(this.lblSelectedRows);
-            this.pnlFooter.Controls.Add(this.btnClose);
             this.pnlFooter.Controls.Add(this.btnGenerate);
             this.pnlFooter.Controls.Add(this.btnReset);
             this.pnlFooter.Controls.Add(this.lblStatus);
@@ -563,22 +645,11 @@ namespace MIS
             this.lblSelectedRows.AutoSize = true;
             this.lblSelectedRows.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
             this.lblSelectedRows.ForeColor = System.Drawing.Color.Navy;
-            this.lblSelectedRows.Location = new System.Drawing.Point(690, 10);
+            this.lblSelectedRows.Location = new System.Drawing.Point(287, 9);
             this.lblSelectedRows.Name = "lblSelectedRows";
-            this.lblSelectedRows.Size = new System.Drawing.Size(119, 14);
+            this.lblSelectedRows.Size = new System.Drawing.Size(126, 14);
             this.lblSelectedRows.TabIndex = 5;
             this.lblSelectedRows.Text = "0 ROW(S) SELECTED";
-            // 
-            // btnClose
-            // 
-            this.btnClose.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(103, 5);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(92, 25);
-            this.btnClose.TabIndex = 2;
-            this.btnClose.Text = "CLOSE";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnGenerate
             // 
@@ -598,14 +669,14 @@ namespace MIS
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(92, 25);
             this.btnReset.TabIndex = 1;
-            this.btnReset.Text = "RESET";
+            this.btnReset.Text = "CLEAR";
             this.btnReset.UseVisualStyleBackColor = true;
             // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblStatus.Location = new System.Drawing.Point(201, 10);
+            this.lblStatus.Location = new System.Drawing.Point(103, 10);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(217, 14);
             this.lblStatus.TabIndex = 0;
@@ -660,8 +731,8 @@ namespace MIS
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "Vendor";
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewTextBoxColumn2.HeaderText = "Vendor";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
@@ -758,114 +829,6 @@ namespace MIS
             this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
             this.dataGridViewTextBoxColumn15.Width = 165;
             // 
-            // colIrRequestId
-            // 
-            this.colIrRequestId.DataPropertyName = "RequestId";
-            this.colIrRequestId.HeaderText = "Request ID";
-            this.colIrRequestId.Name = "colIrRequestId";
-            this.colIrRequestId.Width = 170;
-            // 
-            // colIrVendor
-            // 
-            this.colIrVendor.DataPropertyName = "Vendor";
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.colIrVendor.DefaultCellStyle = dataGridViewCellStyle18;
-            this.colIrVendor.HeaderText = "Vendor";
-            this.colIrVendor.Name = "colIrVendor";
-            this.colIrVendor.ReadOnly = true;
-            this.colIrVendor.Width = 95;
-            // 
-            // colIrRequestDate
-            // 
-            this.colIrRequestDate.DataPropertyName = "RequestDate";
-            this.colIrRequestDate.HeaderText = "Request Date";
-            this.colIrRequestDate.Name = "colIrRequestDate";
-            this.colIrRequestDate.Width = 145;
-            // 
-            // colIrRequestor
-            // 
-            this.colIrRequestor.DataPropertyName = "Requestor";
-            this.colIrRequestor.HeaderText = "Requestor";
-            this.colIrRequestor.Name = "colIrRequestor";
-            this.colIrRequestor.Width = 210;
-            // 
-            // colIrRequestType
-            // 
-            this.colIrRequestType.DataPropertyName = "RequestType";
-            this.colIrRequestType.HeaderText = "Request Type";
-            this.colIrRequestType.Name = "colIrRequestType";
-            this.colIrRequestType.Width = 210;
-            // 
-            // colIrTargetInstallationDate
-            // 
-            this.colIrTargetInstallationDate.DataPropertyName = "TargetInstallationDate";
-            this.colIrTargetInstallationDate.HeaderText = "Target Installation date";
-            this.colIrTargetInstallationDate.Name = "colIrTargetInstallationDate";
-            this.colIrTargetInstallationDate.Width = 165;
-            // 
-            // colIrRemarks
-            // 
-            this.colIrRemarks.DataPropertyName = "Remarks";
-            this.colIrRemarks.HeaderText = "RM Instruction / Remarks";
-            this.colIrRemarks.Name = "colIrRemarks";
-            this.colIrRemarks.Width = 260;
-            // 
-            // colIrMid
-            // 
-            this.colIrMid.DataPropertyName = "Mid";
-            this.colIrMid.HeaderText = "Merchant ID (MID)";
-            this.colIrMid.Name = "colIrMid";
-            this.colIrMid.Width = 165;
-            // 
-            // colIrTid
-            // 
-            this.colIrTid.DataPropertyName = "Tid";
-            this.colIrTid.HeaderText = "Terminal ID (TID)";
-            this.colIrTid.Name = "colIrTid";
-            this.colIrTid.Width = 155;
-            // 
-            // colIrMerchantLocation
-            // 
-            this.colIrMerchantLocation.DataPropertyName = "MerchantLocation";
-            this.colIrMerchantLocation.HeaderText = "Merchant Location/DBA Name";
-            this.colIrMerchantLocation.Name = "colIrMerchantLocation";
-            this.colIrMerchantLocation.Width = 240;
-            // 
-            // colIrAddress
-            // 
-            this.colIrAddress.DataPropertyName = "Address";
-            this.colIrAddress.HeaderText = "Address";
-            this.colIrAddress.Name = "colIrAddress";
-            this.colIrAddress.Width = 300;
-            // 
-            // colIrCity
-            // 
-            this.colIrCity.DataPropertyName = "City";
-            this.colIrCity.HeaderText = "City";
-            this.colIrCity.Name = "colIrCity";
-            this.colIrCity.Width = 145;
-            // 
-            // colIrArea2
-            // 
-            this.colIrArea2.DataPropertyName = "Area2";
-            this.colIrArea2.HeaderText = "Area 2 (Region/Zone/Area code)";
-            this.colIrArea2.Name = "colIrArea2";
-            this.colIrArea2.Width = 225;
-            // 
-            // colIrContactPerson
-            // 
-            this.colIrContactPerson.DataPropertyName = "ContactPerson";
-            this.colIrContactPerson.HeaderText = "Contact Person";
-            this.colIrContactPerson.Name = "colIrContactPerson";
-            this.colIrContactPerson.Width = 190;
-            // 
-            // colIrContactNumber
-            // 
-            this.colIrContactNumber.DataPropertyName = "ContactNumber";
-            this.colIrContactNumber.HeaderText = "Contact Number";
-            this.colIrContactNumber.Name = "colIrContactNumber";
-            this.colIrContactNumber.Width = 165;
-            // 
             // frmBankTemplateGen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -890,10 +853,10 @@ namespace MIS
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
             this.pnlContent.ResumeLayout(false);
             this.pnlContent.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.pnlSource.ResumeLayout(false);
             this.pnlSource.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnLoadFile)).EndInit();
@@ -957,7 +920,6 @@ namespace MIS
         private System.Windows.Forms.DataGridViewTextBoxColumn colIrContactPerson;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIrContactNumber;
         private System.Windows.Forms.Button btnGenerate;
-        private System.Windows.Forms.Button btnClose;
         private Bunifu.Framework.UI.BunifuImageButton btnLoadFile;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;

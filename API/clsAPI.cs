@@ -286,7 +286,7 @@ namespace MIS
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
+                System.Diagnostics.Debug.WriteLine("APIGetRequest failed: " + ex.Message);
             }
 
             clsGlobalVariables.strJSONResponse = sResponse;

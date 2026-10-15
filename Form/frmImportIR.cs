@@ -142,6 +142,8 @@ namespace MIS
                     InitImportDate();
                     InitProcessedBy();
 
+                    LoadBankDataMetadata(txtPathFileName.Text);
+
                     sSheet = dbFunction.getSheetName(txtPathFileName.Text);
 
                     if (!dbFunction.isValidSheetName(sSheet)) return;
@@ -190,6 +192,8 @@ namespace MIS
 
                     if (!ImportToDataGrid()) return;
 
+                    ValidateConvertedImportRequestIds();
+
                     // Pupulate grdBulk
                     populateBulkDataGrid(grdList, grdBulk);
                     DataGridViewHelper.AddCheckBoxColumn(grdBulk);
@@ -220,6 +224,7 @@ namespace MIS
                 }
                 catch (Exception ex)
                 {
+                    ResetBankDataMetadata();
                     Debug.WriteLine("Exception error " + ex.Message);
                     MessageBox.Show(ex.Message);
                     btnLoadFile.Enabled = true;
@@ -244,6 +249,199 @@ namespace MIS
                 sWorkSheetName = "Sheet1";
 
             return sWorkSheetName;
+        }
+
+        private void ResetBankDataMetadata()
+        {
+            bankDataInfoByRequestId.Clear();
+            isConvertedImport = false;
+        }
+
+        private void LoadBankDataMetadata(string filePath)
+        {
+            ResetBankDataMetadata();
+
+            if (!string.Equals(Path.GetExtension(filePath), ".xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
+            {
+                ExcelWorksheet metadataWorksheet = package.Workbook.Worksheets[BankDataWorksheetName];
+
+                // A normal MCC file has no bank metadata and must continue through the usual import flow.
+                if (metadataWorksheet == null)
+                {
+                    return;
+                }
+
+                string[] expectedHeaders =
+                {
+                    "SchemaVersion",
+                    "SourceBank",
+                    "RequestID",
+                    "SourceFileName",
+                    "BankDataInfo"
+                };
+
+                if (metadataWorksheet.Dimension == null || metadataWorksheet.Dimension.End.Row < 2)
+                {
+                    throw new InvalidDataException(
+                        "The converted BDO file contains an empty or invalid '" + BankDataWorksheetName + "' worksheet.");
+                }
+
+                for (int column = 1; column <= expectedHeaders.Length; column++)
+                {
+                    string actualHeader = (metadataWorksheet.Cells[1, column].Text ?? string.Empty).Trim();
+
+                    if (!string.Equals(actualHeader, expectedHeaders[column - 1], StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException(
+                            "Invalid converted BDO metadata header at column " + column
+                            + ". Expected '" + expectedHeaders[column - 1]
+                            + "' but found '" + actualHeader + "'.");
+                    }
+                }
+
+                for (int row = 2; row <= metadataWorksheet.Dimension.End.Row; row++)
+                {
+                    string schemaVersion = (metadataWorksheet.Cells[row, 1].Text ?? string.Empty).Trim();
+                    string sourceBank = (metadataWorksheet.Cells[row, 2].Text ?? string.Empty).Trim();
+                    string requestId = (metadataWorksheet.Cells[row, 3].Text ?? string.Empty).Trim();
+                    string sourceFileName = (metadataWorksheet.Cells[row, 4].Text ?? string.Empty).Trim();
+                    string bankDataInfo = Convert.ToString(metadataWorksheet.Cells[row, 5].Value).Trim();
+
+                    if (string.IsNullOrWhiteSpace(schemaVersion)
+                        && string.IsNullOrWhiteSpace(sourceBank)
+                        && string.IsNullOrWhiteSpace(requestId)
+                        && string.IsNullOrWhiteSpace(sourceFileName)
+                        && string.IsNullOrWhiteSpace(bankDataInfo))
+                    {
+                        continue;
+                    }
+
+                    if (!string.Equals(schemaVersion, "1", StringComparison.Ordinal))
+                    {
+                        throw new InvalidDataException(
+                            "Unsupported converted BDO metadata schema version at row " + row + ".");
+                    }
+
+                    if (!string.Equals(sourceBank, "BDO", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidDataException(
+                            "Invalid source bank in converted metadata at row " + row + ". Expected BDO.");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(requestId))
+                    {
+                        throw new InvalidDataException(
+                            "Request ID is missing from converted BDO metadata at row " + row + ".");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(sourceFileName))
+                    {
+                        throw new InvalidDataException(
+                            "Source filename is missing from converted BDO metadata for Request ID " + requestId + ".");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(bankDataInfo))
+                    {
+                        throw new InvalidDataException(
+                            "Bank data JSON is missing from converted BDO metadata for Request ID " + requestId + ".");
+                    }
+
+                    try
+                    {
+                        JToken.Parse(bankDataInfo);
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        throw new InvalidDataException(
+                            "Bank data JSON is invalid for Request ID " + requestId + ".", ex);
+                    }
+
+                    if (bankDataInfoByRequestId.ContainsKey(requestId))
+                    {
+                        throw new InvalidDataException(
+                            "Duplicate Request ID found in converted BDO metadata: " + requestId + ".");
+                    }
+
+                    bankDataInfoByRequestId.Add(requestId, bankDataInfo);
+                }
+
+                if (bankDataInfoByRequestId.Count == 0)
+                {
+                    throw new InvalidDataException(
+                        "The converted BDO file does not contain any bank metadata records.");
+                }
+
+                isConvertedImport = true;
+            }
+        }
+
+        private void ValidateConvertedImportRequestIds()
+        {
+            if (!isConvertedImport)
+            {
+                return;
+            }
+
+            int requestIdColumnIndex = dbFunction.GetMapColumnIndex(clsDefines.IR_REQUEST_ID);
+
+            if (requestIdColumnIndex < 0)
+            {
+                throw new InvalidDataException("The Request ID column was not found in the MCC import worksheet.");
+            }
+
+            HashSet<string> importedRequestIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                if (row.IsNewRow)
+                {
+                    continue;
+                }
+
+                string requestId = Convert.ToString(row.Cells[requestIdColumnIndex].Value).Trim();
+
+                if (!string.IsNullOrWhiteSpace(requestId))
+                {
+                    importedRequestIds.Add(requestId);
+                }
+            }
+
+            List<string> missingMetadata = importedRequestIds
+                .Where(requestId => !bankDataInfoByRequestId.ContainsKey(requestId))
+                .ToList();
+
+            List<string> unexpectedMetadata = bankDataInfoByRequestId.Keys
+                .Where(requestId => !importedRequestIds.Contains(requestId))
+                .ToList();
+
+            if (missingMetadata.Count > 0 || unexpectedMetadata.Count > 0)
+            {
+                StringBuilder message = new StringBuilder(
+                    "The converted BDO metadata does not match the MCC import rows.");
+
+                if (missingMetadata.Count > 0)
+                {
+                    message.AppendLine();
+                    message.Append("Missing metadata for Request ID(s): ");
+                    message.Append(string.Join(", ", missingMetadata));
+                }
+
+                if (unexpectedMetadata.Count > 0)
+                {
+                    message.AppendLine();
+                    message.Append("Metadata without a matching MCC row: ");
+                    message.Append(string.Join(", ", unexpectedMetadata));
+                }
+
+                throw new InvalidDataException(message.ToString());
+            }
         }
 
         //NIKKO - Identify bank environments.
@@ -2162,6 +2360,8 @@ namespace MIS
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            ResetBankDataMetadata();
+
             dbFunction.ClearTextBox(this);
 
             dbFunction.ClearListView(lvwSearch);

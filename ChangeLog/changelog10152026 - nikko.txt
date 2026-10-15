@@ -1,0 +1,33 @@
+CHANGELOG
+Date: October 15, 2026
+Developer: Nikko Delos Reyes
+
+========================================================
+CHANGES
+
+========================================================
+
+1. Bank Template Generator
+- Added database-driven lookup values for Request Prioritization, POS Setup, and POS Connection Type.
+- Reused existing CASHOUT SETUP and RETAIL SETUP records. 
+- Updated Bank Template Generator dropdown behavior, including manual entry support for POS Setup, and improved IR bank metadata handling.
+- Improved the Designer for Bank Template Gen
+=====================================
+
+2. Database
+- Added tblType lookup groups for Request Prioritization (29), POS Setup (30), and POS Connection Type (31).
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmBankTemplateGen.cs
+- frmBankTemplateGen.Designer.cs
+- frmImportIR.cs
+- clsAPI.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing
