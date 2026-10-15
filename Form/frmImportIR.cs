@@ -24,7 +24,8 @@ using System.Web;
 using System.Web.Profile;
 using System.Windows.Forms;
 using static MIS.Function.AppUtilities;
-using OfficeOpenXml; //Nikko
+using OfficeOpenXml;
+using DocumentFormat.OpenXml.Bibliography; //Nikko
 
 namespace MIS
 {
@@ -4467,7 +4468,9 @@ namespace MIS
             foreach (DataGridViewRow row in grdList.Rows)
             {
                 if (row.IsNewRow)
+                {
                     continue;
+                }
 
                 string requestid = Convert.ToString(row.Cells[0].Value).Trim();
                 string vendor = Convert.ToString(row.Cells[1].Value).Trim();
@@ -4624,56 +4627,66 @@ namespace MIS
                     return false;
                 }
 
-                // Duplicate Request ID
-                if (dbAPI.isRecordExist("Search", "IRNo Check/IR Detail", requestid))
+                string pCheckValue = $"{requestid}{clsDefines.gPipe}" +
+                                         $"{requesttype}{clsDefines.gPipe}" +
+                                         $"{address}{clsDefines.gPipe}" +
+                                         $"{area1}{clsDefines.gPipe}" +
+                                         $"{city}";
+                /*
+                 ERROR CODES
+                 0 = IRNo check
+                 1 = RequestType Check
+                 2 = Zoning CityMunicipal Check
+                 3 = Zoning Matching Check
+                 */
+
+                switch (dbAPI.GetCheckResult("IR Import Row Check", pCheckValue))
                 {
-                    dbFunction.SetMessageBox(
-                        $"Request ID [{requestid}] already exists.",
-                        clsDefines.FIELD_CHECK_MSG,
-                        clsFunction.IconType.iError);
-                    return false;
+                    case clsDefines.IR_CHECK_OK: break;
+
+                    case clsDefines.IR_CHECK_IRNO_DUPLICATE:
+                    {
+                        dbFunction.SetMessageBox($"Request ID [{requestid}] already exists.",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
+                    }
+                    case clsDefines.IR_CHECK_REQUEST_TYPE:
+                    {
+                        dbFunction.SetMessageBox($"Request Type [{requesttype}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
+                    }
+                    case clsDefines.IR_CHECK_ZONING_CITY:
+                    {
+                        dbFunction.SetMessageBox($"Zoning City [{city}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
+                    }
+                    case clsDefines.IR_CHECK_ZONING_MATCH:
+                    {
+                        dbFunction.SetMessageBox(
+                        $"Line#: {row.Index + 1}\n" +
+                        $"Request ID: [{requestid}]\n" +
+                        $"Merchant: [{merchantname}]\n" +
+                        $"TID: [{tid}]\n" +
+                        $"MID: [{mid}]\n" +
+                        $"Area: [{area1}]\n" +
+                        $"City: [{city}]\n" +
+                        $"Address: [{address}]\n\n" +
+                        "Zoning match not found.\n" +
+                        "Please verify the information above or enroll the location in the Zoning.",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
+                    }
+                    default:
+                    {
+                        dbFunction.SetMessageBox(
+                        $"Line#: {row.Index + 1}\nRequest ID: [{requestid}]\n\n" +
+                        $"Row validation failed.\n\n{clsDefines.CONTACT_ADMIN_MESSAGE}",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
+                    }
                 }
-
-                // Reference Validation
-                if (!dbAPI.isRecordExist("Search", "Request Type", requesttype))
-                {
-                    dbFunction.SetMessageBox(
-                        $"Request Type [{requesttype}] must be enrolled.",
-                        clsDefines.FIELD_CHECK_MSG,
-                        clsFunction.IconType.iError);
-                    return false;
-                }
-
-                // Zoning CityMunicipal
-                if (!dbAPI.isRecordExist("Search", "Zoning CityMunicipal", city))
-                {
-                    dbFunction.SetMessageBox(
-                        $"Zoning City [{city}] must be enrolled.",
-                        clsDefines.FIELD_CHECK_MSG,
-                        clsFunction.IconType.iError);
-                    return false;
-                }
-
-                // check Zoning Matchinog
-                if (!dbAPI.isRecordExist("Search", "Zoning Matching", $"{address}{clsDefines.gPipe}{area1}{clsDefines.gPipe}{city}"))
-                {
-                    dbFunction.SetMessageBox(
-                                            $"Line#: {row.Index + 1}\n" +
-                                            $"Request ID: [{requestid}]\n" +
-                                            $"Merchant: [{merchantname}]\n" +
-                                            $"TID: [{tid}]\n" +
-                                            $"MID: [{mid}]\n" +
-                                            $"Area: [{area1}]\n" +
-                                            $"City: [{city}]\n" +
-                                            $"Address: [{address}]\n\n" +
-                                            "Zoning match not found.\n" +
-                                            "Please verify the information above or enroll the location in the Zoning.",
-                                            clsDefines.FIELD_CHECK_MSG,
-                                            clsFunction.IconType.iError);
-
-                    return false;
-                }
-
             }
 
             return true;
@@ -4836,7 +4849,7 @@ namespace MIS
                 foreach (ListViewItem i in lvwList.Items)
                 {
                     i.Checked = true;
-                }
+                }       
             }
             else
             {
