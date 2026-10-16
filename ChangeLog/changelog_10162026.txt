@@ -1,0 +1,55 @@
+﻿CHANGELOG
+Date: October 16, 2026
+Developer: Raiden, Nikkor, Carlos
+
+========================================================
+CHANGES
+
+========================================================
+
+1. frmImportIR.cs
+	- Reworked converted BDO metadata handling to follow existing code conventions (bool validators with message boxes instead of thrown exceptions).
+	- Moved bank metadata loading and validation into new clsExcel class (getExcelMetadata); frmImportIR now loads metadata through dbExcel and gates the import on RecordFound.
+	- Added ValidateConvertedRequestID cross-check before save: every import row must have a metadata record and every metadata record must have an import row.
+	- Extracted bank data saving into SaveBankDataInfo; a failed bank data write now reports per record instead of aborting the whole save.
+	- Removed bank-specific checks (SourceBank/CLG/TBG) so the converted flow is no longer tied to specific banks.
+	- Removed unused code: isConvertedImport flag, bankDataInfoByRequestId dictionary, BankDataWorksheetName constant, IsBank(), LoadIRMetadata, ClearBankMetaData.
+
+2. clsExcel (New)
+	- New class holding converted bank metadata (BankDataList: Request ID -> bank data JSON, RecordFound, IsConverted, Reset).
+	- Reads and validates the hidden __MIS_BANK_DATA worksheet: headers, schema version, required fields, JSON validity, duplicate Request IDs.
+
+3. clsFunction
+	- Added CheckPathExtensionMatch: reusable file extension check with message box on mismatch.
+
+4. Helpdesk Activity Logging
+	- Added fEdit guard on saveServicingActivityEnd for helpdesk-created job orders: the activity record is now stamped only on new tickets, not when re-saving an edit.
+	- Fixes activity records being re-attributed to the editing user (job order showed the wrong processed-by user after another user edited the ticket).
+
+5. frmServiceJobOrder.cs
+	- enhanced popup processedby overwrite to be more descriptive
+
+6. frmBankTemplateGen.designer.cs 
+	- improved module ui enlarged listview list 
+	- rearranged ui to present information quicker
+
+7. frmBankTemplateGen.cs
+    -Updated the Bank Template Generator dropdown behavavior.
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmImportIR.cs
+- clsExcel.cs (new)
+- clsFunction.cs
+- frmServiceJobOrder.cs
+- frmBankTemplateGen.cs
+- frmBankTemplateGen.designer.cs
+- frmBankTemplateGen.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

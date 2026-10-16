@@ -78,6 +78,13 @@ namespace MIS
         public const string IR_WECHAT_MID = "Wechat MID";
         public const string IR_DETAIL_INFO = "detail_info";
 
+        // IR Defined Error Codes
+        public const int IR_CHECK_OK = 0;
+        public const int IR_CHECK_IRNO_DUPLICATE = 1;
+        public const int IR_CHECK_REQUEST_TYPE = 2;
+        public const int IR_CHECK_ZONING_CITY = 3;
+        public const int IR_CHECK_ZONING_MATCH = 4;
+
         // IR, profile_info
         public const string IR_DCC_PROFILE_INFO = "DCC (Yes/No)";
         public const string IR_INSTALLMENT_PROFILE_INFO = "Installment (Yes/No)";
@@ -793,6 +800,5 @@ namespace MIS
         public const string TAG_ReceiptAmountList = "ReceiptAmountList";
         public const string TAG_DetailID = "DetailID";
         public const string TAG_ExpensesReferenceNo = "ExpensesReferenceNo";
-
     }
 }
