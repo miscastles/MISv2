@@ -1,4 +1,5 @@
 ﻿using CrystalDecisions.Shared.Json;
+using DocumentFormat.OpenXml.Drawing;
 using MIS.Controller;
 using MIS.Enums;
 using MIS.Function;
@@ -12,6 +13,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Web.UI.WebControls.WebParts;
 using System.Windows.Forms;
 using static MIS.Function.AppUtilities;
 
@@ -12863,15 +12865,20 @@ namespace MIS
             return true;
         }
 
-        public void saveServicingActivityStart(ActivityType pActivityType, int pParticularID, string pParticularName, int pServiceNo, int pIRIDNo, int pMerchantID)
+        public void saveServicingActivityStart(ActivityType pActivityType, int pParticularID, string pParticularName,
+            int pServiceNo, int pIRIDNo, int pMerchantID, DateTime? pStartTime = null)
         {
             if (!dbFunction.isValidID($"{pServiceNo}")) return;
+
+            string pStart = pStartTime.HasValue
+                ? pStartTime.Value.ToString("yyyy-MM-dd HH:mm:ss")
+                : dbFunction.getCurrentDateTime();
 
             string sSQL = " (" + dbFunction.CheckAndSetNumericValue($"{pIRIDNo}") + ", " +
                           dbFunction.CheckAndSetNumericValue($"{pServiceNo}") + ", " +
                           dbFunction.CheckAndSetNumericValue($"{pMerchantID}") + ", " +
                           (int)pActivityType + ", " +
-                          "'" + dbFunction.getCurrentDateTime() + "', " +
+                          "'" + pStart + "', " +        
                           "NULL, " +
                           pParticularID + ", " +
                           "'" + dbFunction.CheckAndSetStringValue(pParticularName) + "') ";

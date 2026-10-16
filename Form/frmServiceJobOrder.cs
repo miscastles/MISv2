@@ -2847,7 +2847,7 @@ namespace MIS
                 else
                 {
                     // if helpdesk
-                    if (dbFunction.isValidID(txtAssistNo.Text) && dbFunction.isValidDescription(txtProcessedBy.Text))
+                    if (!fEdit && dbFunction.isValidID(txtAssistNo.Text) && dbFunction.isValidDescription(txtProcessedBy.Text))
                     {
                         int pParticularID = clsSearch.ClassCurrentParticularID;
                         string pParticularName = clsSearch.ClassCurrentParticularName;

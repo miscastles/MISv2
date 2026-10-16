@@ -61,7 +61,9 @@ using System.Web.Services.Description;
 
             private int IssueCategoryID { get; set; }
 
-    #if ENABLE_COMPOSITED
+            private DateTime _jobOrderActivityStart = DateTime.Now;
+
+            #if ENABLE_COMPOSITED
                     protected override CreateParams CreateParams
                     {
                         get
@@ -71,7 +73,7 @@ using System.Web.Services.Description;
                             return cp;
                         }
                     }
-    #endif
+            #endif
 
             public frmHelpDesk()
             {
@@ -1178,9 +1180,22 @@ using System.Web.Services.Description;
                             txtAssistNo.Text = AssistID.ToString();
                             txtIRIDNo.Text = IRIDNo.ToString();
 
-                            if (!dbAPI.isRecordExist("Search", "IRNo Check", dbFunction.CheckAndSetStringValue(txtEntryRequestID.Text)))
-                                autoSaveServiceAndFSR();
+                             txtServiceNo.Clear(); 
 
+                            if (!dbAPI.isRecordExist("Search", "IRNo Check", dbFunction.CheckAndSetStringValue(txtEntryRequestID.Text)))
+                                        autoSaveServiceAndFSR();
+
+                            int pServiceNo = int.Parse(dbFunction.CheckAndSetNumericValue(txtServiceNo.Text));
+
+                            dbAPI.saveServicingActivityStart(ActivityType.JobOrders,
+                                clsSearch.ClassCurrentParticularID,
+                                clsSearch.ClassCurrentParticularName,
+                                pServiceNo, IRIDNo, MerchantID, _jobOrderActivityStart);
+
+                            dbAPI.saveServicingActivityEnd(ActivityType.JobOrders,
+                                pServiceNo,
+                                clsSearch.ClassCurrentParticularID,
+                                clsSearch.ClassCurrentParticularName);
                         }
 
                     Prompt.Info("New Helpdesk Request", $"Request has been added");
@@ -1653,6 +1668,7 @@ using System.Web.Services.Description;
                         if (!Prompt.YesNo("Request Ticket", "Create New Ticket?").Equals(DialogResult.Yes)) return;
 
                         setFlag(2);
+                        _jobOrderActivityStart = DateTime.Now;
                         EnabledCtrl();
                         InitStatusTitle();
                         FillServiceStatus();
@@ -1677,6 +1693,7 @@ using System.Web.Services.Description;
                     default: // New HD Master
                         ClearAllFields();
                         setFlag(0);
+                        _jobOrderActivityStart = DateTime.Now;
                         EnabledCtrl();
                         LoadCategories();
                         InitStatusTitle();
