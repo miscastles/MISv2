@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.ComponentModel;
 
 
+
 namespace MIS
 {
     public partial class frmBankTemplateGen : Form
@@ -38,6 +39,8 @@ namespace MIS
             grdBankFields.CurrentCellDirtyStateChanged += grdBankFields_CurrentCellDirtyStateChanged;
             grdBankFields.CellValueChanged += grdBankFields_CellValueChanged;
             grdBankFields.ColumnHeaderMouseClick += grdBankFields_ColumnHeaderMouseClick;
+            grdBankFields.EditingControlShowing += grdBankFields_EditingControlShowing;
+            grdBankFields.CellValidating += grdBankFields_CellValidating;
 
             grdBankFields.RowsAdded += grdBankFields_RowsAdded;
             grdBankFields.RowsRemoved += grdBankFields_RowsRemoved;
@@ -102,6 +105,8 @@ namespace MIS
             grdBankFields.TopLeftHeaderCell.Value = "#";
             grdBankFields.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             colIrRequestId.ReadOnly = true;
+            colIrPosSetup.ReadOnly = false;
+            colIrPosSetup.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
             colIrSelected.HeaderCell.ToolTipText = "Click to select or clear all rows. Shift-click a row checkbox to select a range.";
             ReplaceWithDatePickerColumn(ref colIrRequestDate);
             ReplaceWithDatePickerColumn(ref colIrTargetInstallationDate);
@@ -645,8 +650,7 @@ namespace MIS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to open the file location.\n\n" + ex.Message,
-                    "Locate File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Unable to open the file location.\n\n" + ex.Message, "Locate File", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -775,7 +779,7 @@ namespace MIS
                 if (_irRows.Count > 0)
                 {
                     lblValidation.Text = _irRows.Count + " VALID INSTALLATION REQUEST(S) LOADED";
-                    lblValidation.ForeColor = Color.FromArgb(74, 222, 128);
+                    lblValidation.ForeColor = Color.FromArgb(102, 0, 0);
                     lblStatus.Text = _irRows.Count + " IR ROW(S) READY FOR EDITING";
                     btnGenerate.Enabled = true;
                 }
@@ -882,8 +886,7 @@ namespace MIS
                 return primaryMid;
             }
 
-            return GetMappedValue(
-                rows.Where(row => IsSecondaryIdentifierTag(row.Tag, "MID")), "Merchant ID (MID)");
+            return GetMappedValue(rows.Where(row => IsSecondaryIdentifierTag(row.Tag, "MID")), "Merchant ID (MID)");
         }
 
         private static bool IsSecondaryIdentifierTag(string tag, string identifier)
@@ -1060,6 +1063,114 @@ namespace MIS
         private void frmBankTemplateGen_Load(object sender, EventArgs e)
         {
             LoadPosTypes();
+            LoadArea1Regions();
+            LoadBankTemplateTypeDropdowns();
+        }
+
+        private const int REQUEST_PRIORITIZATION_TYPE = 29;
+        private const int POS_SETUP_TYPE = 30;
+        private const int POS_CONNECTION_TYPE = 31;
+        private const int EXISTING_POS_SETUP_TYPE = 6;
+        private const int CASHOUT_SETUP_TYPE_ID = 19;
+        private const int RETAIL_SETUP_TYPE_ID = 22;
+
+        private void LoadBankTemplateTypeDropdowns()
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+
+                if (dbAPI == null)
+                {
+                    dbAPI = new clsAPI();
+                }
+
+                colIrRequestPrioritization.Items.Clear();
+                colIrPosSetup.Items.Clear();
+                colIrPosConnectionType.Items.Clear();
+
+                int prioritizationCount = AppendTypeGroupItems(colIrRequestPrioritization, REQUEST_PRIORITIZATION_TYPE);
+
+                int posSetupCount = AppendTypeGroupItems(colIrPosSetup, POS_SETUP_TYPE);
+
+
+                posSetupCount += AppendTypeGroupItems(colIrPosSetup, EXISTING_POS_SETUP_TYPE, CASHOUT_SETUP_TYPE_ID, RETAIL_SETUP_TYPE_ID);
+
+                int connectionCount = AppendTypeGroupItems(colIrPosConnectionType, POS_CONNECTION_TYPE);
+
+                List<string> emptyDropdowns = new List<string>();
+
+                if (prioritizationCount == 0) emptyDropdowns.Add("Request Prioritization");
+
+                if (posSetupCount == 0) emptyDropdowns.Add("POS Setup");
+
+                if (connectionCount == 0) emptyDropdowns.Add("POS Connection Type");
+
+                if (emptyDropdowns.Count > 0)
+                {
+                    MessageBox.Show("No active database records were returned for:\n\n" + string.Join("\n", emptyDropdowns), "Bank Template Dropdowns",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to load Bank Template dropdown values.\n\n" + ex.Message, "Bank Template Dropdowns",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private int AppendTypeGroupItems(DataGridViewComboBoxColumn column, int groupType, params int[] includedTypeIds)
+        {
+            dbAPI.ExecuteAPI("GET", "View", "Type", groupType.ToString(), "Type", "", "ViewType");
+
+            if (!clsGlobalVariables.isAPIResponseOK || dbAPI.isNoRecordFound())
+            {
+                return 0;
+            }
+
+            HashSet<int> typeIdFilter = includedTypeIds != null && includedTypeIds.Length > 0 ? new HashSet<int>(includedTypeIds) : null;
+
+            int addedCount = 0;
+            int recordCount = Math.Min(clsArray.TypeID.Length, clsArray.TypeDescription.Length);
+
+            for (int index = 0; index < recordCount; index++)
+            {
+                int typeId;
+
+                if (!int.TryParse(clsArray.TypeID[index], out typeId))
+                {
+                    continue;
+                }
+
+                if (typeIdFilter != null && !typeIdFilter.Contains(typeId))
+                {
+                    continue;
+                }
+
+                string description = clsArray.TypeDescription[index];
+
+                if (string.IsNullOrWhiteSpace(description))
+                {
+                    continue;
+                }
+
+                description = description.Trim();
+
+                bool alreadyAdded = column.Items
+                    .Cast<object>()
+                    .Any(item => string.Equals(Convert.ToString(item), description, StringComparison.OrdinalIgnoreCase));
+
+                if (!alreadyAdded)
+                {
+                    column.Items.Add(description);
+                    addedCount++;
+                }
+            }
+            return addedCount;
         }
 
         private void LoadPosTypes()
@@ -1067,7 +1178,11 @@ namespace MIS
             try
             {
                 Cursor = Cursors.WaitCursor;
-                dbAPI = new clsAPI();
+
+                if (dbAPI == null)
+                {
+                    dbAPI = new clsAPI();
+                }
 
                 dbAPI.ExecuteAPI("GET", "View", "Application Info List", "", "Advance Detail", "", "ViewAdvanceDetail");
 
@@ -1075,7 +1190,9 @@ namespace MIS
 
                 if (!clsGlobalVariables.isAPIResponseOK || dbAPI.isNoRecordFound())
                 {
-                    MessageBox.Show("No active POS Type records were returned by the database.", "POS Type", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No active POS Type records were returned by the database.", "POS Type",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
                     return;
                 }
 
@@ -1083,22 +1200,26 @@ namespace MIS
 
                 foreach (string detailInfo in clsArray.detail_info)
                 {
-                    string description = dbAPI.GetValueFromJSONString(detailInfo, clsDefines.TAG_TerminalModel);
+                    string description = dbAPI.GetValueFromJSONString(
+                        detailInfo,
+                        clsDefines.TAG_TerminalModel);
 
                     if (!string.IsNullOrWhiteSpace(description))
                     {
-                        colIrPosType.Items.Add(description);
+                        colIrPosType.Items.Add(description.Trim());
                     }
                 }
 
                 if (colIrPosType.Items.Count == 1)
                 {
-                    MessageBox.Show("No active POS Type records were returned by the database.", "POS Type", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No active POS Type records were returned by the database.", "POS Type",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to load POS Types.\n\n" + ex.Message, "POS Type", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Unable to load POS Types.\n\n" + ex.Message, "POS Type",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -1111,6 +1232,118 @@ namespace MIS
             if (grdBankFields.IsCurrentCellDirty && (grdBankFields.CurrentCell is DataGridViewCheckBoxCell || grdBankFields.CurrentCell is DataGridViewComboBoxCell))
             {
                 grdBankFields.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+        private void grdBankFields_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            ComboBox comboBox = e.Control as ComboBox;
+
+            if (comboBox == null)
+            {
+                return;
+            }
+
+            if (grdBankFields.CurrentCell != null && grdBankFields.CurrentCell.OwningColumn == colIrPosSetup)
+            {
+                comboBox.DropDownStyle = ComboBoxStyle.DropDown;
+                comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            }
+            else
+            {
+                comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+                comboBox.AutoCompleteMode = AutoCompleteMode.None;
+                comboBox.AutoCompleteSource = AutoCompleteSource.None;
+            }
+        }
+
+        private void grdBankFields_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex != colIrPosSetup.Index)
+            {
+                return;
+            }
+
+            string enteredPosSetup = Convert.ToString(e.FormattedValue);
+
+            if (string.IsNullOrWhiteSpace(enteredPosSetup))
+            {
+                return;
+            }
+
+            enteredPosSetup = enteredPosSetup.Trim();
+
+            object existingItem = colIrPosSetup.Items
+                .Cast<object>()
+                .FirstOrDefault(item => string.Equals(
+                    Convert.ToString(item),
+                    enteredPosSetup,
+                    StringComparison.OrdinalIgnoreCase));
+
+            if (existingItem == null)
+            {
+                colIrPosSetup.Items.Add(enteredPosSetup);
+            }
+
+            DataGridViewComboBoxCell currentCell = grdBankFields.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewComboBoxCell;
+
+            if (currentCell != null && !currentCell.Items.Cast<object>().Any(item =>
+                    string.Equals(
+                        Convert.ToString(item),
+                        enteredPosSetup,
+                        StringComparison.OrdinalIgnoreCase)))
+            {
+                currentCell.Items.Add(enteredPosSetup);
+            }
+
+            grdBankFields.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = enteredPosSetup;
+        }
+
+        private void LoadArea1Regions()
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+
+                if (dbAPI == null)
+                {
+                    dbAPI = new clsAPI();
+                }
+
+                dbAPI.GetRegionList("View", "Region List", "", "Region");
+
+                colIrArea1.Items.Clear();
+
+                if (!clsGlobalVariables.isAPIResponseOK || dbAPI.isNoRecordFound())
+                {
+                    MessageBox.Show("No active Area 1 records were returned by the database.", "Area 1",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                foreach (string region in clsArray.Region
+                    .Where(value => !string.IsNullOrWhiteSpace(value))
+                    .Select(value => value.Trim())
+                    .Distinct(StringComparer.OrdinalIgnoreCase))
+                {
+                    colIrArea1.Items.Add(region);
+                }
+
+                if (colIrArea1.Items.Count == 0)
+                {
+                    MessageBox.Show("No active area 1 records were returned by the database.", "Area 1",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to load Area 1 records. \n\n" + ex.Message, "Area 1",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
             }
         }
     }

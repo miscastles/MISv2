@@ -2847,20 +2847,20 @@ namespace MIS
                 else
                 {
                     // if helpdesk
-                    if (dbFunction.isValidID(txtAssistNo.Text) && dbFunction.isValidDescription(txtProcessedBy.Text))
+                    if (!fEdit && dbFunction.isValidID(txtAssistNo.Text) && dbFunction.isValidDescription(txtProcessedBy.Text))
                     {
-                        int pParticularID = clsSearch.ClassCurrentParticularID;
-                        string pParticularName = clsSearch.ClassCurrentParticularName;
+                            int pParticularID = clsSearch.ClassCurrentParticularID;
+                            string pParticularName = clsSearch.ClassCurrentParticularName;
 
-                        dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
-                            pParticularID, pParticularName);
-
+                            dbAPI.saveServicingActivityEnd(ActivityType.JobOrders, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)), pParticularID, pParticularName);
                     }
+
                     else
                     {
                         if (dbFunction.isValidID(txtCurTerminalID.Text) && !dbFunction.isValidID(txtFEID.Text))
-                            dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)),
-                                clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
+                        {
+                            dbAPI.saveServicingActivityEnd(ActivityType.TerminalPrep, int.Parse(dbFunction.CheckAndSetNumericValue(txtSearchServiceNo.Text)), clsSearch.ClassCurrentParticularID, clsSearch.ClassCurrentParticularName);
+                        }
                     }                    
                 }
 
@@ -2899,16 +2899,17 @@ namespace MIS
                 dbAPI.BulkUpdateStockMovementDetail(lvwRepStockDetail, int.Parse(dbFunction.CheckAndSetNumericValue(txtClientID.Text)), isDispatch);
 
                 // check if already dispatch
+                // check if already dispatch
                 if (!txtDispatchBy.Text.Equals(clsSearch.ClassCurrentParticularName) && dbFunction.isValidDescription(txtDispatchBy.Text) && fEdit)
                 {
                     string message =
-                                    "Current Processed By: " +
-                                    dbFunction.AddBracketStartEnd(clsSearch.ClassCurrentParticularName) +
+                                    "Job Order has been saved." +
                                     "\n\n" +
-                                    "New Dispatcher: " +
+                                    "This job order was previously dispatched by: " +
                                     dbFunction.AddBracketStartEnd(txtDispatchBy.Text) +
                                     "\n\n" +
-                                    "Do you want to overwrite?";
+                                    "Do you want to replace the dispatch information with the current user " +
+                                    dbFunction.AddBracketStartEnd(clsSearch.ClassCurrentParticularName) + "?";
 
                     if (!dbFunction.fPromptConfirmation(message))
                     {
@@ -7478,7 +7479,7 @@ namespace MIS
                 string pJSONString = dbAPI.getInfoDetailJSON("Search", "Zoning Detail", $"{txtZoneID.Text}");
                 if (dbFunction.isValidDescription(pJSONString))
                 {
-                    txtZZone.Text = txtSLAZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);                    
+                    txtZZone.Text = txtSLAZone.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Zone);
                     txtZRegion.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Region);
                     txtZArea.Text = txtSLAArea.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_Area);
                     txtZCityMunicipal.Text = dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CityMunicipal);

@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.Win32;
 using MIS.Enums;
 using MIS.Model;
 using Newtonsoft.Json;
@@ -1855,6 +1856,7 @@ namespace MIS
 
             return sTemp;
         }
+
         public string CheckAndSetNumericValue(string sValue)
         {
             string sTemp = "";
@@ -1877,6 +1879,13 @@ namespace MIS
                 iValue = 0;
 
             return iValue;
+        }
+
+        public int ParseIntegerValue(string sValue)
+        {
+            int iResult;
+            int.TryParse((sValue ?? "").Trim(), out iResult);
+            return iResult;
         }
 
         public string AddSingleQuote(string sValue)
@@ -7716,6 +7725,41 @@ namespace MIS
 
                     Debug.WriteLine(chk.Name + ".Enabled=" + chk.Enabled + ", " + chk.Name + ".Checked=" + chk.Checked);
                 }
+            }
+        }
+
+        public bool CheckPathExtensionMatch(string path, string extension)
+        {
+            bool isMatch = false;
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(path))
+                {
+                    SetMessageBox("File path is empty.", "Invalid file", clsFunction.IconType.iError);
+                    return false;
+                }
+
+                if (!extension.StartsWith("."))
+                {
+                    extension = "." + extension;
+                }
+
+                string sExtension = Path.GetExtension(path);
+
+                isMatch = string.Equals(sExtension, extension, StringComparison.OrdinalIgnoreCase);
+
+                if (!isMatch)
+                {
+                    SetMessageBox(path + " is not a valid " + extension + " file.", "Invalid file type", clsFunction.IconType.iError);
+                }
+
+                return isMatch;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("CheckPathExtensionMatch error: " + ex.Message);
+                return false;
             }
         }
     }

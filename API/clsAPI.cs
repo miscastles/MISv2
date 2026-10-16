@@ -9442,14 +9442,7 @@ namespace MIS
             + clsFunction.sPipe
             + encodedBankData;
 
-            ExecuteAPI(
-                "PUT",
-                "Update",
-                "Update Bank Data Info",
-                pSearchValue,
-                "",
-                "",
-                "UpdateCollectionDetail");
+            ExecuteAPI("PUT", "Update", "Update Bank Data Info", pSearchValue, "", "", "UpdateCollectionDetail");
 
         }
 
@@ -12863,15 +12856,19 @@ namespace MIS
             return true;
         }
 
-        public void saveServicingActivityStart(ActivityType pActivityType, int pParticularID, string pParticularName, int pServiceNo, int pIRIDNo, int pMerchantID)
+        public void saveServicingActivityStart(ActivityType pActivityType, int pParticularID, string pParticularName, int pServiceNo, int pIRIDNo, int pMerchantID, DateTime? pStartTime = null)
         {
             if (!dbFunction.isValidID($"{pServiceNo}")) return;
+
+            string pStart = pStartTime.HasValue
+                ? pStartTime.Value.ToString("yyyy-MM-dd HH:mm:ss")
+                : dbFunction.getCurrentDateTime();
 
             string sSQL = " (" + dbFunction.CheckAndSetNumericValue($"{pIRIDNo}") + ", " +
                           dbFunction.CheckAndSetNumericValue($"{pServiceNo}") + ", " +
                           dbFunction.CheckAndSetNumericValue($"{pMerchantID}") + ", " +
                           (int)pActivityType + ", " +
-                          "'" + dbFunction.getCurrentDateTime() + "', " +
+                          "'" + pStart + "', " +
                           "NULL, " +
                           pParticularID + ", " +
                           "'" + dbFunction.CheckAndSetStringValue(pParticularName) + "') ";
@@ -13338,6 +13335,24 @@ namespace MIS
             }
 
             if (i > 0) obj.SelectedIndex = 0;
+        }
+
+        public int GetIntValueFromJSONString(string jsonString, string tagName)
+        {
+            int iResult;
+
+            int.TryParse((GetValueFromJSONString(jsonString, tagName) ?? "").Trim(), out iResult);
+
+            return iResult;
+        }
+
+        /// Runs a Search check via spGetInfoDetail and returns its numeric Result tag.
+        /// 0 always means invalid/no response - check branches must use 1+ for real codes.
+        public int GetCheckResult(string SearchBy, string SearchValue)
+        {
+            string pJSON = getInfoDetailJSON("Search", SearchBy, SearchValue);
+
+            return GetIntValueFromJSONString(pJSON, clsDefines.TAG_Result);
         }
     }
 }

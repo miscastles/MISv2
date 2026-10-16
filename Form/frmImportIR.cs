@@ -25,7 +25,7 @@ using System.Web.Profile;
 using System.Windows.Forms;
 using static MIS.Function.AppUtilities;
 using OfficeOpenXml;
-using DocumentFormat.OpenXml.Bibliography; //Nikko
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace MIS
 {
@@ -41,6 +41,8 @@ namespace MIS
         private clsINI dbSetting;
         private clsFile dbFile;
         private clsFunction dbFunction;
+        private clsExcel dbExcel;
+
         private static string ExcelFilePath = @"";
         private string sExcelFileName = "";
         private string sSheet = "";
@@ -55,14 +57,6 @@ namespace MIS
         private modelParticular modelParticular;
 
         private string formName = "INSTALLATION REQUEST";
-
-        // Hidden worksheet produced by the Bank Template Generator.
-        private const string BankDataWorksheetName = "__MIS_BANK_DATA"; //Nikko
-
-        private readonly Dictionary<string, string>
-            bankDataInfoByRequestId = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase); //Nikko
-
-        private bool isConvertedImport = false; //Nikko
 
         public class jsonObj
         {
@@ -87,6 +81,8 @@ namespace MIS
             InitializeComponent();
 
             dbFunction = new clsFunction();
+            dbExcel = new clsExcel();
+
             dbFunction.setDoubleBuffer(lvwDetail, true);
             dbFunction.setDoubleBuffer(lvwMerchant, true);
             dbFunction.setDoubleBuffer(lvwSearch, true);
@@ -141,6 +137,9 @@ namespace MIS
 
                     InitImportDate();
                     InitProcessedBy();
+
+                    dbExcel.getExcelMetadata(txtPathFileName.Text);
+                    if (!dbExcel.RecordFound) return;
 
                     sSheet = dbFunction.getSheetName(txtPathFileName.Text);
 
@@ -229,6 +228,7 @@ namespace MIS
                 }
             }
         }
+
         private string GetExcelWorkSheetName()
         {
             string sWorkSheetName = "";
@@ -244,22 +244,6 @@ namespace MIS
                 sWorkSheetName = "Sheet1";
 
             return sWorkSheetName;
-        }
-
-        //NIKKO - Identify bank environments.
-        private bool IsBank()
-        {
-            string bankCode =
-                (clsSearch.ClassBankCode ?? string.Empty).Trim();
-
-            return string.Equals(
-                       bankCode,
-                       "clg",
-                       StringComparison.OrdinalIgnoreCase)
-                || string.Equals(
-                       bankCode,
-                       "tbg",
-                       StringComparison.OrdinalIgnoreCase);
         }
 
         bool fContinueConfirm()
@@ -823,6 +807,8 @@ namespace MIS
             if (!ValidateFields(2)) return;
 
             if (!validateImportData()) return;
+
+            if (!ValidateConvertedRequestID()) return;
 
             try
             {
@@ -3840,54 +3826,20 @@ namespace MIS
                         }
 
                         //Nikko
-
-                        if (IsBank() && isConvertedImport)
-                        {
-                            string bankDataInfo;
-
-                            if (!bankDataInfoByRequestId.TryGetValue(bankTargetIRNo, out bankDataInfo))
-                            {
-                                throw new InvalidDataException(
-                                    "Bank data JSON was not found for Request ID "
-                                    + bankTargetIRNo
-                                    + ".");
-                            }
-
-                            if (bankTargetIRIDNo <= 0)
-                            {
-                                throw new InvalidDataException(
-                                    "A valid IRIDNo was not found for Request ID "
-                                    + bankTargetIRNo
-                                    + ".");
-                            }
-
-                            ucStatusDisplay.SetStatus("Saving bank data for Request ID [" + bankTargetIRNo + "]",
-                                Enums.StatusType.Processing);
-
-                            dbAPI.UpdateIRBankDataInfo(bankTargetIRIDNo.ToString(), bankDataInfo);
-
-                            if (!clsGlobalVariables.isAPIResponseOK)
-                            {
-                                throw new InvalidOperationException("Unable to save bank data for Request ID " + bankTargetIRNo + ".");
-                            }
-
-                            Debug.WriteLine("Saved bankdata_info: IRIDNo=["
-                                + bankTargetIRIDNo
-                                + "], Request ID=["
-                                + bankTargetIRNo
-                                + "]");
-                        }
+                        SaveBankDataInfo(bankTargetIRNo, bankTargetIRIDNo);
 
                         if (isPrompt)
+                        {
                             dbFunction.SetMessageBox("JSON data update complete.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
-
+                        }
                     }
                     else
                     {
                         if (isPrompt)
+                        {
                             dbFunction.SetMessageBox($"Request ID {clsSearch.ClassIRNo} does not yet exist.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        }
                     }
-
                 }
                 else
                 {
@@ -3914,12 +3866,115 @@ namespace MIS
             catch (Exception ex)
             {
                 Debug.WriteLine($"updateRawData, error={ex.Message}");
-
-                if (isConvertedImport)
-                    throw;
             }
 
             Cursor.Current = Cursors.Default;
+        }
+
+        private bool ValidateConvertedRequestID()
+        {
+            string sMissingList = "";
+            string sUnexpectedList = "";
+            string sMessage = "";
+            bool fValid = true;
+
+            // Normal MCC import -> nothing to cross-check
+            if (!dbExcel.ClassIsConverted)
+                return true;
+
+            int iRequestID = dbFunction.GetMapColumnIndex(clsDefines.IR_REQUEST_ID);
+
+            if (iRequestID < 0)
+            {
+                dbFunction.SetMessageBox("The Request ID column was not found in the import worksheet.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                return false;
+            }
+
+            List<string> RequestIDList = new List<string>();
+            foreach (DataGridViewRow row in grdList.Rows)
+            {
+                if (row.IsNewRow)
+                {
+                    continue;
+                }
+
+                string requestid = Convert.ToString(row.Cells[iRequestID].Value).Trim();
+
+                if (requestid.Length > 0)
+                {
+                    RequestIDList.Add(requestid.ToUpper());
+                }
+            }
+
+            foreach (string requestid in RequestIDList)
+            {
+                if (!dbExcel.ClassBankDataList.ContainsKey(requestid))
+                {
+                    sMissingList = sMissingList + requestid + "\n";
+                    fValid = false;
+                }
+            }
+
+            foreach (string requestid in dbExcel.ClassBankDataList.Keys)
+            {
+                if (!RequestIDList.Contains(requestid.ToUpper()))
+                {
+                    sUnexpectedList = sUnexpectedList + requestid + "\n";
+                    fValid = false;
+                }
+            }
+
+            if (!fValid)
+            {
+                Debug.WriteLine("ValidateConvertedRequestID, mismatch...");
+                Debug.WriteLine(sMissingList);
+                Debug.WriteLine(sUnexpectedList);
+
+                sMessage = "The converted metadata does not match the import rows.";
+
+                if (sMissingList.Length > 0)
+                {
+                    sMessage = sMessage + "\n\n" + "Missing metadata for Request ID(s):" + "\n" + sMissingList;
+                }
+
+                if (sUnexpectedList.Length > 0)
+                {
+                    sMessage = sMessage + "\n" + "Metadata without a matching row:" + "\n" + sUnexpectedList;
+
+                }
+
+                dbFunction.SetMessageBox(sMessage, clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void SaveBankDataInfo(string targetIRNo, int targetIRIDNo)
+        {
+            if (!dbExcel.ClassIsConverted) return;
+
+            string bankDatainfo;
+
+            if (dbExcel.ClassBankDataList.TryGetValue(targetIRNo, out bankDatainfo) && targetIRIDNo > 0)
+            {
+                ucStatusDisplay.SetStatus("Saving bank data for Request ID [" + targetIRNo + "]", Enums.StatusType.Processing);
+                dbAPI.UpdateIRBankDataInfo(targetIRIDNo.ToString(), bankDatainfo);
+
+                if (!clsGlobalVariables.isAPIResponseOK)
+                {
+                    Debug.WriteLine("Failed to save bankdata_info: Request ID=[" + targetIRNo + "]");
+                    dbFunction.SetMessageBox("Unable to save bank data for Request ID [" + targetIRNo + "].", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                }
+                else
+                {
+                    Debug.WriteLine("Saved bankdata_info: IRIDNo=[" + targetIRIDNo + "], Request ID=[" + targetIRNo + "]");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("Bank data not saved: Request ID=[" + targetIRNo + "], IRIDNo=[" + targetIRIDNo + "]");
+            }
         }
 
         private void cboRequestType_SelectedIndexChanged(object sender, EventArgs e)
@@ -4645,47 +4700,47 @@ namespace MIS
                     case clsDefines.IR_CHECK_OK: break;
 
                     case clsDefines.IR_CHECK_IRNO_DUPLICATE:
-                    {
-                        dbFunction.SetMessageBox($"Request ID [{requestid}] already exists.",
-                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                        return false;
-                    }
+                        {
+                            dbFunction.SetMessageBox($"Request ID [{requestid}] already exists.",
+                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                            return false;
+                        }
                     case clsDefines.IR_CHECK_REQUEST_TYPE:
-                    {
-                        dbFunction.SetMessageBox($"Request Type [{requesttype}] must be enrolled.",
-                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                        return false;
-                    }
+                        {
+                            dbFunction.SetMessageBox($"Request Type [{requesttype}] must be enrolled.",
+                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                            return false;
+                        }
                     case clsDefines.IR_CHECK_ZONING_CITY:
-                    {
-                        dbFunction.SetMessageBox($"Zoning City [{city}] must be enrolled.",
-                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                        return false;
-                    }
+                        {
+                            dbFunction.SetMessageBox($"Zoning City [{city}] must be enrolled.",
+                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                            return false;
+                        }
                     case clsDefines.IR_CHECK_ZONING_MATCH:
-                    {
-                        dbFunction.SetMessageBox(
-                        $"Line#: {row.Index + 1}\n" +
-                        $"Request ID: [{requestid}]\n" +
-                        $"Merchant: [{merchantname}]\n" +
-                        $"TID: [{tid}]\n" +
-                        $"MID: [{mid}]\n" +
-                        $"Area: [{area1}]\n" +
-                        $"City: [{city}]\n" +
-                        $"Address: [{address}]\n\n" +
-                        "Zoning match not found.\n" +
-                        "Please verify the information above or enroll the location in the Zoning.",
-                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                        return false;
-                    }
+                        {
+                            dbFunction.SetMessageBox(
+                            $"Line#: {row.Index + 1}\n" +
+                            $"Request ID: [{requestid}]\n" +
+                            $"Merchant: [{merchantname}]\n" +
+                            $"TID: [{tid}]\n" +
+                            $"MID: [{mid}]\n" +
+                            $"Area: [{area1}]\n" +
+                            $"City: [{city}]\n" +
+                            $"Address: [{address}]\n\n" +
+                            "Zoning match not found.\n" +
+                            "Please verify the information above or enroll the location in the Zoning.",
+                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                            return false;
+                        }
                     default:
-                    {
-                        dbFunction.SetMessageBox(
-                        $"Line#: {row.Index + 1}\nRequest ID: [{requestid}]\n\n" +
-                        $"Row validation failed.\n\n{clsDefines.CONTACT_ADMIN_MESSAGE}",
-                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                        return false;
-                    }
+                        {
+                            dbFunction.SetMessageBox(
+                            $"Line#: {row.Index + 1}\nRequest ID: [{requestid}]\n\n" +
+                            $"Row validation failed.\n\n{clsDefines.CONTACT_ADMIN_MESSAGE}",
+                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                            return false;
+                        }
                 }
             }
 
@@ -4849,7 +4904,7 @@ namespace MIS
                 foreach (ListViewItem i in lvwList.Items)
                 {
                     i.Checked = true;
-                }       
+                }
             }
             else
             {
