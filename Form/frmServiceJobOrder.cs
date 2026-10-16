@@ -2345,11 +2345,21 @@ namespace MIS
             int currentSIMID = 0;
             int replaceTerminalID = 0;
             int replaceSIMID = 0;
-            int oldTerminalID = 0; 
+            int oldTerminalID = 0;
             int oldSIMID = 0;
 
             Debug.WriteLine("--btnDispatch_Click--");
-            Debug.WriteLine("fEdit="+fEdit);
+            Debug.WriteLine("fEdit=" + fEdit);
+
+            dbFile.WriteAPILog(0, "JO Saving->" + $"Bank:{clsSearch.ClassBankName}");
+            dbFile.WriteAPILog(0, "" + $"fEdit:{fEdit}");
+            dbFile.WriteAPILog(0, "" + $"ServiceNo:{txtSearchServiceNo.Text}");
+            dbFile.WriteAPILog(0, "" + $"IRIDNo:{txtIRIDNo.Text}");
+            dbFile.WriteAPILog(0, "" + $"IRNo:{txtEntryRequestID.Text}");
+            dbFile.WriteAPILog(0, "" + $"MerchantID:{txtMerchantID.Text}");
+            dbFile.WriteAPILog(0, "" + $"MerchantName:{txtMerchantName.Text}");
+            dbFile.WriteAPILog(0, "" + $"TID:{txtIRTID.Text}");
+            dbFile.WriteAPILog(0, "" + $"MID:{txtIRMID.Text}");
 
             try
             {

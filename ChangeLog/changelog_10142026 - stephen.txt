@@ -1,0 +1,29 @@
+CHANGELOG
+Date: October 16, 2026
+Developer: Stephen
+
+========================================================
+CHANGES
+========================================================
+
+1. frmServiceJobOrder.cs
+	- Added debug log upon jo creation
+
+2. frmTerminalFSR.cs
+	- Added debug log upon fsr completion
+
+[ Changes 1, 2 notes ]
+These logs are written in C:\CASTLESTECH_MIS\LOGS\APIREQUEST_MIS.log 
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmServiceJobOrder.cs
+- frmTerminalFSR.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

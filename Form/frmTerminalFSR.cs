@@ -1049,6 +1049,16 @@ namespace MIS
         {
             string pSearchValue = "";
 
+            dbFile.WriteAPILog(0, "FSR Saving->" + $"Bank:{clsSearch.ClassBankName}");
+            dbFile.WriteAPILog(0, "" + $"fEdit:{fEdit}");
+            dbFile.WriteAPILog(0, "" + $"ServiceNo:{txtSearchServiceNo.Text}");
+            dbFile.WriteAPILog(0, "" + $"IRIDNo:{txtIRIDNo.Text}");
+            dbFile.WriteAPILog(0, "" + $"IRNo:{txtSearchIRNo.Text}");
+            dbFile.WriteAPILog(0, "" + $"MerchantID:{txtMerchantID.Text}");
+            dbFile.WriteAPILog(0, "" + $"MerchantName:{txtMerchantName.Text}");
+            dbFile.WriteAPILog(0, "" + $"TID:{txtIRTID.Text}");
+            dbFile.WriteAPILog(0, "" + $"MID:{txtIRMID.Text}");
+
             try
             {
                 // Check Application Version
