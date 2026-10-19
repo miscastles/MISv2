@@ -139,4 +139,10 @@ namespace MIS.Enums
         Inventory        
     }
 
+    public enum BankColumnTemplateType
+    {
+        BankTemplateRequestPrioritizationType = 29,
+        BankTemplatePosSetupType = 30,
+        BankTemplatePosConnectionType = 31
+    }
 }

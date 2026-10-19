@@ -40,7 +40,6 @@ namespace MIS
             grdBankFields.CellValueChanged += grdBankFields_CellValueChanged;
             grdBankFields.ColumnHeaderMouseClick += grdBankFields_ColumnHeaderMouseClick;
             grdBankFields.EditingControlShowing += grdBankFields_EditingControlShowing;
-            grdBankFields.CellValidating += grdBankFields_CellValidating;
 
             grdBankFields.RowsAdded += grdBankFields_RowsAdded;
             grdBankFields.RowsRemoved += grdBankFields_RowsRemoved;
@@ -107,6 +106,7 @@ namespace MIS
             colIrRequestId.ReadOnly = true;
             colIrPosSetup.ReadOnly = false;
             colIrPosSetup.DisplayStyle = DataGridViewComboBoxDisplayStyle.ComboBox;
+            colIrArea2.MaxInputLength = 6;
             colIrSelected.HeaderCell.ToolTipText = "Click to select or clear all rows. Shift-click a row checkbox to select a range.";
             ReplaceWithDatePickerColumn(ref colIrRequestDate);
             ReplaceWithDatePickerColumn(ref colIrTargetInstallationDate);
@@ -1238,65 +1238,26 @@ namespace MIS
         {
             ComboBox comboBox = e.Control as ComboBox;
 
-            if (comboBox == null)
-            {
-                return;
-            }
-
-            if (grdBankFields.CurrentCell != null && grdBankFields.CurrentCell.OwningColumn == colIrPosSetup)
-            {
-                comboBox.DropDownStyle = ComboBoxStyle.DropDown;
-                comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-            }
-            else
+            if (comboBox != null)
             {
                 comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
                 comboBox.AutoCompleteMode = AutoCompleteMode.None;
                 comboBox.AutoCompleteSource = AutoCompleteSource.None;
+                return;
             }
-        }
 
-        private void grdBankFields_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex != colIrPosSetup.Index)
+            TextBox textBox = e.Control as TextBox;
+            if (textBox == null)
             {
                 return;
             }
 
-            string enteredPosSetup = Convert.ToString(e.FormattedValue);
+            textBox.MaxLength = 32767;
 
-            if (string.IsNullOrWhiteSpace(enteredPosSetup))
+            if (grdBankFields.CurrentCell != null && grdBankFields.CurrentCell.OwningColumn == colIrArea2)
             {
-                return;
+                textBox.MaxLength = 6;
             }
-
-            enteredPosSetup = enteredPosSetup.Trim();
-
-            object existingItem = colIrPosSetup.Items
-                .Cast<object>()
-                .FirstOrDefault(item => string.Equals(
-                    Convert.ToString(item),
-                    enteredPosSetup,
-                    StringComparison.OrdinalIgnoreCase));
-
-            if (existingItem == null)
-            {
-                colIrPosSetup.Items.Add(enteredPosSetup);
-            }
-
-            DataGridViewComboBoxCell currentCell = grdBankFields.Rows[e.RowIndex].Cells[e.ColumnIndex] as DataGridViewComboBoxCell;
-
-            if (currentCell != null && !currentCell.Items.Cast<object>().Any(item =>
-                    string.Equals(
-                        Convert.ToString(item),
-                        enteredPosSetup,
-                        StringComparison.OrdinalIgnoreCase)))
-            {
-                currentCell.Items.Add(enteredPosSetup);
-            }
-
-            grdBankFields.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = enteredPosSetup;
         }
 
         private void LoadArea1Regions()
