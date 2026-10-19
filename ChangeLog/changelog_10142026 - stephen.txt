@@ -15,12 +15,21 @@ CHANGES
 [ Changes 1, 2 notes ]
 These logs are written in C:\CASTLESTECH_MIS\LOGS\APIREQUEST_MIS.log 
 
+3. frmTerminalFSR.CS
+	- Added txtAssistNo and txtProblemNo in Multiple Update FSR
+
+4. frmServiceJobOrder.cs
+	- Added txtAssistNo and txtProblemNo in Multiple Update Service
+	
+
 ========================================================
 FILES / MODULES AFFECTED
 ========================================================
 
 - frmServiceJobOrder.cs
 - frmTerminalFSR.cs
+- spUpdateCollectionDetail -> Multiple Update FSR
+- spUpdateCollectionDetail -> Multiple Update Service
 
 ========================================================
 STATUS

@@ -2834,7 +2834,11 @@ namespace MIS
                         dbFunction.CheckAndSetStringValue(txtVendor.Text + clsFunction.sPipe +
                         dbFunction.CheckAndSetStringValue(txtRequestor.Text)) + clsFunction.sPipe +
                         clsSearch.ClassBillingTypeID + clsFunction.sPipe +
-                        dbFunction.ParseCheckboxValue(chkProject.Checked);
+                        dbFunction.ParseCheckboxValue(chkProject.Checked) + clsFunction.sPipe +
+                        
+                        // helpdesk
+                        dbFunction.CheckAndSetNumericValue(txtAssistNo.Text) + clsFunction.sPipe +
+                        dbFunction.CheckAndSetNumericValue(txtProblemNo.Text);
 
                     Debug.WriteLine("Final ->clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
 

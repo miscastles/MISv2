@@ -1272,7 +1272,11 @@ namespace MIS
                                                             dbFunction.CheckAndSetNumericValue(txtCurSIMSN.Text) + clsFunction.sPipe +
 
                                                             dbFunction.CheckAndSetStringValue(txtVendor.Text) + clsFunction.sPipe +
-                                                            dbFunction.CheckAndSetStringValue(txtRequestor.Text);
+                                                            dbFunction.CheckAndSetStringValue(txtRequestor.Text) + clsFunction.sPipe +
+                                                            
+                                                            // helpdesk
+                                                            dbFunction.CheckAndSetNumericValue(txtAssistNo.Text) + clsFunction.sPipe +
+                                                            dbFunction.CheckAndSetNumericValue(txtProblemNo.Text);
 
                         Debug.WriteLine("Multiple Update->Value=" + clsSearch.ClassAdvanceSearchValue);
 
