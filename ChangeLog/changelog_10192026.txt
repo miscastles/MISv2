@@ -1,0 +1,40 @@
+﻿CHANGELOG
+Date: October 19, 2026
+Developer: Nikkor, Raiden, Stephen
+
+========================================================
+CHANGES
+
+========================================================
+
+1. frmMType.cs
+- Added maintenance support for Request Prioritization (29), POS Setup Type (30), and POS Connection Type (31).
+- Added the "IR -" prefix to the IR-specific Enrollment type groups to avoid naming conflicts.
+
+2. frmBankTemplateGen.cs
+- manual typing for POS Setup is now disabled.
+- Area 2 is limited to a maximum of 6 characters.
+- fixed the alignment issue with the design.
+
+3. clsAPI.cs
+- Added string cleaning method called EncodeSearchValue specifically for GET request to prevent search bugs related to merchant addresses
+
+4. frmServiceJobOrder.cs
+- Added txtAssistNo.text and txtProblemNo.txt within btnUpdateServiceDate_Click.
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmBankTemplateGen.cs
+- frmMType.cs
+- tblType ( inserted data no struct changes )
+- frmServiceJobOrder.cs
+- frmMType.cs
+- spUpdateCollectionDetail -> Multiple Update Service
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing
