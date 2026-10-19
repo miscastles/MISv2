@@ -23,6 +23,10 @@ namespace MIS
         public static bool isGroupLock = false;
         public static int iGroupType = 0;
         public static bool isAmountEntry = false;
+
+        private const int BANK_TEMPLATE_POS_SETUP_TYPE = 30;
+        private const int EXISTING_POS_SETUP_TYPE = 6;
+        private static readonly HashSet<int> EXISTING_POS_SETUP_TYPE_IDS = new HashSet<int> { 19, 22 };
         
         // Controller
         private TypeController _mTypeController;
@@ -84,7 +88,7 @@ namespace MIS
             if (isGroupLock)
             {
                 cboType.Enabled = false;                
-                cboType.Text = dbAPI.GetGroupType()[iGroupType];
+                cboType.Text = dbAPI.GetGroupTypeName(iGroupType);
 
                 txtGroupType.Text = iGroupType.ToString();
             }
@@ -104,7 +108,7 @@ namespace MIS
         {   
             if (!cboType.Text.Equals(clsFunction.sDefaultSelect) && !isGroupLock)
             {
-                txtGroupType.Text = cboType.SelectedIndex.ToString();
+                txtGroupType.Text = dbAPI.GetGroupTypeID(cboType.SelectedIndex).ToString();
                 loadData();
             }              
         }
@@ -112,13 +116,33 @@ namespace MIS
         private void loadData()
         {
             int lineno = 0;
-            int i = 0;
             List<TypeController> mList = null;
-            int pGroupType = (dbFunction.isValidID(txtGroupType.Text) ? int.Parse(dbFunction.CheckAndSetNumericValue(txtGroupType.Text)) : 1); // default load sim type
-
             dbFunction.ClearListViewItems(lvwList);
 
-            mList = _mTypeController.getDetailList(clsFunction.sZero + clsFunction.sPipe + pGroupType); 
+            int pGroupType;
+            if (!int.TryParse(txtGroupType.Text, out pGroupType) || pGroupType <= 0)
+            {
+                return;
+            }
+
+            mList = _mTypeController.getDetailList(clsFunction.sZero + clsFunction.sPipe + pGroupType);
+
+            // CASHOUT SETUP and RETAIL SETUP are legacy POS setup records under
+            // Type 6. Include those same records in the Bank Template POS Setup
+            // maintenance view instead of duplicating them under Type 30.
+            if (pGroupType == BANK_TEMPLATE_POS_SETUP_TYPE)
+            {
+                List<TypeController> existingPosSetupList = _mTypeController.getDetailList(
+                    clsFunction.sZero + clsFunction.sPipe + EXISTING_POS_SETUP_TYPE);
+
+                if (existingPosSetupList != null)
+                {
+                    mList.AddRange(existingPosSetupList.Where(item =>
+                        EXISTING_POS_SETUP_TYPE_IDS.Contains(item.TypeID) &&
+                        !mList.Any(existingItem => existingItem.TypeID == item.TypeID)));
+                }
+            }
+
             if (mList != null)
             {
                 if (mList != null)
@@ -129,7 +153,7 @@ namespace MIS
                         ListViewItem item = new ListViewItem(lineno.ToString());
                         item.SubItems.Add(itemData.TypeID.ToString());
                         item.SubItems.Add(itemData.Description);
-                        item.SubItems.Add(dbAPI.GetGroupType()[itemData.Type]);
+                        item.SubItems.Add(dbAPI.GetGroupTypeName(itemData.Type));
                         item.SubItems.Add(itemData.SequenceDisplay.ToString());
                         item.SubItems.Add(itemData.RentFee.ToString());
                         item.SubItems.Add(itemData.Price.ToString());
@@ -203,7 +227,7 @@ namespace MIS
 
             if (isGroupLock)
             {
-                cboType.Text = dbAPI.GetGroupType()[iGroupType];
+                cboType.Text = dbAPI.GetGroupTypeName(iGroupType);
                 txtGroupType.Text = iGroupType.ToString();
 
                 loadData();

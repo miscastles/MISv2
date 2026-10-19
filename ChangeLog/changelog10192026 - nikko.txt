@@ -1,0 +1,35 @@
+CHANGELOG
+Date: October 19, 2026
+Developer: Nikko Delos Reyes
+
+========================================================
+CHANGES
+
+========================================================
+
+1. Enrollment - Custom Type
+- Added maintenance support for Request Prioritization (29), POS Setup Type (30), and POS Connection Type (31).
+- Added the "IR -" prefix to the IR-specific Enrollment type groups to avoid naming conflicts.
+
+2. Bank Template Gen
+- manual typing for POS Setup is now disabled.
+- Area 2 is limited to a maximum of 6 characters.
+- fixed the alignment issue with the design.
+=====================================
+
+Database
+- Synchronized tblType lookup records for Request Prioritization (29), POS Setup (30), and POS Connection Type (31) across the supported bank databases.
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmBankTemplateGen.cs
+- frmMType.cs
+- clsAPI.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

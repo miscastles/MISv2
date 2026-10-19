@@ -12162,25 +12162,64 @@ namespace MIS
 
         public string[] GetGroupType()
         {
-            string[] ret = { clsFunction.sDefaultSelect, "SIM TYPE", "POS TYPE", "BILLING TYPE", "APPS TYPE", "ASSET TYPE", "POS SETUP TYPE", "PLAN TYPE", "TERM TYPE", "BILL TYPE", "SOURCE TYPE", "CATEGORY TYPE", "SUB CATEGORY TYPE", "MSP-CATEGORY", "MSP-NATURE OF BUSINESS", "MSP-BUSINESS TYPE", "MSP-REFERRAL TYPE", "MSP-SCHEME", "MSP-STATUS", "MSP-ACQUIRER", "MSP-MDR CREDIT", "MSP-MDR DEBIT", "MSP-MDR INST", "MSP-RESULT", "DEPEDENCY", "STATUS REASON" };
+            string[] ret = { clsFunction.sDefaultSelect, "SIM TYPE", "POS TYPE", "BILLING TYPE", "APPS TYPE", "ASSET TYPE", "POS SETUP TYPE", "PLAN TYPE", "TERM TYPE", "BILL TYPE", "SOURCE TYPE", "CATEGORY TYPE", "SUB CATEGORY TYPE", "MSP-CATEGORY", "MSP-NATURE OF BUSINESS", "MSP-BUSINESS TYPE", "MSP-REFERRAL TYPE", "MSP-SCHEME", "MSP-STATUS", "MSP-ACQUIRER", "MSP-MDR CREDIT", "MSP-MDR DEBIT", "MSP-MDR INST", "MSP-RESULT", "DEPEDENCY", "STATUS REASON", "INSTALLATION TYPE",};
 
             return ret;
         }
 
-        public void FillComboBoxGroupType(ComboBox obj)
+        public const int BankTemplateRequestPrioritizationType = 29;
+        public const int BankTemplatePosSetupType = 30;
+        public const int BankTemplatePosConnectionType = 31;
+
+        public string GetGroupTypeName(int groupType)
         {
-            int i = 0;
-
-            obj.Items.Clear();
-            while (GetGroupType().Length > i)
+            switch (groupType)
             {
-                obj.Items.Add(GetGroupType()[i]);
-
-                i++;
+                case BankTemplateRequestPrioritizationType:
+                    return "IR-REQUEST PRIORITIZATION";
+                case BankTemplatePosSetupType:
+                    return "IR-POS SETUP TYPE";
+                case BankTemplatePosConnectionType:
+                    return "IR-POS CONNECTION TYPE";
             }
 
-            if (i > 0)
-                obj.SelectedIndex = 0;
+            string[] groupTypes = GetGroupType();
+            return groupType >= 0 && groupType < groupTypes.Length
+                ? groupTypes[groupType]
+                : groupType.ToString();
+        }
+
+        public int GetGroupTypeID(int selectedIndex)
+        {
+            int existingGroupCount = GetGroupType().Length;
+            switch (selectedIndex - existingGroupCount)
+            {
+                case 0:
+                    return BankTemplateRequestPrioritizationType;
+                case 1:
+                    return BankTemplatePosSetupType;
+                case 2:
+                    return BankTemplatePosConnectionType;
+            }
+
+            return selectedIndex >= 0 && selectedIndex < existingGroupCount
+                ? selectedIndex
+                : 0;
+        }
+
+        public void FillComboBoxGroupType(ComboBox obj)
+        {
+            obj.Items.Clear();
+
+            foreach (string groupType in GetGroupType())
+            {
+                obj.Items.Add(groupType);
+            }
+
+            obj.Items.Add(GetGroupTypeName(BankTemplateRequestPrioritizationType));
+            obj.Items.Add(GetGroupTypeName(BankTemplatePosSetupType));
+            obj.Items.Add(GetGroupTypeName(BankTemplatePosConnectionType));
+            obj.SelectedIndex = 0;
         }
 
         public string[] GetReasonType()
