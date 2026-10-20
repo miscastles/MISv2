@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -778,12 +779,19 @@ namespace MIS
             clsGlobalVariables.isAPIResponseOK = false;
             clsGlobalVariables.strJSONRequest = "";
             clsGlobalVariables.strJSONResponse = "";
+            clsSearch.ClassOutParamValue = "";
 
             clsSearch.ClassRecordFound = true;
             clsSearch.ClassAPIMethod = APIMethod;
             clsSearch.ClassStatementType = StatementType;
             clsSearch.ClassMaintenanceType = MaintenanceType;
             clsSearch.ClassSearchBy = SearchBy;
+
+            if (APIMethod.CompareTo(clsGlobalVariables.sAPIMethod_GET) == 0)
+            {
+                SearchValue = EncodeSearchValue(SearchValue);
+            }
+
             clsSearch.ClassSearchValue = SearchValue;
             clsSearch.ClassSQL = SQL;
             clsSearch.ClassAction = Action;
@@ -13392,6 +13400,13 @@ namespace MIS
             string pJSON = getInfoDetailJSON("Search", SearchBy, SearchValue);
 
             return GetIntValueFromJSONString(pJSON, clsDefines.TAG_Result);
+        }
+
+        public static string EncodeSearchValue(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return "";
+
+            return Uri.EscapeDataString(Uri.UnescapeDataString(value));
         }
     }
 }

@@ -7318,7 +7318,9 @@ namespace MIS
                                       $"{pDate}{clsDefines.gPipe}{pTime}{clsDefines.gPipe}{pRequestDate}{clsDefines.gPipe}{pScheduleDate}{clsDefines.gPipe}" +
                                       $"{StrClean(txtProbReported.Text)}{clsDefines.gPipe}" +
                                       $"{StrClean(txtRMInstruction.Text)}{clsDefines.gPipe}" +
-                                      $"{StrClean(txtRemarks.Text)}";
+                                      $"{StrClean(txtRemarks.Text)}{clsDefines.gPipe}" +
+                                      $"{StrClean(txtAssistNo.Text)}{clsDefines.gPipe}" +
+                                      $"{StrClean(txtProblemNo.Text)}";
 
                 dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 

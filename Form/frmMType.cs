@@ -1,14 +1,15 @@
-﻿using System;
+﻿using MIS.Controller;
+using MIS.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using MIS.Controller;
 using static MIS.Function.AppUtilities;
 
 namespace MIS
@@ -19,7 +20,7 @@ namespace MIS
         private clsFunction dbFunction;
         public static string sHeader;
         bool fEdit = false;
-        
+
         public static bool isGroupLock = false;
         public static int iGroupType = 0;
         public static bool isAmountEntry = false;
@@ -27,7 +28,7 @@ namespace MIS
         private const int BANK_TEMPLATE_POS_SETUP_TYPE = 30;
         private const int EXISTING_POS_SETUP_TYPE = 6;
         private static readonly HashSet<int> EXISTING_POS_SETUP_TYPE_IDS = new HashSet<int> { 19, 22 };
-        
+
         // Controller
         private TypeController _mTypeController;
 
@@ -87,8 +88,8 @@ namespace MIS
 
             if (isGroupLock)
             {
-                cboType.Enabled = false;                
-                cboType.Text = dbAPI.GetGroupTypeName(iGroupType);
+                cboType.Enabled = false;
+                cboType.Text = GetGroupTypeName(iGroupType);
 
                 txtGroupType.Text = iGroupType.ToString();
             }
@@ -100,17 +101,17 @@ namespace MIS
             loadData();
 
             lblHeader.Text = "ENROLLMENT - " + sHeader;
-            
+
             Cursor.Current = Cursors.Default;
         }
 
         private void cboType_SelectedIndexChanged(object sender, EventArgs e)
-        {   
+        {
             if (!cboType.Text.Equals(clsFunction.sDefaultSelect) && !isGroupLock)
             {
-                txtGroupType.Text = dbAPI.GetGroupTypeID(cboType.SelectedIndex).ToString();
+                txtGroupType.Text = GetGroupTypeID(cboType.SelectedIndex).ToString();
                 loadData();
-            }              
+            }
         }
 
         private void loadData()
@@ -153,15 +154,15 @@ namespace MIS
                         ListViewItem item = new ListViewItem(lineno.ToString());
                         item.SubItems.Add(itemData.TypeID.ToString());
                         item.SubItems.Add(itemData.Description);
-                        item.SubItems.Add(dbAPI.GetGroupTypeName(itemData.Type));
+                        item.SubItems.Add(GetGroupTypeName(itemData.Type));
                         item.SubItems.Add(itemData.SequenceDisplay.ToString());
                         item.SubItems.Add(itemData.RentFee.ToString());
                         item.SubItems.Add(itemData.Price.ToString());
 
                         lvwList.Items.Add(item);
-                        
+
                     }
-                    
+
                     dbFunction.ListViewAlternateBackColor(lvwList);
 
                 }
@@ -204,7 +205,7 @@ namespace MIS
                     if (lvwList.Items.Count > 0 && dbFunction.isValidID(txtLineNo.Text))
                     {
                         lvwList_DoubleClick(this, e);
-                        
+
                     }
                     break;
             }
@@ -227,17 +228,17 @@ namespace MIS
 
             if (isGroupLock)
             {
-                cboType.Text = dbAPI.GetGroupTypeName(iGroupType);
+                cboType.Text = GetGroupTypeName(iGroupType);
                 txtGroupType.Text = iGroupType.ToString();
 
                 loadData();
             }
-                
+
             Cursor.Current = Cursors.Default;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
-        {   
+        {
             string sRowSQL = "";
             string sSQL = "";
 
@@ -250,12 +251,12 @@ namespace MIS
             {
                 sSQL = "";
                 sRowSQL = "";
-                sRowSQL = " ('" + StrClean(txtDescription.Text) + "', " +                
+                sRowSQL = " ('" + StrClean(txtDescription.Text) + "', " +
                 sRowSQL + sRowSQL + " '" + txtGroupType.Text + "') ";
                 sSQL = sSQL + sRowSQL;
 
                 dbAPI.ExecuteAPI("POST", "Insert", "", "", "Type", sSQL, "InsertMaintenanceMaster");
-                
+
                 dbFunction.SetMessageBox("Type has been successfully saved", "Saved", clsFunction.IconType.iInformation);
             }
             else
@@ -270,14 +271,14 @@ namespace MIS
                                                         dbFunction.CheckAndSetNumericValue(txtPrice.Text);
 
                     dbAPI.ExecuteAPI("PUT", "Update", "Type Info", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
-                    
+
                     dbFunction.SetMessageBox("Type has been successfully modified", "Edited", clsFunction.IconType.iInformation);
 
                 }
                 else
                 {
                     dbFunction.SetMessageBox("No selected record from list", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                }                
+                }
             }
 
             btnClear_Click(this, e);
@@ -305,7 +306,7 @@ namespace MIS
 
             btnAdd.Enabled = false;
             btnSave.Enabled = true;
-            
+
             dbFunction.TextBoxUnLock(true, this);
 
             if (!isGroupLock)
@@ -345,6 +346,54 @@ namespace MIS
             else
             {
                 txtRentFee.BackColor = txtPrice.BackColor = clsFunction.DisableBackColor;
+            }
+        }
+
+        public int GetGroupTypeID(int selectedIndex)
+        {
+            int existingGroupCount = dbAPI.GetGroupType().Length;
+
+            switch (selectedIndex - existingGroupCount)
+            {
+                case 0:
+                    return (int)BankColumnTemplateType.BankTemplateRequestPrioritizationType;   // 29
+                case 1:
+                    return (int)BankColumnTemplateType.BankTemplatePosSetupType;                // 30
+                case 2:
+                    return (int)BankColumnTemplateType.BankTemplatePosConnectionType;           // 31
+            }
+
+            if (selectedIndex >= 0 && selectedIndex < existingGroupCount)
+            {
+                return selectedIndex;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public string GetGroupTypeName(int groupType)
+        {
+            switch (groupType)
+            {
+                case (int)BankColumnTemplateType.BankTemplateRequestPrioritizationType:
+                    return "IR-REQUEST PRIORITIZATION";
+                case (int)BankColumnTemplateType.BankTemplatePosSetupType:
+                    return "IR-POS SETUP TYPE";
+                case (int)BankColumnTemplateType.BankTemplatePosConnectionType:
+                    return "IR-POS CONNECTION TYPE";
+            }
+
+            string[] groupTypes = dbAPI.GetGroupType();
+
+            if (groupType >= 0 && groupType < groupTypes.Length)
+            {
+                return groupTypes[groupType];
+            }
+            else
+            {
+                return groupType.ToString();
             }
         }
     }
