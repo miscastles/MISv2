@@ -10375,6 +10375,8 @@ namespace MIS
         {
             string sTemp = "";
 
+            SearchValue = Uri.UnescapeDataString(SearchValue);
+
             switch (SearchBy)
             {
                 case "Region":
