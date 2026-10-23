@@ -1,0 +1,41 @@
+﻿﻿CHANGELOG
+Date: October 23, 2026
+Developer: Raiden K. Fernando
+
+========================================================
+CHANGES
+========================================================
+
+1. frmServiceJobOrder.cs
+	- Added a isEncoded: true for zoning checks to prevent fetch error
+
+2. clsApi.cs
+	- Added a conditional isEncoded value to getInfoDetail method so calls can conditionally be encoded
+
+3. frmImportTerminal.cs
+	- Fixed issue where terminal information isnt being loaded
+	- Fixed issue where an error occurs when loading a terminal
+
+4. frmImportSIM.cs
+	- Fixed issue where sim information isnt being loaded 
+	- Fixed issue where an occurs when loading a sim
+	- Changed tab from Manul Entry -> Manual Entry
+
+5. frmUser.cs
+	- Fixed an issue where logged in user changes when opening the form
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmServiceJobOrder.cs
+- clsApi.cs
+- frmImportTerminal.cs
+- frmImportSIM.cs
+- frmUser.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

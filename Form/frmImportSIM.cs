@@ -2135,19 +2135,13 @@ namespace MIS
                     txtMRemarks.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 9);
 
                     // -----------------------------------------------------------------------------
-                    // Date 
+                    // Date
                     // -----------------------------------------------------------------------------
-                    string pTemp = "";
-                    pTemp = dbFunction.GetDateFromParse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 12), clsFunction.sValueDateFormat, clsFunction.sDateDefaultFormat);
-                    dteMDeliveryDate.Value = DateTime.Parse(pTemp);
-
-                    pTemp = dbFunction.GetDateFromParse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 13), clsFunction.sValueDateFormat, clsFunction.sDateDefaultFormat);
-                    dteMReceiveDate.Value = DateTime.Parse(pTemp);
-
-                    pTemp = dbFunction.GetDateFromParse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 14), clsFunction.sValueDateFormat, clsFunction.sDateDefaultFormat);
-                    dteMReleaseDate.Value = DateTime.Parse(pTemp);
+                    dbFunction.SetDatePickerValue(dteMDeliveryDate, dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 12));
+                    dbFunction.SetDatePickerValue(dteMReceiveDate, dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 13));
+                    dbFunction.SetDatePickerValue(dteMReleaseDate, dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 14));
                     // -----------------------------------------------------------------------------
-                    // Date 
+                    // Date
                     // -----------------------------------------------------------------------------
 
                     txtServiceNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 10);

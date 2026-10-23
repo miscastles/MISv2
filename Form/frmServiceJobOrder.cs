@@ -7750,9 +7750,10 @@ namespace MIS
             try
             {
                 string pJSONString = dbAPI.getInfoDetailJSON(
-                    "Search",
-                    "Search Zoning Info",
-                    $"{txtMerchantAddress.Text}{clsDefines.gPipe}{txtMerchantCity.Text}");
+                    "Search", 
+                    "Search Zoning Info", 
+                    $"{txtMerchantAddress.Text}{clsDefines.gPipe}{txtMerchantCity.Text}", 
+                    isEncoded: true);
 
                 if (!dbFunction.isValidDescription(pJSONString))
                 {

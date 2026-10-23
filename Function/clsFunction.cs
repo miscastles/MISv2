@@ -7762,5 +7762,18 @@ namespace MIS
                 return false;
             }
         }
+
+        public void SetDatePickerValue(DateTimePicker picker, string rawDate)
+        {
+            if (DateTime.TryParse(rawDate, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
+            {
+                Debug.WriteLine($"Date time: {picker.Name}: [{rawDate}]");
+                picker.Value = parsedDate;
+            }
+            else
+            {
+                Debug.WriteLine($"Invalid date for: {picker.Name}: [{rawDate}]");
+            }
+        }
     }
 }

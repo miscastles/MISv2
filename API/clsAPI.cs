@@ -779,18 +779,12 @@ namespace MIS
             clsGlobalVariables.isAPIResponseOK = false;
             clsGlobalVariables.strJSONRequest = "";
             clsGlobalVariables.strJSONResponse = "";
-            clsSearch.ClassOutParamValue = "";
 
             clsSearch.ClassRecordFound = true;
             clsSearch.ClassAPIMethod = APIMethod;
             clsSearch.ClassStatementType = StatementType;
             clsSearch.ClassMaintenanceType = MaintenanceType;
             clsSearch.ClassSearchBy = SearchBy;
-
-            if (APIMethod.CompareTo(clsGlobalVariables.sAPIMethod_GET) == 0)
-            {
-                SearchValue = EncodeSearchValue(SearchValue);
-            }
 
             clsSearch.ClassSearchValue = SearchValue;
             clsSearch.ClassSQL = SQL;
@@ -11617,11 +11611,18 @@ namespace MIS
                 obj.SelectedIndex = 0;
         }
 
-        public string getInfoDetailJSON(string pStatementType, string pSearchBy, string pSearchValue)
+        public string getInfoDetailJSON(string pStatementType, string pSearchBy, string pSearchValue, bool isEncoded = false)
         {
             string pOutput = "";
-            ExecuteAPI("GET", pStatementType, pSearchBy, pSearchValue, "Get Info Detail", "", "GetInfoDetail");
-            //Debug.WriteLine("clsSearch.ClassOutParamValue=" + clsSearch.ClassOutParamValue);
+            string searchValue = pSearchValue;
+
+            if (isEncoded)
+            {
+                searchValue = EncodeSearchValue(pSearchValue);
+            }
+
+            ExecuteAPI("GET", pStatementType, pSearchBy, searchValue, "Get Info Detail", "", "GetInfoDetail");
+
             if (clsSearch.ClassOutParamValue.Length > 0)
             {
                 jsonObj obj = JsonConvert.DeserializeObject<jsonObj>(clsSearch.ClassOutParamValue);
@@ -11629,7 +11630,6 @@ namespace MIS
                 if (!isNoRecordFound())
                 {
                     pOutput = clsSearch.ClassOutParamValue;
-
                 }
             }
 

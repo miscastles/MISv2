@@ -248,40 +248,31 @@ namespace MIS
         {
             int i = 0;
 
-            ClearListView();            
+            ClearListView();
             dbAPI.ExecuteAPI("GET", "View", "", "", "User", "", "ViewUser");
 
             if (!clsGlobalVariables.isAPIResponseOK) return;
 
             while (clsArray.UserID.Length > i)
             {
-                
-                clsUser.ClassUserID = int.Parse(clsArray.UserID[i].ToString());
-                clsUser.ClassUserName = clsArray.UserName[i];
-                clsUser.ClassPassword = clsArray.Password[i];
-                clsUser.ClassUserFullName = clsArray.FullName[i];
-                clsUser.ClassUserType = clsArray.UserType[i];
-                clsUser.ClassParticularID = int.Parse(clsArray.ParticularID[i]);
-                clsUser.ClassMobileTerminalID = clsArray.MobileTerminalID[i];
-
+                AddItem(i + 1, i);
                 i++;
-
-                AddItem(i);
             }
 
             dbFunction.ListViewAlternateBackColor(lvwUser);
         }
-        private void AddItem(int inLineNo)
+
+        private void AddItem(int inLineNo, int inIndex)
         {
-            // Add to List            
+            // Add to List (do not touch clsUser — it holds the logged-in user)
             ListViewItem item = new ListViewItem(inLineNo.ToString());
-            item.SubItems.Add(clsUser.ClassUserID.ToString());
-            item.SubItems.Add(clsUser.ClassUserName.ToString());
-            item.SubItems.Add(clsUser.ClassPassword.ToString());
-            item.SubItems.Add(clsUser.ClassUserFullName.ToString());
-            item.SubItems.Add(clsUser.ClassUserType.ToString());
-            item.SubItems.Add(clsUser.ClassParticularID.ToString());
-            item.SubItems.Add(clsUser.ClassMobileTerminalID.ToString());
+            item.SubItems.Add(int.Parse(clsArray.UserID[inIndex].ToString()).ToString());
+            item.SubItems.Add(clsArray.UserName[inIndex]);
+            item.SubItems.Add(clsArray.Password[inIndex]);
+            item.SubItems.Add(clsArray.FullName[inIndex]);
+            item.SubItems.Add(clsArray.UserType[inIndex]);
+            item.SubItems.Add(int.Parse(clsArray.ParticularID[inIndex]).ToString());
+            item.SubItems.Add(clsArray.MobileTerminalID[inIndex]);
 
             lvwUser.Items.Add(item);
         }
