@@ -13371,5 +13371,39 @@ namespace MIS
 
             return Uri.EscapeDataString(Uri.UnescapeDataString(value));
         }
+
+        private string EscapeJSONValue(string pJSON)
+        {
+            if (string.IsNullOrEmpty(pJSON)) return "{}";
+
+            return pJSON.Replace("\\", "\\\\").Replace("'", "''");
+        }
+
+        public void SaveOverrideLogAudit(string pIRNo, int pIRIDNo, string pModuleLabel, string pPreviousData, string pNewData)
+        {
+            Debug.WriteLine("--SaveOverrideLogAudit--");
+
+            dbFunction.GetProcessedByAndDateTime(); // Get processedby
+
+            var Data = new
+            {
+                IRNo = pIRNo,
+                IRIDNo = pIRIDNo,
+                Module = pModuleLabel,
+                PreviousData = JToken.Parse(string.IsNullOrEmpty(pPreviousData) ? "{}" : pPreviousData),
+                NewData = JToken.Parse(string.IsNullOrEmpty(pNewData) ? "{}" : pNewData),
+                ProcessedBy = clsUser.ClassProcessedBy,
+                ComputerName = clsGlobalVariables.strComputerName,
+                ComputerIP = clsGlobalVariables.strLocalIP
+            };
+
+            string pJSON = JsonConvert.SerializeObject(Data);
+            Debug.WriteLine("pJSON=" + pJSON);
+
+            // Base64: InsertCollectionDetail wraps p_SQL in "...", raw JSON quotes would break it; SP decodes with FROM_BASE64
+            string pSQL = Convert.ToBase64String(Encoding.UTF8.GetBytes(pJSON));
+
+            ExecuteAPI("POST", "Insert", "", "", "Override Log", pSQL, "InsertCollectionDetail");
+        }
     }
 }

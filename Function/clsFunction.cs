@@ -7775,5 +7775,40 @@ namespace MIS
                 Debug.WriteLine($"Invalid date for: {picker.Name}: [{rawDate}]");
             }
         }
+
+        public int ParseInt(string value)
+        {
+            int result;
+            return int.TryParse((value ?? "").Trim(), out result) ? result : 0;
+        }
+
+        public string ParseString(object value)
+        {
+            return (value?.ToString() ?? "").Trim();
+        }
+
+        public void SetNumericOnly(TextBox txt)
+        {
+            if (txt == null) return;
+            txt.KeyPress += (s, e) =>
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                    e.Handled = true;
+            };
+
+            txt.TextChanged += (s, e) =>
+            {
+                string digits = new string(txt.Text.Where(char.IsDigit).ToArray());
+
+                if (digits != txt.Text)
+                {
+                    int removed = txt.Text.Length - digits.Length;
+                    int pos = Math.Max(0, txt.SelectionStart - removed);
+
+                    txt.Text = digits;
+                    txt.SelectionStart = Math.Min(pos, digits.Length);
+                }
+            };
+        }
     }
 }

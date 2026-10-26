@@ -156,7 +156,7 @@ namespace MIS
             dbAPI.FillComboBoxTypeByGroup(cboSubCategory, (int)GroupType.SubCategoryType);
             dbAPI.FillComboBoxTypeByGroup(cboShipMethod, (int)GroupType.DeploymentMethod);
 
-            // Zoning Loolup            
+            // Zoning Lookup            
             getZoningInfo();
 
             ComboBoxDefaultSelect();

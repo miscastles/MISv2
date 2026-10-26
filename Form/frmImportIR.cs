@@ -89,6 +89,8 @@ namespace MIS
             dbFunction.setDoubleBuffer(lvwServiceSummary, true);
             dbFunction.setDoubleBuffer(lvwList, true);
 
+            dbFunction.SetNumericOnly(txtIRTID);
+            dbFunction.SetNumericOnly(txtIRMID);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -373,7 +375,7 @@ namespace MIS
 
                     if (x == iRequestDate && !string.IsNullOrEmpty(sRequestDate))
                     {
-                        if (DateTime.TryParse(sRequestDate, out DateTime dtRequest))
+                        if (DateTime.TryParse(sRequestDate, out DateTime dtRequest))        
                             sCellValue = dtRequest.ToString("yyyy-MM-dd");
                         else
                             sCellValue = clsDefines.DEV_DATE;
@@ -2416,7 +2418,6 @@ namespace MIS
 
             dbFunction.SetButtonIconImage(btnMerchantSearch);
             dbFunction.SetButtonIconImage(btnMerchantListSearch);
-
         }
 
         private void btnMerchantSearch_Click(object sender, EventArgs e)
@@ -2432,7 +2433,6 @@ namespace MIS
                 clsSearch.ClassClientID = modelSearch.ClientID;
 
                 modelSearch.DebugSearch();
-
             }
             else
             {
@@ -2474,6 +2474,8 @@ namespace MIS
                     btnMSave.Enabled = true;
                     btnMerchantSearch.Enabled = false;
 
+                    txtIRIDNo.Enabled = true;
+                    txtIRMID.Enabled = true;
                 }
                 else
                 {
@@ -3178,6 +3180,8 @@ namespace MIS
             string rawdata_info;
             string profile_config_info;
 
+            modelSearch.HoldClear();
+
             txtMerchantName.Text =
             txtMerchantAddress.Text =
             txtMerchantProvince.Text =
@@ -3244,7 +3248,7 @@ namespace MIS
 
                         txtMInstruction.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 21);
 
-                        cboRequestType.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);
+                        cboRequestType.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 35);
 
                         // Zoning
                         txtZoneID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 36);
@@ -3279,6 +3283,13 @@ namespace MIS
                             //dbFunction.populateListViewFromJsonString(dgvProfile, profile_info, clsDefines.ROOTKEY_PROFILE_INFO, clsDefines.gNull);
                             dbFunction.populateListViewFromJsonString(dgvIRProfileConfig, profile_config_info, clsDefines.ROOTKEY_PROFILE_CONFIG_INFO, clsDefines.NESTED_OBJECT_VALUES);
                         }
+
+                        modelSearch.HoldData.Save(new modelSearch.HoldData
+                        {
+                            // Search
+                            TID = dbFunction.ParseString(txtIRTID.Text),
+                            MID = dbFunction.ParseString(txtIRMID.Text)
+                        });
 
                         fEdit = true;
                     }
@@ -4683,42 +4694,59 @@ namespace MIS
                 }
 
                 string pCheckValue = $"{requestid}{clsDefines.gPipe}" +
-                                         $"{requesttype}{clsDefines.gPipe}" +
-                                         $"{address}{clsDefines.gPipe}" +
-                                         $"{area1}{clsDefines.gPipe}" +
-                                         $"{city}";
+                                     $"{requesttype}{clsDefines.gPipe}" +
+                                     $"{address}{clsDefines.gPipe}" +
+                                     $"{area1}{clsDefines.gPipe}" +
+                                     $"{city}{clsDefines.gPipe}" +
+                                     $"{tid}";
                 /*
                  ERROR CODES
-                 0 = IRNo check
-                 1 = RequestType Check
-                 2 = Zoning CityMunicipal Check
-                 3 = Zoning Matching Check
+                 0 = ok
+                 1 = irno
+                 2 = request type
+                 3 = zoning city
+                 4 = zoning missing
+                 5 = tid 
                  */
 
-                switch (dbAPI.GetCheckResult("IR Import Row Check", pCheckValue))
+                string pJSON = dbAPI.getInfoDetailJSON("Search", "IR Import Row Check", pCheckValue);
+
+                if (string.IsNullOrWhiteSpace(pJSON))
                 {
-                    case clsDefines.IR_CHECK_OK: break;
+                    dbFunction.SetMessageBox(
+                        $"Line#: {row.Index + 1}\n" +
+                        "Unable to validate this row. Please try again.",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return false;
+                }
+
+                switch (dbAPI.GetIntValueFromJSONString(pJSON, clsDefines.TAG_Result))
+                {
+                    case clsDefines.IR_CHECK_OK: 
+                        break;
 
                     case clsDefines.IR_CHECK_IRNO_DUPLICATE:
-                        {
-                            dbFunction.SetMessageBox($"Request ID [{requestid}] already exists.",
-                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                            return false;
-                        }
+                        dbFunction.SetMessageBox(
+                        $"Line#: {row.Index + 1}\n" +
+                        $"Request ID [{requestid}] already exists.",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
+                    
                     case clsDefines.IR_CHECK_REQUEST_TYPE:
-                        {
-                            dbFunction.SetMessageBox($"Request Type [{requesttype}] must be enrolled.",
-                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                            return false;
-                        }
+                        dbFunction.SetMessageBox(
+                        $"Line#: {row.Index + 1}\n" +
+                        $"Request Type [{requesttype}] must be enrolled.",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
+                    
                     case clsDefines.IR_CHECK_ZONING_CITY:
-                        {
-                            dbFunction.SetMessageBox($"Zoning City [{city}] must be enrolled.",
-                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                            return false;
-                        }
+                        dbFunction.SetMessageBox(
+                        $"Line#: {row.Index + 1}\n" +
+                        $"Zoning City [{city}] must be enrolled .",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
+
                     case clsDefines.IR_CHECK_ZONING_MATCH:
-                        {
                             dbFunction.SetMessageBox(
                             $"Line#: {row.Index + 1}\n" +
                             $"Request ID: [{requestid}]\n" +
@@ -4732,15 +4760,24 @@ namespace MIS
                             "Please verify the information above or enroll the location in the Zoning.",
                             clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                             return false;
-                        }
+                    
+                    case clsDefines.IR_CHECK_TID:
+                            dbFunction.SetMessageBox(
+                            $"Line#: {row.Index + 1}\n" +
+                            $"Request ID: [{requestid}]\n" +
+                            $"Merchant: [{merchantname}]\n" +
+                            $"TID: [{tid}]\n" +
+                            $"MID: [{mid}]\n\n" +
+                            "There is already an active IR for this TID.",
+                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
+
                     default:
-                        {
                             dbFunction.SetMessageBox(
                             $"Line#: {row.Index + 1}\nRequest ID: [{requestid}]\n\n" +
                             $"Row validation failed.\n\n{clsDefines.CONTACT_ADMIN_MESSAGE}",
                             clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                             return false;
-                        }
                 }
             }
 
@@ -4917,5 +4954,66 @@ namespace MIS
                 }
             }
         }
+
+        private void btnUpdateMerchantInfo_Click(object sender, EventArgs e)
+        {
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isUpdate, clsUser.ClassUserID, 25)) return;
+
+            txtIRTID.Text = dbFunction.padLeftChar(txtIRTID.Text.Trim(), clsFunction.sZero, clsFunction.TID_LENGTH);
+            txtIRMID.Text = dbFunction.padLeftChar(txtIRMID.Text.Trim(), clsFunction.sZero, clsFunction.MID_LENGTH);
+
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iTID, txtIRTID.Text)) return;
+            if (!dbFunction.isValidEntry(clsFunction.CheckType.iMID, txtIRMID.Text)) return;
+
+            string oldTID = dbAPI.GetValueFromJSONString(modelSearch.PreviousData, "TID");
+            string oldMID = dbAPI.GetValueFromJSONString(modelSearch.PreviousData, "MID");
+
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                if (!dbAPI.isPromptAdminLogIn()) return;
+                if (!dbFunction.fPromptConfirmation(
+                "IR Merchant Information:\n\n" +
+                "* TID\n" +
+                $"   Old : [{oldTID}]\n" +
+                $"   New : [{txtIRTID.Text}]\n" +
+                "* MID\n" +
+                $"   Old : [{oldMID}]\n" +
+                $"   New : [{txtIRMID.Text}]\n" +
+                "\nAre you sure to continue update?"
+                )) return;
+
+                string pSearchValue = $"{txtIRNo.Text}{clsDefines.gPipe}" +
+                                      $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                                      $"{txtIRTID.Text}{clsDefines.gPipe}" +
+                                      $"{txtIRMID.Text}";
+
+                dbAPI.ExecuteAPI("PUT", "Update", "Update IR TID/MID", pSearchValue, "", "", "UpdateCollectionDetail");
+
+                if (!clsGlobalVariables.isAPIResponseOK) return;
+
+                string pPreviousData = JFunc.Serialized(new { TID = oldTID, MID = oldMID });
+                string pNewData = JFunc.Serialized(new { TID = txtIRTID.Text, MID = txtIRMID.Text });
+
+                dbAPI.SaveOverrideLogAudit(dbFunction.ParseString(txtIRNo.Text),
+                                           dbFunction.ParseInt(txtIRIDNo.Text),
+                                           lblHeader.Text,
+                                           pPreviousData,
+                                           pNewData);
+
+                modelSearch.HoldData.Save(new modelSearch.HoldData
+                {
+                    TID = dbFunction.ParseString(txtIRTID.Text),
+                    MID = dbFunction.ParseString(txtIRMID.Text)
+                });
+
+                dbFunction.SetMessageBox("IR TID/MID updated.", lblHeader.Text, clsFunction.IconType.iInformation);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
     }
-}
+}   
