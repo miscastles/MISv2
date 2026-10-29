@@ -30,6 +30,7 @@ namespace MIS
             this.pnlContent = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblTotal = new System.Windows.Forms.Label();
+            this.lblSelectedRows = new System.Windows.Forms.Label();
             this.lblTotalImported = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -71,7 +72,6 @@ namespace MIS
             this.colIrContactNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.btnApplyToSelected = new System.Windows.Forms.Button();
-            this.lblSelectedRows = new System.Windows.Forms.Label();
             this.btnGenerate = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
@@ -196,26 +196,37 @@ namespace MIS
             this.panel2.Controls.Add(this.lblTotal);
             this.panel2.Controls.Add(this.lblSelectedRows);
             this.panel2.Controls.Add(this.lblTotalImported);
-            this.panel2.Location = new System.Drawing.Point(943, 647);
+            this.panel2.Location = new System.Drawing.Point(946, 654);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(433, 35);
+            this.panel2.Size = new System.Drawing.Size(433, 28);
             this.panel2.TabIndex = 8;
             // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblTotal.Location = new System.Drawing.Point(56, 9);
+            this.lblTotal.Location = new System.Drawing.Point(45, 6);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(14, 14);
             this.lblTotal.TabIndex = 3;
             this.lblTotal.Text = "0";
             // 
+            // lblSelectedRows
+            // 
+            this.lblSelectedRows.AutoSize = true;
+            this.lblSelectedRows.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.lblSelectedRows.ForeColor = System.Drawing.Color.Navy;
+            this.lblSelectedRows.Location = new System.Drawing.Point(301, 6);
+            this.lblSelectedRows.Name = "lblSelectedRows";
+            this.lblSelectedRows.Size = new System.Drawing.Size(126, 14);
+            this.lblSelectedRows.TabIndex = 5;
+            this.lblSelectedRows.Text = "0 ROW(S) SELECTED";
+            // 
             // lblTotalImported
             // 
             this.lblTotalImported.AutoSize = true;
             this.lblTotalImported.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblTotalImported.Location = new System.Drawing.Point(7, 9);
+            this.lblTotalImported.Location = new System.Drawing.Point(3, 6);
             this.lblTotalImported.Name = "lblTotalImported";
             this.lblTotalImported.Size = new System.Drawing.Size(56, 14);
             this.lblTotalImported.TabIndex = 2;
@@ -639,17 +650,6 @@ namespace MIS
             this.btnApplyToSelected.TabIndex = 4;
             this.btnApplyToSelected.Text = "APPLY CELL TO SELECTED";
             this.btnApplyToSelected.UseVisualStyleBackColor = true;
-            // 
-            // lblSelectedRows
-            // 
-            this.lblSelectedRows.AutoSize = true;
-            this.lblSelectedRows.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblSelectedRows.ForeColor = System.Drawing.Color.Navy;
-            this.lblSelectedRows.Location = new System.Drawing.Point(287, 9);
-            this.lblSelectedRows.Name = "lblSelectedRows";
-            this.lblSelectedRows.Size = new System.Drawing.Size(126, 14);
-            this.lblSelectedRows.TabIndex = 5;
-            this.lblSelectedRows.Text = "0 ROW(S) SELECTED";
             // 
             // btnGenerate
             // 

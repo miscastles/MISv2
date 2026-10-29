@@ -26,6 +26,9 @@ namespace MIS
         private clsINI dbINI;
         private clsFile dbFile;
 
+        private Color defaultFormBackColor;
+        private Color defaultPanelLeftBackColor;
+
         public bool IsSwitchBankMode { get; set; } = false;
 
         protected override CreateParams CreateParams
@@ -41,6 +44,9 @@ namespace MIS
         public frmLogin()
         {
             InitializeComponent();
+
+            defaultFormBackColor = this.BackColor;
+            defaultPanelLeftBackColor = pnlLeft.BackColor;
             //AdminRelauncher();
         }
 
@@ -445,7 +451,7 @@ namespace MIS
             frmChangePassword frm = new frmChangePassword();
             frm.ShowDialog();
         }
-        
+
         private void cboBank_SelectedIndexChanged(object sender, EventArgs e)
         {
             imgBankLogo.Visible = false;
@@ -459,10 +465,14 @@ namespace MIS
 
                 imgBankLogo.Visible = true;
                 dbFunction.InitBankLogo(imgBankLogo);
-
-                lblAPIDetail.Text = dbFunction.GetURLDetail();
             }
-                
+            else
+            {
+                pnlLeft.BackColor = defaultPanelLeftBackColor;
+                this.BackColor = defaultFormBackColor;
+            }
+
+            lblAPIDetail.Text = dbFunction.GetURLDetail();
         }
 
         private void getBankInfo()

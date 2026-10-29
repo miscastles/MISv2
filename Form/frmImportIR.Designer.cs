@@ -33,8 +33,8 @@ namespace MIS
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmImportIR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel4 = new System.Windows.Forms.Panel();
             this.txtID = new System.Windows.Forms.TextBox();
             this.btnExit = new Bunifu.Framework.UI.BunifuImageButton();
@@ -100,7 +100,6 @@ namespace MIS
             this.chkOverwrite = new System.Windows.Forms.CheckBox();
             this.lblSelectedRow = new System.Windows.Forms.Label();
             this.panel37 = new System.Windows.Forms.Panel();
-            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
             this.label7 = new System.Windows.Forms.Label();
@@ -345,12 +344,13 @@ namespace MIS
             this.txtIRTID = new System.Windows.Forms.TextBox();
             this.txtIRMID = new System.Windows.Forms.TextBox();
             this.panel10 = new System.Windows.Forms.Panel();
+            this.label162 = new System.Windows.Forms.Label();
+            this.btnUpdateMerchantInfo = new Bunifu.Framework.UI.BunifuImageButton();
             this.label12 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.btnMClear = new System.Windows.Forms.Button();
             this.btnMAdd = new System.Windows.Forms.Button();
             this.btnMSave = new System.Windows.Forms.Button();
-            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
             this.txtMerchantTelNo = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtClientTelNo = new System.Windows.Forms.TextBox();
@@ -373,6 +373,9 @@ namespace MIS
             this.lvwSearch = new System.Windows.Forms.ListView();
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.txtRentalFeeID = new System.Windows.Forms.TextBox();
+            this.worker = new System.ComponentModel.BackgroundWorker();
+            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
+            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddMerchant)).BeginInit();
@@ -459,6 +462,7 @@ namespace MIS
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnUpdateMerchantInfo)).BeginInit();
             this.panel32.SuspendLayout();
             this.bunifuCards10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddMerchantImport)).BeginInit();
@@ -1297,14 +1301,6 @@ namespace MIS
             this.panel37.Size = new System.Drawing.Size(465, 2);
             this.panel37.TabIndex = 0;
             // 
-            // ucStatusDisplay
-            // 
-            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
-            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucStatusDisplay.Name = "ucStatusDisplay";
-            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
-            this.ucStatusDisplay.TabIndex = 346;
-            // 
             // txtRemarks
             // 
             this.txtRemarks.BackColor = System.Drawing.Color.White;
@@ -1520,8 +1516,8 @@ namespace MIS
             // 
             this.grdList.AllowUserToAddRows = false;
             this.grdList.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 8.25F);
-            this.grdList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 8.25F);
+            this.grdList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.grdList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grdList.BackgroundColor = System.Drawing.Color.GhostWhite;
             this.grdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -1531,8 +1527,8 @@ namespace MIS
             this.grdList.Name = "grdList";
             this.grdList.ReadOnly = true;
             this.grdList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.grdList.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.grdList.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdList.Size = new System.Drawing.Size(899, 564);
             this.grdList.TabIndex = 105;
@@ -1952,7 +1948,7 @@ namespace MIS
             this.bunifuSeparator2.Location = new System.Drawing.Point(8, 150);
             this.bunifuSeparator2.Margin = new System.Windows.Forms.Padding(5);
             this.bunifuSeparator2.Name = "bunifuSeparator2";
-            this.bunifuSeparator2.Size = new System.Drawing.Size(395, 1);
+            this.bunifuSeparator2.Size = new System.Drawing.Size(396, 1);
             this.bunifuSeparator2.TabIndex = 506;
             this.bunifuSeparator2.Transparency = 255;
             this.bunifuSeparator2.Vertical = false;
@@ -3233,10 +3229,9 @@ namespace MIS
             this.panel24.Controls.Add(this.label15);
             this.panel24.Controls.Add(this.txtMerchantContactPerson);
             this.panel24.Controls.Add(this.label16);
-            this.panel24.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel24.Location = new System.Drawing.Point(193, 0);
             this.panel24.Name = "panel24";
-            this.panel24.Size = new System.Drawing.Size(287, 216);
+            this.panel24.Size = new System.Drawing.Size(284, 216);
             this.panel24.TabIndex = 6;
             // 
             // txtZCityMunicipal
@@ -4106,6 +4101,7 @@ namespace MIS
             this.txtAppCRC.BackColor = System.Drawing.Color.White;
             this.txtAppCRC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAppCRC.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtAppCRC.Enabled = false;
             this.txtAppCRC.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.txtAppCRC.Location = new System.Drawing.Point(379, 24);
             this.txtAppCRC.Name = "txtAppCRC";
@@ -4118,6 +4114,7 @@ namespace MIS
             this.txtAppVersion.BackColor = System.Drawing.Color.White;
             this.txtAppVersion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAppVersion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtAppVersion.Enabled = false;
             this.txtAppVersion.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.txtAppVersion.Location = new System.Drawing.Point(379, 3);
             this.txtAppVersion.Name = "txtAppVersion";
@@ -4218,7 +4215,6 @@ namespace MIS
             this.txtIRTID.Location = new System.Drawing.Point(36, 3);
             this.txtIRTID.MaxLength = 8;
             this.txtIRTID.Name = "txtIRTID";
-            this.txtIRTID.ReadOnly = true;
             this.txtIRTID.Size = new System.Drawing.Size(135, 20);
             this.txtIRTID.TabIndex = 320;
             // 
@@ -4231,13 +4227,14 @@ namespace MIS
             this.txtIRMID.Location = new System.Drawing.Point(36, 24);
             this.txtIRMID.MaxLength = 15;
             this.txtIRMID.Name = "txtIRMID";
-            this.txtIRMID.ReadOnly = true;
             this.txtIRMID.Size = new System.Drawing.Size(135, 20);
             this.txtIRMID.TabIndex = 321;
             // 
             // panel10
             // 
             this.panel10.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel10.Controls.Add(this.label162);
+            this.panel10.Controls.Add(this.btnUpdateMerchantInfo);
             this.panel10.Controls.Add(this.label12);
             this.panel10.Controls.Add(this.panel11);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
@@ -4246,6 +4243,31 @@ namespace MIS
             this.panel10.Size = new System.Drawing.Size(476, 24);
             this.panel10.TabIndex = 311;
             // 
+            // label162
+            // 
+            this.label162.AutoSize = true;
+            this.label162.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label162.ForeColor = System.Drawing.Color.Blue;
+            this.label162.Location = new System.Drawing.Point(137, 4);
+            this.label162.Name = "label162";
+            this.label162.Size = new System.Drawing.Size(104, 15);
+            this.label162.TabIndex = 445;
+            this.label162.Text = "OVERRIDE UPDATE";
+            // 
+            // btnUpdateMerchantInfo
+            // 
+            this.btnUpdateMerchantInfo.BackColor = System.Drawing.Color.Transparent;
+            this.btnUpdateMerchantInfo.Image = global::MIS.Properties.Resources.ic_save;
+            this.btnUpdateMerchantInfo.ImageActive = null;
+            this.btnUpdateMerchantInfo.Location = new System.Drawing.Point(241, 2);
+            this.btnUpdateMerchantInfo.Name = "btnUpdateMerchantInfo";
+            this.btnUpdateMerchantInfo.Size = new System.Drawing.Size(24, 21);
+            this.btnUpdateMerchantInfo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnUpdateMerchantInfo.TabIndex = 444;
+            this.btnUpdateMerchantInfo.TabStop = false;
+            this.btnUpdateMerchantInfo.Zoom = 10;
+            this.btnUpdateMerchantInfo.Click += new System.EventHandler(this.btnUpdateMerchantInfo_Click);
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -4253,9 +4275,9 @@ namespace MIS
             this.label12.ForeColor = System.Drawing.Color.Black;
             this.label12.Location = new System.Drawing.Point(3, 4);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(128, 15);
+            this.label12.Size = new System.Drawing.Size(138, 15);
             this.label12.TabIndex = 310;
-            this.label12.Text = "PROFILE INFORMATION";
+            this.label12.Text = "PROFILE INFORMATION |";
             // 
             // panel11
             // 
@@ -4317,14 +4339,6 @@ namespace MIS
             this.btnMSave.Text = "SAVE";
             this.btnMSave.UseVisualStyleBackColor = false;
             this.btnMSave.Click += new System.EventHandler(this.btnMSave_Click);
-            // 
-            // ucInfoDataGridView
-            // 
-            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
-            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
-            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
-            this.ucInfoDataGridView.Size = new System.Drawing.Size(466, 333);
-            this.ucInfoDataGridView.TabIndex = 484;
             // 
             // txtMerchantTelNo
             // 
@@ -4588,6 +4602,22 @@ namespace MIS
             this.txtRentalFeeID.Visible = false;
             this.txtRentalFeeID.WordWrap = false;
             // 
+            // ucStatusDisplay
+            // 
+            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
+            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ucStatusDisplay.Name = "ucStatusDisplay";
+            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
+            this.ucStatusDisplay.TabIndex = 346;
+            // 
+            // ucInfoDataGridView
+            // 
+            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
+            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
+            this.ucInfoDataGridView.Size = new System.Drawing.Size(466, 333);
+            this.ucInfoDataGridView.TabIndex = 484;
+            // 
             // frmImportIR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4747,6 +4777,7 @@ namespace MIS
             this.panel9.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnUpdateMerchantInfo)).EndInit();
             this.panel32.ResumeLayout(false);
             this.bunifuCards10.ResumeLayout(false);
             this.bunifuCards10.PerformLayout();
@@ -5098,5 +5129,8 @@ namespace MIS
         private BunifuSeparator bunifuSeparator2;
         private System.Windows.Forms.CheckBox chkAll;
         private System.Windows.Forms.CheckBox chkDeployed;
+        private BunifuImageButton btnUpdateMerchantInfo;
+        private System.Windows.Forms.Label label162;
+        private System.ComponentModel.BackgroundWorker worker;
     }
 }

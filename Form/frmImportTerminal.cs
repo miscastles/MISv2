@@ -2248,7 +2248,7 @@ namespace MIS
             if (dbFunction.isValidID(sTerminalID))
             {
                 dbAPI.ExecuteAPI("GET", "Search", "Terminal SN Info", sTerminalID, "Get Info Detail", "", "GetInfoDetail");
-                
+
                 if (dbAPI.isNoRecordFound() == false)
                 {
                     dbFunction.parseDelimitedString(clsSearch.ClassOutParamValue, clsDefines.gPipe, 0);
@@ -2258,6 +2258,23 @@ namespace MIS
                     txtTerminalModelID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 2);
                     txtTerminalBrandID.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 3);
                     txtTerminalStatus.Text = txtHoldStatus.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 4);
+
+                    // -----------------------------------------------------------------------------
+                    // Date 
+                    // -----------------------------------------------------------------------------
+
+                    /*
+                     * Preserve the original response because cboMType and cboMModel
+                     * events may overwrite ClassOutParamValue during field population.
+                     */
+                    dbFunction.SetDatePickerValue(dteMDeliveryDate, dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 11));
+                    dbFunction.SetDatePickerValue(dteMReceiveDate, dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 12));
+                    dbFunction.SetDatePickerValue(dteMReleaseDate, dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 24));
+
+                    // -----------------------------------------------------------------------------
+                    // Date 
+                    // -----------------------------------------------------------------------------
+
                     cboMStatus.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 5);
                     txtTerminalSN.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 6);
                     cboMType.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 8);
@@ -2272,22 +2289,6 @@ namespace MIS
                     
                     txtMPartNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 18);
                     txtMRemarks.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 19);
-
-                    // -----------------------------------------------------------------------------
-                    // Date 
-                    // -----------------------------------------------------------------------------
-                    string pTemp = "";
-                    pTemp = dbFunction.GetDateFromParse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 11), clsFunction.sValueDateFormat, clsFunction.sDateDefaultFormat);
-                    dteMDeliveryDate.Value = DateTime.Parse(pTemp);
-
-                    pTemp = dbFunction.GetDateFromParse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 12), clsFunction.sValueDateFormat, clsFunction.sDateDefaultFormat);
-                    dteMReceiveDate.Value = DateTime.Parse(pTemp);
-
-                    pTemp = dbFunction.GetDateFromParse(dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 24), clsFunction.sValueDateFormat, clsFunction.sDateDefaultFormat);
-                    dteMReleaseDate.Value = DateTime.Parse(pTemp);
-                    // -----------------------------------------------------------------------------
-                    // Date 
-                    // -----------------------------------------------------------------------------
 
                     txtServiceNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 20);
                     txtIRIDNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 21);

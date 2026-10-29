@@ -156,7 +156,7 @@ namespace MIS
             dbAPI.FillComboBoxTypeByGroup(cboSubCategory, (int)GroupType.SubCategoryType);
             dbAPI.FillComboBoxTypeByGroup(cboShipMethod, (int)GroupType.DeploymentMethod);
 
-            // Zoning Loolup            
+            // Zoning Lookup            
             getZoningInfo();
 
             ComboBoxDefaultSelect();
@@ -7750,9 +7750,10 @@ namespace MIS
             try
             {
                 string pJSONString = dbAPI.getInfoDetailJSON(
-                    "Search",
-                    "Search Zoning Info",
-                    $"{txtMerchantAddress.Text}{clsDefines.gPipe}{txtMerchantCity.Text}");
+                    "Search", 
+                    "Search Zoning Info", 
+                    $"{txtMerchantAddress.Text}{clsDefines.gPipe}{txtMerchantCity.Text}", 
+                    isEncoded: true);
 
                 if (!dbFunction.isValidDescription(pJSONString))
                 {

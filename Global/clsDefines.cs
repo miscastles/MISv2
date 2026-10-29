@@ -84,6 +84,7 @@ namespace MIS
         public const int IR_CHECK_REQUEST_TYPE = 2;
         public const int IR_CHECK_ZONING_CITY = 3;
         public const int IR_CHECK_ZONING_MATCH = 4;
+        public const int IR_CHECK_TID = 5;
 
         // IR, profile_info
         public const string IR_DCC_PROFILE_INFO = "DCC (Yes/No)";

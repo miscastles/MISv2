@@ -1,0 +1,38 @@
+﻿﻿CHANGELOG
+Date: October 01, 2026
+Developer: Andrew John C. Lim
+
+========================================================
+CHANGES
+========================================================
+
+1. frmLogin.cs
+	- added default color fixed issue when changing bank and then changing back into notspecified color doesnt change
+
+2. frmImportIR
+	- fixed issue regarding TID/MID not updatable
+	- added admin override update for TID/MID update
+	- made Appversion and CRC uneditable
+	- fixed issue where cboRequestType fetches numbers instead of parsing into actual values
+
+4. modelSearch.cs
+	- added new method previousdata / hold data to hold previous datas
+
+5. clsAPI.cs
+	- added new feature audit tracking for creating admin override audit trails
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmLogin.cs
+- frmImportIR.cs
+- modelSearch.cs
+- spUpdateCollectionDetail -> Update IR TID/MID
+- spInsertCollectionDetail -> Override Log
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

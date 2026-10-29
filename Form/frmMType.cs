@@ -89,13 +89,20 @@ namespace MIS
             if (isGroupLock)
             {
                 cboType.Enabled = false;
-                cboType.Text = GetGroupTypeName(iGroupType);
+                // DropDownList ignores .Text unless the item exists in Items
+                cboType.Items.Clear();
+                cboType.Items.Add(GetGroupTypeName(iGroupType));
+                cboType.SelectedIndex = 0;
 
                 txtGroupType.Text = iGroupType.ToString();
             }
             else
             {
                 dbAPI.FillComboBoxGroupType(cboType);
+
+                cboType.Items.Add(GetGroupTypeName((int)BankColumnTemplateType.BankTemplateRequestPrioritizationType));
+                cboType.Items.Add(GetGroupTypeName((int)BankColumnTemplateType.BankTemplatePosSetupType));
+                cboType.Items.Add(GetGroupTypeName((int)BankColumnTemplateType.BankTemplatePosConnectionType));
             }
 
             loadData();
