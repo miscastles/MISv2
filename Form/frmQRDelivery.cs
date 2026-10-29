@@ -357,6 +357,7 @@ namespace MIS
                 SIMSN = selectedService != null ? selectedService.SIMSN :
                     (scannedSnapshot == null ? string.Empty : scannedSnapshot.SimSerialNo),
                 QRContent = validatedQRContent,
+                InternalQRContent = internalQRContent,
                 InventoryStatus = inventoryStatus,
                 TerminalPrepStatus = terminalPrepStatus,
                 DispatcherStatus = dispatcherStatus,
@@ -634,7 +635,18 @@ namespace MIS
             try
             {
                 IList<QRDeliveryHistoryItem> items = qrBackend.GetRecentHistory(0, QRDeliveryHistoryLimit);
-                using (frmSearchField search = new frmSearchField(items))
+                IList<QRDeliveryHistoryItem> successfulItems = GetLatestSuccessfulSearchItems(items);
+                if (successfulItems.Count == 0)
+                {
+                    MessageBox.Show(
+                        "No successful QR Delivery records were found. Use History to review all validation attempts.",
+                        "QR Delivery Search",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                using (frmSearchField search = new frmSearchField(successfulItems))
                     if (search.ShowDialog(this) == DialogResult.OK && search.SelectedQRDeliveryRecord != null)
                     {
                         DisplayHistoryRecord(search.SelectedQRDeliveryRecord); // picked a record and saved QR. 
@@ -644,6 +656,40 @@ namespace MIS
             {
                 MessageBox.Show("Saved QR scans could not be loaded.\n\n" + ex.Message, "QR Delivery Search", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private static IList<QRDeliveryHistoryItem> GetLatestSuccessfulSearchItems(IList<QRDeliveryHistoryItem> items)
+        {
+            List<QRDeliveryHistoryItem> successful = new List<QRDeliveryHistoryItem>();
+            HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            if (items == null) return successful;
+
+            foreach (QRDeliveryHistoryItem item in items)
+            {
+                if (item == null || !IsStoredSuccessfulResult(item.QRResult)) continue;
+
+                string key;
+                if (item.ServiceNo > 0)
+                    key = "SERVICE:" + item.ServiceNo;
+                else if (!string.IsNullOrWhiteSpace(item.TerminalSN))
+                    key = "TERMINAL:" + item.TerminalSN.Trim();
+                else if (!string.IsNullOrWhiteSpace(item.TID) || !string.IsNullOrWhiteSpace(item.MID))
+                    key = "TIDMID:" + (item.TID ?? string.Empty).Trim() + "|" + (item.MID ?? string.Empty).Trim();
+                else
+                    key = "QR:" + item.QRID;
+
+                if (seen.Add(key)) successful.Add(item);
+            }
+
+            return successful;
+        }
+
+        private static bool IsStoredSuccessfulResult(string result)
+        {
+            return string.Equals(result, "READY TO DISPATCH", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(result, "SUCCESS", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(result, "MATCH", StringComparison.OrdinalIgnoreCase);
         }
 
         private IList<QRDeliveryHistoryItem> LoadSearchHistory()
@@ -698,6 +744,9 @@ namespace MIS
             }
 
             rtbQRContent.Text = string.IsNullOrWhiteSpace(historyQRContent)? originalHistoryQRContent ?? string.Empty: historyQRContent;
+
+            if (TryDisplaySuccessfulHistoricalSnapshot(history, historyQRContent))
+                return;
 
             if (!string.IsNullOrWhiteSpace(historyQRContent))
             {
@@ -759,6 +808,99 @@ namespace MIS
             lblQRStatus.ForeColor = storedReady ? Color.Green : Color.Red;
             validatedQRDate = history.QRDate;
             btnPrintQR.Enabled = false;
+        }
+
+        private bool TryDisplaySuccessfulHistoricalSnapshot(QRDeliveryHistoryItem history, string historyQRContent)
+        {
+            if (history == null || !IsStoredSuccessfulResult(history.QRResult) ||
+                string.IsNullOrWhiteSpace(historyQRContent) ||
+                string.IsNullOrWhiteSpace(history.InternalQRContent))
+            {
+                return false;
+            }
+
+            QRDeliveryData scanned;
+            try
+            {
+                scanned = qrValidator.Parse(historyQRContent);
+            }
+            catch (QRDeliveryValidationException)
+            {
+                return false;
+            }
+
+            QRDeliveryData savedExpected = new QRDeliveryData
+            {
+                ServiceNo = history.ServiceNo,
+                IRIDNo = history.IRIDNo,
+                TID = SnapshotValue(history.TID, scanned.TID),
+                MID = SnapshotValue(history.MID, scanned.MID),
+                MerchantName = SnapshotValue(history.MerchantName, scanned.MerchantName),
+                MerchantAddress = SnapshotValue(history.MerchantAddress, scanned.MerchantAddress),
+                TerminalSerialNo = SnapshotValue(history.TerminalSN, scanned.TerminalSerialNo),
+                SimSerialNo = SnapshotValue(history.SIMSN, scanned.SimSerialNo)
+            };
+            savedExpected.SimID = string.IsNullOrWhiteSpace(savedExpected.SimSerialNo) ? 0 : 1;
+
+            selectedService = new ServicingDetailController
+            {
+                ServiceNo = history.ServiceNo,
+                IRIDNo = history.IRIDNo,
+                MerchantID = history.MerchantID,
+                TID = savedExpected.TID,
+                MID = savedExpected.MID,
+                MerchantName = savedExpected.MerchantName,
+                Address = savedExpected.MerchantAddress,
+                TerminalSN = savedExpected.TerminalSerialNo,
+                SIMSN = savedExpected.SimSerialNo
+            };
+
+            fillScanDetails(scanned);
+            QRDeliveryValidationResult comparison = qrValidator.Validate(historyQRContent, savedExpected);
+            foreach (QRDeliveryFieldResult field in comparison.Fields) AddResult(field);
+
+            string currentDispatcherDisplay = "VALID";
+            try
+            {
+                QRDeliveryLookupResult currentLookup = qrLookup.FindJobOrder(scanned);
+                if (currentLookup != null && currentLookup.Found &&
+                    !string.IsNullOrWhiteSpace(currentLookup.JobTypeStatusDescription))
+                {
+                    currentDispatcherDisplay = currentLookup.JobTypeStatusDescription.Trim();
+                }
+            }
+            catch
+            {
+                // Historical reprint must remain available even if the current JO lookup fails.
+            }
+
+            inventoryStatus = "VALID";
+            terminalPrepStatus = "VALID";
+            dispatcherStatus = "VALID";
+            AddMisStatusRow("Inventory Status", "VALID", inventoryStatus);
+            AddMisStatusRow("Terminal Prep Status", "VALID", terminalPrepStatus);
+            AddMisStatusRow("Dispatcher Status", currentDispatcherDisplay, dispatcherStatus);
+
+            validatedQRContent = historyQRContent;
+            internalQRContent = history.InternalQRContent;
+            validatedQRDate = history.QRDate != DateTime.MinValue
+                ? history.QRDate
+                : (history.DateTimeStamp != DateTime.MinValue ? history.DateTimeStamp.Date : DateTime.Today);
+
+            lblServiceDetails.Text = string.Format(
+                "HISTORICAL REPRINT       IR ID NO.: {0}       MERCHANT ID: {1}       PROCESSED BY: {2}",
+                history.IRIDNo, history.MerchantID, history.ProcessedBy);
+            lblQRStatus.Text = "READY TO DISPATCH";
+            lblQRStatus.ForeColor = Color.Green;
+            lblAction.Text = "HISTORICAL REPRINT";
+            btnPrintQR.Enabled = true;
+            generateQRCode();
+            return true;
+        }
+
+        private static string SnapshotValue(string savedValue, string scannedValue)
+        {
+            return string.IsNullOrWhiteSpace(savedValue) ? scannedValue ?? string.Empty : savedValue.Trim();
         }
 
         private static string NormalizeStoredStatus(string status)

@@ -1,0 +1,41 @@
+CHANGELOG
+Date: October 29, 2026
+Developer: Nikko Delos Reyes
+
+========================================================
+CHANGES
+========================================================
+
+1. Bank Template Gen
+- Updated merchant address mapping to combine Merchant's DBA Address, Merchant's DBA City, and Merchant's DBA Province.
+- Added handling to avoid duplicate city or province values when they are already included in the merchant address.
+- Province is appended only when a valid value is available.
+
+2. QR Delivery
+- Improved merchant address validation by normalizing letter casing, spacing, line breaks, commas, and periods before comparison.
+- Added a user-friendly message when no saved QR Delivery records are available.
+- Updated QR Delivery Search to show only the latest successful scan per service, while History continues to show both successful and failed attempts.
+- Added historical QR reprinting for previously successful scans even after the related job order has been closed.
+- Dispatcher status displays the current status, including CLOSED, while a previously successful scan remains valid and printable.
+
+========================================================
+DATABASE
+========================================================
+
+- Updated the QR Delivery History output of spViewAdvanceDetail to include InternalQRContent.
+  ELSEIF (p_SearchBy = 'QR Delivery History')
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmBankTemplateGen.cs
+- frmQRDelivery.cs
+- QRDeliveryController.cs
+- QRDeliveryValidation.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

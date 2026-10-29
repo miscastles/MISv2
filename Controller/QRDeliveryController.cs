@@ -139,6 +139,7 @@ namespace MIS.Controller
                     TerminalSN = ReadValue(detailInfo, "TerminalSN"),
                     SIMSN = ReadValue(detailInfo, "SIMSN"),
                     QRContent = ReadValue(detailInfo, "QRContent"),
+                    InternalQRContent = ReadValue(detailInfo, "InternalQRContent"),
                     InventoryStatus = ReadValue(detailInfo, "InventoryStatus"),
                     TerminalPrepStatus = ReadValue(detailInfo, "TerminalPrepStatus"),
                     DispatcherStatus = ReadValue(detailInfo, "DispatcherStatus"),
