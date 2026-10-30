@@ -122,6 +122,8 @@ namespace MIS
         public string SIMSN { get; set; }
         [JsonProperty("QRContent")]
         public string QRContent { get; set; }
+        [JsonProperty("InternalQRContent")]
+        public string InternalQRContent { get; set; }
         [JsonProperty("InventoryStatus")]
         public string InventoryStatus { get; set; }
         [JsonProperty("TerminalPrepStatus")]
@@ -165,7 +167,7 @@ namespace MIS
             AddResult(result, "TID", Value(source, "tid"), expected.TID);
             AddResult(result, "MID", Value(source, "mid"), expected.MID);
             AddResult(result, "Merchant Name", Value(source, "merchantName"), expected.MerchantName);
-            AddResult(result, "Merchant Address", scannedMerchantAddress, expected.MerchantAddress);
+            AddAddressResult(result, "Merchant Address", scannedMerchantAddress, expected.MerchantAddress);
             AddResult(result, "Terminal Serial No.", FirstValue(source, "terminalSN", "terminalSerialNo"), expected.TerminalSerialNo);
 
             // WiFi-only terminals do not have a SIM. Only require and compare the
@@ -285,6 +287,19 @@ namespace MIS
             });
         }
 
+        private static void AddAddressResult(QRDeliveryValidationResult result, string field, string scanned, string expected)
+        {
+            scanned = Normalize(scanned);
+            expected = Normalize(expected);
+            result.Fields.Add(new QRDeliveryFieldResult
+            {
+                Field = field,
+                ScannedValue = scanned,
+                ExpectedValue = expected,
+                IsMatch = string.Equals(NormalizeAddress(scanned), NormalizeAddress(expected), StringComparison.OrdinalIgnoreCase)
+            });
+        }
+
         private static void AddMissing(QRDeliveryValidationResult result, string field, string value)
         {
             if (string.IsNullOrWhiteSpace(value)) result.MissingFields.Add(field);
@@ -309,6 +324,13 @@ namespace MIS
         private static string Normalize(string value)
         {
             return (value ?? string.Empty).Trim();
+        }
+
+        private static string NormalizeAddress(string value)
+        {
+            string normalized = Normalize(value);
+            normalized = Regex.Replace(normalized, @"[,.\r\n\t]+", " ");
+            return Regex.Replace(normalized, @"\s+", " ").Trim();
         }
 
     }

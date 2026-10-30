@@ -33,8 +33,8 @@ namespace MIS
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmImportIR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel4 = new System.Windows.Forms.Panel();
             this.txtID = new System.Windows.Forms.TextBox();
             this.btnExit = new Bunifu.Framework.UI.BunifuImageButton();
@@ -100,6 +100,7 @@ namespace MIS
             this.chkOverwrite = new System.Windows.Forms.CheckBox();
             this.lblSelectedRow = new System.Windows.Forms.Label();
             this.panel37 = new System.Windows.Forms.Panel();
+            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
             this.label7 = new System.Windows.Forms.Label();
@@ -351,6 +352,7 @@ namespace MIS
             this.btnMClear = new System.Windows.Forms.Button();
             this.btnMAdd = new System.Windows.Forms.Button();
             this.btnMSave = new System.Windows.Forms.Button();
+            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
             this.txtMerchantTelNo = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtClientTelNo = new System.Windows.Forms.TextBox();
@@ -374,8 +376,7 @@ namespace MIS
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.txtRentalFeeID = new System.Windows.Forms.TextBox();
             this.worker = new System.ComponentModel.BackgroundWorker();
-            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
-            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
+            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddMerchant)).BeginInit();
@@ -1301,6 +1302,14 @@ namespace MIS
             this.panel37.Size = new System.Drawing.Size(465, 2);
             this.panel37.TabIndex = 0;
             // 
+            // ucStatusDisplay
+            // 
+            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
+            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ucStatusDisplay.Name = "ucStatusDisplay";
+            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
+            this.ucStatusDisplay.TabIndex = 346;
+            // 
             // txtRemarks
             // 
             this.txtRemarks.BackColor = System.Drawing.Color.White;
@@ -1516,8 +1525,8 @@ namespace MIS
             // 
             this.grdList.AllowUserToAddRows = false;
             this.grdList.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 8.25F);
-            this.grdList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 8.25F);
+            this.grdList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.grdList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.grdList.BackgroundColor = System.Drawing.Color.GhostWhite;
             this.grdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -1527,8 +1536,8 @@ namespace MIS
             this.grdList.Name = "grdList";
             this.grdList.ReadOnly = true;
             this.grdList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.grdList.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.grdList.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdList.Size = new System.Drawing.Size(899, 564);
             this.grdList.TabIndex = 105;
@@ -1571,6 +1580,7 @@ namespace MIS
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnDelete);
             this.tabPage1.Controls.Add(this.panel44);
             this.tabPage1.Controls.Add(this.btnRefresh);
             this.tabPage1.Controls.Add(this.panel40);
@@ -1583,9 +1593,9 @@ namespace MIS
             this.tabPage1.Controls.Add(this.panel16);
             this.tabPage1.Controls.Add(this.panel8);
             this.tabPage1.Controls.Add(this.btnMClear);
+            this.tabPage1.Controls.Add(this.ucInfoDataGridView); 
             this.tabPage1.Controls.Add(this.btnMAdd);
             this.tabPage1.Controls.Add(this.btnMSave);
-            this.tabPage1.Controls.Add(this.ucInfoDataGridView);
             this.tabPage1.Location = new System.Drawing.Point(4, 28);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -4297,7 +4307,7 @@ namespace MIS
             this.btnMClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnMClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnMClear.Location = new System.Drawing.Point(171, 693);
+            this.btnMClear.Location = new System.Drawing.Point(254, 693);
             this.btnMClear.Name = "btnMClear";
             this.btnMClear.Size = new System.Drawing.Size(81, 26);
             this.btnMClear.TabIndex = 308;
@@ -4339,6 +4349,14 @@ namespace MIS
             this.btnMSave.Text = "SAVE";
             this.btnMSave.UseVisualStyleBackColor = false;
             this.btnMSave.Click += new System.EventHandler(this.btnMSave_Click);
+            // 
+            // ucInfoDataGridView
+            // 
+            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
+            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
+            this.ucInfoDataGridView.Size = new System.Drawing.Size(466, 333);
+            this.ucInfoDataGridView.TabIndex = 484;
             // 
             // txtMerchantTelNo
             // 
@@ -4602,21 +4620,22 @@ namespace MIS
             this.txtRentalFeeID.Visible = false;
             this.txtRentalFeeID.WordWrap = false;
             // 
-            // ucStatusDisplay
+            // btnDelete
             // 
-            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
-            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ucStatusDisplay.Name = "ucStatusDisplay";
-            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 29);
-            this.ucStatusDisplay.TabIndex = 346;
-            // 
-            // ucInfoDataGridView
-            // 
-            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
-            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
-            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
-            this.ucInfoDataGridView.Size = new System.Drawing.Size(466, 333);
-            this.ucInfoDataGridView.TabIndex = 484;
+            this.btnDelete.AutoSize = true;
+            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnDelete.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnDelete.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnDelete.Location = new System.Drawing.Point(171, 693);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(81, 26);
+            this.btnDelete.TabIndex = 486;
+            this.btnDelete.Text = "DELETE";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // frmImportIR
             // 
@@ -5132,5 +5151,6 @@ namespace MIS
         private BunifuImageButton btnUpdateMerchantInfo;
         private System.Windows.Forms.Label label162;
         private System.ComponentModel.BackgroundWorker worker;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
