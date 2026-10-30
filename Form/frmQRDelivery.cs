@@ -738,7 +738,7 @@ namespace MIS
                     ["merchantAddress"] = history.MerchantAddress,
                     ["terminalSerialNo"] = history.TerminalSN
                 };
-                if (!string.IsNullOrWhiteSpace(history.SIMSN))
+                if (!IsMissingSnapshotValue(history.SIMSN))
                     content["simSerialNo"] = history.SIMSN;
                 historyQRContent = content.ToString(Formatting.None);
             }
@@ -814,7 +814,7 @@ namespace MIS
         {
             if (history == null || !IsStoredSuccessfulResult(history.QRResult) ||
                 string.IsNullOrWhiteSpace(historyQRContent) ||
-                string.IsNullOrWhiteSpace(history.InternalQRContent))
+                IsMissingSnapshotValue(history.InternalQRContent))
             {
                 return false;
             }
@@ -840,7 +840,7 @@ namespace MIS
                 TerminalSerialNo = SnapshotValue(history.TerminalSN, scanned.TerminalSerialNo),
                 SimSerialNo = SnapshotValue(history.SIMSN, scanned.SimSerialNo)
             };
-            savedExpected.SimID = string.IsNullOrWhiteSpace(savedExpected.SimSerialNo) ? 0 : 1;
+            savedExpected.SimID = IsMissingSnapshotValue(savedExpected.SimSerialNo) ? 0 : 1;
 
             selectedService = new ServicingDetailController
             {
@@ -900,7 +900,19 @@ namespace MIS
 
         private static string SnapshotValue(string savedValue, string scannedValue)
         {
-            return string.IsNullOrWhiteSpace(savedValue) ? scannedValue ?? string.Empty : savedValue.Trim();
+            if (!IsMissingSnapshotValue(savedValue)) return savedValue.Trim();
+            return IsMissingSnapshotValue(scannedValue) ? string.Empty : scannedValue.Trim();
+        }
+
+        private static bool IsMissingSnapshotValue(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value)) return true;
+
+            string normalized = value.Trim();
+            return normalized == "-" ||
+                string.Equals(normalized, "NULL", StringComparison.OrdinalIgnoreCase) ||
+                normalized == "{}" ||
+                normalized == "[]";
         }
 
         private static string NormalizeStoredStatus(string status)
