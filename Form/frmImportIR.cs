@@ -1,31 +1,21 @@
 ﻿using MIS.ControlObject;
 using MIS.Enums;
 using MIS.Function;
+using MIS.Model;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Org.BouncyCastle.Asn1.Ocsp;
 using Spire.Xls;
-using Spire.Xls.AI.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Profile;
 using System.Windows.Forms;
 using static MIS.Function.AppUtilities;
-using OfficeOpenXml;
-using DocumentFormat.OpenXml.Bibliography;
-using MIS.Model;
 
 namespace MIS
 {
@@ -378,7 +368,7 @@ namespace MIS
 
                     if (x == iRequestDate && !string.IsNullOrEmpty(sRequestDate))
                     {
-                        if (DateTime.TryParse(sRequestDate, out DateTime dtRequest))        
+                        if (DateTime.TryParse(sRequestDate, out DateTime dtRequest))
                             sCellValue = dtRequest.ToString("yyyy-MM-dd");
                         else
                             sCellValue = clsDefines.DEV_DATE;
@@ -4727,7 +4717,7 @@ namespace MIS
 
                 switch (dbAPI.GetIntValueFromJSONString(pJSON, clsDefines.TAG_Result))
                 {
-                    case clsDefines.IR_CHECK_OK: 
+                    case clsDefines.IR_CHECK_OK:
                         break;
 
                     case clsDefines.IR_CHECK_IRNO_DUPLICATE:
@@ -4736,14 +4726,14 @@ namespace MIS
                         $"Request ID [{requestid}] already exists.",
                         clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                         return false;
-                    
+
                     case clsDefines.IR_CHECK_REQUEST_TYPE:
                         dbFunction.SetMessageBox(
                         $"Line#: {row.Index + 1}\n" +
                         $"Request Type [{requesttype}] must be enrolled.",
                         clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                         return false;
-                    
+
                     case clsDefines.IR_CHECK_ZONING_CITY:
                         dbFunction.SetMessageBox(
                         $"Line#: {row.Index + 1}\n" +
@@ -4752,37 +4742,37 @@ namespace MIS
                         return false;
 
                     case clsDefines.IR_CHECK_ZONING_MATCH:
-                            dbFunction.SetMessageBox(
-                            $"Line#: {row.Index + 1}\n" +
-                            $"Request ID: [{requestid}]\n" +
-                            $"Merchant: [{merchantname}]\n" +
-                            $"TID: [{tid}]\n" +
-                            $"MID: [{mid}]\n" +
-                            $"Area: [{area1}]\n" +
-                            $"City: [{city}]\n" +
-                            $"Address: [{address}]\n\n" +
-                            "Zoning match not found.\n" +
-                            "Please verify the information above or enroll the location in the Zoning.",
-                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                            return false;
-                    
+                        dbFunction.SetMessageBox(
+                        $"Line#: {row.Index + 1}\n" +
+                        $"Request ID: [{requestid}]\n" +
+                        $"Merchant: [{merchantname}]\n" +
+                        $"TID: [{tid}]\n" +
+                        $"MID: [{mid}]\n" +
+                        $"Area: [{area1}]\n" +
+                        $"City: [{city}]\n" +
+                        $"Address: [{address}]\n\n" +
+                        "Zoning match not found.\n" +
+                        "Please verify the information above or enroll the location in the Zoning.",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
+
                     case clsDefines.IR_CHECK_TID:
-                            dbFunction.SetMessageBox(
-                            $"Line#: {row.Index + 1}\n" +
-                            $"Request ID: [{requestid}]\n" +
-                            $"Merchant: [{merchantname}]\n" +
-                            $"TID: [{tid}]\n" +
-                            $"MID: [{mid}]\n\n" +
-                            "There is already an active IR for this TID.",
-                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        dbFunction.SetMessageBox(
+                        $"Line#: {row.Index + 1}\n" +
+                        $"Request ID: [{requestid}]\n" +
+                        $"Merchant: [{merchantname}]\n" +
+                        $"TID: [{tid}]\n" +
+                        $"MID: [{mid}]\n\n" +
+                        "There is already an active IR for this TID.",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                         return false;
 
                     default:
-                            dbFunction.SetMessageBox(
-                            $"Line#: {row.Index + 1}\nRequest ID: [{requestid}]\n\n" +
-                            $"Row validation failed.\n\n{clsDefines.CONTACT_ADMIN_MESSAGE}",
-                            clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                            return false;
+                        dbFunction.SetMessageBox(
+                        $"Line#: {row.Index + 1}\nRequest ID: [{requestid}]\n\n" +
+                        $"Row validation failed.\n\n{clsDefines.CONTACT_ADMIN_MESSAGE}",
+                        clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                        return false;
                 }
             }
 
@@ -5014,6 +5004,64 @@ namespace MIS
                 });
 
                 dbFunction.SetMessageBox("IR TID/MID updated.", lblHeader.Text, clsFunction.IconType.iInformation);
+
+                btnClear_Click(this, e);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (!dbFunction.isValidID(txtIRIDNo.Text))
+            {
+                dbFunction.SetMessageBox("No installation request selected. Please search merchant first.", lblHeader.Text, clsFunction.IconType.iError);
+                return;
+            }
+
+            txtIRTID.Text = dbFunction.padLeftChar(txtIRTID.Text.Trim(), clsFunction.sZero, clsFunction.TID_LENGTH);
+            txtIRMID.Text = dbFunction.padLeftChar(txtIRMID.Text.Trim(), clsFunction.sZero, clsFunction.MID_LENGTH);
+
+            if (!dbFunction.fPromptConfirmation(
+                "Deactivate installation request:\n\n" +
+                $"IRIDNo     : [{txtIRIDNo.Text}]\n" +
+                $"Request ID : [{txtIRNo.Text}]\n" +
+                $"Merchant   : [{txtMerchantName.Text}]\n" +
+                $"TID        : [{txtIRTID.Text}]\n" +
+                $"MID        : [{txtIRMID.Text}]\n\n" +
+                "Only IR that was pulled out, or replaced with no JO/FSR, will be deactivated.\n" +
+                "Are you sure to continue?"
+            )) return;
+
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                string pSearchValue = $"{txtIRTID.Text}{clsDefines.gPipe}" +
+                                      $"{txtIRMID.Text}{clsDefines.gPipe}" +
+                                      $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
+                                      $"{txtIRNo.Text}";
+
+                dbAPI.ExecuteAPI("PUT", "Update", "Inactive IR", pSearchValue, "", "", "UpdateCollectionDetail");
+
+                if (!clsGlobalVariables.isAPIResponseOK) return;
+
+                string pJSON = dbAPI.getInfoDetailJSON("Search", "Merchant IR Info", txtIRIDNo.Text);
+                
+                if (string.IsNullOrWhiteSpace(pJSON) || dbAPI.GetIntValueFromJSONString(pJSON, clsDefines.TAG_IRActive) != 0)
+                {
+                    dbFunction.SetMessageBox(
+                        $"Request ID [{txtIRNo.Text}] cannot be deactivated.\n\n" +
+                        "It has JO/FSR without a completed pull-out, or it is the latest IR for this TID/MID.",
+                        lblHeader.Text, clsFunction.IconType.iError);
+                    return;
+                }
+
+                dbFunction.SetMessageBox($"Request ID [{txtIRNo.Text}] successfully deactivated.", lblHeader.Text, clsFunction.IconType.iInformation);
+
+                btnClear_Click(this, e);
             }
             finally
             {
