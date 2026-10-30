@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 
 
@@ -809,6 +810,9 @@ namespace MIS
             IList<BankTemplateRow> sourceRows = readResult.Rows;
             BankTemplateFieldRules.ApplyDefaults(sourceRows, readResult.IsAdditionalTerminal);
             string bankDataInfo = BankTemplateJsonBuilder.Build(sourceRows, Path.GetFileName(filePath));
+            string mappedAddress = GetMappedValue(sourceRows, "Address");
+            string mappedCity = GetMappedValue(sourceRows, "City");
+            string mappedProvince = GetMappedValue(sourceRows, "Area 1 (Metro Manila / Provincial)");
             return new IrImportRow()
             {
                 SourceFilePath = filePath,
@@ -831,8 +835,8 @@ namespace MIS
                 AlipayTid = GetPreferredMappedValue(sourceRows, "Alipay TID"),
                 AlipayMid = GetPreferredMappedValue(sourceRows, "Alipay MID"),
                 MerchantLocation = GetMappedValue(sourceRows, "Merchant Location/DBA Name"),
-                Address = GetMappedValue(sourceRows, "Address"),
-                City = GetMappedValue(sourceRows, "City"),
+                Address = CombineAddressCityAndProvince(mappedAddress, mappedCity, mappedProvince),
+                City = mappedCity,
                 Area1 = string.Empty,
                 Area2 = string.Empty,
                 ContactPerson = GetMappedValue(sourceRows, "Contact Person"),
@@ -856,6 +860,38 @@ namespace MIS
             }
             List<string> values = mappedValues.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
             return string.Join(", ", values);
+        }
+
+        private static string CombineAddressCityAndProvince(string address, string city, string province)
+        {
+            string combined = AppendAddressPart(string.Empty, address);
+            combined = AppendAddressPart(combined, city);
+            return AppendAddressPart(combined, province);
+        }
+
+        private static string AppendAddressPart(string address, string part)
+        {
+            address = (address ?? string.Empty).Trim();
+            part = (part ?? string.Empty).Trim();
+
+            if (string.IsNullOrWhiteSpace(address)) return part;
+            if (string.IsNullOrWhiteSpace(part)) return address;
+
+            string normalizedAddress = NormalizeAddressPart(address);
+            string normalizedPart = NormalizeAddressPart(part);
+            string paddedAddress = " " + normalizedAddress + " ";
+            string paddedPart = " " + normalizedPart + " ";
+            if (paddedAddress.IndexOf(paddedPart, StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return address;
+            }
+
+            return address + " " + part;
+        }
+
+        private static string NormalizeAddressPart(string value)
+        {
+            return Regex.Replace(value ?? string.Empty, @"[^A-Za-z0-9]+", " ").Trim();
         }
 
         private static string GetPreferredMappedValue(IEnumerable<BankTemplateRow> sourceRows, string mccColumn)
