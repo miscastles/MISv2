@@ -1,0 +1,39 @@
+﻿﻿CHANGELOG
+Date: October 01, 2026
+Developer: Andrew John C. Lim
+
+========================================================
+CHANGES
+========================================================
+
+frmImportIR.cs
+- enhanced delete button to delete actual row when jo and fsr has not existed yet
+- added a new check for date formats when importing ir 
+- updated tid/mid override to be reflected in the audit
+
+frmMUpdateServiceStatus
+- removed deleteir button as its unused
+
+frmServiceJobOrder
+- renamed Cancel Service -> Delete Service and revised popups and errors to reflect deletion instead of cancellation of service
+
+frmPrintOptionCriteria
+- fixed issue regarding seconds attempts not showing
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+frmImportIR.cs
+frmMUpdateServiceStatus.cs
+frmServiceJobOrder.cs
+funcGetJson
+spUpdateCollectionDetail
+spDeleteCollectionDetail
+
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

@@ -121,6 +121,7 @@ namespace MIS
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.panel44 = new System.Windows.Forms.Panel();
             this.panel45 = new System.Windows.Forms.Panel();
             this.txtMID = new System.Windows.Forms.TextBox();
@@ -350,9 +351,9 @@ namespace MIS
             this.label12 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.btnMClear = new System.Windows.Forms.Button();
+            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
             this.btnMAdd = new System.Windows.Forms.Button();
             this.btnMSave = new System.Windows.Forms.Button();
-            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
             this.txtMerchantTelNo = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtClientTelNo = new System.Windows.Forms.TextBox();
@@ -376,7 +377,6 @@ namespace MIS
             this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.txtRentalFeeID = new System.Windows.Forms.TextBox();
             this.worker = new System.ComponentModel.BackgroundWorker();
-            this.btnDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddMerchant)).BeginInit();
@@ -1593,7 +1593,7 @@ namespace MIS
             this.tabPage1.Controls.Add(this.panel16);
             this.tabPage1.Controls.Add(this.panel8);
             this.tabPage1.Controls.Add(this.btnMClear);
-            this.tabPage1.Controls.Add(this.ucInfoDataGridView); 
+            this.tabPage1.Controls.Add(this.ucInfoDataGridView);
             this.tabPage1.Controls.Add(this.btnMAdd);
             this.tabPage1.Controls.Add(this.btnMSave);
             this.tabPage1.Location = new System.Drawing.Point(4, 28);
@@ -1604,6 +1604,23 @@ namespace MIS
             this.tabPage1.Text = "Manual Entry";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click_1);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.AutoSize = true;
+            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.btnDelete.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnDelete.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnDelete.Location = new System.Drawing.Point(171, 693);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(81, 26);
+            this.btnDelete.TabIndex = 486;
+            this.btnDelete.Text = "DELETE";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // panel44
             // 
@@ -4315,6 +4332,14 @@ namespace MIS
             this.btnMClear.UseVisualStyleBackColor = false;
             this.btnMClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // ucInfoDataGridView
+            // 
+            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
+            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
+            this.ucInfoDataGridView.Size = new System.Drawing.Size(466, 333);
+            this.ucInfoDataGridView.TabIndex = 484;
+            // 
             // btnMAdd
             // 
             this.btnMAdd.AutoSize = true;
@@ -4349,14 +4374,6 @@ namespace MIS
             this.btnMSave.Text = "SAVE";
             this.btnMSave.UseVisualStyleBackColor = false;
             this.btnMSave.Click += new System.EventHandler(this.btnMSave_Click);
-            // 
-            // ucInfoDataGridView
-            // 
-            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
-            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
-            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
-            this.ucInfoDataGridView.Size = new System.Drawing.Size(466, 333);
-            this.ucInfoDataGridView.TabIndex = 484;
             // 
             // txtMerchantTelNo
             // 
@@ -4619,23 +4636,6 @@ namespace MIS
             this.txtRentalFeeID.TabIndex = 426;
             this.txtRentalFeeID.Visible = false;
             this.txtRentalFeeID.WordWrap = false;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.AutoSize = true;
-            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnDelete.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnDelete.FlatAppearance.BorderSize = 0;
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnDelete.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnDelete.Location = new System.Drawing.Point(171, 693);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(81, 26);
-            this.btnDelete.TabIndex = 486;
-            this.btnDelete.Text = "DELETE";
-            this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // frmImportIR
             // 

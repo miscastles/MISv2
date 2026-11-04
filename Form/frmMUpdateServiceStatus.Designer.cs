@@ -88,7 +88,6 @@
             this.panel151 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.panel169 = new System.Windows.Forms.Panel();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.chkAvailable = new System.Windows.Forms.CheckBox();
             this.panel175 = new System.Windows.Forms.Panel();
             this.label64 = new System.Windows.Forms.Label();
@@ -203,9 +202,9 @@
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnClear.Location = new System.Drawing.Point(158, 632);
+            this.btnClear.Location = new System.Drawing.Point(85, 632);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(154, 30);
+            this.btnClear.Size = new System.Drawing.Size(81, 30);
             this.btnClear.TabIndex = 472;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = false;
@@ -222,7 +221,7 @@
             this.btnSave.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnSave.Location = new System.Drawing.Point(3, 632);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(154, 30);
+            this.btnSave.Size = new System.Drawing.Size(81, 30);
             this.btnSave.TabIndex = 471;
             this.btnSave.Text = "UPDATE";
             this.btnSave.UseVisualStyleBackColor = false;
@@ -286,7 +285,7 @@
             this.label3.ForeColor = System.Drawing.Color.Transparent;
             this.label3.Location = new System.Drawing.Point(3, 4);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(152, 16);
+            this.label3.Size = new System.Drawing.Size(151, 16);
             this.label3.TabIndex = 310;
             this.label3.Text = "NEW SERVICE STATUS";
             // 
@@ -355,7 +354,7 @@
             this.label5.ForeColor = System.Drawing.Color.Transparent;
             this.label5.Location = new System.Drawing.Point(3, 4);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(184, 16);
+            this.label5.Size = new System.Drawing.Size(183, 16);
             this.label5.TabIndex = 310;
             this.label5.Text = "CURRENT SERVICE STATUS";
             // 
@@ -814,24 +813,6 @@
             this.panel169.Size = new System.Drawing.Size(244, 1);
             this.panel169.TabIndex = 0;
             // 
-            // btnDelete
-            // 
-            this.btnDelete.AutoSize = true;
-            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnDelete.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btnDelete.FlatAppearance.BorderSize = 0;
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnDelete.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnDelete.Location = new System.Drawing.Point(839, 632);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(154, 30);
-            this.btnDelete.TabIndex = 478;
-            this.btnDelete.Text = "DELETE SERVICE";
-            this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Visible = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // chkAvailable
             // 
             this.chkAvailable.AutoSize = true;
@@ -849,7 +830,7 @@
             this.panel175.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel175.Controls.Add(this.label64);
             this.panel175.Controls.Add(this.chkAvailable);
-            this.panel175.Location = new System.Drawing.Point(497, 635);
+            this.panel175.Location = new System.Drawing.Point(829, 632);
             this.panel175.Name = "panel175";
             this.panel175.Size = new System.Drawing.Size(165, 25);
             this.panel175.TabIndex = 480;
@@ -936,7 +917,7 @@
             this.label9.ForeColor = System.Drawing.Color.Black;
             this.label9.Location = new System.Drawing.Point(3, 4);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(64, 16);
+            this.label9.Size = new System.Drawing.Size(63, 16);
             this.label9.TabIndex = 310;
             this.label9.Text = "REMARKS";
             // 
@@ -1005,7 +986,6 @@
             this.ClientSize = new System.Drawing.Size(1247, 665);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel175);
-            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.panel147);
             this.Controls.Add(this.panel152);
             this.Controls.Add(this.panel156);
@@ -1136,7 +1116,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtServiceStatus;
-        private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.CheckBox chkAvailable;
         private System.Windows.Forms.Panel panel175;
         private System.Windows.Forms.Label label64;

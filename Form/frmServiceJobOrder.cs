@@ -3315,12 +3315,12 @@ namespace MIS
                     {
                         if (!dbFunction.fPromptConfirmation("!!IMPORTANT!!" + "\n" +
                         "This service is already COMPLETED" + "\n\n" +
-                        "Do you still want to cancel service?"))
+                        "Do you still want to delete service?"))
                             return;
                     }
                 }
                 
-                if (MessageBox.Show("Are you sure to cancel " + cboSearchServiceType.Text + " service" + " for \n" + txtMerchantName.Text + "." + 
+                if (MessageBox.Show("Are you sure to delete " + cboSearchServiceType.Text + " service" + " for \n" + txtMerchantName.Text + "." + 
                     "\n\n" +                   
                     "Warning:\nData will permanently deleted.", "Confirm?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     isConfirm = false;
@@ -3364,7 +3364,7 @@ namespace MIS
 
                     Cursor.Current = Cursors.Default;
 
-                    dbFunction.SetMessageBox("Service cancelled complete.", "Service cancelled", clsFunction.IconType.iInformation);
+                    dbFunction.SetMessageBox("Service deletion complete.", "Service cancelled", clsFunction.IconType.iInformation);
 
                     btnClear_Click(this, e);
                 }

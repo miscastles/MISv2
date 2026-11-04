@@ -185,6 +185,9 @@
             this.lblMainStatus = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel194 = new System.Windows.Forms.Panel();
+            this.chkProject = new System.Windows.Forms.CheckBox();
+            this.label186 = new System.Windows.Forms.Label();
             this.btnOverrideUpdate = new System.Windows.Forms.Button();
             this.btnUpdateServiceType = new System.Windows.Forms.Button();
             this.panel155 = new System.Windows.Forms.Panel();
@@ -833,9 +836,6 @@
             this.txtSearchSTServiceJobTypeDescription = new System.Windows.Forms.TextBox();
             this.panel53 = new System.Windows.Forms.Panel();
             this.btnTASearch = new Bunifu.Framework.UI.BunifuImageButton();
-            this.panel194 = new System.Windows.Forms.Panel();
-            this.chkProject = new System.Windows.Forms.CheckBox();
-            this.label186 = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -850,6 +850,7 @@
             this.panel10.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel194.SuspendLayout();
             this.panel155.SuspendLayout();
             this.panel160.SuspendLayout();
             this.tabMain.SuspendLayout();
@@ -1056,7 +1057,6 @@
             this.panel6.SuspendLayout();
             this.panel53.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).BeginInit();
-            this.panel194.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -3013,7 +3013,7 @@
             this.btnCancelJO.Name = "btnCancelJO";
             this.btnCancelJO.Size = new System.Drawing.Size(107, 26);
             this.btnCancelJO.TabIndex = 429;
-            this.btnCancelJO.Text = "CANCEL SERVICE";
+            this.btnCancelJO.Text = "DELETE SERVICE";
             this.btnCancelJO.UseVisualStyleBackColor = false;
             this.btnCancelJO.Click += new System.EventHandler(this.btnCancelJO_Click);
             // 
@@ -3108,6 +3108,38 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic Information";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // panel194
+            // 
+            this.panel194.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panel194.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel194.Controls.Add(this.chkProject);
+            this.panel194.Controls.Add(this.label186);
+            this.panel194.Location = new System.Drawing.Point(749, 852);
+            this.panel194.Name = "panel194";
+            this.panel194.Size = new System.Drawing.Size(103, 27);
+            this.panel194.TabIndex = 506;
+            // 
+            // chkProject
+            // 
+            this.chkProject.AutoSize = true;
+            this.chkProject.Location = new System.Drawing.Point(82, 6);
+            this.chkProject.Name = "chkProject";
+            this.chkProject.Size = new System.Drawing.Size(15, 14);
+            this.chkProject.TabIndex = 437;
+            this.chkProject.UseVisualStyleBackColor = true;
+            // 
+            // label186
+            // 
+            this.label186.AutoSize = true;
+            this.label186.BackColor = System.Drawing.Color.Transparent;
+            this.label186.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label186.ForeColor = System.Drawing.Color.White;
+            this.label186.Location = new System.Drawing.Point(7, 6);
+            this.label186.Name = "label186";
+            this.label186.Size = new System.Drawing.Size(66, 14);
+            this.label186.TabIndex = 436;
+            this.label186.Text = "PROJECT?:";
             // 
             // btnOverrideUpdate
             // 
@@ -10603,38 +10635,6 @@
             this.btnTASearch.TabStop = false;
             this.btnTASearch.Zoom = 10;
             // 
-            // panel194
-            // 
-            this.panel194.BackColor = System.Drawing.Color.DodgerBlue;
-            this.panel194.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel194.Controls.Add(this.chkProject);
-            this.panel194.Controls.Add(this.label186);
-            this.panel194.Location = new System.Drawing.Point(749, 852);
-            this.panel194.Name = "panel194";
-            this.panel194.Size = new System.Drawing.Size(103, 27);
-            this.panel194.TabIndex = 506;
-            // 
-            // chkProject
-            // 
-            this.chkProject.AutoSize = true;
-            this.chkProject.Location = new System.Drawing.Point(82, 6);
-            this.chkProject.Name = "chkProject";
-            this.chkProject.Size = new System.Drawing.Size(15, 14);
-            this.chkProject.TabIndex = 437;
-            this.chkProject.UseVisualStyleBackColor = true;
-            // 
-            // label186
-            // 
-            this.label186.AutoSize = true;
-            this.label186.BackColor = System.Drawing.Color.Transparent;
-            this.label186.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label186.ForeColor = System.Drawing.Color.White;
-            this.label186.Location = new System.Drawing.Point(7, 6);
-            this.label186.Name = "label186";
-            this.label186.Size = new System.Drawing.Size(66, 14);
-            this.label186.TabIndex = 436;
-            this.label186.Text = "PROJECT?:";
-            // 
             // frmServiceJobOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10696,6 +10696,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.panel194.ResumeLayout(false);
+            this.panel194.PerformLayout();
             this.panel155.ResumeLayout(false);
             this.panel160.ResumeLayout(false);
             this.panel160.PerformLayout();
@@ -10986,8 +10988,6 @@
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnTASearch)).EndInit();
-            this.panel194.ResumeLayout(false);
-            this.panel194.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

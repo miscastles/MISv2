@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>43</ApplicationRevision>
+    <ApplicationRevision>46</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -542,6 +542,12 @@
     </Compile>
     <Compile Include="Form\frmLogInOverride.Designer.cs">
       <DependentUpon>frmLogInOverride.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmTableEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmTableEditor.Designer.cs">
+      <DependentUpon>frmTableEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\frmTools.cs">
       <SubType>Form</SubType>
@@ -1096,6 +1102,7 @@
     <Compile Include="Model\modelParticular.cs" />
     <Compile Include="Model\modelPrivacyDetail.cs" />
     <Compile Include="Model\modelPrivacyMaster.cs" />
+    <Compile Include="Model\modelQRDeliveryRecord.cs" />
     <Compile Include="Model\modelSearch.cs" />
     <Compile Include="Model\modelStock.cs" />
     <Compile Include="Model\modelZoning.cs" />
@@ -1828,6 +1835,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmTableEditor.resx">
+      <DependentUpon>frmTableEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmTerminalBrand.resx">
       <DependentUpon>frmTerminalBrand.cs</DependentUpon>

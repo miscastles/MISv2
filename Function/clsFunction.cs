@@ -5173,6 +5173,45 @@ namespace MIS
 
                     sHint = $"Invalid request type found.{Environment.NewLine}Valid request type are [{clsSystemSetting.ClassSystemValidRequestType}]";
                     break;
+                case 9:
+                    // import date check on raw file values (grdDummy): yyyy/MM/dd only, no time
+                    for (i = 0; i < dataGridView.RowCount; i++)
+                    {
+                        iLineNo++;
+
+                        int iIRNo = GetMapColumnIndex(clsDefines.IR_REQUEST_ID);
+                        int iDBAName = GetMapColumnIndex(clsDefines.IR_MERCHANT_NAME);
+                        int iRequestDate = GetMapColumnIndex(clsDefines.IR_REQUEST_DATE);
+                        int iInstDate = GetMapColumnIndex(clsDefines.IR_TARGET_INSTALLATION_DATE);
+
+                        string sIRNo = dataGridView.Rows[i].Cells[iIRNo].Value.ToString();
+                        string sMerchantName = dataGridView.Rows[i].Cells[iDBAName].Value.ToString();
+                        string sRequestDate = dataGridView.Rows[i].Cells[iRequestDate].Value.ToString().Trim();
+                        string sInstDate = dataGridView.Rows[i].Cells[iInstDate].Value.ToString().Trim();
+
+                        string[] importDateFormats = { "yyyy/M/d", "yyyy-M-d" };
+
+                        bool isValidRequestDate = DateTime.TryParseExact(sRequestDate, importDateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+                        bool isValidInstDate = DateTime.TryParseExact(sInstDate, importDateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+
+                        if (isValidRequestDate && isValidInstDate)
+                        {
+                            // do nothing
+                        }
+                        else
+                        {
+                            isValid = false;
+                            sTemp += "> Line# : " + iLineNo + Environment.NewLine +
+                                     "> Merchant Name : " + sMerchantName + Environment.NewLine +
+                                     "> Request ID : " + sIRNo + Environment.NewLine +
+                                     "> Request Date : " + sRequestDate + Environment.NewLine +
+                                     "> Target Installation Date : " + sInstDate + Environment.NewLine +
+                                     sSingleLineSeparator + Environment.NewLine;
+                        }
+                    }
+
+                    sHint = "Invalid date found." + Environment.NewLine + "Date must be in yyyy/MM/dd format, time is not allowed.";
+                    break;
                 default:
                     break;
             }
@@ -7776,13 +7815,7 @@ namespace MIS
             }
         }
 
-        public int ParseInt(string value)
-        {
-            int result;
-            return int.TryParse((value ?? "").Trim(), out result) ? result : 0;
-        }
-
-        public string ParseString(object value)
+        public string toStringAndTrim(object value)
         {
             return (value?.ToString() ?? "").Trim();
         }
@@ -7809,6 +7842,18 @@ namespace MIS
                     txt.SelectionStart = Math.Min(pos, digits.Length);
                 }
             };
+        }
+
+        public List<string> GetListViewContents(ListView lvw, int colIndex)
+        {
+            List<string> contents = new List<string>();
+
+            foreach (ListViewItem item in lvw.Items)
+            {
+                contents.Add(item.SubItems[colIndex].Text.Trim());
+            }
+
+            return contents;
         }
     }
 }

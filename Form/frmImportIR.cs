@@ -10,6 +10,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -112,8 +113,7 @@ namespace MIS
 
                     if (dbAPI.isImportFileName("Search", "IR Import", sExcelFileName))
                     {
-                        dbFunction.SetMessageBox("Import failure:" + "\n" +
-                                                 sExcelFileName + " was already processed.", "Import IR", clsFunction.IconType.iWarning);
+                        dbFunction.SetMessageBox("Import failure:" + "\n" + sExcelFileName + " was already processed.", "Import IR", clsFunction.IconType.iWarning);
 
                         btnCancel_Click(this, e);
                         return;
@@ -221,6 +221,7 @@ namespace MIS
             }
         }
 
+        /*
         private string GetExcelWorkSheetName()
         {
             string sWorkSheetName = "";
@@ -237,6 +238,7 @@ namespace MIS
 
             return sWorkSheetName;
         }
+        */
 
         bool fContinueConfirm()
         {
@@ -252,6 +254,7 @@ namespace MIS
             return fContinue;
         }
 
+        /*
         private void ImportToDummyDataGrid()
         {
             string pathName = txtPathFileName.Text;
@@ -297,6 +300,8 @@ namespace MIS
                                          ex.ToString(), ex.Message, clsFunction.IconType.iError);
             }
         }
+        */
+
         private bool ImportToDataGrid()
         {
             int iRowCount = grdDummy.RowCount;
@@ -356,50 +361,46 @@ namespace MIS
                 {
                     string sCellValue = StrClean(grdDummy.Rows[i].Cells[x].Value?.ToString().Trim() ?? "");
 
-                    // Apply transformations only if necessary
                     if (x == iPRIME_TID_01 && !string.IsNullOrEmpty(sCellValue))
-                        sCellValue = dbFunction.padLeftChar(sTID, clsFunction.sPadZero, 8);
-
-                    if (x == iPRIME_MID_01 && !string.IsNullOrEmpty(sCellValue))
-                        sCellValue = dbFunction.padLeftChar(sMID, clsFunction.sPadZero, 15);
-
-                    if (x == iRequestDate && !string.IsNullOrEmpty(sRequestDate))
                     {
-                        if (DateTime.TryParse(sRequestDate, out DateTime dtRequest))
-                            sCellValue = dtRequest.ToString("yyyy-MM-dd");
-                        else
-                            sCellValue = clsDefines.DEV_DATE;
+                        sCellValue = dbFunction.padLeftChar(sTID, clsFunction.sPadZero, 8);
                     }
 
-                    if (x == iInstDdate && !string.IsNullOrEmpty(sInstallationDate))
+                    if (x == iPRIME_MID_01 && !string.IsNullOrEmpty(sCellValue))
                     {
-                        if (DateTime.TryParse(sInstallationDate, out DateTime dtInstallation))
-                            sCellValue = dtInstallation.ToString("yyyy-MM-dd");
-                        else
-                            sCellValue = clsDefines.DEV_DATE;
+                        sCellValue = dbFunction.padLeftChar(sMID, clsFunction.sPadZero, 15);
                     }
 
                     if (x == iDBAName)
+                    {
                         sCellValue = sMerchantName.Replace("(", "").Replace(")", "");
-                    //sCellValue = sCellValue.Replace("&", "AND").Replace("(", "").Replace(")", "");
+                    }
 
                     if (x == iRegion)
+                    {
                         sCellValue = string.IsNullOrEmpty(sRegion) ? clsFunction.sNone : sRegion;
+                    }
 
                     if (x == iProvince)
+                    {
                         sCellValue = string.IsNullOrEmpty(sProvince) ? clsFunction.sNone : sProvince;
+                    }
 
                     if (x == iAddress)
+                    {
                         sCellValue = string.IsNullOrEmpty(sAddress) ? clsFunction.sNone : sAddress;
+                    }
 
-                    // Remove special characters
-                    //sCellValue = sCellValue.Replace("&", "AND").Replace("|", "").Replace("~", "").Replace("^", "").Replace("%", "");
-                    //sCellValue = sCellValue.Replace("|", "").Replace("~", "").Replace("^", "").Replace("%", "").Replace("'", "").Replace("#", "");
-
-                    // Remove unwanted chars (including | automatically)                   
                     sCellValue = StrClean(sCellValue);
 
-                    row[x] = !string.IsNullOrEmpty(sCellValue) ? sCellValue.ToUpper() : clsFunction.sDash;
+                    if (!string.IsNullOrEmpty(sCellValue))
+                    {
+                        row[x] = sCellValue.ToUpper();
+                    }
+                    else
+                    {
+                        row[x] = clsFunction.sDash;
+                    }
                 }
 
                 dt.Rows.Add(row);
@@ -791,6 +792,9 @@ namespace MIS
             // check request id
             ucStatusDisplay.SetStatus($"Checking request id...", Enums.StatusType.Processing);
             if (!dbFunction.isValidDataGridValue(clsFunction.ImportType.iIRImportDetail, dbAPI, grdList, txtFileName.Text, 3, false)) return;
+
+            ucStatusDisplay.SetStatus($"Checking import dates...", Enums.StatusType.Processing);
+            if (!dbFunction.isValidDataGridValue(clsFunction.ImportType.iIRImportDetail, dbAPI, grdDummy, txtFileName.Text, 9, false)) return;
 
             Cursor.Current = Cursors.Default;
 
@@ -3277,8 +3281,8 @@ namespace MIS
                         modelSearch.HoldData.Save(new modelSearch.HoldData
                         {
                             // Search
-                            TID = dbFunction.ParseString(txtIRTID.Text),
-                            MID = dbFunction.ParseString(txtIRMID.Text)
+                            TID = dbFunction.toStringAndTrim(txtIRTID.Text),
+                            MID = dbFunction.toStringAndTrim(txtIRMID.Text)
                         });
 
                         fEdit = true;
@@ -3641,22 +3645,14 @@ namespace MIS
 
                     int pLineNo = row.Index;
 
-                    // Update label directly (no Invoke needed anymore)
                     lblSelectedRow.Text = $"Selected line# {pLineNo + 1}/{grdList.Rows.Count}";
-                    Application.DoEvents(); // 🔥 allow UI refresh
+                    Application.DoEvents();
 
-                    string rawdata_info = dbFunction.genJSONFormat(
-                        grdList, pLineNo, "", clsDefines.NESTED_OBJECT_VALUES);
-
-                    string profile_info = getProfile_InfoFromJson(
-                        rawdata_info, "", clsDefines.NESTED_OBJECT_VALUES);
-
-                    // Direct UI update
-                    dbFunction.populateListViewFromJsonString(
-                        dgvRaw, rawdata_info, "", clsDefines.NESTED_OBJECT_VALUES);
-
-                    dbFunction.populateListViewFromJsonString(
-                        dgvProfile, profile_info, "", "");
+                    string rawdata_info = dbFunction.genJSONFormat(grdList, pLineNo, "", clsDefines.NESTED_OBJECT_VALUES);
+                    string profile_info = getProfile_InfoFromJson(rawdata_info, "", clsDefines.NESTED_OBJECT_VALUES);
+                    
+                    dbFunction.populateListViewFromJsonString(dgvRaw, rawdata_info, "", clsDefines.NESTED_OBJECT_VALUES);
+                    dbFunction.populateListViewFromJsonString(dgvProfile, profile_info, "", "");
 
                     clsSearch.ClassRawDataInfo = rawdata_info;
                     clsSearch.ClassProfileDataInfo = profile_info;
@@ -4947,7 +4943,7 @@ namespace MIS
 
         private void btnUpdateMerchantInfo_Click(object sender, EventArgs e)
         {
-            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isUpdate, clsUser.ClassUserID, 25)) return;
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isUpdate, clsUser.ClassUserID, 23)) return;
 
             txtIRTID.Text = dbFunction.padLeftChar(txtIRTID.Text.Trim(), clsFunction.sZero, clsFunction.TID_LENGTH);
             txtIRMID.Text = dbFunction.padLeftChar(txtIRMID.Text.Trim(), clsFunction.sZero, clsFunction.MID_LENGTH);
@@ -4980,23 +4976,7 @@ namespace MIS
                                       $"{txtIRMID.Text}";
 
                 dbAPI.ExecuteAPI("PUT", "Update", "Update IR TID/MID", pSearchValue, "", "", "UpdateCollectionDetail");
-
                 if (!clsGlobalVariables.isAPIResponseOK) return;
-
-                string pPreviousData = JFunc.Serialized(new { TID = oldTID, MID = oldMID });
-                string pNewData = JFunc.Serialized(new { TID = txtIRTID.Text, MID = txtIRMID.Text });
-
-                dbAPI.SaveOverrideLogAudit(dbFunction.ParseString(txtIRNo.Text),
-                                           dbFunction.ParseInt(txtIRIDNo.Text),
-                                           lblHeader.Text,
-                                           pPreviousData,
-                                           pNewData);
-
-                modelSearch.HoldData.Save(new modelSearch.HoldData
-                {
-                    TID = dbFunction.ParseString(txtIRTID.Text),
-                    MID = dbFunction.ParseString(txtIRMID.Text)
-                });
 
                 dbFunction.SetMessageBox("IR TID/MID updated.", lblHeader.Text, clsFunction.IconType.iInformation);
 
@@ -5010,23 +4990,54 @@ namespace MIS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            bool isDelete = false;
+
             if (!dbFunction.isValidID(txtIRIDNo.Text))
             {
-                dbFunction.SetMessageBox("No installation request selected. Please search merchant first.", lblHeader.Text, clsFunction.IconType.iError);
+                dbFunction.SetMessageBox("No service selected.", lblHeader.Text, clsFunction.IconType.iError);
                 return;
+            }
+
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isUpdate, clsUser.ClassUserID, 23)) return;
+                if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isDelete, clsUser.ClassUserID, 23)) return;
+
+                if (!dbAPI.isPromptAdminLogIn()) return;
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
             }
 
             txtIRTID.Text = dbFunction.padLeftChar(txtIRTID.Text.Trim(), clsFunction.sZero, clsFunction.TID_LENGTH);
             txtIRMID.Text = dbFunction.padLeftChar(txtIRMID.Text.Trim(), clsFunction.sZero, clsFunction.MID_LENGTH);
 
+            List<string> pServiceIRIDNos = dbFunction.GetListViewContents(lvwList, 2);
+
+            if (pServiceIRIDNos.Contains(txtIRIDNo.Text.Trim()))
+            {
+                isDelete = false;
+            }
+            else
+            {
+                isDelete = true;
+            }
+
+            Debug.WriteLine($"btnDelete_Click, IRIDNo=[{txtIRIDNo.Text.Trim()}], isDelete=[{isDelete}]");
+
             if (!dbFunction.fPromptConfirmation(
-                "Deactivate installation request:\n\n" +
-                $"IRIDNo     : [{txtIRIDNo.Text}]\n" +
+                $"{(isDelete ? "Delete" : "Deactivate")} installation request:\n\n" +
+                $"IRIDNo     : [{txtIRIDNo.Text.Trim()}]\n" +
                 $"Request ID : [{txtIRNo.Text}]\n" +
                 $"Merchant   : [{txtMerchantName.Text}]\n" +
                 $"TID        : [{txtIRTID.Text}]\n" +
                 $"MID        : [{txtIRMID.Text}]\n\n" +
-                "Only IR that was pulled out, or replaced with no JO/FSR, will be deactivated.\n" +
+                (isDelete ? "No JO/FSR found. The IR will be permanently deleted.\n"
+                          : "IR has JO/FSR. The IR will be deactivated.\n") +
+                "This action will be audited and is irreversible.\n\n" +
                 "Are you sure to continue?"
             )) return;
 
@@ -5039,22 +5050,43 @@ namespace MIS
                                       $"{txtIRIDNo.Text}{clsDefines.gPipe}" +
                                       $"{txtIRNo.Text}";
 
-                dbAPI.ExecuteAPI("PUT", "Update", "Inactive IR", pSearchValue, "", "", "UpdateCollectionDetail");
-
-                if (!clsGlobalVariables.isAPIResponseOK) return;
-
-                string pJSON = dbAPI.getInfoDetailJSON("Search", "Merchant IR Info", txtIRIDNo.Text);
-                
-                if (string.IsNullOrWhiteSpace(pJSON) || dbAPI.GetIntValueFromJSONString(pJSON, clsDefines.TAG_IRActive) != 0)
+                if (isDelete)
                 {
-                    dbFunction.SetMessageBox(
-                        $"Request ID [{txtIRNo.Text}] cannot be deactivated.\n\n" +
-                        "It has JO/FSR without a completed pull-out, or it is the latest IR for this TID/MID.",
-                        lblHeader.Text, clsFunction.IconType.iError);
-                    return;
-                }
+                    dbAPI.ExecuteAPI("DELETE", "Delete", "Delete IR", pSearchValue, "Delete IR", "", "DeleteCollectionDetail");
+                    if (!clsGlobalVariables.isAPIResponseOK) return;
 
-                dbFunction.SetMessageBox($"Request ID [{txtIRNo.Text}] successfully deactivated.", lblHeader.Text, clsFunction.IconType.iInformation);
+                    string pJSON = dbAPI.getInfoDetailJSON("Search", "Merchant IR Info", txtIRIDNo.Text);
+                    if (!clsGlobalVariables.isAPIResponseOK) return;
+
+                    if (!string.IsNullOrWhiteSpace(pJSON))
+                    {
+                        dbFunction.SetMessageBox(
+                            $"Request ID [{txtIRNo.Text}] cannot be deleted.\n\n" +
+                            "A JO/FSR was found for this IR. Refresh the merchant and deactivate it instead.",
+                            lblHeader.Text, clsFunction.IconType.iError);
+                        return;
+                    }
+
+                    dbFunction.SetMessageBox($"Request ID [{txtIRNo.Text}] successfully deleted.", lblHeader.Text, clsFunction.IconType.iInformation);
+                }
+                else
+                {
+                    dbAPI.ExecuteAPI("PUT", "Update", "Inactive IR", pSearchValue, "", "", "UpdateCollectionDetail");
+                    if (!clsGlobalVariables.isAPIResponseOK) return;
+
+                    string pJSON = dbAPI.getInfoDetailJSON("Search", "Merchant IR Info", txtIRIDNo.Text);
+
+                    if (string.IsNullOrWhiteSpace(pJSON) || dbAPI.GetIntValueFromJSONString(pJSON, clsDefines.TAG_IRActive) != 0)
+                    {
+                        dbFunction.SetMessageBox(
+                            $"Request ID [{txtIRNo.Text}] cannot be deactivated.\n\n" +
+                            "It has JO/FSR without a completed pull-out, or it is the latest IR for this TID/MID.",
+                            lblHeader.Text, clsFunction.IconType.iError);
+                        return;
+                    }
+
+                    dbFunction.SetMessageBox($"Request ID [{txtIRNo.Text}] successfully deactivated.", lblHeader.Text, clsFunction.IconType.iInformation);
+                }
 
                 btnClear_Click(this, e);
             }
