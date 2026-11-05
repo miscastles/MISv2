@@ -112,7 +112,6 @@ namespace MIS
                     txtRemarks.ReadOnly = false;
                     txtRemarks.Text = _mServicingDetailController.Remarks;
 
-                    btnSave.Enabled = btnDelete.Enabled = true;
                     cboServiceStatusCategory.Enabled = true;
 
                     cboServiceStatusCategory_SelectedIndexChanged(this, e);
@@ -139,7 +138,6 @@ namespace MIS
             dbFunction.SetButtonIconImage(btnSearchMerchant);
             dbFunction.SetButtonIconImage(btnSearchService);
 
-            btnSave.Enabled = btnDelete.Enabled = false;
             cboServiceStatusCategory.Enabled = false;
 
             chkAvailable.Enabled = true;

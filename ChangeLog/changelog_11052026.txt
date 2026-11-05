@@ -1,0 +1,75 @@
+﻿CHANGELOG
+Date: November 05, 2026
+Developer: Raiden Fernando
+
+========================================================
+CHANGES
+========================================================
+
+1. frmImportIR.cs
+   - SaveIRDetail(): merchant lookup now uses merchant NAME + ADDRESS
+     (new "GetID Info Address") instead of name only. The address is built
+     the same way the merchant step saves it (StrClean, "-" if blank,
+     ( ) ' removed). Uses getInfoDetailJSON() to read the returned ID.
+   - InsertMerchantParticular(): added in-file duplicate check (HashSet).
+     The same merchant (name + address + area + city) appearing on several
+     rows of one file is now created only once.
+   - btnLoadFile_Click(): ImportToDummyDataGrid() called with date
+     normalization enabled for IR import.
+   - btnSave_Click(): added "Checking import dates" validation on the raw
+     file values before saving (isValidDataGridValue check 9).
+
+2. clsFunction.cs
+   - ImportToDummyDataGrid(): new optional parameter isNormalizeDate
+     (default false). When true, real Excel date cells (no time) are read as
+     yyyy/MM/dd regardless of the cell's display format or the PC's
+     regional date setting. Other imports (SIM, Terminal, Stock Entry)
+     are unchanged.
+   - isValidDataGridValue() check 9 (NEW): Request Date and Target
+     Installation Date must be yyyy/MM/dd or yyyy-MM-dd with no time.
+     Otherwise the import stops with "Invalid date found. Date must be in
+     yyyy/MM/dd format, time is not allowed." and lists the rows.
+     With the normalization above, real Excel dates always pass; only
+     dates typed as text in another format, or dates with a time,
+     are rejected.
+
+3. clsDefines.cs
+   - Added constant GetID_Info_Address = "GetID Info Address".
+
+========================================================
+DATABASE (stored routines)
+========================================================
+
+1. spGetInfoDetail
+   - NEW section 'GetID Info Address': input "name|address", returns the
+     lowest ParticularID with the same name + address (merchant type);
+     falls back to name-only lookup when no address match.
+   - Existing 'GetID Info' section unchanged.
+
+2. spUpdateCollectionDetail
+   - 'Merchant-ZoneID' re-link: MAX(ParticularID) -> MIN(ParticularID),
+     so IRs are linked to the first copy (the one the duplicate cleanup keeps).
+
+3. funcGetID
+   - 'Particular': ORDER BY ParticularID ASC (address match and
+     name-only fallback).
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+Import IR (frmImportIR)
+spGetInfoDetail -> GetID Info Address
+spUpdateCollectionDetail -> Merchant-ZoneID
+funcGetID -> Particular
+
+
+========================================================
+STATUS
+========================================================
+
+Completed / Tested in UAT
+ - New merchant on multiple rows: 1 merchant record, all IRs linked   - PASSED
+ - Existing merchant, new batch: no new record, IRs on same merchant  - PASSED
+ - Short Date cells: saved as correct dates                           - PASSED
+ - Multi-branch (same name, different addresses)                      - PENDING

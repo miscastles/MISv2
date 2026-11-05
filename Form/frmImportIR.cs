@@ -144,7 +144,7 @@ namespace MIS
                     dbAPI.ExecuteAPI("POST", "Create", "", "", txtSheetName.Text, "", "CreateTempTable");
 
                     dbFunction.ClearDataGrid(grdDummy);
-                    dbFunction.ImportToDummyDataGrid(grdDummy, sSheet, txtPathFileName.Text);
+                    dbFunction.ImportToDummyDataGrid(grdDummy, sSheet, txtPathFileName.Text, true);
 
                     Cursor.Current = Cursors.Default; // Back to normal 
                     btnLoadFile.Enabled = false;
@@ -1212,6 +1212,7 @@ namespace MIS
 
             int iPOS_TYPE = dbFunction.GetMapColumnIndex(clsDefines.IR_POS_TYPE);
             int iREQUEST_TYPE = dbFunction.GetMapColumnIndex(clsDefines.IR_REQUEST_TYPE);
+            int iADDRESS = GetHeaderColumnIndex(clsDefines.IR_ADDRESS);
 
             bool isExist = false;
 
@@ -1249,10 +1250,20 @@ namespace MIS
 
                     // get ParticularID - getinfodetail
                     int iParticularID = 0;
-                    dbAPI.ExecuteAPI("GET", "Search", clsDefines.GetID_Info, $"{clsDefines.SearchBy_Particular}{clsDefines.gPipe}{sDBAName}", "Get Info Detail", "", "GetInfoDetail");
-                    if (dbAPI.isNoRecordFound() == false)
+
+                    // address built exactly as the merchant step saved it
+                    string sMerchantAddress = StrClean(GetColumnValue(i, iADDRESS, grdList));
+                    if (sMerchantAddress.Length == 0) 
                     {
-                        iParticularID = int.Parse(dbAPI.GetValueFromJSONString(clsSearch.ClassOutParamValue, clsDefines.TAG_ID));
+                        sMerchantAddress = clsFunction.sDash;
+                    }
+
+                    sMerchantAddress = sMerchantAddress.Replace("(", "").Replace(")", "").Replace("'", "");
+                    string pJSONString = dbAPI.getInfoDetailJSON("Search", clsDefines.GetID_Info_Address, $"{sDBAName}{clsDefines.gPipe}{sMerchantAddress}");
+
+                    if (dbFunction.isValidDescription(pJSONString))
+                    {
+                        iParticularID = int.Parse(dbFunction.CheckAndSetNumericValue(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ID)));
                     }
 
                     // get RequestTypeID - getInfoDetail
@@ -1588,6 +1599,8 @@ namespace MIS
             int ii = 0;
 
             List<string> TempArrayDataCol = new List<String>();
+            HashSet<string> addedMerchantKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
             int iRecordMinLimit = clsSystemSetting.ClassSystemRecordMinLimit;
             int iStartIndex = 0;
             int iEndIndex = 0;
@@ -1645,11 +1658,13 @@ namespace MIS
 
                     dbAPI.GetRegionDetailFromList(sCity);
 
-                    //bool fExist = dbAPI.isRecordExist("Search", "Merchant TID/MID", sTID + clsDefines.gPipe + sMID + clsDefines.gPipe + sMerchName);
-                    bool fExist = dbAPI.isRecordExist("Search", "Merchant-Address", sMerchName + clsDefines.gPipe + sAddress + clsDefines.gPipe + sProvince + clsDefines.gPipe + sCity);
+                    string sMerchantKey = $"{sMerchName.Trim()}{clsDefines.gPipe}{sAddress.Trim()}{clsDefines.gPipe}{sProvince.Trim()}{clsDefines.gPipe}{sCity.Trim()}";
 
+                    bool fExist = addedMerchantKeys.Contains(sMerchantKey) || dbAPI.isRecordExist("Search", "Merchant-Address", sMerchName + clsDefines.gPipe + sAddress + clsDefines.gPipe + sProvince + clsDefines.gPipe + sCity);
                     if (sMerchName.Length > 0 && sMerchName.CompareTo(clsFunction.sDash) != 0 && !fExist)
                     {
+                        addedMerchantKeys.Add(sMerchantKey);
+
                         clsSearch.ClassParticularName = sMerchName;
 
                         clsParticular.ClassParticularName = StrClean(sMerchName.Length > 0 ? sMerchName : clsFunction.sDash);

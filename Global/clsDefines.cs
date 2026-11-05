@@ -160,7 +160,6 @@ namespace MIS
         public const string TAG_ContactEmail = "ContactEmail";
         public const string TAG_Mobile = "Mobile";
         public const string TAG_TelNo = "TelNo";
-        
 
         // Mobile
         public const string TAG_MobileID = "MobileID";
@@ -685,6 +684,7 @@ namespace MIS
 
 
         public const string GetID_Info = "GetID Info";
+        public const string GetID_Info_Address = "GetID Info Address";
         public const string GetDesc_Info = "GetDesc Info";
 
         public const string SearchBy_Particular = "Particular";

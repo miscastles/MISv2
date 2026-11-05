@@ -1177,7 +1177,8 @@ namespace MIS
 
             return sTime;
         }
-        public void ImportToDummyDataGrid(DataGridView obj, string sSheetName, string sPathFileName)
+
+        public void ImportToDummyDataGrid(DataGridView obj, string sSheetName, string sPathFileName, bool isNormalizeDate = false)   // ← NEW parameter
         {
             try
             {
@@ -1216,9 +1217,16 @@ namespace MIS
                         DataRow dr = dt.NewRow();
                         for (int col = 1; col <= colCount; col++)
                         {
-                            string rawValue = worksheet.Cells[row, col].Text?.Trim() ?? "";
+                            var cell = worksheet.Cells[row, col];
+                            string rawValue;
 
-                            //dr[col - 1] = worksheet.Cells[row, col].Text;
+                            // ← NEW: a real Excel date (no time) is always passed on as yyyy/MM/dd,
+                            //   whatever the cell's display format or the PC's date setting
+                            if (isNormalizeDate && cell.Value is DateTime dtCell && dtCell.TimeOfDay == TimeSpan.Zero)
+                                rawValue = dtCell.ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
+                            else
+                                rawValue = cell.Text?.Trim() ?? "";
+
                             dr[col - 1] = StrClean(rawValue);
                         }
                         dt.Rows.Add(dr);
@@ -1233,7 +1241,6 @@ namespace MIS
                 SetMessageBox($"Excel Import Error:\n\n{ex.Message}", "Error", IconType.iError);
             }
         }
-
 
         public string GetDateFromParse(string sDateTime, string sDateFormat, string sOutDateFormat)
         {
@@ -5174,7 +5181,6 @@ namespace MIS
                     sHint = $"Invalid request type found.{Environment.NewLine}Valid request type are [{clsSystemSetting.ClassSystemValidRequestType}]";
                     break;
                 case 9:
-                    // import date check on raw file values (grdDummy): yyyy/MM/dd only, no time
                     for (i = 0; i < dataGridView.RowCount; i++)
                     {
                         iLineNo++;
