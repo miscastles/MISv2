@@ -3281,194 +3281,84 @@ namespace MIS
             }
 
         }
-       
+
         private void btnCancelJO_Click(object sender, EventArgs e)
         {
-            bool isConfirm = false;
-
-            // Check Application Version
-            //if (!dbAPI.isValidSystemVersion()) return;
-
-            //if (!dbAPI.isValidCancelService(txtSearchServiceNo.Text, txtSearchFSRNo.Text)) return;
-
-            // Admin Login requirement
             if (!dbAPI.isPromptAdminLogIn()) return;
 
-            // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isDelete, clsUser.ClassUserID, 25)) return;
-
-            // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isDelete, clsUser.ClassUserID, 26)) return;
 
             if (dbFunction.isValidID(txtSearchServiceNo.Text) && dbFunction.isValidID(txtIRIDNo.Text))
             {
+                string sJobType = txtSearchSTJobTypeDescription.Text;
+
+                if ((sJobType.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC) ||
+                     sJobType.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC) ||
+                     sJobType.Equals(clsGlobalVariables.JOB_TYPE_PULLOUT_DESC)) &&
+                    (dbFunction.isValidID(txtSearchFSRNo.Text) || txtServiceJobTypeStatusDesc.Text.Equals(clsDefines.SERVICE_STATUS_COMPLETED)))
+                {
+                    dbFunction.SetMessageBox("Unable to delete [" + sJobType + "] service." + "\n" +
+                                             "An FSR already exists for this service." + "\n\n" +
+                                             clsDefines.CONTACT_ADMIN_MESSAGE,
+                                             clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return;
+                }
+
+                string sMessage = "";
+
                 if (txtServiceJobTypeStatusDesc.Text.Equals(clsDefines.SERVICE_STATUS_COMPLETED))
                 {
-                    if ((txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC)) ||
-                        (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC)) ||
-                        (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_PULLOUT_DESC)))
-                    {
-                        dbFunction.SetMessageBox("Unable to delete completed service for\n[INSTALLATION/REPLACEMENT/PULL-OUT]" + "\n\n" + clsDefines.CONTACT_ADMIN_MESSAGE, clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                        return;
-                    }
-                    else
-                    {
-                        if (!dbFunction.fPromptConfirmation("!!IMPORTANT!!" + "\n" +
-                        "This service is already COMPLETED" + "\n\n" +
-                        "Do you still want to delete service?"))
-                            return;
-                    }
+                    sMessage += "IMPORTANT" + "\n" +
+                                "This service is already COMPLETED." + "\n\n";
                 }
-                
-                if (MessageBox.Show("Are you sure to delete " + cboSearchServiceType.Text + " service" + " for \n" + txtMerchantName.Text + "." + 
-                    "\n\n" +                   
-                    "Warning:\nData will permanently deleted.", "Confirm?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                    isConfirm = false;
-                else
-                    isConfirm = true;
 
-                if (isConfirm)
+                sMessage += "Are you sure you want to delete this service?" + "\n\n" +
+                            "Merchant     : " + txtMerchantName.Text + "\n\n" +
+                            "Service Type : " + cboSearchServiceType.Text + "\n" +
+                            "Service No.  : " + txtSearchServiceNo.Text + "\n" +
+                            "FSR No.      : " + (txtServiceJobTypeStatusDesc.Text.Equals(clsDefines.SERVICE_STATUS_COMPLETED) ? txtSearchFSRNo.Text : "-") + "\n" +
+                            "Request No.  : " + txtSearchIRNo.Text + "\n\n" +
+                            "Job Type     : " + sJobType + "\n" +
+                            "Status       : " + txtServiceJobTypeStatusDesc.Text + "\n\n" +
+                            "Proceeding will:" + "\n" +
+                            (txtServiceJobTypeStatusDesc.Text.Equals(clsDefines.SERVICE_STATUS_COMPLETED) ? "- Delete this service and its FSR" : "- Delete this service") + 
+                            "\n\n" +
+                            "WARNING: Data will be permanently deleted and this action will be audited.";
+
+                if (sJobType.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC))
                 {
-                    Cursor.Current = Cursors.WaitCursor;
-
-                    if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC))
-                    {
-                        clsSearch.ClassAdvanceSearchValue = txtSearchSTJobTypeDescription.Text + clsFunction.sPipe +
-                                                    txtSearchServiceNo.Text + clsFunction.sPipe +
-                                                    txtIRIDNo.Text + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtClientID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtCurTerminalID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtCurSIMID.Text);
-                    }
-                    else if (txtSearchSTJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
-                    {
-                        clsSearch.ClassAdvanceSearchValue = txtSearchSTJobTypeDescription.Text + clsFunction.sPipe +
-                                                    txtSearchServiceNo.Text + clsFunction.sPipe +
-                                                    txtIRIDNo.Text + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtClientID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtRepTerminalID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtRepSIMID.Text);
-                    }
-                    else
-                    {
-                        clsSearch.ClassAdvanceSearchValue = txtSearchSTJobTypeDescription.Text + clsFunction.sPipe +
-                                                    txtSearchServiceNo.Text + clsFunction.sPipe +
-                                                    txtIRIDNo.Text + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtClientID.Text) + clsFunction.sPipe +
-                                                    clsFunction.sZero + clsFunction.sPipe +
-                                                    clsFunction.sZero;
-                    }
-
-                    Debug.WriteLine("Cancel Service->Value=" + clsSearch.ClassAdvanceSearchValue);
-                    dbAPI.ExecuteAPI("PUT", "Update", "Cancel Service", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
-
-                    Cursor.Current = Cursors.Default;
-
-                    dbFunction.SetMessageBox("Service deletion complete.", "Service cancelled", clsFunction.IconType.iInformation);
-
-                    btnClear_Click(this, e);
+                    sMessage += "- Return the terminal and SIM to AVAILABLE (STOCK ROOM)" + "\n";
                 }
-            
-            }
-
-            /*
-            if (dbFunction.isValidID(txtSearchServiceNo.Text))
-            {
-                if (!dbFunction.isValidEntry(clsFunction.CheckType.iReason, txtReasonID.Text)) return;
-                
-                if (txtServiceJobTypeStatusDesc.Text.Equals(clsGlobalVariables.JOB_TYPE_STATUS_COMPLETED_DESC))
+                else if (sJobType.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
                 {
-                    dbFunction.SetMessageBox("Unable to cancel service that already completed.", "Service cancel", clsFunction.IconType.iExclamation);
+                    sMessage += "- Return the replacement terminal and SIM to AVAILABLE (STOCK ROOM)" + "\n";
                 }
-                else
+                else if (sJobType.Equals(clsGlobalVariables.JOB_TYPE_PULLOUT_DESC))
                 {
-                    if (MessageBox.Show("Are you sure to cancel service?" + "\n\n" +
-                        "Client:" + txtClientName.Text + "\n" +
-                        "Merchant:" + txtMerchantName.Text + "\n" +
-                        "Field Engineer:" + txtFEName.Text + "\n" +
-                        clsFunction.sLineSeparator + "\n" +
-                        "IR No:" + txtRequestNo.Text + "\n" +
-                        "IR Reference No.:" + txtReferenceNo.Text + "\n" +
-                        "IR Date:" + txtIRInstallationDate.Text + "\n" +
-                        "IR Processed By:" + txtIRProcessedBy.Text + "\n" +
-                        clsFunction.sLineSeparator + "\n" +
-                        "Service Job Type:" + txtServiceJobType.Text + "\n" +
-                        "Service Date:" + txtServiceDate.Text + "\n" +                        
-                        "Service Request No.:" + txtServiceRequestID.Text + "\n" +                        
-                        clsFunction.sLineSeparator + "\n" +
-                        "Current SN's Details" + "\n" +
-                        clsFunction.sLineSeparator + "\n" +
-                        "Terminal SN:" + txtCurTerminalSN.Text + "\n" +
-                        " > Type:" + txtCurTerminalType.Text + "\n" +
-                        " > Model:" + txtCurTerminalModel.Text + "\n" +
-                        " > Brand:" + txtCurTerminalBrand.Text + "\n" +
-                        "SIM SN:" + txtCurSIMSN.Text + "\n" +
-                        " > Carrier:" + txtCurSIMCarrier.Text + "\n" +
-                        "Dock SN:" + txtCurDockSN.Text + "\n" +
-                        clsFunction.sLineSeparator + "\n" +
-                        "Replace With SN's Details" + "\n" +
-                        clsFunction.sLineSeparator + "\n" +
-                        "Terminal SN:" + txtRepTerminalSN.Text + "\n" +
-                        " > Type:" + txtRepTerminalType.Text + "\n" +
-                        " > Model:" + txtRepTerminalModel.Text + "\n" +
-                        " > Brand:" + txtRepTerminalBrand.Text + "\n" +
-                        "SIM SN:" + txtRepSIMSN.Text + "\n" +
-                        " > Carrier:" + txtRepSIMCarrier.Text + "\n" +
-                        "Dock SN:" + txtRepDockSN.Text + "\n" +
-                        clsFunction.sLineSeparator + "\n" +
-                        "Reason:" + txtReasonDescription.Text + "\n" +
-                        "Remarks:" + txtRemarks.Text,
-                        "Service cancellation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                    {
-                        return;
-                    }
-
-                    // Servicing Cancelled
-                    clsSearch.ClassAdvanceSearchValue = txtSearchServiceNo.Text + clsFunction.sPipe +
-                                                        clsFunction.sOne + clsFunction.sPipe +
-                                                        clsGlobalVariables.STATUS_CANCELLED + clsFunction.sPipe +
-                                                        clsGlobalVariables.STATUS_CANCELLED_DESC + clsFunction.sPipe +
-                                                        clsGlobalVariables.JOB_TYPE_STATUS_CANCELLED_DESC;
-                    Debug.WriteLine("clsSearch.ClassAdvanceSearchValue=" + clsSearch.ClassAdvanceSearchValue);
-
-                    dbAPI.ExecuteAPI("PUT", "Update", "Update Servicing Cancelled", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
-
-
-                    // Update FillUp
-                    clsSearch.ClassSearchValue = txtSearchServiceNo.Text + clsFunction.sPipe +
-                                                 txtCustomerName.Text + clsFunction.sPipe +
-                                                 txtCustomerContactNo.Text + clsFunction.sPipe +
-                                                 txtRemarks.Text + clsFunction.sPipe +
-                                                 txtReferenceNo.Text + clsFunction.sPipe +
-                                                 dbFunction.CheckAndSetNumericValue(txtReasonID.Text) + clsFunction.sPipe +
-                                                 dbFunction.CheckAndSetNumericValue(txtFEID.Text) + clsFunction.sPipe +
-                                                 txtFEName.Text;
-
-                    Debug.WriteLine("clsSearch.ClassSearchValue=" + clsSearch.ClassSearchValue);
-
-                    dbAPI.ExecuteAPI("PUT", "Update", "Update Servicing FillUp", clsSearch.ClassSearchValue, "", "", "UpdateCollectionDetail");
-
-                    // Update Modified By
-                    clsSearch.ClassSearchValue = "Servicing" + clsFunction.sPipe +
-                                                    txtSearchServiceNo.Text + clsFunction.sPipe +
-                                                    clsUser.ClassModifiedBy + clsFunction.sPipe +
-                                                    clsUser.ClassModifiedDateTime;
-
-                    Debug.WriteLine("UpdateModifiedBy::clsSearch.ClassSearchValue=" + clsSearch.ClassSearchValue);
-
-                    dbAPI.ExecuteAPI("PUT", "Update", "Update Modified By", clsSearch.ClassSearchValue, "", "", "UpdateCollectionDetail");
-
-                    dbFunction.SetMessageBox("Service cancelled complete.", "Service cancel", clsFunction.IconType.iInformation);
-
-                    btnClear_Click(this, e);
-
+                    sMessage += "- Terminal stays with the merchant" + "\n";
                 }
+
+                if (!dbFunction.OpenPopup(sMessage))
+                {
+                    return;
+                }
+
+                Cursor.Current = Cursors.WaitCursor;
+
+                clsSearch.ClassAdvanceSearchValue = sJobType + clsFunction.sPipe +
+                                                    txtSearchServiceNo.Text + clsFunction.sPipe +
+                                                    txtIRIDNo.Text;
+
+                Debug.WriteLine("Cancel Service->Value=" + clsSearch.ClassAdvanceSearchValue);
+                dbAPI.ExecuteAPI("PUT", "Update", "Cancel Service", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+
+                Cursor.Current = Cursors.Default;
+
+                dbFunction.SetMessageBox("Service deletion complete.", "Service deleted", clsFunction.IconType.iInformation);
+
+                btnClear_Click(this, e);
             }
-            else
-            {
-                dbFunction.SetMessageBox("No service record to be cancelled.", "Service cancel", clsFunction.IconType.iExclamation);
-            }
-            */
         }
 
         private void UpdateButton(bool isClear)

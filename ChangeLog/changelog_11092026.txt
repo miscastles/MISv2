@@ -1,0 +1,39 @@
+﻿﻿CHANGELOG
+Date: November 09, 2026
+Developer: Raiden K. Fernando
+
+========================================================
+CHANGES
+========================================================
+
+1. frmBankTemplateGen.cs, frmQRDelivery.cs, clsBankTemplate.cs, modelBankTemplate.cs, modelQRdeliveryService.cs, modelQRDeliveryValidation.cs
+	- Improved file name casing aswell as minor code revision
+
+2. clsFunction.cs
+	- Minor code revision + added OpenPopup helper to openPopup
+
+3. frmMUpdateServiceStatus.cs
+	- Added support for class based fetching and holding data + fixed issue regarding cancelled services terminals and sims sn not returning to available + stockroom
+
+4. frmPopup ( new form ), ModelPopup.cs
+	- Added a visual form for overrides and better information display.
+
+5. frmTableEditor.cs
+	- Added functionality to run sql scripts inline
+
+6. frmServiceJobOrder.cs, frmTerminalFSR.cs
+	- Used frmPopup to display information when using override features + fixed issue regarding terminalsn and simsn not returning to available when Deleting services 
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+spDeleteCollectionDetail -> Delete IR
+spUpdateCollectionDetail -> Inactive IR, Cancel Service
+spViewAdvanceDetail -> Table List, Table Rows
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

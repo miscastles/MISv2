@@ -5043,18 +5043,24 @@ namespace MIS
 
             Debug.WriteLine($"btnDelete_Click, IRIDNo=[{txtIRIDNo.Text.Trim()}], isDelete=[{isDelete}]");
 
-            if (!dbFunction.fPromptConfirmation(
-                $"{(isDelete ? "Delete" : "Deactivate")} installation request:\n\n" +
-                $"IRIDNo     : [{txtIRIDNo.Text.Trim()}]\n" +
-                $"Request ID : [{txtIRNo.Text}]\n" +
-                $"Merchant   : [{txtMerchantName.Text}]\n" +
-                $"TID        : [{txtIRTID.Text}]\n" +
-                $"MID        : [{txtIRMID.Text}]\n\n" +
-                (isDelete ? "No JO/FSR found. The IR will be permanently deleted.\n"
-                          : "IR has JO/FSR. The IR will be deactivated.\n") +
-                "This action will be audited and is irreversible.\n\n" +
-                "Are you sure to continue?"
-            )) return;
+            string sMessage =
+                  $"Are you sure you want to {(isDelete ? "delete" : "deactivate")} this installation request?\n\n" +
+                  "Merchant".PadRight(11) + ": " + txtMerchantName.Text + "\n\n" +
+                  "Request ID".PadRight(11) + ": " + txtIRNo.Text + "\n" +
+                  "IRIDNo".PadRight(11) + ": " + txtIRIDNo.Text.Trim() + "\n" +
+                  "TID".PadRight(11) + ": " + txtIRTID.Text + "\n" +
+                  "MID".PadRight(11) + ": " + txtIRMID.Text + "\n\n" +
+                  "Proceeding will:\n" +
+                  (isDelete ? "- Permanently delete this IR (no JO/FSR found)\n"
+                            : "- Deactivate this IR (it has JO/FSR)\n") +
+                  "\n" +
+                  (isDelete ? "WARNING: Data will be permanently deleted and this action will be audited."
+                            : "WARNING: This action will be audited.");
+
+            if (!dbFunction.OpenPopup(sMessage))
+            {
+                return;
+            }
 
             try
             {

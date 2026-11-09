@@ -1,8 +1,8 @@
 ﻿namespace MIS.Model
 {
-    internal sealed class BankTemplateRow
+    internal sealed class modelBankTemplate
     {
-        public BankTemplateRow()
+        public modelBankTemplate()
         {
             Section = string.Empty;
             SourceRowNumber = string.Empty;

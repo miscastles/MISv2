@@ -5291,89 +5291,89 @@ namespace MIS
 
         private void btnCancelJO_Click(object sender, EventArgs e)
         {
-            bool isConfirm = false;
-
-            // Check Application Version
             if (!dbAPI.isValidSystemVersion()) return;
-
-            // Admin Login requirement
             if (!dbAPI.isPromptAdminLogIn()) return;
 
-            // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isDelete, clsUser.ClassUserID, 25)) return;
-
-            // Check User Access Rights
             if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isDelete, clsUser.ClassUserID, 26)) return;
 
             if (dbFunction.isValidID(txtSearchServiceNo.Text) && dbFunction.isValidID(txtIRIDNo.Text))
             {
-                if (txtServiceJobTypeStatusDesc.Text.Equals(clsDefines.SERVICE_STATUS_COMPLETED))
+                bool isCompleted = txtServiceJobTypeStatusDesc.Text.Equals(clsDefines.SERVICE_STATUS_COMPLETED);
+
+                if (isCompleted &&
+                    (txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC) ||
+                     txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC) ||
+                     txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_PULLOUT_DESC)))
                 {
-                    if ((txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC)) ||
-                        (txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC)) ||
-                        (txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_PULLOUT_DESC)))
-                    {
-                        dbFunction.SetMessageBox("Unable to delete completed service for\n[INSTALLATION/REPLACEMENT/PULL-OUT]" + "\n\n" + clsDefines.CONTACT_ADMIN_MESSAGE, clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
-                        return;
-                    }
-                    else
-                    {
-                        if (!dbFunction.fPromptConfirmation("!!IMPORTANT!!" + "\n" +
-                        "This service is already COMPLETED" + "\n\n" +
-                        "Do you still want to cancel service?"))
-                            return;
-                    }
+                    dbFunction.SetMessageBox("Unable to delete completed service for\n[INSTALLATION/REPLACEMENT/PULL-OUT]" + "\n\n" + clsDefines.CONTACT_ADMIN_MESSAGE, clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
+                    return;
                 }
 
-                if (MessageBox.Show("Are you sure to cancel " + txtServiceType1.Text + " service" + " for \n" + txtMerchantName.Text + "." +
-                    "\n\n" +
-                    "Warning:\nData will permanently deleted.", "Confirm?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                    isConfirm = false;
+                string sMessage = "";
+
+                if (isCompleted)
+                {
+                    sMessage += "IMPORTANT" + "\n" +
+                                "This service is already COMPLETED." + "\n\n";
+                }
+
+                sMessage += "Are you sure you want to delete this service?" + "\n\n" +
+                            "Merchant     : " + txtMerchantName.Text + "\n\n" +
+                            "Service Type : " + txtServiceType1.Text + "\n" +
+                            "Service No.  : " + txtSearchServiceNo.Text + "\n" +
+                            "RequestNo    : " + txtSearchIRNo.Text + "\n" +
+                            "\n" +
+                            "Job Type     : " + txtJobTypeDescription.Text + "\n" +
+                            "Status       : " + txtServiceJobTypeStatusDesc.Text + "\n" +
+                            "\n\n" +
+                            "Proceeding would delete this FSR and Servicing records." + 
+                            "\n" +
+                            "WARNING: Data will be permanently deleted and this action will be audited.";
+
+                if (!dbFunction.OpenPopup(sMessage))
+                {
+                    return;
+                };
+                
+                Cursor.Current = Cursors.WaitCursor;
+
+                if (txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC) || txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_PULLOUT_DESC))
+                {
+                    clsSearch.ClassAdvanceSearchValue = txtJobTypeDescription.Text + clsFunction.sPipe +
+                                                txtSearchServiceNo.Text + clsFunction.sPipe +
+                                                txtIRIDNo.Text + clsFunction.sPipe +
+                                                dbFunction.CheckAndSetNumericValue(txtClientID.Text) + clsFunction.sPipe +
+                                                dbFunction.CheckAndSetNumericValue(txtCurTerminalID.Text) + clsFunction.sPipe +
+                                                dbFunction.CheckAndSetNumericValue(txtCurSIMID.Text);
+                }
+                else if (txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
+                {
+                    clsSearch.ClassAdvanceSearchValue = txtJobTypeDescription.Text + clsFunction.sPipe +
+                                                txtSearchServiceNo.Text + clsFunction.sPipe +
+                                                txtIRIDNo.Text + clsFunction.sPipe +
+                                                dbFunction.CheckAndSetNumericValue(txtClientID.Text) + clsFunction.sPipe +
+                                                dbFunction.CheckAndSetNumericValue(txtRepTerminalID.Text) + clsFunction.sPipe +
+                                                dbFunction.CheckAndSetNumericValue(txtRepSIMID.Text);
+                }
                 else
-                    isConfirm = true;
-
-                if (isConfirm)
                 {
-                    Cursor.Current = Cursors.WaitCursor;
-
-                    if (txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION_DESC) ||
-                        txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_PULLOUT_DESC))
-                    {
-                        clsSearch.ClassAdvanceSearchValue = txtJobTypeDescription.Text + clsFunction.sPipe +
-                                                    txtSearchServiceNo.Text + clsFunction.sPipe +
-                                                    txtIRIDNo.Text + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtClientID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtCurTerminalID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtCurSIMID.Text);
-                    }
-                    else if (txtJobTypeDescription.Text.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT_DESC))
-                    {
-                        clsSearch.ClassAdvanceSearchValue = txtJobTypeDescription.Text + clsFunction.sPipe +
-                                                    txtSearchServiceNo.Text + clsFunction.sPipe +
-                                                    txtIRIDNo.Text + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtClientID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtRepTerminalID.Text) + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtRepSIMID.Text);
-                    }
-                    else
-                    {
-                        clsSearch.ClassAdvanceSearchValue = txtJobTypeDescription.Text + clsFunction.sPipe +
-                                                    txtSearchServiceNo.Text + clsFunction.sPipe +
-                                                    txtIRIDNo.Text + clsFunction.sPipe +
-                                                    dbFunction.CheckAndSetNumericValue(txtClientID.Text) + clsFunction.sPipe +
-                                                    clsFunction.sZero + clsFunction.sPipe +
-                                                    clsFunction.sZero;
-                    }
-
-                    Debug.WriteLine("Cancel Service->Value=" + clsSearch.ClassAdvanceSearchValue);
-                    dbAPI.ExecuteAPI("PUT", "Update", "Cancel Service", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
-
-                    Cursor.Current = Cursors.Default;
-
-                    dbFunction.SetMessageBox("Service cancelled complete.", "Job order cancelled", clsFunction.IconType.iInformation);
-
-                    btnMClear_Click(this, e);
+                    clsSearch.ClassAdvanceSearchValue = txtJobTypeDescription.Text + clsFunction.sPipe +
+                                                txtSearchServiceNo.Text + clsFunction.sPipe +
+                                                txtIRIDNo.Text + clsFunction.sPipe +
+                                                dbFunction.CheckAndSetNumericValue(txtClientID.Text) + clsFunction.sPipe +
+                                                clsFunction.sZero + clsFunction.sPipe +
+                                                clsFunction.sZero;
                 }
+
+                Debug.WriteLine("Cancel Service->Value=" + clsSearch.ClassAdvanceSearchValue);
+                dbAPI.ExecuteAPI("PUT", "Update", "Cancel Service", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+
+                Cursor.Current = Cursors.Default;
+
+                dbFunction.SetMessageBox("Service deletion complete.", "Job deleted cancelled", clsFunction.IconType.iInformation);
+
+                btnMClear_Click(this, e);
             }
         }
 

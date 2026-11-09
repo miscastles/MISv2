@@ -164,7 +164,7 @@ namespace MIS
         {
             iClientID, iClientName,
             iMerchantID, iMerchantName, iMerchantAddress,
-            iFEID, iFEName,          
+            iFEID, iFEName,
             iSPID, iSPName,
             iEMPID,
             iParticularID,
@@ -1514,7 +1514,7 @@ namespace MIS
 
             func(obj.Controls);
         }
-        
+
         public void InitDateTimePicker(string format, Control parent)
         {
             foreach (Control ctrl in parent.Controls)
@@ -1564,7 +1564,7 @@ namespace MIS
             {
                 SetMessageBox($"Exceptional error {ex.Message}", "ClearDataGrid", IconType.iError);
             }
-            
+
 
             //if (obj.RowCount > 0)
             //{
@@ -1639,7 +1639,7 @@ namespace MIS
             {
                 SetMessageBox($"Unable to generate report:\n\n{ex.Message}", "ProcessReport", IconType.iError);
             }
-            
+
         }
 
         public string FormatDate(string sFromFormat, string sToFormat, string sDate)
@@ -1908,7 +1908,7 @@ namespace MIS
 
             return sTemp;
         }
-        
+
         public string CheckAndSetDatePickerValueToDate(DateTimePicker obj)
         {
             string sTemp = sDateFormat;
@@ -4436,7 +4436,7 @@ namespace MIS
             else if (pDescription.Equals(clsGlobalVariables.STATUS_HOLD_DESC))
                 color = Color.FromArgb(77, 77, 77);
             else if (pDescription.Equals(clsGlobalVariables.STATUS_CANCEL_DESC))
-                color = Color.FromArgb(128, 0, 0);  
+                color = Color.FromArgb(128, 0, 0);
             else
                 color = Color.FromArgb(0, 0, 0);
 
@@ -4854,7 +4854,7 @@ namespace MIS
 
                         if (!isValidDate)
                         {
-                            sRequestDate = clsDefines.DEV_DATE;                            
+                            sRequestDate = clsDefines.DEV_DATE;
                         }
 
                         sFormattedDate = requestDate.ToString("yyyy-MM-dd");
@@ -4936,7 +4936,7 @@ namespace MIS
                             isValid = false;
                             sTemp += "> Line# : " + iLineNo + Environment.NewLine +
                                      "> Merchant Name : " + sMerchantName + Environment.NewLine +
-                                     "> Region : " + sRegion + Environment.NewLine +                                     
+                                     "> Region : " + sRegion + Environment.NewLine +
                                      sSingleLineSeparator + Environment.NewLine;
                         }
 
@@ -4972,15 +4972,15 @@ namespace MIS
                         }
                         else
                         {
-                            isValid = false;                        
+                            isValid = false;
                             sTemp += "> Line# : " + iLineNo + Environment.NewLine +
                                      "> Merchant Name : " + sMerchantName + Environment.NewLine +
                                      "> TID : " + sTID + Environment.NewLine +
                                      "> MID : " + sMID + Environment.NewLine +
-                                     "> Request ID : " + sIRNo + Environment.NewLine +                                     
+                                     "> Request ID : " + sIRNo + Environment.NewLine +
                                      sSingleLineSeparator + Environment.NewLine;
                         }
-                        
+
                     }
 
                     sHint = $"Invalid request id prefix found.{Environment.NewLine}Valid prefix are [{clsSystemSetting.ClassSystemIRNoPrefix}]";
@@ -5001,7 +5001,7 @@ namespace MIS
 
                         string pJSONString = dbAPI.getInfoDetailJSON("Search", "Merchant Basic Info 2", $"{sTID}{clsDefines.gPipe}{sMID}{clsDefines.gPipe}{sMerchantName}");
                         parseDelimitedString(pJSONString, clsDefines.gComma, 0);
-                        
+
                         if (isValidID(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_RegionType)))
                         {
                             // do nothing
@@ -5030,7 +5030,7 @@ namespace MIS
                             sTemp += "> Line# : " + iLineNo + Environment.NewLine +
                                      "> Request ID : " + sIRNo + Environment.NewLine +
                                      "> Merchant Name : " + sMerchantName + Environment.NewLine +
-                                     "> TID : " + sTID + Environment.NewLine + 
+                                     "> TID : " + sTID + Environment.NewLine +
                                      "> MID : " + sMID + Environment.NewLine +
                                      "> Region : " + sRegion + Environment.NewLine +
                                      "> Province : " + sProvince + Environment.NewLine + Environment.NewLine +
@@ -5138,7 +5138,7 @@ namespace MIS
                                      "*Address mismatch!" + Environment.NewLine +
                                      sSingleLineSeparator + Environment.NewLine;
                         }
-                        
+
                     }
                     sHint = "Merchant name, address, region and province mismatch on the server." + Environment.NewLine +
                             "Update record using import data.";
@@ -5538,7 +5538,7 @@ namespace MIS
             //clsSearch.ClassisAppVersion = true;
 
             Debug.WriteLine("--isValidVersion--");
-            Debug.WriteLine("isDeployed="+ isDeployed);
+            Debug.WriteLine("isDeployed=" + isDeployed);
             Debug.WriteLine("isDeployed=" + clsSearch.ClassisAppVersion);
 
             if (isDeployed && clsSearch.ClassisAppVersion)
@@ -5552,7 +5552,7 @@ namespace MIS
 
                 if (!sLocalVersion.Equals(clsSystemSetting.ClassSystemPublishVersion))
                 {
-                    MessageBox.Show("A new version of " + AddBracketStartEnd(clsSystemSetting.ClassApplicationName) + " is now available." + "\n" + "Please update to continue using this application." + 
+                    MessageBox.Show("A new version of " + AddBracketStartEnd(clsSystemSetting.ClassApplicationName) + " is now available." + "\n" + "Please update to continue using this application." +
                         "\n\n" +
                         "Version details below:" + "\n" +
                         " > Bank: " + clsSearch.ClassBankName + "\n" +
@@ -5583,7 +5583,7 @@ namespace MIS
             else
                 obj.BackColor = Color.Orange;
         }
-        
+
         public static async Task LoadImageFromURLAsync(string pURL, string pRemotePath, PictureBox obj,
                                                int index, string pServiceNo, bool isSignature)
         {
@@ -5727,7 +5727,7 @@ namespace MIS
 
             pOutput = (isSecured ? "https" : "http") + "://" + hostEntry.HostName;
 
-            Debug.WriteLine("convertIpToHostName, pOutput="+ pOutput);
+            Debug.WriteLine("convertIpToHostName, pOutput=" + pOutput);
 
             return pOutput;
         }
@@ -6214,7 +6214,7 @@ namespace MIS
                 return string.Empty;
             }
         }
-        
+
         public bool isValidLen(string sValue)
         {
             bool fValid = true;
@@ -6388,12 +6388,12 @@ namespace MIS
         public bool isValidDescriptionEntry(string sValue, string sMessage)
         {
             bool fValid = false;
-            
+
             if (isValidDescription(sValue))
             {
                 fValid = true;
             }
-            
+
             if (!fValid)
             {
                 SetMessageBox(sMessage, "Warning", IconType.iExclamation);
@@ -6420,7 +6420,7 @@ namespace MIS
 
             // Keep track of columns to display
             var visibleColumns = new List<int>();
-            
+
             // Add columns dynamically, skipping those in exclusion lists
             foreach (DataColumn column in table.Columns)
             {
@@ -6507,7 +6507,7 @@ namespace MIS
 
             if (iResult > 0)
                 fValid = false;
-            
+
             return fValid;
         }
 
@@ -6941,7 +6941,7 @@ namespace MIS
         public string getFSRMode(int pMobileID, int pFSRNo, int pServiceNo)
         {
             string output = "";
-            
+
             if (pFSRNo > 0)
             {
                 output = (pMobileID > 0 ? clsDefines.DIGITAL_FSR : clsDefines.MANUAL_FSR);
@@ -7044,7 +7044,7 @@ namespace MIS
                 }
             }
         }
-        
+
         public void applyOuterColorOverlay(Label label, Color overlayColor, int thickness = 2)
         {
             label.Paint -= Label_PaintWithOverlay;
@@ -7262,7 +7262,7 @@ namespace MIS
 
             Clipboard.SetText(sb.ToString());
         }
-        
+
         public void CopyGridToClipboard(DataGridView grid, bool includeHeaders = true)
         {
             if (grid == null || grid.Rows.Count == 0)
@@ -7310,7 +7310,7 @@ namespace MIS
                 MessageBox.Show("File is currently open or in use.");
                 isValid = false;
             }
-            
+
             return isValid;
         }
 
@@ -7485,7 +7485,7 @@ namespace MIS
             {
                 fValid = false;
             }
-            
+
             return fValid;
         }
 
@@ -7643,7 +7643,7 @@ namespace MIS
             return List;
         }
 
-        public void SetProgressBar(ProgressBar progressBar,int current,int total)
+        public void SetProgressBar(ProgressBar progressBar, int current, int total)
         {
             if (total <= 0)
             {
@@ -7860,6 +7860,15 @@ namespace MIS
             }
 
             return contents;
+        }
+
+        public bool OpenPopup(string pMessage)
+        {
+            using (frmPopUp frm = new frmPopUp(pMessage))
+            {
+                frm.ShowDialog(Form.ActiveForm);
+                return frm.isProceed;
+            }
         }
     }
 }

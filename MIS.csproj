@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>50</ApplicationRevision>
+    <ApplicationRevision>51</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -276,6 +276,7 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -482,6 +483,12 @@
     </Compile>
     <Compile Include="Form\frmPendingFailedService.Designer.cs">
       <DependentUpon>frmPendingFailedService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmPopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmPopUp.Designer.cs">
+      <DependentUpon>frmPopUp.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\frmQRDeliveryHistory.cs">
       <SubType>Form</SubType>
@@ -711,10 +718,6 @@
     <Compile Include="Form\frmQRDelivery.Designer.cs">
       <DependentUpon>frmQRDelivery.cs</DependentUpon>
     </Compile>
-    <Compile Include="Function\BankTemplateJsonBuilder.cs" />
-    <Compile Include="Function\BankTemplateReader.cs" />
-    <Compile Include="Function\BankTermplateExcelExporter.cs" />
-    <Compile Include="Function\BankTermplateFieldRules.cs" />
     <Compile Include="Function\clsBankTemplate.cs" />
     <Compile Include="Function\clsComboBox.cs" />
     <Compile Include="Function\clsReceiptImageProcessor.cs" />
@@ -724,7 +727,7 @@
     <Compile Include="Function\clsExcelOpenXmlExporter.cs" />
     <Compile Include="Global\clsIcons.cs" />
     <Compile Include="Model\AppSession.cs" />
-    <Compile Include="Model\BankTemplateRow.cs" />
+    <Compile Include="Model\modelBankTemplate.cs" />
     <Compile Include="Model\clsAttachment.cs" />
     <Compile Include="Form\frmChangePassword.cs">
       <SubType>Form</SubType>
@@ -1100,15 +1103,15 @@
     <Compile Include="Model\modelID.cs" />
     <Compile Include="Model\modelLastServiceAttempt.cs" />
     <Compile Include="Model\modelParticular.cs" />
+    <Compile Include="Model\modelPopup.cs" />
     <Compile Include="Model\modelPrivacyDetail.cs" />
     <Compile Include="Model\modelPrivacyMaster.cs" />
-    <Compile Include="Model\modelQRDeliveryRecord.cs" />
     <Compile Include="Model\modelSearch.cs" />
     <Compile Include="Model\modelStock.cs" />
     <Compile Include="Model\modelZoning.cs" />
-    <Compile Include="Model\QRDeliveryBackendService.cs" />
-    <Compile Include="Model\QRDeliveryHistoryCache.cs" />
-    <Compile Include="Model\QRDeliveryValidation.cs" />
+    <Compile Include="Model\modelQRDeliveryService.cs" />
+    <Compile Include="Model\modelQRDeliveryHistory.cs" />
+    <Compile Include="Model\modelQRDeliveryValidation.cs" />
     <Compile Include="Model\ReportInfo.cs" />
     <Compile Include="Model\SystemInfo.cs" />
     <Compile Include="Program.cs" />
@@ -1763,6 +1766,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmPendingFailedService.resx">
       <DependentUpon>frmPendingFailedService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmPopUp.resx">
+      <DependentUpon>frmPopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmPRCreateInvoice.resx">
       <DependentUpon>frmPRCreateInvoice.cs</DependentUpon>

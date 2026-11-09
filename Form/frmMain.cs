@@ -367,7 +367,8 @@ namespace MIS
             // Check Application Version
             if (!dbAPI.isValidSystemVersion()) return;
 
-            InitMenu(0, false);
+            iMenu = 11;
+            InitMenu(iMenu, true);
 
             /*
             frmTools frm = new frmTools();
@@ -375,12 +376,7 @@ namespace MIS
             frm.Show();
             */
 
-            frmToolSelections frm = new frmToolSelections();
-            frm.Text = "TOOLS";
-            frm.WindowState = FormWindowState.Normal;
-
-            RegisterForm(frm);
-            frm.Show();
+            return;
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -3710,6 +3706,13 @@ namespace MIS
 
             RegisterForm(frm);
             frm.Show();
+        }
+
+        private void btnTableEditor_Click(object sender, EventArgs e)
+        {
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 58)) return;
+
+            dbFunction.SetMessageBox("Ongoing development...", "Oooops", clsFunction.IconType.iInformation);
         }
     }
 }

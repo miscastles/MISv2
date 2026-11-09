@@ -20,7 +20,7 @@ namespace MIS
         private readonly clsFunction dbFunction;
         private readonly clsAPI dbAPI;
         private readonly ServicingDetailController servicingController;
-        private readonly QRDeliveryBackendService qrBackend;
+        private readonly modelQRDeliveryService qrBackend;
         private readonly IQRDeliveryLookupStore qrLookup;
         private readonly PrintDocument printDocument;
         private readonly QRDeliveryValidator qrValidator;
@@ -44,7 +44,7 @@ namespace MIS
             servicingController = new ServicingDetailController();
             // Lookup and save use the same authoritative MIS API.
             QRDeliveryController apiStore = new QRDeliveryController();
-            qrBackend = new QRDeliveryBackendService(apiStore);
+            qrBackend = new modelQRDeliveryService(apiStore);
             qrLookup = apiStore;
             printDocument = new PrintDocument();
             qrValidator = new QRDeliveryValidator();

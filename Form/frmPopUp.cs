@@ -12,72 +12,34 @@ namespace MIS
 {
     public partial class frmPopUp : Form
     {
-        public frmPopUp(string sMessage, AlertType Type)
+        public bool isProceed { get; private set; } = false;
+
+        public frmPopUp()
         {
             InitializeComponent();
-
-            switch (Type)
-            {
-                case AlertType.iSuccess:
-                    //this.BackColor = Color.DarkSlateGray;
-                    
-                    break;
-                case AlertType.iInfo:
-                    //this.BackColor = Color.DarkSlateGray;
-                    
-                    break;
-                case AlertType.iWarning:
-                    //this.BackColor = Color.DarkSlateGray;
-                    
-                    break;
-                case AlertType.iError:
-                    //this.BackColor = Color.DarkSlateGray;
-                    
-                    break;
-            }
-
-            lblMessage.Text = sMessage;
-        }
-        public enum AlertType
-        {
-            iSuccess, iInfo, iWarning, iError
         }
 
-        private void frmPopUp_Load(object sender, EventArgs e)
+        public frmPopUp(string pMessage) : this()
         {
-            this.Top = 60;
-            this.Left = Screen.PrimaryScreen.Bounds.Width - this.Width - 60;
+            rtePopupInformation.Text = pMessage;
         }
 
-        private void tmrTimeOut_Tick(object sender, EventArgs e)
+        private void btnProceed_Click(object sender, EventArgs e)
         {
-            this.Close();
+            isProceed = true;
+            DialogResult = DialogResult.OK;
         }
 
-        int iInterval = 0;
-        private void tmrShow_Tick(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (this.Top < 60)
-            {
-                this.Top += iInterval;
-                iInterval += 2;
-            }
-            else
-            {
-                tmrShow.Stop();
-            }
+            isProceed = false;
+            DialogResult = DialogResult.Cancel;
         }
 
-        private void tmrClose_Tick(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
-            if (this.Opacity > 0)
-            {
-                this.Opacity -= 0.1;
-            }
-            else
-            {
-                this.Close();
-            }
+            isProceed = false;
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

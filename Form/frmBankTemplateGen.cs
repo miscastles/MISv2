@@ -807,7 +807,7 @@ namespace MIS
         {
             BankTemplateReader reader = new BankTemplateReader();
             BankTemplateReadResult readResult = reader.Read(filePath, workbookPassword);
-            IList<BankTemplateRow> sourceRows = readResult.Rows;
+            IList<modelBankTemplate> sourceRows = readResult.Rows;
             BankTemplateFieldRules.ApplyDefaults(sourceRows, readResult.IsAdditionalTerminal);
             string bankDataInfo = BankTemplateJsonBuilder.Build(sourceRows, Path.GetFileName(filePath));
             string mappedAddress = GetMappedValue(sourceRows, "Address");
@@ -843,9 +843,9 @@ namespace MIS
                 ContactNumber = GetMappedValue(sourceRows, "Contact Number")
             };
         }
-        private static string GetMappedValue(IEnumerable<BankTemplateRow> sourceRows, string mccColumn)
+        private static string GetMappedValue(IEnumerable<modelBankTemplate> sourceRows, string mccColumn)
         {
-            IEnumerable<BankTemplateRow> mappedRows = sourceRows.Where(row => row.IsSelectable && row.IsSelected && string.Equals(row.MccColumn, mccColumn, StringComparison.OrdinalIgnoreCase));
+            IEnumerable<modelBankTemplate> mappedRows = sourceRows.Where(row => row.IsSelectable && row.IsSelected && string.Equals(row.MccColumn, mccColumn, StringComparison.OrdinalIgnoreCase));
             IEnumerable<string> mappedValues = mappedRows.Select(row => !string.IsNullOrWhiteSpace(row.MccValue) ? row.MccValue.Trim() : (row.Value ?? string.Empty).Trim())
                 .Where(value => !string.IsNullOrWhiteSpace(value));
 
@@ -894,9 +894,9 @@ namespace MIS
             return Regex.Replace(value ?? string.Empty, @"[^A-Za-z0-9]+", " ").Trim();
         }
 
-        private static string GetPreferredMappedValue(IEnumerable<BankTemplateRow> sourceRows, string mccColumn)
+        private static string GetPreferredMappedValue(IEnumerable<modelBankTemplate> sourceRows, string mccColumn)
         {
-            List<BankTemplateRow> rows = sourceRows.ToList();
+            List<modelBankTemplate> rows = sourceRows.ToList();
             string primaryValue = GetMappedValue(rows.Where(row => !IsPreviousInformationRow(row)), mccColumn);
 
             if (!string.IsNullOrWhiteSpace(primaryValue))
@@ -907,14 +907,14 @@ namespace MIS
             return GetMappedValue(rows.Where(IsPreviousInformationRow), mccColumn);
         }
 
-        private static bool IsPreviousInformationRow(BankTemplateRow row)
+        private static bool IsPreviousInformationRow(modelBankTemplate row)
         {
             return row != null && (row.Section ?? string.Empty).StartsWith("Previous Merchant Information (", StringComparison.OrdinalIgnoreCase);
         }
 
-        private static string GetMerchantMid(IEnumerable<BankTemplateRow> sourceRows)
+        private static string GetMerchantMid(IEnumerable<modelBankTemplate> sourceRows)
         {
-            List<BankTemplateRow> rows = sourceRows.ToList();
+            List<modelBankTemplate> rows = sourceRows.ToList();
             string primaryMid = GetMappedValue(rows.Where(row => !IsSecondaryIdentifierTag(row.Tag, "MID")), "Merchant ID (MID)");
 
             if (!string.IsNullOrWhiteSpace(primaryMid))

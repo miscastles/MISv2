@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MIS.Controller;
+using MIS.Model;
+using System;
 using System.Windows.Forms;
-using System.Diagnostics;
-using MIS.Controller;
 using static MIS.Function.AppUtilities;
 
 namespace MIS
@@ -69,6 +62,59 @@ namespace MIS
             }
         }
 
+        private bool FetchServicingDetail()
+        {
+            bool isValid = false;
+
+            modelSearch.HoldClear();
+
+            _mServicingDetailController = _mServicingDetailController.getServicingInfo(
+                $"{dbFunction.CheckAndSetNumericValue(clsSearch.ClassServiceNo.ToString())}{clsDefines.gPipe}" +
+                $"{dbFunction.CheckAndSetNumericValue(clsSearch.ClassIRIDNo.ToString())}");
+
+            if (_mServicingDetailController == null || _mServicingDetailController.ServiceNo <= 0)
+            {
+                dbFunction.SetMessageBox("Servicing data not found.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
+                return isValid;
+            }
+
+            modelSearch.HoldData.Save(new modelSearch.HoldData
+            {
+                TerminalID = _mServicingDetailController.TerminalID,
+                SIMID = _mServicingDetailController.SIMID,
+
+                ReplaceTerminalID = _mServicingDetailController.ReplaceTerminalID,
+                ReplaceSIMID = _mServicingDetailController.ReplaceSIMID
+            });
+
+            txtJobType.Text = dbFunction.toStringAndTrim(_mServicingDetailController.JobType);
+            txtServiceNo.Text = dbFunction.toStringAndTrim(_mServicingDetailController.ServiceNo);
+            txtFSRNo.Text = dbFunction.toStringAndTrim(_mServicingDetailController.FSRNo);
+            txtIRIDNo.Text = dbFunction.toStringAndTrim(_mServicingDetailController.IRIDNo);
+            txtMerchantID.Text = dbFunction.toStringAndTrim(_mServicingDetailController.MerchantID);
+            txtJobTypeDesc.Text = dbFunction.toStringAndTrim(_mServicingDetailController.ServiceJobTypeDescription);
+            txtServiceStatus.Text = dbFunction.toStringAndTrim(_mServicingDetailController.ServiceStatus);
+
+            clsSearch.ClassJobType = _mServicingDetailController.JobType;
+            clsSearch.ClassHoldServiceStatus = _mServicingDetailController.ServiceStatus;
+            txtServiceStatusDescription.Text = clsSearch.ClassHoldServiceStatusDescription = _mServicingDetailController.ServiceStatusDescription;
+
+            txtSearchIRNo.Text = _mServicingDetailController.IRNo;
+
+            ucMerchantInfo.loadData(_mServicingDetailController);
+            ucServiceInfo.loadData(_mServicingDetailController);
+            ucFSRInfo.loadData(_mServicingDetailController);
+            ucCurrentSNInfo.loadData(_mServicingDetailController);
+            ucReplaceSNInfo.loadData(_mServicingDetailController);
+            ucMerchantRepInfo.loadData(_mServicingDetailController);
+            ucVendorRepInfo.loadData(_mServicingDetailController);
+
+            txtRemarks.ReadOnly = false;
+            txtRemarks.Text = _mServicingDetailController.Remarks;
+
+            return isValid = true;
+        }
+
         private void btnSearchService_Click(object sender, EventArgs e)
         {
             frmSearchField.iSearchType = frmSearchField.SearchType.iService;
@@ -77,54 +123,22 @@ namespace MIS
             frmSearchField frm = new frmSearchField();
             frm.ShowDialog();
 
-            if (frmSearchField.fSelected)
+            if (!frmSearchField.fSelected) return;
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            if (FetchServicingDetail())
             {
-                Cursor.Current = Cursors.WaitCursor;
-
-                // fill additional info
-                _mServicingDetailController = _mServicingDetailController.getServicingInfo($"{dbFunction.CheckAndSetNumericValue(clsSearch.ClassServiceNo.ToString())}{clsDefines.gPipe}{dbFunction.CheckAndSetNumericValue(clsSearch.ClassIRIDNo.ToString())}");
-
-                if (_mServicingDetailController != null)
-                {
-                    // fill control information                
-                    txtJobType.Text = _mServicingDetailController.JobType.ToString();
-                    txtServiceNo.Text = _mServicingDetailController.ServiceNo.ToString();
-                    txtFSRNo.Text = _mServicingDetailController.FSRNo.ToString();
-                    txtIRIDNo.Text = _mServicingDetailController.IRIDNo.ToString();
-                    txtMerchantID.Text = _mServicingDetailController.MerchantID.ToString();
-                    txtJobTypeDesc.Text = _mServicingDetailController.ServiceJobTypeDescription;
-                    txtServiceStatus.Text = _mServicingDetailController.ServiceStatus.ToString();
-
-                    clsSearch.ClassJobType = _mServicingDetailController.JobType;
-                    clsSearch.ClassHoldServiceStatus = _mServicingDetailController.ServiceStatus;
-                    txtServiceStatusDescription.Text = clsSearch.ClassHoldServiceStatusDescription = _mServicingDetailController.ServiceStatusDescription;
-
-                    txtSearchIRNo.Text = _mServicingDetailController.IRNo;
-
-                    ucMerchantInfo.loadData(_mServicingDetailController);
-                    ucServiceInfo.loadData(_mServicingDetailController);
-                    ucFSRInfo.loadData(_mServicingDetailController);
-                    ucCurrentSNInfo.loadData(_mServicingDetailController);
-                    ucReplaceSNInfo.loadData(_mServicingDetailController);
-                    ucMerchantRepInfo.loadData(_mServicingDetailController);
-                    ucVendorRepInfo.loadData(_mServicingDetailController);
-
-                    txtRemarks.ReadOnly = false;
-                    txtRemarks.Text = _mServicingDetailController.Remarks;
-
-                    cboServiceStatusCategory.Enabled = true;
-
-                    cboServiceStatusCategory_SelectedIndexChanged(this, e);
-
-                    cboServiceStatusCategory.Focus();
-                }
-                else
-                {
-                    dbFunction.SetMessageBox("No record found.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
-                }
-
-                Cursor.Current = Cursors.Default;
+                cboServiceStatusCategory.Enabled = true;
+                cboServiceStatusCategory_SelectedIndexChanged(this, e);
+                cboServiceStatusCategory.Focus();
             }
+            else
+            {
+                dbFunction.SetMessageBox("No record found.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
+            }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -179,7 +193,7 @@ namespace MIS
             //                                        "From: " + clsSearch.ClassHoldServiceStatusDescription + "\n" +
             //                                        "To: " + (cboServiceStatusCategory.Text.Equals(clsFunction.sDefaultSelect) ? clsGlobalVariables.STATUS_RESUME_DESC : cboServiceStatusCategory.Text) + "\n\n" +
             //                                        "Do you still want to continue?")) return;
-                
+
             //    }
 
             if (clsSearch.ClassHoldServiceStatus.Equals(clsGlobalVariables.JOB_TYPE_CANCEL))
@@ -187,7 +201,7 @@ namespace MIS
                 dbFunction.SetMessageBox("The requested service has already been canceled and cannot be processed again.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                 return;
             }
-            
+
             string pTerminalSN = "";
             string pSIMSN = "";
             if (dbFunction.isValidID(_mServicingDetailController.TerminalID.ToString()) && dbFunction.isValidID(_mServicingDetailController.ReplaceTerminalID.ToString()))
@@ -213,7 +227,7 @@ namespace MIS
                                                    " >From: " + clsSearch.ClassHoldServiceStatusDescription + "\n" +
                                                    " >To: " + (cboServiceStatusCategory.Text.Equals(clsFunction.sDefaultSelect) ? clsGlobalVariables.STATUS_RESUME_DESC : cboServiceStatusCategory.Text) + "\n\n" +
                                                    "Terminal details:" + "\n" + pTerminalSN + "\n\n" +
-                                                   "SIM details:" + "\n" + pSIMSN + "\n\n" +                                                   
+                                                   "SIM details:" + "\n" + pSIMSN + "\n\n" +
                                                    $"*Warning: The serial number listed below will be marked as {(int.Parse(txtJobType.Text) == (int)Enums.JobType.Pullout ? "INSTALLED" : "AVAILABLE")}")) return;
 
 
@@ -221,7 +235,7 @@ namespace MIS
             {
                 clsSearch.ClassTerminalID = clsSearch.ClassSIMID = 0;
                 clsSearch.ClassTerminalSN = clsSearch.ClassSIMSerialNo = clsFunction.sZero;
-                
+
                 if (clsSearch.ClassJobType.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION))
                 {
                     clsSearch.ClassTerminalID = _mServicingDetailController.TerminalID;
@@ -242,11 +256,13 @@ namespace MIS
                 clsSearch.ClassServiceStatus = dbFunction.getFileID(cboServiceStatusCategory, "Service Status Active");
                 clsSearch.ClassServiceStatusDescription = cboServiceStatusCategory.Text;
 
+                int TerminalID = clsSearch.ClassTerminalID;
+                int SIMID = clsSearch.ClassSIMID;
+
                 if (clsSearch.ClassServiceStatus.Equals(clsGlobalVariables.JOB_TYPE_CANCEL))
                 {
                     clsSearch.ClassTerminalID = clsSearch.ClassSIMID = 0;
                     clsSearch.ClassTerminalSN = clsSearch.ClassSIMSerialNo = clsFunction.sZero;
-
                 }
 
                 // SN Status
@@ -268,22 +284,25 @@ namespace MIS
                         clsSearch.ClassServiceStatusDescription = clsSearch.ClassTerminalStatusDescription = clsSearch.ClassSIMStatusDescription = clsGlobalVariables.STATUS_ALLOCATED_DESC;
                     }
                 }
-                
+
                 if (clsSearch.ClassIRIDNo > 0)
                 {
-                    if (clsSearch.ClassJobType.Equals(clsGlobalVariables.JOB_TYPE_INSTALLATION))
+                    if (TerminalID > 0)
                     {
-                        clsSearch.ClassAdvanceSearchValue = $"{clsSearch.ClassIRIDNo}{clsDefines.gPipe}{clsSearch.ClassServiceStatus}{clsDefines.gPipe}{clsSearch.ClassServiceStatusDescription}";
+                        clsSearch.ClassAdvanceSearchValue = $"{TerminalID}{clsDefines.gPipe}{clsSearch.ClassTerminalStatus}{clsDefines.gPipe}{clsSearch.ClassTerminalStatusDescription}";
                         dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
 
-                        dbAPI.ExecuteAPI("PUT", "Update", "Update IR Detail Status", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
-
-                        clsSearch.ClassAdvanceSearchValue = $"{clsSearch.ClassIRIDNo}{clsDefines.gPipe}{clsSearch.ClassTerminalID}{clsDefines.gPipe}{clsSearch.ClassTerminalSN}{clsDefines.gPipe}{clsSearch.ClassSIMID}{clsDefines.gPipe}{clsSearch.ClassSIMSerialNo}";
-                        dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
-
-                        dbAPI.ExecuteAPI("PUT", "Update", "Update IR Detail Terminal/SIM", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                        dbAPI.ExecuteAPI("PUT", "Update", "Update Terminal Detail Status", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
                     }
-                    
+
+                    if (SIMID > 0)
+                    {
+                        clsSearch.ClassAdvanceSearchValue = $"{SIMID}{clsDefines.gPipe}{clsSearch.ClassSIMStatus}{clsDefines.gPipe}{clsSearch.ClassSIMStatusDescription}";
+                        dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
+
+                        dbAPI.ExecuteAPI("PUT", "Update", "Update SIM Detail Status", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                    }
+
                     // set SN to available
                     if (clsSearch.ClassTerminalID > 0)
                     {
@@ -316,13 +335,11 @@ namespace MIS
                     clsSearch.ClassAdvanceSearchValue = $"{_mServicingDetailController.ServiceNo}{clsDefines.gPipe}{StrClean(txtRemarks.Text)}";
                     dbAPI.ExecuteAPI("PUT", "Update", "Update Service Remarks", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
                 }
-                
+
                 dbFunction.SetMessageBox("Service status update completed", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
 
                 btnClear_Click(this, e);
             }
-            
-
         }
 
         private void cboServiceStatusCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -342,7 +359,7 @@ namespace MIS
                 chkAvailable.Enabled = false;
                 chkAvailable.Checked = false;
             }
-            
+
         }
 
         private void btnUpdateRemarks_Click(object sender, EventArgs e)
@@ -358,11 +375,6 @@ namespace MIS
                 dbFunction.SetMessageBox("Job order remarks update completed", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
             }
 
-            
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
 
         }
     }

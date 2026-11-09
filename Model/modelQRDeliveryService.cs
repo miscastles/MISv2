@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace MIS
 {
-    public sealed class QRDeliveryBackendService
+    public sealed class modelQRDeliveryService
     {
         private readonly IQRDeliveryHistoryStore store;
 
-        public QRDeliveryBackendService(IQRDeliveryHistoryStore store)
+        public modelQRDeliveryService(IQRDeliveryHistoryStore store)
         {
             if (store == null) throw new ArgumentNullException("store");
             this.store = store;

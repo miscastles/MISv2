@@ -5616,7 +5616,8 @@ namespace MIS
                                                 SearchBy.Equals("Expense Reference List") ||
                                                 SearchBy.Equals("Expense List") ||
                                                 SearchBy.Equals("Expenses Transaction Master") ||
-                                                SearchBy.Equals("QR Delivery History")
+                                                SearchBy.Equals("QR Delivery History") ||
+                                                SearchBy.Equals("Table Rows")
                                                 )
                                             {
                                                 foreach (var element in Detail46.data)

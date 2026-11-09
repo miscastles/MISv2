@@ -11,7 +11,7 @@ namespace MIS
     /// across application restarts when the live history endpoint returns only a
     /// filtered subset.
     /// </summary>
-    public static class QRDeliveryHistoryCache
+    public static class modelQRDeliveryHistory
     {
         private static readonly object SyncRoot = new object();
 

@@ -113,7 +113,6 @@ namespace MIS
                 Cursor.Current = Cursors.Default;
                 return;
             }
-
             JObject header = JObject.Parse(clsArray.detail_info[iHeader]);
 
             iTotalRows = (int)header["TotalRows"];
@@ -302,15 +301,6 @@ namespace MIS
                         return iExpected < 0 ? iAffected : -1;
                     }
 
-                    using (var cmd = new MySqlCommand("INSERT INTO tbldevquerylog (UserID, QueryText, AffectedRows, ProcessedDateTime) " +
-                                                      "VALUES (@UserID, @QueryText, @AffectedRows, NOW())", conn, trans))
-                    {
-                        cmd.Parameters.AddWithValue("@UserID", clsUser.ClassUserID);
-                        cmd.Parameters.AddWithValue("@QueryText", sQuery);
-                        cmd.Parameters.AddWithValue("@AffectedRows", iAffected);
-                        cmd.ExecuteNonQuery();
-                    }
-
                     trans.Commit();
                     return iAffected;
                 }
@@ -322,9 +312,7 @@ namespace MIS
             try
             {
                 int iPreview = executeModify(sQuery, -1);
-
                 if (!dbFunction.fPromptConfirmation($"{iPreview:N0} row(s) will be affected.\n\nCommit this change?")) return;
-
                 int iAffected = executeModify(sQuery, iPreview);
 
                 if (iAffected < 0)

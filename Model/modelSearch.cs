@@ -147,7 +147,6 @@ namespace MIS.Model
                 if (!string.IsNullOrEmpty(data.TID)) data.TID = data.TID.Trim().PadLeft(clsFunction.TID_LENGTH, '0');
                 if (!string.IsNullOrEmpty(data.MID)) data.MID = data.MID.Trim().PadLeft(clsFunction.MID_LENGTH, '0');
 
-                // only write fields that were set
                 PreviousData = JsonConvert.SerializeObject(data, new JsonSerializerSettings
                 {
                     DefaultValueHandling = DefaultValueHandling.Ignore
