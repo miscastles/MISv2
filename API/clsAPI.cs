@@ -13372,12 +13372,5 @@ namespace MIS
 
             return Uri.EscapeDataString(Uri.UnescapeDataString(value));
         }
-
-        private string EscapeJSONValue(string pJSON)
-        {
-            if (string.IsNullOrEmpty(pJSON)) return "{}";
-
-            return pJSON.Replace("\\", "\\\\").Replace("'", "''");
-        }
     }
 }

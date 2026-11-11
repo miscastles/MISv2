@@ -15,7 +15,7 @@ namespace MIS
 {
     public partial class frmBankTemplateGen : Form
     {
-        private readonly BindingList<IrImportRow> _irRows = new BindingList<IrImportRow>();
+        private readonly BindingList<modelBankTemplateIRRow> _irRows = new BindingList<modelBankTemplateIRRow>();
         private readonly List<string> _sourceFiles = new List<string>();
         private clsAPI dbAPI;
         private readonly clsFile dbFile = new clsFile();
@@ -323,9 +323,9 @@ namespace MIS
                 return;
             }
 
-            IrImportRow sourceRow = grdBankFields.Rows[sourceCell.RowIndex].DataBoundItem as IrImportRow;
+            modelBankTemplateIRRow sourceRow = grdBankFields.Rows[sourceCell.RowIndex].DataBoundItem as modelBankTemplateIRRow;
             List<DataGridViewRow> selectedRows = grdBankFields.Rows.Cast<DataGridViewRow>()
-                .Where(row => row.DataBoundItem is IrImportRow && ((IrImportRow)row.DataBoundItem).IsSelected)
+                .Where(row => row.DataBoundItem is modelBankTemplateIRRow && ((modelBankTemplateIRRow)row.DataBoundItem).IsSelected)
                 .ToList();
 
             if (sourceRow == null || !sourceRow.IsSelected)
@@ -493,9 +493,9 @@ namespace MIS
 
         private void AddTemplate(string filePath, string workbookPassword, clsFunction requestIdFormatter, ref int nextIrControlNo)
         {
-            IList<IrImportRow> irRows = ExpandIdentifierPairs(BuildIrImportRow(filePath, workbookPassword));
+            IList<modelBankTemplateIRRow> irRows = ExpandIdentifierPairs(BuildIrImportRow(filePath, workbookPassword));
 
-            foreach (IrImportRow irRow in irRows)
+            foreach (modelBankTemplateIRRow irRow in irRows)
             {
                 irRow.RequestId = requestIdFormatter.GenerateControlNo(nextIrControlNo, clsDefines.CONTROLID_PREFIX_IR, true);
                 _irRows.Add(irRow);
@@ -505,7 +505,7 @@ namespace MIS
             _sourceFiles.Add(filePath);
         }
 
-        private static IList<IrImportRow> ExpandIdentifierPairs(IrImportRow sourceRow)
+        private static IList<modelBankTemplateIRRow> ExpandIdentifierPairs(modelBankTemplateIRRow sourceRow)
         {
             if (sourceRow == null) throw new ArgumentNullException("sourceRow");
 
@@ -522,14 +522,14 @@ namespace MIS
 
             if (terminalIds.Count == 0)
             {
-                return new List<IrImportRow> { sourceRow };
+                return new List<modelBankTemplateIRRow> { sourceRow };
             }
 
-            List<IrImportRow> expandedRows = new List<IrImportRow>(terminalIds.Count);
+            List<modelBankTemplateIRRow> expandedRows = new List<modelBankTemplateIRRow>(terminalIds.Count);
 
             for (int index = 0; index < terminalIds.Count; index++)
             {
-                IrImportRow expandedRow = new IrImportRow(sourceRow)
+                modelBankTemplateIRRow expandedRow = new modelBankTemplateIRRow(sourceRow)
                 {
                     Tid = terminalIds[index],
                     BancnetTid = bancnetTerminalIds[index]
@@ -803,7 +803,7 @@ namespace MIS
             }
         }
 
-        private IrImportRow BuildIrImportRow(string filePath, string workbookPassword)
+        private modelBankTemplateIRRow BuildIrImportRow(string filePath, string workbookPassword)
         {
             BankTemplateReader reader = new BankTemplateReader();
             BankTemplateReadResult readResult = reader.Read(filePath, workbookPassword);
@@ -813,7 +813,7 @@ namespace MIS
             string mappedAddress = GetMappedValue(sourceRows, "Address");
             string mappedCity = GetMappedValue(sourceRows, "City");
             string mappedProvince = GetMappedValue(sourceRows, "Area 1 (Metro Manila / Provincial)");
-            return new IrImportRow()
+            return new modelBankTemplateIRRow()
             {
                 SourceFilePath = filePath,
                 SourceFileName = Path.GetFileName(filePath),
@@ -1024,12 +1024,12 @@ namespace MIS
             }
         }
 
-        private static List<string> BuildMissingFieldSummary(IEnumerable<IrImportRow> rows)
+        private static List<string> BuildMissingFieldSummary(IEnumerable<modelBankTemplateIRRow> rows)
         {
             List<string> summary = new List<string>();
             int rowNumber = 1;
 
-            foreach (IrImportRow row in rows)
+            foreach (modelBankTemplateIRRow row in rows)
             {
                 List<string> missing = new List<string>();
 

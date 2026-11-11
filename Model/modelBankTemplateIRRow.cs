@@ -9,11 +9,11 @@ using System;
 namespace MIS.Model
 {
     // Generated Installation Request row used by the Bank Template Generator preview and export.
-    internal sealed class IrImportRow
+    internal sealed class modelBankTemplateIRRow
     {
         public const string DefaultBancnetMid = "000000000000000";
 
-        public IrImportRow()
+        public modelBankTemplateIRRow()
         {
             IsSelected = false;
             SourceFilePath = string.Empty;
@@ -45,7 +45,7 @@ namespace MIS.Model
             ContactNumber = string.Empty;
         }
 
-        public IrImportRow(IrImportRow source)
+        public modelBankTemplateIRRow(modelBankTemplateIRRow source)
             : this()
         {
             if (source == null) throw new ArgumentNullException("source");

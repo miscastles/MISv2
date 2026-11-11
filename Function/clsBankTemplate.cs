@@ -794,7 +794,7 @@ namespace MIS.Function
             return RequiredHeaders.Where(header => !values.ContainsKey(header) || string.IsNullOrWhiteSpace(values[header])).ToList();
         }
 
-        public void Export(string outputPath, IList<IrImportRow> rows)
+        public void Export(string outputPath, IList<modelBankTemplateIRRow> rows)
         {
             if (string.IsNullOrWhiteSpace(outputPath)) throw new ArgumentException("Please select an output file.");
 
@@ -898,7 +898,7 @@ namespace MIS.Function
             }
 
             values["Vendor"] = DefaultVendor;
-            values["Bancnet MID"] = IrImportRow.DefaultBancnetMid;
+            values["Bancnet MID"] = modelBankTemplateIRRow.DefaultBancnetMid;
             return values;
         }
 
@@ -943,7 +943,7 @@ namespace MIS.Function
 
         // ---- Multi-row export (from IrImportRow list) --------------------------
 
-        private static Dictionary<string, string> BuildValues(IrImportRow row)
+        private static Dictionary<string, string> BuildValues(modelBankTemplateIRRow row)
         {
             return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
@@ -961,7 +961,7 @@ namespace MIS.Function
                 ["Merchant ID (MID)"] = Clean(row.Mid),
                 ["Terminal ID (TID)"] = Clean(row.Tid),
                 ["Bancnet TID"] = Clean(row.BancnetTid),
-                ["Bancnet MID"] = IrImportRow.DefaultBancnetMid,
+                ["Bancnet MID"] = modelBankTemplateIRRow.DefaultBancnetMid,
                 ["Alipay TID"] = Clean(row.AlipayTid),
                 ["Alipay MID"] = Clean(row.AlipayMid),
                 ["Merchant Location/DBA Name"] = Clean(row.MerchantLocation),
@@ -974,7 +974,7 @@ namespace MIS.Function
             };
         }
 
-        private static void WriteDataRows(ExcelWorksheet worksheet, IList<IrImportRow> rows)
+        private static void WriteDataRows(ExcelWorksheet worksheet, IList<modelBankTemplateIRRow> rows)
         {
             for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
             {
@@ -1000,7 +1000,7 @@ namespace MIS.Function
             ApplyThinBorder(worksheet.Cells[2, 1, rows.Count + 1, TargetHeaders.Length]);
         }
 
-        private static void WriteBankDataMetadata(ExcelPackage package, IList<IrImportRow> rows)
+        private static void WriteBankDataMetadata(ExcelPackage package, IList<modelBankTemplateIRRow> rows)
         {
             if (package == null) throw new ArgumentNullException("package");
             if (rows == null) throw new ArgumentNullException("rows");
@@ -1016,7 +1016,7 @@ namespace MIS.Function
 
             for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
             {
-                IrImportRow row = rows[rowIndex];
+                modelBankTemplateIRRow row = rows[rowIndex];
                 int displayRowNumber = rowIndex + 1;
 
                 if (row == null)
@@ -1062,7 +1062,7 @@ namespace MIS.Function
 
             for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++)
             {
-                IrImportRow row = rows[rowIndex];
+                modelBankTemplateIRRow row = rows[rowIndex];
                 int excelRow = rowIndex + 2;
 
                 metadataWorksheet.Cells[excelRow, 1].Value = BankDataSchemaVersion;

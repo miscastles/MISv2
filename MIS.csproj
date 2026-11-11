@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>51</ApplicationRevision>
+    <ApplicationRevision>53</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -129,6 +129,9 @@
     </Reference>
     <Reference Include="EPPlus.System.Drawing, Version=8.0.0.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
       <HintPath>packages\EPPlus.System.Drawing.8.0.0\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="FastColoredTextBox, Version=2.16.24.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <HintPath>packages\FCTB.2.16.24\lib\FastColoredTextBox.dll</HintPath>
     </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="Google.Protobuf, Version=3.21.9.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
@@ -471,6 +474,12 @@
     </Compile>
     <Compile Include="Form\frmGenericInput.Designer.cs">
       <DependentUpon>frmGenericInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\frmSSerialNo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\frmSSerialNo.Designer.cs">
+      <DependentUpon>frmSSerialNo.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\frmImagePreview.cs">
       <SubType>Form</SubType>
@@ -1094,7 +1103,7 @@
       <DependentUpon>frmUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\clsVendor.cs" />
-    <Compile Include="Model\IrImportRow.cs" />
+    <Compile Include="Model\modelBankTemplateIRRow.cs" />
     <Compile Include="Model\modelDashboard.cs" />
     <Compile Include="Model\modelExcel.cs" />
     <Compile Include="Model\modelExpensesDetail.cs" />
@@ -1107,7 +1116,9 @@
     <Compile Include="Model\modelPrivacyDetail.cs" />
     <Compile Include="Model\modelPrivacyMaster.cs" />
     <Compile Include="Model\modelSearch.cs" />
+    <Compile Include="Model\modelSerialSearch.cs" />
     <Compile Include="Model\modelStock.cs" />
+    <Compile Include="Model\modelTableEditor.cs" />
     <Compile Include="Model\modelZoning.cs" />
     <Compile Include="Model\modelQRDeliveryService.cs" />
     <Compile Include="Model\modelQRDeliveryHistory.cs" />
@@ -1841,6 +1852,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmSetting.resx">
       <DependentUpon>frmSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\frmSSerialNo.resx">
+      <DependentUpon>frmSSerialNo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\frmTableEditor.resx">
       <DependentUpon>frmTableEditor.cs</DependentUpon>

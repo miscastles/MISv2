@@ -3710,9 +3710,28 @@ namespace MIS
 
         private void btnTableEditor_Click(object sender, EventArgs e)
         {
-            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 58)) return;
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 59)) return;
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isDelete, clsUser.ClassUserID, 59)) return;
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isPrint, clsUser.ClassUserID, 59)) return;
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isUpdate, clsUser.ClassUserID, 59)) return;
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isAdd, clsUser.ClassUserID, 59)) return;
 
-            dbFunction.SetMessageBox("Ongoing development...", "Oooops", clsFunction.IconType.iInformation);
+            InitMenu(0, false);
+            frmTableEditor frm = new frmTableEditor();
+            frm.Text = "DEV-TABLE EDITOR";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
+        }
+
+        private void btnSerialNoSearch_Click(object sender, EventArgs e)
+        {
+            if (!dbAPI.isValidUserAccess(clsAPI.UserFunctionType.isView, clsUser.ClassUserID, 60)) return;
+
+            InitMenu(0, false);
+            frmSSerialNo frm = new frmSSerialNo();
+            frm.Text = "SerialNO Search";
+            frm.WindowState = FormWindowState.Normal;
+            frm.Show();
         }
     }
 }

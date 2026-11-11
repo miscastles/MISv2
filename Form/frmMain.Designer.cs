@@ -315,14 +315,6 @@ namespace MIS
             this.label41 = new System.Windows.Forms.Label();
             this.lblWhosOnlineFSR = new System.Windows.Forms.Label();
             this.pnlLog = new System.Windows.Forms.Panel();
-            this.panel21 = new System.Windows.Forms.Panel();
-            this.bunifuFlatButton19 = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.bunifuFlatButton22 = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.bunifuFlatButton23 = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.bunifuFlatButton26 = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.bunifuFlatButton28 = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.panel26 = new System.Windows.Forms.Panel();
-            this.bunifuFlatButton29 = new Bunifu.Framework.UI.BunifuFlatButton();
             this.bunifuCards10 = new Bunifu.Framework.UI.BunifuCards();
             this.lblWhoIsOnlineDashboard = new System.Windows.Forms.Label();
             this.label54 = new System.Windows.Forms.Label();
@@ -362,6 +354,9 @@ namespace MIS
             this.label53 = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
             this.pnlSubMenuSearch = new System.Windows.Forms.Panel();
+            this.btnSerialNoSearch = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.bunifuFlatButton19 = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.panel21 = new System.Windows.Forms.Panel();
             this.btnDashboardComponentsInventoryDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnDashboardSIMInventoryDiagnostic = new Bunifu.Framework.UI.BunifuFlatButton();
             this.bunifuFlatButton5 = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -423,7 +418,6 @@ namespace MIS
             this.pnlWhoIsOnlineMIS.SuspendLayout();
             this.pnlWhoIsOnlineFSR.SuspendLayout();
             this.pnlLog.SuspendLayout();
-            this.panel21.SuspendLayout();
             this.bunifuCards10.SuspendLayout();
             this.pnlKeyBoardShortCut.SuspendLayout();
             this.pnlDummy.SuspendLayout();
@@ -6811,7 +6805,6 @@ namespace MIS
             // pnlLog
             // 
             this.pnlLog.BackColor = System.Drawing.Color.Transparent;
-            this.pnlLog.Controls.Add(this.panel21);
             this.pnlLog.Controls.Add(this.bunifuCards10);
             this.pnlLog.Controls.Add(this.pnlKeyBoardShortCut);
             this.pnlLog.Controls.Add(this.pnlWhoIsOnlineMIS);
@@ -6821,249 +6814,6 @@ namespace MIS
             this.pnlLog.Name = "pnlLog";
             this.pnlLog.Size = new System.Drawing.Size(725, 304);
             this.pnlLog.TabIndex = 300;
-            // 
-            // panel21
-            // 
-            this.panel21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.panel21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel21.Controls.Add(this.bunifuFlatButton19);
-            this.panel21.Controls.Add(this.bunifuFlatButton22);
-            this.panel21.Controls.Add(this.bunifuFlatButton23);
-            this.panel21.Controls.Add(this.bunifuFlatButton26);
-            this.panel21.Controls.Add(this.bunifuFlatButton28);
-            this.panel21.Controls.Add(this.panel26);
-            this.panel21.Controls.Add(this.bunifuFlatButton29);
-            this.panel21.Location = new System.Drawing.Point(31, 0);
-            this.panel21.Name = "panel21";
-            this.panel21.Size = new System.Drawing.Size(232, 235);
-            this.panel21.TabIndex = 278;
-            this.panel21.Visible = false;
-            // 
-            // bunifuFlatButton19
-            // 
-            this.bunifuFlatButton19.Activecolor = System.Drawing.Color.Firebrick;
-            this.bunifuFlatButton19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton19.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton19.BorderRadius = 0;
-            this.bunifuFlatButton19.ButtonText = "     TOOLS";
-            this.bunifuFlatButton19.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton19.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton19.Enabled = false;
-            this.bunifuFlatButton19.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton19.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton19.Iconimage = null;
-            this.bunifuFlatButton19.Iconimage_right = null;
-            this.bunifuFlatButton19.Iconimage_right_Selected = null;
-            this.bunifuFlatButton19.Iconimage_Selected = null;
-            this.bunifuFlatButton19.IconMarginLeft = 0;
-            this.bunifuFlatButton19.IconMarginRight = 0;
-            this.bunifuFlatButton19.IconRightVisible = true;
-            this.bunifuFlatButton19.IconRightZoom = 0D;
-            this.bunifuFlatButton19.IconVisible = true;
-            this.bunifuFlatButton19.IconZoom = 40D;
-            this.bunifuFlatButton19.IsTab = true;
-            this.bunifuFlatButton19.Location = new System.Drawing.Point(2, 4);
-            this.bunifuFlatButton19.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.bunifuFlatButton19.Name = "bunifuFlatButton19";
-            this.bunifuFlatButton19.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton19.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton19.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.bunifuFlatButton19.selected = false;
-            this.bunifuFlatButton19.Size = new System.Drawing.Size(232, 28);
-            this.bunifuFlatButton19.TabIndex = 50;
-            this.bunifuFlatButton19.Text = "     TOOLS";
-            this.bunifuFlatButton19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton19.Textcolor = System.Drawing.Color.Cyan;
-            this.bunifuFlatButton19.TextFont = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            // 
-            // bunifuFlatButton22
-            // 
-            this.bunifuFlatButton22.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton22.BorderRadius = 0;
-            this.bunifuFlatButton22.ButtonText = "          Holiday";
-            this.bunifuFlatButton22.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton22.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuFlatButton22.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton22.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton22.Iconimage = null;
-            this.bunifuFlatButton22.Iconimage_right = null;
-            this.bunifuFlatButton22.Iconimage_right_Selected = null;
-            this.bunifuFlatButton22.Iconimage_Selected = null;
-            this.bunifuFlatButton22.IconMarginLeft = 0;
-            this.bunifuFlatButton22.IconMarginRight = 0;
-            this.bunifuFlatButton22.IconRightVisible = true;
-            this.bunifuFlatButton22.IconRightZoom = 0D;
-            this.bunifuFlatButton22.IconVisible = true;
-            this.bunifuFlatButton22.IconZoom = 40D;
-            this.bunifuFlatButton22.IsTab = true;
-            this.bunifuFlatButton22.Location = new System.Drawing.Point(3, 183);
-            this.bunifuFlatButton22.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.bunifuFlatButton22.Name = "bunifuFlatButton22";
-            this.bunifuFlatButton22.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton22.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton22.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.bunifuFlatButton22.selected = false;
-            this.bunifuFlatButton22.Size = new System.Drawing.Size(225, 28);
-            this.bunifuFlatButton22.TabIndex = 41;
-            this.bunifuFlatButton22.Text = "          Holiday";
-            this.bunifuFlatButton22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton22.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bunifuFlatButton22.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            // 
-            // bunifuFlatButton23
-            // 
-            this.bunifuFlatButton23.Activecolor = System.Drawing.Color.Firebrick;
-            this.bunifuFlatButton23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton23.BorderRadius = 0;
-            this.bunifuFlatButton23.ButtonText = "     OTHERS";
-            this.bunifuFlatButton23.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton23.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton23.Enabled = false;
-            this.bunifuFlatButton23.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton23.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton23.Iconimage = null;
-            this.bunifuFlatButton23.Iconimage_right = null;
-            this.bunifuFlatButton23.Iconimage_right_Selected = null;
-            this.bunifuFlatButton23.Iconimage_Selected = null;
-            this.bunifuFlatButton23.IconMarginLeft = 0;
-            this.bunifuFlatButton23.IconMarginRight = 0;
-            this.bunifuFlatButton23.IconRightVisible = true;
-            this.bunifuFlatButton23.IconRightZoom = 0D;
-            this.bunifuFlatButton23.IconVisible = true;
-            this.bunifuFlatButton23.IconZoom = 40D;
-            this.bunifuFlatButton23.IsTab = true;
-            this.bunifuFlatButton23.Location = new System.Drawing.Point(-1, 78);
-            this.bunifuFlatButton23.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.bunifuFlatButton23.Name = "bunifuFlatButton23";
-            this.bunifuFlatButton23.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton23.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton23.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.bunifuFlatButton23.selected = false;
-            this.bunifuFlatButton23.Size = new System.Drawing.Size(232, 28);
-            this.bunifuFlatButton23.TabIndex = 36;
-            this.bunifuFlatButton23.Text = "     OTHERS";
-            this.bunifuFlatButton23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton23.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.bunifuFlatButton23.TextFont = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            // 
-            // bunifuFlatButton26
-            // 
-            this.bunifuFlatButton26.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton26.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton26.BorderRadius = 0;
-            this.bunifuFlatButton26.ButtonText = "          Region";
-            this.bunifuFlatButton26.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton26.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuFlatButton26.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton26.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton26.Iconimage = null;
-            this.bunifuFlatButton26.Iconimage_right = null;
-            this.bunifuFlatButton26.Iconimage_right_Selected = null;
-            this.bunifuFlatButton26.Iconimage_Selected = null;
-            this.bunifuFlatButton26.IconMarginLeft = 0;
-            this.bunifuFlatButton26.IconMarginRight = 0;
-            this.bunifuFlatButton26.IconRightVisible = true;
-            this.bunifuFlatButton26.IconRightZoom = 0D;
-            this.bunifuFlatButton26.IconVisible = true;
-            this.bunifuFlatButton26.IconZoom = 40D;
-            this.bunifuFlatButton26.IsTab = true;
-            this.bunifuFlatButton26.Location = new System.Drawing.Point(2, 147);
-            this.bunifuFlatButton26.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.bunifuFlatButton26.Name = "bunifuFlatButton26";
-            this.bunifuFlatButton26.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton26.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton26.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.bunifuFlatButton26.selected = false;
-            this.bunifuFlatButton26.Size = new System.Drawing.Size(225, 28);
-            this.bunifuFlatButton26.TabIndex = 9;
-            this.bunifuFlatButton26.Text = "          Region";
-            this.bunifuFlatButton26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton26.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bunifuFlatButton26.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            // 
-            // bunifuFlatButton28
-            // 
-            this.bunifuFlatButton28.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton28.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton28.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton28.BorderRadius = 0;
-            this.bunifuFlatButton28.ButtonText = "          Province";
-            this.bunifuFlatButton28.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton28.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuFlatButton28.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton28.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton28.Iconimage = null;
-            this.bunifuFlatButton28.Iconimage_right = null;
-            this.bunifuFlatButton28.Iconimage_right_Selected = null;
-            this.bunifuFlatButton28.Iconimage_Selected = null;
-            this.bunifuFlatButton28.IconMarginLeft = 0;
-            this.bunifuFlatButton28.IconMarginRight = 0;
-            this.bunifuFlatButton28.IconRightVisible = true;
-            this.bunifuFlatButton28.IconRightZoom = 0D;
-            this.bunifuFlatButton28.IconVisible = true;
-            this.bunifuFlatButton28.IconZoom = 40D;
-            this.bunifuFlatButton28.IsTab = true;
-            this.bunifuFlatButton28.Location = new System.Drawing.Point(3, 111);
-            this.bunifuFlatButton28.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.bunifuFlatButton28.Name = "bunifuFlatButton28";
-            this.bunifuFlatButton28.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton28.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton28.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.bunifuFlatButton28.selected = false;
-            this.bunifuFlatButton28.Size = new System.Drawing.Size(225, 28);
-            this.bunifuFlatButton28.TabIndex = 10;
-            this.bunifuFlatButton28.Text = "          Province";
-            this.bunifuFlatButton28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton28.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bunifuFlatButton28.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
-            // 
-            // panel26
-            // 
-            this.panel26.BackColor = System.Drawing.Color.White;
-            this.panel26.Location = new System.Drawing.Point(17, 73);
-            this.panel26.Name = "panel26";
-            this.panel26.Size = new System.Drawing.Size(190, 1);
-            this.panel26.TabIndex = 35;
-            // 
-            // bunifuFlatButton29
-            // 
-            this.bunifuFlatButton29.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton29.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton29.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton29.BorderRadius = 0;
-            this.bunifuFlatButton29.ButtonText = "          Employee";
-            this.bunifuFlatButton29.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton29.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuFlatButton29.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton29.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton29.Iconimage = null;
-            this.bunifuFlatButton29.Iconimage_right = null;
-            this.bunifuFlatButton29.Iconimage_right_Selected = null;
-            this.bunifuFlatButton29.Iconimage_Selected = null;
-            this.bunifuFlatButton29.IconMarginLeft = 0;
-            this.bunifuFlatButton29.IconMarginRight = 0;
-            this.bunifuFlatButton29.IconRightVisible = true;
-            this.bunifuFlatButton29.IconRightZoom = 0D;
-            this.bunifuFlatButton29.IconVisible = true;
-            this.bunifuFlatButton29.IconZoom = 40D;
-            this.bunifuFlatButton29.IsTab = true;
-            this.bunifuFlatButton29.Location = new System.Drawing.Point(5, 34);
-            this.bunifuFlatButton29.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.bunifuFlatButton29.Name = "bunifuFlatButton29";
-            this.bunifuFlatButton29.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton29.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bunifuFlatButton29.OnHoverTextColor = System.Drawing.Color.Yellow;
-            this.bunifuFlatButton29.selected = false;
-            this.bunifuFlatButton29.Size = new System.Drawing.Size(225, 28);
-            this.bunifuFlatButton29.TabIndex = 20;
-            this.bunifuFlatButton29.Text = "          Employee";
-            this.bunifuFlatButton29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton29.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bunifuFlatButton29.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
             // 
             // bunifuCards10
             // 
@@ -7596,6 +7346,9 @@ namespace MIS
             // 
             this.pnlSubMenuSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pnlSubMenuSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSubMenuSearch.Controls.Add(this.btnSerialNoSearch);
+            this.pnlSubMenuSearch.Controls.Add(this.bunifuFlatButton19);
+            this.pnlSubMenuSearch.Controls.Add(this.panel21);
             this.pnlSubMenuSearch.Controls.Add(this.btnDashboardComponentsInventoryDiagnostic);
             this.pnlSubMenuSearch.Controls.Add(this.btnDashboardSIMInventoryDiagnostic);
             this.pnlSubMenuSearch.Controls.Add(this.bunifuFlatButton5);
@@ -7603,9 +7356,91 @@ namespace MIS
             this.pnlSubMenuSearch.Controls.Add(this.btnDashboardPOSInventoryDiagnostic);
             this.pnlSubMenuSearch.Location = new System.Drawing.Point(597, 382);
             this.pnlSubMenuSearch.Name = "pnlSubMenuSearch";
-            this.pnlSubMenuSearch.Size = new System.Drawing.Size(290, 183);
+            this.pnlSubMenuSearch.Size = new System.Drawing.Size(290, 254);
             this.pnlSubMenuSearch.TabIndex = 452;
             this.pnlSubMenuSearch.Visible = false;
+            // 
+            // btnSerialNoSearch
+            // 
+            this.btnSerialNoSearch.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSerialNoSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSerialNoSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSerialNoSearch.BorderRadius = 0;
+            this.btnSerialNoSearch.ButtonText = "          SerialNO Search";
+            this.btnSerialNoSearch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSerialNoSearch.DisabledColor = System.Drawing.Color.Gray;
+            this.btnSerialNoSearch.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSerialNoSearch.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnSerialNoSearch.Iconimage = null;
+            this.btnSerialNoSearch.Iconimage_right = null;
+            this.btnSerialNoSearch.Iconimage_right_Selected = null;
+            this.btnSerialNoSearch.Iconimage_Selected = null;
+            this.btnSerialNoSearch.IconMarginLeft = 0;
+            this.btnSerialNoSearch.IconMarginRight = 0;
+            this.btnSerialNoSearch.IconRightVisible = true;
+            this.btnSerialNoSearch.IconRightZoom = 0D;
+            this.btnSerialNoSearch.IconVisible = true;
+            this.btnSerialNoSearch.IconZoom = 40D;
+            this.btnSerialNoSearch.IsTab = true;
+            this.btnSerialNoSearch.Location = new System.Drawing.Point(16, 34);
+            this.btnSerialNoSearch.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSerialNoSearch.Name = "btnSerialNoSearch";
+            this.btnSerialNoSearch.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSerialNoSearch.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnSerialNoSearch.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.btnSerialNoSearch.selected = false;
+            this.btnSerialNoSearch.Size = new System.Drawing.Size(225, 28);
+            this.btnSerialNoSearch.TabIndex = 56;
+            this.btnSerialNoSearch.Text = "          SerialNO Search";
+            this.btnSerialNoSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSerialNoSearch.Textcolor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnSerialNoSearch.TextFont = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnSerialNoSearch.Click += new System.EventHandler(this.btnSerialNoSearch_Click);
+            // 
+            // bunifuFlatButton19
+            // 
+            this.bunifuFlatButton19.Activecolor = System.Drawing.Color.Firebrick;
+            this.bunifuFlatButton19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuFlatButton19.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuFlatButton19.BorderRadius = 0;
+            this.bunifuFlatButton19.ButtonText = "     SEARCH";
+            this.bunifuFlatButton19.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bunifuFlatButton19.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuFlatButton19.Enabled = false;
+            this.bunifuFlatButton19.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bunifuFlatButton19.Iconcolor = System.Drawing.Color.Transparent;
+            this.bunifuFlatButton19.Iconimage = null;
+            this.bunifuFlatButton19.Iconimage_right = null;
+            this.bunifuFlatButton19.Iconimage_right_Selected = null;
+            this.bunifuFlatButton19.Iconimage_Selected = null;
+            this.bunifuFlatButton19.IconMarginLeft = 0;
+            this.bunifuFlatButton19.IconMarginRight = 0;
+            this.bunifuFlatButton19.IconRightVisible = true;
+            this.bunifuFlatButton19.IconRightZoom = 0D;
+            this.bunifuFlatButton19.IconVisible = true;
+            this.bunifuFlatButton19.IconZoom = 40D;
+            this.bunifuFlatButton19.IsTab = true;
+            this.bunifuFlatButton19.Location = new System.Drawing.Point(16, 4);
+            this.bunifuFlatButton19.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.bunifuFlatButton19.Name = "bunifuFlatButton19";
+            this.bunifuFlatButton19.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuFlatButton19.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bunifuFlatButton19.OnHoverTextColor = System.Drawing.Color.Yellow;
+            this.bunifuFlatButton19.selected = false;
+            this.bunifuFlatButton19.Size = new System.Drawing.Size(232, 28);
+            this.bunifuFlatButton19.TabIndex = 43;
+            this.bunifuFlatButton19.Text = "     SEARCH";
+            this.bunifuFlatButton19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bunifuFlatButton19.Textcolor = System.Drawing.Color.Cyan;
+            this.bunifuFlatButton19.TextFont = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            // 
+            // panel21
+            // 
+            this.panel21.BackColor = System.Drawing.Color.White;
+            this.panel21.Location = new System.Drawing.Point(26, 71);
+            this.panel21.Name = "panel21";
+            this.panel21.Size = new System.Drawing.Size(237, 1);
+            this.panel21.TabIndex = 42;
             // 
             // btnDashboardComponentsInventoryDiagnostic
             // 
@@ -7630,7 +7465,7 @@ namespace MIS
             this.btnDashboardComponentsInventoryDiagnostic.IconVisible = true;
             this.btnDashboardComponentsInventoryDiagnostic.IconZoom = 40D;
             this.btnDashboardComponentsInventoryDiagnostic.IsTab = true;
-            this.btnDashboardComponentsInventoryDiagnostic.Location = new System.Drawing.Point(3, 136);
+            this.btnDashboardComponentsInventoryDiagnostic.Location = new System.Drawing.Point(3, 216);
             this.btnDashboardComponentsInventoryDiagnostic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDashboardComponentsInventoryDiagnostic.Name = "btnDashboardComponentsInventoryDiagnostic";
             this.btnDashboardComponentsInventoryDiagnostic.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -7667,7 +7502,7 @@ namespace MIS
             this.btnDashboardSIMInventoryDiagnostic.IconVisible = true;
             this.btnDashboardSIMInventoryDiagnostic.IconZoom = 40D;
             this.btnDashboardSIMInventoryDiagnostic.IsTab = true;
-            this.btnDashboardSIMInventoryDiagnostic.Location = new System.Drawing.Point(3, 102);
+            this.btnDashboardSIMInventoryDiagnostic.Location = new System.Drawing.Point(3, 182);
             this.btnDashboardSIMInventoryDiagnostic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDashboardSIMInventoryDiagnostic.Name = "btnDashboardSIMInventoryDiagnostic";
             this.btnDashboardSIMInventoryDiagnostic.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -7705,7 +7540,7 @@ namespace MIS
             this.bunifuFlatButton5.IconVisible = true;
             this.bunifuFlatButton5.IconZoom = 40D;
             this.bunifuFlatButton5.IsTab = true;
-            this.bunifuFlatButton5.Location = new System.Drawing.Point(-1, 2);
+            this.bunifuFlatButton5.Location = new System.Drawing.Point(-1, 82);
             this.bunifuFlatButton5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bunifuFlatButton5.Name = "bunifuFlatButton5";
             this.bunifuFlatButton5.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -7741,7 +7576,7 @@ namespace MIS
             this.btnDashboardServiceDiagnostic.IconVisible = true;
             this.btnDashboardServiceDiagnostic.IconZoom = 40D;
             this.btnDashboardServiceDiagnostic.IsTab = true;
-            this.btnDashboardServiceDiagnostic.Location = new System.Drawing.Point(3, 32);
+            this.btnDashboardServiceDiagnostic.Location = new System.Drawing.Point(3, 112);
             this.btnDashboardServiceDiagnostic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDashboardServiceDiagnostic.Name = "btnDashboardServiceDiagnostic";
             this.btnDashboardServiceDiagnostic.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -7778,7 +7613,7 @@ namespace MIS
             this.btnDashboardPOSInventoryDiagnostic.IconVisible = true;
             this.btnDashboardPOSInventoryDiagnostic.IconZoom = 40D;
             this.btnDashboardPOSInventoryDiagnostic.IsTab = true;
-            this.btnDashboardPOSInventoryDiagnostic.Location = new System.Drawing.Point(3, 68);
+            this.btnDashboardPOSInventoryDiagnostic.Location = new System.Drawing.Point(3, 148);
             this.btnDashboardPOSInventoryDiagnostic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDashboardPOSInventoryDiagnostic.Name = "btnDashboardPOSInventoryDiagnostic";
             this.btnDashboardPOSInventoryDiagnostic.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -7945,21 +7780,21 @@ namespace MIS
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(46)))), ((int)(((byte)(59)))));
             this.ClientSize = new System.Drawing.Size(1427, 848);
+            this.Controls.Add(this.pnlSubMenuSearch);
+            this.Controls.Add(this.pnlSubMenuEnrollment);
+            this.Controls.Add(this.pnlDummy);
+            this.Controls.Add(this.pnlSubMenuInventoryEntry);
             this.Controls.Add(this.pnlSubMenuTools);
             this.Controls.Add(this.pnlSubMenuReports);
             this.Controls.Add(this.panelMinimizedForms);
             this.Controls.Add(this.pnlSubMenuFinance);
             this.Controls.Add(this.pnlSubMenuServicing);
             this.Controls.Add(this.pnlSubMenuLog);
-            this.Controls.Add(this.pnlSubMenuSearch);
-            this.Controls.Add(this.pnlSubMenuEnrollment);
             this.Controls.Add(this.pnlSubMenuMSP);
-            this.Controls.Add(this.pnlSubMenuInventoryEntry);
             this.Controls.Add(this.pnlSubMenuAdministrative);
             this.Controls.Add(this.btnMSP);
             this.Controls.Add(this.pnlSubMenuSwitchBank);
             this.Controls.Add(this.pnlLog);
-            this.Controls.Add(this.pnlDummy);
             this.Controls.Add(this.pnlSubMenuPOSRental);
             this.Controls.Add(this.pnlSubMenuAccount);
             this.Controls.Add(this.btnServiceDispatchJobType);
@@ -8038,7 +7873,6 @@ namespace MIS
             this.pnlWhoIsOnlineFSR.ResumeLayout(false);
             this.pnlWhoIsOnlineFSR.PerformLayout();
             this.pnlLog.ResumeLayout(false);
-            this.panel21.ResumeLayout(false);
             this.bunifuCards10.ResumeLayout(false);
             this.bunifuCards10.PerformLayout();
             this.pnlKeyBoardShortCut.ResumeLayout(false);
@@ -8406,16 +8240,11 @@ namespace MIS
         private System.Windows.Forms.Panel panel25;
         private BunifuFlatButton btnQrDelivery;
         private BunifuFlatButton btnBankTemplateGen;
-        private System.Windows.Forms.Panel panel21;
-        private BunifuFlatButton bunifuFlatButton19;
-        private BunifuFlatButton bunifuFlatButton22;
-        private BunifuFlatButton bunifuFlatButton23;
-        private BunifuFlatButton bunifuFlatButton26;
-        private BunifuFlatButton bunifuFlatButton28;
-        private System.Windows.Forms.Panel panel26;
-        private BunifuFlatButton bunifuFlatButton29;
         private BunifuFlatButton bunifuFlatButton31;
         private BunifuFlatButton btnTableEditor;
         private System.Windows.Forms.Panel panel27;
+        private BunifuFlatButton btnSerialNoSearch;
+        private BunifuFlatButton bunifuFlatButton19;
+        private System.Windows.Forms.Panel panel21;
     }
 }

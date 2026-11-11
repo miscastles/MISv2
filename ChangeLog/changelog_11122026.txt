@@ -1,0 +1,38 @@
+﻿﻿CHANGELOG
+Date: November  12, 2026 ( amend )
+Developer: Raiden K. Fernando
+
+========================================================
+CHANGES
+========================================================
+
+1. IRImportRow -> modelBankTemplateIRROw ( rename )
+
+2. frmTableEditor.cs
+-> Added FUNCTION & ROUTINE support improved form security checks + added sql compliant rte ( FCTB )
+-> Optimized and revised code for better readability 
+-> Added modelTableEditor.cs to handle logic
+
+3. frmMain.cs
+-> Added frmSSerialNo as an option within SEARCH 
+
+4. clsFunction.cs
+-> removed unused code 
+-> added FillSerialNoSearchTypes & FillSerialNoSearchAlgorithim
+
+5. frmSSerialNo & modelSerialSearch ( new module )
+-> added new module for search serialnos accross banks
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- spViewAdvanceDetail -> Table List, Table Rows, Routine List, Function List
+- tblprivacydetail & tblprivacymaster -> inserted privacy records for table-editor and search-serial modules
+- API.php ( added Table List )
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

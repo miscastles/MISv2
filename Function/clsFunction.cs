@@ -7870,5 +7870,27 @@ namespace MIS
                 return frm.isProceed;
             }
         }
+
+        public void FillSerialNoSearchTypes(ComboBox obj)
+        {
+            string[] ret = { "TERMINALSN", "SIMSN" };
+
+            obj.Items.Clear();
+            obj.Items.AddRange(ret);
+
+            if (obj.Items.Count > 0)
+                obj.SelectedIndex = 0;
+        }
+
+        public void FillSerialNoSearchAlgorithim(ComboBox obj)
+        {
+            string[] ret = { "CONTAINS", "EXACT", "STARTS WITH", "ENDS WITH" };
+
+            obj.Items.Clear();
+            obj.Items.AddRange(ret);
+
+            if (obj.Items.Count > 0)
+                obj.SelectedIndex = 0;
+        }
     }
 }
