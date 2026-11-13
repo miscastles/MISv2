@@ -54,7 +54,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dgvBankList = new System.Windows.Forms.DataGridView();
-            this.colBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panel7 = new System.Windows.Forms.Panel();
             this.lvwReturnList = new System.Windows.Forms.ListView();
@@ -69,11 +68,22 @@
             this.panel9 = new System.Windows.Forms.Panel();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel5 = new System.Windows.Forms.Panel();
             this.chkBoxUncheckAll = new System.Windows.Forms.CheckBox();
             this.chkboxCheckAll = new System.Windows.Forms.CheckBox();
+            this.lvwSNHistory = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -86,6 +96,7 @@
             this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlHeader
@@ -351,16 +362,9 @@
             this.dgvBankList.ShowCellToolTips = false;
             this.dgvBankList.ShowEditingIcon = false;
             this.dgvBankList.ShowRowErrors = false;
-            this.dgvBankList.Size = new System.Drawing.Size(179, 403);
+            this.dgvBankList.Size = new System.Drawing.Size(179, 506);
             this.dgvBankList.TabIndex = 461;
             this.dgvBankList.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvBankList_CurrentCellDirtyStateChanged);
-            // 
-            // colBank
-            // 
-            this.colBank.HeaderText = "";
-            this.colBank.Name = "colBank";
-            this.colBank.ReadOnly = true;
-            this.colBank.Width = 140;
             // 
             // colCheckBox
             // 
@@ -377,7 +381,7 @@
             this.panel7.Controls.Add(this.panel8);
             this.panel7.Location = new System.Drawing.Point(8, 121);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(853, 376);
+            this.panel7.Size = new System.Drawing.Size(853, 479);
             this.panel7.TabIndex = 463;
             // 
             // lvwReturnList
@@ -391,12 +395,13 @@
             this.colLocation});
             this.lvwReturnList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvwReturnList.HideSelection = false;
-            this.lvwReturnList.Location = new System.Drawing.Point(-1, 21);
+            this.lvwReturnList.Location = new System.Drawing.Point(-1, 23);
             this.lvwReturnList.Name = "lvwReturnList";
-            this.lvwReturnList.Size = new System.Drawing.Size(854, 354);
+            this.lvwReturnList.Size = new System.Drawing.Size(854, 455);
             this.lvwReturnList.TabIndex = 313;
             this.lvwReturnList.UseCompatibleStateImageBehavior = false;
             this.lvwReturnList.View = System.Windows.Forms.View.Details;
+            this.lvwReturnList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvwReturnList_MouseDoubleClick);
             // 
             // columnHeader1
             // 
@@ -468,7 +473,7 @@
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnClear.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnClear.Location = new System.Drawing.Point(8, 503);
+            this.btnClear.Location = new System.Drawing.Point(8, 885);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(80, 26);
             this.btnClear.TabIndex = 464;
@@ -485,7 +490,7 @@
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSearch.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnSearch.Location = new System.Drawing.Point(91, 503);
+            this.btnSearch.Location = new System.Drawing.Point(91, 885);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(80, 26);
             this.btnSearch.TabIndex = 465;
@@ -493,24 +498,12 @@
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 140;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.HeaderText = "";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.chkBoxUncheckAll);
             this.panel5.Controls.Add(this.chkboxCheckAll);
-            this.panel5.Location = new System.Drawing.Point(861, 441);
+            this.panel5.Location = new System.Drawing.Point(861, 544);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(179, 56);
             this.panel5.TabIndex = 466;
@@ -539,12 +532,112 @@
             this.chkboxCheckAll.UseVisualStyleBackColor = true;
             this.chkboxCheckAll.Click += new System.EventHandler(this.chkboxCheckAll_Click);
             // 
+            // lvwSNHistory
+            // 
+            this.lvwSNHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7});
+            this.lvwSNHistory.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvwSNHistory.HideSelection = false;
+            this.lvwSNHistory.Location = new System.Drawing.Point(8, 620);
+            this.lvwSNHistory.Name = "lvwSNHistory";
+            this.lvwSNHistory.Size = new System.Drawing.Size(1032, 259);
+            this.lvwSNHistory.TabIndex = 467;
+            this.lvwSNHistory.UseCompatibleStateImageBehavior = false;
+            this.lvwSNHistory.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "LINE#";
+            this.columnHeader2.Width = 0;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "DATABASE";
+            this.columnHeader3.Width = 113;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "SEARCH VALUE";
+            this.columnHeader4.Width = 326;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "MODEL";
+            this.columnHeader5.Width = 119;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "STATUS";
+            this.columnHeader6.Width = 126;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "LOCATION";
+            this.columnHeader7.Width = 159;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel6.Controls.Add(this.label3);
+            this.panel6.Controls.Add(this.panel10);
+            this.panel6.Location = new System.Drawing.Point(8, 599);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(1032, 24);
+            this.panel6.TabIndex = 468;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(3, 4);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(126, 14);
+            this.label3.TabIndex = 310;
+            this.label3.Text = "SERIAL NO HISTORY";
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.Silver;
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel10.Location = new System.Drawing.Point(0, 23);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(1032, 1);
+            this.panel10.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 140;
+            // 
+            // colBank
+            // 
+            this.colBank.HeaderText = "";
+            this.colBank.Name = "colBank";
+            this.colBank.ReadOnly = true;
+            this.colBank.Width = 140;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.HeaderText = "";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
             // frmSSerialNo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1046, 534);
+            this.ClientSize = new System.Drawing.Size(1046, 920);
             this.ControlBox = false;
+            this.Controls.Add(this.panel6);
+            this.Controls.Add(this.lvwSNHistory);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnClear);
@@ -578,6 +671,8 @@
             this.panel8.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -627,5 +722,15 @@
         private System.Windows.Forms.CheckBox chkboxCheckAll;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBank;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colCheckBox;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.ListView lvwSNHistory;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
     }
 }

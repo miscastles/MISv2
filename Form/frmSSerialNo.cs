@@ -1,4 +1,5 @@
 ﻿using MIS.Model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,14 +31,21 @@ namespace MIS
             dbFile = new clsFile();
             dbSerialSearch = new modelSerialSearch();
 
-            dbFunction.FillSerialNoSearchTypes(cboSearchType);
+            cboSearchType.Items.Clear();
+            cboSearchType.Items.AddRange(modelSerialSearch.TypeNames);
+            if (cboSearchType.Items.Count > 0) cboSearchType.SelectedIndex = 0;
+            
             dbFunction.FillSerialNoSearchAlgorithim(cboSearchAlgorithim);
 
             colCheckBox.DisplayIndex = 0;
 
             FillGridBankSelection(dgvBankList);
+            InitSNHistoryList();
+
             chkboxCheckAll.Checked = true;
             chkBoxUncheckAll.Checked = false;
+
+            lvwReturnList.FullRowSelect = true;
         }
 
         private void FillGridBankSelection(DataGridView dgv)
@@ -97,6 +105,7 @@ namespace MIS
             dbSerialSearch.Search();
             Cursor.Current = Cursors.Default;
 
+            lvwReturnList.BeginUpdate();
             lvwReturnList.Items.Clear();
 
             int iLine = 0;
@@ -109,8 +118,11 @@ namespace MIS
                 item.SubItems.Add(result.Model);
                 item.SubItems.Add(result.Status);
                 item.SubItems.Add(result.Location);
+                item.Tag = result;
                 lvwReturnList.Items.Add(item);
             }
+
+            lvwReturnList.EndUpdate();
 
             if (dbSerialSearch.Errors.Count > 0)
             {
@@ -147,6 +159,8 @@ namespace MIS
             FillGridBankSelection(dgvBankList);
 
             dbSerialSearch = new modelSerialSearch();
+
+            lvwSNHistory.Items.Clear();
 
             txtSearchValue.Focus();
         }
@@ -195,6 +209,120 @@ namespace MIS
                     this.Close();
                     break;
             }
+        }
+
+        private void ViewSNHistory(modelSerialSearch.Result result)
+        {
+            lvwSNHistory.Items.Clear();
+
+            if (result == null) return;
+            if (!dbFunction.isValidID(result.ID)) return;
+            if (result.HistorySearchBy.Length == 0) return;
+
+            string pBank = clsGlobalVariables.strAPIBank;
+
+            Cursor.Current = Cursors.WaitCursor;
+            lvwSNHistory.BeginUpdate();
+
+            try
+            {
+                clsGlobalVariables.strAPIBank = result.BankCode;
+
+                dbAPI.ExecuteAPI("GET", "View", result.HistorySearchBy, dbFunction.CheckAndSetNumericValue(result.ID), "Advance Detail", "", "ViewAdvanceDetail");
+
+                if (!clsGlobalVariables.isAPIResponseOK) return;
+                if (dbAPI.isNoRecordFound()) return;
+
+                int iLineNo = 0;
+
+                for (int i = 0; i < clsArray.ServiceNo.Length; i++)
+                {
+                    string sInfo = clsArray.detail_info[i];
+
+                    iLineNo++;
+                    ListViewItem item = new ListViewItem(iLineNo.ToString());
+
+                    item.ForeColor = dbFunction.GetColorByStatus(0, dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_ActionMade));
+
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_SERVICENO));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_FSRNO));
+
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_MERCHANTNAME));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_TID));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_MID));
+
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_ServiceJobTypeDescription));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_IRNO));
+
+                    // Servicing Date Info (one extra call per service, same as the import screens)
+                    string pJSONString = dbAPI.getInfoDetailJSON("Search", "Servicing Date Info", dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_SERVICENO));
+
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_RequestDate));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_CreatedDate));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ScheduleDate));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_DispatchDate));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_ServiceDate));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(pJSONString, clsDefines.TAG_TicketDate));
+
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_ActionMade));
+
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_TerminalSN));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_SIMSN));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_ReplaceTerminalSN));
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_ReplaceSIMSN));
+
+                    item.SubItems.Add(dbAPI.GetValueFromJSONString(sInfo, clsDefines.TAG_JobTypeStatusDescription));
+
+                    lvwSNHistory.Items.Add(item);
+                }
+
+                dbFunction.ListViewAlternateBackColor(lvwSNHistory);
+            }
+            finally
+            {
+                clsGlobalVariables.strAPIBank = pBank;
+                lvwSNHistory.EndUpdate();
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void InitSNHistoryList()
+        {
+            lvwSNHistory.Clear();   // removes the copied columns and any rows
+
+            lvwSNHistory.View = View.Details;
+            lvwSNHistory.FullRowSelect = true;
+            lvwSNHistory.HideSelection = false;
+            lvwSNHistory.BackColor = Color.GhostWhite;
+            lvwSNHistory.BorderStyle = BorderStyle.FixedSingle;
+
+            lvwSNHistory.Columns.Add("LINE#", 50, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("SVC NO.", 0, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("FSR NO.", 0, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("NAME", 180, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("TID", 90, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("MID", 130, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("SERVICE TYPE", 110, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("REQUEST ID", 130, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("REQUEST DATE", 130, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("CREATED DATE", 130, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("SCHEDULE DATE", 130, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("DISPATCH DATE", 130, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("SERVICE DATE", 130, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("CLOSE DATE", 130, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("SERVICE RESULT", 110, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("(C) TERMINAL SN", 120, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("(C) SIM SN", 160, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("(N) TERMINAL SN", 120, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("(N) SIM SN", 160, HorizontalAlignment.Left);
+            lvwSNHistory.Columns.Add("SERVICE STATUS", 110, HorizontalAlignment.Left);
+        }
+
+        private void lvwReturnList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lvwReturnList.SelectedItems.Count == 0) return;
+
+            ViewSNHistory(lvwReturnList.SelectedItems[0].Tag as modelSerialSearch.Result);
         }
     }
 }

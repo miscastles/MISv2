@@ -272,72 +272,46 @@ namespace MIS
                 return;
             }
 
-            if (cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_HOLD_DESC) &&
-                clsDefines.SERVICE_STATUS_COMPLETED.Equals(_mServicingDetailController.JobTypeStatusDescription))
-            {
-                dbFunction.SetMessageBox("Completed services cannot be put on [ HOLD ].", "Action not allowed", clsFunction.IconType.iError);
-                return;
-            }
-
+            // RESULT is column 7 of lvwRequestIDHistory; rows are ordered oldest to newest
             string pLastResult = lvwRequestIDHistory.Items.Count > 0
                 ? lvwRequestIDHistory.Items[lvwRequestIDHistory.Items.Count - 1].SubItems[7].Text
                 : "";
 
-            if (cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_CANCEL_DESC) && 
+            if (cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_CANCEL_DESC) &&
                 int.Parse(txtJobType.Text) == (int)Enums.JobType.Pullout &&
                 clsDefines.SERVICE_STATUS_COMPLETED.Equals(_mServicingDetailController.JobTypeStatusDescription))
             {
                 dbFunction.SetMessageBox("Completed pull-out services cannot be cancelled.", "Action not allowed", clsFunction.IconType.iError);
                 return;
             }
-
-            else if (pLastResult.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE))
-            {
-                if (!dbFunction.fConfirmPopup($"The timeline of Request ID [{_mServicingDetailController.IRNo}] is NEGATIVE." + "\n\n" +
-                                              "No successful service was found for this Request ID." + "\n\n" +
-                                              "Do you wish to proceed?"))
-                    return;
-            }
-
             else if (pLastResult.Equals(clsGlobalVariables.ACTION_MADE_SUCCESS))
             {
                 dbFunction.SetMessageBox($"Request ID [{_mServicingDetailController.IRNo}] already has a SUCCESS service." + "\n\n" +
                                          "Unable to proceed.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                 return;
             }
+            else if (!pLastResult.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE) &&
+                     dbFunction.isAlreadyCompleted(_mServicingDetailController.JobTypeStatusDescription)) return;
 
-            else if (dbFunction.isAlreadyCompleted(_mServicingDetailController.JobTypeStatusDescription)) return;
+            bool fShowSN = !(clsSearch.ClassJobType.Equals(clsGlobalVariables.JOB_TYPE_SERVICING) ||
+                             clsSearch.ClassJobType.Equals(clsGlobalVariables.JOB_TYPE_REPROGRAMMING) ||
+                             clsSearch.ClassJobType.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT));
 
-            if (dbFunction.isValidID(_mServicingDetailController.TerminalID.ToString()) && dbFunction.isValidID(_mServicingDetailController.ReplaceTerminalID.ToString()))
-            {
-                pTerminalSN = $" >SN: {_mServicingDetailController.ReplaceTerminalSN}\n >Type: {_mServicingDetailController.ReplaceTerminalType}\n >Model: {_mServicingDetailController.ReplaceTerminalModel}";
-            }
-            else
-            {
-                pTerminalSN = $" >SN: {_mServicingDetailController.TerminalSN}\n >Type: {_mServicingDetailController.TerminalType}\n >Model: {_mServicingDetailController.TerminalModel}";
-            }
-
-            if (dbFunction.isValidID(_mServicingDetailController.SIMID.ToString()) && dbFunction.isValidID(_mServicingDetailController.ReplaceSIMID.ToString()))
-            {
-                pSIMSN = $" >SN: {_mServicingDetailController.ReplaceSIMSN}\n >Carrier: {_mServicingDetailController.ReplaceSIMCarrier}";
-            }
-            else
-            {
-                pSIMSN = $" >SN: {_mServicingDetailController.SIMSN}\n >Carrier: {_mServicingDetailController.SIMCarrier}";
-            }
+            pTerminalSN = $" >SN: {_mServicingDetailController.TerminalSN}\n >Type: {_mServicingDetailController.TerminalType}\n >Model: {_mServicingDetailController.TerminalModel}";
+            pSIMSN = $" >SN: {_mServicingDetailController.SIMSN}\n >Carrier: {_mServicingDetailController.SIMCarrier}";
 
             if (!dbFunction.fConfirmPopup("Are you sure you want to update service status for job type " + txtJobTypeDesc.Text + "?" + "\n\n" +
                                           "Status details: " + "\n" +
                                           " >From: " + clsSearch.ClassHoldServiceStatusDescription + "\n" +
                                           " >To: " + (cboServiceStatusCategory.Text.Equals(clsFunction.sDefaultSelect) ? clsGlobalVariables.STATUS_RESUME_DESC : cboServiceStatusCategory.Text) + "\n\n" +
-                                          "Terminal details:" + "\n" + pTerminalSN + "\n\n" +
-                                          "SIM details:" + "\n" + pSIMSN + "\n\n" +
-                                          $"*Warning: The serial number listed below will be marked as {(int.Parse(txtJobType.Text) == (int)Enums.JobType.Pullout ? "INSTALLED" : "AVAILABLE")}" + "\n\n" +
-                                          "*Note: This action will not permanently delete the record."))
-            {
-                return;
-            }
-
+                                          (fShowSN
+                                              ? "Terminal details:" + "\n" + pTerminalSN + "\n\n" +
+                                                "SIM details:" + "\n" + pSIMSN + "\n\n" +
+                                            $"*Warning: The serial number listed above will be marked as {(int.Parse(txtJobType.Text) == (int)Enums.JobType.Pullout ? "INSTALLED" : chkAvailable.Checked ? "AVAILABLE" : "DISPATCH/ALLOCATED")}" + "\n\n" : "") +
+                                          (pLastResult.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE)
+                                              ? $"*Note: The timeline of Request ID [{_mServicingDetailController.IRNo}] is NEGATIVE. No successful service was found." + "\n\n"
+                                              : "") +
+                                          "*Note: This action will [ NOT ] permanently delete the record.")) return;
 
             if (clsSearch.ClassServiceNo > 0)
             {
@@ -447,22 +421,9 @@ namespace MIS
 
         private void cboServiceStatusCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_HOLD_DESC))
-            {
-                chkAvailable.Enabled = true;
-                chkAvailable.Checked = true;
-            }
-            else if (cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_CANCEL_DESC))
-            {
-                chkAvailable.Enabled = false;
-                chkAvailable.Checked = true;
-            }
-            else
-            {
-                chkAvailable.Enabled = false;
-                chkAvailable.Checked = false;
-            }
-
+            chkAvailable.Enabled = false;
+            chkAvailable.Checked = cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_HOLD_DESC) ||
+                                   cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_CANCEL_DESC);
         }
 
         private void btnUpdateRemarks_Click(object sender, EventArgs e)

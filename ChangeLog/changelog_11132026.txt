@@ -1,6 +1,6 @@
 ﻿﻿CHANGELOG
-Date: October 01, 2026
-Developer: Andrew John C. Lim
+Date: November 13, 2026
+Developer: Raiden K. Fernando
 
 ========================================================
 CHANGES
@@ -17,6 +17,13 @@ CHANGES
 - Fixed bug where Servicing, Reprogramming service types cancelled would set TerminalSN and SIMSN as available & stockroom when there was a completed Installation previously.
 - Added feature where RequestIDs with with negative timelines are allowed to be cancelled 
 - Added new feature ( request id ) to show request id historical data
+- Fixed issue where negative timeline IRNo's cannot be set to HOLD
+
+4. frmSSerialSearch.cs
+- Added new Feature ( Terminal & SIM SerialNo history list )
+
+5. modelSerialSearch.cs
+- Revised code to use URL based fetching instead of SQL Conn fetching to handle new Feature
 
 ========================================================
 FILES / MODULES AFFECTED
