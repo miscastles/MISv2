@@ -57,10 +57,10 @@
             this.panel47 = new System.Windows.Forms.Panel();
             this.panel48 = new System.Windows.Forms.Panel();
             this.panel49 = new System.Windows.Forms.Panel();
+            this.txtIRIDNo = new System.Windows.Forms.TextBox();
             this.txtMerchantID = new System.Windows.Forms.TextBox();
             this.label78 = new System.Windows.Forms.Label();
             this.panel50 = new System.Windows.Forms.Panel();
-            this.txtIRIDNo = new System.Windows.Forms.TextBox();
             this.panel42.SuspendLayout();
             this.panel43.SuspendLayout();
             this.pnlSubHeader.SuspendLayout();
@@ -325,10 +325,10 @@
             this.txtMerchantRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMerchantRegion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMerchantRegion.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMerchantRegion.Location = new System.Drawing.Point(414, 67);
+            this.txtMerchantRegion.Location = new System.Drawing.Point(413, 67);
             this.txtMerchantRegion.Name = "txtMerchantRegion";
             this.txtMerchantRegion.ReadOnly = true;
-            this.txtMerchantRegion.Size = new System.Drawing.Size(134, 20);
+            this.txtMerchantRegion.Size = new System.Drawing.Size(135, 20);
             this.txtMerchantRegion.TabIndex = 161;
             // 
             // txtMerchantCity
@@ -402,6 +402,20 @@
             this.panel49.Size = new System.Drawing.Size(992, 24);
             this.panel49.TabIndex = 311;
             // 
+            // txtIRIDNo
+            // 
+            this.txtIRIDNo.BackColor = System.Drawing.Color.Gainsboro;
+            this.txtIRIDNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtIRIDNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtIRIDNo.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
+            this.txtIRIDNo.Location = new System.Drawing.Point(884, 2);
+            this.txtIRIDNo.MaxLength = 200;
+            this.txtIRIDNo.Name = "txtIRIDNo";
+            this.txtIRIDNo.ReadOnly = true;
+            this.txtIRIDNo.Size = new System.Drawing.Size(105, 20);
+            this.txtIRIDNo.TabIndex = 394;
+            this.txtIRIDNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // txtMerchantID
             // 
             this.txtMerchantID.BackColor = System.Drawing.Color.Gainsboro;
@@ -435,20 +449,6 @@
             this.panel50.Name = "panel50";
             this.panel50.Size = new System.Drawing.Size(992, 1);
             this.panel50.TabIndex = 0;
-            // 
-            // txtIRIDNo
-            // 
-            this.txtIRIDNo.BackColor = System.Drawing.Color.Gainsboro;
-            this.txtIRIDNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtIRIDNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtIRIDNo.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold);
-            this.txtIRIDNo.Location = new System.Drawing.Point(884, 2);
-            this.txtIRIDNo.MaxLength = 200;
-            this.txtIRIDNo.Name = "txtIRIDNo";
-            this.txtIRIDNo.ReadOnly = true;
-            this.txtIRIDNo.Size = new System.Drawing.Size(105, 20);
-            this.txtIRIDNo.TabIndex = 394;
-            this.txtIRIDNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ucMerchantInfo
             // 

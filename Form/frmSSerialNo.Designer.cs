@@ -54,6 +54,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dgvBankList = new System.Windows.Forms.DataGridView();
+            this.colBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panel7 = new System.Windows.Forms.Panel();
             this.lvwReturnList = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -70,10 +72,8 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.chkboxCheckAll = new System.Windows.Forms.CheckBox();
             this.chkBoxUncheckAll = new System.Windows.Forms.CheckBox();
-            this.colBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.chkboxCheckAll = new System.Windows.Forms.CheckBox();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -355,6 +355,21 @@
             this.dgvBankList.TabIndex = 461;
             this.dgvBankList.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvBankList_CurrentCellDirtyStateChanged);
             // 
+            // colBank
+            // 
+            this.colBank.HeaderText = "";
+            this.colBank.Name = "colBank";
+            this.colBank.ReadOnly = true;
+            this.colBank.Width = 140;
+            // 
+            // colCheckBox
+            // 
+            this.colCheckBox.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colCheckBox.HeaderText = "";
+            this.colCheckBox.Name = "colCheckBox";
+            this.colCheckBox.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colCheckBox.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // panel7
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -500,18 +515,6 @@
             this.panel5.Size = new System.Drawing.Size(179, 56);
             this.panel5.TabIndex = 466;
             // 
-            // chkboxCheckAll
-            // 
-            this.chkboxCheckAll.AutoSize = true;
-            this.chkboxCheckAll.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkboxCheckAll.Location = new System.Drawing.Point(6, 8);
-            this.chkboxCheckAll.Name = "chkboxCheckAll";
-            this.chkboxCheckAll.Size = new System.Drawing.Size(89, 18);
-            this.chkboxCheckAll.TabIndex = 319;
-            this.chkboxCheckAll.Text = "CHECK ALL";
-            this.chkboxCheckAll.UseVisualStyleBackColor = true;
-            this.chkboxCheckAll.Click += new System.EventHandler(this.chkboxCheckAll_Click);
-            // 
             // chkBoxUncheckAll
             // 
             this.chkBoxUncheckAll.AutoSize = true;
@@ -524,20 +527,17 @@
             this.chkBoxUncheckAll.UseVisualStyleBackColor = true;
             this.chkBoxUncheckAll.Click += new System.EventHandler(this.chkBoxUncheckAll_Click);
             // 
-            // colBank
+            // chkboxCheckAll
             // 
-            this.colBank.HeaderText = "";
-            this.colBank.Name = "colBank";
-            this.colBank.ReadOnly = true;
-            this.colBank.Width = 140;
-            // 
-            // colCheckBox
-            // 
-            this.colCheckBox.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colCheckBox.HeaderText = "";
-            this.colCheckBox.Name = "colCheckBox";
-            this.colCheckBox.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colCheckBox.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.chkboxCheckAll.AutoSize = true;
+            this.chkboxCheckAll.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkboxCheckAll.Location = new System.Drawing.Point(6, 8);
+            this.chkboxCheckAll.Name = "chkboxCheckAll";
+            this.chkboxCheckAll.Size = new System.Drawing.Size(89, 18);
+            this.chkboxCheckAll.TabIndex = 319;
+            this.chkboxCheckAll.Text = "CHECK ALL";
+            this.chkboxCheckAll.UseVisualStyleBackColor = true;
+            this.chkboxCheckAll.Click += new System.EventHandler(this.chkboxCheckAll_Click);
             // 
             // frmSSerialNo
             // 
@@ -558,7 +558,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmSGlobalSearch";
             this.Load += new System.EventHandler(this.frmSGlobalSearch_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmTableEditor_KeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmSSerialNo_KeyDown);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();

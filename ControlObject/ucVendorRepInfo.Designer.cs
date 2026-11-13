@@ -75,11 +75,11 @@
             this.txtVendorRepEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtVendorRepEmail.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVendorRepEmail.ForeColor = System.Drawing.Color.Black;
-            this.txtVendorRepEmail.Location = new System.Drawing.Point(68, 46);
+            this.txtVendorRepEmail.Location = new System.Drawing.Point(67, 46);
             this.txtVendorRepEmail.MaxLength = 20;
             this.txtVendorRepEmail.Name = "txtVendorRepEmail";
             this.txtVendorRepEmail.ReadOnly = true;
-            this.txtVendorRepEmail.Size = new System.Drawing.Size(427, 20);
+            this.txtVendorRepEmail.Size = new System.Drawing.Size(428, 20);
             this.txtVendorRepEmail.TabIndex = 367;
             // 
             // label54

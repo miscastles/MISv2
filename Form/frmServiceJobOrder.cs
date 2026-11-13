@@ -3339,7 +3339,7 @@ namespace MIS
                     sMessage += "- Terminal stays with the merchant" + "\n";
                 }
 
-                if (!dbFunction.OpenPopup(sMessage))
+                if (!dbFunction.fConfirmPopup(sMessage))
                 {
                     return;
                 }

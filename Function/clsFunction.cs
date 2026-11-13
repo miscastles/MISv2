@@ -7862,7 +7862,7 @@ namespace MIS
             return contents;
         }
 
-        public bool OpenPopup(string pMessage)
+        public bool fConfirmPopup(string pMessage)
         {
             using (frmPopUp frm = new frmPopUp(pMessage))
             {

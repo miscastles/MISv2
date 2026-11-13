@@ -187,7 +187,7 @@ namespace MIS
             chkBoxUncheckAll.Checked = true;
         }
 
-        private void frmTableEditor_KeyDown(object sender, KeyEventArgs e)
+        private void frmSSerialNo_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {

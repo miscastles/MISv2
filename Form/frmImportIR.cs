@@ -5057,7 +5057,7 @@ namespace MIS
                   (isDelete ? "WARNING: Data will be permanently deleted and this action will be audited."
                             : "WARNING: This action will be audited.");
 
-            if (!dbFunction.OpenPopup(sMessage))
+            if (!dbFunction.fConfirmPopup(sMessage))
             {
                 return;
             }

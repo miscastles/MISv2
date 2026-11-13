@@ -1,0 +1,31 @@
+﻿﻿CHANGELOG
+Date: October 01, 2026
+Developer: Andrew John C. Lim
+
+========================================================
+CHANGES
+========================================================
+
+1. ucInputBox.cs, ucMerchantInfo.cs, ucMerchantRepInfo.cs, ucVendorRepInfo.cs
+- Aligned textboxes to increase readability
+
+2. frmServiceJobOrder.cs, frmTerminalFSR.cs, frmImportIR.cs
+- Renamed dbFunction.OpenPopup -> dbFunction.fConfirmPopup
+
+3. frmMUpdateServiceStatus.cs
+- Fixed bug where TerminalSN & SIMSN is not released as available & stockroom whenever a service is cancelled
+- Fixed bug where Servicing, Reprogramming service types cancelled would set TerminalSN and SIMSN as available & stockroom when there was a completed Installation previously.
+- Added feature where RequestIDs with with negative timelines are allowed to be cancelled 
+- Added new feature ( request id ) to show request id historical data
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+db or api changes none
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing
