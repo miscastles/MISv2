@@ -7892,5 +7892,27 @@ namespace MIS
             if (obj.Items.Count > 0)
                 obj.SelectedIndex = 0;
         }
+
+        public void FillListView(ListView lvw, List<ListViewItem> items, bool isAlternate = true)
+        {
+            if (isAlternate)
+            {
+                for (int i = 0; i < items.Count; i++)
+                {
+                    items[i].BackColor = (i % 2 == 0) ? AlternateBackColor1 : AlternateBackColor2;
+                }
+            }
+
+            lvw.BeginUpdate();
+            try
+            {
+                lvw.Items.Clear();
+                lvw.Items.AddRange(items.ToArray());
+            }
+            finally
+            {
+                lvw.EndUpdate();
+            }
+        }
     }
 }

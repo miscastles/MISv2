@@ -33,6 +33,7 @@ namespace MIS
 
             cboSearchType.Items.Clear();
             cboSearchType.Items.AddRange(modelSerialSearch.TypeNames);
+
             if (cboSearchType.Items.Count > 0) cboSearchType.SelectedIndex = 0;
             
             dbFunction.FillSerialNoSearchAlgorithim(cboSearchAlgorithim);

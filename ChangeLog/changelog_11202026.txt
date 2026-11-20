@@ -1,0 +1,29 @@
+﻿CHANGELOG
+Date: November 20, 2026
+Developer: Raiden K. Fernando, Nikko P. Delos Reyes
+
+========================================================
+CHANGES
+========================================================
+
+clsNotification.cs
+-> Added a new class for reusable NotifyIcon windows notification.
+
+frmImportIR.cs
+-> Added a new feature windows notification for when an IR is finished import.
+-> Increased Form Size and UI Changes
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+spViewReport - Reason for Service Attempt , Installation Attempt, Status reason for Reprogrammed/Replacement, Count of Negative Reason
+spProcessReportDataStorage -Reason Summary
+clsNotification.cs
+frmImportIR.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

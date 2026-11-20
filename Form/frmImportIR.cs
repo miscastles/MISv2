@@ -33,6 +33,7 @@ namespace MIS
         private clsFile dbFile;
         private clsFunction dbFunction;
         private clsExcel dbExcel;
+        private clsNotification dbNotification;
 
         private static string ExcelFilePath = @"";
         private string sExcelFileName = "";
@@ -73,12 +74,14 @@ namespace MIS
 
             dbFunction = new clsFunction();
             dbExcel = new clsExcel();
+            dbNotification = new clsNotification();
 
             dbFunction.setDoubleBuffer(lvwDetail, true);
             dbFunction.setDoubleBuffer(lvwMerchant, true);
             dbFunction.setDoubleBuffer(lvwSearch, true);
             dbFunction.setDoubleBuffer(lvwServiceSummary, true);
             dbFunction.setDoubleBuffer(lvwList, true);
+            dbFunction.setDoubleBuffer(grdList, true);
 
             dbFunction.SetNumericOnly(txtIRTID);
             dbFunction.SetNumericOnly(txtIRMID);
@@ -132,10 +135,14 @@ namespace MIS
 
                     dbExcel.getExcelMetadata(txtPathFileName.Text);
                     if (!dbExcel.RecordFound) return;
-
+                        
                     sSheet = dbFunction.getSheetName(txtPathFileName.Text);
 
-                    if (!dbFunction.isValidSheetName(sSheet)) return;
+                    if (!dbFunction.isValidSheetName(sSheet))
+                    {
+                        btnCancel_Click(this, e);
+                        return;
+                    }
 
                     txtSheetName.Text = "`" + sSheet + "$" + "`";
                     txtFileName.Text = sExcelFileName;
@@ -187,6 +194,7 @@ namespace MIS
 
                     // Display total
                     TotalCount();
+                    ComputeSummary(grdList);
 
                     btnSave.Enabled = true;
                     btnValidate.Enabled = true;
@@ -420,9 +428,7 @@ namespace MIS
             // Set DataSource for DataGridView
             grdList.DataSource = dt;
 
-            // Apply alternating row colors
-            //dbFunction.DataGridViewAlternateBackColor(grdList);
-
+            dbFunction.DataGridViewAlternateBackColor(grdList);
             grdList.ResumeLayout(); // Resume UI updates
 
             return isValid;
@@ -801,9 +807,7 @@ namespace MIS
             Cursor.Current = Cursors.WaitCursor;
 
             if (!ValidateFields(2)) return;
-
             if (!validateImportData()) return;
-
             if (!ValidateConvertedRequestID()) return;
 
             try
@@ -880,6 +884,7 @@ namespace MIS
 
                 ucStatusDisplay.SetStatus($"Importing cmppleted.", Enums.StatusType.Success);
 
+                dbNotification.Show("Import IR complete", $"{grdList.RowCount} row(s) processed.");
                 dbFunction.SetMessageBox("Import installation request successfully saved.", "Saved", clsFunction.IconType.iInformation);
 
                 btnCancel_Click(this, e);
@@ -893,7 +898,6 @@ namespace MIS
             }
 
             Cursor.Current = Cursors.Default;
-
         }
 
         void FillClientTextBox()
@@ -1661,6 +1665,7 @@ namespace MIS
                     string sMerchantKey = $"{sMerchName.Trim()}{clsDefines.gPipe}{sAddress.Trim()}{clsDefines.gPipe}{sProvince.Trim()}{clsDefines.gPipe}{sCity.Trim()}";
 
                     bool fExist = addedMerchantKeys.Contains(sMerchantKey) || dbAPI.isRecordExist("Search", "Merchant-Address", sMerchName + clsDefines.gPipe + sAddress + clsDefines.gPipe + sProvince + clsDefines.gPipe + sCity);
+                    
                     if (sMerchName.Length > 0 && sMerchName.CompareTo(clsFunction.sDash) != 0 && !fExist)
                     {
                         addedMerchantKeys.Add(sMerchantKey);
@@ -1835,6 +1840,11 @@ namespace MIS
                 Cursor.Current = Cursors.Default; // Back to normal 
 
             }
+        }
+
+        private void InsertLocation()
+        {
+
         }
 
         private void InsertRegion()
@@ -2906,6 +2916,8 @@ namespace MIS
 
             if (dbAPI.isNoRecordFound() == false)
             {
+                List<ListViewItem> items = new List<ListViewItem>(clsArray.TAIDNo.Length);
+
                 while (clsArray.TAIDNo.Length > i)
                 {
                     ii++;
@@ -2923,24 +2935,19 @@ namespace MIS
                     item.SubItems.Add(clsArray.JobTypeDescription[i].ToString());
                     item.SubItems.Add(clsArray.JobTypeStatusDescription[i].ToString());
 
-                    lvwSearch.Items.Add(item);
+                    items.Add(item); 
 
                     i++;
-
                 }
 
-                dbFunction.ListViewAlternateBackColor(lvwSearch);
+                dbFunction.FillListView(lvwSearch, items);
+
                 btnDeleteIR.Enabled = true;
                 btnRefreshIR.Enabled = true;
-            }
-            else
-            {
-                //dbFunction.SetMessageBox("No record found.", "Find IR", clsFunction.IconType.iExclamation);                
             }
 
             dbFunction.GetResponseTime("Find IR");
 
-            // Focus first item
             if (lvwSearch.Items.Count > 0)
             {
                 lvwSearch.FocusedItem = lvwSearch.Items[0];
@@ -3780,51 +3787,15 @@ namespace MIS
                         pSearchValue = $"{clsSearch.ClassIRIDNo}{clsDefines.gPipe}{clsSearch.ClassIRNo}{clsFunction.sPipe}{clsSearch.ClassTID}{clsDefines.gPipe}{clsSearch.ClassMID}";
                         dbFunction.parseDelimitedString(pSearchValue, clsDefines.gPipe, 0);
 
-                        if (!dbFunction.isValidDescription(pRawData_Info))
+                        ucStatusDisplay.SetStatus($"Updating raw data and profile Request ID: [{clsSearch.ClassIRNo}]", Enums.StatusType.Processing);
+
+                        if (chkOverwrite.Checked)
                         {
-                            //Debug.WriteLine($"Inserting rawdata_info IRIDNo[{clsSearch.ClassIRIDNo}] IRNo:[{clsSearch.ClassIRNo}] TID:[{clsSearch.ClassTID}] MID:[{clsSearch.ClassMID}]");
-
-                            ucStatusDisplay.SetStatus($"Inserting rawdata_info Request ID: [{clsSearch.ClassIRNo}]", Enums.StatusType.Processing);
-
-                            dbAPI.ExecuteAPI("PUT", "Update", "Update Raw Data", $"{clsSearch.ClassIRIDNo}{clsDefines.gPipe}{clsSearch.ClassIRNo}{clsDefines.gPipe}{clsSearch.ClassRawDataInfo}", "", "", "UpdateCollectionDetail");
+                            dbAPI.ExecuteAPI("PUT", "Update", "IR Update Raw/Profile Data Overwrite", $"{clsSearch.ClassTID}{clsDefines.gPipe}{clsSearch.ClassMID}{clsDefines.gPipe}{clsSearch.ClassIRNo}{clsDefines.gPipe}{clsSearch.ClassRawDataInfo}{clsDefines.gPipe}{clsSearch.ClassProfileDataInfo}", "", "", "UpdateCollectionDetail");
                         }
                         else
                         {
-                            if (chkOverwrite.Checked)
-                            {
-                                //Debug.WriteLine($"Updating rawdata_info IRIDNo[{clsSearch.ClassIRIDNo}] IRNo:[{clsSearch.ClassIRNo}] TID:[{clsSearch.ClassTID}] MID:[{clsSearch.ClassMID}]");
-
-                                Debug.WriteLine("--Overwrite [pRawData_Info]--");
-                                dbFunction.parseDelimitedString(clsSearch.ClassRawDataInfo, clsDefines.gComma, 0);
-
-                                ucStatusDisplay.SetStatus($"Updating rawdata_info Request ID: [{clsSearch.ClassIRNo}]", Enums.StatusType.Processing);
-
-                                dbAPI.ExecuteAPI("PUT", "Update", "Update Raw Data 2", $"{clsSearch.ClassTID}{clsDefines.gPipe}{clsSearch.ClassMID}{clsDefines.gPipe}{clsSearch.ClassRawDataInfo}", "", "", "UpdateCollectionDetail");
-                            }
-                        }
-
-                        if (!dbFunction.isValidDescription(pProfile_Info))
-                        {
-                            //Debug.WriteLine($"Inserting profile_info IRIDNo[{clsSearch.ClassIRIDNo}] IRNo:[{clsSearch.ClassIRNo}] TID:[{clsSearch.ClassTID}] MID:[{clsSearch.ClassMID}]");
-
-                            ucStatusDisplay.SetStatus($"Inserting profile_info Request ID: [{clsSearch.ClassIRNo}]", Enums.StatusType.Processing);
-
-                            dbAPI.ExecuteAPI("PUT", "Update", "Update Profile", $"{clsSearch.ClassIRIDNo}{clsDefines.gPipe}{clsSearch.ClassIRNo}{clsDefines.gPipe}{clsSearch.ClassProfileDataInfo}", "", "", "UpdateCollectionDetail");
-                        }
-                        else
-                        {
-
-                            if (chkOverwrite.Checked)
-                            {
-                                //Debug.WriteLine($"Updating profile_info IRIDNo[{clsSearch.ClassIRIDNo}] IRNo:[{clsSearch.ClassIRNo}] TID:[{clsSearch.ClassTID}] MID:[{clsSearch.ClassMID}]");
-
-                                Debug.WriteLine("--Overwrite [pProfile_Info]--");
-                                dbFunction.parseDelimitedString(clsSearch.ClassProfileDataInfo, clsDefines.gComma, 0);
-
-                                ucStatusDisplay.SetStatus($"Updating profile_info Request ID: [{clsSearch.ClassIRNo}]", Enums.StatusType.Processing);
-
-                                dbAPI.ExecuteAPI("PUT", "Update", "Update Profile 2", $"{clsSearch.ClassTID}{clsDefines.gPipe}{clsSearch.ClassMID}{clsDefines.gPipe}{clsSearch.ClassProfileDataInfo}", "", "", "UpdateCollectionDetail");
-                            }
+                            dbAPI.ExecuteAPI("PUT", "Update", "IR Update Raw/Profile Data", $"{clsSearch.ClassTID}{clsDefines.gPipe}{clsSearch.ClassMID}{clsDefines.gPipe}{clsSearch.ClassIRNo}{clsDefines.gPipe}{clsSearch.ClassRawDataInfo}{clsDefines.gPipe}{clsSearch.ClassProfileDataInfo}", "", "", "UpdateCollectionDetail");
                         }
 
                         // update profile_config_info (tblparticular)
@@ -4016,16 +3987,16 @@ namespace MIS
 
                 totalInput++;
 
-                // ✅ get RequetID (column index 1)
-                string unique = row.Cells[0].Value?.ToString(); // RequestId
+                string unique = row.Cells[0].Value?.ToString();
                 if (!string.IsNullOrWhiteSpace(unique))
                 {
                     unique = Regex.Replace(unique, @"[\r\n,\s]", "");
                     uniqueSN.Add(unique);
                 }
 
-                // ✅ get RESULT column
-                string result = row.Cells["RESULT"].Value?.ToString()?.ToUpper();
+                string result = grid.Columns.Contains("RESULT")
+                    ? row.Cells["RESULT"].Value?.ToString()?.ToUpper()
+                    : null;
 
                 switch (result)
                 {
@@ -4047,7 +4018,6 @@ namespace MIS
                 }
             }
 
-            // ✅ assign to UI
             txtTotalInput.Text = totalInput.ToString();
             txtTotalUnique.Text = uniqueSN.Count.ToString();
             txtReady.Text = ready.ToString();
@@ -4179,9 +4149,6 @@ namespace MIS
                     }
                 }
             }
-
-            // update count
-            ComputeSummary(grdList);
 
             btnSave.Enabled = true;
             btnValidate.Enabled = false;
@@ -5115,6 +5082,16 @@ namespace MIS
             {
                 Cursor.Current = Cursors.Default;
             }
+        }
+
+        private void importIRNotification_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            dbNotification.Show("Import IR complete", $"{grdList.RowCount} row(s) processed.", this);
+        }
+
+        private void btnOpenFolder_Click(object sender, EventArgs e)
+        {
+            dbFile.OpenFolder(Path.GetDirectoryName(txtPathFileName.Text));
         }
     }
 }

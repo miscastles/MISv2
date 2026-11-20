@@ -149,7 +149,7 @@
             this.btnExit.ImageActive = null;
             this.btnExit.Location = new System.Drawing.Point(1652, 6);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(21, 23);
+            this.btnExit.Size = new System.Drawing.Size(22, 23);
             this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnExit.TabIndex = 8;
             this.btnExit.TabStop = false;
@@ -710,7 +710,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1680, 990);
+            this.ClientSize = new System.Drawing.Size(1680, 995);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.pnlHeader);
             this.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

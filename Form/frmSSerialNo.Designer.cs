@@ -33,8 +33,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.bunifuImageButton3 = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnMinimize = new Bunifu.Framework.UI.BunifuImageButton();
-            this.bunifuImageButton1 = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnExit = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblHeader = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
@@ -54,6 +54,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dgvBankList = new System.Windows.Forms.DataGridView();
+            this.colBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panel7 = new System.Windows.Forms.Panel();
             this.lvwReturnList = new System.Windows.Forms.ListView();
@@ -82,11 +83,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colBank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.panel39.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -102,14 +102,27 @@
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.ForestGreen;
+            this.pnlHeader.Controls.Add(this.bunifuImageButton3);
             this.pnlHeader.Controls.Add(this.btnMinimize);
-            this.pnlHeader.Controls.Add(this.bunifuImageButton1);
             this.pnlHeader.Controls.Add(this.btnExit);
             this.pnlHeader.Controls.Add(this.lblHeader);
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1672, 35);
             this.pnlHeader.TabIndex = 325;
+            // 
+            // bunifuImageButton3
+            // 
+            this.bunifuImageButton3.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuImageButton3.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton3.Image")));
+            this.bunifuImageButton3.ImageActive = null;
+            this.bunifuImageButton3.Location = new System.Drawing.Point(8, 6);
+            this.bunifuImageButton3.Name = "bunifuImageButton3";
+            this.bunifuImageButton3.Size = new System.Drawing.Size(24, 23);
+            this.bunifuImageButton3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.bunifuImageButton3.TabIndex = 315;
+            this.bunifuImageButton3.TabStop = false;
+            this.bunifuImageButton3.Zoom = 10;
             // 
             // btnMinimize
             // 
@@ -125,27 +138,14 @@
             this.btnMinimize.Zoom = 10;
             this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
             // 
-            // bunifuImageButton1
-            // 
-            this.bunifuImageButton1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuImageButton1.Image = ((System.Drawing.Image)(resources.GetObject("bunifuImageButton1.Image")));
-            this.bunifuImageButton1.ImageActive = null;
-            this.bunifuImageButton1.Location = new System.Drawing.Point(8, 6);
-            this.bunifuImageButton1.Name = "bunifuImageButton1";
-            this.bunifuImageButton1.Size = new System.Drawing.Size(21, 23);
-            this.bunifuImageButton1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.bunifuImageButton1.TabIndex = 300;
-            this.bunifuImageButton1.TabStop = false;
-            this.bunifuImageButton1.Zoom = 10;
-            // 
             // btnExit
             // 
             this.btnExit.BackColor = System.Drawing.Color.Transparent;
             this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
             this.btnExit.ImageActive = null;
-            this.btnExit.Location = new System.Drawing.Point(1019, 6);
+            this.btnExit.Location = new System.Drawing.Point(1018, 7);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(21, 23);
+            this.btnExit.Size = new System.Drawing.Size(22, 22);
             this.btnExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnExit.TabIndex = 8;
             this.btnExit.TabStop = false;
@@ -157,7 +157,7 @@
             this.lblHeader.AutoSize = true;
             this.lblHeader.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold);
             this.lblHeader.ForeColor = System.Drawing.Color.White;
-            this.lblHeader.Location = new System.Drawing.Point(33, 9);
+            this.lblHeader.Location = new System.Drawing.Point(38, 9);
             this.lblHeader.Name = "lblHeader";
             this.lblHeader.Size = new System.Drawing.Size(66, 18);
             this.lblHeader.TabIndex = 7;
@@ -362,9 +362,16 @@
             this.dgvBankList.ShowCellToolTips = false;
             this.dgvBankList.ShowEditingIcon = false;
             this.dgvBankList.ShowRowErrors = false;
-            this.dgvBankList.Size = new System.Drawing.Size(179, 506);
+            this.dgvBankList.Size = new System.Drawing.Size(179, 393);
             this.dgvBankList.TabIndex = 461;
             this.dgvBankList.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvBankList_CurrentCellDirtyStateChanged);
+            // 
+            // colBank
+            // 
+            this.colBank.HeaderText = "";
+            this.colBank.Name = "colBank";
+            this.colBank.ReadOnly = true;
+            this.colBank.Width = 140;
             // 
             // colCheckBox
             // 
@@ -381,7 +388,7 @@
             this.panel7.Controls.Add(this.panel8);
             this.panel7.Location = new System.Drawing.Point(8, 121);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(853, 479);
+            this.panel7.Size = new System.Drawing.Size(853, 363);
             this.panel7.TabIndex = 463;
             // 
             // lvwReturnList
@@ -397,7 +404,7 @@
             this.lvwReturnList.HideSelection = false;
             this.lvwReturnList.Location = new System.Drawing.Point(-1, 23);
             this.lvwReturnList.Name = "lvwReturnList";
-            this.lvwReturnList.Size = new System.Drawing.Size(854, 455);
+            this.lvwReturnList.Size = new System.Drawing.Size(854, 339);
             this.lvwReturnList.TabIndex = 313;
             this.lvwReturnList.UseCompatibleStateImageBehavior = false;
             this.lvwReturnList.View = System.Windows.Forms.View.Details;
@@ -503,7 +510,7 @@
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.chkBoxUncheckAll);
             this.panel5.Controls.Add(this.chkboxCheckAll);
-            this.panel5.Location = new System.Drawing.Point(861, 544);
+            this.panel5.Location = new System.Drawing.Point(861, 428);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(179, 56);
             this.panel5.TabIndex = 466;
@@ -543,9 +550,9 @@
             this.columnHeader7});
             this.lvwSNHistory.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvwSNHistory.HideSelection = false;
-            this.lvwSNHistory.Location = new System.Drawing.Point(8, 620);
+            this.lvwSNHistory.Location = new System.Drawing.Point(8, 506);
             this.lvwSNHistory.Name = "lvwSNHistory";
-            this.lvwSNHistory.Size = new System.Drawing.Size(1032, 259);
+            this.lvwSNHistory.Size = new System.Drawing.Size(1032, 373);
             this.lvwSNHistory.TabIndex = 467;
             this.lvwSNHistory.UseCompatibleStateImageBehavior = false;
             this.lvwSNHistory.View = System.Windows.Forms.View.Details;
@@ -585,7 +592,7 @@
             this.panel6.BackColor = System.Drawing.Color.Gainsboro;
             this.panel6.Controls.Add(this.label3);
             this.panel6.Controls.Add(this.panel10);
-            this.panel6.Location = new System.Drawing.Point(8, 599);
+            this.panel6.Location = new System.Drawing.Point(8, 483);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(1032, 24);
             this.panel6.TabIndex = 468;
@@ -617,13 +624,6 @@
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Width = 140;
             // 
-            // colBank
-            // 
-            this.colBank.HeaderText = "";
-            this.colBank.Name = "colBank";
-            this.colBank.ReadOnly = true;
-            this.colBank.Width = 140;
-            // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -654,8 +654,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmSSerialNo_KeyDown);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
             this.panel39.ResumeLayout(false);
             this.panel39.PerformLayout();
@@ -682,7 +682,6 @@
 
         private System.Windows.Forms.Panel pnlHeader;
         private Bunifu.Framework.UI.BunifuImageButton btnMinimize;
-        private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton1;
         private Bunifu.Framework.UI.BunifuImageButton btnExit;
         private Bunifu.Framework.UI.BunifuCustomLabel lblHeader;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
@@ -732,5 +731,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private Bunifu.Framework.UI.BunifuImageButton bunifuImageButton3;
     }
 }
