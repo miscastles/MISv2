@@ -8466,14 +8466,14 @@ namespace MIS
                     iLineNo++;
                     ListViewItem item = new ListViewItem(iLineNo.ToString());
 
-                    //Debug.WriteLine("i->" + i + ",FSRNo=" + clsArray.FSRNo[i] + ",JobTypeStatusDescription=" + clsArray.JobTypeStatusDescription[i]);
-                    bool isFailed = (!dbFunction.isValidID(clsArray.FSRNo[i]) && clsArray.JobTypeStatusDescription[i].Equals(clsGlobalVariables.JOB_TYPE_STATUS_COMPLETED_DESC) ? true : false);
-
                     int pStatus = int.Parse(clsArray.ServiceStatus[i]);
 
                     string pJobTypeStatusDescription = clsArray.JobTypeStatusDescription[i];
 
-                    if (isFailed || clsArray.ActionMade[i].Equals(clsGlobalVariables.STATUS_NEGATIVE_DESC))
+                    bool isCancelled = pStatus.Equals(clsGlobalVariables.TA_STATUS_CANCEL);
+                    bool isFailed = (!dbFunction.isValidID(clsArray.FSRNo[i]) && clsArray.JobTypeStatusDescription[i].Equals(clsGlobalVariables.JOB_TYPE_STATUS_COMPLETED_DESC) ? true : false);
+
+                    if (!isCancelled && (isFailed || clsArray.ActionMade[i].Equals(clsGlobalVariables.STATUS_NEGATIVE_DESC)))
                     {
                         pStatus = clsGlobalVariables.STATUS_NEGATIVE;
                         clsArray.ServiceStatusDescription[i] = clsGlobalVariables.ACTION_MADE_NEGATIVE;

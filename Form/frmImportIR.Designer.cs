@@ -31,9 +31,10 @@ namespace MIS
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmImportIR));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel4 = new System.Windows.Forms.Panel();
             this.txtID = new System.Windows.Forms.TextBox();
             this.btnExit = new Bunifu.Framework.UI.BunifuImageButton();
@@ -63,7 +64,7 @@ namespace MIS
             this.txtServiceProviderID = new System.Windows.Forms.TextBox();
             this.txtFEID = new System.Windows.Forms.TextBox();
             this.txtClientID = new System.Windows.Forms.TextBox();
-            this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse();
+            this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.tabTerminal = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel49 = new System.Windows.Forms.Panel();
@@ -117,6 +118,7 @@ namespace MIS
             this.chkOverwrite = new System.Windows.Forms.CheckBox();
             this.lblSelectedRow = new System.Windows.Forms.Label();
             this.panel37 = new System.Windows.Forms.Panel();
+            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -352,6 +354,7 @@ namespace MIS
             this.btnMClear = new System.Windows.Forms.Button();
             this.btnMAdd = new System.Windows.Forms.Button();
             this.btnMSave = new System.Windows.Forms.Button();
+            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
             this.txtMerchantTelNo = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtClientTelNo = new System.Windows.Forms.TextBox();
@@ -372,11 +375,9 @@ namespace MIS
             this.btnRefreshIR = new System.Windows.Forms.Button();
             this.btnDeleteIR = new System.Windows.Forms.Button();
             this.lvwSearch = new System.Windows.Forms.ListView();
-            this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl();
+            this.bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.txtRentalFeeID = new System.Windows.Forms.TextBox();
-            this.importIRNotification = new System.Windows.Forms.NotifyIcon();
-            this.ucStatusDisplay = new MIS.ControlObject.ucDisplayStatus();
-            this.ucInfoDataGridView = new MIS.ControlObject.ucInfoDataGridView();
+            this.importIRNotification = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddMerchant)).BeginInit();
@@ -924,7 +925,7 @@ namespace MIS
             // 
             this.btnOpenFolder.BackColor = System.Drawing.Color.Transparent;
             this.btnOpenFolder.ErrorImage = global::MIS.Properties.Resources.Attach_50px;
-            this.btnOpenFolder.Image = global::MIS.Properties.Resources.Attach_50px;
+            this.btnOpenFolder.Image = global::MIS.Properties.Resources.folder_on;
             this.btnOpenFolder.ImageActive = null;
             this.btnOpenFolder.InitialImage = global::MIS.Properties.Resources.Attach_50px;
             this.btnOpenFolder.Location = new System.Drawing.Point(1000, 4);
@@ -1008,7 +1009,7 @@ namespace MIS
             this.txtFileName.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.txtFileName.Location = new System.Drawing.Point(72, 26);
             this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(950, 20);
+            this.txtFileName.Size = new System.Drawing.Size(949, 20);
             this.txtFileName.TabIndex = 104;
             // 
             // cboSearchClient
@@ -1051,7 +1052,7 @@ namespace MIS
             this.btnLoadFile.BackColor = System.Drawing.Color.Transparent;
             this.btnLoadFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnLoadFile.ErrorImage = null;
-            this.btnLoadFile.Image = ((System.Drawing.Image)(resources.GetObject("btnLoadFile.Image")));
+            this.btnLoadFile.Image = global::MIS.Properties.Resources.Attach_50px;
             this.btnLoadFile.ImageActive = null;
             this.btnLoadFile.Location = new System.Drawing.Point(976, 4);
             this.btnLoadFile.Margin = new System.Windows.Forms.Padding(0);
@@ -1104,7 +1105,7 @@ namespace MIS
             this.grdDummy.AllowUserToResizeColumns = false;
             this.grdDummy.AllowUserToResizeRows = false;
             this.grdDummy.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.grdDummy.Location = new System.Drawing.Point(15, 514);
+            this.grdDummy.Location = new System.Drawing.Point(16, 514);
             this.grdDummy.MultiSelect = false;
             this.grdDummy.Name = "grdDummy";
             this.grdDummy.ReadOnly = true;
@@ -1119,8 +1120,8 @@ namespace MIS
             // 
             this.grdList.AllowUserToAddRows = false;
             this.grdList.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 8.25F);
-            this.grdList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Arial", 8.25F);
+            this.grdList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
             this.grdList.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.grdList.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
             this.grdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
@@ -1130,8 +1131,8 @@ namespace MIS
             this.grdList.Name = "grdList";
             this.grdList.ReadOnly = true;
             this.grdList.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.grdList.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Courier New", 8.25F);
+            this.grdList.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdList.ShowCellErrors = false;
             this.grdList.ShowCellToolTips = false;
@@ -1562,6 +1563,14 @@ namespace MIS
             this.panel37.Name = "panel37";
             this.panel37.Size = new System.Drawing.Size(467, 2);
             this.panel37.TabIndex = 0;
+            // 
+            // ucStatusDisplay
+            // 
+            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
+            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(4);
+            this.ucStatusDisplay.Name = "ucStatusDisplay";
+            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 30);
+            this.ucStatusDisplay.TabIndex = 346;
             // 
             // btnCancel
             // 
@@ -4387,6 +4396,14 @@ namespace MIS
             this.btnMSave.UseVisualStyleBackColor = false;
             this.btnMSave.Click += new System.EventHandler(this.btnMSave_Click);
             // 
+            // ucInfoDataGridView
+            // 
+            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
+            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
+            this.ucInfoDataGridView.Size = new System.Drawing.Size(597, 334);
+            this.ucInfoDataGridView.TabIndex = 484;
+            // 
             // txtMerchantTelNo
             // 
             this.txtMerchantTelNo.BackColor = System.Drawing.Color.White;
@@ -4654,22 +4671,6 @@ namespace MIS
             this.importIRNotification.Text = "Import Installation Request Notification";
             this.importIRNotification.Visible = true;
             this.importIRNotification.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.importIRNotification_MouseDoubleClick);
-            // 
-            // ucStatusDisplay
-            // 
-            this.ucStatusDisplay.Location = new System.Drawing.Point(10, 690);
-            this.ucStatusDisplay.Margin = new System.Windows.Forms.Padding(4);
-            this.ucStatusDisplay.Name = "ucStatusDisplay";
-            this.ucStatusDisplay.Size = new System.Drawing.Size(604, 30);
-            this.ucStatusDisplay.TabIndex = 346;
-            // 
-            // ucInfoDataGridView
-            // 
-            this.ucInfoDataGridView.Location = new System.Drawing.Point(909, 386);
-            this.ucInfoDataGridView.Margin = new System.Windows.Forms.Padding(4);
-            this.ucInfoDataGridView.Name = "ucInfoDataGridView";
-            this.ucInfoDataGridView.Size = new System.Drawing.Size(597, 334);
-            this.ucInfoDataGridView.TabIndex = 484;
             // 
             // frmImportIR
             // 

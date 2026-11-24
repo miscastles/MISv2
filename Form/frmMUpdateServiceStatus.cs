@@ -112,6 +112,8 @@ namespace MIS
             txtRemarks.ReadOnly = false;
             txtRemarks.Text = _mServicingDetailController.Remarks;
 
+            chkDispatch.Checked = _mServicingDetailController.ServiceStatus.Equals(clsGlobalVariables.STATUS_DISPATCH) || dbFunction.isValidID(txtFSRNo.Text);
+
             LoadRequestHistory();
 
             return isValid = true;
@@ -148,10 +150,8 @@ namespace MIS
             dbFunction.ClearTextBox(this);
             dbFunction.TextBoxUnLock(false, this);
 
-            btnSearchMerchant.Enabled = false;
             btnSearchService.Enabled = true;
 
-            dbFunction.SetButtonIconImage(btnSearchMerchant);
             dbFunction.SetButtonIconImage(btnSearchService);
 
             cboServiceStatusCategory.Enabled = false;
@@ -162,6 +162,8 @@ namespace MIS
             lvwRequestIDHistory.Items.Clear();
 
             cboServiceStatusCategory.Text = clsFunction.sDefaultSelect;
+
+            chkDispatch.Enabled = chkDispatch.Checked = false;
             btnSearchService.Focus();
         }
 
@@ -265,6 +267,12 @@ namespace MIS
             if (!dbFunction.isValidDescriptionEntry(txtMerchantID.Text, "Merchant" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return;
             if (!dbFunction.isValidDescriptionEntry(txtServiceNo.Text, "Service No." + clsDefines.MUST_NOT_BLANK_MESSAGE)) return;
 
+            if (clsSearch.ClassHoldServiceStatus.Equals(clsGlobalVariables.TA_STATUS_CANCEL))
+            {
+                dbFunction.SetMessageBox("This service is already cancelled and cannot be updated.", "Action not allowed", clsFunction.IconType.iError);
+                return;
+            }
+
             if (cboServiceStatusCategory.Text.Equals(clsFunction.sDefaultSelect) &&
                 !clsSearch.ClassHoldServiceStatus.Equals(clsGlobalVariables.TA_STATUS_HOLD))
             {
@@ -293,17 +301,29 @@ namespace MIS
             else if (!pLastResult.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE) &&
                      dbFunction.isAlreadyCompleted(_mServicingDetailController.JobTypeStatusDescription)) return;
 
-            bool fShowSN = !(clsSearch.ClassJobType.Equals(clsGlobalVariables.JOB_TYPE_SERVICING) ||
+            bool fShowSN = cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_CANCEL_DESC) &&
+                           !(clsSearch.ClassJobType.Equals(clsGlobalVariables.JOB_TYPE_SERVICING) ||
                              clsSearch.ClassJobType.Equals(clsGlobalVariables.JOB_TYPE_REPROGRAMMING) ||
                              clsSearch.ClassJobType.Equals(clsGlobalVariables.JOB_TYPE_REPLACEMENT));
 
             pTerminalSN = $" >SN: {_mServicingDetailController.TerminalSN}\n >Type: {_mServicingDetailController.TerminalType}\n >Model: {_mServicingDetailController.TerminalModel}";
             pSIMSN = $" >SN: {_mServicingDetailController.SIMSN}\n >Carrier: {_mServicingDetailController.SIMCarrier}";
 
+            string pToStatus = cboServiceStatusCategory.Text.Equals(clsFunction.sDefaultSelect)
+                ? $"{clsGlobalVariables.STATUS_RESUME_DESC} ({(chkDispatch.Checked ? clsGlobalVariables.STATUS_DISPATCH_DESC : clsGlobalVariables.STATUS_ALLOCATED_DESC)})"
+                : cboServiceStatusCategory.Text;
+
+            string pDispatchNote = dbFunction.isValidID(txtFSRNo.Text) ? "No change (service already has an FSR)"
+                                 : chkDispatch.Checked ? "[ WARNING ] you are setting a HOLD Service as Dispatch"
+                                 : clsSearch.ClassHoldServiceStatus.Equals(clsGlobalVariables.STATUS_DISPATCH) || DateTime.TryParse(_mServicingDetailController.DispatchDate, out _) 
+                                 ? "Job order status will be set to [ ALLOCATED ]"
+                                 : "No change (not dispatched)";
+
             if (!dbFunction.fConfirmPopup("Are you sure you want to update service status for job type " + txtJobTypeDesc.Text + "?" + "\n\n" +
                                           "Status details: " + "\n" +
                                           " >From: " + clsSearch.ClassHoldServiceStatusDescription + "\n" +
-                                          " >To: " + (cboServiceStatusCategory.Text.Equals(clsFunction.sDefaultSelect) ? clsGlobalVariables.STATUS_RESUME_DESC : cboServiceStatusCategory.Text) + "\n\n" +
+                                          " >To: " + pToStatus + "\n" +
+                                          " >Dispatch: " + pDispatchNote + "\n\n" +
                                           (fShowSN
                                               ? "Terminal details:" + "\n" + pTerminalSN + "\n\n" +
                                                 "SIM details:" + "\n" + pSIMSN + "\n\n" +
@@ -311,6 +331,9 @@ namespace MIS
                                           (pLastResult.Equals(clsGlobalVariables.ACTION_MADE_NEGATIVE)
                                               ? $"*Note: The timeline of Request ID [{_mServicingDetailController.IRNo}] is NEGATIVE. No successful service was found." + "\n\n"
                                               : "") +
+                                          (cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_CANCEL_DESC)
+                                            ? "*Warning: Cancelling a service is [ PERMANENT ] It cannot be resumed afterwards." + "\n\n"
+                                            : "") +
                                           "*Note: This action will [ NOT ] permanently delete the record.")) return;
 
             if (clsSearch.ClassServiceNo > 0)
@@ -347,42 +370,30 @@ namespace MIS
                     clsSearch.ClassTerminalSN = clsSearch.ClassSIMSerialNo = clsFunction.sZero;
                 }
 
-                // SN Status
                 if (chkAvailable.Checked)
                 {
+                    // HOLD and CANCEL both set the unit to AVAILABLE.
                     clsSearch.ClassTerminalStatus = clsSearch.ClassSIMStatus = clsGlobalVariables.STATUS_AVAILABLE;
                     clsSearch.ClassTerminalStatusDescription = clsSearch.ClassSIMStatusDescription = clsGlobalVariables.STATUS_AVAILABLE_DESC;
                 }
                 else
                 {
-                    if (_mServicingDetailController.DispatchID > 0)
-                    {
-                        clsSearch.ClassServiceStatus = clsSearch.ClassTerminalStatus = clsSearch.ClassSIMStatus = clsGlobalVariables.STATUS_DISPATCH;
-                        clsSearch.ClassServiceStatusDescription = clsSearch.ClassTerminalStatusDescription = clsSearch.ClassSIMStatusDescription = clsGlobalVariables.STATUS_DISPATCH_DESC;
-                    }
-                    else
-                    {
-                        clsSearch.ClassServiceStatus = clsSearch.ClassTerminalStatus = clsSearch.ClassSIMStatus = clsGlobalVariables.STATUS_ALLOCATED;
-                        clsSearch.ClassServiceStatusDescription = clsSearch.ClassTerminalStatusDescription = clsSearch.ClassSIMStatusDescription = clsGlobalVariables.STATUS_ALLOCATED_DESC;
-                    }
+                    clsSearch.ClassServiceStatus = clsSearch.ClassTerminalStatus = clsSearch.ClassSIMStatus = chkDispatch.Checked ? clsGlobalVariables.STATUS_DISPATCH : clsGlobalVariables.STATUS_ALLOCATED;
+                    clsSearch.ClassServiceStatusDescription = clsSearch.ClassTerminalStatusDescription = clsSearch.ClassSIMStatusDescription = chkDispatch.Checked ? clsGlobalVariables.STATUS_DISPATCH_DESC : clsGlobalVariables.STATUS_ALLOCATED_DESC;
                 }
 
+                // Only CANCEL releases the terminal/SIM (to AVAILABLE).
+                // HOLD and resume leave the unit status and its assignment exactly as they are.
                 if (clsSearch.ClassIRIDNo > 0)
                 {
                     if (TerminalID > 0)
                     {
-                        clsSearch.ClassAdvanceSearchValue = $"{TerminalID}{clsDefines.gPipe}{clsSearch.ClassTerminalStatus}{clsDefines.gPipe}{clsSearch.ClassTerminalStatusDescription}";
-                        dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
-
-                        dbAPI.ExecuteAPI("PUT", "Update", "Update Terminal Detail Status", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                        dbAPI.ExecuteAPI("PUT", "Update", "Update Terminal Detail Status", $"{TerminalID}|{clsSearch.ClassTerminalStatus}|{clsSearch.ClassTerminalStatusDescription}", "", "", "UpdateCollectionDetail");
                     }
 
                     if (SIMID > 0)
                     {
-                        clsSearch.ClassAdvanceSearchValue = $"{SIMID}{clsDefines.gPipe}{clsSearch.ClassSIMStatus}{clsDefines.gPipe}{clsSearch.ClassSIMStatusDescription}";
-                        dbFunction.parseDelimitedString(clsSearch.ClassAdvanceSearchValue, clsDefines.gPipe, 1);
-
-                        dbAPI.ExecuteAPI("PUT", "Update", "Update SIM Detail Status", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                        dbAPI.ExecuteAPI("PUT", "Update", "Update SIM Detail Status", $"{SIMID}|{clsSearch.ClassSIMStatus}|{clsSearch.ClassSIMStatusDescription}", "", "", "UpdateCollectionDetail");
                     }
 
                     if (clsSearch.ClassTerminalID > 0)
@@ -409,8 +420,33 @@ namespace MIS
 
                     dbAPI.ExecuteAPI("PUT", "Update", "Service Type Status Category", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
 
+                    if (!dbFunction.isValidID(txtFSRNo.Text))
+                    {
+                        if (chkDispatch.Checked)
+                        {
+                            dbAPI.ExecuteAPI("PUT", "Update", "Update Servicing Dispatch", $"{txtServiceNo.Text}|{txtIRIDNo.Text}|{dbFunction.getCurrentDate()}|{dbFunction.getCurrentTime()}|{dbFunction.CheckAndSetStringValue(_mServicingDetailController.DispatchBy)}|{dbFunction.getCurrentDateTime()}|{_mServicingDetailController.DispatchID}", "", "", "UpdateCollectionDetail");
+                        }
+                        else if (DateTime.TryParse(_mServicingDetailController.DispatchDate, out _))
+                        {
+                            dbAPI.ExecuteAPI("PUT", "Update", "Update Servicing Dispatch", $"{txtServiceNo.Text}|{txtIRIDNo.Text}|-|-|{dbFunction.CheckAndSetStringValue(_mServicingDetailController.DispatchBy)}|-|{_mServicingDetailController.DispatchID}", "", "", "UpdateCollectionDetail");
+                        }
+
+                        string pNewJobStatus = chkDispatch.Checked ? clsGlobalVariables.JOB_TYPE_STATUS_PROCESSING_DESC : clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC;
+                        string pJobStatus = _mServicingDetailController.JobTypeStatusDescription;
+
+                        if (!pNewJobStatus.Equals(pJobStatus) && (clsGlobalVariables.JOB_TYPE_STATUS_PROCESSING_DESC.Equals(pJobStatus) || clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC.Equals(pJobStatus)))
+                        {
+                            dbAPI.ExecuteAPI("PUT", "Update", "Update Servicing Status2", $"{txtServiceNo.Text}|{_mServicingDetailController.RequestNo}|{clsSearch.ClassServiceStatus}|{clsSearch.ClassServiceStatusDescription}|{pNewJobStatus}", "", "", "UpdateCollectionDetail");
+                        }
+                    }
+
                     clsSearch.ClassAdvanceSearchValue = $"{_mServicingDetailController.ServiceNo}{clsDefines.gPipe}{StrClean(txtRemarks.Text)}";
                     dbAPI.ExecuteAPI("PUT", "Update", "Update Service Remarks", clsSearch.ClassAdvanceSearchValue, "", "", "UpdateCollectionDetail");
+                }
+                else
+                {
+                    clsSearch.ClassServiceStatus = clsSearch.ClassTerminalStatus = clsSearch.ClassSIMStatus = clsGlobalVariables.STATUS_ALLOCATED;
+                    clsSearch.ClassServiceStatusDescription = clsSearch.ClassTerminalStatusDescription = clsSearch.ClassSIMStatusDescription = clsGlobalVariables.STATUS_ALLOCATED_DESC;
                 }
 
                 dbFunction.SetMessageBox("Service status update completed", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iInformation);
@@ -424,6 +460,9 @@ namespace MIS
             chkAvailable.Enabled = false;
             chkAvailable.Checked = cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_HOLD_DESC) ||
                                    cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_CANCEL_DESC);
+
+            chkDispatch.Enabled = !dbFunction.isValidID(txtFSRNo.Text) && !chkAvailable.Checked;
+            chkDispatch.Checked = dbFunction.isValidID(txtFSRNo.Text) || (!chkAvailable.Checked && clsSearch.ClassHoldServiceStatus.Equals(clsGlobalVariables.STATUS_DISPATCH));
         }
 
         private void btnUpdateRemarks_Click(object sender, EventArgs e)

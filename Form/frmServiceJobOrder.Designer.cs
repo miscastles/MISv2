@@ -2309,6 +2309,7 @@
             this.txtClientAddress.BackColor = System.Drawing.Color.White;
             this.txtClientAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtClientAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtClientAddress.Enabled = false;
             this.txtClientAddress.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.txtClientAddress.Location = new System.Drawing.Point(4, 44);
             this.txtClientAddress.Multiline = true;
@@ -2543,11 +2544,11 @@
             this.txtCreatedTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCreatedTime.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCreatedTime.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtCreatedTime.Location = new System.Drawing.Point(44, 39);
+            this.txtCreatedTime.Location = new System.Drawing.Point(45, 50);
             this.txtCreatedTime.MaxLength = 200;
             this.txtCreatedTime.Name = "txtCreatedTime";
             this.txtCreatedTime.ReadOnly = true;
-            this.txtCreatedTime.Size = new System.Drawing.Size(80, 20);
+            this.txtCreatedTime.Size = new System.Drawing.Size(76, 20);
             this.txtCreatedTime.TabIndex = 388;
             // 
             // txtCreatedDate
@@ -2556,11 +2557,11 @@
             this.txtCreatedDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCreatedDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCreatedDate.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtCreatedDate.Location = new System.Drawing.Point(44, 18);
+            this.txtCreatedDate.Location = new System.Drawing.Point(45, 29);
             this.txtCreatedDate.MaxLength = 200;
             this.txtCreatedDate.Name = "txtCreatedDate";
             this.txtCreatedDate.ReadOnly = true;
-            this.txtCreatedDate.Size = new System.Drawing.Size(80, 20);
+            this.txtCreatedDate.Size = new System.Drawing.Size(76, 20);
             this.txtCreatedDate.TabIndex = 386;
             // 
             // dteReqInstallationDate
@@ -2739,6 +2740,7 @@
             this.txtFUAppCRC.BackColor = System.Drawing.Color.White;
             this.txtFUAppCRC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFUAppCRC.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFUAppCRC.Enabled = false;
             this.txtFUAppCRC.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFUAppCRC.Location = new System.Drawing.Point(35, 25);
             this.txtFUAppCRC.MaxLength = 45;
@@ -2752,12 +2754,13 @@
             this.txtFUAppVersion.BackColor = System.Drawing.Color.White;
             this.txtFUAppVersion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFUAppVersion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFUAppVersion.Enabled = false;
             this.txtFUAppVersion.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFUAppVersion.Location = new System.Drawing.Point(36, 4);
+            this.txtFUAppVersion.Location = new System.Drawing.Point(35, 4);
             this.txtFUAppVersion.MaxLength = 45;
             this.txtFUAppVersion.Name = "txtFUAppVersion";
             this.txtFUAppVersion.ReadOnly = true;
-            this.txtFUAppVersion.Size = new System.Drawing.Size(182, 20);
+            this.txtFUAppVersion.Size = new System.Drawing.Size(183, 20);
             this.txtFUAppVersion.TabIndex = 4;
             // 
             // label56
@@ -6134,7 +6137,7 @@
             // 
             this.label110.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label110.ForeColor = System.Drawing.Color.Navy;
-            this.label110.Location = new System.Drawing.Point(472, 6);
+            this.label110.Location = new System.Drawing.Point(472, 4);
             this.label110.Name = "label110";
             this.label110.Size = new System.Drawing.Size(188, 15);
             this.label110.TabIndex = 311;
@@ -6273,6 +6276,7 @@
             this.txtRequestor.BackColor = System.Drawing.Color.White;
             this.txtRequestor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRequestor.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtRequestor.Enabled = false;
             this.txtRequestor.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRequestor.Location = new System.Drawing.Point(75, 108);
             this.txtRequestor.Name = "txtRequestor";
@@ -6294,6 +6298,7 @@
             // 
             this.txtClientEmail.BackColor = System.Drawing.Color.White;
             this.txtClientEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtClientEmail.Enabled = false;
             this.txtClientEmail.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.txtClientEmail.Location = new System.Drawing.Point(75, 87);
             this.txtClientEmail.Name = "txtClientEmail";
@@ -6316,6 +6321,7 @@
             this.txtClientMobileNo.BackColor = System.Drawing.Color.White;
             this.txtClientMobileNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtClientMobileNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtClientMobileNo.Enabled = false;
             this.txtClientMobileNo.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.txtClientMobileNo.Location = new System.Drawing.Point(75, 66);
             this.txtClientMobileNo.Name = "txtClientMobileNo";
@@ -6348,6 +6354,7 @@
             this.txtClientContactPerson.BackColor = System.Drawing.Color.White;
             this.txtClientContactPerson.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtClientContactPerson.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtClientContactPerson.Enabled = false;
             this.txtClientContactPerson.Font = new System.Drawing.Font("Courier New", 8.25F);
             this.txtClientContactPerson.Location = new System.Drawing.Point(75, 45);
             this.txtClientContactPerson.Name = "txtClientContactPerson";
@@ -6383,6 +6390,7 @@
             this.txtVendor.BackColor = System.Drawing.Color.White;
             this.txtVendor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtVendor.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtVendor.Enabled = false;
             this.txtVendor.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVendor.Location = new System.Drawing.Point(51, 110);
             this.txtVendor.Name = "txtVendor";
@@ -8551,7 +8559,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(3, 39);
+            this.label11.Location = new System.Drawing.Point(4, 50);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 14);
             this.label11.TabIndex = 336;
@@ -8561,7 +8569,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(3, 20);
+            this.label12.Location = new System.Drawing.Point(4, 31);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(35, 14);
             this.label12.TabIndex = 335;
@@ -8914,14 +8922,14 @@
             // 
             // cboSearchServiceType
             // 
-            this.cboSearchServiceType.BackColor = System.Drawing.Color.White;
+            this.cboSearchServiceType.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cboSearchServiceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSearchServiceType.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboSearchServiceType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.cboSearchServiceType.FormattingEnabled = true;
-            this.cboSearchServiceType.Location = new System.Drawing.Point(2, 1);
+            this.cboSearchServiceType.Location = new System.Drawing.Point(1, -1);
             this.cboSearchServiceType.Name = "cboSearchServiceType";
-            this.cboSearchServiceType.Size = new System.Drawing.Size(432, 26);
+            this.cboSearchServiceType.Size = new System.Drawing.Size(436, 26);
             this.cboSearchServiceType.TabIndex = 349;
             this.cboSearchServiceType.SelectedIndexChanged += new System.EventHandler(this.cboSearchServiceType_SelectedIndexChanged);
             // 

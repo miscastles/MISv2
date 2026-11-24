@@ -1,0 +1,35 @@
+﻿﻿CHANGELOG
+Date: November 24, 2026
+Developer: Raiden K. Fernando
+
+====================================================================================
+CHANGES
+====================================================================================
+
+1. frmImportIR.cs
+> Fixed issue where view folder button when path is empty causes an exception error.
+> Fixed issue where Installation Requests are allowed without vendor
+> Improved UI
+
+2. frmMUpdateServiceStatus.cs
+> Fixed issue where held services are being unheld terminal and sim serialno's are sent as dispatched ( updatestatus )
+> Fixed issue where attached held terminal / sim serialno's are duplicated when a held installation job order is held ( updatestatus )
+> Improved information popup detail for UpdateStatus
+> Improved UI
+
+3. frmServiceJobOrder.cs
+> Fixed hardcoded dispatch status
+
+====================================================================================
+FILES / MODULES AFFECTED
+====================================================================================
+
+- frmImportIR.cs
+- frmMUpdateServiceStatus.cs
+- frmServiceJobOrder.cs
+
+====================================================================================
+STATUS
+====================================================================================
+
+Completed / For Testing

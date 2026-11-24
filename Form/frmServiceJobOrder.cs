@@ -5107,11 +5107,9 @@ namespace MIS
                     txtCreatedDate.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 39);
                     txtCreatedTime.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 40);
 
-                    // Check dispatch
-                    if (int.Parse(dbFunction.CheckAndSetNumericValue(txtServiceStatus.Text)).Equals(clsGlobalVariables.STATUS_ALLOCATED))
-                        chkDispatch.Checked = false;
-                    else
-                        chkDispatch.Checked = true;
+                    // Check dispatch: ALLOCATED, HOLD and CANCEL are not dispatched.
+                    int pDispatchChkStatus = int.Parse(dbFunction.CheckAndSetNumericValue(txtServiceStatus.Text));
+                    chkDispatch.Checked = !(pDispatchChkStatus.Equals(clsGlobalVariables.STATUS_ALLOCATED) || pDispatchChkStatus.Equals(clsGlobalVariables.JOB_TYPE_HOLD) || pDispatchChkStatus.Equals(clsGlobalVariables.JOB_TYPE_CANCEL));
 
                     txtSearchFSRNo.Text = dbFunction.getDelimitedString(clsSearch.ClassOutParamValue, clsFunction.cPipe, 25);
 

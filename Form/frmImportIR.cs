@@ -4553,7 +4553,7 @@ namespace MIS
                     return false;
                 }
 
-                if (string.IsNullOrWhiteSpace(vendor))
+                if (!dbFunction.isValidDescription(vendor))
                 {
                     dbFunction.SetMessageBox("Vendor must not be blank.", clsDefines.FIELD_CHECK_MSG, clsFunction.IconType.iError);
                     return false;
@@ -5091,7 +5091,9 @@ namespace MIS
 
         private void btnOpenFolder_Click(object sender, EventArgs e)
         {
-            dbFile.OpenFolder(Path.GetDirectoryName(txtPathFileName.Text));
+            if (!dbFunction.isValidDescriptionEntry(txtPathFileName.Text.Trim(), "Path / filename" + clsDefines.MUST_NOT_BLANK_MESSAGE)) return;
+
+            dbFile.OpenFolder(Path.GetDirectoryName(txtPathFileName.Text.Trim()));
         }
     }
 }
