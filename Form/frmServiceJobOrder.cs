@@ -4547,30 +4547,6 @@ namespace MIS
             }
         }
 
-        private void btnSearchClient_Click(object sender, EventArgs e)
-        {
-            if (!dbFunction.isValidEntry(clsFunction.CheckType.iMerchantID, txtMerchantID.Text)) return;
-
-            frmSearchField.iSearchType = frmSearchField.SearchType.iClient;
-            frmSearchField.sHeader = "CLIENT";
-            frmSearchField.isCheckBoxes = false;
-            frmSearchField frm = new frmSearchField();
-            frm.ShowDialog();
-
-            if (frmSearchField.fSelected)
-            {
-                // Load Information
-                txtClientID.Text = clsSearch.ClassParticularID.ToString();
-                txtClientName.Text = clsSearch.ClassParticularName;
-
-                FillClientTextBox();
-
-                //txtClientName.BackColor = clsFunction.MKBackColor;
-
-                txtEntryReferenceNo.Focus();
-            }
-        }
-
         private void SetMKTextBoxBackColor()
         {
             txtMerchantName.BackColor = txtClientName.BackColor = txtFEName.BackColor = txtCurTerminalSN.BackColor = txtCurSIMSN.BackColor = txtRepTerminalSN.BackColor = txtRepSIMSN.BackColor = txtRequestID1.BackColor = txtServiceType1.BackColor = lblMainStatus.BackColor = txtDispatcher.BackColor = clsFunction.MKBackColor;
@@ -4634,7 +4610,7 @@ namespace MIS
                 btnSearchMerchant.Enabled = false;
                 btnSearchService.Enabled = true;
                 
-                btnSearchClient.Enabled = btnRemoveClient.Enabled = btnSearchFE.Enabled = btnRemoveFE.Enabled = 
+                btnSearchFE.Enabled = btnRemoveFE.Enabled = 
                     btnSearchCurTerminal.Enabled = btnRemoveCurTerminal.Enabled = btnSearchCurSIM.Enabled = btnRemoveCurSIM.Enabled =
                     btnSearchRepTerminal.Enabled = btnSearchRepSIM.Enabled = btnRemoveRepTerminal.Enabled = btnRemoveRepSIM.Enabled = 
                     btnSearchStock.Enabled = btnRemoveStock.Enabled = btnSearchDispatcher.Enabled = btnRemoveDispatcher.Enabled =  false;
@@ -4643,7 +4619,7 @@ namespace MIS
             }
             else
             {
-                btnSearchClient.Enabled = btnRemoveClient.Enabled = btnSearchFE.Enabled = btnRemoveFE.Enabled = btnSearchDispatcher.Enabled = btnRemoveDispatcher.Enabled = true;
+                btnSearchFE.Enabled = btnRemoveFE.Enabled = btnSearchDispatcher.Enabled = btnRemoveDispatcher.Enabled = true;
                 
                 btnSearchCurTerminal.Enabled = 
                 btnRemoveCurTerminal.Enabled = btnSearchCurSIM.Enabled = btnRemoveCurSIM.Enabled =
@@ -4685,7 +4661,7 @@ namespace MIS
 
                 if (txtServiceJobTypeStatusDesc.Text.Equals(clsDefines.SERVICE_STATUS_COMPLETED))
                 {
-                    btnSearchClient.Enabled = btnRemoveClient.Enabled = btnSearchFE.Enabled = btnRemoveFE.Enabled =
+                    btnSearchFE.Enabled = btnRemoveFE.Enabled =
                     btnSearchCurTerminal.Enabled = btnRemoveCurTerminal.Enabled = btnSearchCurSIM.Enabled = btnRemoveCurSIM.Enabled =
                     btnSearchRepTerminal.Enabled = btnSearchRepSIM.Enabled = btnRemoveRepTerminal.Enabled = btnRemoveRepSIM.Enabled =
                     btnSearchStock.Enabled = btnRemoveStock.Enabled = btnSearchDispatcher.Enabled = btnRemoveDispatcher.Enabled = false;
@@ -4695,7 +4671,6 @@ namespace MIS
             Debug.WriteLine("->>>Local isEdit=" + isEdit);
 
             // Search button
-            dbFunction.SetButtonIconImage(btnSearchClient);
             dbFunction.SetButtonIconImage(btnSearchFE);
             dbFunction.SetButtonIconImage(btnSearchDispatcher);
             dbFunction.SetButtonIconImage(btnSearchCurTerminal);
@@ -4705,7 +4680,6 @@ namespace MIS
             dbFunction.SetButtonIconImage(btnSearchStock);
 
             // Remove button
-            dbFunction.SetButtonIconImage(btnRemoveClient);
             dbFunction.SetButtonIconImage(btnRemoveFE);
             dbFunction.SetButtonIconImage(btnRemoveDispatcher);
             dbFunction.SetButtonIconImage(btnRemoveCurTerminal);

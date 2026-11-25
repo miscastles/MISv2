@@ -1,0 +1,40 @@
+﻿CHANGELOG
+Date: November 25, 2026
+Developer: Raiden K. Fernando
+
+========================================================
+
+CHANGES
+
+=====================================================
+
+frmImportSIM.cs, frmImportTerminal.cs
+> Added a popup when SerialNo ( replaced old exception error popup )
+
+frmServiceJobOrder.cs
+> Removed the feature to search and load Clients 
+> Improved UI ( aligned textboxes and improved spacings )
+> Removed Client Search
+
+clsAPI.CS
+> Added service status Hold Handling 
+
+frmMUpdateServiceStatus.cs
+> Fixed issue when held services serialno is set as allocated after selecting [ NOT SPECIFIED ]
+> Fixed issue when services tagged as HOLD, CANCELLED is shown in the reports and efsr as an ongoing service
+
+========================================================
+FILES / MODULES AFFECTED
+========================================================
+
+- frmMUpdateServiceStatus.cs
+- frmServiceJobOrder.cs
+- clsAPI.cs
+- frmImportSIM.CS
+- frmImportTerminal.cs
+
+========================================================
+STATUS
+========================================================
+
+Completed / For Testing

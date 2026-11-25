@@ -441,8 +441,6 @@
             this.panel57 = new System.Windows.Forms.Panel();
             this.panel58 = new System.Windows.Forms.Panel();
             this.txtClientCode = new System.Windows.Forms.TextBox();
-            this.btnSearchClient = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnRemoveClient = new Bunifu.Framework.UI.BunifuImageButton();
             this.panel59 = new System.Windows.Forms.Panel();
             this.panel63 = new System.Windows.Forms.Panel();
             this.txtRequestor = new System.Windows.Forms.TextBox();
@@ -764,10 +762,6 @@
             this.tabPage23 = new System.Windows.Forms.TabPage();
             this.lvwRaw = new System.Windows.Forms.ListView();
             this.tabPage19 = new System.Windows.Forms.TabPage();
-            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
-            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
-            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
-            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.panel168 = new System.Windows.Forms.Panel();
             this.panel196 = new System.Windows.Forms.Panel();
             this.panel208 = new System.Windows.Forms.Panel();
@@ -836,6 +830,10 @@
             this.txtSearchSTServiceJobTypeDescription = new System.Windows.Forms.TextBox();
             this.panel53 = new System.Windows.Forms.Panel();
             this.btnTASearch = new Bunifu.Framework.UI.BunifuImageButton();
+            this.ucHelpDeskEntryInfo = new MIS.ControlObject.ucHelpDeskEntryInfo();
+            this.ucVendorHelpDeskTeamLeadInfo = new MIS.ControlObject.ucVendorHelpDeskTeamLeadInfo();
+            this.ucVendorHelpDeskRepInfo = new MIS.ControlObject.ucVendorHelpDeskRepInfo();
+            this.ucHelpDeskServiceInfo = new MIS.ControlObject.ucHelpDeskServiceInfo();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuImageButton1)).BeginInit();
@@ -922,8 +920,6 @@
             this.panel56.SuspendLayout();
             this.panel57.SuspendLayout();
             this.panel58.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSearchClient)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRemoveClient)).BeginInit();
             this.panel59.SuspendLayout();
             this.panel63.SuspendLayout();
             this.panel64.SuspendLayout();
@@ -1959,6 +1955,7 @@
             this.txtIRIDNo.BackColor = System.Drawing.Color.White;
             this.txtIRIDNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtIRIDNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtIRIDNo.Enabled = false;
             this.txtIRIDNo.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIRIDNo.ForeColor = System.Drawing.Color.Black;
             this.txtIRIDNo.Location = new System.Drawing.Point(90, 3);
@@ -2301,7 +2298,7 @@
             this.txtClientName.Location = new System.Drawing.Point(3, 2);
             this.txtClientName.Name = "txtClientName";
             this.txtClientName.ReadOnly = true;
-            this.txtClientName.Size = new System.Drawing.Size(345, 21);
+            this.txtClientName.Size = new System.Drawing.Size(378, 21);
             this.txtClientName.TabIndex = 143;
             // 
             // txtClientAddress
@@ -2544,7 +2541,7 @@
             this.txtCreatedTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCreatedTime.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCreatedTime.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtCreatedTime.Location = new System.Drawing.Point(45, 50);
+            this.txtCreatedTime.Location = new System.Drawing.Point(48, 47);
             this.txtCreatedTime.MaxLength = 200;
             this.txtCreatedTime.Name = "txtCreatedTime";
             this.txtCreatedTime.ReadOnly = true;
@@ -2557,7 +2554,7 @@
             this.txtCreatedDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCreatedDate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCreatedDate.Font = new System.Drawing.Font("Courier New", 8.25F);
-            this.txtCreatedDate.Location = new System.Drawing.Point(45, 29);
+            this.txtCreatedDate.Location = new System.Drawing.Point(48, 26);
             this.txtCreatedDate.MaxLength = 200;
             this.txtCreatedDate.Name = "txtCreatedDate";
             this.txtCreatedDate.ReadOnly = true;
@@ -2746,7 +2743,7 @@
             this.txtFUAppCRC.MaxLength = 45;
             this.txtFUAppCRC.Name = "txtFUAppCRC";
             this.txtFUAppCRC.ReadOnly = true;
-            this.txtFUAppCRC.Size = new System.Drawing.Size(209, 20);
+            this.txtFUAppCRC.Size = new System.Drawing.Size(216, 20);
             this.txtFUAppCRC.TabIndex = 5;
             // 
             // txtFUAppVersion
@@ -2760,7 +2757,7 @@
             this.txtFUAppVersion.MaxLength = 45;
             this.txtFUAppVersion.Name = "txtFUAppVersion";
             this.txtFUAppVersion.ReadOnly = true;
-            this.txtFUAppVersion.Size = new System.Drawing.Size(183, 20);
+            this.txtFUAppVersion.Size = new System.Drawing.Size(191, 20);
             this.txtFUAppVersion.TabIndex = 4;
             // 
             // label56
@@ -4952,6 +4949,7 @@
             this.txtSearchServiceNo.BackColor = System.Drawing.Color.White;
             this.txtSearchServiceNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearchServiceNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtSearchServiceNo.Enabled = false;
             this.txtSearchServiceNo.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchServiceNo.ForeColor = System.Drawing.Color.Black;
             this.txtSearchServiceNo.Location = new System.Drawing.Point(93, 3);
@@ -5257,7 +5255,7 @@
             this.panel156.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel156.Location = new System.Drawing.Point(963, 58);
             this.panel156.Name = "panel156";
-            this.panel156.Size = new System.Drawing.Size(442, 51);
+            this.panel156.Size = new System.Drawing.Size(442, 55);
             this.panel156.TabIndex = 459;
             // 
             // panel157
@@ -5265,10 +5263,10 @@
             this.panel157.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel157.Controls.Add(this.btnSearchMerchant);
             this.panel157.Controls.Add(this.txtSearchMerchantName);
-            this.panel157.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel157.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel157.Location = new System.Drawing.Point(0, 24);
             this.panel157.Name = "panel157";
-            this.panel157.Size = new System.Drawing.Size(440, 27);
+            this.panel157.Size = new System.Drawing.Size(440, 29);
             this.panel157.TabIndex = 312;
             // 
             // btnSearchMerchant
@@ -5276,10 +5274,10 @@
             this.btnSearchMerchant.BackColor = System.Drawing.SystemColors.Control;
             this.btnSearchMerchant.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchMerchant.Image")));
             this.btnSearchMerchant.ImageActive = null;
-            this.btnSearchMerchant.Location = new System.Drawing.Point(412, -1);
+            this.btnSearchMerchant.Location = new System.Drawing.Point(412, 2);
             this.btnSearchMerchant.Name = "btnSearchMerchant";
-            this.btnSearchMerchant.Size = new System.Drawing.Size(24, 25);
-            this.btnSearchMerchant.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchMerchant.Size = new System.Drawing.Size(24, 24);
+            this.btnSearchMerchant.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnSearchMerchant.TabIndex = 168;
             this.btnSearchMerchant.TabStop = false;
             this.btnSearchMerchant.Zoom = 10;
@@ -5292,7 +5290,7 @@
             this.txtSearchMerchantName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtSearchMerchantName.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearchMerchantName.ForeColor = System.Drawing.Color.Black;
-            this.txtSearchMerchantName.Location = new System.Drawing.Point(1, 1);
+            this.txtSearchMerchantName.Location = new System.Drawing.Point(1, 2);
             this.txtSearchMerchantName.Name = "txtSearchMerchantName";
             this.txtSearchMerchantName.ReadOnly = true;
             this.txtSearchMerchantName.Size = new System.Drawing.Size(409, 24);
@@ -5359,10 +5357,10 @@
             this.panel154.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel154.Controls.Add(this.txtSearchIRNo);
             this.panel154.Controls.Add(this.btnSearchService);
-            this.panel154.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel154.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel154.Location = new System.Drawing.Point(0, 0);
             this.panel154.Name = "panel154";
-            this.panel154.Size = new System.Drawing.Size(440, 27);
+            this.panel154.Size = new System.Drawing.Size(440, 28);
             this.panel154.TabIndex = 5;
             // 
             // btnSearchService
@@ -5373,8 +5371,8 @@
             this.btnSearchService.ImageActive = null;
             this.btnSearchService.Location = new System.Drawing.Point(412, 1);
             this.btnSearchService.Name = "btnSearchService";
-            this.btnSearchService.Size = new System.Drawing.Size(24, 25);
-            this.btnSearchService.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnSearchService.Size = new System.Drawing.Size(25, 24);
+            this.btnSearchService.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.btnSearchService.TabIndex = 389;
             this.btnSearchService.TabStop = false;
             this.btnSearchService.Zoom = 10;
@@ -5382,10 +5380,9 @@
             // 
             // panel161
             // 
-            this.panel161.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel161.Location = new System.Drawing.Point(0, 0);
             this.panel161.Name = "panel161";
-            this.panel161.Size = new System.Drawing.Size(440, 28);
+            this.panel161.Size = new System.Drawing.Size(440, 16);
             this.panel161.TabIndex = 3;
             // 
             // panel162
@@ -6194,8 +6191,6 @@
             // 
             this.panel58.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel58.Controls.Add(this.txtClientCode);
-            this.panel58.Controls.Add(this.btnSearchClient);
-            this.panel58.Controls.Add(this.btnRemoveClient);
             this.panel58.Controls.Add(this.txtClientName);
             this.panel58.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel58.Location = new System.Drawing.Point(0, 0);
@@ -6209,39 +6204,12 @@
             this.txtClientCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtClientCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClientCode.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClientCode.Location = new System.Drawing.Point(349, 2);
+            this.txtClientCode.Location = new System.Drawing.Point(382, 2);
             this.txtClientCode.Name = "txtClientCode";
             this.txtClientCode.ReadOnly = true;
-            this.txtClientCode.Size = new System.Drawing.Size(72, 21);
+            this.txtClientCode.Size = new System.Drawing.Size(91, 21);
             this.txtClientCode.TabIndex = 151;
             this.txtClientCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // btnSearchClient
-            // 
-            this.btnSearchClient.BackColor = System.Drawing.SystemColors.Control;
-            this.btnSearchClient.Image = ((System.Drawing.Image)(resources.GetObject("btnSearchClient.Image")));
-            this.btnSearchClient.ImageActive = null;
-            this.btnSearchClient.Location = new System.Drawing.Point(423, 2);
-            this.btnSearchClient.Name = "btnSearchClient";
-            this.btnSearchClient.Size = new System.Drawing.Size(24, 21);
-            this.btnSearchClient.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnSearchClient.TabIndex = 149;
-            this.btnSearchClient.TabStop = false;
-            this.btnSearchClient.Zoom = 10;
-            this.btnSearchClient.Click += new System.EventHandler(this.btnSearchClient_Click);
-            // 
-            // btnRemoveClient
-            // 
-            this.btnRemoveClient.BackColor = System.Drawing.SystemColors.Control;
-            this.btnRemoveClient.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveClient.Image")));
-            this.btnRemoveClient.ImageActive = null;
-            this.btnRemoveClient.Location = new System.Drawing.Point(449, 2);
-            this.btnRemoveClient.Name = "btnRemoveClient";
-            this.btnRemoveClient.Size = new System.Drawing.Size(24, 21);
-            this.btnRemoveClient.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnRemoveClient.TabIndex = 150;
-            this.btnRemoveClient.TabStop = false;
-            this.btnRemoveClient.Zoom = 10;
             // 
             // panel59
             // 
@@ -6496,7 +6464,7 @@
             this.panel13.Controls.Add(this.panel38);
             this.panel13.Location = new System.Drawing.Point(4, 325);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(955, 523);
+            this.panel13.Size = new System.Drawing.Size(957, 523);
             this.panel13.TabIndex = 438;
             // 
             // panel173
@@ -6506,9 +6474,9 @@
             this.panel173.Controls.Add(this.panel174);
             this.panel173.Controls.Add(this.panel228);
             this.panel173.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel173.Location = new System.Drawing.Point(703, 188);
+            this.panel173.Location = new System.Drawing.Point(701, 188);
             this.panel173.Name = "panel173";
-            this.panel173.Size = new System.Drawing.Size(249, 123);
+            this.panel173.Size = new System.Drawing.Size(254, 123);
             this.panel173.TabIndex = 471;
             // 
             // panel174
@@ -6517,7 +6485,7 @@
             this.panel174.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel174.Location = new System.Drawing.Point(0, 24);
             this.panel174.Name = "panel174";
-            this.panel174.Size = new System.Drawing.Size(247, 97);
+            this.panel174.Size = new System.Drawing.Size(252, 97);
             this.panel174.TabIndex = 312;
             // 
             // panel227
@@ -6532,17 +6500,17 @@
             this.panel227.Controls.Add(this.cboShipMethod);
             this.panel227.Controls.Add(this.label167);
             this.panel227.Controls.Add(this.label168);
-            this.panel227.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel227.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel227.Location = new System.Drawing.Point(0, 0);
             this.panel227.Name = "panel227";
-            this.panel227.Size = new System.Drawing.Size(246, 97);
+            this.panel227.Size = new System.Drawing.Size(252, 97);
             this.panel227.TabIndex = 7;
             // 
             // label174
             // 
             this.label174.AutoSize = true;
             this.label174.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label174.Location = new System.Drawing.Point(148, 76);
+            this.label174.Location = new System.Drawing.Point(149, 78);
             this.label174.Name = "label174";
             this.label174.Size = new System.Drawing.Size(49, 14);
             this.label174.TabIndex = 377;
@@ -6554,7 +6522,7 @@
             this.txtShipTDaysHandled.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtShipTDaysHandled.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtShipTDaysHandled.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtShipTDaysHandled.Location = new System.Drawing.Point(198, 74);
+            this.txtShipTDaysHandled.Location = new System.Drawing.Point(203, 74);
             this.txtShipTDaysHandled.MaxLength = 45;
             this.txtShipTDaysHandled.Name = "txtShipTDaysHandled";
             this.txtShipTDaysHandled.ReadOnly = true;
@@ -6567,7 +6535,7 @@
             this.dteShipArrivedDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dteShipArrivedDate.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteShipArrivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dteShipArrivedDate.Location = new System.Drawing.Point(107, 51);
+            this.dteShipArrivedDate.Location = new System.Drawing.Point(112, 51);
             this.dteShipArrivedDate.Name = "dteShipArrivedDate";
             this.dteShipArrivedDate.Size = new System.Drawing.Size(137, 21);
             this.dteShipArrivedDate.TabIndex = 375;
@@ -6611,7 +6579,7 @@
             this.dteShipDate.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dteShipDate.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dteShipDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dteShipDate.Location = new System.Drawing.Point(106, 27);
+            this.dteShipDate.Location = new System.Drawing.Point(111, 27);
             this.dteShipDate.Name = "dteShipDate";
             this.dteShipDate.Size = new System.Drawing.Size(138, 21);
             this.dteShipDate.TabIndex = 370;
@@ -6626,7 +6594,7 @@
             "[NOT SPECIFIED]",
             "COURIER",
             "FIELD ENGINEER"});
-            this.cboShipMethod.Location = new System.Drawing.Point(57, 4);
+            this.cboShipMethod.Location = new System.Drawing.Point(62, 4);
             this.cboShipMethod.Name = "cboShipMethod";
             this.cboShipMethod.Size = new System.Drawing.Size(186, 22);
             this.cboShipMethod.TabIndex = 363;
@@ -6657,9 +6625,10 @@
             this.panel228.Controls.Add(this.label171);
             this.panel228.Controls.Add(this.panel229);
             this.panel228.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel228.Enabled = false;
             this.panel228.Location = new System.Drawing.Point(0, 0);
             this.panel228.Name = "panel228";
-            this.panel228.Size = new System.Drawing.Size(247, 24);
+            this.panel228.Size = new System.Drawing.Size(252, 24);
             this.panel228.TabIndex = 311;
             // 
             // label171
@@ -6679,7 +6648,7 @@
             this.panel229.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel229.Location = new System.Drawing.Point(0, 23);
             this.panel229.Name = "panel229";
-            this.panel229.Size = new System.Drawing.Size(247, 1);
+            this.panel229.Size = new System.Drawing.Size(252, 1);
             this.panel229.TabIndex = 0;
             // 
             // tabFillUp
@@ -7404,7 +7373,7 @@
             this.panel132.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel132.Location = new System.Drawing.Point(701, 112);
             this.panel132.Name = "panel132";
-            this.panel132.Size = new System.Drawing.Size(249, 75);
+            this.panel132.Size = new System.Drawing.Size(255, 75);
             this.panel132.TabIndex = 462;
             // 
             // panel133
@@ -7413,7 +7382,7 @@
             this.panel133.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel133.Location = new System.Drawing.Point(0, 24);
             this.panel133.Name = "panel133";
-            this.panel133.Size = new System.Drawing.Size(247, 49);
+            this.panel133.Size = new System.Drawing.Size(253, 49);
             this.panel133.TabIndex = 312;
             // 
             // panel134
@@ -7426,7 +7395,7 @@
             this.panel134.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel134.Location = new System.Drawing.Point(0, 0);
             this.panel134.Name = "panel134";
-            this.panel134.Size = new System.Drawing.Size(246, 49);
+            this.panel134.Size = new System.Drawing.Size(253, 49);
             this.panel134.TabIndex = 7;
             this.panel134.Paint += new System.Windows.Forms.PaintEventHandler(this.panel134_Paint);
             // 
@@ -7435,7 +7404,7 @@
             this.btnUpdateAppsInfo.BackColor = System.Drawing.Color.Transparent;
             this.btnUpdateAppsInfo.Image = global::MIS.Properties.Resources.ic_save;
             this.btnUpdateAppsInfo.ImageActive = null;
-            this.btnUpdateAppsInfo.Location = new System.Drawing.Point(219, 3);
+            this.btnUpdateAppsInfo.Location = new System.Drawing.Point(227, 3);
             this.btnUpdateAppsInfo.Name = "btnUpdateAppsInfo";
             this.btnUpdateAppsInfo.Size = new System.Drawing.Size(24, 21);
             this.btnUpdateAppsInfo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -7473,7 +7442,7 @@
             this.panel142.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel142.Location = new System.Drawing.Point(0, 0);
             this.panel142.Name = "panel142";
-            this.panel142.Size = new System.Drawing.Size(247, 24);
+            this.panel142.Size = new System.Drawing.Size(253, 24);
             this.panel142.TabIndex = 311;
             // 
             // btnAppsInfo
@@ -7481,7 +7450,7 @@
             this.btnAppsInfo.BackColor = System.Drawing.Color.Transparent;
             this.btnAppsInfo.Image = global::MIS.Properties.Resources.ic_info;
             this.btnAppsInfo.ImageActive = null;
-            this.btnAppsInfo.Location = new System.Drawing.Point(220, 1);
+            this.btnAppsInfo.Location = new System.Drawing.Point(228, 1);
             this.btnAppsInfo.Name = "btnAppsInfo";
             this.btnAppsInfo.Size = new System.Drawing.Size(26, 22);
             this.btnAppsInfo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -7507,7 +7476,7 @@
             this.panel171.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel171.Location = new System.Drawing.Point(0, 23);
             this.panel171.Name = "panel171";
-            this.panel171.Size = new System.Drawing.Size(247, 1);
+            this.panel171.Size = new System.Drawing.Size(253, 1);
             this.panel171.TabIndex = 0;
             // 
             // panel7
@@ -8527,7 +8496,7 @@
             this.panel38.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel38.Location = new System.Drawing.Point(2, 1);
             this.panel38.Name = "panel38";
-            this.panel38.Size = new System.Drawing.Size(949, 108);
+            this.panel38.Size = new System.Drawing.Size(953, 108);
             this.panel38.TabIndex = 456;
             // 
             // panel41
@@ -8539,7 +8508,7 @@
             this.panel41.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel41.Location = new System.Drawing.Point(0, 24);
             this.panel41.Name = "panel41";
-            this.panel41.Size = new System.Drawing.Size(947, 82);
+            this.panel41.Size = new System.Drawing.Size(951, 82);
             this.panel41.TabIndex = 312;
             // 
             // panel1
@@ -8552,14 +8521,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(818, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(127, 82);
+            this.panel1.Size = new System.Drawing.Size(135, 82);
             this.panel1.TabIndex = 5;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(4, 50);
+            this.label11.Location = new System.Drawing.Point(7, 47);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 14);
             this.label11.TabIndex = 336;
@@ -8569,7 +8538,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(4, 31);
+            this.label12.Location = new System.Drawing.Point(7, 28);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(35, 14);
             this.label12.TabIndex = 335;
@@ -8850,7 +8819,7 @@
             this.panel39.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel39.Location = new System.Drawing.Point(0, 0);
             this.panel39.Name = "panel39";
-            this.panel39.Size = new System.Drawing.Size(947, 24);
+            this.panel39.Size = new System.Drawing.Size(951, 24);
             this.panel39.TabIndex = 311;
             // 
             // btnUpdateServiceDate
@@ -8895,7 +8864,7 @@
             this.panel40.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel40.Location = new System.Drawing.Point(0, 23);
             this.panel40.Name = "panel40";
-            this.panel40.Size = new System.Drawing.Size(947, 1);
+            this.panel40.Size = new System.Drawing.Size(951, 1);
             this.panel40.TabIndex = 0;
             // 
             // panel5
@@ -9816,49 +9785,6 @@
             this.tabPage19.Text = "Helpdesk Information";
             this.tabPage19.UseVisualStyleBackColor = true;
             // 
-            // ucHelpDeskEntryInfo
-            // 
-            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
-            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
-            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
-            this.ucHelpDeskEntryInfo.TabIndex = 4;
-            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
-            // 
-            // ucVendorHelpDeskTeamLeadInfo
-            // 
-            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
-            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
-            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
-            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
-            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
-            // 
-            // ucVendorHelpDeskRepInfo
-            // 
-            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
-            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
-            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
-            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
-            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
-            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
-            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
-            this.ucVendorHelpDeskRepInfo.VendorName = "";
-            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
-            // 
-            // ucHelpDeskServiceInfo
-            // 
-            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
-            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
-            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
-            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
-            this.ucHelpDeskServiceInfo.TabIndex = 0;
-            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
-            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
-            // 
             // panel168
             // 
             this.panel168.BackColor = System.Drawing.SystemColors.Control;
@@ -10642,6 +10568,49 @@
             this.btnTASearch.TabStop = false;
             this.btnTASearch.Zoom = 10;
             // 
+            // ucHelpDeskEntryInfo
+            // 
+            this.ucHelpDeskEntryInfo.Location = new System.Drawing.Point(3, 235);
+            this.ucHelpDeskEntryInfo.Name = "ucHelpDeskEntryInfo";
+            this.ucHelpDeskEntryInfo.Size = new System.Drawing.Size(1143, 205);
+            this.ucHelpDeskEntryInfo.TabIndex = 4;
+            this.ucHelpDeskEntryInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskEntryInfo.VendorTeamLeadID = 0;
+            // 
+            // ucVendorHelpDeskTeamLeadInfo
+            // 
+            this.ucVendorHelpDeskTeamLeadInfo.Location = new System.Drawing.Point(587, 444);
+            this.ucVendorHelpDeskTeamLeadInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskTeamLeadInfo.Name = "ucVendorHelpDeskTeamLeadInfo";
+            this.ucVendorHelpDeskTeamLeadInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskTeamLeadInfo.TabIndex = 3;
+            this.ucVendorHelpDeskTeamLeadInfo.VendorEmail = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorName = "";
+            this.ucVendorHelpDeskTeamLeadInfo.VendorPosition = "";
+            // 
+            // ucVendorHelpDeskRepInfo
+            // 
+            this.ucVendorHelpDeskRepInfo.Location = new System.Drawing.Point(4, 444);
+            this.ucVendorHelpDeskRepInfo.Margin = new System.Windows.Forms.Padding(1);
+            this.ucVendorHelpDeskRepInfo.Name = "ucVendorHelpDeskRepInfo";
+            this.ucVendorHelpDeskRepInfo.Size = new System.Drawing.Size(581, 87);
+            this.ucVendorHelpDeskRepInfo.TabIndex = 2;
+            this.ucVendorHelpDeskRepInfo.VendorEmail = "";
+            this.ucVendorHelpDeskRepInfo.VendorMobileNo = "";
+            this.ucVendorHelpDeskRepInfo.VendorName = "";
+            this.ucVendorHelpDeskRepInfo.VendorPosition = "";
+            // 
+            // ucHelpDeskServiceInfo
+            // 
+            this.ucHelpDeskServiceInfo.Location = new System.Drawing.Point(3, 3);
+            this.ucHelpDeskServiceInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.ucHelpDeskServiceInfo.Name = "ucHelpDeskServiceInfo";
+            this.ucHelpDeskServiceInfo.Size = new System.Drawing.Size(1084, 230);
+            this.ucHelpDeskServiceInfo.TabIndex = 0;
+            this.ucHelpDeskServiceInfo.VendorHelpDeskID = 0;
+            this.ucHelpDeskServiceInfo.VendorTeamLeadID = 0;
+            // 
             // frmServiceJobOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10814,8 +10783,6 @@
             this.panel57.ResumeLayout(false);
             this.panel58.ResumeLayout(false);
             this.panel58.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSearchClient)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRemoveClient)).EndInit();
             this.panel59.ResumeLayout(false);
             this.panel63.ResumeLayout(false);
             this.panel63.PerformLayout();
@@ -11398,8 +11365,6 @@
         private Bunifu.Framework.UI.BunifuImageButton btnSearchCurTerminal;
         private Bunifu.Framework.UI.BunifuImageButton btnRemoveCurSIM;
         private Bunifu.Framework.UI.BunifuImageButton btnSearchCurSIM;
-        private Bunifu.Framework.UI.BunifuImageButton btnSearchClient;
-        private Bunifu.Framework.UI.BunifuImageButton btnRemoveClient;
         private Bunifu.Framework.UI.BunifuImageButton btnSearchMerchant;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox txtCurTerminalLocation;

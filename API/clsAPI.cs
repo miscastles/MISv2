@@ -8471,9 +8471,10 @@ namespace MIS
                     string pJobTypeStatusDescription = clsArray.JobTypeStatusDescription[i];
 
                     bool isCancelled = pStatus.Equals(clsGlobalVariables.TA_STATUS_CANCEL);
+                    bool isHold = pStatus.Equals(clsGlobalVariables.TA_STATUS_HOLD);
                     bool isFailed = (!dbFunction.isValidID(clsArray.FSRNo[i]) && clsArray.JobTypeStatusDescription[i].Equals(clsGlobalVariables.JOB_TYPE_STATUS_COMPLETED_DESC) ? true : false);
 
-                    if (!isCancelled && (isFailed || clsArray.ActionMade[i].Equals(clsGlobalVariables.STATUS_NEGATIVE_DESC)))
+                    if (!isCancelled && !isHold && (isFailed || clsArray.ActionMade[i].Equals(clsGlobalVariables.STATUS_NEGATIVE_DESC)))
                     {
                         pStatus = clsGlobalVariables.STATUS_NEGATIVE;
                         clsArray.ServiceStatusDescription[i] = clsGlobalVariables.ACTION_MADE_NEGATIVE;
@@ -8499,8 +8500,8 @@ namespace MIS
                     item.SubItems.Add(clsArray.ReferenceNo[i]);
                     item.SubItems.Add(clsArray.FSRDate[i]);
 
-                    item.SubItems.Add(!isFailed ? clsArray.ServiceStatusDescription[i] : "FAILED");
-                    item.SubItems.Add(!isFailed ? clsArray.ActionMade[i] : clsFunction.sDash);
+                    item.SubItems.Add(isFailed && !isCancelled ? "FAILED" : clsArray.ServiceStatusDescription[i]);
+                    item.SubItems.Add(isFailed && !isCancelled ? clsFunction.sDash : clsArray.ActionMade[i]);
 
                     item.SubItems.Add(clsArray.FSRNo[i]);
                     item.SubItems.Add(clsArray.ServiceNo[i]);

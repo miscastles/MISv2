@@ -4086,6 +4086,10 @@ namespace MIS
 
                     dbFunction.ListViewAlternateBackColor(lvwHistoryList);
                 }
+                else
+                {
+                    dbFunction.SetMessageBox($"Terminal [{txtTerminalSN.Text}] has no installation history." + "\n\n" + "No successful installation found", "Service history", clsFunction.IconType.iInformation);
+                }
             }
             
         }

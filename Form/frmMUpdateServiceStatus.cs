@@ -180,11 +180,6 @@ namespace MIS
             btnClear_Click(this, e);
         }
 
-        private void btnSearchMerchant_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void LoadRequestHistory()
         {
             int i = 0;
@@ -431,10 +426,16 @@ namespace MIS
                             dbAPI.ExecuteAPI("PUT", "Update", "Update Servicing Dispatch", $"{txtServiceNo.Text}|{txtIRIDNo.Text}|-|-|{dbFunction.CheckAndSetStringValue(_mServicingDetailController.DispatchBy)}|-|{_mServicingDetailController.DispatchID}", "", "", "UpdateCollectionDetail");
                         }
 
-                        string pNewJobStatus = chkDispatch.Checked ? clsGlobalVariables.JOB_TYPE_STATUS_PROCESSING_DESC : clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC;
+                        bool fCancel = cboServiceStatusCategory.Text.Equals(clsGlobalVariables.STATUS_CANCEL_DESC);
+
+                        string pNewJobStatus = fCancel ? clsGlobalVariables.JOB_TYPE_STATUS_COMPLETED_DESC : chkDispatch.Checked ? clsGlobalVariables.JOB_TYPE_STATUS_PROCESSING_DESC : clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC;
                         string pJobStatus = _mServicingDetailController.JobTypeStatusDescription;
 
-                        if (!pNewJobStatus.Equals(pJobStatus) && (clsGlobalVariables.JOB_TYPE_STATUS_PROCESSING_DESC.Equals(pJobStatus) || clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC.Equals(pJobStatus)))
+                        if (fCancel)
+                        {
+                            dbAPI.ExecuteAPI("PUT", "Update", "Update Servicing Cancelled", $"{txtServiceNo.Text}|1|{clsSearch.ClassServiceStatus}|{clsSearch.ClassServiceStatusDescription}|{pNewJobStatus}", "", "", "UpdateCollectionDetail");
+                        }
+                        else if (!pNewJobStatus.Equals(pJobStatus) && (clsGlobalVariables.JOB_TYPE_STATUS_PROCESSING_DESC.Equals(pJobStatus) || clsGlobalVariables.JOB_TYPE_STATUS_PENDING_DESC.Equals(pJobStatus)))
                         {
                             dbAPI.ExecuteAPI("PUT", "Update", "Update Servicing Status2", $"{txtServiceNo.Text}|{_mServicingDetailController.RequestNo}|{clsSearch.ClassServiceStatus}|{clsSearch.ClassServiceStatusDescription}|{pNewJobStatus}", "", "", "UpdateCollectionDetail");
                         }
